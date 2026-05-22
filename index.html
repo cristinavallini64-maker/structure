@@ -9,64 +9,67 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0d0d0d; font-family: 'Nunito', sans-serif; }
 
-  /* Nuova identità visiva: Blu Petrolio / Teal per "The Structure" */
-  .hero { background: #008080; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
+  /* Intestazione: Giallo Neon Fluorescente, energico e brillante */
+  .hero { background: #FFFF00; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
   .hero-letter { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: #000; line-height: 1; flex-shrink: 0; }
   .hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: #000; }
-  .hero-text p { font-size: 1rem; color: #111; margin-top: 4px; font-weight: 700; }
+  .hero-text p { font-size: 1.05rem; color: #000; margin-top: 4px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
 
   .main { max-width: 980px; margin: 0 auto; padding: 36px 24px 60px; }
 
-  .back { display: inline-block; margin-bottom: 28px; color: #000; font-weight: 700; text-decoration: none; font-size: 0.95rem; background: #008080; padding: 7px 18px; border-radius: 20px; }
+  .back { display: inline-block; margin-bottom: 28px; color: #000; font-weight: 900; text-decoration: none; font-size: 0.95rem; background: #FFFF00; padding: 8px 20px; border-radius: 20px; text-transform: uppercase; }
 
   .year-block { margin-bottom: 48px; }
-  .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 4px; padding: 11px 24px; border-radius: 8px; margin-bottom: 18px; display: inline-block; color: #000; }
+  .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; padding: 12px 24px; border-radius: 8px; margin-bottom: 28px; display: inline-block; color: #000; font-weight: 900; }
   
-  /* Sfumature coordinate per i due livelli */
-  .year-title.b2-level1 { background: #4A90E2; }
-  .year-title.b2-level2 { background: #2C3E50; color: #fff; }
+  /* Colori Brillanti per i due livelli */
+  .year-title.b2-level1 { background: #00E5FF; } /* Ciano Elettrico */
+  .year-title.b2-level2 { background: #00FF66; } /* Lime Neon */
 
-  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
 
-  .topic-card { border-radius: 14px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-  .topic-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.6); }
+  .topic-card { border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 25px rgba(0,0,0,0.6); }
+  .topic-card:hover { transform: translateY(-5px); }
 
-  .card-blue1 { background: #4A90E2; }
-  .card-blue2 { background: #2C3E50; }
-  .card-blue2 .topic-name { color: #fff; }
-  .card-blue2 .topic-args span { background: rgba(255,255,255,0.15); color: #fff; }
-  .card-blue2 .tag { background: rgba(255,255,255,0.2); color: #fff; }
-  .card-blue2 .tag:hover { background: rgba(255,255,255,0.35); }
+  /* Card Level 1 - Ciano Elettrico */
+  .card-cyan { background: #00E5FF; }
+  .card-cyan:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
 
-  .topic-name { font-weight: 900; font-size: 1.05rem; color: #000; line-height: 1.3; }
-  .topic-args { display: flex; flex-wrap: wrap; gap: 5px; }
-  .topic-args span { display: inline-block; background: rgba(0,0,0,0.15); border-radius: 10px; padding: 3px 10px; font-size: 0.78rem; font-weight: 700; color: #000; }
+  /* Card Level 2 - Lime Neon */
+  .card-lime { background: #00FF66; }
+  .card-lime:hover { box-shadow: 0 0 25px rgba(0, 255, 102, 0.4); }
 
-  .topic-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .tag { border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; background: rgba(0,0,0,0.2); color: #000; display: inline-block; }
-  .tag:hover { background: rgba(0,0,0,0.35); }
+  .topic-name { font-weight: 900; font-size: 1.15rem; color: #000; line-height: 1.3; text-transform: uppercase; }
+  .topic-args { display: flex; flex-wrap: wrap; gap: 6px; }
+  .topic-args span { display: inline-block; background: rgba(0,0,0,0.15); border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 800; color: #000; }
 
-  /* Box Mettiti alla Prova coordinati */
-  .final-revision-box { grid-column: 1 / -1; margin-top: 14px; padding: 18px 22px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+  .topic-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .tag { border-radius: 20px; padding: 7px 18px; font-size: 0.85rem; font-weight: 900; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; background: rgba(0,0,0,0.22); color: #000; display: inline-block; text-transform: uppercase; }
+  .tag:hover { background: #000; color: #fff; }
+
+  /* Box METTITI ALLA PROVA con scritte e bordi accesi */
+  .final-revision-box { grid-column: 1 / -1; margin-top: 15px; padding: 22px 26px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
   
-  .final-revision-box.box-lvl1 { background: rgba(74, 144, 226, 0.1); border: 2px dashed #4A90E2; }
-  .final-revision-box.box-lvl1 .final-revision-text { color: #4A90E2; }
-  .final-revision-box.box-lvl1 .tag-final { background: #4A90E2; color: #000; }
-  .final-revision-box.box-lvl1 .tag-final:hover { background: #fff; box-shadow: 0 0 15px #4A90E2; }
+  /* Box 1 Coordinato con il Ciano */
+  .final-revision-box.box-lvl1 { background: rgba(0, 229, 255, 0.04); border: 2.5px dashed #00E5FF; box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.05); }
+  .final-revision-box.box-lvl1 .final-revision-text { color: #00E5FF; font-size: 1.2rem; font-weight: 900; letter-spacing: 1.5px; }
+  .final-revision-box.box-lvl1 .tag-final { background: #00E5FF; color: #000; }
+  .final-revision-box.box-lvl1 .tag-final:hover { background: #fff; box-shadow: 0 0 20px #00E5FF; }
 
-  .final-revision-box.box-lvl2 { background: rgba(44, 62, 80, 0.3); border: 2px dashed #2C3E50; }
-  .final-revision-box.box-lvl2 .final-revision-text { color: #95a5a6; }
-  .final-revision-box.box-lvl2 .tag-final { background: #2C3E50; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-  .final-revision-box.box-lvl2 .tag-final:hover { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+  /* Box 2 Coordinato con il Lime */
+  .final-revision-box.box-lvl2 { background: rgba(0, 255, 102, 0.04); border: 2.5px dashed #00FF66; box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.05); }
+  .final-revision-box.box-lvl2 .final-revision-text { color: #00FF66; font-size: 1.2rem; font-weight: 900; letter-spacing: 1.5px; }
+  .final-revision-box.box-lvl2 .tag-final { background: #00FF66; color: #000; }
+  .final-revision-box.box-lvl2 .tag-final:hover { background: #fff; box-shadow: 0 0 20px #00FF66; }
 
-  .final-revision-text { font-weight: 900; font-size: 1.05rem; font-family: 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
-  .final-revision-box .tag-final { font-weight: 900; border-radius: 20px; padding: 8px 24px; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; }
+  .final-revision-text { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; }
+  .final-revision-box .tag-final { font-weight: 900; border-radius: 20px; padding: 10px 28px; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; text-transform: uppercase; border: none; cursor: pointer; }
 
-  @media (max-width: 600px) {
-    .final-revision-box { flex-direction: column; text-align: center; }
+  @media (max-width: 650px) {
+    .final-revision-box { flex-direction: column; text-align: center; gap: 18px; padding: 20px; }
   }
 
-  .divider { height: 4px; border-radius: 4px; margin: 8px 0 36px; background: linear-gradient(90deg, #008080, #4A90E2, #2C3E50); }
+  .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FFFF00, #00E5FF, #00FF66); }
 </style>
 </head>
 <body>
@@ -86,7 +89,7 @@
     <div class="year-title b2-level1">🚀 B2 · Level 1 (Consolidation & Core Structures)</div>
     <div class="topics">
 
-      <div class="topic-card card-blue1">
+      <div class="topic-card card-cyan">
         <div class="topic-name">Unit 1 · Past Narrative</div>
         <div class="topic-args">
           <span>Used to</span><span>Past continuous</span><span>Past continuous vs Past simple</span><span>when, while, as</span><span>Adverbs of sequence</span>
@@ -97,7 +100,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue1">
+      <div class="topic-card card-cyan">
         <div class="topic-name">Unit 2 · Present Perfect Aspect</div>
         <div class="topic-args">
           <span>Present perfect continuous</span><span>Present perfect simple vs continuous</span><span>Present perfect simple vs Past simple</span>
@@ -108,7 +111,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue1">
+      <div class="topic-card card-cyan">
         <div class="topic-name">Unit 3 · Verb Patterns & Compounds</div>
         <div class="topic-args">
           <span>Common verb patterns (verb + -ing / to)</span><span>Structures with stop, remember, forget</span><span>Compounds of some, any, every, no</span><span>Question tags</span>
@@ -119,7 +122,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue1">
+      <div class="topic-card card-cyan">
         <div class="topic-name">Unit 4 · Perfect Tenses & Relative Clauses</div>
         <div class="topic-args">
           <span>Past perfect simple</span><span>Narrative tenses review</span><span>Defining vs Non-defining relative clauses</span><span>Relative pronouns revision</span>
@@ -130,7 +133,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue1">
+      <div class="topic-card card-cyan">
         <div class="topic-name">Unit 5 · Passive Voice & Modal Passives</div>
         <div class="topic-args">
           <span>Passive voice (all tenses)</span><span>Passive with modal verbs</span><span>Active vs Passive transformation</span><span>By + agent</span>
@@ -142,8 +145,8 @@
       </div>
 
       <div class="final-revision-box box-lvl1">
-        <div class="final-revision-text">🧠 Verifica Competenze · Level 1 Challenge</div>
-        <a href="https://cristinavallini64-maker.github.io/grammar-tutor/level1-challenge.html" class="tag-final">✏️ Mettiti alla prova</a>
+        <div class="final-revision-text">⚡ CHALLENGE LEVEL 1</div>
+        <a href="https://cristinavallini64-maker.github.io/grammar-tutor/level1-challenge.html" class="tag-final">METTITI ALLA PROVA</a>
       </div>
 
     </div>
@@ -155,7 +158,7 @@
     <div class="year-title b2-level2">🎯 B2 · Level 2 (Advanced Syntax & Speculation)</div>
     <div class="topics">
 
-      <div class="topic-card card-blue2">
+      <div class="topic-card card-lime">
         <div class="topic-name">Unit 6 · Modals of Deduction & Speculation</div>
         <div class="topic-args">
           <span>Modals of deduction (present)</span><span>Modals of deduction (past)</span><span>Must, might, can't have done</span>
@@ -166,7 +169,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue2">
+      <div class="topic-card card-lime">
         <div class="topic-name">Unit 7 · Reported Speech & Reporting Verbs</div>
         <div class="topic-args">
           <span>Reported statements & questions</span><span>Tense changes & pronouns shift</span><span>Advanced reporting verbs</span>
@@ -177,7 +180,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue2">
+      <div class="topic-card card-lime">
         <div class="topic-name">Unit 8 · Advanced Conditionals & Regrets</div>
         <div class="topic-args">
           <span>Second & Third conditional</span><span>Mixed conditionals</span><span>Structures with wish / if only</span>
@@ -188,7 +191,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue2">
+      <div class="topic-card card-lime">
         <div class="topic-name">Unit 9 · Emphasis, Inversion & Clefts</div>
         <div class="topic-args">
           <span>Inversion with negative adverbs</span><span>Cleft sentences (It / What clauses)</span><span>Emphatic structures</span>
@@ -199,7 +202,7 @@
         </div>
       </div>
 
-      <div class="topic-card card-blue2">
+      <div class="topic-card card-lime">
         <div class="topic-name">Unit 10 · Advanced Discourse & Linkers</div>
         <div class="topic-args">
           <span>Concession & contrast linkers</span><span>Purpose & result clauses</span><span>Complex text cohesion</span>
@@ -211,8 +214,8 @@
       </div>
 
       <div class="final-revision-box box-lvl2">
-        <div class="final-revision-text">🎓 Target Quinta · Invalsi B2 Training Hub</div>
-        <a href="https://cristinavallini64-maker.github.io/grammar-tutor/invalsi-b2-tutor.html" class="tag-final">✏️ Mettiti alla prova</a>
+        <div class="final-revision-text">🎓 TARGET INVALSI & ESAME</div>
+        <a href="https://cristinavallini64-maker.github.io/grammar-tutor/invalsi-b2-tutor.html" class="tag-final">METTITI ALLA PROVA</a>
       </div>
 
     </div>
