@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Structure – Ripassa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; font-family: 'Nunito', sans-serif; min-height: 100vh; padding: 24px 16px; }
+
+  .header { max-width: 700px; margin: 0 auto 28px; background: #FFFF00; border-radius: 14px; padding: 20px 28px; }
+  .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; color: #000; }
+  .header p { font-size: 0.95rem; color: #111; font-weight: 700; margin-top: 4px; }
+
+  .back { display: block; width: fit-content; margin: 0 auto 16px; color: #000; font-weight: 700; text-decoration: none; font-size: 0.9rem; background: #FFFF00; padding: 7px 18px; border-radius: 20px; }
+
+  .section-title { max-width: 700px; margin: 0 auto 14px; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px; padding: 10px 20px; border-radius: 8px; color: #000; display: inline-block; }
+  .section-title.cyan { background: #00E5FF; }
+  .section-title.lime { background: #00FF66; }
+  .section-wrap { max-width: 700px; margin: 0 auto 36px; }
+
+  .list { display: flex; flex-direction: column; gap: 10px; }
+
+  .unit-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 2px; color: #555; margin: 6px 0 2px 4px; }
+
+  .item { background: #1a1a1a; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .item.cyan { border-left: 5px solid #00E5FF; }
+  .item.lime  { border-left: 5px solid #00FF66; }
+  .item-name { font-weight: 900; font-size: 1rem; color: #fff; }
+  .item-args { font-size: 0.8rem; color: #888; margin-top: 3px; }
+
+  .btn { border-radius: 20px; padding: 7px 18px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all 0.2s; border: none; display: inline-block; }
+  .btn.cyan  { background: #00E5FF; color: #000; cursor: pointer; }
+  .btn.cyan:hover  { opacity: 0.85; transform: scale(1.04); }
+  .btn.lime  { background: #00FF66; color: #000; cursor: pointer; }
+  .btn.lime:hover  { opacity: 0.85; transform: scale(1.04); }
+  .btn.soon  { background: #2a2a2a; color: #555; cursor: not-allowed; }
+
+  .divider { max-width: 700px; margin: 8px auto 28px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, #00E5FF, #00FF66); }
+</style>
+</head>
+<body>
+
+<div style="max-width:700px;margin:0 auto 16px;">
+  <a href="javascript:window.close()" class="back">✕ Chiudi questa scheda</a>
+</div>
+
+<div class="header">
+  <h1>📖 The Structure — Ripassa</h1>
+  <p>B2 · Level 1 & Level 2 · Scegli un argomento da ripassare</p>
+</div>
+
+<!-- ═══ LEVEL 1 ═══ -->
+<div class="section-wrap">
+  <div class="section-title cyan">🚀 B2 · Level 1 — Consolidation & Core Structures</div>
+  <div class="list">
+
+    <div class="unit-label">UNIT 1 · PAST NARRATIVE</div>
+    <div class="item cyan">
+      <div><div class="item-name">Used to</div><div class="item-args">abitudini e situazioni passate non più vere · forma · used to vs Past simple</div></div>
+      <a href="used-to.html" class="btn cyan">📖 Ripassa</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Past Continuous</div><div class="item-args">was/were + -ing · 4 usi · state verbs vs action verbs</div></div>
+      <a href="past-continuous.html" class="btn cyan">📖 Ripassa</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Past Continuous vs Past Simple</div><div class="item-args">sfondo vs evento puntuale · azione interrotta · simultaneità</div></div>
+      <a href="past-continuous-vs-past-simple.html" class="btn cyan">📖 Ripassa</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">When, While, As</div><div class="item-args">tre congiunzioni temporali · 5 regole d'uso · contemporaneità · cambiamento graduale</div></div>
+      <a href="when-while-as.html" class="btn cyan">📖 Ripassa</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Adverbs of Sequence</div><div class="item-args">first of all · next / then · afterwards / after that · finally · posizione e punteggiatura</div></div>
+      <a href="adverbs-of-sequence.html" class="btn cyan">📖 Ripassa</a>
+    </div>
+
+    <div class="unit-label">UNIT 2 · PRESENT PERFECT ASPECT</div>
+    <div class="item cyan">
+      <div><div class="item-name">Present Perfect Continuous</div><div class="item-args">have/has been + -ing · durata · risultati visibili nel presente</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Present Perfect Simple vs Continuous</div><div class="item-args">risultato vs processo · how long · state verbs</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Present Perfect Simple vs Past Simple</div><div class="item-args">collegato al presente vs periodo concluso · segnali temporali</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 3 · VERB PATTERNS & COMPOUNDS</div>
+    <div class="item cyan">
+      <div><div class="item-name">Common Verb Patterns (verb + -ing / to)</div><div class="item-args">verbi seguiti da -ing · verbi seguiti da to · lista completa</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Structures with stop, remember, forget</div><div class="item-args">cambiamento di significato con -ing vs to</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Compounds of some, any, every, no</div><div class="item-args">someone · anything · everywhere · nobody · uso e differenze</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Question Tags</div><div class="item-args">auxiliare + soggetto pronome · positivo/negativo · intonazione</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 4 · PERFECT TENSES & RELATIVE CLAUSES</div>
+    <div class="item cyan">
+      <div><div class="item-name">Past Perfect Simple</div><div class="item-args">had + past participle · anteriorità nel passato · after/before/when/by the time</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Narrative Tenses Review</div><div class="item-args">Past simple · Past continuous · Past perfect · uso combinato</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Defining vs Non-defining Relative Clauses</div><div class="item-args">who · which · that · whose · when · where · virgole e omissione</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Relative Pronouns Revision</div><div class="item-args">soggetto vs oggetto · omissione del pronome · preposizioni</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 5 · PASSIVE VOICE & MODAL PASSIVES</div>
+    <div class="item cyan">
+      <div><div class="item-name">Passive Voice (all tenses)</div><div class="item-args">be + past participle · present/past/future/perfect passive</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Passive with Modal Verbs</div><div class="item-args">modal + be + past participle · can/could/must/should/might</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">Active vs Passive Transformation</div><div class="item-args">come trasformare da attivo a passivo · soggetto/oggetto</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item cyan">
+      <div><div class="item-name">By + Agent</div><div class="item-args">quando usare by · quando ometterlo · agente implicito</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ LEVEL 2 ═══ -->
+<div class="section-wrap">
+  <div class="section-title lime">🎯 B2 · Level 2 — Advanced Syntax & Speculation</div>
+  <div class="list">
+
+    <div class="unit-label">UNIT 6 · MODALS OF DEDUCTION & SPECULATION</div>
+    <div class="item lime">
+      <div><div class="item-name">Modals of Deduction (present)</div><div class="item-args">must / might / could / can't + verbo base · certezza e possibilità</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Modals of Deduction (past)</div><div class="item-args">must / might / could / can't + have + past participle</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Must, might, can't have done</div><div class="item-args">deduzione sul passato · grado di certezza · confronto con present</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 7 · REPORTED SPEECH & REPORTING VERBS</div>
+    <div class="item lime">
+      <div><div class="item-name">Reported Statements & Questions</div><div class="item-args">that-clause · backshift dei tempi · cambiamento di pronomi e avverbi</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Tense Changes & Pronouns Shift</div><div class="item-args">present→past · will→would · can→could · pronomi e avverbi di tempo/luogo</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Advanced Reporting Verbs</div><div class="item-args">say/tell · advise/warn/suggest/refuse/promise/agree + strutture</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 8 · ADVANCED CONDITIONALS & REGRETS</div>
+    <div class="item lime">
+      <div><div class="item-name">Second & Third Conditional</div><div class="item-args">if + past simple/perfect · would/would have · ipotetico e controfattuale</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Mixed Conditionals</div><div class="item-args">past condition → present result · present condition → past result</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Structures with wish / if only</div><div class="item-args">wish + past simple · wish + would · wish + past perfect · rimpianti</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 9 · EMPHASIS, INVERSION & CLEFTS</div>
+    <div class="item lime">
+      <div><div class="item-name">Inversion with Negative Adverbs</div><div class="item-args">never / rarely / hardly / not only / no sooner + inversione ausiliare</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Cleft Sentences (It / What clauses)</div><div class="item-args">It is/was … that · What … is/was · enfasi sulla parte della frase</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Emphatic Structures</div><div class="item-args">do/does/did enfatico · so/such · quite/rather · really/absolutely</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+    <div class="unit-label">UNIT 10 · ADVANCED DISCOURSE & LINKERS</div>
+    <div class="item lime">
+      <div><div class="item-name">Concession & Contrast Linkers</div><div class="item-args">although / even though / despite / in spite of / however / nevertheless</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Purpose & Result Clauses</div><div class="item-args">so that / in order to / so as to / such … that / so … that</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+    <div class="item lime">
+      <div><div class="item-name">Complex Text Cohesion</div><div class="item-args">reference words · substitution · ellipsis · connectors in written discourse</div></div>
+      <a class="btn soon">🔜 Presto</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
