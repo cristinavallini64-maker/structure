@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0d0d; font-family: 'Nunito', sans-serif; }
+  .hero { background: #FFFF00; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
+  .hero-letter { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: #000; line-height: 1; flex-shrink: 0; }
+  .hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: #000; }
+  .main { max-width: 980px; margin: 0 auto; padding: 36px 24px 60px; }
+  .year-block { margin-bottom: 48px; }
+  .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; padding: 12px 24px; border-radius: 8px; margin-bottom: 28px; display: inline-block; color: #000; }
+  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .topic-card { border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  .card-cyan { background: #00E5FF; }
+  .card-lime { background: #00FF66; }
+  .topic-name { font-weight: 900; font-size: 1.05rem; color: #000; }
+  .topic-args { display: flex; flex-wrap: wrap; gap: 6px; }
+  .topic-args span { display: inline-block; background: rgba(0,0,0,0.15); border-radius: 8px; padding: 3px 10px; font-size: 0.75rem; font-weight: 700; color: #000; }
+  .topic-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .tag { background: rgba(0,0,0,0.2); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; color: #000; font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-letter">S</div>
+  <div class="hero-text"><h1>The Structure</h1></div>
+</div>
+<div class="main">
+  <div class="year-block">
+    <div class="year-title" style="background: #00E5FF;">🚀 B2 · Level 1 (Consolidation)</div>
+    <div class="topics">
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 1 · Past Narrative</div>
+        <div class="topic-args"><span>Used to</span><span>Past continuous</span><span>Past simple</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/unit1-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/past-narrative.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 2 · Present Perfect Aspect</div>
+        <div class="topic-args"><span>Present perfect continuous</span><span>Simple vs Continuous</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/unit2-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/present-perfect.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 3 · Verb Patterns & Compounds</div>
+        <div class="topic-args"><span>Verb patterns</span><span>Question tags</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/unit3-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/verb-patterns.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 4 · Perfect Tenses & Relatives</div>
+        <div class="topic-args"><span>Past perfect</span><span>Relative clauses</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/unit4-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/past-perfect.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 5 · Passive Voice</div>
+        <div class="topic-args"><span>Passive all tenses</span><span>Modal passives</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/unit5-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/passive-voice.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="year-block">
+    <div class="year-title" style="background: #00FF66;">🎯 B2 · Level 2 (Advanced Syntax)</div>
+    <div class="topics">
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 6 · Modals of Deduction</div>
+        <div class="topic-args"><span>Present</span><span>Past speculation</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/structure-u6-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/modals-deduction.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 7 · Reported Speech</div>
+        <div class="topic-args"><span>Statements</span><span>Questions</span><span>Verbs</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/structure-u7-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/reported-speech.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 8 · Conditionals & Regrets</div>
+        <div class="topic-args"><span>2nd/3rd Cond.</span><span>Mixed</span><span>Wish</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/structure-u8-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/conditionals.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 9 · Emphasis & Inversion</div>
+        <div class="topic-args"><span>Inversion</span><span>Cleft sentences</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/structure-u9-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/emphasis-inversion.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 10 · Advanced Discourse & Linkers</div>
+        <div class="topic-args"><span>Contrast</span><span>Purpose</span><span>Cohesion</span></div>
+        <div class="topic-links">
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/structure-u10-index.html" class="tag">📖 Ripassa</a>
+            <a href="https://cristinavallini64-maker.github.io/grammar-tutor/advanced-linkers.html" class="tag">✏️ Esercitati</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
