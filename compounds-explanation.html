@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compounds: some, any, every, no</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Poppins',sans-serif;background:#fff;color:#111;display:flex;flex-direction:column;height:100vh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:4px solid #00E5FF;flex-shrink:0;}
+.title{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(0.7rem,2.4vw,1.1rem);letter-spacing:2px;color:#0099aa;}
+.prog{font-family:'Orbitron',monospace;font-size:clamp(0.65rem,2vw,0.85rem);color:#999;letter-spacing:2px;}
+.dots{display:flex;gap:10px;justify-content:center;padding:7px 0;flex-shrink:0;}
+.dot{width:11px;height:11px;border-radius:50%;background:#e0e0e0;transition:background 0.3s;}
+.dot.active{background:#00E5FF;}
+.slides{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 24px 12px;visibility:hidden;overflow-y:auto;}
+.slide.active{visibility:visible;}
+.slide-title{font-family:'Orbitron',monospace;font-weight:700;font-size:clamp(0.68rem,2.2vw,0.9rem);letter-spacing:2px;color:#0099aa;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #eee;flex-shrink:0;opacity:0;transition:opacity 0.4s;}
+.slide-title.show{opacity:1;}
+.intro{background:#e6fbff;border-left:5px solid #0099aa;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.74rem,2.2vw,0.88rem);color:#111;line-height:1.6;margin-bottom:10px;opacity:0;transition:opacity 0.5s;}
+.intro.show{opacity:1;}
+.intro strong{color:#007788;}
+.cmp-table{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.cmp-col{border-radius:10px;overflow:hidden;border:2px solid #eee;}
+.cmp-head{font-family:'Orbitron',monospace;font-size:clamp(0.52rem,1.55vw,0.68rem);letter-spacing:1px;font-weight:700;padding:9px 8px;text-align:center;color:#fff;}
+.cmp-head.a{background:#0099aa;}
+.cmp-head.b{background:#007788;}
+.cmp-body{padding:10px 12px;}
+.cmp-line{font-size:clamp(0.78rem,2.45vw,0.96rem);font-weight:600;color:#111;margin-bottom:3px;}
+.cmp-it{font-size:clamp(0.62rem,1.8vw,0.76rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;margin-bottom:9px;}
+.cmp-it:last-child{margin-bottom:0;}
+.use-row{padding:7px 0;border-bottom:1px solid #f0f0f0;opacity:0;transition:opacity 0.3s;}
+.use-row:last-child{border-bottom:none;}
+.use-ex{font-size:clamp(0.86rem,2.8vw,1.04rem);font-weight:600;color:#111;display:block;}
+.use-it{font-size:clamp(0.64rem,1.85vw,0.78rem);color:#999;font-style:italic;display:block;opacity:0;transition:opacity 0.4s;margin-top:2px;}
+.use-tag{font-family:'Orbitron',monospace;font-size:clamp(0.46rem,1.25vw,0.58rem);letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:7px;vertical-align:middle;color:#fff;display:inline-block;}
+.tag-c1{background:#0099aa;}
+.tag-c2{background:#007788;}
+.tag-c3{background:#00b3a1;}
+.tag-c4{background:#0077aa;}
+.rule-row{display:grid;grid-template-columns:1.1fr 1.6fr;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;align-items:start;}
+.rule-row:last-child{border-bottom:none;}
+.rule-name{font-size:clamp(0.7rem,2vw,0.85rem);font-weight:700;color:#777;line-height:1.4;}
+.rule-ex{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#111;font-weight:600;}
+.rule-it{grid-column:1/-1;font-size:clamp(0.62rem,1.8vw,0.76rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;}
+.err-pair{padding:6px 0;border-bottom:1px solid #f0f0f0;}
+.err-pair:last-child{border-bottom:none;}
+.err-wrong{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#c00;}
+.err-ok{font-size:clamp(0.82rem,2.55vw,0.98rem);font-weight:700;color:#007788;}
+.err-it{font-size:clamp(0.66rem,1.9vw,0.8rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;margin-top:1px;}
+.err-note{font-size:clamp(0.63rem,1.8vw,0.777rem);color:#bbb;margin-top:1px;opacity:0;transition:opacity 0.4s;}
+.hl{font-weight:900;color:#0099aa;font-style:normal;}
+.warn{background:#e6fbff;border-left:5px solid #00E5FF;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.76rem,2.35vw,0.92rem);color:#111;font-weight:600;line-height:1.65;flex-shrink:0;opacity:0;transition:opacity 0.5s;margin-top:8px;}
+.warn.show{opacity:1;}
+.warn strong{color:#0099aa;}
+.cursor{display:inline-block;width:2px;height:1em;background:#0099aa;vertical-align:middle;margin-left:1px;animation:blink 0.6s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.nav{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 20px 14px;flex-shrink:0;}
+.btn-nav{font-family:'Orbitron',monospace;font-size:clamp(0.55rem,1.8vw,0.72rem);font-weight:700;letter-spacing:2px;padding:10px 24px;border-radius:8px;border:2px solid #00E5FF;background:#fff;color:#0099aa;cursor:pointer;transition:all 0.2s;}
+.btn-nav:hover{background:#00E5FF;color:#fff;}
+.btn-nav:disabled{border-color:#ddd;color:#ccc;cursor:not-allowed;}
+.btn-nav:disabled:hover{background:#fff;color:#ccc;}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="title">🔵 COMPOUNDS: SOME · ANY · EVERY · NO</div><div class="prog" id="prog">1 / 4</div></div>
+<div class="dots" id="dots"></div>
+<div class="slides">
+
+<!-- SLIDE 0: LA TABELLA -->
+<div class="slide active" id="s0">
+  <div class="slide-title">📋 COME SI FORMANO I COMPOSTI</div>
+  <div class="intro" id="intro0">
+    I composti si formano unendo <strong>some / any / every / no</strong> con <strong>-thing</strong> (cose), <strong>-one / -body</strong> (persone) o <strong>-where</strong> (luoghi).
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="COSE  (-thing)"></div>
+    <div class="rule-ex" data-tw="something · anything · everything · nothing"></div>
+    <div class="rule-it">qualcosa · niente/qualcosa · tutto · niente</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="PERSONE  (-one / -body)"></div>
+    <div class="rule-ex" data-tw="someone · anyone · everyone · no one"></div>
+    <div class="rule-it">qualcuno · nessuno/chiunque · tutti · nessuno</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="LUOGHI  (-where)"></div>
+    <div class="rule-ex" data-tw="somewhere · anywhere · everywhere · nowhere"></div>
+    <div class="rule-it">da qualche parte · da nessuna parte · dappertutto · in nessun luogo</div>
+  </div>
+  <div class="warn">⚡ <strong>-one</strong> e <strong>-body</strong> sono identici: <em>someone = somebody</em>, <em>no one = nobody</em>.</div>
+</div>
+
+<!-- SLIDE 1: SOME / ANY -->
+<div class="slide" id="s1">
+  <div class="slide-title">🔧 SOME  vs  ANY</div>
+  <div class="intro">
+    I composti di <strong>some</strong> si usano nelle <strong>affermative</strong> e nelle offerte/richieste. I composti di <strong>any</strong> nelle <strong>negative</strong> e <strong>interrogative</strong>.
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c1">SOME</span><span data-tw="There's ❮someone❯ at the door."></span></span>
+    <span class="use-it">C'è qualcuno alla porta. — frase affermativa</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c1">SOME</span><span data-tw="Would you like ❮something❯ to eat?"></span></span>
+    <span class="use-it">Vuoi qualcosa da mangiare? — offerta</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c2">ANY</span><span data-tw="I haven't got ❮anything❯ to tell you."></span></span>
+    <span class="use-it">Non ho niente da dirti. — frase negativa</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c2">ANY</span><span data-tw="You can go ❮anywhere❯ you want."></span></span>
+    <span class="use-it">Puoi andare dovunque vuoi. — in affermativa = "qualunque / dovunque"</span>
+  </div>
+  <div class="warn">⚡ <strong>any</strong> in frase affermativa cambia significato: vuol dire <strong>"qualunque / chiunque / dovunque"</strong>.</div>
+</div>
+
+<!-- SLIDE 2: EVERY / NO -->
+<div class="slide" id="s2">
+  <div class="slide-title">🔧 EVERY  e  NO</div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c3">EVERY</span><span data-tw="Can you tell ❮everyone❯ that I'm late?"></span></span>
+    <span class="use-it">Puoi dire a tutti che sono in ritardo?</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c3">EVERY</span><span data-tw="❮Everyone deserves❯ fair pay."></span></span>
+    <span class="use-it">Tutti meritano una paga equa. — il verbo è al SINGOLARE (deserves)</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c4">NO</span><span data-tw="There's ❮no one❯ on the beach."></span></span>
+    <span class="use-it">Non c'è nessuno in spiaggia. — significato negativo, ma verbo affermativo</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c4">NO</span><span data-tw="There isn't ❮anyone❯ on the beach."></span></span>
+    <span class="use-it">Non c'è nessuno in spiaggia. — stesso senso, ma con any + verbo negativo</span>
+  </div>
+  <div class="warn">⚡ I composti di <strong>no</strong> hanno senso negativo ma vogliono il verbo <strong>affermativo</strong> (mai doppia negazione).</div>
+</div>
+
+<!-- SLIDE 3: + AGGETTIVO / ERRORI -->
+<div class="slide" id="s3">
+  <div class="slide-title">🚨 COMPOSTO + AGGETTIVO ED ERRORI</div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-c1">+ AGG</span><span data-tw="I think there's ❮something wrong❯ with him."></span></span>
+    <span class="use-it">Penso ci sia qualcosa che non va in lui. — composto + aggettivo, senza "of"</span>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  I want something of special."></div>
+    <div class="err-ok"    data-tw="✅  I want something special."></div>
+    <div class="err-it">Voglio qualcosa di speciale.</div>
+    <div class="err-note">composto + aggettivo: niente "of"</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  Everyone deserve respect."></div>
+    <div class="err-ok"    data-tw="✅  Everyone deserves respect."></div>
+    <div class="err-it">Tutti meritano rispetto.</div>
+    <div class="err-note">i composti di every → verbo al singolare</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  I don't have nothing."></div>
+    <div class="err-ok"    data-tw="✅  I don't have anything. / I have nothing."></div>
+    <div class="err-it">Non ho niente.</div>
+    <div class="err-note">una sola negazione: don't + any... oppure verbo affermativo + no...</div>
+  </div>
+</div>
+
+</div>
+<div class="nav">
+  <button class="btn-nav" id="prevBtn" onclick="go(-1)" disabled>◄ INDIETRO</button>
+  <button class="btn-nav" id="nextBtn" onclick="go(1)">AVANTI ►</button>
+</div>
+<script>
+document.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+const TOTAL=4;let cur=0,busy=false;
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');dotsEl.appendChild(d);}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function tw(el,text,speed){return new Promise(resolve=>{el.textContent='';const c=document.createElement('span');c.className='cursor';el.appendChild(c);const plain=text.replace(/\u276e|\u276f/g,'');let i=0;function tick(){if(i>=plain.length){c.remove();resolve();return;}c.insertAdjacentText('beforebegin',plain[i++]);setTimeout(tick,speed);}tick();});}
+function twHL(el,text,speed){return new Promise(resolve=>{const plain=text.replace(/\u276e|\u276f/g,'');el.textContent='';const c=document.createElement('span');c.className='cursor';el.appendChild(c);let i=0;function tick(){if(i>=plain.length){c.remove();el.innerHTML=text.replace(/\u276e([^\u276f]+)\u276f/g,'<em class="hl">$1</em>');resolve();return;}c.insertAdjacentText('beforebegin',plain[i++]);setTimeout(tick,speed);}tick();});}
+function fi(el){if(el){el.style.transition='opacity 0.4s';setTimeout(()=>el.style.opacity='1',80);}}
+async function animateSlide(idx){
+  const slide=document.getElementById('s'+idx);
+  slide.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+  slide.querySelectorAll('.use-it,.rule-it,.err-it,.err-note,.cmp-it').forEach(n=>n.style.opacity='0');
+  slide.querySelectorAll('.use-row').forEach(n=>n.style.opacity='0');
+  slide.querySelectorAll('.intro,.warn').forEach(n=>n.classList.remove('show'));
+  const title=slide.querySelector('.slide-title');
+  if(title){title.classList.remove('show');setTimeout(()=>title.classList.add('show'),100);}
+  await wait(400);
+  for(const node of slide.children){
+    if(node.classList.contains('slide-title'))continue;
+    if(node.classList.contains('intro')){node.classList.add('show');await wait(350);}
+    else if(node.classList.contains('warn')){await wait(200);node.classList.add('show');}
+    else if(node.classList.contains('cmp-table')){
+      for(const col of node.querySelectorAll('.cmp-col')){
+        for(const ln of col.querySelectorAll('.cmp-line[data-tw]')){
+          await twHL(ln,ln.dataset.tw,72);
+          const it=ln.nextElementSibling;if(it&&it.classList.contains('cmp-it'))fi(it);
+          await wait(220);
+        }
+      }
+    }
+    else if(node.classList.contains('rule-row')){
+      const name=node.querySelector('.rule-name'),ex=node.querySelector('.rule-ex'),it=node.querySelector('.rule-it');
+      if(name)await tw(name,name.dataset.tw,55);
+      if(ex)await twHL(ex,ex.dataset.tw,70);
+      fi(it);await wait(280);
+    }
+    else if(node.classList.contains('use-row')){
+      const ex=node.querySelector('[data-tw]'),it=node.querySelector('.use-it');
+      fi(node);await wait(100);
+      if(ex)await twHL(ex,ex.dataset.tw,70);fi(it);await wait(240);
+    }
+    else if(node.classList.contains('err-pair')){
+      const wrong=node.querySelector('.err-wrong'),ok=node.querySelector('.err-ok'),it=node.querySelector('.err-it'),note=node.querySelector('.err-note');
+      if(wrong)await tw(wrong,wrong.dataset.tw,70);await wait(160);
+      if(ok)await tw(ok,ok.dataset.tw,70);fi(it);if(note)setTimeout(()=>note.style.opacity='1',250);await wait(320);
+    }
+  }
+}
+function go(dir){
+  if(busy)return;const prev=cur;cur=Math.max(0,Math.min(TOTAL-1,cur+dir));if(cur===prev)return;busy=true;
+  const oldSlide=document.getElementById('s'+prev),newSlide=document.getElementById('s'+cur);
+  oldSlide.querySelectorAll('.intro,.warn').forEach(w=>w.classList.remove('show'));
+  oldSlide.querySelectorAll('[data-tw]').forEach(e=>e.textContent='');
+  oldSlide.querySelectorAll('.use-it,.rule-it,.err-it,.err-note,.cmp-it').forEach(n=>n.style.opacity='0');
+  oldSlide.querySelectorAll('.use-row').forEach(n=>n.style.opacity='0');
+  oldSlide.style.transition='opacity 0.25s ease';oldSlide.style.opacity='0';
+  setTimeout(()=>{
+    oldSlide.style.cssText='';oldSlide.classList.remove('active');
+    newSlide.style.opacity='0';newSlide.classList.add('active');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{newSlide.style.transition='opacity 0.25s ease';newSlide.style.opacity='1';setTimeout(()=>{newSlide.style.cssText='';busy=false;},260);}));
+    animateSlide(cur);dotsEl.children[prev].classList.remove('active');dotsEl.children[cur].classList.add('active');
+    document.getElementById('prog').textContent=(cur+1)+' / '+TOTAL;
+    document.getElementById('prevBtn').disabled=cur===0;document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+  },260);
+}
+let tx=0;const sl=document.querySelector('.slides');
+sl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+sl.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
+animateSlide(0);
+</script>
+</body>
+</html>
