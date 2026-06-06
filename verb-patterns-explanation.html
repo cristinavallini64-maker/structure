@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Common Verb Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Poppins',sans-serif;background:#fff;color:#111;display:flex;flex-direction:column;height:100vh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:4px solid #00E5FF;flex-shrink:0;}
+.title{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(0.7rem,2.4vw,1.1rem);letter-spacing:2px;color:#0099aa;}
+.prog{font-family:'Orbitron',monospace;font-size:clamp(0.65rem,2vw,0.85rem);color:#999;letter-spacing:2px;}
+.dots{display:flex;gap:10px;justify-content:center;padding:7px 0;flex-shrink:0;}
+.dot{width:11px;height:11px;border-radius:50%;background:#e0e0e0;transition:background 0.3s;}
+.dot.active{background:#00E5FF;}
+.slides{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 24px 12px;visibility:hidden;overflow-y:auto;}
+.slide.active{visibility:visible;}
+.slide-title{font-family:'Orbitron',monospace;font-weight:700;font-size:clamp(0.68rem,2.2vw,0.9rem);letter-spacing:2px;color:#0099aa;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #eee;flex-shrink:0;opacity:0;transition:opacity 0.4s;}
+.slide-title.show{opacity:1;}
+.intro{background:#e6fbff;border-left:5px solid #0099aa;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.74rem,2.2vw,0.88rem);color:#111;line-height:1.6;margin-bottom:10px;opacity:0;transition:opacity 0.5s;}
+.intro.show{opacity:1;}
+.intro strong{color:#007788;}
+.use-row{padding:7px 0;border-bottom:1px solid #f0f0f0;opacity:0;transition:opacity 0.3s;}
+.use-row:last-child{border-bottom:none;}
+.use-ex{font-size:clamp(0.86rem,2.8vw,1.04rem);font-weight:600;color:#111;display:block;}
+.use-it{font-size:clamp(0.64rem,1.85vw,0.78rem);color:#999;font-style:italic;display:block;opacity:0;transition:opacity 0.4s;margin-top:2px;}
+.use-tag{font-family:'Orbitron',monospace;font-size:clamp(0.46rem,1.25vw,0.58rem);letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:7px;vertical-align:middle;color:#fff;display:inline-block;}
+.tag-ing{background:#0099aa;}
+.tag-to{background:#007788;}
+.tag-obj{background:#00b3a1;}
+.rule-row{display:grid;grid-template-columns:1.1fr 1.6fr;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;align-items:start;}
+.rule-row:last-child{border-bottom:none;}
+.rule-name{font-size:clamp(0.7rem,2vw,0.85rem);font-weight:700;color:#777;line-height:1.4;}
+.rule-ex{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#111;font-weight:600;}
+.rule-it{grid-column:1/-1;font-size:clamp(0.62rem,1.8vw,0.76rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;}
+.err-pair{padding:6px 0;border-bottom:1px solid #f0f0f0;}
+.err-pair:last-child{border-bottom:none;}
+.err-wrong{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#c00;}
+.err-ok{font-size:clamp(0.82rem,2.55vw,0.98rem);font-weight:700;color:#007788;}
+.err-it{font-size:clamp(0.66rem,1.9vw,0.8rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;margin-top:1px;}
+.err-note{font-size:clamp(0.63rem,1.8vw,0.777rem);color:#bbb;margin-top:1px;opacity:0;transition:opacity 0.4s;}
+.hl{font-weight:900;color:#0099aa;font-style:normal;}
+.warn{background:#e6fbff;border-left:5px solid #00E5FF;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.76rem,2.35vw,0.92rem);color:#111;font-weight:600;line-height:1.65;flex-shrink:0;opacity:0;transition:opacity 0.5s;margin-top:8px;}
+.warn.show{opacity:1;}
+.warn strong{color:#0099aa;}
+.cursor{display:inline-block;width:2px;height:1em;background:#0099aa;vertical-align:middle;margin-left:1px;animation:blink 0.6s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.nav{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 20px 14px;flex-shrink:0;}
+.btn-nav{font-family:'Orbitron',monospace;font-size:clamp(0.55rem,1.8vw,0.72rem);font-weight:700;letter-spacing:2px;padding:10px 24px;border-radius:8px;border:2px solid #00E5FF;background:#fff;color:#0099aa;cursor:pointer;transition:all 0.2s;}
+.btn-nav:hover{background:#00E5FF;color:#fff;}
+.btn-nav:disabled{border-color:#ddd;color:#ccc;cursor:not-allowed;}
+.btn-nav:disabled:hover{background:#fff;color:#ccc;}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="title">🔵 COMMON VERB PATTERNS</div><div class="prog" id="prog">1 / 5</div></div>
+<div class="dots" id="dots"></div>
+<div class="slides">
+
+<!-- SLIDE 0: PANORAMICA -->
+<div class="slide active" id="s0">
+  <div class="slide-title">📋 I QUATTRO SCHEMI PRINCIPALI</div>
+  <div class="intro" id="intro0">
+    Quando due verbi si trovano vicini, il <strong>secondo</strong> prende una forma precisa che dipende dal <strong>primo</strong> verbo. Ci sono <strong>quattro schemi</strong> da memorizzare.
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="verbo + forma base"></div>
+    <div class="rule-ex" data-tw="I must ❮tidy❯ my bedroom."></div>
+    <div class="rule-it">Devo mettere in ordine la mia stanza. — dopo can, must, should, will…</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="verbo + forma in -ing"></div>
+    <div class="rule-ex" data-tw="We prefer ❮living❯ by the sea."></div>
+    <div class="rule-it">Preferiamo vivere vicino al mare. — dopo like, enjoy, hate, finish…</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="verbo + to + forma base"></div>
+    <div class="rule-ex" data-tw="We decided ❮to move❯ to the country."></div>
+    <div class="rule-it">Abbiamo deciso di trasferirci in campagna. — dopo decide, hope, want…</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="verbo + oggetto + to + forma base"></div>
+    <div class="rule-ex" data-tw="I persuaded ❮him to go❯ to the gym."></div>
+    <div class="rule-it">L'ho convinto ad andare in palestra. — dopo ask, tell, persuade, invite…</div>
+  </div>
+  <div class="warn">⚡ La differenza chiave è tra <strong>-ing</strong> e <strong>to</strong>: dipende solo dal <strong>primo</strong> verbo, quindi va imparata a memoria.</div>
+</div>
+
+<!-- SLIDE 1: VERBO + -ING -->
+<div class="slide" id="s1">
+  <div class="slide-title">🔧 VERBO + FORMA IN -ING</div>
+  <div class="intro">
+    Prendono la forma in <strong>-ing</strong>: <strong>like, love, enjoy, prefer, don't mind, hate, miss, finish, give up, avoid, dream of, look forward to</strong>.
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-ing">ENJOY</span><span data-tw="I ❮enjoy cooking❯ for my friends."></span></span>
+    <span class="use-it">Mi piace cucinare per gli amici.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-ing">DREAM OF</span><span data-tw="She has ❮dreamt of visiting❯ Japan for ages."></span></span>
+    <span class="use-it">Sogna da anni di visitare il Giappone.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-ing">GIVE UP</span><span data-tw="He ❮gave up smoking❯ last year."></span></span>
+    <span class="use-it">Ha smesso di fumare l'anno scorso.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-ing">LOOK FORWARD TO</span><span data-tw="I ❮look forward to seeing❯ you soon."></span></span>
+    <span class="use-it">Non vedo l'ora di vederti presto.</span>
+  </div>
+  <div class="warn">⚡ Attenzione: dopo <strong>look forward to</strong> e <strong>dream of</strong> il <strong>to / of</strong> è una preposizione, quindi segue sempre la forma <strong>-ing</strong>.</div>
+</div>
+
+<!-- SLIDE 2: VERBO + TO -->
+<div class="slide" id="s2">
+  <div class="slide-title">🔧 VERBO + TO + FORMA BASE</div>
+  <div class="intro">
+    Prendono <strong>to + forma base</strong>: <strong>want, would like, would love, decide, try, manage, hope, refuse, promise, afford, agree, arrange, need</strong>.
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-to">DECIDE</span><span data-tw="We have ❮decided to move❯ to the country."></span></span>
+    <span class="use-it">Abbiamo deciso di trasferirci in campagna.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-to">PROMISE</span><span data-tw="She ❮promised to study❯ harder."></span></span>
+    <span class="use-it">Ha promesso di studiare di più.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-to">CAN'T AFFORD</span><span data-tw="I can't ❮afford to buy❯ this leather coat."></span></span>
+    <span class="use-it">Non posso permettermi di comprare questo cappotto di pelle.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-to">REFUSE</span><span data-tw="He ❮refused to answer❯ the question."></span></span>
+    <span class="use-it">Si è rifiutato di rispondere alla domanda.</span>
+  </div>
+  <div class="warn">⚡ In italiano traduciamo quasi sempre con <strong>"di / a + infinito"</strong>, ma in inglese la struttura è una sola: <strong>to + forma base</strong>.</div>
+</div>
+
+<!-- SLIDE 3: VERBO + OGGETTO + TO  /  BEGIN, START, CONTINUE -->
+<div class="slide" id="s3">
+  <div class="slide-title">🔧 VERBO + OGGETTO + TO</div>
+  <div class="intro">
+    Questi verbi richiedono un <strong>oggetto</strong> (una persona) prima di <strong>to + forma base</strong>: <strong>ask, tell, remind, convince, persuade, order, invite, help</strong>.
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-obj">PERSUADE</span><span data-tw="I ❮persuaded him to go❯ to the gym."></span></span>
+    <span class="use-it">L'ho convinto ad andare in palestra.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-obj">INVITE</span><span data-tw="She ❮invited us to stay❯ for the night."></span></span>
+    <span class="use-it">Ci ha invitato a restare per la notte.</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-obj">REMIND</span><span data-tw="❮Remind me to call❯ the dentist."></span></span>
+    <span class="use-it">Ricordami di chiamare il dentista.</span>
+  </div>
+  <div class="warn">⚡ <strong>begin, start, continue</strong> accettano <strong>entrambe</strong> le forme, senza cambio di significato: <em>The fans started protesting = started to protest.</em></div>
+</div>
+
+<!-- SLIDE 4: ERRORI -->
+<div class="slide" id="s4">
+  <div class="slide-title">🚨 ERRORI TIPICI DA EVITARE</div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  I enjoy to swim."></div>
+    <div class="err-ok"    data-tw="✅  I enjoy swimming."></div>
+    <div class="err-it">Mi piace nuotare.</div>
+    <div class="err-note">enjoy → sempre forma in -ing</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  We decided moving to Rome."></div>
+    <div class="err-ok"    data-tw="✅  We decided to move to Rome."></div>
+    <div class="err-it">Abbiamo deciso di trasferirci a Roma.</div>
+    <div class="err-note">decide → sempre to + forma base</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  I want that you come."></div>
+    <div class="err-ok"    data-tw="✅  I want you to come."></div>
+    <div class="err-it">Voglio che tu venga.</div>
+    <div class="err-note">in inglese: want + oggetto + to (mai "that")</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  She promised studying harder."></div>
+    <div class="err-ok"    data-tw="✅  She promised to study harder."></div>
+    <div class="err-it">Ha promesso di studiare di più.</div>
+    <div class="err-note">promise → sempre to + forma base</div>
+  </div>
+</div>
+
+</div>
+<div class="nav">
+  <button class="btn-nav" id="prevBtn" onclick="go(-1)" disabled>◄ INDIETRO</button>
+  <button class="btn-nav" id="nextBtn" onclick="go(1)">AVANTI ►</button>
+</div>
+<script>
+document.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+const TOTAL=5;let cur=0,busy=false;
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');dotsEl.appendChild(d);}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function tw(el,text,speed){return new Promise(resolve=>{el.textContent='';const c=document.createElement('span');c.className='cursor';el.appendChild(c);const plain=text.replace(/\u276e|\u276f/g,'');let i=0;function tick(){if(i>=plain.length){c.remove();resolve();return;}c.insertAdjacentText('beforebegin',plain[i++]);setTimeout(tick,speed);}tick();});}
+function twHL(el,text,speed){return new Promise(resolve=>{const plain=text.replace(/\u276e|\u276f/g,'');el.textContent='';const c=document.createElement('span');c.className='cursor';el.appendChild(c);let i=0;function tick(){if(i>=plain.length){c.remove();el.innerHTML=text.replace(/\u276e([^\u276f]+)\u276f/g,'<em class="hl">$1</em>');resolve();return;}c.insertAdjacentText('beforebegin',plain[i++]);setTimeout(tick,speed);}tick();});}
+function fi(el){if(el){el.style.transition='opacity 0.4s';setTimeout(()=>el.style.opacity='1',80);}}
+async function animateSlide(idx){
+  const slide=document.getElementById('s'+idx);
+  slide.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+  slide.querySelectorAll('.use-it,.rule-it,.err-it,.err-note').forEach(n=>n.style.opacity='0');
+  slide.querySelectorAll('.use-row').forEach(n=>n.style.opacity='0');
+  slide.querySelectorAll('.intro,.warn').forEach(n=>n.classList.remove('show'));
+  const title=slide.querySelector('.slide-title');
+  if(title){title.classList.remove('show');setTimeout(()=>title.classList.add('show'),100);}
+  await wait(400);
+  for(const node of slide.children){
+    if(node.classList.contains('slide-title'))continue;
+    if(node.classList.contains('intro')){node.classList.add('show');await wait(350);}
+    else if(node.classList.contains('warn')){await wait(200);node.classList.add('show');}
+    else if(node.classList.contains('rule-row')){
+      const name=node.querySelector('.rule-name'),ex=node.querySelector('.rule-ex'),it=node.querySelector('.rule-it');
+      if(name)await tw(name,name.dataset.tw,55);
+      if(ex)await twHL(ex,ex.dataset.tw,70);
+      fi(it);await wait(280);
+    }
+    else if(node.classList.contains('use-row')){
+      const ex=node.querySelector('[data-tw]'),it=node.querySelector('.use-it');
+      fi(node);await wait(100);
+      if(ex)await twHL(ex,ex.dataset.tw,70);fi(it);await wait(240);
+    }
+    else if(node.classList.contains('err-pair')){
+      const wrong=node.querySelector('.err-wrong'),ok=node.querySelector('.err-ok'),it=node.querySelector('.err-it'),note=node.querySelector('.err-note');
+      if(wrong)await tw(wrong,wrong.dataset.tw,70);await wait(160);
+      if(ok)await tw(ok,ok.dataset.tw,70);fi(it);if(note)setTimeout(()=>note.style.opacity='1',250);await wait(320);
+    }
+  }
+}
+function go(dir){
+  if(busy)return;const prev=cur;cur=Math.max(0,Math.min(TOTAL-1,cur+dir));if(cur===prev)return;busy=true;
+  const oldSlide=document.getElementById('s'+prev),newSlide=document.getElementById('s'+cur);
+  oldSlide.querySelectorAll('.intro,.warn').forEach(w=>w.classList.remove('show'));
+  oldSlide.querySelectorAll('[data-tw]').forEach(e=>e.textContent='');
+  oldSlide.querySelectorAll('.use-it,.rule-it,.err-it,.err-note').forEach(n=>n.style.opacity='0');
+  oldSlide.querySelectorAll('.use-row').forEach(n=>n.style.opacity='0');
+  oldSlide.style.transition='opacity 0.25s ease';oldSlide.style.opacity='0';
+  setTimeout(()=>{
+    oldSlide.style.cssText='';oldSlide.classList.remove('active');
+    newSlide.style.opacity='0';newSlide.classList.add('active');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{newSlide.style.transition='opacity 0.25s ease';newSlide.style.opacity='1';setTimeout(()=>{newSlide.style.cssText='';busy=false;},260);}));
+    animateSlide(cur);dotsEl.children[prev].classList.remove('active');dotsEl.children[cur].classList.add('active');
+    document.getElementById('prog').textContent=(cur+1)+' / '+TOTAL;
+    document.getElementById('prevBtn').disabled=cur===0;document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+  },260);
+}
+let tx=0;const sl=document.querySelector('.slides');
+sl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+sl.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
+animateSlide(0);
+</script>
+</body>
+</html>
