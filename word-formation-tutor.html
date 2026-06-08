@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Formation · Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0a16; --panel:#1a1426; --panel2:#221a33;
+  --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.16);
+  --txt:#f4f0fb; --dim:rgba(244,240,251,0.62); --mut:rgba(244,240,251,0.34);
+  --magenta:#ff2e7e; --violet:#9b5de5; --orange:#ff8a3d;
+  --lime:#2ff5a0; --gold:#ffd23f; --red:#ff4d5e;
+  --r:16px; --r-sm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;color:var(--txt);font-family:'Inter',sans-serif;font-size:16px;
+  background:radial-gradient(ellipse 90% 60% at 20% -5%,rgba(255,46,126,0.18),transparent 55%),
+             radial-gradient(ellipse 80% 60% at 95% 10%,rgba(155,93,229,0.18),transparent 55%),
+             radial-gradient(ellipse 90% 70% at 50% 110%,rgba(255,138,61,0.12),transparent 55%),
+             linear-gradient(160deg,#0d0a16,#120c1e 50%,#0d0a16);}
+.wrap{max-width:880px;margin:0 auto;}
+/* HEADER */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  padding:15px 22px;background:rgba(13,10,22,0.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+header::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--magenta),var(--violet),var(--orange));}
+.brand{display:flex;flex-direction:column;}
+.brand .t{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:1px;
+  background:linear-gradient(100deg,var(--magenta),var(--violet) 60%,var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.brand .s{font-size:10px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-top:2px;}
+.hbtns{display:flex;gap:8px;}
+.hbtn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.5px;padding:9px 14px;border-radius:var(--r-sm);
+  border:1px solid var(--line2);background:transparent;color:var(--dim);cursor:pointer;transition:all .2s;}
+.hbtn:hover{border-color:var(--magenta);color:var(--magenta);box-shadow:0 0 16px rgba(255,46,126,.3);}
+.hbtn.danger:hover{border-color:var(--red);color:var(--red);box-shadow:0 0 16px rgba(255,77,94,.3);}
+/* SCREENS */
+.screen{display:none;padding:22px;}
+.screen.active{display:block;}
+/* PROGRESS */
+.prog{background:linear-gradient(135deg,rgba(255,46,126,.08),rgba(155,93,229,.08));border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin-bottom:24px;}
+.prog-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;}
+.prog-top .lab{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--mut);}
+.prog-top .val{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;
+  background:linear-gradient(90deg,var(--magenta),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.track{height:11px;background:rgba(0,0,0,0.45);border-radius:6px;overflow:hidden;border:1px solid var(--line);}
+.track-fill{height:100%;background:linear-gradient(90deg,var(--magenta),var(--violet),var(--orange));background-size:200% 100%;border-radius:6px;transition:width .8s cubic-bezier(.4,0,.2,1);animation:flow 3s linear infinite;box-shadow:0 0 14px rgba(255,46,126,.5);}
+@keyframes flow{0%{background-position:0 0;}100%{background-position:200% 0;}}
+/* INTRO */
+.intro-hero{text-align:center;padding:10px 0 26px;}
+.intro-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,52px);letter-spacing:-.5px;line-height:1.05;
+  background:linear-gradient(100deg,var(--magenta),var(--violet) 55%,var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 4px 30px rgba(255,46,126,.35));}
+.intro-hero p{color:var(--mut);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-top:10px;}
+/* LEVEL HEADINGS */
+.lev-head{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;
+  margin:30px 0 14px;text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.lev-head::before{content:'';width:14px;height:14px;border-radius:4px;}
+.lev-head:first-of-type{margin-top:8px;}
+.lev-head.lev1{color:#ff7ab0;}.lev-head.lev1::before{background:linear-gradient(135deg,var(--magenta),var(--violet));box-shadow:0 0 12px rgba(255,46,126,.6);}
+.lev-head.lev2{color:#ffb583;}.lev-head.lev2::before{background:linear-gradient(135deg,var(--orange),var(--magenta));box-shadow:0 0 12px rgba(255,138,61,.6);}
+.lev-head.lev3{color:#c9a3f5;}.lev-head.lev3::before{background:linear-gradient(135deg,var(--violet),#5d7bff);box-shadow:0 0 12px rgba(155,93,229,.6);}
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:10px;}
+.card{border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:15px;
+  border:1px solid var(--line);background:var(--panel);transition:all .22s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+.card .ico{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-weight:800;font-size:15px;}
+.card .body{flex:1;min-width:0;}
+.card .ttl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;}
+.card .dsc{font-size:11.5px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card .stat{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;flex-shrink:0;width:30px;text-align:center;}
+.card.locked{opacity:.45;cursor:not-allowed;}
+.card.locked .ico{background:rgba(255,255,255,0.05);color:var(--mut);}
+/* unlocked per livello */
+.card.unlocked{cursor:pointer;}
+.card.unlocked:hover{transform:translateY(-3px);}
+.card.lev1.unlocked{border-color:rgba(255,46,126,.55);background:linear-gradient(120deg,rgba(255,46,126,.16),rgba(155,93,229,.10));}
+.card.lev1.unlocked:hover{box-shadow:0 10px 34px rgba(0,0,0,.5),0 0 26px rgba(255,46,126,.35);}
+.card.lev1.unlocked .ico{background:linear-gradient(135deg,var(--magenta),var(--violet));color:#fff;}
+.card.lev1.unlocked .stat{color:var(--magenta);}
+.card.lev2.unlocked{border-color:rgba(255,138,61,.55);background:linear-gradient(120deg,rgba(255,138,61,.16),rgba(255,46,126,.10));}
+.card.lev2.unlocked:hover{box-shadow:0 10px 34px rgba(0,0,0,.5),0 0 26px rgba(255,138,61,.35);}
+.card.lev2.unlocked .ico{background:linear-gradient(135deg,var(--orange),var(--magenta));color:#fff;}
+.card.lev2.unlocked .stat{color:var(--orange);}
+.card.lev3.unlocked{border-color:rgba(155,93,229,.55);background:linear-gradient(120deg,rgba(155,93,229,.16),rgba(93,123,255,.10));}
+.card.lev3.unlocked:hover{box-shadow:0 10px 34px rgba(0,0,0,.5),0 0 26px rgba(155,93,229,.35);}
+.card.lev3.unlocked .ico{background:linear-gradient(135deg,var(--violet),#5d7bff);color:#fff;}
+.card.lev3.unlocked .stat{color:var(--violet);}
+/* completed */
+.card.completed{cursor:pointer;border-color:rgba(47,245,160,.4);background:linear-gradient(120deg,rgba(47,245,160,.10),var(--panel));}
+.card.completed .ico{background:linear-gradient(135deg,var(--lime),#16c98a);color:#04261c;}
+.card.completed .stat{color:var(--lime);}
+.card.revision .ico{border-radius:50%;}
+.card.difficult.unlocked{border-color:rgba(255,210,63,.55)!important;background:linear-gradient(120deg,rgba(255,210,63,.14),var(--panel))!important;}
+.card.difficult.unlocked .ico{background:linear-gradient(135deg,var(--gold),var(--orange))!important;color:#2a1c00!important;}
+.card.difficult.unlocked .stat{color:var(--gold)!important;}
+/* STUDY */
+.sub-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
+.sub-bar h2{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;
+  background:linear-gradient(90deg,var(--magenta),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;padding:12px 22px;border-radius:var(--r-sm);
+  border:none;cursor:pointer;transition:all .2s;}
+.btn-ghost{background:transparent;border:1px solid var(--line2);color:var(--dim);}
+.btn-ghost:hover{border-color:var(--violet);color:var(--violet);}
+.btn-primary{background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;}
+.btn-primary:hover{box-shadow:0 6px 24px rgba(255,46,126,.45);transform:translateY(-1px);}
+.btn-green{background:linear-gradient(120deg,var(--lime),#16c98a);color:#04261c;}
+.btn-green:hover{box-shadow:0 6px 24px rgba(47,245,160,.4);transform:translateY(-1px);}
+.study-tbl{width:100%;border-collapse:collapse;background:var(--panel);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);}
+.study-tbl th{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--mut);text-align:left;padding:12px 10px;background:var(--panel2);border-bottom:1px solid var(--line);}
+.study-tbl td{padding:11px 10px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top;}
+.study-tbl tr:last-child td{border-bottom:none;}
+.td-base{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--magenta);}
+.td-it{color:var(--mut);font-style:italic;font-size:12px;}
+.frm{color:var(--txt);}.frm .none{color:var(--mut);}
+.frm.neg{color:var(--gold);}
+.study-scroll{overflow-x:auto;}
+/* PRACTICE */
+.pbar-wrap{margin-bottom:18px;}
+.pbar-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.pbar-info .q{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--mut);letter-spacing:1px;}
+.pbar-info .sc{display:flex;gap:14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;}
+.sc .ok{color:var(--lime);}.sc .ko{color:var(--red);}
+.pbar{height:8px;background:rgba(0,0,0,.45);border-radius:5px;overflow:hidden;border:1px solid var(--line);}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--magenta),var(--violet));transition:width .4s;box-shadow:0 0 12px rgba(255,46,126,.5);}
+.retry-note{background:linear-gradient(120deg,var(--gold),var(--orange));color:#2a1c00;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;
+  padding:10px 14px;border-radius:var(--r-sm);text-align:center;margin-bottom:14px;}
+.qcard{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:var(--r);padding:26px;}
+.qcard.flash-ok{animation:fok .5s;}.qcard.flash-ko{animation:fko .4s;}
+@keyframes fok{0%{box-shadow:0 0 0 rgba(47,245,160,0);}40%{box-shadow:0 0 36px rgba(47,245,160,.55);}100%{box-shadow:0 0 0 rgba(47,245,160,0);}}
+@keyframes fko{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.q-base{font-family:'Sora',sans-serif;font-weight:800;font-size:34px;letter-spacing:1px;text-align:center;
+  background:linear-gradient(100deg,var(--magenta),var(--violet) 60%,var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 18px rgba(255,46,126,.3));}
+.q-cat{text-align:center;font-size:11px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-top:6px;}
+.q-it{text-align:center;color:var(--dim);font-style:italic;font-size:15px;margin:8px 0 24px;}
+.q-inputs{display:flex;flex-direction:column;gap:12px;}
+.ig{display:grid;grid-template-columns:92px 1fr 30px;gap:10px;align-items:center;}
+.ig label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;color:var(--violet);}
+.ig label.neg{color:var(--gold);}
+.qi{padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--line2);background:rgba(0,0,0,.3);color:var(--txt);
+  font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:all .2s;}
+.qi:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255,46,126,.18);}
+.qi.correct{border-color:var(--lime);background:rgba(47,245,160,.12);}
+.qi.wrong{border-color:var(--red);background:rgba(255,77,94,.12);}
+.fb{font-size:15px;text-align:center;}.fb.ok{color:var(--lime);}.fb.ko{color:var(--red);}
+.fbline{font-size:12px;color:var(--mut);margin-top:3px;grid-column:2/4;}
+.fbline .ans{color:var(--lime);font-weight:600;}
+.act-bar{display:flex;gap:10px;justify-content:center;margin-top:24px;}
+/* RESULTS */
+.res{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:var(--r);padding:32px;text-align:center;}
+.res .pct{font-family:'Sora',sans-serif;font-weight:800;font-size:62px;line-height:1;}
+.res .pct.pass{background:linear-gradient(120deg,var(--lime),#16c98a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.res .pct.fail{background:linear-gradient(120deg,var(--red),var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.res .lbl{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;margin-top:6px;}
+.res .lbl.pass{color:var(--lime);}.res .lbl.fail{color:var(--red);}
+.res .thr{font-size:12px;color:var(--mut);margin-top:8px;}
+.res-break{display:flex;gap:24px;justify-content:center;margin:26px 0;}
+.rb{text-align:center;}.rb .n{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;}
+.rb .n.g{color:var(--lime);}.rb .n.r{color:var(--red);}
+.rb .l{font-size:9px;letter-spacing:1px;color:var(--mut);font-family:'Space Grotesk',sans-serif;}
+.wrong-list{text-align:left;margin-top:24px;border-top:1px solid var(--line);padding-top:18px;}
+.wrong-list h3{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gold);margin-bottom:12px;}
+.wi{padding:10px 0;border-bottom:1px solid var(--line);}
+.wi-h{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--magenta);font-size:13px;}
+.wi-ok{font-size:12.5px;color:var(--lime);margin-top:2px;}
+/* modal */
+.modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.72);align-items:center;justify-content:center;padding:20px;}
+.modal.show{display:flex;}
+.modal-box{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:var(--r);padding:28px;max-width:390px;text-align:center;}
+.modal-box h3{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.5px;margin-bottom:10px;}
+.modal-box p{color:var(--dim);font-size:13.5px;margin-bottom:20px;line-height:1.5;}
+.modal-acts{display:flex;gap:10px;justify-content:center;}
+.savebox{background:linear-gradient(135deg,rgba(155,93,229,.10),rgba(255,46,126,.06));border:1px solid var(--line2);border-radius:var(--r);padding:18px 20px;margin-bottom:24px;}
+.savebox-h{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--violet);margin-bottom:12px;}
+.savecode{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(20px,5vw,30px);letter-spacing:4px;text-align:center;
+  padding:16px;border-radius:var(--r-sm);background:rgba(0,0,0,.32);border:1px solid var(--line);user-select:all;word-break:break-all;
+  background-image:linear-gradient(100deg,var(--magenta),var(--violet) 60%,var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.savebox-p{font-size:12px;color:var(--mut);margin:10px 0 14px;line-height:1.5;}
+.savebox-copy{width:100%;}
+.savebox-imp{display:flex;gap:8px;margin-top:12px;padding-top:14px;border-top:1px solid var(--line);}
+.savebox-input{flex:1;min-width:0;padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--line2);background:rgba(0,0,0,.3);
+  color:var(--txt);font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:all .2s;}
+.savebox-input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(155,93,229,.18);}
+.savebox-input::placeholder{color:var(--mut);}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="t">WORD FORMATION</span><span class="s">B2 First · Trainer</span></div>
+  <div class="hbtns">
+    <button class="hbtn danger" onclick="askReset()">↺ RESET</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- MAP -->
+  <div id="screen-map" class="screen active">
+    <div class="intro-hero"><h1>WORD FORMATION</h1><p>127 famiglie di parole · 3 livelli · Cambridge B2</p></div>
+    <div class="prog">
+      <div class="prog-top"><span class="lab">PADRONANZA</span><span class="val" id="progVal">0 / 127</span></div>
+      <div class="track"><div class="track-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+    <div class="savebox">
+      <div class="savebox-h">💾 CODICE PROGRESSO — riprendi su qualsiasi dispositivo</div>
+      <div class="savecode" id="saveCode">······</div>
+      <p class="savebox-p">Copia o fotografa questo codice. Incollalo su un altro dispositivo per riprendere da dove hai lasciato.</p>
+      <button class="btn btn-primary savebox-copy" onclick="copyCode()">⧉ COPIA CODICE</button>
+      <div class="savebox-imp">
+        <input id="codeArea" class="savebox-input" spellcheck="false" autocomplete="off" placeholder="incolla qui il codice da un altro dispositivo…">
+        <button class="btn btn-green" onclick="importCode()">↑ CARICA</button>
+      </div>
+    </div>
+    <div id="mapBody"></div>
+  </div>
+  <!-- STUDY -->
+  <div id="screen-study" class="screen">
+    <div class="sub-bar"><h2 id="studyTitle"></h2><button class="btn btn-ghost" onclick="goMap()">← MAPPA</button></div>
+    <div class="study-scroll"><table class="study-tbl"><thead id="studyHead"></thead><tbody id="studyBody"></tbody></table></div>
+    <div class="act-bar"><button class="btn btn-primary" onclick="startFromStudy()">INIZIA L'ESERCIZIO →</button></div>
+  </div>
+  <!-- PRACTICE -->
+  <div id="screen-practice" class="screen">
+    <div class="pbar-wrap">
+      <div class="pbar-info"><span class="q" id="pq">1/10</span><span class="sc"><span class="ok" id="scOk">✓ 0</span><span class="ko" id="scKo">✗ 0</span></span></div>
+      <div class="pbar"><div class="pbar-fill" id="pfill" style="width:0%"></div></div>
+    </div>
+    <div id="qwrap"></div>
+    <div class="act-bar">
+      <button class="btn btn-primary" id="checkBtn" onclick="check()">VERIFICA</button>
+      <button class="btn btn-green" id="nextBtn" onclick="next()" style="display:none">CONTINUA →</button>
+    </div>
+  </div>
+  <!-- RESULTS -->
+  <div id="screen-results" class="screen"></div>
+</div>
+
+<!-- MODALS -->
+<div class="modal" id="resetModal"><div class="modal-box">
+  <h3>RESET PROGRESSO</h3><p>Vuoi davvero azzerare tutti i progressi? L'operazione non è reversibile.</p>
+  <div class="modal-acts"><button class="btn btn-ghost" onclick="closeReset()">ANNULLA</button><button class="btn btn-primary" style="background:var(--red);color:#fff" onclick="doReset()">AZZERA</button></div>
+</div></div>
+
+<script>
+const SECTIONS=[{"id": "u1", "type": "study", "level": 1, "title": "LIV 1 · UNITÀ 01", "desc": "able · accept · act · advise · agree · beauty · believe · care · choose · comfort · create", "fams": [{"h": "able", "it": "capace / abile", "forms": {"NOME": "ability", "AGG": "able", "AVV": "ably", "VERBO": "—", "NEG": "unable · disability"}}, {"h": "accept", "it": "accettare", "forms": {"NOME": "acceptance", "AGG": "acceptable", "AVV": "—", "VERBO": "accept", "NEG": "unacceptable"}}, {"h": "act", "it": "agire", "forms": {"NOME": "action · activity", "AGG": "active", "AVV": "actively", "VERBO": "act", "NEG": "inactive"}}, {"h": "advise", "it": "consigliare", "forms": {"NOME": "advice", "AGG": "advisable", "AVV": "—", "VERBO": "advise", "NEG": "—"}}, {"h": "agree", "it": "essere d'accordo", "forms": {"NOME": "agreement", "AGG": "agreeable", "AVV": "—", "VERBO": "agree", "NEG": "disagree"}}, {"h": "beauty", "it": "bellezza", "forms": {"NOME": "beauty", "AGG": "beautiful", "AVV": "beautifully", "VERBO": "beautify", "NEG": "—"}}, {"h": "believe", "it": "credere", "forms": {"NOME": "belief", "AGG": "believable", "AVV": "—", "VERBO": "believe", "NEG": "unbelievable"}}, {"h": "care", "it": "cura", "forms": {"NOME": "care", "AGG": "careful · careless", "AVV": "carefully", "VERBO": "care", "NEG": "careless"}}, {"h": "choose", "it": "scegliere", "forms": {"NOME": "choice", "AGG": "—", "AVV": "—", "VERBO": "choose", "NEG": "—"}}, {"h": "comfort", "it": "comodità", "forms": {"NOME": "comfort", "AGG": "comfortable", "AVV": "comfortably", "VERBO": "comfort", "NEG": "uncomfortable"}}, {"h": "create", "it": "creare", "forms": {"NOME": "creation · creativity", "AGG": "creative", "AVV": "creatively", "VERBO": "create", "NEG": "—"}}]}, {"id": "u2", "type": "study", "level": 1, "title": "LIV 1 · UNITÀ 02", "desc": "danger · decide · depend · differ · enjoy · explain · fame · friend · happy · health · help", "fams": [{"h": "danger", "it": "pericolo", "forms": {"NOME": "danger", "AGG": "dangerous", "AVV": "dangerously", "VERBO": "endanger", "NEG": "—"}}, {"h": "decide", "it": "decidere", "forms": {"NOME": "decision", "AGG": "decisive", "AVV": "decisively", "VERBO": "decide", "NEG": "indecisive"}}, {"h": "depend", "it": "dipendere", "forms": {"NOME": "dependence", "AGG": "dependent · dependable", "AVV": "—", "VERBO": "depend", "NEG": "independent"}}, {"h": "differ", "it": "differire", "forms": {"NOME": "difference", "AGG": "different", "AVV": "differently", "VERBO": "differ", "NEG": "—"}}, {"h": "enjoy", "it": "godere / divertirsi", "forms": {"NOME": "enjoyment", "AGG": "enjoyable", "AVV": "—", "VERBO": "enjoy", "NEG": "—"}}, {"h": "explain", "it": "spiegare", "forms": {"NOME": "explanation", "AGG": "—", "AVV": "—", "VERBO": "explain", "NEG": "—"}}, {"h": "fame", "it": "fama", "forms": {"NOME": "fame", "AGG": "famous", "AVV": "famously", "VERBO": "—", "NEG": "infamous"}}, {"h": "friend", "it": "amico", "forms": {"NOME": "friend · friendship", "AGG": "friendly", "AVV": "—", "VERBO": "befriend", "NEG": "unfriendly"}}, {"h": "happy", "it": "felice", "forms": {"NOME": "happiness", "AGG": "happy", "AVV": "happily", "VERBO": "—", "NEG": "unhappy"}}, {"h": "health", "it": "salute", "forms": {"NOME": "health", "AGG": "healthy", "AVV": "healthily", "VERBO": "—", "NEG": "unhealthy"}}, {"h": "help", "it": "aiutare", "forms": {"NOME": "help", "AGG": "helpful · helpless", "AVV": "helpfully", "VERBO": "help", "NEG": "unhelpful"}}]}, {"id": "r_u1_u2", "type": "revision", "level": 1, "title": "⟳ RIPASSO · LIV 1", "desc": "ripassa le due unità precedenti", "revises": ["u1", "u2"]}, {"id": "d_u1_u2", "type": "difficult", "level": 1, "title": "★ PAROLE DIFFICILI · LIV 1", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u1", "u2"]}, {"id": "u3", "type": "study", "level": 1, "title": "LIV 1 · UNITÀ 03", "desc": "high · interest · know · long · love · nature · patience · perfect · please · possible · power", "fams": [{"h": "high", "it": "alto", "forms": {"NOME": "height", "AGG": "high", "AVV": "highly", "VERBO": "heighten", "NEG": "—"}}, {"h": "interest", "it": "interesse", "forms": {"NOME": "interest", "AGG": "interesting · interested", "AVV": "—", "VERBO": "interest", "NEG": "uninterested"}}, {"h": "know", "it": "sapere / conoscere", "forms": {"NOME": "knowledge", "AGG": "knowledgeable", "AVV": "—", "VERBO": "know", "NEG": "unknown"}}, {"h": "long", "it": "lungo", "forms": {"NOME": "length", "AGG": "long", "AVV": "—", "VERBO": "lengthen", "NEG": "—"}}, {"h": "love", "it": "amore", "forms": {"NOME": "love", "AGG": "lovely · loving", "AVV": "—", "VERBO": "love", "NEG": "—"}}, {"h": "nature", "it": "natura", "forms": {"NOME": "nature", "AGG": "natural", "AVV": "naturally", "VERBO": "—", "NEG": "unnatural"}}, {"h": "patience", "it": "pazienza", "forms": {"NOME": "patience", "AGG": "patient", "AVV": "patiently", "VERBO": "—", "NEG": "impatient"}}, {"h": "perfect", "it": "perfetto", "forms": {"NOME": "perfection", "AGG": "perfect", "AVV": "perfectly", "VERBO": "perfect", "NEG": "imperfect"}}, {"h": "please", "it": "compiacere", "forms": {"NOME": "pleasure", "AGG": "pleasant · pleased", "AVV": "pleasantly", "VERBO": "please", "NEG": "unpleasant"}}, {"h": "possible", "it": "possibile", "forms": {"NOME": "possibility", "AGG": "possible", "AVV": "possibly", "VERBO": "—", "NEG": "impossible"}}, {"h": "power", "it": "potere", "forms": {"NOME": "power", "AGG": "powerful · powerless", "AVV": "powerfully", "VERBO": "empower", "NEG": "powerless"}}]}, {"id": "u4", "type": "study", "level": 1, "title": "LIV 1 · UNITÀ 04", "desc": "respect · responsible · safe · science · strong · succeed · true · use · wide · wonder", "fams": [{"h": "respect", "it": "rispetto", "forms": {"NOME": "respect", "AGG": "respectful · respectable", "AVV": "respectfully", "VERBO": "respect", "NEG": "disrespectful"}}, {"h": "responsible", "it": "responsabile", "forms": {"NOME": "responsibility", "AGG": "responsible", "AVV": "responsibly", "VERBO": "—", "NEG": "irresponsible"}}, {"h": "safe", "it": "sicuro", "forms": {"NOME": "safety", "AGG": "safe", "AVV": "safely", "VERBO": "—", "NEG": "unsafe"}}, {"h": "science", "it": "scienza", "forms": {"NOME": "science · scientist", "AGG": "scientific", "AVV": "scientifically", "VERBO": "—", "NEG": "—"}}, {"h": "strong", "it": "forte", "forms": {"NOME": "strength", "AGG": "strong", "AVV": "strongly", "VERBO": "strengthen", "NEG": "—"}}, {"h": "succeed", "it": "riuscire", "forms": {"NOME": "success", "AGG": "successful", "AVV": "successfully", "VERBO": "succeed", "NEG": "unsuccessful"}}, {"h": "true", "it": "vero", "forms": {"NOME": "truth", "AGG": "true", "AVV": "truly", "VERBO": "—", "NEG": "untrue"}}, {"h": "use", "it": "usare", "forms": {"NOME": "use", "AGG": "useful · useless", "AVV": "usefully", "VERBO": "use", "NEG": "useless"}}, {"h": "wide", "it": "largo", "forms": {"NOME": "width", "AGG": "wide", "AVV": "widely", "VERBO": "widen", "NEG": "—"}}, {"h": "wonder", "it": "meraviglia", "forms": {"NOME": "wonder", "AGG": "wonderful", "AVV": "wonderfully", "VERBO": "wonder", "NEG": "—"}}]}, {"id": "r_u3_u4", "type": "revision", "level": 1, "title": "⟳ RIPASSO · LIV 1", "desc": "ripassa le due unità precedenti", "revises": ["u3", "u4"]}, {"id": "d_u3_u4", "type": "difficult", "level": 1, "title": "★ PAROLE DIFFICILI · LIV 1", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u3", "u4"]}, {"id": "u5", "type": "study", "level": 2, "title": "LIV 2 · UNITÀ 05", "desc": "advertise · amaze · argue · attract · behave · compare · compete · describe · develop · educate · electric · employ", "fams": [{"h": "advertise", "it": "pubblicizzare", "forms": {"NOME": "advertisement · advert", "AGG": "—", "AVV": "—", "VERBO": "advertise", "NEG": "—"}}, {"h": "amaze", "it": "stupire", "forms": {"NOME": "amazement", "AGG": "amazing · amazed", "AVV": "amazingly", "VERBO": "amaze", "NEG": "—"}}, {"h": "argue", "it": "discutere", "forms": {"NOME": "argument", "AGG": "—", "AVV": "—", "VERBO": "argue", "NEG": "—"}}, {"h": "attract", "it": "attrarre", "forms": {"NOME": "attraction", "AGG": "attractive", "AVV": "attractively", "VERBO": "attract", "NEG": "unattractive"}}, {"h": "behave", "it": "comportarsi", "forms": {"NOME": "behaviour", "AGG": "—", "AVV": "—", "VERBO": "behave", "NEG": "misbehave"}}, {"h": "compare", "it": "confrontare", "forms": {"NOME": "comparison", "AGG": "comparable · comparative", "AVV": "—", "VERBO": "compare", "NEG": "—"}}, {"h": "compete", "it": "competere", "forms": {"NOME": "competition · competitor", "AGG": "competitive", "AVV": "competitively", "VERBO": "compete", "NEG": "—"}}, {"h": "describe", "it": "descrivere", "forms": {"NOME": "description", "AGG": "descriptive", "AVV": "—", "VERBO": "describe", "NEG": "—"}}, {"h": "develop", "it": "sviluppare", "forms": {"NOME": "development", "AGG": "developed", "AVV": "—", "VERBO": "develop", "NEG": "underdeveloped"}}, {"h": "educate", "it": "educare", "forms": {"NOME": "education", "AGG": "educational", "AVV": "—", "VERBO": "educate", "NEG": "uneducated"}}, {"h": "electric", "it": "elettrico", "forms": {"NOME": "electricity", "AGG": "electric · electrical", "AVV": "electrically", "VERBO": "—", "NEG": "—"}}, {"h": "employ", "it": "impiegare", "forms": {"NOME": "employment · employer · employee", "AGG": "—", "AVV": "—", "VERBO": "employ", "NEG": "unemployed"}}]}, {"id": "u6", "type": "study", "level": 2, "title": "LIV 2 · UNITÀ 06", "desc": "environment · expect · explore · govern · grow · history · imagine · industry · inform · introduce · invent · medicine", "fams": [{"h": "environment", "it": "ambiente", "forms": {"NOME": "environment", "AGG": "environmental", "AVV": "environmentally", "VERBO": "—", "NEG": "—"}}, {"h": "expect", "it": "aspettarsi", "forms": {"NOME": "expectation", "AGG": "expected", "AVV": "—", "VERBO": "expect", "NEG": "unexpected"}}, {"h": "explore", "it": "esplorare", "forms": {"NOME": "exploration · explorer", "AGG": "—", "AVV": "—", "VERBO": "explore", "NEG": "—"}}, {"h": "govern", "it": "governare", "forms": {"NOME": "government", "AGG": "governmental", "AVV": "—", "VERBO": "govern", "NEG": "—"}}, {"h": "grow", "it": "crescere", "forms": {"NOME": "growth", "AGG": "growing", "AVV": "—", "VERBO": "grow", "NEG": "—"}}, {"h": "history", "it": "storia", "forms": {"NOME": "history · historian", "AGG": "historic · historical", "AVV": "historically", "VERBO": "—", "NEG": "—"}}, {"h": "imagine", "it": "immaginare", "forms": {"NOME": "imagination", "AGG": "imaginative · imaginary", "AVV": "—", "VERBO": "imagine", "NEG": "unimaginable"}}, {"h": "industry", "it": "industria", "forms": {"NOME": "industry", "AGG": "industrial", "AVV": "—", "VERBO": "industrialise", "NEG": "—"}}, {"h": "inform", "it": "informare", "forms": {"NOME": "information", "AGG": "informative", "AVV": "—", "VERBO": "inform", "NEG": "—"}}, {"h": "introduce", "it": "presentare", "forms": {"NOME": "introduction", "AGG": "introductory", "AVV": "—", "VERBO": "introduce", "NEG": "—"}}, {"h": "invent", "it": "inventare", "forms": {"NOME": "invention · inventor", "AGG": "inventive", "AVV": "—", "VERBO": "invent", "NEG": "—"}}, {"h": "medicine", "it": "medicina", "forms": {"NOME": "medicine", "AGG": "medical", "AVV": "medically", "VERBO": "—", "NEG": "—"}}]}, {"id": "r_u5_u6", "type": "revision", "level": 2, "title": "⟳ RIPASSO · LIV 2", "desc": "ripassa le due unità precedenti", "revises": ["u5", "u6"]}, {"id": "d_u5_u6", "type": "difficult", "level": 2, "title": "★ PAROLE DIFFICILI · LIV 2", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u5", "u6"]}, {"id": "u7", "type": "study", "level": 2, "title": "LIV 2 · UNITÀ 07", "desc": "nation · neighbour · obey · occupy · organise · origin · persuade · pollute · populate · predict · produce", "fams": [{"h": "nation", "it": "nazione", "forms": {"NOME": "nation · nationality", "AGG": "national", "AVV": "nationally", "VERBO": "—", "NEG": "international"}}, {"h": "neighbour", "it": "vicino", "forms": {"NOME": "neighbour · neighbourhood", "AGG": "neighbouring", "AVV": "—", "VERBO": "—", "NEG": "—"}}, {"h": "obey", "it": "obbedire", "forms": {"NOME": "obedience", "AGG": "obedient", "AVV": "obediently", "VERBO": "obey", "NEG": "disobey"}}, {"h": "occupy", "it": "occupare", "forms": {"NOME": "occupation", "AGG": "occupied", "AVV": "—", "VERBO": "occupy", "NEG": "unoccupied"}}, {"h": "organise", "it": "organizzare", "forms": {"NOME": "organisation", "AGG": "organised", "AVV": "—", "VERBO": "organise", "NEG": "disorganised"}}, {"h": "origin", "it": "origine", "forms": {"NOME": "origin", "AGG": "original", "AVV": "originally", "VERBO": "originate", "NEG": "—"}}, {"h": "persuade", "it": "persuadere", "forms": {"NOME": "persuasion", "AGG": "persuasive", "AVV": "persuasively", "VERBO": "persuade", "NEG": "—"}}, {"h": "pollute", "it": "inquinare", "forms": {"NOME": "pollution", "AGG": "polluted", "AVV": "—", "VERBO": "pollute", "NEG": "—"}}, {"h": "populate", "it": "popolare", "forms": {"NOME": "population", "AGG": "populated", "AVV": "—", "VERBO": "populate", "NEG": "unpopulated"}}, {"h": "predict", "it": "prevedere", "forms": {"NOME": "prediction", "AGG": "predictable", "AVV": "predictably", "VERBO": "predict", "NEG": "unpredictable"}}, {"h": "produce", "it": "produrre", "forms": {"NOME": "production · product", "AGG": "productive", "AVV": "—", "VERBO": "produce", "NEG": "—"}}]}, {"id": "u8", "type": "study", "level": 2, "title": "LIV 2 · UNITÀ 08", "desc": "prove · qualify · react · recognise · relate · sense · sign · special · vary · achieve · benefit", "fams": [{"h": "prove", "it": "dimostrare", "forms": {"NOME": "proof", "AGG": "proven", "AVV": "—", "VERBO": "prove", "NEG": "—"}}, {"h": "qualify", "it": "qualificare", "forms": {"NOME": "qualification", "AGG": "qualified", "AVV": "—", "VERBO": "qualify", "NEG": "unqualified"}}, {"h": "react", "it": "reagire", "forms": {"NOME": "reaction", "AGG": "reactive", "AVV": "—", "VERBO": "react", "NEG": "—"}}, {"h": "recognise", "it": "riconoscere", "forms": {"NOME": "recognition", "AGG": "recognisable", "AVV": "—", "VERBO": "recognise", "NEG": "unrecognisable"}}, {"h": "relate", "it": "collegare", "forms": {"NOME": "relation · relationship", "AGG": "related", "AVV": "—", "VERBO": "relate", "NEG": "unrelated"}}, {"h": "sense", "it": "senso", "forms": {"NOME": "sense", "AGG": "sensible · sensitive", "AVV": "sensibly", "VERBO": "sense", "NEG": "senseless"}}, {"h": "sign", "it": "segno / firmare", "forms": {"NOME": "signature", "AGG": "signed", "AVV": "—", "VERBO": "sign", "NEG": "unsigned"}}, {"h": "special", "it": "speciale", "forms": {"NOME": "speciality · specialist", "AGG": "special", "AVV": "specially", "VERBO": "specialise", "NEG": "—"}}, {"h": "vary", "it": "variare", "forms": {"NOME": "variety · variation", "AGG": "various · variable", "AVV": "—", "VERBO": "vary", "NEG": "—"}}, {"h": "achieve", "it": "raggiungere", "forms": {"NOME": "achievement", "AGG": "achievable", "AVV": "—", "VERBO": "achieve", "NEG": "unachievable"}}, {"h": "benefit", "it": "beneficio", "forms": {"NOME": "benefit", "AGG": "beneficial", "AVV": "—", "VERBO": "benefit", "NEG": "—"}}]}, {"id": "r_u7_u8", "type": "revision", "level": 2, "title": "⟳ RIPASSO · LIV 2", "desc": "ripassa le due unità precedenti", "revises": ["u7", "u8"]}, {"id": "d_u7_u8", "type": "difficult", "level": 2, "title": "★ PAROLE DIFFICILI · LIV 2", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u7", "u8"]}, {"id": "u9", "type": "study", "level": 3, "title": "LIV 3 · UNITÀ 09", "desc": "anxious · apologise · approve · assist · category · ceremony · character · combine · communicate · conclude", "fams": [{"h": "anxious", "it": "ansioso", "forms": {"NOME": "anxiety", "AGG": "anxious", "AVV": "anxiously", "VERBO": "—", "NEG": "—"}}, {"h": "apologise", "it": "scusarsi", "forms": {"NOME": "apology", "AGG": "apologetic", "AVV": "—", "VERBO": "apologise", "NEG": "—"}}, {"h": "approve", "it": "approvare", "forms": {"NOME": "approval", "AGG": "approving", "AVV": "—", "VERBO": "approve", "NEG": "disapprove"}}, {"h": "assist", "it": "assistere", "forms": {"NOME": "assistance · assistant", "AGG": "—", "AVV": "—", "VERBO": "assist", "NEG": "—"}}, {"h": "category", "it": "categoria", "forms": {"NOME": "category", "AGG": "—", "AVV": "—", "VERBO": "categorise", "NEG": "—"}}, {"h": "ceremony", "it": "cerimonia", "forms": {"NOME": "ceremony", "AGG": "ceremonial", "AVV": "—", "VERBO": "—", "NEG": "—"}}, {"h": "character", "it": "carattere", "forms": {"NOME": "character · characteristic", "AGG": "characteristic", "AVV": "—", "VERBO": "characterise", "NEG": "—"}}, {"h": "combine", "it": "combinare", "forms": {"NOME": "combination", "AGG": "combined", "AVV": "—", "VERBO": "combine", "NEG": "—"}}, {"h": "communicate", "it": "comunicare", "forms": {"NOME": "communication", "AGG": "communicative", "AVV": "—", "VERBO": "communicate", "NEG": "—"}}, {"h": "conclude", "it": "concludere", "forms": {"NOME": "conclusion", "AGG": "conclusive", "AVV": "conclusively", "VERBO": "conclude", "NEG": "inconclusive"}}]}, {"id": "u10", "type": "study", "level": 3, "title": "LIV 3 · UNITÀ 10", "desc": "confide · conscious · consider · contribute · convenient · courage · criticise · curious · defend · demonstrate", "fams": [{"h": "confide", "it": "confidare", "forms": {"NOME": "confidence", "AGG": "confident", "AVV": "confidently", "VERBO": "confide", "NEG": "—"}}, {"h": "conscious", "it": "consapevole", "forms": {"NOME": "consciousness", "AGG": "conscious", "AVV": "consciously", "VERBO": "—", "NEG": "unconscious"}}, {"h": "consider", "it": "considerare", "forms": {"NOME": "consideration", "AGG": "considerable · considerate", "AVV": "considerably", "VERBO": "consider", "NEG": "inconsiderate"}}, {"h": "contribute", "it": "contribuire", "forms": {"NOME": "contribution", "AGG": "—", "AVV": "—", "VERBO": "contribute", "NEG": "—"}}, {"h": "convenient", "it": "comodo", "forms": {"NOME": "convenience", "AGG": "convenient", "AVV": "conveniently", "VERBO": "—", "NEG": "inconvenient"}}, {"h": "courage", "it": "coraggio", "forms": {"NOME": "courage", "AGG": "courageous", "AVV": "courageously", "VERBO": "encourage", "NEG": "discourage"}}, {"h": "criticise", "it": "criticare", "forms": {"NOME": "criticism · critic", "AGG": "critical", "AVV": "critically", "VERBO": "criticise", "NEG": "—"}}, {"h": "curious", "it": "curioso", "forms": {"NOME": "curiosity", "AGG": "curious", "AVV": "curiously", "VERBO": "—", "NEG": "—"}}, {"h": "defend", "it": "difendere", "forms": {"NOME": "defence", "AGG": "defensive", "AVV": "defensively", "VERBO": "defend", "NEG": "—"}}, {"h": "demonstrate", "it": "dimostrare", "forms": {"NOME": "demonstration", "AGG": "demonstrative", "AVV": "—", "VERBO": "demonstrate", "NEG": "—"}}]}, {"id": "r_u9_u10", "type": "revision", "level": 3, "title": "⟳ RIPASSO · LIV 3", "desc": "ripassa le due unità precedenti", "revises": ["u9", "u10"]}, {"id": "d_u9_u10", "type": "difficult", "level": 3, "title": "★ PAROLE DIFFICILI · LIV 3", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u9", "u10"]}, {"id": "u11", "type": "study", "level": 3, "title": "LIV 3 · UNITÀ 11", "desc": "economy · emphasise · enthusiasm · frequent · generous · imply · impress · individual · intelligent", "fams": [{"h": "economy", "it": "economia", "forms": {"NOME": "economy · economist", "AGG": "economic · economical", "AVV": "economically", "VERBO": "—", "NEG": "—"}}, {"h": "emphasise", "it": "enfatizzare", "forms": {"NOME": "emphasis", "AGG": "emphatic", "AVV": "emphatically", "VERBO": "emphasise", "NEG": "—"}}, {"h": "enthusiasm", "it": "entusiasmo", "forms": {"NOME": "enthusiasm", "AGG": "enthusiastic", "AVV": "enthusiastically", "VERBO": "—", "NEG": "unenthusiastic"}}, {"h": "frequent", "it": "frequente", "forms": {"NOME": "frequency", "AGG": "frequent", "AVV": "frequently", "VERBO": "—", "NEG": "infrequent"}}, {"h": "generous", "it": "generoso", "forms": {"NOME": "generosity", "AGG": "generous", "AVV": "generously", "VERBO": "—", "NEG": "—"}}, {"h": "imply", "it": "implicare", "forms": {"NOME": "implication", "AGG": "implicit", "AVV": "implicitly", "VERBO": "imply", "NEG": "—"}}, {"h": "impress", "it": "impressionare", "forms": {"NOME": "impression", "AGG": "impressive", "AVV": "impressively", "VERBO": "impress", "NEG": "unimpressed"}}, {"h": "individual", "it": "individuo", "forms": {"NOME": "individual · individuality", "AGG": "individual", "AVV": "individually", "VERBO": "—", "NEG": "—"}}, {"h": "intelligent", "it": "intelligente", "forms": {"NOME": "intelligence", "AGG": "intelligent", "AVV": "intelligently", "VERBO": "—", "NEG": "unintelligent"}}]}, {"id": "u12", "type": "study", "level": 3, "title": "LIV 3 · UNITÀ 12", "desc": "intend · justify · luxury · maintain · memory · mystery · optimist · sympathy · technology", "fams": [{"h": "intend", "it": "intendere", "forms": {"NOME": "intention", "AGG": "intentional", "AVV": "intentionally", "VERBO": "intend", "NEG": "unintentional"}}, {"h": "justify", "it": "giustificare", "forms": {"NOME": "justification", "AGG": "justified · justifiable", "AVV": "—", "VERBO": "justify", "NEG": "unjustified"}}, {"h": "luxury", "it": "lusso", "forms": {"NOME": "luxury", "AGG": "luxurious", "AVV": "luxuriously", "VERBO": "—", "NEG": "—"}}, {"h": "maintain", "it": "mantenere", "forms": {"NOME": "maintenance", "AGG": "—", "AVV": "—", "VERBO": "maintain", "NEG": "—"}}, {"h": "memory", "it": "memoria", "forms": {"NOME": "memory", "AGG": "memorable", "AVV": "—", "VERBO": "memorise", "NEG": "—"}}, {"h": "mystery", "it": "mistero", "forms": {"NOME": "mystery", "AGG": "mysterious", "AVV": "mysteriously", "VERBO": "—", "NEG": "—"}}, {"h": "optimist", "it": "ottimista", "forms": {"NOME": "optimism · optimist", "AGG": "optimistic", "AVV": "optimistically", "VERBO": "—", "NEG": "—"}}, {"h": "sympathy", "it": "compassione", "forms": {"NOME": "sympathy", "AGG": "sympathetic", "AVV": "sympathetically", "VERBO": "sympathise", "NEG": "unsympathetic"}}, {"h": "technology", "it": "tecnologia", "forms": {"NOME": "technology", "AGG": "technological", "AVV": "technologically", "VERBO": "—", "NEG": "—"}}]}, {"id": "r_u11_u12", "type": "revision", "level": 3, "title": "⟳ RIPASSO · LIV 3", "desc": "ripassa le due unità precedenti", "revises": ["u11", "u12"]}, {"id": "d_u11_u12", "type": "difficult", "level": 3, "title": "★ PAROLE DIFFICILI · LIV 3", "desc": "parole sbagliate ≥2 volte — eliminale", "revises": ["u11", "u12"]}];
+const SK='wf_state_v1', EK='wf_err_v1';
+let state={}, errorMap={}, current=null;
+
+/* ---- forme da chiedere: categorie con valore, diverse dalla base ---- */
+function askForms(fam){
+  const out=[]; const base=fam.h.toLowerCase();
+  for(const cat of ["NOME","AGG","AVV","VERBO","NEG"]){
+    const val=fam.forms[cat];
+    if(!val||val==="—")continue;
+    const variants=val.split("·").map(x=>x.trim()).filter(x=>x.toLowerCase()!==base);
+    if(variants.length===0)continue; // solo la parola base: salto
+    out.push({cat,answer:variants.join(" · ")});
+  }
+  return out;
+}
+function baseCat(fam){
+  const base=fam.h.toLowerCase();
+  for(const cat of ["NOME","AGG","AVV","VERBO","NEG"]){
+    const val=fam.forms[cat]; if(!val||val==="—")continue;
+    if(val.split("·").map(x=>x.trim().toLowerCase()).includes(base))return cat;
+  }
+  return "";
+}
+const CATLABEL={NOME:"NOME",AGG:"AGGETTIVO",AVV:"AVVERBIO",VERBO:"VERBO",NEG:"NEGATIVO"};
+
+/* ---- state ---- */
+function loadState(){
+  try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}
+  try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}
+  SECTIONS.forEach(s=>{if(state[s.id]===undefined)state[s.id]='locked';});
+  if(state[SECTIONS[0].id]==='locked')state[SECTIONS[0].id]='unlocked';
+  autoComplete(); saveState();
+}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}}
+function recordErr(keys){keys.forEach(k=>{errorMap[k]=(errorMap[k]||0)+1;});saveState();}
+function famsOf(ids){let v=[];ids.forEach(id=>{const s=SECTIONS.find(x=>x.id===id);if(s&&s.fams)v=v.concat(s.fams);});return v;}
+function getDiff(ids){return famsOf(ids).filter(f=>(errorMap[f.h]||0)>=2);}
+function unlockNext(cid){const i=SECTIONS.findIndex(s=>s.id===cid);if(i>=0&&i+1<SECTIONS.length){const n=SECTIONS[i+1];if(state[n.id]==='locked')state[n.id]='unlocked';}autoComplete();saveState();}
+function autoComplete(){let ch=true;while(ch){ch=false;SECTIONS.forEach((s,i)=>{if(s.type==='difficult'&&state[s.id]==='unlocked'&&getDiff(s.revises).length===0){state[s.id]='completed';if(i+1<SECTIONS.length&&state[SECTIONS[i+1].id]==='locked'){state[SECTIONS[i+1].id]='unlocked';ch=true;}}});}}
+
+/* ---- progress ---- */
+function masteredCount(){let n=0;SECTIONS.filter(s=>s.type==='study').forEach(s=>{if(state[s.id]==='completed')n+=s.fams.length;});return n;}
+function updateProg(){const n=masteredCount();document.getElementById('progVal').textContent=n+' / 127';document.getElementById('progFill').style.width=(n/127*100)+'%';refreshCode();}
+
+/* ---- map ---- */
+function renderMap(){
+  let html=''; let lastLevel=null;
+  const LEVN={1:'LIVELLO 1 · ESSENZIALI',2:'LIVELLO 2 · FREQUENTI',3:'LIVELLO 3 · AVANZATE'};
+  SECTIONS.forEach(s=>{
+    if(s.level!==lastLevel){html+=`<div class="lev-head">${LEVN[s.level]}</div>`;lastLevel=s.level;}
+    const st=state[s.id]||'locked';
+    let ico='○',statTxt='';
+    if(s.type==='study')ico=String(s.id).replace('u','');
+    else if(s.type==='revision')ico='⟳';
+    else if(s.type==='difficult')ico='★';
+    if(st==='locked')statTxt='🔒';else if(st==='completed')statTxt='✓';else statTxt='▶';
+    const cls=`card ${st} ${s.type} lev${s.level}`;
+    const click=st==='locked'?'':`onclick="openSection('${s.id}')"`;
+    html+=`<div class="${cls}" ${click}>
+      <div class="ico">${ico}</div>
+      <div class="body"><div class="ttl">${s.title}</div><div class="dsc">${s.desc}</div></div>
+      <div class="stat">${statTxt}</div></div>`;
+  });
+  document.getElementById('mapBody').innerHTML=html;
+  updateProg();
+}
+function openSection(id){
+  const s=SECTIONS.find(x=>x.id===id);current=s;
+  if(s.type==='study'){showStudy(s);}
+  else if(s.type==='revision'){initPractice(famsOf(s.revises),s);}
+  else if(s.type==='difficult'){const d=getDiff(s.revises);if(!d.length){state[s.id]='completed';unlockNext(s.id);saveState();goMap();return;}initPractice(d,s);}
+}
+/* ---- study ---- */
+function showStudy(s){
+  document.getElementById('studyTitle').textContent=s.title;
+  document.getElementById('studyHead').innerHTML='<tr><th>BASE</th><th>IT</th><th>NOME</th><th>AGG.</th><th>AVV.</th><th>VERBO</th><th>NEG.</th></tr>';
+  const cell=v=>(!v||v==='—')?'<span class="none">—</span>':v;
+  document.getElementById('studyBody').innerHTML=s.fams.map(f=>`<tr>
+    <td class="td-base">${f.h}</td><td class="td-it">${f.it}</td>
+    <td class="frm">${cell(f.forms.NOME)}</td><td class="frm">${cell(f.forms.AGG)}</td>
+    <td class="frm">${cell(f.forms.AVV)}</td><td class="frm">${cell(f.forms.VERBO)}</td>
+    <td class="frm neg">${cell(f.forms.NEG)}</td></tr>`).join('');
+  showScreen('study');
+}
+function startFromStudy(){initPractice(current.fams,current);}
+/* ---- practice ---- */
+let pQ=[],rQ=[],idx=0,ok=0,ko=0,wrong=[],checked=false,isRetry=false;
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function initPractice(fams,sec){current=sec;pQ=shuffle(fams.filter(f=>askForms(f).length>0));rQ=[];idx=0;ok=0;ko=0;wrong=[];checked=false;isRetry=false;showScreen('practice');showItem();}
+function showItem(){
+  checked=false;const f=pQ[idx];const forms=askForms(f);
+  document.getElementById('pfill').style.width=(idx/pQ.length*100)+'%';
+  document.getElementById('pq').textContent=(idx+1)+'/'+pQ.length;
+  document.getElementById('scOk').textContent='✓ '+ok;document.getElementById('scKo').textContent='✗ '+ko;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  const bc=baseCat(f);
+  let inputs=forms.map((fm,i)=>`<div class="ig">
+    <label class="${fm.cat==='NEG'?'neg':''}">${CATLABEL[fm.cat]}</label>
+    <input class="qi" id="qi${i}" autocomplete="off" spellcheck="false" onkeydown="hk(event)">
+    <div class="fb" id="fb${i}"></div></div>`).join('');
+  document.getElementById('qwrap').innerHTML=`
+    ${isRetry?`<div class="retry-note">RECUPERO · ${pQ.length} parole da rifare</div>`:''}
+    <div class="qcard" id="qcard">
+      <div class="q-base">${f.h.toUpperCase()}</div>
+      <div class="q-cat">${bc?CATLABEL[bc]:''} · forma le altre parole della famiglia</div>
+      <div class="q-it">${f.it}</div>
+      <div class="q-inputs">${inputs}</div>
+    </div>`;
+  const fi=document.getElementById('qi0');if(fi)fi.focus();
+}
+function hk(e){if(e.key==='Enter'){if(!checked)check();else next();}}
+function norm(s){return s.trim().toLowerCase();}
+function accept(inp,answer){return answer.split('·').map(x=>norm(x)).some(v=>v===norm(inp));}
+function check(){
+  if(checked)return;checked=true;
+  const f=pQ[idx];const forms=askForms(f);let allOk=true;
+  forms.forEach((fm,i)=>{
+    const inp=document.getElementById('qi'+i),fb=document.getElementById('fb'+i);
+    const val=inp.value;const good=accept(val,fm.answer);
+    if(good){inp.classList.add('correct');fb.className='fb ok';fb.textContent='✓';}
+    else{allOk=false;inp.classList.add('wrong');fb.className='fb ko';fb.textContent='✗';
+      const line=document.createElement('div');line.className='fbline';line.innerHTML='→ <span class="ans">'+fm.answer+'</span>';
+      inp.parentElement.appendChild(line);}
+  });
+  const card=document.getElementById('qcard');
+  if(allOk){ok++;card.classList.add('flash-ok');setTimeout(()=>card.classList.remove('flash-ok'),500);}
+  else{ko++;wrong.push(f);rQ.push(f);if(!isRetry)recordErr([f.h]);card.classList.add('flash-ko');setTimeout(()=>card.classList.remove('flash-ko'),400);}
+  document.getElementById('scOk').textContent='✓ '+ok;document.getElementById('scKo').textContent='✗ '+ko;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function next(){idx++;if(idx>=pQ.length){if(rQ.length>0){pQ=shuffle(rQ);rQ=[];idx=0;ok=0;ko=0;wrong=[];checked=false;isRetry=true;showItem();}else showResults();}else showItem();}
+function showResults(){
+  const total=pQ.length,pct=Math.round(ok/total*100),passed=pct>=80;
+  if(passed){state[current.id]='completed';unlockNext(current.id);saveState();}
+  let wHtml='';
+  if(wrong.length){wHtml=`<div class="wrong-list"><h3>DA RIPASSARE (${wrong.length})</h3>`+
+    wrong.map(f=>{const forms=askForms(f);return `<div class="wi"><div class="wi-h">${f.h.toUpperCase()} — ${f.it}</div><div class="wi-ok">${forms.map(x=>x.answer).join(' · ')}</div></div>`;}).join('')+`</div>`;}
+  const btns=passed?`<button class="btn btn-green" onclick="goMap()">← MAPPA</button>`:
+    `<button class="btn btn-primary" onclick="retry()">↺ RIPROVA</button><button class="btn btn-ghost" onclick="goMap()">← MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="res">
+    <div class="pct ${passed?'pass':'fail'}">${pct}%</div>
+    <div class="lbl ${passed?'pass':'fail'}">${passed?'✓ SEZIONE COMPLETATA':'✗ RIPROVA'}</div>
+    <div class="thr">soglia 80% · ${ok}/${total} corretti</div>
+    <div class="res-break"><div class="rb"><div class="n g">${ok}</div><div class="l">CORRETTI</div></div><div class="rb"><div class="n r">${ko}</div><div class="l">ERRORI</div></div></div>
+    ${wHtml}<div class="act-bar" style="margin-top:26px">${btns}</div></div>`;
+  showScreen('results');
+}
+function retry(){if(current.type==='revision')initPractice(famsOf(current.revises),current);else if(current.type==='difficult')initPractice(getDiff(current.revises),current);else initPractice(current.fams,current);}
+/* ---- nav ---- */
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');window.scrollTo(0,0);}
+function goMap(){renderMap();showScreen('map');}
+/* ---- reset / code ---- */
+function askReset(){document.getElementById('resetModal').classList.add('show');}
+function closeReset(){document.getElementById('resetModal').classList.remove('show');}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeReset();loadState();goMap();}
+/* lista ordinata di tutte le famiglie (per indicizzare gli errori in modo compatto) */
+const ALLFAMS=(function(){const a=[];SECTIONS.forEach(s=>{if(s.fams)s.fams.forEach(f=>a.push(f.h));});return a;})();
+const STMAP={'locked':0,'unlocked':1,'completed':2};
+const STREV=['locked','unlocked','completed'];
+function makeCode(){
+  // stato delle 24 sezioni: numero in base 3 -> base36 (poche lettere)
+  let n=0;SECTIONS.forEach(s=>{n=n*3+STMAP[state[s.id]||'locked'];});
+  let st=n.toString(36);
+  // errori: due gruppi di indici (sbagliate 1 volta / sbagliate 2+ volte)
+  let g1=[],g2=[];ALLFAMS.forEach((h,i)=>{const c=errorMap[h]||0;if(c>=2)g2.push(i.toString(36));else if(c===1)g1.push(i.toString(36));});
+  return st+'~'+g1.join('.')+'~'+g2.join('.');
+}
+function refreshCode(){const el=document.getElementById('saveCode');if(el)el.textContent=makeCode();}
+function copyCode(){const code=makeCode();const btn=event&&event.target?event.target:null;
+  const done=()=>{if(btn){const o=btn.textContent;btn.textContent='✓ COPIATO!';setTimeout(()=>btn.textContent=o,1500);}};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done).catch(()=>fallbackCopy(code,done));}
+  else fallbackCopy(code,done);}
+function fallbackCopy(code,done){const t=document.createElement('textarea');t.value=code;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);}
+function importCode(){try{
+  const v=document.getElementById('codeArea').value.trim();if(!v)return;
+  const parts=v.split('~');if(parts.length!==3)throw 0;
+  let n=parseInt(parts[0],36);if(isNaN(n))throw 0;
+  // ricostruisco le 24 cifre base 3
+  const digits=[];for(let i=0;i<SECTIONS.length;i++){digits.unshift(n%3);n=Math.floor(n/3);}
+  state={};SECTIONS.forEach((s,i)=>{state[s.id]=STREV[digits[i]]||'locked';});
+  errorMap={};
+  (parts[1]?parts[1].split('.'):[]).forEach(x=>{if(x==='')return;const h=ALLFAMS[parseInt(x,36)];if(h)errorMap[h]=1;});
+  (parts[2]?parts[2].split('.'):[]).forEach(x=>{if(x==='')return;const h=ALLFAMS[parseInt(x,36)];if(h)errorMap[h]=2;});
+  autoComplete();saveState();document.getElementById('codeArea').value='';goMap();
+}catch(e){alert('Codice non valido.');}}
+/* ---- init ---- */
+loadState();goMap();
+</script>
+</body>
+</html>
