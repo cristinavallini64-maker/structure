@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 Past Narrative — Grammar Quest B2</title>
+<meta name="description" content="The Structure · Unit 1 · Past Narrative: used to/would, past continuous, when/while/as, sequence. Livello B2.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1628;--surface:rgba(255,255,255,0.09);--border:rgba(255,255,255,0.18);--text:#ffffff;--text-dim:rgba(255,255,255,0.75);--text-muted:rgba(255,255,255,0.45);--cyan:#00f0ff;--cyan-dim:rgba(0,240,255,0.15);--cyan-glow:rgba(0,240,255,0.6);--green:#00ff88;--green-dim:rgba(0,255,136,0.15);--green-glow:rgba(0,255,136,0.6);--red:#ff4d6d;--gold:#ffcc00;--gold-dim:rgba(255,204,0,0.18);--gold-glow:rgba(255,204,0,0.6);--purple:#cc77ff;--purple-dim:rgba(204,119,255,0.18);--purple-glow:rgba(204,119,255,0.6);--orange:#ff8c42;--radius:12px;--radius-sm:6px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px;overflow-x:hidden;position:relative;background:linear-gradient(160deg,#060d1e 0%,#0e1a3a 35%,#161030 65%,#060d1e 100%);}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 55% 45% at 15% 25%,rgba(0,100,220,0.35) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 85% 75%,rgba(80,20,160,0.3) 0%,transparent 70%),radial-gradient(ellipse 40% 35% at 55% 5%,rgba(0,180,255,0.2) 0%,transparent 65%);pointer-events:none;z-index:0;}
+#starCanvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+#particleCanvas{position:fixed;inset:0;z-index:3;pointer-events:none;}
+header{position:relative;z-index:10;padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,13,30,0.85);border-bottom:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(16px);gap:10px;}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);opacity:0.9;}
+.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:16px;letter-spacing:3px;background:linear-gradient(135deg,#00f0ff,#ffffff,#cc77ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(0,240,255,0.5));}
+.logo-sub{font-size:10px;letter-spacing:2px;color:var(--text-muted);font-family:'Rajdhani',sans-serif;-webkit-text-fill-color:var(--text-muted);display:block;margin-top:-3px;}
+.head-btns{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.btn-tr{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;padding:7px 12px;border:1px solid rgba(255,204,0,0.35);background:rgba(255,204,0,0.07);color:rgba(255,255,255,0.55);border-radius:var(--radius-sm);cursor:pointer;transition:all .25s;white-space:nowrap;}
+.btn-tr.on{border-color:var(--gold);color:var(--gold);background:rgba(255,204,0,0.15);box-shadow:0 0 12px rgba(255,204,0,0.25);}
+.btn-tr:hover{border-color:var(--gold);color:var(--gold);}
+.btn-reset{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;padding:7px 12px;border:1px solid rgba(255,77,109,0.35);background:rgba(255,77,109,0.07);color:rgba(255,255,255,0.45);border-radius:var(--radius-sm);cursor:pointer;transition:all 0.25s;white-space:nowrap;}
+.btn-reset:hover{border-color:var(--red);color:var(--red);background:rgba(255,77,109,0.14);}
+.screen{display:none;position:relative;z-index:2;padding:24px;max-width:860px;margin:0 auto;}
+.screen.active{display:block;}
+.map-hero{text-align:center;padding:28px 0 16px;}
+.map-hero h1{font-family:'Orbitron',monospace;font-weight:900;font-size:33px;letter-spacing:5px;background:linear-gradient(135deg,#00f0ff 0%,#ffffff 50%,#cc77ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleGlow 3s ease-in-out infinite;margin-bottom:6px;}
+.map-hero h2{font-family:'Orbitron',monospace;font-weight:600;font-size:12px;letter-spacing:4px;color:var(--cyan);opacity:0.7;margin-bottom:8px;}
+@keyframes titleGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(0,240,255,0.5));}50%{filter:drop-shadow(0 0 32px rgba(0,240,255,0.9));}}
+.map-hero p{color:var(--text-muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;}
+.lvl-badge-b2{display:inline-block;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;color:#0a1628;background:linear-gradient(135deg,var(--cyan),var(--purple));padding:4px 14px;border-radius:20px;font-weight:900;margin-top:10px;box-shadow:0 0 16px rgba(0,240,255,0.4);}
+.xp-panel{background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);padding:14px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px);}
+.xp-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;color:var(--text-muted);min-width:24px;}
+.xp-track{flex:1;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);border-radius:4px;height:14px;overflow:hidden;position:relative;}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--cyan),#8800ff,var(--purple));background-size:200% 100%;border-radius:4px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1);animation:xpShimmer 2.5s linear infinite;box-shadow:0 0 10px var(--cyan-glow);}
+@keyframes xpShimmer{0%{background-position:0% 0%;}100%{background-position:200% 0%;}}
+.xp-num{font-family:'Orbitron',monospace;font-size:12px;color:#fff;white-space:nowrap;font-weight:700;}
+.tr-promo{background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.28);border-radius:var(--radius);padding:11px 16px;margin-bottom:14px;font-size:13px;color:var(--text-dim);line-height:1.5;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tr-promo b{color:var(--gold);}
+.tr-promo .gloss-demo{border-bottom:1px dotted var(--gold);color:#ffe9a8;}
+.sections-list{display:flex;flex-direction:column;gap:9px;}
+.section-card{border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all 0.25s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;border:2px solid;}
+.section-card::after{content:'';position:absolute;top:0;left:0;right:0;height:42%;background:linear-gradient(180deg,rgba(255,255,255,0.07) 0%,transparent 100%);pointer-events:none;border-radius:10px 10px 0 0;}
+.section-card.locked{background:linear-gradient(135deg,rgba(100,90,130,0.35) 0%,rgba(70,60,100,0.3) 100%);border-color:rgba(180,170,210,0.25);cursor:not-allowed;filter:saturate(0.3) brightness(0.7);}
+.section-card.unlocked{background:linear-gradient(135deg,rgba(0,180,255,0.28) 0%,rgba(60,30,180,0.35) 100%);border-color:var(--cyan);cursor:pointer;animation:unlockBreath 3s ease-in-out infinite;}
+@keyframes unlockBreath{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 12px rgba(0,240,255,0.25);}50%{box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 28px rgba(0,240,255,0.55);}}
+.section-card.unlocked:hover{transform:translateX(7px) scale(1.01);border-color:#55ffff;box-shadow:0 6px 28px rgba(0,0,0,0.5),0 0 42px rgba(0,240,255,0.65)!important;animation:none;}
+.section-card.completed{background:linear-gradient(135deg,rgba(0,140,70,0.55) 0%,rgba(0,80,40,0.45) 100%);border-color:var(--green);opacity:0.8;}
+.section-card.revision{background:linear-gradient(135deg,rgba(200,140,0,0.5) 0%,rgba(120,80,0,0.45) 100%);border-color:var(--gold);cursor:pointer;animation:revPulse 2s ease-in-out infinite;}
+@keyframes revPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 14px rgba(255,204,0,0.3);}50%{box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 32px rgba(255,204,0,0.65);}}
+.section-card.revision:hover{transform:translateX(7px) scale(1.01);border-color:#ffee44;box-shadow:0 6px 28px rgba(0,0,0,0.5),0 0 44px rgba(255,204,0,0.75)!important;animation:none;}
+.section-card.revision-done{background:linear-gradient(135deg,rgba(0,140,70,0.5),rgba(0,80,40,0.4));border-color:var(--green);opacity:0.65;}
+.section-card.difficult{background:linear-gradient(135deg,rgba(150,40,220,0.55) 0%,rgba(90,10,150,0.5) 100%);border-color:var(--purple);cursor:pointer;animation:bossPulse 1.6s ease-in-out infinite;}
+@keyframes bossPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,0.4),0 0 16px rgba(204,119,255,0.3);}50%{box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 38px rgba(204,119,255,0.7);}}
+.section-card.difficult:hover{transform:translateX(7px) scale(1.01);border-color:#ee88ff;box-shadow:0 6px 28px rgba(0,0,0,0.5),0 0 50px rgba(204,119,255,0.8)!important;animation:none;}
+.section-card.difficult-done{background:linear-gradient(135deg,rgba(0,140,70,0.5),rgba(0,80,40,0.4));border-color:var(--green);opacity:0.65;}
+.sc-icon{font-family:'Orbitron',monospace;font-weight:900;font-size:20px;min-width:46px;text-align:center;flex-shrink:0;}
+.section-card.locked .sc-icon{color:rgba(200,190,220,0.5);}
+.section-card.unlocked .sc-icon{color:#ffffff;text-shadow:0 0 16px var(--cyan-glow);}
+.section-card.completed .sc-icon{color:var(--green);text-shadow:0 0 12px var(--green-glow);}
+.section-card.revision .sc-icon{color:#fff8aa;text-shadow:0 0 16px var(--gold-glow);}
+.section-card.revision-done .sc-icon{color:var(--green);}
+.section-card.difficult .sc-icon{color:#ffffff;text-shadow:0 0 20px var(--purple-glow);font-size:22px;}
+.section-card.difficult-done .sc-icon{color:var(--green);}
+.sc-body{flex:1;min-width:0;}
+.sc-title{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:1.5px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.section-card.locked .sc-title{color:rgba(200,190,220,0.55);}
+.section-card.unlocked .sc-title{color:#ffffff;}
+.section-card.completed .sc-title{color:#aaffcc;}
+.section-card.revision .sc-title{color:#fff8aa;}
+.section-card.revision-done .sc-title{color:#aaffcc;}
+.section-card.difficult .sc-title{color:#f0ccff;}
+.section-card.difficult-done .sc-title{color:#aaffcc;}
+.sc-desc{font-size:13px;color:rgba(255,255,255,0.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.section-card.unlocked .sc-desc{color:rgba(255,255,255,0.65);}
+.section-card.revision .sc-desc{color:rgba(255,248,170,0.65);}
+.section-card.difficult .sc-desc{color:rgba(240,204,255,0.65);}
+.sc-badge{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1px;padding:5px 11px;border-radius:4px;white-space:nowrap;border:1px solid;flex-shrink:0;font-weight:700;}
+.badge-locked{border-color:rgba(200,190,220,0.3);color:rgba(200,190,220,0.45);background:rgba(100,90,130,0.2);}
+.badge-todo{border-color:var(--cyan);color:#ffffff;background:rgba(0,180,255,0.35);}
+.badge-done{border-color:var(--green);color:#aaffcc;background:rgba(0,160,80,0.3);}
+.badge-required{border-color:var(--gold);color:#fff8aa;background:rgba(180,130,0,0.4);}
+.badge-required-purple{border-color:var(--purple);color:#f0ccff;background:rgba(130,40,200,0.4);}
+.ex-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.12);flex-wrap:wrap;gap:10px;}
+.ex-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--cyan);text-shadow:0 0 12px var(--cyan-glow);}
+.ex-head-btns{display:flex;gap:8px;align-items:center;}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:16px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);padding:11px 16px;flex-wrap:wrap;backdrop-filter:blur(10px);}
+.hud-track{flex:1;min-width:120px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:3px;height:10px;overflow:hidden;}
+.hud-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:3px;transition:width 0.4s ease;box-shadow:0 0 8px var(--cyan-glow);}
+.hud-text{font-family:'Orbitron',monospace;font-size:11px;color:#fff;font-weight:700;white-space:nowrap;}
+.hud-ok{font-family:'Orbitron',monospace;font-size:12px;color:var(--green);font-weight:700;}
+.hud-bad{font-family:'Orbitron',monospace;font-size:12px;color:var(--red);font-weight:700;}
+.rule-box{background:rgba(0,240,255,0.06);border:1px solid rgba(0,240,255,0.22);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:14px;color:var(--text-dim);line-height:1.7;}
+.rule-box strong{color:var(--cyan);font-weight:700;}
+.rule-box code{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:13px;color:#ffffff;letter-spacing:0.5px;}
+.rule-box del{color:var(--red);opacity:0.85;}
+.ex-card{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.22);border-radius:var(--radius);padding:24px 28px;margin-bottom:14px;position:relative;overflow:hidden;animation:cardIn 0.3s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(14px);box-shadow:0 8px 32px rgba(0,0,0,0.35);}
+.ex-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.ex-type-badge{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+.diff-badge{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:4px;}
+.diff-badge.base{color:var(--cyan);border:1px solid rgba(0,240,255,0.4);background:rgba(0,240,255,0.08);}
+.diff-badge.challenge{color:var(--purple);border:1px solid rgba(204,119,255,0.5);background:rgba(204,119,255,0.12);}
+.ex-question{font-size:17px;font-weight:600;color:#ffffff;line-height:1.7;margin-bottom:18px;}
+.fill-input{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.25);border-radius:var(--radius-sm);padding:9px 14px;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;color:#ffffff;outline:none;transition:all 0.2s;letter-spacing:0.5px;min-width:180px;max-width:100%;}
+.fill-input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,240,255,0.2),0 0 14px rgba(0,240,255,0.2);background:rgba(0,240,255,0.05);}
+.fill-input.correct{border-color:var(--green);background:rgba(0,255,136,0.1);color:var(--green);box-shadow:0 0 0 2px rgba(0,255,136,0.2),0 0 14px var(--green-glow);}
+.fill-input.wrong{border-color:var(--red);background:rgba(255,77,109,0.1);color:var(--red);}
+.mc-options{display:flex;flex-direction:column;gap:9px;margin-bottom:12px;}
+.mc-option{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-sm);padding:12px 18px;cursor:pointer;font-size:15px;font-weight:600;color:var(--text-dim);transition:all 0.18s;text-align:left;}
+.mc-option:hover{background:rgba(0,180,255,0.12);border-color:var(--cyan);color:#fff;}
+.mc-option.selected{background:rgba(0,180,255,0.2);border-color:var(--cyan);color:#fff;}
+.mc-option.correct{background:rgba(0,255,136,0.15);border-color:var(--green);color:var(--green);}
+.mc-option.wrong{background:rgba(255,77,109,0.12);border-color:var(--red);color:var(--red);}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:42px;}
+.word-chip{background:rgba(0,180,255,0.15);border:1px solid rgba(0,180,255,0.4);border-radius:6px;padding:6px 14px;font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;color:#ffffff;cursor:pointer;transition:all 0.18s;user-select:none;}
+.word-chip:hover{background:rgba(0,180,255,0.28);border-color:var(--cyan);transform:translateY(-1px);}
+.word-chip.used{opacity:0.3;cursor:not-allowed;background:rgba(100,100,100,0.15);border-color:rgba(255,255,255,0.1);}
+.answer-area{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:10px 14px;min-height:48px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;}
+.answer-area .word-chip{background:rgba(60,30,180,0.3);border-color:rgba(120,80,255,0.5);}
+.answer-area .word-chip:hover{background:rgba(80,40,200,0.4);border-color:var(--purple);}
+.answer-area.correct{border-color:var(--green);background:rgba(0,255,136,0.05);}
+.answer-area.wrong{border-color:var(--red);background:rgba(255,77,109,0.05);}
+.reorder-hint{font-size:13px;color:var(--text-muted);margin-bottom:10px;font-style:italic;}
+.word-box{background:rgba(0,240,255,0.07);border:1px solid rgba(0,240,255,0.3);border-radius:var(--radius-sm);padding:10px 16px;margin-bottom:14px;font-size:15px;font-weight:600;color:var(--cyan);letter-spacing:0.5px;}
+.word-box span{color:var(--text-muted);font-size:12px;letter-spacing:2px;font-family:'Orbitron',monospace;display:block;margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:10px;margin-bottom:4px;}
+.wb-item{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:#ffffff;flex-wrap:wrap;}
+.wb-item .fill-input{min-width:140px;}
+.ec-wrong{font-size:16px;color:var(--red);text-decoration:line-through;margin-bottom:10px;padding:8px 12px;background:rgba(255,77,109,0.08);border-radius:var(--radius-sm);border:1px solid rgba(255,77,109,0.2);}
+.ec-wrong .gloss{text-decoration:none;}
+.ec-label{font-size:13px;color:var(--text-muted);margin-bottom:8px;}
+.feedback-msg{margin-top:10px;font-size:14px;font-weight:600;min-height:20px;}
+.feedback-msg.ok{color:var(--green);}
+.feedback-msg.err{color:var(--red);}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.btn{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:2px;padding:11px 22px;border-radius:var(--radius-sm);border:1px solid;cursor:pointer;transition:all 0.2s;backdrop-filter:blur(8px);}
+.btn-primary{background:rgba(0,200,255,0.2);border-color:var(--cyan);color:#ffffff;}
+.btn-primary:hover{background:rgba(0,200,255,0.32);box-shadow:0 0 22px rgba(0,240,255,0.5);transform:translateY(-2px);}
+.btn-secondary{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.22);color:var(--text-dim);}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.5);color:#ffffff;}
+.btn-green{background:rgba(0,200,100,0.22);border-color:var(--green);color:#aaffcc;}
+.btn-green:hover{background:rgba(0,200,100,0.34);box-shadow:0 0 22px rgba(0,255,136,0.5);transform:translateY(-2px);}
+.btn-back{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;padding:7px 14px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);color:var(--text-dim);border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s;}
+.btn-back:hover{border-color:var(--cyan);color:var(--cyan);}
+.results-card{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius);padding:36px;text-align:center;backdrop-filter:blur(14px);box-shadow:0 8px 40px rgba(0,0,0,0.4);position:relative;overflow:hidden;}
+.results-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--green),var(--purple),transparent);}
+.res-pct{font-family:'Orbitron',monospace;font-weight:900;font-size:72px;line-height:1;margin-bottom:8px;}
+.res-pct.pass{color:var(--green);text-shadow:0 0 30px var(--green-glow);animation:winGlow 1.5s ease-in-out infinite;}
+@keyframes winGlow{0%,100%{text-shadow:0 0 20px var(--green-glow);}50%{text-shadow:0 0 50px var(--green-glow),0 0 80px rgba(0,255,136,0.4);}}
+.res-pct.fail{color:var(--red);}
+.res-label{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:4px;margin-bottom:6px;}
+.res-label.pass{color:var(--green);}.res-label.fail{color:var(--red);}
+.res-threshold{font-size:12px;color:var(--text-muted);letter-spacing:1px;margin-bottom:24px;}
+.res-breakdown{display:flex;justify-content:center;gap:36px;margin-bottom:24px;flex-wrap:wrap;}
+.rb-item{text-align:center;}
+.rb-num{font-family:'Orbitron',monospace;font-weight:900;font-size:34px;}
+.rb-num.g{color:var(--green);text-shadow:0 0 14px var(--green-glow);}.rb-num.r{color:var(--red);}
+.rb-label{font-size:9px;letter-spacing:2px;color:var(--text-muted);font-family:'Orbitron',monospace;}
+.retry-notice{background:rgba(255,140,66,0.12);border:1px solid rgba(255,140,66,0.3);border-radius:var(--radius-sm);padding:9px 14px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;color:var(--orange);margin-bottom:12px;}
+.completion-banner{background:rgba(255,255,255,0.09);border:2px solid rgba(255,204,0,0.55);border-radius:var(--radius);padding:40px;text-align:center;backdrop-filter:blur(14px);box-shadow:0 8px 40px rgba(255,204,0,0.2);position:relative;overflow:hidden;}
+.completion-banner::before{content:'';position:absolute;top:0;left:-200%;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:scanGold 2s linear infinite;}
+@keyframes scanGold{to{left:200%;}}
+.cb-emoji{font-size:60px;margin-bottom:14px;display:block;animation:trophy 1s ease-in-out infinite;}
+@keyframes trophy{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-8px) scale(1.05);}}
+.cb-title{font-family:'Orbitron',monospace;font-weight:900;font-size:22px;letter-spacing:4px;color:var(--gold);text-shadow:0 0 25px var(--gold-glow);margin-bottom:8px;}
+.cb-text{color:var(--text-muted);font-size:13px;letter-spacing:2px;}
+.ex-card.flash-correct{animation:fCorrect 0.5s ease forwards!important;}
+.ex-card.flash-wrong{animation:fWrong 0.4s ease forwards!important;}
+@keyframes fCorrect{0%{border-color:rgba(255,255,255,0.22)}40%{border-color:var(--green);box-shadow:0 0 40px var(--green-glow),inset 0 0 30px rgba(0,255,136,0.1)}100%{border-color:rgba(255,255,255,0.22)}}
+@keyframes fWrong{0%{border-color:rgba(255,255,255,0.22)}40%{border-color:var(--red);box-shadow:0 0 25px rgba(255,77,109,0.5)}100%{border-color:rgba(255,255,255,0.22)}}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,10,0.85);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;backdrop-filter:blur(8px);}
+.modal{background:rgba(10,18,40,0.97);border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius);padding:32px;max-width:380px;width:100%;text-align:center;position:relative;}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.modal h2{font-family:'Orbitron',monospace;font-size:14px;letter-spacing:2px;color:var(--red);margin-bottom:12px;}
+.modal p{color:var(--text-dim);font-size:14px;margin-bottom:24px;line-height:1.7;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+.save-panel{background:rgba(0,0,0,0.35);border:1px solid rgba(0,240,255,0.25);border-radius:var(--radius);padding:14px 20px;margin-bottom:20px;backdrop-filter:blur(10px);}
+.save-panel-header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.save-panel-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;color:var(--cyan);opacity:0.75;}
+.save-code-display{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;letter-spacing:3px;color:#ffffff;background:rgba(0,0,0,0.45);border:1px solid rgba(0,240,255,0.3);border-radius:var(--radius-sm);padding:9px 18px;text-align:center;word-break:break-all;text-shadow:0 0 10px rgba(0,240,255,0.4);margin-bottom:10px;}
+.save-panel-hint{font-size:12px;color:var(--text-muted);margin-bottom:10px;line-height:1.5;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);}
+.save-import-input{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius-sm);padding:8px 14px;font-family:'Orbitron',monospace;font-size:13px;letter-spacing:2px;color:#ffffff;outline:none;flex:1;min-width:180px;transition:border-color 0.2s;}
+.save-import-input:focus{border-color:var(--cyan);}
+.save-import-input::placeholder{color:rgba(255,255,255,0.2);font-size:11px;}
+.save-import-msg{font-size:12px;margin-top:6px;min-height:16px;}
+.save-import-msg.ok{color:var(--green);}
+.save-import-msg.err{color:var(--red);}
+.btn-save{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:7px 14px;border-radius:var(--radius-sm);border:1px solid rgba(0,240,255,0.45);background:rgba(0,180,255,0.15);color:var(--cyan);cursor:pointer;transition:all 0.2s;}
+.btn-save:hover{background:rgba(0,180,255,0.28);border-color:var(--cyan);box-shadow:0 0 14px rgba(0,240,255,0.35);}
+.btn-save-sm{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:7px 14px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);color:var(--text-dim);cursor:pointer;transition:all 0.2s;}
+.btn-save-sm:hover{border-color:rgba(255,255,255,0.45);color:#fff;}
+/* === TRADUZIONE LESSICO === */
+.gloss{position:relative;}
+body.tr-on .gloss{border-bottom:1px dotted var(--gold);cursor:help;color:#ffe9a8;}
+#glossTip{position:fixed;z-index:3000;display:none;background:rgba(20,16,6,0.97);border:1px solid var(--gold);color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;padding:7px 12px;border-radius:6px;max-width:240px;line-height:1.4;box-shadow:0 6px 24px rgba(0,0,0,0.6),0 0 14px rgba(255,204,0,0.3);}
+#glossTip b{color:var(--gold);font-weight:700;}
+@media (max-width:600px){.map-hero h1{font-size:26px;letter-spacing:3px;}.logo{font-size:14px;letter-spacing:2px;}}
+</style>
+</head>
+<body>
+<canvas id="starCanvas"></canvas>
+<canvas id="particleCanvas"></canvas>
+<div id="glossTip"></div>
+<header>
+  <div><div class="logo">Unit 1 · Past Narrative</div><span class="logo-sub">the structure · grammar quest</span></div>
+  <div class="head-btns">
+    <button class="btn-tr" id="trBtn" onclick="toggleTr()">&#x1F310; IT: OFF</button>
+    <button class="btn-reset" onclick="confirmReset()">&#x27F3; RESET</button>
+  </div>
+</header>
+<div id="screen-map" class="screen active">
+  <div class="map-hero"><h1>PAST NARRATIVE</h1><h2>the structure · grammar quest</h2><p>used to &middot; past continuous &middot; when/while/as &middot; sequence</p><div class="lvl-badge-b2">&#x1F680; B2 &middot; LEVEL 1</div></div>
+  <div class="xp-panel">
+    <div class="xp-label">XP</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0/0</div>
+  </div>
+  <div class="tr-promo">
+    <span>&#x1F310;</span>
+    <span>Trovi una parola difficile? Attiva <b>IT</b> in alto: le parole evidenziate come <span class="gloss-demo">this one</span> diventano cliccabili e mostrano la traduzione in italiano.</span>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">&#x1F4BE; SAVE CODE &mdash; riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">&mdash;</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo per riprendere da qui.</div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">&#x2398; COPIA CODICE</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="200" placeholder="incolla codice da altro dispositivo..." oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">&#x21B5; CARICA</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <div class="ex-head-btns">
+      <button class="btn-tr" id="trBtn2" onclick="toggleTr()">&#x1F310; IT: OFF</button>
+      <button class="btn-back" onclick="goMap()">&larr; MAP</button>
+    </div>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">&#x2713; 0</span>
+    <span class="hud-bad" id="hudBad">&#x2717; 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">&#x25B6; CONTROLLA</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">AVANTI &rarr;</button>
+  </div>
+</div>
+<div id="screen-results" class="screen"></div>
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>&#x26A0; RESET</h2>
+    <p>Tutti i progressi verranno cancellati.</p>
+    <div class="modal-actions">
+      <button class="btn" style="background:rgba(255,77,109,0.18);border-color:var(--red);color:var(--red)" onclick="doReset()">CONFERMA</button>
+      <button class="btn btn-secondary" onclick="closeModal()">ANNULLA</button>
+    </div>
+  </div>
+</div>
+<script>
+const sc=document.getElementById('starCanvas'),sctx=sc.getContext('2d');let stars=[];
+function resizeSC(){sc.width=innerWidth;sc.height=innerHeight;stars=[];for(let i=0;i<240;i++)stars.push({x:Math.random()*sc.width,y:Math.random()*sc.height,r:Math.random()*2+0.3,alpha:Math.random()*0.9+0.1,twinkle:Math.random()*Math.PI*2,ts:Math.random()*0.02+0.005,vy:Math.random()*0.08+0.01,color:['#ffffff','#ffffff','#aaddff','#ddaaff','#ffffcc'][Math.floor(Math.random()*5)]});}
+function animStars(){sctx.clearRect(0,0,sc.width,sc.height);stars.forEach(s=>{s.twinkle+=s.ts;const a=s.alpha*(0.4+0.6*Math.sin(s.twinkle));sctx.globalAlpha=a;if(s.r>1.3){sctx.save();sctx.translate(s.x,s.y);sctx.fillStyle=s.color;sctx.beginPath();for(let i=0;i<8;i++){const ang=(i*Math.PI)/4-Math.PI/2,r=i%2===0?s.r*1.6:s.r*0.35;i===0?sctx.moveTo(Math.cos(ang)*r,Math.sin(ang)*r):sctx.lineTo(Math.cos(ang)*r,Math.sin(ang)*r);}sctx.closePath();sctx.fill();sctx.restore();}else{sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);sctx.fillStyle=s.color;sctx.fill();}sctx.globalAlpha=1;s.y+=s.vy;if(s.y>sc.height+5){s.y=-5;s.x=Math.random()*sc.width;}});requestAnimationFrame(animStars);}
+window.addEventListener('resize',resizeSC);resizeSC();animStars();
+const pc=document.getElementById('particleCanvas'),pctx=pc.getContext('2d');let particles=[];
+function resizePC(){pc.width=innerWidth;pc.height=innerHeight;}window.addEventListener('resize',resizePC);resizePC();
+function spawnBurst(x,y,color,count=28){for(let i=0;i<count;i++){const a=Math.random()*Math.PI*2,sp=Math.random()*7+2;particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2.5,r:Math.random()*4+1,alpha:1,color,gravity:0.18,decay:Math.random()*0.022+0.014,star:false});}const sc2=['#ffffff','#ffffaa','#aaffff'];for(let i=0;i<12;i++){const a=Math.random()*Math.PI*2,sp=Math.random()*11+5;particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-4,r:Math.random()*3+1.5,alpha:1,color:sc2[Math.floor(Math.random()*sc2.length)],gravity:0.12,decay:Math.random()*0.028+0.018,star:true});}}
+function drawSpk(ctx,x,y,r){ctx.beginPath();for(let i=0;i<8;i++){const a=(i*Math.PI)/4-Math.PI/2,rad=i%2===0?r:r*0.35;i===0?ctx.moveTo(x+Math.cos(a)*rad,y+Math.sin(a)*rad):ctx.lineTo(x+Math.cos(a)*rad,y+Math.sin(a)*rad);}ctx.closePath();ctx.fill();}
+function animParticles(){pctx.clearRect(0,0,pc.width,pc.height);particles=particles.filter(p=>p.alpha>0);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.gravity;p.alpha-=p.decay;pctx.globalAlpha=Math.max(0,p.alpha);pctx.fillStyle=p.color;if(p.star)drawSpk(pctx,p.x,p.y,p.r);else{pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);pctx.fill();}});pctx.globalAlpha=1;requestAnimationFrame(animParticles);}
+animParticles();
+function burstAt(el,color){if(!el)return;const r=el.getBoundingClientRect();spawnBurst(r.left+r.width/2,r.top+r.height/2,color);}
+
+/* ============ TRADUZIONE LESSICO ============ */
+const TR='gq_st_u1_tr';
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function applyGloss(text,gloss){
+  if(!gloss||!text)return text;
+  const lower={};Object.keys(gloss).forEach(k=>lower[k.toLowerCase()]=gloss[k]);
+  const keys=Object.keys(gloss).sort((a,b)=>b.length-a.length).map(escRe);
+  if(!keys.length)return text;
+  const re=new RegExp('\\b('+keys.join('|')+')\\b','gi');
+  return text.replace(re,(m)=>{const it=lower[m.toLowerCase()];if(!it)return m;return `<span class="gloss" data-it="${it.replace(/"/g,'&quot;')}" onclick="showGloss(event,this)">${m}</span>`;});
+}
+function showGloss(e,el){
+  e.stopPropagation();
+  if(!document.body.classList.contains('tr-on'))return;
+  const tip=document.getElementById('glossTip');
+  tip.innerHTML='<b>'+el.textContent+'</b> &rarr; '+el.getAttribute('data-it');
+  tip.style.display='block';
+  const r=el.getBoundingClientRect();const tw=tip.offsetWidth,th=tip.offsetHeight;
+  let left=r.left+r.width/2-tw/2;left=Math.min(Math.max(8,left),innerWidth-tw-8);
+  let top=r.top-th-8;if(top<8)top=r.bottom+8;
+  tip.style.left=left+'px';tip.style.top=top+'px';
+}
+document.addEventListener('click',()=>{const t=document.getElementById('glossTip');if(t)t.style.display='none';});
+window.addEventListener('scroll',()=>{const t=document.getElementById('glossTip');if(t)t.style.display='none';},true);
+function toggleTr(){const on=document.body.classList.toggle('tr-on');try{localStorage.setItem(TR,on?'1':'0');}catch(e){}updateTrBtn();}
+function updateTrBtn(){const on=document.body.classList.contains('tr-on');['trBtn','trBtn2'].forEach(id=>{const b=document.getElementById(id);if(!b)return;b.innerHTML=on?'\u{1F310} IT: ON':'\u{1F310} IT: OFF';b.classList.toggle('on',on);});}
+try{if(localStorage.getItem(TR)==='1')document.body.classList.add('tr-on');}catch(e){}
+updateTrBtn();
+
+/* ============ CONTENUTI B2 — UNIT 1 PAST NARRATIVE ============ */
+const LEVELS=[
+{id:1,type:"study",title:"LEVEL 01 — USED TO / WOULD / BE USED TO",desc:"abitudini e stati passati · familiarità",
+rule:`<strong>PAST HABITS &amp; STATES &mdash; used to / would / be used to:</strong><br>
+&#x2714; <code>used to + infinito</code> &rarr; abitudini e <em>stati</em> passati che ora non valgono più: <em>I <strong>used to</strong> live in Rome.</em><br>
+&#x2714; <code>would + infinito</code> &rarr; azioni <em>ripetute</em> nel passato (storytelling). NON con i verbi di stato: <em>Every winter we <strong>would</strong> go skiing.</em> &nbsp;ma&nbsp; <del>I would have a dog.</del><br>
+&#x2714; <code>be / get used to + -ing</code> &rarr; <em>essere / abituarsi</em> a qualcosa (&ne; used to): <em>She's <strong>used to</strong> work<strong>ing</strong> nights.</em><br>
+&#x26A0; <em>used to do</em> (abitudine passata) &ne; <em>be used to doing</em> (familiarità con qualcosa).`,
+exercises:[
+{type:"fill",lvl:"base",q:"When she was at university, she ___ (use to) study in the library every night.",hint:"(use to)",a:"used to"},
+{type:"mc",lvl:"base",q:"My grandparents ___ a small farm in the countryside.",options:["used to own","would own","were used to own","would owning"],a:"used to own",gloss:{"countryside":"campagna","own":"possedere"}},
+{type:"fill",lvl:"base",q:"I've worked here for years, so I'm ___ dealing with difficult clients.",hint:"(used to / get used to)",a:"used to",gloss:{"dealing with":"avere a che fare con"}},
+{type:"errorcorrect",lvl:"base",instruction:"Trova e correggi l'errore:",wrong:"I'm used to get up at six every morning.",a:"I'm used to getting up at six every morning.",accept:["I'm used to getting up at six every morning."]},
+{type:"mc",lvl:"base",q:"On Sundays, my father ___ take us to the lake, and we'd swim for hours.",options:["would","used","was used to","would have"],a:"would"},
+{type:"fill",lvl:"base",q:"It took me months to ___ used to the noise of the city.",hint:"(get / be)",a:"get"},
+{type:"reorder",lvl:"base",instruction:"Metti le parole nell'ordine giusto:",words:["She","used","to","spend","every","summer","at","her","grandmother's"],answer:"She used to spend every summer at her grandmother's"},
+{type:"errorcorrect",lvl:"challenge",instruction:"Trova e correggi l'errore (would + stato!):",wrong:"When I was young, I would be afraid of the dark.",a:"When I was young, I used to be afraid of the dark.",accept:["When I was young, I used to be afraid of the dark."]},
+{type:"errorcorrect",lvl:"challenge",instruction:"Trova e correggi l'errore:",wrong:"I didn't used to like coffee, but now I love it.",a:"I didn't use to like coffee, but now I love it.",accept:["I didn't use to like coffee, but now I love it."]},
+{type:"fill",lvl:"challenge",q:"Don't worry about the early shifts — you'll soon ___ used to waking up at dawn.",hint:"(get / be)",a:"get",gloss:{"shifts":"turni","dawn":"alba"}},
+{type:"wordbox",lvl:"challenge",instruction:"Completa con used to / would / 'm used to. Attenzione: would NON va con gli stati!",verbs:["used to","would","'m used to"],sentences:[
+{pre:"When I was a child, I",post:"believe in ghosts.",a:"used to",accept:["used to"]},
+{pre:"Every evening, my dad",post:"read us a bedtime story.",a:"would",accept:["would"]},
+{pre:"After all these years abroad, I",post:"speaking English all day.",a:"'m used to",accept:["'m used to","am used to"]},
+{pre:"We",post:"have a holiday house by the sea.",a:"used to",accept:["used to"]},
+],gloss:{"ghosts":"fantasmi","bedtime":"della buonanotte","abroad":"all'estero"}},
+]},
+{id:"r1",type:"revision",title:"⟳ RIPASSO — LIVELLO 1",desc:"used to · would · be used to",revises:[1]},
+{id:"d1",type:"difficult",title:"★ BOSS FIGHT — DIFFICILI 1",desc:"esercizi sbagliati ≥2 volte · eliminali!",revises:[1]},
+
+{id:2,type:"study",title:"LEVEL 02 — PAST CONTINUOUS",desc:"was/were + -ing · sfondo · azioni parallele",
+rule:`<strong>PAST CONTINUOUS &mdash; was/were + -ing:</strong><br>
+&#x2714; Azione <em>in corso</em> in un momento del passato: <em>At 8 p.m. I <strong>was having</strong> dinner.</em><br>
+&#x2714; <em>Sfondo</em> e descrizioni in una narrazione: <em>The sun <strong>was shining</strong> and birds <strong>were singing</strong>.</em><br>
+&#x2714; Due azioni <em>parallele</em> (spesso con <code>while</code>): <em>She <strong>was reading</strong> while he <strong>was cooking</strong>.</em><br>
+&#x26A0; I verbi di stato (know, like, believe, own, understand…) di norma NON usano la forma in -ing.`,
+exercises:[
+{type:"fill",lvl:"base",q:"This time yesterday, we ___ (fly) over the Atlantic.",hint:"(fly)",a:"were flying"},
+{type:"mc",lvl:"base",q:"I ___ that you were upset — you seemed perfectly fine.",options:["wasn't knowing","didn't know","wasn't know","not knew"],a:"didn't know",gloss:{"upset":"turbato/dispiaciuto"}},
+{type:"fill",lvl:"base",q:"When I looked out of the window, it ___ (drizzle) and the streets were empty.",hint:"(drizzle)",a:"was drizzling",gloss:{"drizzle":"piovigginare"}},
+{type:"errorcorrect",lvl:"base",instruction:"Trova e correggi l'errore (verbo di stato!):",wrong:"I was knowing the answer but I couldn't remember the word.",a:"I knew the answer but I couldn't remember the word.",accept:["I knew the answer but I couldn't remember the word."]},
+{type:"fill",lvl:"base",q:"While she was revising for her exams, her brother ___ (play) video games.",hint:"(play)",a:"was playing",gloss:{"revising":"ripassando"}},
+{type:"mc",lvl:"base",q:"What ___ you ___ when the lights suddenly went out?",options:["did / do","were / doing","was / doing","are / doing"],a:"were / doing"},
+{type:"reorder",lvl:"base",instruction:"Metti le parole nell'ordine giusto:",words:["The","children","were","playing","in","the","garden","all","afternoon"],answer:"The children were playing in the garden all afternoon"},
+{type:"fill",lvl:"challenge",q:"He never turned up. Apparently he ___ (come) but his car broke down on the motorway.",hint:"(be going to + come)",a:"was going to come",accept:["was going to come"],gloss:{"turned up":"si è presentato","broke down":"si è guastata","motorway":"autostrada"}},
+{type:"errorcorrect",lvl:"challenge",instruction:"Trova e correggi l'errore (verbo di percezione!):",wrong:"I was seeing a strange light in the sky while I was driving home.",a:"I saw a strange light in the sky while I was driving home.",accept:["I saw a strange light in the sky while I was driving home."]},
+{type:"wordbox",lvl:"challenge",instruction:"Usa il past continuous dei verbi nel riquadro.",verbs:["wait","mutter","glance","shiver"],sentences:[
+{pre:"She",post:"nervously for the results outside the office.",a:"was waiting",accept:["was waiting"]},
+{pre:"He",post:"something under his breath as he left the room.",a:"was muttering",accept:["was muttering"],gloss:{"under his breath":"sottovoce"}},
+{pre:"I",post:"at my watch every few seconds.",a:"was glancing",accept:["was glancing"]},
+{pre:"They",post:"with cold at the bus stop.",a:"were shivering",accept:["were shivering"]},
+],gloss:{"mutter":"borbottare","glance":"lanciare un'occhiata","shiver":"tremare (di freddo)","wait":"aspettare"}},
+]},
+{id:"r2",type:"revision",title:"⟳ RIPASSO — LIVELLO 2",desc:"past continuous · forme e usi",revises:[2]},
+{id:"d2",type:"difficult",title:"★ BOSS FIGHT — DIFFICILI 2",desc:"esercizi sbagliati ≥2 volte · eliminali!",revises:[2]},
+
+{id:3,type:"study",title:"LEVEL 03 — PAST CONTINUOUS vs PAST SIMPLE",desc:"interruzioni · sfondo · sequenza di eventi",
+rule:`<strong>PAST CONTINUOUS vs PAST SIMPLE &mdash; interruzioni e sfondo:</strong><br>
+&#x2714; <code>Past continuous</code> = azione lunga/sfondo &nbsp;|&nbsp; <code>Past simple</code> = azione breve che la <em>interrompe</em>:<br>
+&nbsp;&nbsp;&nbsp;<em>I <strong>was walking</strong> home when it <strong>started</strong> to rain.</em><br>
+&#x2714; <code>while / as</code> + past continuous &nbsp;&middot;&nbsp; <code>when</code> + past simple (azione puntuale).<br>
+&#x2714; Eventi principali <em>in sequenza</em> &rarr; past simple: <em>He <strong>woke up</strong>, <strong>got</strong> dressed and <strong>left</strong>.</em>`,
+exercises:[
+{type:"fill",lvl:"base",q:"I ___ (have) a shower when the doorbell rang.",hint:"(have)",a:"was having"},
+{type:"mc",lvl:"base",q:"While we ___ dinner, the power suddenly went out.",options:["had","were having","have","were have"],a:"were having",gloss:{"power":"corrente elettrica"}},
+{type:"fill",lvl:"base",q:"She ___ (break) her leg while she was skiing in the Alps.",hint:"(break)",a:"broke"},
+{type:"errorcorrect",lvl:"base",instruction:"Trova e correggi l'errore:",wrong:"When he was arriving at the party, everyone was clapping.",a:"When he arrived at the party, everyone was clapping.",accept:["When he arrived at the party, everyone was clapping."],gloss:{"clapping":"applaudire"}},
+{type:"fill",lvl:"base",q:"As I was driving to work, I ___ (witness) a serious accident.",hint:"(witness)",a:"witnessed",gloss:{"witness":"assistere a / essere testimone di"}},
+{type:"mc",lvl:"base",q:"He ___ the letter, ___ it carefully and ___ it in a drawer.",options:["wrote / read / put","was writing / reading / putting","wrote / was reading / put","writes / read / put"],a:"wrote / read / put",gloss:{"drawer":"cassetto"}},
+{type:"reorder",lvl:"base",instruction:"Metti le parole nell'ordine giusto:",words:["While","she","was","sleeping","someone","stole","her","bag"],answer:"While she was sleeping someone stole her bag"},
+{type:"fill",lvl:"challenge",q:"By the time the firefighters arrived, the whole building ___ (burn).",hint:"(burn)",a:"was burning",accept:["was burning"],gloss:{"firefighters":"vigili del fuoco","burn":"bruciare"}},
+{type:"errorcorrect",lvl:"challenge",instruction:"Trova e correggi i due errori:",wrong:"I was meeting an old friend yesterday while I shopped in town.",a:"I met an old friend yesterday while I was shopping in town.",accept:["I met an old friend yesterday while I was shopping in town."]},
+{type:"wordbox",lvl:"challenge",instruction:"Scegli tu past simple o past continuous (verbi nel riquadro).",verbs:["ring","wait","read","arrive"],sentences:[
+{pre:"The phone",post:"while I was having a shower.",a:"rang",accept:["rang"]},
+{pre:"While I",post:"for the bus, it started to snow heavily.",a:"was waiting",accept:["was waiting"]},
+{pre:"She",post:"the news the moment she got home.",a:"read",accept:["read"]},
+{pre:"They",post:"just as the film was starting.",a:"arrived",accept:["arrived"]},
+]},
+]},
+{id:"r3",type:"revision",title:"⟳ RIPASSO — LIVELLO 3",desc:"past continuous vs past simple",revises:[3]},
+{id:"d3",type:"difficult",title:"★ BOSS FIGHT — DIFFICILI 3",desc:"esercizi sbagliati ≥2 volte · eliminali!",revises:[3]},
+
+{id:4,type:"study",title:"LEVEL 04 — WHEN / WHILE / AS",desc:"connettori temporali · azioni parallele · cambiamento",
+rule:`<strong>WHEN / WHILE / AS &mdash; connettori temporali:</strong><br>
+&#x2714; <code>when</code> + past simple &rarr; momento/azione puntuale: <em>When the alarm <strong>rang</strong>…</em><br>
+&#x2714; <code>while</code> + past continuous &rarr; azione lunga/sfondo: <em>While I <strong>was sleeping</strong>…</em><br>
+&#x2714; <code>as</code> &rarr; "mentre" (azioni parallele) o "man mano che" (cambiamento graduale): <em>As I <strong>grew</strong> older, I understood more.</em><br>
+&#x26A0; NON usare <code>during</code> + frase: <del>During I was studying…</del> &rarr; <code>While</code> I was studying…`,
+exercises:[
+{type:"fill",lvl:"base",q:"___ I was tidying my room, I found an old photo of us.",hint:"(While / As)",a:"While",accept:["While","As"],gloss:{"tidying":"riordinando"}},
+{type:"mc",lvl:"base",q:"The crowd cheered ___ the runners crossed the finish line.",options:["while","as","during","by the time"],a:"as",gloss:{"crowd":"folla","cheered":"esultava/acclamava"}},
+{type:"fill",lvl:"base",q:"___ the kettle was boiling, she quietly laid the table.",hint:"(While / As)",a:"While",accept:["While","As"],gloss:{"kettle":"bollitore","laid the table":"apparecchiare"}},
+{type:"errorcorrect",lvl:"base",instruction:"Trova e correggi l'errore (azione puntuale!):",wrong:"When I was driving, suddenly a deer was running across the road.",a:"When I was driving, suddenly a deer ran across the road.",accept:["When I was driving, suddenly a deer ran across the road."],gloss:{"deer":"cervo"}},
+{type:"fill",lvl:"base",q:"___ the years passed, the small town changed completely.",hint:"(As = man mano che)",a:"As"},
+{type:"mc",lvl:"base",q:"How did you feel ___ you were waiting for your exam results?",options:["while","during","by the time","no sooner"],a:"while"},
+{type:"reorder",lvl:"base",instruction:"Metti le parole nell'ordine giusto:",words:["As","the","sun","was","setting","they","reached","the","top","of","the","hill"],answer:"As the sun was setting they reached the top of the hill",gloss:{"setting":"tramontare"}},
+{type:"fill",lvl:"challenge",q:"He slipped ___ he was getting off the crowded train.",hint:"(as / while / when)",a:"as",accept:["as","while","when"],gloss:{"slipped":"è scivolato","crowded":"affollato"}},
+{type:"errorcorrect",lvl:"challenge",instruction:"Trova e correggi l'errore:",wrong:"During I was studying, my sister was watching TV loudly.",a:"While I was studying, my sister was watching TV loudly.",accept:["While I was studying, my sister was watching TV loudly.","As I was studying, my sister was watching TV loudly."],gloss:{"loudly":"ad alto volume"}},
+{type:"wordbox",lvl:"challenge",instruction:"Completa con when / while / as.",verbs:["when","while","as"],sentences:[
+{pre:"",post:"I opened the door, the cat suddenly ran out.",a:"When",accept:["When","As"]},
+{pre:"",post:"we were driving through the mountains, it began to snow.",a:"While",accept:["While","As"]},
+{pre:"",post:"she got older, she became far more confident.",a:"As",accept:["As"],gloss:{"confident":"sicura di sé"}},
+{pre:"He phoned",post:"I was in the middle of dinner.",a:"while",accept:["while","as"]},
+]},
+]},
+{id:"r4",type:"revision",title:"⟳ RIPASSO — LIVELLO 4",desc:"when · while · as",revises:[4]},
+{id:"d4",type:"difficult",title:"★ BOSS FIGHT — DIFFICILI 4",desc:"esercizi sbagliati ≥2 volte · eliminali!",revises:[4]},
+
+{id:5,type:"study",title:"LEVEL 05 — ADVERBS & CONNECTORS OF SEQUENCE",desc:"at first · then · meanwhile · eventually · inversione",
+rule:`<strong>SEQUENCE &mdash; raccontare gli eventi in ordine:</strong><br>
+&#x2714; <code>at first</code> (all'inizio) &middot; <code>then / after that / next</code> &middot; <code>soon</code> &middot; <code>meanwhile</code> (nel frattempo) &middot; <code>eventually / in the end</code> (alla fine) &middot; <code>by the time</code> (quando ormai).<br>
+&#x2714; <code>as soon as</code> = non appena.<br>
+&#x26A0; <strong>CHALLENGE &mdash; inversione (B2+):</strong> <code>No sooner had + sogg. + part. + than…</code> &nbsp;/&nbsp; <code>Hardly had + sogg. + part. + when…</code> = "appena… che…".`,
+exercises:[
+{type:"fill",lvl:"base",q:"___ first, I didn't like the new job, but now I love it.",hint:"(At / By)",a:"At"},
+{type:"mc",lvl:"base",q:"We chatted for a while. ___, the other guests started to arrive.",options:["Meanwhile","By the time","At first","No sooner"],a:"Meanwhile"},
+{type:"fill",lvl:"base",q:"___ the time we got to the station, the train had already left.",hint:"(By)",a:"By"},
+{type:"mc",lvl:"base",q:"She studied really hard and ___ passed all her exams.",options:["eventually","meanwhile","at first","by the time"],a:"eventually"},
+{type:"fill",lvl:"base",q:"He turned off the lights and, ___ that, he locked the front door.",hint:"(after)",a:"after"},
+{type:"errorcorrect",lvl:"base",instruction:"Trova e correggi l'errore:",wrong:"Eventually, after we searched for hours, we were finding the keys.",a:"Eventually, after we searched for hours, we found the keys.",accept:["Eventually, after we searched for hours, we found the keys."]},
+{type:"reorder",lvl:"base",instruction:"Metti le parole nell'ordine giusto:",words:["At","first","they","were","strangers","but","eventually","they","became","friends"],answer:"At first they were strangers but eventually they became friends",gloss:{"strangers":"sconosciuti"}},
+{type:"errorcorrect",lvl:"challenge",instruction:"Correggi l'inversione:",wrong:"No sooner I had sat down than the phone rang.",a:"No sooner had I sat down than the phone rang.",accept:["No sooner had I sat down than the phone rang."]},
+{type:"fill",lvl:"challenge",q:"Hardly ___ we left the house when it started to pour with rain.",hint:"(ausiliare per l'inversione)",a:"had",gloss:{"pour":"piovere a dirotto"}},
+{type:"mc",lvl:"challenge",q:"___ had she finished speaking than the audience burst into applause.",options:["No sooner","Hardly","By the time","Meanwhile"],a:"No sooner",gloss:{"burst into applause":"scoppiare in un applauso","audience":"pubblico"}},
+{type:"wordbox",lvl:"challenge",instruction:"Completa con i connettori del riquadro.",verbs:["At first","Meanwhile","Eventually","By the time"],sentences:[
+{pre:"",post:", the whole plan seemed completely impossible.",a:"At first",accept:["At first"]},
+{pre:"",post:"we realised our mistake, it was far too late.",a:"By the time",accept:["By the time"]},
+{pre:"She was cooking dinner.",post:", her husband set the table.",a:"Meanwhile",accept:["Meanwhile"]},
+{pre:"After many failed attempts, they",post:"succeeded.",a:"Eventually",accept:["Eventually"],gloss:{"attempts":"tentativi","succeeded":"ci sono riusciti"}},
+]},
+]},
+{id:"r5",type:"revision",title:"⟳ RIPASSO — LIVELLO 5",desc:"connettori di sequenza · inversione",revises:[5]},
+{id:"d5",type:"difficult",title:"★ BOSS FIGHT — DIFFICILI 5",desc:"esercizi sbagliati ≥2 volte · eliminali!",revises:[5]},
+{id:"rfinal",type:"revision",title:"⟳ FINAL BOSS — TUTTA LA UNIT 1",desc:"boss finale · tutti i livelli · diventa MASTER!",revises:[1,2,3,4,5]},
+];
+
+const SK='gq_st_u1_s',EK='gq_st_u1_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'STU1.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z0-9]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){const code=encodeState();const el=document.getElementById('saveCodeDisplay');if(el)el.textContent=code||'—';}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);});
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){LEVELS.forEach((s,i)=>{if(state[s.id]==='completed'&&i+1<LEVELS.length){if(state[LEVELS[i+1].id]==='locked')state[LEVELS[i+1].id]='unlocked';}});autoComplete();}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined)state[s.id]='locked';});
+  if(state[LEVELS[0].id]==='locked')state[LEVELS[0].id]='unlocked';
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined)state[s.id]='locked';});if(state[LEVELS[0].id]==='locked')state[LEVELS[0].id]='unlocked';saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){const idx=LEVELS.findIndex(s=>s.id===cid);if(idx<0)return;if(idx+1<LEVELS.length){const n=LEVELS[idx+1];if(state[n.id]==='locked')state[n.id]='unlocked';}autoComplete();saveState();}
+function autoComplete(){let changed=true;while(changed){changed=false;LEVELS.forEach((s,i)=>{if(s.type==='difficult'&&state[s.id]==='unlocked'&&getErrors(s.revises).length===0){state[s.id]='completed';if(i+1<LEVELS.length&&state[LEVELS[i+1].id]==='locked'){state[LEVELS[i+1].id]='unlocked';changed=true;}}});}}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">PAST NARRATIVE MASTER!</div><div class="cb-text">hai completato tutta la Unit 1 &middot; B2 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(typeof s.id==='number')icon=String(s.id).padStart(2,'0');
+    else if(s.type==='revision')icon='&#x21BA;';else icon='&#x2605;';
+    if(st==='completed'){cls+=s.type==='difficult'?'difficult-done':s.type==='revision'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; DONE</span>`;}
+    else if(st==='unlocked'){if(s.type==='revision'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x26A0; OBB.</span>`;}else if(s.type==='difficult'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; ${getErrors(s.revises).length}</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; PLAY</span>`;}}
+    else{cls+='locked';badge=`<span class="sc-badge badge-locked">&#x1F512;</span>`;}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    if(st==='unlocked')card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[];
+function openLevel(s){
+  currentLevel=s;let exs;
+  if(s.type==='study'){exs=s.exercises.map((e,i)=>({...e,_key:`${s.id}_${i}`}));}
+  else if(s.type==='revision'){exs=[];s.revises.forEach(id=>{const sec=LEVELS.find(x=>x.id===id);if(sec&&sec.exercises)exs=exs.concat(sec.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});exs=shuffle(exs).slice(0,Math.min(exs.length,18));}
+  else{exs=getErrors(s.revises);if(!exs.length){state[s.id]='completed';unlockNext(s.id);saveState();goMap();return;}}
+  // STUDY: ordine d'autore (progressione base → challenge). REVISION/BOSS: mescolati.
+  exQueue=(s.type==='study')?exs:shuffle(exs);
+  retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function diffBadge(ex){const c=ex.lvl==='challenge'?'challenge':'base';const t=ex.lvl==='challenge'?'\u2605 CHALLENGE':'BASE';return `<span class="diff-badge ${c}">${t}</span>`;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const g=ex.gloss;
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(currentLevel.type==='study'&&currentLevel.rule&&exIdx===0&&!isRetry)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  const tBadge=`<div class="ex-type-badge">// ${ {fill:'FILL IN THE BLANK',mc:'MULTIPLE CHOICE',reorder:'WORD ORDER',wordbox:'WORD BOX',errorcorrect:'ERROR CORRECTION'}[ex.type]||'' } ${diffBadge(ex)}</div>`;
+  if(ex.type==='fill'){
+    const ph=(ex.hint||'...').replace(/"/g,'&quot;');
+    const q=applyGloss(ex.q,g).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="${ph}" onkeydown="if(event.key==='Enter'){if(!exChecked)checkExercise();else nextExercise();}">`);
+    cardHtml=`<div class="ex-card" id="exCard">${tBadge}<div class="ex-question">${q}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=ex.options.map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard">${tBadge}<div class="ex-question">${applyGloss(ex.q,g)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard">${tBadge}<div class="ex-question">${applyGloss(ex.instruction,g)}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${applyGloss(s.pre,s.gloss||g)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..." onkeydown="if(event.key==='Enter'&&!exChecked)checkExercise();"> ${applyGloss(s.post,s.gloss||g)}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard">${tBadge}<div class="ex-question">${applyGloss(ex.instruction,g)}</div><div class="word-box"><span>// PAROLE</span>${ex.verbs.map(v=>v).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard">${tBadge}<div class="ex-question">${applyGloss(ex.instruction,g)}</div><div class="ec-wrong">&#x274C; ${applyGloss(ex.wrong,g)}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%" onkeydown="if(event.key==='Enter'){if(!exChecked)checkExercise();else nextExercise();}"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){if(exChecked)return;document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selectedMC=val;}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+function norm(s){return s.trim().toLowerCase().replace(/[.,!?;:]+$/,'').replace(/[—–]/g,'-').replace(/\s+/g,' ').trim();}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{const isCorrect=norm(b.textContent)===norm(ex.a);if(isCorrect)b.classList.add('correct');else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');b.style.pointerEvents='none';});
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{const inp=document.getElementById(`wb${i}`);if(!inp)return;const accepted=(s.accept||[s.a]).map(norm);const ok=accepted.includes(norm(inp.value));inp.classList.add(ok?'correct':'wrong');inp.disabled=true;if(!ok)allCorrect=false;});
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');correct=norm(given)===norm(ex.answer);
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+loadState();renderMap();
+</script>
+</body>
+</html>
