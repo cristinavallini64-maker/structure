@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Lab B2 · Livello 1 — The Structure</title>
+<meta name="description" content="The Structure · Speaking Lab B2 Livello 1: pratica orale conversazionale su Unit 1–5, in stile Cambridge First, con valutazione finale.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 16px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.tb-brand{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.5);}
+.tb-btns{display:flex;gap:8px;}
+.tb-btn{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:7px 11px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.62);transition:.2s;white-space:nowrap;}
+.tb-btn:hover{border-color:var(--gold);color:#e7c14a;}
+.tb-btn.on{border-color:var(--gold);color:#e7c14a;background:rgba(184,134,11,.18);}
+
+.stage{display:flex;justify-content:center;padding:26px 18px 64px;}
+.sheet{position:relative;width:100%;max-width:760px;background:var(--paper);border-radius:18px;overflow:hidden;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;}
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- HOME / SELECT ---------- */
+.band{position:absolute;top:-90px;right:-130px;width:430px;height:430px;transform:rotate(32deg);pointer-events:none;
+  background:linear-gradient(135deg,var(--indigo),var(--teal) 55%,var(--plum));opacity:.92;}
+.band::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 18px,rgba(255,255,255,.06) 18px 19px);}
+.stamp{position:absolute;top:24px;left:28px;z-index:3;border:2.5px solid var(--ink);border-radius:6px;padding:6px 12px;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;transform:rotate(-4deg);}
+.stamp b{color:var(--indigo2);}
+.head{position:relative;z-index:2;padding:92px 34px 0;}
+.ey{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--indigo2);}
+.head h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(40px,11vw,70px);line-height:.92;letter-spacing:-1.5px;margin:6px 0 0;}
+.head h1 .thin{display:block;font-family:'Inter',sans-serif;font-weight:500;font-size:.26em;letter-spacing:0;color:var(--sub);margin-top:12px;line-height:1.5;}
+.head h1 .thin b{color:var(--indigo2);font-weight:700;}
+
+.levs{position:relative;z-index:2;margin-top:26px;}
+.lev{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;cursor:pointer;}
+.levs .lev:last-of-type{border-bottom:1.5px solid var(--ink);}
+.lev:hover{background:rgba(27,29,23,0.035);}
+.l-no{font-family:'Sora',sans-serif;font-weight:800;font-size:32px;line-height:1;width:92px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.lev.c-indigo .l-no{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.lev.c-teal .l-no{background:linear-gradient(150deg,var(--teal),var(--teal2));}
+.lev.c-plum .l-no{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.lev.c-coral .l-no{background:linear-gradient(150deg,var(--coral),var(--coral2));}
+.l-mid{flex:1;padding:15px 18px;min-width:0;}
+.l-tag{font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-bottom:4px;}
+.l-name{font-family:'Sora',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.2px;margin-bottom:4px;}
+.l-desc{font-size:12.5px;color:var(--sub);line-height:1.4;}
+.l-end{flex-shrink:0;display:flex;align-items:center;padding:0 18px;}
+.l-badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.4px;padding:5px 12px;border-radius:20px;border:1.5px solid var(--indigo);color:var(--indigo2);white-space:nowrap;}
+
+.foot{position:relative;z-index:2;margin:26px 34px 36px;border:1.5px dashed var(--ink);border-radius:12px;padding:15px 18px;}
+.foot-lab{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:7px;}
+.foot-hint{font-size:12.5px;color:var(--sub);line-height:1.5;}
+.foot-hint b{color:var(--ink);}
+
+/* ---------- SESSION ---------- */
+#screen-session{padding:26px 30px 36px;}
+.ex-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:16px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:10px 15px;flex-wrap:wrap;}
+.hud-lab{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:100%;background:linear-gradient(90deg,var(--indigo),var(--teal));border-radius:4px;transition:width 1s linear;}
+.timer{font-family:'Sora',sans-serif;font-weight:800;font-size:16px;letter-spacing:1px;color:var(--indigo2);min-width:54px;text-align:right;}
+.timer.low{color:var(--coral2);}
+
+.scene-frame{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 6px 18px rgba(27,29,23,.08);margin-bottom:12px;background:var(--paper2);}
+.scene-frame svg{display:block;width:100%;height:auto;}
+.scene-q{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--indigo2);line-height:1.5;
+  background:rgba(63,91,214,0.06);border:1px solid rgba(63,91,214,0.22);border-left:3px solid var(--indigo);border-radius:0 var(--rs) var(--rs) 0;padding:12px 15px;margin-bottom:18px;}
+
+.chat{display:flex;flex-direction:column;gap:11px;margin-bottom:18px;}
+.bubble{max-width:84%;padding:12px 16px;font-size:15.5px;line-height:1.55;white-space:pre-wrap;border-radius:var(--r);}
+.bubble.tutor{align-self:flex-start;background:var(--paper2);border:1px solid var(--line);position:relative;padding-left:20px;border-bottom-left-radius:4px;box-shadow:0 4px 12px rgba(27,29,23,.05);}
+.bubble.tutor::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:var(--r) 0 0 var(--r);background:linear-gradient(180deg,var(--indigo),var(--teal));}
+.bubble.you{align-self:flex-end;background:var(--indigo);color:#fff;font-weight:500;border-bottom-right-radius:4px;}
+.bubble.interim{align-self:flex-end;background:rgba(63,91,214,.1);color:var(--indigo2);font-style:italic;border:1px dashed var(--indigo);}
+.typing{align-self:flex-start;color:var(--mut);font-style:italic;font-size:13px;padding:4px 8px;}
+
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  position:sticky;bottom:0;background:linear-gradient(to top,var(--paper) 72%,transparent);padding:14px 0 4px;}
+.mic-hint{font-size:12.5px;color:var(--mut);width:100%;text-align:center;margin-top:-2px;}
+.mic{width:76px;height:76px;border-radius:50%;border:none;cursor:pointer;background:var(--indigo);color:#fff;font-size:1.7rem;
+  display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .2s,background .2s;box-shadow:0 8px 22px rgba(63,91,214,.35);}
+.mic:hover{transform:scale(1.06);}
+.mic:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.mic.listening{background:var(--coral);animation:pulse 1.1s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,102,63,.5)}70%{box-shadow:0 0 0 20px rgba(217,102,63,0)}100%{box-shadow:0 0 0 0 rgba(217,102,63,0)}}
+.sbtn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.4px;padding:10px 16px;border-radius:9px;cursor:pointer;transition:.2s;border:1.5px solid var(--line2);background:transparent;color:var(--sub);text-transform:uppercase;}
+.sbtn:hover{border-color:var(--ink);color:var(--ink);}
+.sbtn.danger{border-color:rgba(204,59,59,.4);color:var(--bad);}
+.sbtn.danger:hover{background:var(--bad);color:#fff;border-color:var(--bad);}
+
+/* ---------- FEEDBACK ---------- */
+#screen-feedback{padding:28px 30px 40px;}
+.fb-head{text-align:center;margin-bottom:22px;}
+.fb-head .ey2{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mut);}
+.fb-head h2{font-family:'Sora',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.5px;margin-top:4px;}
+.scale{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px;margin-bottom:11px;box-shadow:0 4px 12px rgba(27,29,23,.05);}
+.scale-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px;}
+.scale-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink);}
+.scale-score{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;color:var(--indigo2);letter-spacing:-.5px;}
+.bar{height:9px;border-radius:5px;background:rgba(27,29,23,.1);overflow:hidden;margin-bottom:9px;}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo),var(--teal));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.scale-cmt{font-size:13.5px;color:var(--sub);line-height:1.5;}
+.fb-cols{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:16px 0;}
+.fb-box{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px;}
+.fb-box h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:1px;font-size:11px;text-transform:uppercase;margin-bottom:10px;}
+.fb-box.good h4{color:var(--done);} .fb-box.work h4{color:var(--coral2);}
+.fb-box ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.fb-box li{font-size:13px;line-height:1.45;padding-left:18px;position:relative;color:var(--ink);}
+.fb-box.good li::before{content:'\2713';position:absolute;left:0;color:var(--done);font-weight:700;}
+.fb-box.work li::before{content:'\2192';position:absolute;left:0;color:var(--coral2);font-weight:700;}
+.fb-advice{background:rgba(63,91,214,0.06);border:1px solid rgba(63,91,214,0.22);border-left:3px solid var(--indigo);border-radius:0 var(--rs) var(--rs) 0;padding:14px 16px;font-size:14px;line-height:1.6;color:var(--sub);}
+.fb-advice b{color:var(--indigo2);}
+.fb-raw{white-space:pre-wrap;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:18px;line-height:1.6;font-size:14px;}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;justify-content:center;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.4px;padding:13px 26px;border-radius:var(--rs);cursor:pointer;transition:.2s;border:1.5px solid transparent;}
+.btn-primary{background:var(--indigo);color:#fff;}
+.btn-primary:hover{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.err{background:var(--bad-soft);border:1px solid rgba(204,59,59,.35);color:#a32a2a;border-radius:var(--r);padding:14px 16px;margin:8px 0;line-height:1.5;font-size:14px;}
+
+@media(max-width:560px){
+  #screen-session,#screen-feedback{padding:24px 18px 34px;}
+  .head{padding:84px 22px 0;}.foot{margin-left:22px;margin-right:22px;}
+  .l-no{width:70px;font-size:26px;}.l-mid{padding:13px 13px;}.l-end{padding:0 12px;}
+  .fb-cols{grid-template-columns:1fr;}
+  .fb-head h2{font-size:25px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="tb-brand">The Structure · Speaking Lab B2</span>
+  <div class="tb-btns">
+    <button class="tb-btn on" id="audioBtn" onclick="toggleAudio()">🔊 Voce: ON</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="sheet">
+
+    <!-- ============ SELECT ============ -->
+    <div id="screen-select" class="screen active">
+      <div class="band"></div>
+      <div class="stamp">B2 · <b>Speaking Lab</b></div>
+      <div class="head">
+        <div class="ey">Speaking Lab · Livello 1</div>
+        <h1>Speak<br>Up<span class="thin">Scegli la <b>unit che hai svolto</b> e conversa in inglese su quel tema. Da Unit&nbsp;2 in poi puoi usare <b>anche la grammatica delle unit precedenti</b>. Parla nel microfono — niente da scrivere. Alla fine ricevi una <b>valutazione in stile Cambridge</b>.</span></h1>
+      </div>
+      <div class="levs" id="levs"></div>
+      <div class="foot">
+        <span class="foot-lab">🎧 Prima di iniziare</span>
+        <div class="foot-hint">Usa <b>Google&nbsp;Chrome</b> e consenti l'accesso al <b>microfono</b>. Cuffie consigliate. Ogni sessione dura circa <b>10&nbsp;minuti</b>.</div>
+      </div>
+    </div>
+
+    <!-- ============ SESSION ============ -->
+    <div id="screen-session" class="screen">
+      <div class="ex-top">
+        <div class="ex-title" id="sessTitle">Unit</div>
+        <button class="btn-back" onclick="resetAll()">← Esci</button>
+      </div>
+      <div class="hud">
+        <span class="hud-lab">Tempo</span>
+        <div class="hud-track"><div class="hud-fill" id="hudFill"></div></div>
+        <span class="timer" id="timer">10:00</span>
+      </div>
+      <div class="scene-frame" id="scene"></div>
+      <div class="scene-q" id="sceneQ"></div>
+      <div class="chat" id="chat"></div>
+      <div class="controls">
+        <div class="mic-hint" id="micHint">Tocca il microfono e parla in inglese</div>
+        <button class="sbtn" id="repeatBtn" title="Riascolta">🔊 Ripeti</button>
+        <button class="mic" id="mic" disabled>🎤</button>
+        <button class="sbtn danger" id="endBtn">Termina &amp; valuta</button>
+      </div>
+    </div>
+
+    <!-- ============ FEEDBACK ============ -->
+    <div id="screen-feedback" class="screen">
+      <div class="fb-head">
+        <div class="ey2" id="fbSub">Valutazione</div>
+        <h2>La tua prova</h2>
+      </div>
+      <div id="fbBody"></div>
+      <div class="action-bar">
+        <button class="btn btn-primary" onclick="resetAll()">↺ Altra unit</button>
+        <button class="btn btn-secondary" id="retrySame">Riprova questa unit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   INCOLLA QUI L'URL DEL TUO WORKER CLOUDFLARE
+   ========================================================================= */
+const WORKER_URL = "https://speaking-b2-l1.TUO-SOTTODOMINIO.workers.dev";
+const SESSION_SECONDS = 10 * 60;
+
+/* ---- Dati unit (UI) ---- */
+const UNITS = {
+  1:{topic:"Use your time!", color:"c-indigo",
+     theme:"Hobby, tempo libero, sport e attività all'aperto",
+     gram:"used to · past continuous · when/while/as"},
+  2:{topic:"All in a day's work", color:"c-teal",
+     theme:"Lavori, carriere, vita quotidiana, make & do",
+     gram:"+ present perfect continuous · present perfect vs past simple"},
+  3:{topic:"My house, my home", color:"c-plum",
+     theme:"Casa, stanze, mobili, dove si vive",
+     gram:"+ verb patterns · some/any/every/no · question tags"},
+  4:{topic:"Book club", color:"c-coral",
+     theme:"Libri, lettura, storie e personaggi",
+     gram:"+ past perfect · relative clauses (who/which/that/where)"},
+  5:{topic:"No Planet B", color:"c-indigo",
+     theme:"Ambiente, clima, meteo, disastri naturali",
+     gram:"+ first conditional (will/may/might) · unless · time connectors"}
+};
+
+/* ---- Illustrazioni-stimolo: 3 per unit, scelte a caso ---- */
+const SCENES = {
+1:[
+ {q:"What are the people doing in the park?",
+  desc:"a park with people cycling and jogging on a path among trees on a sunny day",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Persone nel parco">
+<defs><linearGradient id="a1sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9deff"/><stop offset="1" stop-color="#dff1ff"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#a1sky)"/>
+<circle cx="338" cy="46" r="24" fill="#ffe06b"/><circle cx="338" cy="46" r="34" fill="#ffe06b" opacity=".25"/>
+<path d="M0 150 Q120 116 230 150 T400 148 V240 H0Z" fill="#7ec97e"/>
+<path d="M0 182 Q140 158 260 184 T400 178 V240 H0Z" fill="#5fb567"/>
+<path d="M40 240 Q150 178 210 240Z" fill="#caa46a"/>
+<g><rect x="58" y="118" width="9" height="42" rx="3" fill="#7a5230"/><circle cx="62" cy="108" r="26" fill="#4fa463"/><circle cx="44" cy="120" r="17" fill="#5cb472"/><circle cx="80" cy="120" r="17" fill="#5cb472"/></g>
+<ellipse cx="150" cy="214" rx="22" ry="5" fill="#3a6b3f" opacity=".25"/>
+<circle cx="138" cy="206" r="14" fill="none" stroke="#33373b" stroke-width="3.5"/><circle cx="182" cy="206" r="14" fill="none" stroke="#33373b" stroke-width="3.5"/>
+<path d="M138 206 L160 188 L182 206 M160 188 L156 206" stroke="#33373b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<circle cx="160" cy="174" r="8" fill="#f0b48a"/><path d="M152 180 q8 -7 16 0 l-2 12 h-12Z" fill="#e2553f"/>
+<g><ellipse cx="280" cy="216" rx="14" ry="4" fill="#3a6b3f" opacity=".25"/><circle cx="282" cy="166" r="9" fill="#f0b48a"/><path d="M274 174 q8 -6 16 0 l-3 18 h-10Z" fill="#2f7fd6"/><path d="M276 192 l-5 16 M288 192 l6 14" stroke="#2f7fd6" stroke-width="5" stroke-linecap="round"/></g>
+</svg>`},
+ {q:"What is this person doing?",
+  desc:"a young person sitting at home playing an acoustic guitar in a relaxed room",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Persona che suona la chitarra">
+<defs><linearGradient id="b1w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe2cf"/><stop offset="1" stop-color="#e4d4ba"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#b1w)"/><rect x="0" y="176" width="400" height="64" fill="#c79a63"/>
+<rect x="250" y="40" width="96" height="78" rx="5" fill="#bfe3ff" stroke="#a87f4f" stroke-width="5"/><line x1="298" y1="40" x2="298" y2="118" stroke="#a87f4f" stroke-width="5"/>
+<rect x="44" y="150" width="120" height="44" rx="10" fill="#d9756a"/><rect x="40" y="166" width="128" height="30" rx="9" fill="#e08c80"/>
+<ellipse cx="200" cy="226" rx="60" ry="8" fill="#7a5230" opacity=".25"/>
+<rect x="172" y="150" width="46" height="56" rx="14" fill="#3f7d8c"/>
+<circle cx="195" cy="128" r="16" fill="#f0b48a"/><path d="M179 124 a16 13 0 0 1 32 0Z" fill="#3a2a1a"/>
+<ellipse cx="238" cy="182" rx="30" ry="20" fill="#caa05a"/><ellipse cx="238" cy="182" rx="11" ry="8" fill="#5a3a1a"/><rect x="200" y="150" width="60" height="9" rx="4" fill="#8a5a32" transform="rotate(-24 230 155)"/>
+<path d="M205 166 q14 18 30 14" stroke="#f0b48a" stroke-width="9" fill="none" stroke-linecap="round"/>
+</svg>`},
+ {q:"What are the people doing?",
+  desc:"people playing beach volleyball by the sea on a sunny day",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pallavolo in spiaggia">
+<defs><linearGradient id="c1sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ec8ff"/><stop offset="1" stop-color="#bfe6ff"/></linearGradient><linearGradient id="c1se" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2aa3c4"/><stop offset="1" stop-color="#48bcd6"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#c1sk)"/><circle cx="56" cy="50" r="22" fill="#fff3b0"/>
+<rect x="0" y="120" width="400" height="40" fill="url(#c1se)"/><path d="M0 158 Q200 150 400 158 V240 H0Z" fill="#f2dca0"/>
+<rect x="196" y="96" width="6" height="78" fill="#cdbd9a"/><path d="M120 110 h160" stroke="#fff" stroke-width="3" stroke-dasharray="6 5"/>
+<g><ellipse cx="120" cy="206" rx="16" ry="4" fill="#caa46a" opacity=".5"/><circle cx="120" cy="150" r="11" fill="#f0b48a"/><path d="M110 158 q10 -7 20 0 l-3 24 h-14Z" fill="#e2553f"/><path d="M112 162 l-8 -14 M128 162 l8 -16" stroke="#f0b48a" stroke-width="6" stroke-linecap="round"/></g>
+<g><ellipse cx="282" cy="206" rx="16" ry="4" fill="#caa46a" opacity=".5"/><circle cx="282" cy="150" r="11" fill="#f0b48a"/><path d="M272 158 q10 -7 20 0 l-3 24 h-14Z" fill="#3a7fd6"/><path d="M274 160 l-8 -12 M290 160 l8 -12" stroke="#f0b48a" stroke-width="6" stroke-linecap="round"/></g>
+<circle cx="200" cy="92" r="11" fill="#fff" stroke="#d0c089" stroke-width="2"/><path d="M200 81 v22 M189 92 h22" stroke="#cfa14a" stroke-width="1.5"/>
+</svg>`}
+],
+2:[
+ {q:"What can you see in this office?",
+  desc:"an office with a person working at a laptop, a wall chart, a coffee and a plant",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ufficio">
+<rect width="400" height="240" fill="#eef2f6"/><rect x="0" y="0" width="400" height="152" fill="#f6f8fb"/>
+<rect x="36" y="26" width="116" height="78" rx="5" fill="#bfe3ff" stroke="#9fb6c8" stroke-width="3"/><line x1="94" y1="26" x2="94" y2="104" stroke="#9fb6c8" stroke-width="3"/><line x1="36" y1="65" x2="152" y2="65" stroke="#9fb6c8" stroke-width="3"/>
+<rect x="250" y="30" width="112" height="74" rx="5" fill="#fff" stroke="#cdd6e0" stroke-width="3"/><rect x="262" y="78" width="14" height="18" rx="2" fill="#3f9d8c"/><rect x="284" y="62" width="14" height="34" rx="2" fill="#3f9d8c"/><rect x="306" y="50" width="14" height="46" rx="2" fill="#3f9d8c"/><rect x="328" y="40" width="14" height="56" rx="2" fill="#3f9d8c"/>
+<rect x="0" y="152" width="400" height="13" fill="#a9744a"/><rect x="0" y="165" width="400" height="75" fill="#c08a58"/>
+<ellipse cx="195" cy="172" rx="70" ry="8" fill="#7a5230" opacity=".18"/>
+<rect x="158" y="120" width="78" height="46" rx="3" fill="#2b2f36"/><rect x="164" y="126" width="66" height="34" fill="#5ec8e0"/><rect x="148" y="166" width="98" height="8" rx="3" fill="#3a3f47"/>
+<circle cx="196" cy="100" r="14" fill="#f0b48a"/><path d="M182 98 a14 12 0 0 1 28 0Z" fill="#4a3520"/><rect x="172" y="112" width="48" height="42" rx="10" fill="#34597a"/>
+<rect x="92" y="142" width="20" height="22" rx="3" fill="#fff" stroke="#cdd6e0" stroke-width="2"/><path d="M112 148 h8 a6 6 0 0 1 0 12 h-8" fill="none" stroke="#cdd6e0" stroke-width="2"/>
+<rect x="300" y="136" width="24" height="28" rx="4" fill="#d98050"/><path d="M312 136 q-13 -24 -4 -34 M312 136 q13 -22 6 -32 M312 136 q0 -28 0 -32" stroke="#3f9d5e" stroke-width="3.5" fill="none"/>
+</svg>`},
+ {q:"What is this person doing?",
+  desc:"a chef cooking at a stove with pots, steam and a flame in a kitchen",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cuoco">
+<rect width="400" height="240" fill="#e9e4da"/><rect x="0" y="150" width="400" height="90" fill="#b9b1a3"/>
+<rect x="40" y="40" width="320" height="14" rx="3" fill="#8c8576"/><rect x="60" y="54" width="40" height="34" rx="3" fill="#cfc7b6"/><rect x="300" y="54" width="40" height="34" rx="3" fill="#cfc7b6"/>
+<rect x="120" y="150" width="160" height="60" fill="#7d7568"/><rect x="120" y="150" width="160" height="10" fill="#9a917f"/>
+<circle cx="160" cy="158" r="9" fill="#3a3a3a"/><circle cx="200" cy="158" r="9" fill="#3a3a3a"/>
+<path d="M186 150 q-6 -16 6 -26 q10 8 4 26" fill="#ff9a3d" opacity=".9"/><path d="M192 150 q-3 -10 3 -16 q5 6 2 16" fill="#ffd24d"/>
+<ellipse cx="190" cy="150" rx="26" ry="7" fill="#33373b"/><rect x="166" y="138" width="48" height="14" rx="3" fill="#44484c"/><rect x="212" y="140" width="22" height="6" rx="3" fill="#44484c"/>
+<path d="M250 120 q4 -18 -2 -28 M262 120 q5 -16 0 -28" stroke="#dfe3e6" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+<ellipse cx="250" cy="214" rx="26" ry="6" fill="#5a5448" opacity=".4"/>
+<rect x="232" y="150" width="40" height="52" rx="10" fill="#f2f2f2"/><circle cx="252" cy="128" r="15" fill="#f0b48a"/><path d="M236 122 q16 -22 32 0 l0 -8 q-16 -14 -32 0Z" fill="#fff"/><rect x="237" y="104" width="30" height="12" rx="6" fill="#fff"/>
+</svg>`},
+ {q:"What can you see in this classroom?",
+  desc:"a teacher standing by a whiteboard in front of a classroom with desks",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aula">
+<rect width="400" height="240" fill="#ede7da"/><rect x="0" y="170" width="400" height="70" fill="#c9a06a"/>
+<rect x="30" y="36" width="150" height="92" rx="6" fill="#fff" stroke="#7a8a78" stroke-width="5"/>
+<path d="M48 64 h70 M48 80 h96 M48 96 h60" stroke="#3f9d8c" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="232" cy="158" rx="20" ry="5" fill="#7a5230" opacity=".25"/>
+<rect x="216" y="96" width="34" height="56" rx="12" fill="#7a3b8f"/><circle cx="233" cy="74" r="15" fill="#f0b48a"/><path d="M218 72 a15 12 0 0 1 30 0Z" fill="#3a2a1a"/>
+<rect x="250" y="108" width="40" height="9" rx="4" fill="#f0b48a" transform="rotate(18 270 112)"/>
+<g fill="#a9744a"><rect x="300" y="150" width="56" height="10" rx="2"/><rect x="304" y="160" width="6" height="22"/><rect x="346" y="160" width="6" height="22"/><rect x="300" y="138" width="56" height="9" rx="2" opacity=".75"/></g>
+<g fill="#a9744a"><rect x="60" y="184" width="56" height="10" rx="2"/><rect x="64" y="194" width="6" height="22"/><rect x="106" y="194" width="6" height="22"/></g>
+<circle cx="330" cy="128" r="9" fill="#f0b48a"/><circle cx="88" cy="166" r="9" fill="#f0b48a"/>
+</svg>`}
+],
+3:[
+ {q:"What can you see in this living room?",
+  desc:"a cosy living room with a sofa, a lamp, a window, a rug and a plant",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Salotto">
+<rect width="400" height="240" fill="#f3ead9"/><rect x="0" y="150" width="400" height="90" fill="#caa46a"/>
+<rect x="38" y="34" width="92" height="74" rx="4" fill="#bfe3ff" stroke="#a98c66" stroke-width="5"/><line x1="84" y1="34" x2="84" y2="108" stroke="#a98c66" stroke-width="5"/><path d="M32 30 h104 l-10 12 H42Z" fill="#b5915f"/>
+<rect x="250" y="40" width="48" height="38" rx="2" fill="#fff" stroke="#a98c66" stroke-width="5"/><path d="M256 70 l10 -14 8 10 8 -16 8 20Z" fill="#7ec98a"/>
+<rect x="322" y="92" width="6" height="58" fill="#6b5638"/><path d="M310 92 h30 l-6 -22 h-18Z" fill="#ffd98a"/><ellipse cx="325" cy="74" r="0" fill="none"/>
+<ellipse cx="195" cy="206" rx="128" ry="20" fill="#b8895a"/>
+<rect x="118" y="116" width="152" height="40" rx="10" fill="#c75f52"/><rect x="114" y="132" width="160" height="34" rx="10" fill="#d9756a"/><rect x="120" y="120" width="52" height="30" rx="8" fill="#e08c80"/><rect x="216" y="120" width="52" height="30" rx="8" fill="#e08c80"/>
+<rect x="126" y="156" width="10" height="20" fill="#7a5230"/><rect x="252" y="156" width="10" height="20" fill="#7a5230"/>
+<rect x="44" y="118" width="22" height="32" rx="3" fill="#d98050"/><path d="M55 118 q-14 -26 -4 -38 M55 118 q14 -24 6 -36 M55 118 q0 -30 0 -34" stroke="#3f9d5e" stroke-width="3.5" fill="none"/>
+</svg>`},
+ {q:"What can you see in this kitchen?",
+  desc:"a kitchen with cupboards, a cooker, pots, a window and a fruit bowl",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cucina">
+<rect width="400" height="240" fill="#eef0e8"/>
+<rect x="40" y="30" width="320" height="46" rx="4" fill="#d8e0d2"/><line x1="200" y1="30" x2="200" y2="76" stroke="#b7c0b0" stroke-width="3"/><rect x="120" y="48" width="10" height="10" rx="2" fill="#9aa593"/><rect x="270" y="48" width="10" height="10" rx="2" fill="#9aa593"/>
+<rect x="250" y="34" width="84" height="64" rx="4" fill="#bfe3ff" stroke="#9aa593" stroke-width="4"/><line x1="292" y1="34" x2="292" y2="98" stroke="#9aa593" stroke-width="4"/>
+<rect x="0" y="150" width="400" height="20" fill="#c9b48c"/><rect x="0" y="170" width="400" height="70" fill="#dfe3d8"/>
+<rect x="30" y="170" width="10" height="70" fill="#c9cabe"/><rect x="160" y="170" width="10" height="70" fill="#c9cabe"/><rect x="290" y="170" width="10" height="70" fill="#c9cabe"/>
+<rect x="64" y="186" width="10" height="10" rx="3" fill="#8a8470"/><rect x="118" y="186" width="10" height="10" rx="3" fill="#8a8470"/><rect x="216" y="186" width="10" height="10" rx="3" fill="#8a8470"/>
+<rect x="206" y="128" width="58" height="24" rx="3" fill="#5a5448"/><circle cx="220" cy="140" r="6" fill="#33373b"/><circle cx="250" cy="140" r="6" fill="#33373b"/>
+<ellipse cx="110" cy="150" rx="24" ry="6" fill="#9aa080"/><path d="M86 150 q24 -22 48 0Z" fill="#c0463a"/><circle cx="100" cy="140" r="8" fill="#e25b3f"/><circle cx="118" cy="138" r="9" fill="#f0a83f"/><circle cx="110" cy="134" r="7" fill="#7ec24a"/>
+</svg>`},
+ {q:"What can you see in this bedroom?",
+  desc:"a bedroom with a bed, pillows, a bedside lamp, a window and a rug",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Camera da letto">
+<rect width="400" height="240" fill="#efe9f2"/><rect x="0" y="158" width="400" height="82" fill="#caa46a"/>
+<rect x="40" y="34" width="96" height="74" rx="4" fill="#9ed0ff" stroke="#a98c66" stroke-width="5"/><line x1="88" y1="34" x2="88" y2="108" stroke="#a98c66" stroke-width="5"/><circle cx="64" cy="56" r="9" fill="#fff3b0"/>
+<ellipse cx="220" cy="214" rx="150" ry="18" fill="#b8895a"/>
+<rect x="120" y="118" width="200" height="60" rx="8" fill="#6f9bd1"/><rect x="116" y="156" width="208" height="30" rx="8" fill="#5a86bd"/>
+<rect x="120" y="96" width="200" height="30" rx="8" fill="#7a5230"/>
+<rect x="132" y="110" width="50" height="26" rx="7" fill="#fff"/><rect x="190" y="110" width="50" height="26" rx="7" fill="#f3f3f3"/>
+<rect x="324" y="138" width="34" height="40" fill="#8a623a"/><rect x="330" y="118" width="6" height="22" fill="#6b5638"/><path d="M320 118 h26 l-5 -16 h-16Z" fill="#ffd98a"/>
+</svg>`}
+],
+4:[
+ {q:"What is the person doing?",
+  desc:"a person reading in an armchair next to a tall bookshelf and a lamp",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Angolo lettura">
+<rect width="400" height="240" fill="#efe6f5"/><rect x="0" y="160" width="400" height="80" fill="#b98c5a"/>
+<rect x="30" y="30" width="132" height="130" rx="4" fill="#7a5230"/><rect x="38" y="38" width="116" height="36" fill="#8a623a"/><rect x="38" y="82" width="116" height="36" fill="#8a623a"/><rect x="38" y="126" width="116" height="28" fill="#8a623a"/>
+<g><rect x="44" y="42" width="9" height="28" fill="#e2553f"/><rect x="55" y="44" width="9" height="26" fill="#3a7fd6"/><rect x="66" y="42" width="9" height="28" fill="#4fa463"/><rect x="77" y="46" width="9" height="24" fill="#ffb84d"/><rect x="88" y="42" width="9" height="28" fill="#9b5de5"/><rect x="99" y="44" width="9" height="26" fill="#e2553f"/><rect x="110" y="42" width="9" height="28" fill="#3a7fd6"/><rect x="121" y="46" width="9" height="24" fill="#4fa463"/><rect x="132" y="42" width="9" height="28" fill="#ffb84d"/>
+<rect x="44" y="86" width="9" height="28" fill="#3a7fd6"/><rect x="55" y="88" width="9" height="26" fill="#4fa463"/><rect x="66" y="86" width="9" height="28" fill="#ffb84d"/><rect x="77" y="88" width="9" height="26" fill="#e2553f"/><rect x="88" y="86" width="9" height="28" fill="#9b5de5"/><rect x="99" y="90" width="9" height="24" fill="#3a7fd6"/><rect x="110" y="86" width="9" height="28" fill="#4fa463"/><rect x="121" y="88" width="9" height="26" fill="#ffb84d"/></g>
+<rect x="236" y="120" width="98" height="48" rx="14" fill="#3f7d8c"/><rect x="226" y="128" width="20" height="46" rx="8" fill="#356b78"/><rect x="324" y="128" width="20" height="46" rx="8" fill="#356b78"/>
+<circle cx="285" cy="104" r="14" fill="#f0b48a"/><path d="M270 104 a15 12 0 0 1 30 0Z" fill="#5a3a22"/><rect x="266" y="116" width="38" height="30" rx="8" fill="#d9756a"/>
+<rect x="270" y="120" width="32" height="20" rx="2" fill="#fff" transform="rotate(-6 286 130)"/><line x1="286" y1="122" x2="286" y2="140" stroke="#bbb" stroke-width="1.5"/>
+<rect x="356" y="96" width="5" height="62" fill="#6b5638"/><path d="M345 96 h27 l-5 -18 h-17Z" fill="#ffd98a"/>
+</svg>`},
+ {q:"What can you see in this place?",
+  desc:"a library with tall bookshelves, a reading table and a lamp",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Biblioteca">
+<rect width="400" height="240" fill="#ece2cf"/><rect x="0" y="186" width="400" height="54" fill="#a9744a"/>
+<g>
+<rect x="20" y="20" width="110" height="172" rx="4" fill="#6b4a2a"/><rect x="270" y="20" width="110" height="172" rx="4" fill="#6b4a2a"/>
+<rect x="28" y="30" width="94" height="36" fill="#7d5836"/><rect x="28" y="72" width="94" height="36" fill="#7d5836"/><rect x="28" y="114" width="94" height="36" fill="#7d5836"/><rect x="28" y="156" width="94" height="28" fill="#7d5836"/>
+<rect x="278" y="30" width="94" height="36" fill="#7d5836"/><rect x="278" y="72" width="94" height="36" fill="#7d5836"/><rect x="278" y="114" width="94" height="36" fill="#7d5836"/><rect x="278" y="156" width="94" height="28" fill="#7d5836"/></g>
+<g id="bk">
+<rect x="32" y="34" width="8" height="28" fill="#cf4b3a"/><rect x="42" y="36" width="8" height="26" fill="#3a7fd6"/><rect x="52" y="34" width="8" height="28" fill="#e8b54a"/><rect x="62" y="36" width="8" height="26" fill="#4fa463"/><rect x="72" y="34" width="8" height="28" fill="#9b5de5"/><rect x="82" y="36" width="8" height="26" fill="#cf4b3a"/><rect x="92" y="34" width="8" height="28" fill="#3a7fd6"/><rect x="102" y="36" width="8" height="26" fill="#e8b54a"/>
+<rect x="282" y="34" width="8" height="28" fill="#4fa463"/><rect x="292" y="36" width="8" height="26" fill="#cf4b3a"/><rect x="302" y="34" width="8" height="28" fill="#3a7fd6"/><rect x="312" y="36" width="8" height="26" fill="#e8b54a"/><rect x="322" y="34" width="8" height="28" fill="#9b5de5"/><rect x="332" y="36" width="8" height="26" fill="#4fa463"/><rect x="342" y="34" width="8" height="28" fill="#cf4b3a"/><rect x="352" y="36" width="8" height="26" fill="#3a7fd6"/></g>
+<use href="#bk" y="42"/><use href="#bk" y="84"/>
+<rect x="150" y="150" width="100" height="12" rx="3" fill="#8a5a32"/><rect x="158" y="162" width="8" height="26" fill="#8a5a32"/><rect x="234" y="162" width="8" height="26" fill="#8a5a32"/>
+<rect x="170" y="138" width="40" height="14" rx="2" fill="#cf4b3a"/><rect x="174" y="130" width="36" height="9" rx="2" fill="#3a7fd6"/>
+<rect x="226" y="120" width="5" height="30" fill="#5a4a32"/><path d="M216 120 h26 l-5 -16 h-16Z" fill="#ffd98a"/>
+</svg>`},
+ {q:"What is the person doing?",
+  desc:"a person sitting on a park bench reading a book under a tree",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lettura all'aperto">
+<defs><linearGradient id="d4s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe6c9"/><stop offset="1" stop-color="#e2f3df"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#d4s)"/><circle cx="60" cy="48" r="20" fill="#ffe06b"/>
+<path d="M0 168 Q200 150 400 168 V240 H0Z" fill="#7ec97e"/>
+<rect x="300" y="120" width="11" height="52" fill="#7a5230"/><circle cx="305" cy="104" r="34" fill="#4fa463"/><circle cx="280" cy="118" r="22" fill="#5cb472"/><circle cx="330" cy="118" r="22" fill="#5cb472"/>
+<rect x="130" y="176" width="120" height="9" rx="2" fill="#8a5a32"/><rect x="130" y="160" width="120" height="9" rx="2" fill="#9a6a3a"/><rect x="136" y="185" width="8" height="22" fill="#7a4a28"/><rect x="236" y="185" width="8" height="22" fill="#7a4a28"/>
+<ellipse cx="190" cy="214" rx="40" ry="6" fill="#3a6b3f" opacity=".25"/>
+<rect x="166" y="138" width="46" height="40" rx="10" fill="#7a3b8f"/><circle cx="189" cy="124" r="14" fill="#f0b48a"/><path d="M175 122 a14 12 0 0 1 28 0Z" fill="#3a2a1a"/>
+<rect x="172" y="150" width="38" height="22" rx="2" fill="#fff" transform="rotate(-4 191 161)"/><line x1="191" y1="151" x2="191" y2="171" stroke="#bbb" stroke-width="1.5"/>
+</svg>`}
+],
+5:[
+ {q:"What can you see?",
+  desc:"a landscape with sunshine on one side and a storm on the other, a wind turbine and a recycling bin",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ambiente e meteo">
+<defs><linearGradient id="e5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#7d8a96"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#e5)"/><circle cx="64" cy="50" r="22" fill="#ffe14d"/>
+<g fill="#5a6573"><ellipse cx="300" cy="54" rx="40" ry="20"/><ellipse cx="334" cy="60" rx="26" ry="16"/><ellipse cx="268" cy="62" rx="24" ry="14"/></g>
+<line x1="288" y1="78" x2="282" y2="96" stroke="#bfe3ff" stroke-width="3"/><line x1="306" y1="78" x2="300" y2="98" stroke="#bfe3ff" stroke-width="3"/><line x1="324" y1="78" x2="318" y2="96" stroke="#bfe3ff" stroke-width="3"/>
+<polygon points="312,80 304,98 314,96 306,116 326,90 316,92" fill="#ffe14d"/>
+<path d="M0 160 Q100 140 200 160 T400 158 V240 H0Z" fill="#6fae6a"/><path d="M200 160 Q300 150 400 158 V240 H200Z" fill="#9a8f6a"/>
+<rect x="118" y="120" width="6" height="50" fill="#e8eef2"/><g stroke="#e8eef2" stroke-width="6" stroke-linecap="round"><line x1="121" y1="120" x2="121" y2="92"/><line x1="121" y1="120" x2="146" y2="134"/><line x1="121" y1="120" x2="96" y2="134"/></g>
+<rect x="56" y="146" width="8" height="26" fill="#7a5230"/><circle cx="60" cy="140" r="18" fill="#4fa463"/>
+<rect x="250" y="176" width="30" height="36" rx="3" fill="#2f9d57"/><rect x="248" y="170" width="34" height="8" rx="2" fill="#247a44"/><path d="M258 188 l4 -6 4 6 M266 190 l3 6 -7 1 M262 198 l-7 -1 4 -6" stroke="#fff" stroke-width="2" fill="none"/>
+</svg>`},
+ {q:"What are the people doing?",
+  desc:"people planting a young tree and sorting recycling bins outdoors",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piantare alberi e riciclare">
+<defs><linearGradient id="f5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aee3ff"/><stop offset="1" stop-color="#dff3ff"/></linearGradient></defs>
+<rect width="400" height="240" fill="url(#f5)"/><circle cx="340" cy="44" r="22" fill="#ffe06b"/>
+<path d="M0 168 Q200 150 400 168 V240 H0Z" fill="#7ec97e"/>
+<ellipse cx="120" cy="206" rx="34" ry="7" fill="#3a6b3f" opacity=".25"/>
+<rect x="116" y="150" width="8" height="40" fill="#7a5230"/><circle cx="120" cy="138" r="16" fill="#4fa463"/><circle cx="108" cy="146" r="10" fill="#5cb472"/><circle cx="132" cy="146" r="10" fill="#5cb472"/>
+<path d="M96 190 q24 -10 48 0 l-6 14 h-36Z" fill="#8a5a32"/>
+<circle cx="70" cy="150" r="12" fill="#f0b48a"/><rect x="58" y="160" width="24" height="30" rx="7" fill="#3a7fd6"/><path d="M82 168 l26 -10" stroke="#f0b48a" stroke-width="7" stroke-linecap="round"/><rect x="104" y="150" width="6" height="22" rx="2" fill="#9a6a3a" transform="rotate(20 107 161)"/>
+<g><rect x="250" y="170" width="30" height="42" rx="3" fill="#3a7fd6"/><rect x="248" y="164" width="34" height="8" rx="2" fill="#2c5fa0"/></g>
+<g><rect x="286" y="170" width="30" height="42" rx="3" fill="#2f9d57"/><rect x="284" y="164" width="34" height="8" rx="2" fill="#247a44"/></g>
+<g><rect x="322" y="170" width="30" height="42" rx="3" fill="#e8b54a"/><rect x="320" y="164" width="34" height="8" rx="2" fill="#c2912f"/></g>
+<circle cx="232" cy="150" r="11" fill="#f0b48a"/><rect x="221" y="160" width="22" height="28" rx="6" fill="#d9663f"/><path d="M243 166 l16 6" stroke="#f0b48a" stroke-width="6" stroke-linecap="round"/>
+</svg>`},
+ {q:"What can you see?",
+  desc:"a town street flooded with water under heavy rain and dark clouds",
+  svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alluvione">
+<rect width="400" height="240" fill="#8d96a3"/>
+<g fill="#5a6573"><ellipse cx="120" cy="44" rx="48" ry="22"/><ellipse cx="180" cy="52" rx="36" ry="18"/><ellipse cx="280" cy="46" rx="50" ry="22"/><ellipse cx="330" cy="54" rx="30" ry="16"/></g>
+<g stroke="#cfe0ec" stroke-width="2.5" stroke-linecap="round" opacity=".8"><line x1="70" y1="80" x2="62" y2="108"/><line x1="110" y1="76" x2="102" y2="106"/><line x1="150" y1="82" x2="142" y2="110"/><line x1="210" y1="78" x2="202" y2="108"/><line x1="260" y1="80" x2="252" y2="110"/><line x1="310" y1="76" x2="302" y2="106"/><line x1="350" y1="82" x2="342" y2="110"/></g>
+<rect x="40" y="100" width="70" height="70" fill="#b9905f"/><rect x="50" y="112" width="18" height="18" fill="#9ed0ff"/><rect x="82" y="112" width="18" height="18" fill="#9ed0ff"/><polygon points="34,100 75,72 116,100" fill="#8a5a32"/>
+<rect x="250" y="92" width="78" height="78" fill="#cdb79a"/><rect x="262" y="106" width="20" height="20" fill="#9ed0ff"/><rect x="296" y="106" width="20" height="20" fill="#9ed0ff"/><polygon points="244,92 289,60 334,92" fill="#a9744a"/>
+<rect x="0" y="158" width="400" height="82" fill="#4f8a9e" opacity=".92"/>
+<path d="M0 168 q40 -8 80 0 t80 0 t80 0 t80 0 t80 0" stroke="#bfe0ea" stroke-width="2" fill="none" opacity=".6"/>
+<path d="M0 188 q40 -8 80 0 t80 0 t80 0 t80 0 t80 0" stroke="#bfe0ea" stroke-width="2" fill="none" opacity=".5"/>
+</svg>`}
+]
+};
+
+/* ====================== STATE ====================== */
+let unit=null, history=[], remaining=SESSION_SECONDS, timerId=null, busy=false, ended=false;
+let rec=null, muted=false, lastTutor="";
+const $=id=>document.getElementById(id);
+function show(scr){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(scr).classList.add('active');window.scrollTo(0,0);}
+
+/* ---- build unit rows ---- */
+(function(){
+  const wrap=$('levs');
+  for(const n of [1,2,3,4,5]){
+    const u=UNITS[n];
+    const row=document.createElement('div');row.className='lev '+u.color;
+    row.innerHTML=`<div class="l-no">${String(n).padStart(2,'0')}</div>
+      <div class="l-mid">
+        <div class="l-tag">Topic · Unit ${n}</div>
+        <div class="l-name">${u.topic}</div>
+        <div class="l-desc">${u.theme}<br><span style="color:var(--mut)">${u.gram}</span></div>
+      </div>
+      <div class="l-end"><span class="l-badge">PARLA →</span></div>`;
+    row.onclick=()=>startSession(n);
+    wrap.appendChild(row);
+  }
+})();
+
+/* ====================== AUDIO / SPEECH ====================== */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function toggleAudio(){muted=!muted;const b=$('audioBtn');b.innerHTML=muted?'🔇 Voce: OFF':'🔊 Voce: ON';b.classList.toggle('on',!muted);if(muted)speechSynthesis.cancel();}
+function speak(text){
+  if(muted||!('speechSynthesis'in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.96;
+  const v=speechSynthesis.getVoices().find(v=>/en[-_]?(GB|US)/i.test(v.lang));if(v)u.voice=v;
+  speechSynthesis.speak(u);
+}
+$('repeatBtn').onclick=()=>{if(lastTutor)speak(lastTutor);};
+
+function setupMic(){
+  if(!SR){$('micHint').innerHTML='⚠️ Riconoscimento vocale non supportato. Usa <b>Google Chrome</b>.';$('mic').disabled=true;return false;}
+  rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
+  let finalT='';
+  rec.onstart=()=>{finalT='';$('mic').classList.add('listening');$('micHint').textContent='Sto ascoltando… parla ora';showInterim('…');};
+  rec.onresult=e=>{let interim='';finalT='';
+    for(let i=0;i<e.results.length;i++){const r=e.results[i];if(r.isFinal)finalT+=r[0].transcript;else interim+=r[0].transcript;}
+    showInterim((finalT+' '+interim).trim()||'…');};
+  rec.onerror=e=>{$('mic').classList.remove('listening');clearInterim();
+    $('micHint').textContent=e.error==='not-allowed'?'⚠️ Accesso al microfono negato.':'Non ho sentito bene, riprova.';};
+  rec.onend=()=>{$('mic').classList.remove('listening');const t=finalT.trim();clearInterim();
+    if(t){addBubble('you',t);sendTurn(t);}else $('micHint').textContent='Tocca il microfono e parla in inglese';};
+  return true;
+}
+$('mic').onclick=()=>{if(busy||ended)return;try{speechSynthesis.cancel();rec.start();}catch(_){}};
+
+/* ====================== SESSION FLOW ====================== */
+let sceneDesc="";
+function startSession(n){
+  unit=n;history=[];remaining=SESSION_SECONDS;ended=false;busy=false;
+  const u=UNITS[n];
+  const pool=SCENES[n];
+  const sc=pool[Math.floor(Math.random()*pool.length)];
+  sceneDesc=sc.desc;
+  $('sessTitle').textContent=`Unit ${n} · ${u.topic}`;
+  $('scene').innerHTML=sc.svg;
+  $('sceneQ').textContent=sc.q;
+  $('chat').innerHTML='';$('hudFill').style.width='100%';
+  if(!setupMic()){show('screen-session');return;}
+  show('screen-session');startTimer();openConversation();
+}
+function startTimer(){clearInterval(timerId);updateTimer();
+  timerId=setInterval(()=>{remaining--;updateTimer();if(remaining<=0){clearInterval(timerId);endSession(true);}},1000);}
+function updateTimer(){const m=Math.floor(remaining/60),s=remaining%60;
+  $('timer').textContent=`${m}:${String(s).padStart(2,'0')}`;
+  $('timer').classList.toggle('low',remaining<=60);
+  $('hudFill').style.width=(remaining/SESSION_SECONDS*100)+'%';}
+
+function showTyping(){const t=document.createElement('div');t.className='typing';t.id='typing';t.textContent='Il tutor sta pensando…';$('chat').appendChild(t);scrollChat();}
+function clearTyping(){const t=$('typing');if(t)t.remove();}
+function showInterim(txt){let b=$('interim');if(!b){b=document.createElement('div');b.className='bubble interim';b.id='interim';$('chat').appendChild(b);}b.textContent=txt;scrollChat();}
+function clearInterim(){const b=$('interim');if(b)b.remove();}
+function addBubble(role,text){const b=document.createElement('div');b.className='bubble '+role;b.textContent=text;$('chat').appendChild(b);scrollChat();}
+function scrollChat(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});}
+
+async function openConversation(){
+  busy=true;$('mic').disabled=true;showTyping();
+  const reply=await callWorker('chat',[{role:'user',content:'[START] Greet me and begin the speaking session.'}]);
+  clearTyping();
+  if(reply){history.push({role:'user',content:'[START]'},{role:'assistant',content:reply});addBubble('tutor',reply);lastTutor=reply;speak(reply);}
+  busy=false;$('mic').disabled=ended;
+}
+async function sendTurn(text){
+  if(ended)return;busy=true;$('mic').disabled=true;showTyping();
+  history.push({role:'user',content:text});
+  const reply=await callWorker('chat',history);
+  clearTyping();
+  if(reply){history.push({role:'assistant',content:reply});addBubble('tutor',reply);lastTutor=reply;speak(reply);}
+  busy=false;$('mic').disabled=ended;
+}
+
+$('endBtn').onclick=()=>endSession(false);
+async function endSession(auto){
+  if(ended)return;ended=true;
+  clearInterval(timerId);try{rec&&rec.stop();speechSynthesis.cancel();}catch(_){}
+  if(history.filter(m=>m.role==='user'&&m.content!=='[START]').length===0){
+    show('screen-feedback');$('fbSub').textContent='Valutazione';
+    $('fbBody').innerHTML='<div class="err">Non hai parlato abbastanza per ricevere una valutazione. Riprova!</div>';return;
+  }
+  show('screen-feedback');
+  $('fbSub').textContent=auto?'Tempo scaduto':'Valutazione';
+  $('fbBody').innerHTML='<div class="typing">Sto preparando la valutazione…</div>';
+  const raw=await callWorker('feedback',history);
+  renderFeedback(raw);
+}
+
+/* ====================== FEEDBACK RENDER ====================== */
+const SCALES=[
+  ['grammatica_lessico','Grammatica e Lessico'],
+  ['gestione_discorso','Gestione del Discorso'],
+  ['comunicazione_interattiva','Comunicazione Interattiva'],
+  ['pronuncia','Pronuncia']
+];
+function renderFeedback(raw){
+  let data=null;try{data=JSON.parse((raw||'').replace(/```json|```/g,'').trim());}catch(_){}
+  if(!data||!data.voti){$('fbBody').innerHTML=`<div class="fb-raw">${esc(raw||'Valutazione non disponibile.')}</div>`;return;}
+  let html='';
+  for(const [key,label] of SCALES){
+    const score=data.voti[key];const cmt=(data.commenti&&data.commenti[key])||'';
+    const pct=score==null?0:Math.max(0,Math.min(100,(score/5)*100));
+    const scoreTxt=score==null?'—':`${score}/5`;
+    html+=`<div class="scale"><div class="scale-top"><span class="scale-name">${label}</span><span class="scale-score">${scoreTxt}</span></div>
+      <div class="bar"><i data-w="${pct}" style="width:0%"></i></div><div class="scale-cmt">${esc(cmt)}</div></div>`;
+  }
+  const good=(data.punti_forti||[]).map(x=>`<li>${esc(x)}</li>`).join('')||'<li>—</li>';
+  const work=(data.da_migliorare||[]).map(x=>`<li>${esc(x)}</li>`).join('')||'<li>—</li>';
+  html+=`<div class="fb-cols"><div class="fb-box good"><h4>Punti di forza</h4><ul>${good}</ul></div>
+    <div class="fb-box work"><h4>Da migliorare</h4><ul>${work}</ul></div></div>`;
+  if(data.consiglio)html+=`<div class="fb-advice"><b>Consiglio:</b> ${esc(data.consiglio)}</div>`;
+  $('fbBody').innerHTML=html;
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.bar>i').forEach(i=>i.style.width=i.dataset.w+'%'),60));
+}
+function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ====================== WORKER ====================== */
+async function callWorker(mode,messages){
+  try{
+    const res=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({unit,mode,messages,sceneDesc})});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();return data.reply||data.text||'';
+  }catch(err){
+    if(mode==='feedback'){$('fbBody').innerHTML='<div class="err">Errore nel generare la valutazione. Controlla la connessione e l\u2019URL del Worker.</div>';return null;}
+    clearTyping();addBubble('tutor','⚠️ Connection problem. Please check and try again.');return null;
+  }
+}
+
+/* ====================== RESET ====================== */
+$('retrySame').onclick=()=>{const n=unit;resetAll();startSession(n);};
+function resetAll(){clearInterval(timerId);try{speechSynthesis.cancel();rec&&rec.stop();}catch(_){}unit=null;history=[];ended=false;busy=false;show('screen-select');}
+</script>
+</body>
+</html>
