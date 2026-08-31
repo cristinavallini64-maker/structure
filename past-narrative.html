@@ -84,8 +84,6 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
   white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
 /* stati */
-.section-card.locked{opacity:.5;}
-.section-card.locked .sc-icon{background:linear-gradient(150deg,#9a9a90,#76766c);}
 .section-card.unlocked{cursor:pointer;}
 .section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
 .section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
@@ -98,7 +96,6 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .section-card.difficult:hover{background:rgba(27,29,23,0.035);}
 .section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
 .section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
-.badge-locked{border-color:var(--line2);color:var(--mut);}
 .badge-todo{border-color:var(--indigo);color:var(--indigo2);}
 .badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
 .badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
@@ -506,12 +503,12 @@ exercises:[
 {type:"mc",q:"Un tuo compagno ha scritto: « When the coach blew the whistle, we were stopping. » Che cosa ha voluto dire e che cosa ha scritto davvero?",options:["Voleva dire che si sono fermati subito, ma ha scritto che erano già nel mezzo di un fermarsi che dura.","Voleva dire che si sono fermati piano, e l'ha scritto giusto.","La frase è corretta e significa che si sono fermati subito.","Voleva dire che il coach li ha fermati."],a:"Voleva dire che si sono fermati subito, ma ha scritto che erano già nel mezzo di un fermarsi che dura."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It isn't usual for Caleb to go fishing on his own.",key:"DOESN'T",q:"Caleb ___ fishing on his own.",a:"doesn't usually go",accept:["doesn't usually go"]},
 {type:"errorcorrect",instruction:"Trova e correggi i due errori di tempo.",wrong:"While we were setting up the stall, a woman was coming over and was buying three necklaces.",a:"While we were setting up the stall, a woman came over and bought three necklaces.",accept:["while we were setting up the stall, a woman came over and bought three necklaces."]},
-{type:"mc",q:"Vuoi dire che la mostra ti annoiava già da un pezzo quando è arrivata Holly. Quale versione lo dice?",options:["I was getting bored when Holly arrived.","I got bored when Holly arrived.","I used to get bored when Holly arrived.","I bored when Holly arrived."],a:"I was getting bored when Holly arrived."},
+{type:"mc",q:"Vuoi dire che ti stavi annoiando sempre di più, e a quel punto è arrivata Holly. Quale versione lo dice?",options:["I was getting bored when Holly arrived.","I got bored when Holly arrived.","I used to get bored when Holly arrived.","I bored when Holly arrived."],a:"I was getting bored when Holly arrived."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sofia was in the middle of her shift when the news arrived.",key:"WORKING",q:"Sofia ___ when the news arrived.",a:"was still working",accept:["was still working","was working"]},
 {type:"mc",q:"Sviluppo graduale e reazione: quale versione è corretta?",options:["As the afternoon went on, the queue got longer and we were losing patience.","As the afternoon was going on, the queue got longer and we lost patience.","While the afternoon went on, the queue was getting longer and we lost patience.","When the afternoon went on, the queue got longer and we were losing patience."],a:"As the afternoon went on, the queue got longer and we were losing patience."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (abitudine passata, non azione in corso).",wrong:"We were doing voluntary work at the shelter every Saturday for two years, until it closed.",a:"We used to do voluntary work at the shelter every Saturday for two years, until it closed.",accept:["we used to do voluntary work at the shelter every saturday for two years, until it closed.","we did voluntary work at the shelter every saturday for two years, until it closed."]},
-{type:"mc",q:"Quale frase NON regge, e per quale motivo?",options:["Ethan was owning a kitesurf board back then.","Ethan was carrying his kitesurf board down the beach.","Ethan owned a kitesurf board back then.","Ethan bought a kitesurf board that summer."],a:"Ethan was owning a kitesurf board back then."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The doorbell interrupted Robin in the middle of his practice.",key:"WHILE",q:"The doorbell rang ___ .",a:"while Robin was practising",accept:["while Robin was practising","while robin was practicing"]},
+{type:"mc",q:"Un verbo di possesso al continuous: dove casca la frase?",options:["Ethan was owning a kitesurf board back then.","Ethan was carrying his kitesurf board down the beach.","Ethan owned a kitesurf board back then.","Ethan bought a kitesurf board that summer."],a:"Ethan was owning a kitesurf board back then."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The doorbell interrupted Robin in the middle of his practice.",key:"WHILE",q:"The doorbell rang ___.",a:"while Robin was practising",accept:["while Robin was practising","while robin was practicing"]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["as","the","light","was","fading","Oliver","realised","he","had","no","torch"],answer:"as the light was fading Oliver realised he had no torch"}
 ]}
 ];
@@ -555,7 +552,7 @@ function copyCode(){
   if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
 }
 function rebuildUnlocks(){
-  LEVELS.forEach((s,i)=>{if(state[s.id]==='completed'&&i+1<LEVELS.length){if(state[LEVELS[i+1].id]==='locked')state[LEVELS[i+1].id]='unlocked';}});
+
   autoComplete();
 }
 function importCode(){
@@ -565,19 +562,18 @@ function importCode(){
   const obj=decodeState(val);
   if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
   state=obj.s;errorMap=obj.e;
-  LEVELS.forEach(s=>{if(state[s.id]===undefined)state[s.id]='locked';});
-  if(state[LEVELS[0].id]==='locked')state[LEVELS[0].id]='unlocked';
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
   rebuildUnlocks();
   saveState();
   msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
   document.getElementById('importInput').value='';
   renderMap();
 }
-function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined)state[s.id]='locked';});if(state[LEVELS[0].id]==='locked')state[LEVELS[0].id]='unlocked';saveState();}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
 function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
 function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
 function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
-function unlockNext(cid){const idx=LEVELS.findIndex(s=>s.id===cid);if(idx<0)return;if(idx+1<LEVELS.length){const n=LEVELS[idx+1];if(state[n.id]==='locked')state[n.id]='unlocked';}autoComplete();saveState();}
+function unlockNext(cid){autoComplete();saveState();}
 function autoComplete(){}
 function renderMap(){
   const list=document.getElementById('sectionsList');list.innerHTML='';
@@ -591,9 +587,9 @@ function renderMap(){
     if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
     if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
     else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
-    else{cls+='locked';badge=`<span class="sc-badge badge-locked">&#x1F512;</span>`;}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
     card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
-    if(st==='unlocked')card.onclick=()=>openLevel(s);
+    card.onclick=()=>openLevel(s);
     list.appendChild(card);
   });
 }
