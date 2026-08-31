@@ -176,6 +176,12 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 
 .ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
   border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
 .ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
 
 .feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
@@ -293,27 +299,33 @@ function burstAt(){}
 
 const LEVELS=[
 {id:1,type:"study",title:"LIVELLO 01 — USED TO",desc:"abitudini e passatempi di una volta · used to vs past simple",
-rule:`<strong>USED TO — Unit 1:</strong><br>
-&#x2714; <code>used to + base form</code> = abitudini o stati del passato che <em>ora non valgono più</em>: <em>I used to play the violin.</em><br>
-&#x2714; Negativo: <code>didn't use to</code> &middot; Domanda: <code>Did you use to…?</code> (senza la <em>-d</em>!)<br>
-&#x26A0; Per un'azione <strong>singola e conclusa</strong> in un momento preciso (last year, in 2019, yesterday…) usa il <strong>past simple</strong>, non <em>used to</em>.`,
+rule:`<strong>USED TO &mdash; Unit 1:</strong><br>
+&#x2714; <code>used to + base form</code> = abitudini o stati del passato che <em>ora non valgono pi&ugrave;</em>: <em>I used to collect stamps.</em><br>
+&#x2714; Negativo: <code>didn't use to</code> &middot; Domanda: <code>Did you use to&hellip;?</code> (senza la <em>-d</em>) &middot; <code>never used to</code><br>
+&#x26A0; Per un'azione <strong>singola</strong> in un momento preciso serve il <strong>past simple</strong>: <em>I painted a mural last June.</em><br>
+&#x26A0; <code>used to</code> <strong>non ha il presente</strong>: per le abitudini di oggi &rarr; present simple + avverbio di frequenza (<em>I usually go swimming</em>).`,
 exercises:[
-{type:"mc",q:"Which sentence is correct?",options:["Last summer I used to take up rock climbing.","Last summer I took up rock climbing.","Last summer I was used to take up rock climbing.","Last summer I use to take up rock climbing."],a:"Last summer I took up rock climbing."},
-{type:"fill",q:"As a kid I ___ swimming every Saturday morning, but I gave it up at fourteen.",hint:"(go)",a:"used to go",accept:["used to go"]},
-{type:"fill",q:"We ___ a five-a-side tournament last Sunday and somehow scraped into second place.",hint:"(play)",a:"played",accept:["played"]},
-{type:"mc",q:"In 2019 our class ___ in a charity run for the very first time.",options:["used to take part","were taking part","took part","use to take part"],a:"took part"},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We used to win the regional final last year.",a:"We won the regional final last year.",accept:["we won the regional final last year."]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My brother didn't used to be into team sports at all.",a:"My brother didn't use to be into team sports at all.",accept:["my brother didn't use to be into team sports at all.","my brother did not use to be into team sports at all."]},
-{type:"fill",q:"There ___ an outdoor skating rink behind the sports centre, but they pulled it down years ago.",hint:"(be)",a:"used to be",accept:["used to be"]},
-{type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["I","didn't","use","to","enjoy","running","until","I","joined","a","club"],answer:"I didn't use to enjoy running until I joined a club"},
-{type:"fill",q:"She ___ up fencing at the age of six and won her first medal a year later.",hint:"(take)",a:"took",accept:["took"]},
-{type:"mc",q:"Which sentence describes a PAST HABIT you no longer have?",options:["I used to train before school every single day.","I trained really hard yesterday.","I'm training for a half-marathon.","I trained twice last week."],a:"I used to train before school every single day."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"They used to reach the national finals back in 2018.",a:"They reached the national finals back in 2018.",accept:["they reached the national finals back in 2018."]},
-{type:"fill",q:"My grandad ___ for the village team every weekend before his knees gave out.",hint:"(play)",a:"used to play",accept:["used to play"]},
-{type:"mc",q:"Choose the correct question form.",options:["Did you used to swim competitively?","Did you use to swim competitively?","Were you use to swim competitively?","Do you used to swim competitively?"],a:"Did you use to swim competitively?"},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"There didn't used to be a climbing wall in our old gym.",a:"There didn't use to be a climbing wall in our old gym.",accept:["there didn't use to be a climbing wall in our old gym.","there did not use to be a climbing wall in our old gym."]},
-{type:"fill",q:"We ___ the league three years in a row back in the late nineties.",hint:"(win)",a:"won",accept:["won"]},
-{type:"mc",q:"Which sentence is correct for a STATE that was true in the past but isn't now?",options:["I was used to be terrified of the diving board.","I use to be terrified of the diving board.","I used to be terrified of the diving board.","I used to being terrified of the diving board."],a:"I used to be terrified of the diving board."}
+{type:"mc",q:"« My cousin used to play the drums. » Che cosa sappiamo con certezza?",options:["Suonava la batteria e adesso non lo fa più.","Ha suonato la batteria una volta sola.","Sta imparando a suonare la batteria adesso.","Suonava la batteria meglio di chiunque altro."],a:"Suonava la batteria e adesso non lo fa più."},
+{type:"fill",q:"Last Saturday we ___ a cake for my grandma's eightieth birthday.",hint:"(bake)",a:"baked",accept:["baked"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"There isn't a music shop on our street any more.",key:"USED",q:"There ___ a music shop on our street.",a:"used to be",accept:["used to be"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (used to non ha il presente).",wrong:"I use to go swimming with my friends at the weekend.",a:"I usually go swimming with my friends at the weekend.",accept:["i usually go swimming with my friends at the weekend.","i often go swimming with my friends at the weekend.","i always go swimming with my friends at the weekend.","i go swimming with my friends at the weekend."]},
+{type:"fill",q:"Did you ___ glass figures when you were little?",hint:"(collect)",a:"use to collect",accept:["use to collect"]},
+{type:"mc",q:"Vuoi dire che tua sorella andava spesso a teatro da ragazza, ma adesso non ci va più. Quale frase è corretta?",options:["My sister used to go to the theatre a lot.","My sister uses to go to the theatre a lot.","My sister used to going to the theatre a lot.","My sister didn't use to go to the theatre a lot."],a:"My sister used to go to the theatre a lot."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We used to visit the Science Museum last summer.",a:"We visited the Science Museum last summer.",accept:["we visited the science museum last summer."]},
+{type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["my","grandparents","never","used","to","buy","anything","online"],answer:"my grandparents never used to buy anything online"},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Marta doesn't collect shells now, but she did as a child.",key:"USED",q:"Marta ___ shells as a child.",a:"used to collect",accept:["used to collect"]},
+{type:"fill",q:"My brother didn't ___ voluntary work, but now he helps at the animal shelter every weekend.",hint:"(do)",a:"use to do",accept:["use to do"]},
+{type:"mc",q:"Quale frase dice in modo esplicito che l'abitudine è finita e adesso non c'è più?",options:["Leo played chess with his grandad every Sunday.","Leo used to play chess with his grandad every Sunday.","Leo was playing chess with his grandad every Sunday.","Leo plays chess with his grandad every Sunday."],a:"Leo used to play chess with his grandad every Sunday."},
+{type:"wordbox",instruction:"Scegli la forma giusta dal riquadro per ogni frase.",verbs:["used to make","made","use to sing","sang"],sentences:[
+{pre:"My aunt",post:"jewellery from shells, but she gave it up years ago.",a:"used to make",accept:["used to make"]},
+{pre:"I",post:"a birthday card for Sofia last night.",a:"made",accept:["made"]},
+{pre:"Did you",post:"in a choir at primary school?",a:"use to sing",accept:["use to sing"]},
+{pre:"Everyone",post:"together at the end of the concert.",a:"sang",accept:["sang"]}
+]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It wasn't usual for my parents to read comics.",key:"USE",q:"My parents ___ comics.",a:"didn't use to read",accept:["didn't use to read","did not use to read"]},
+{type:"fill",q:"In 2019 our class ___ a huge mural on the wall of the gym.",hint:"(paint)",a:"painted",accept:["painted"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Did you used to write a blog about films?",a:"Did you use to write a blog about films?",accept:["did you use to write a blog about films?"]},
+{type:"mc",q:"Quale frase significa: « Una volta la gente non portava la macchina fotografica dappertutto » ?",options:["People never used to carry a camera everywhere.","People never use to carry a camera everywhere.","People never used to carrying a camera everywhere.","People didn't used to carry a camera everywhere."],a:"People never used to carry a camera everywhere."}
 ]},
 {id:2,type:"study",title:"LIVELLO 02 — PAST CONTINUOUS",desc:"azioni in corso mentre ti allenavi o eri all'aperto",
 rule:`<strong>PAST CONTINUOUS — Unit 1:</strong><br>
@@ -607,11 +619,16 @@ function renderExercise(){
   } else if(ex.type==='wordbox'){
     const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${ex.verbs.join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='errorcorrect'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
   document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
-  if(ex.type==='fill'||ex.type==='errorcorrect')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
 }
 function selectMC(idx,val,el){
   if(exChecked)return;
@@ -630,7 +647,7 @@ function checkExercise(){
   if(exChecked)return;exChecked=true;
   const ex=exQueue[exIdx];let correct=false;
   const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
-  if(ex.type==='fill'||ex.type==='errorcorrect'){
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
     const val=document.getElementById('fillInput').value;
     const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
     const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
@@ -657,6 +674,18 @@ function checkExercise(){
     correct=allCorrect;
     fb.className='feedback-msg '+(correct?'ok':'err');
     fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
   } else if(ex.type==='reorder'){
     const given=reorderWords.map(w=>w.word).join(' ');
     const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
