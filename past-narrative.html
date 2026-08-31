@@ -171,8 +171,8 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
   font-size:15px;font-weight:600;color:var(--plum2);}
 .word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
 .wb-sentences{display:flex;flex-direction:column;gap:12px;}
-.wb-item{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:500;color:var(--ink);flex-wrap:wrap;line-height:1.6;}
-.wb-item .fill-input{min-width:120px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
 
 .ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
   border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
@@ -235,7 +235,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 <div id="screen-map" class="screen active">
   <div class="map-hero">
     <h2>The Structure · Practice</h2>
-    <h1>Past Narrative</h1>
+    <h1>Use your time!</h1>
     <p>used to · past continuous · past simple · when/while/as · adverbs of sequence</p>
   </div>
   <div class="xp-panel">
@@ -327,7 +327,7 @@ exercises:[
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Did you used to write a blog about films?",a:"Did you use to write a blog about films?",accept:["did you use to write a blog about films?"]},
 {type:"mc",q:"Quale frase significa: « Una volta la gente non portava la macchina fotografica dappertutto » ?",options:["People never used to carry a camera everywhere.","People never use to carry a camera everywhere.","People never used to carrying a camera everywhere.","People didn't used to carry a camera everywhere."],a:"People never used to carry a camera everywhere."}
 ]},
-{id:2,type:"study",title:"LIVELLO 02 — PLAY, DO, GO",desc:"quale verbo regge quale attività · il principio, non la memoria",
+{id:2,type:"study",title:"LIVELLO 02 — PLAY, DO, GO",desc:"play · do · go · quale verbo regge quale attività",
 rule:`<strong>PLAY, DO, GO &mdash; Unit 1:</strong><br>
 &#x2714; <code>play + nome</code>: strumenti musicali, sport di squadra, sport con la palla, giochi. <em>He plays football. I play the guitar.</em><br>
 &#x2714; <code>do + nome</code>: attivit&agrave; e sport individuali, di solito <strong>senza palla</strong>, spesso in palestra. <em>Sara does karate. I do crosswords.</em><br>
@@ -366,33 +366,35 @@ exercises:[
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Luke and Robin do basketball at the sports hall on Tuesdays.",a:"Luke and Robin play basketball at the sports hall on Tuesdays.",accept:["luke and robin play basketball at the sports hall on tuesdays."]},
 {type:"mc",q:"Quale di queste parla invece del presente?",options:["Tanya used to draw comics in her notebook.","Tanya drew comics in her notebook every break.","Tanya draws comics in her notebook.","Tanya never used to draw comics in her notebook."],a:"Tanya draws comics in her notebook."}
 ]},
-{id:3,type:"study",title:"LIVELLO 03 — PAST CONTINUOUS",desc:"azioni in corso, scene di sfondo, negativo e domande",
+{id:3,type:"study",title:"LIVELLO 03 — PAST CONTINUOUS",desc:"azioni in corso · scene di sfondo · negativo e domande",
 rule:`<strong>PAST CONTINUOUS &mdash; Unit 1:</strong><br>
 &#x2714; <code>was/were + verbo-ing</code> = azione <strong>gi&agrave; in corso</strong> in un momento preciso del passato: <em>At 8 p.m. we were having dinner.</em><br>
 &#x2714; Descrive anche la <strong>scena</strong> di un racconto: <em>It was raining and the sky was grey.</em><br>
-&#x2714; Negativo <code>wasn't / weren't + -ing</code> &middot; Domande <code>Was/Were + soggetto + -ing?</code> &middot; Risposte brevi: <em>Yes, they were. / No, they weren't.</em>`,
+&#x2714; Negativo <code>wasn't / weren't + -ing</code> &middot; Domande <code>Was/Were + soggetto + -ing?</code><br>
+&#x26A0; Non &egrave; un tempo &laquo;pi&ugrave; lungo&raquo;: &egrave; una <strong>scelta di chi racconta</strong>. Dire <em>it rained</em> significa registrare un fatto; dire <em>it was raining</em> significa aprire una scena dentro cui succeder&agrave; qualcos'altro.`,
 exercises:[
 {type:"mc",q:"« At eight o'clock we were having dinner. » Quando è cominciata la cena?",options:["Prima delle otto: alle otto era già in corso.","Esattamente alle otto in punto.","Subito dopo le otto.","La frase non permette di dirlo."],a:"Prima delle otto: alle otto era già in corso."},
+{type:"mc",q:"Un racconto si apre così: « It rained all afternoon. » Perché uno scrittore preferirebbe « It was raining all afternoon » ?",options:["Perché apre una scena: il lettore si aspetta che dentro quel pomeriggio succeda qualcosa.","Perché la pioggia è durata di più.","Perché il past simple non si usa con all afternoon.","Perché il past continuous è più formale."],a:"Perché apre una scena: il lettore si aspetta che dentro quel pomeriggio succeda qualcosa."},
 {type:"fill",q:"When Evie texted me, we ___ dinner out in the garden.",hint:"(have)",a:"were having",accept:["were having"]},
-{type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["what","were","you","doing","at","six","o'clock","yesterday"],answer:"what were you doing at six o'clock yesterday"},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (qui serve la scena, non l'evento concluso).",wrong:"It was a miserable morning: it rained hard and the wind shook the windows.",a:"It was a miserable morning: it was raining hard and the wind was shaking the windows.",accept:["it was a miserable morning: it was raining hard and the wind was shaking the windows."]},
+{type:"mc",q:"Due inizi di racconto. Quale dei due promette che sta per succedere qualcosa?",options:["The wind was rattling the shutters and the dog was whining at the door.","The wind rattled the shutters and the dog whined at the door.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"The wind was rattling the shutters and the dog was whining at the door."},
 {type:"fill",q:"I ___ attention in class, so I missed half the instructions.",hint:"(pay)",a:"wasn't paying",accept:["wasn't paying","was not paying"]},
-{type:"mc",q:"Quale frase descrive la SCENA e non un fatto concluso?",options:["The sun was shining and the children were feeding the ducks.","The sun shone and the children fed the ducks.","The sun shone and the children were feeding the ducks.","The sun was shining and the children fed the ducks."],a:"The sun was shining and the children were feeding the ducks."},
+{type:"mc",q:"« The band played for two hours » e « The band was playing for two hours » sono entrambe corrette. Che differenza c'è?",options:["La prima racconta il concerto come un fatto concluso, la seconda lo usa come sfondo di qualcos'altro.","La prima dice che hanno suonato bene, la seconda che hanno suonato male.","La prima è al passato, la seconda al presente.","Non c'è nessuna differenza."],a:"La prima racconta il concerto come un fatto concluso, la seconda lo usa come sfondo di qualcos'altro."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (qui serve la scena, non l'evento concluso).",wrong:"It was a miserable morning: it rained hard and the wind shook the windows.",a:"It was a miserable morning: it was raining hard and the wind was shaking the windows.",accept:["it was a miserable morning: it was raining hard and the wind was shaking the windows."]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"My cousins spent the whole afternoon on their models.",key:"WERE",q:"All afternoon my cousins ___ their models.",a:"were building",accept:["were building","were making"]},
 {type:"fill",q:"___ they watching a film at half past nine? — No, they weren't.",a:"Were",accept:["were"]},
+{type:"mc",q:"Quale di queste frasi è impossibile?",options:["I was breaking my glasses when I sat on them.","I was walking home when I broke my glasses.","I was reading when the glasses slipped off.","I was cleaning my glasses very carefully."],a:"I was breaking my glasses when I sat on them."},
 {type:"wordbox",instruction:"Completa con il past continuous dei verbi del riquadro.",verbs:["bake","draw","argue","wait"],sentences:[
 {pre:"At four o'clock Grandma",post:"bread and the whole house smelled of it.",a:"was baking",accept:["was baking"]},
 {pre:"The twins",post:"over the last slice of pizza.",a:"were arguing",accept:["were arguing"]},
 {pre:"Jack",post:"a portrait of his dog in the corner of the room.",a:"was drawing",accept:["was drawing"]},
 {pre:"We",post:"outside the theatre in the pouring rain.",a:"were waiting",accept:["were waiting"]}
 ]},
-{type:"fill",q:"Sienna ___ her shells that afternoon: they were all over the kitchen table.",hint:"(sort)",a:"was sorting",accept:["was sorting"]},
-{type:"mc",q:"Quale risposta breve completa correttamente: « Was Chloe practising the guitar? »",options:["No, she wasn't.","No, she didn't.","No, she weren't.","No, she isn't."],a:"No, she wasn't."},
+{type:"mc",q:"Stai raccontando una gita. Vuoi che il lettore capisca che la salita era ancora in corso quando è scoppiato il temporale. Quale versione scegli?",options:["We were climbing the last stretch when the storm broke.","We climbed the last stretch when the storm broke.","We used to climb the last stretch when the storm broke.","We climb the last stretch when the storm broke."],a:"We were climbing the last stretch when the storm broke."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The dog were sleeping under the table the whole evening.",a:"The dog was sleeping under the table the whole evening.",accept:["the dog was sleeping under the table the whole evening."]},
-{type:"fill",q:"My cousins ___ their models on the living-room floor and there was glue everywhere.",hint:"(build)",a:"were building",accept:["were building"]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["Maya","wasn't","listening","to","music","in","her","room"],answer:"Maya wasn't listening to music in her room"},
 {type:"mc",q:"« I was reading a book » : che cosa NON possiamo dedurre?",options:["Che ho finito il libro.","Che la lettura era in corso.","Che l'azione durava nel tempo.","Che qualcosa poteva interromperla."],a:"Che ho finito il libro."}
 ]},
-{id:4,type:"study",title:"LIVELLO 04 — PAST CONTINUOUS vs PAST SIMPLE",desc:"sfondo e interruzione · i verbi di stato che il continuous non lo reggono",
+{id:4,type:"study",title:"LIVELLO 04 — PAST CONTINUOUS vs PAST SIMPLE",desc:"sfondo e interruzione · verbi di stato",
 rule:`<strong>PAST CONTINUOUS vs PAST SIMPLE &mdash; Unit 1:</strong><br>
 &#x2714; Azione <strong>pi&ugrave; lunga, gi&agrave; in corso</strong> &rarr; past continuous; azione <strong>breve che la interrompe</strong> &rarr; past simple: <em>I was cooking when the phone rang.</em><br>
 &#x2714; Due eventi brevi <strong>in sequenza</strong> &rarr; entrambi al past simple.<br>
@@ -433,7 +435,7 @@ exercises:[
 {type:"mc",q:"Un verbo di stato e una vendita: quale versione regge?",options:["I owned that bike for six years and then I sold it.","I was owning that bike for six years and then I sold it.","I was owning that bike for six years and then I was selling it.","I owned that bike for six years and then I was selling it."],a:"I owned that bike for six years and then I sold it."},
 {type:"fill",q:"Nobody ___ the doorbell because the music was far too loud.",hint:"(hear)",a:"heard",accept:["heard"]}
 ]},
-{id:5,type:"study",title:"LIVELLO 05 — WHEN, WHILE, AS",desc:"successione o contemporaneità · il tempo verbale che segue il connettore",
+{id:5,type:"study",title:"LIVELLO 05 — WHEN, WHILE, AS",desc:"when · while · as · successione o contemporaneità",
 rule:`<strong>WHEN, WHILE, AS &mdash; Unit 1:</strong><br>
 &#x2714; <code>while / as / when</code> + <strong>past continuous</strong> introducono l'azione pi&ugrave; lunga: <em>While/As/When Dad was cooking, Mum laid the table.</em><br>
 &#x2714; Solo <code>when</code> pu&ograve; precedere il <strong>past simple</strong>: <em>When Dad came home, Mum was cooking.</em><br>
@@ -450,37 +452,38 @@ exercises:[
 {type:"mc",q:"Quale frase descrive due azioni che vanno avanti insieme?",options:["As I was painting, my sister was choosing the frames.","As I painted, my sister chose the frames.","When I painted, my sister was choosing the frames.","When I was painting, my sister chose the frames."],a:"As I was painting, my sister was choosing the frames."},
 {type:"fill",q:"When Luke saw the price of the skates, he ___ his mind and walked out.",hint:"(change)",a:"changed",accept:["changed"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore di punteggiatura e di tempo.",wrong:"While Holly cooked the phone rang three times.",a:"While Holly was cooking, the phone rang three times.",accept:["while holly was cooking, the phone rang three times."]},
-{type:"mc",q:"« When I arrived, Sam made coffee » e « When I arrived, Sam was making coffee » : quale delle due dice che il caffè non era ancora iniziato?",options:["When I arrived, Sam made coffee.","When I arrived, Sam was making coffee.","Nessuna delle due.","Tutte e due allo stesso modo."],a:"When I arrived, Sam made coffee."},
+{type:"mc",q:"Quale frase dice che il caffè non era ancora iniziato quando sono arrivato?",options:["When I arrived, Sam made coffee.","When I arrived, Sam was making coffee.","When I arrived, Sam used to make coffee.","When I arrived, Sam makes coffee."],a:"When I arrived, Sam made coffee."},
 {type:"fill",q:"As I ___ the last box up to the loft, the whole shelf collapsed.",hint:"(carry)",a:"was carrying",accept:["was carrying"]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The storm broke during our walk along the river.",key:"WHILE",q:"The storm broke ___ along the river.",a:"while we were walking",accept:["while we were walking"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I hurt my thumb while I dropped the hammer on it.",a:"I hurt my thumb when I dropped the hammer on it.",accept:["i hurt my thumb when i dropped the hammer on it.","i hurt my thumb as i dropped the hammer on it."]},
 {type:"mc",q:"Perché « While the door opened, the cat ran in » non funziona?",options:["Perché while non può introdurre un'azione breve e conclusa.","Perché while non si usa al passato.","Perché manca la virgola.","Perché il soggetto delle due frasi è diverso."],a:"Perché while non può introdurre un'azione breve e conclusa."},
 {type:"fill",q:"When Ethan finally got home, his brother ___ the drums in the garage.",hint:"(play)",a:"was playing",accept:["was playing"]}
 ]},
-{id:6,type:"study",title:"LIVELLO 06 — ADVERBS OF SEQUENCE",desc:"raccontare in ordine · after o afterwards",
+{id:6,type:"study",title:"LIVELLO 06 — ADVERBS OF SEQUENCE",desc:"first · next · then · after that · afterwards · finally · after o afterwards",
 rule:`<strong>ADVERBS OF SEQUENCE &mdash; Unit 1:</strong><br>
 &#x2714; Per ordinare i fatti di un racconto: <code>first (of all)</code> &middot; <code>next</code> &middot; <code>then</code> &middot; <code>after that</code> &middot; <code>afterwards</code> &middot; <code>finally</code><br>
-&#x2714; Si usano con il <strong>past simple</strong>, perch&eacute; indicano azioni consecutive e concluse.<br>
-&#x26A0; <code>after</code> &egrave; una <strong>preposizione o congiunzione</strong>: va seguita da un nome o da una frase (<em>after breakfast</em>).<br>
-&nbsp;&nbsp;&nbsp;<code>afterwards</code> &egrave; un <strong>avverbio</strong>: sta da solo (<em>I left afterwards</em>).`,
+&#x2714; Vogliono il <strong>past simple</strong>: segnalano azioni concluse una dopo l'altra, non scene.<br>
+&#x26A0; <code>after</code> &egrave; <strong>preposizione o congiunzione</strong>: regge sempre qualcosa (<em>after breakfast</em>, <em>after I left</em>).<br>
+&nbsp;&nbsp;&nbsp;<code>afterwards</code> &egrave; un <strong>avverbio</strong>: sta da solo (<em>I left afterwards</em>). &Egrave; l'errore italiano pi&ugrave; comune.<br>
+&#x26A0; <code>finally</code> chiude una sequenza. Non significa &laquo;alla fine si &egrave; risolto&raquo;: quello sarebbe <em>in the end</em>, che qui non usiamo.`,
 exercises:[
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (after o afterwards).",wrong:"Afterwards the concert, we went for a pizza in the square.",a:"After the concert, we went for a pizza in the square.",accept:["after the concert, we went for a pizza in the square."]},
+{type:"mc",q:"Perché « Afterwards the concert we went for pizza » è sbagliata?",options:["Perché afterwards è un avverbio e non può reggere un nome: serve after.","Perché afterwards va solo alla fine della frase.","Perché manca la virgola dopo afterwards.","Perché il verbo dovrebbe essere al past continuous."],a:"Perché afterwards è un avverbio e non può reggere un nome: serve after."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (after o afterwards).",wrong:"We watched the match and had a takeaway after.",a:"We watched the match and had a takeaway afterwards.",accept:["we watched the match and had a takeaway afterwards."]},
+{type:"mc",q:"« Finally, the glue held. » Perché suona strano se vuoi dire « alla fine ce l'ha fatta a tenere » ?",options:["Perché finally chiude una serie di passaggi, non commenta l'esito di un tentativo.","Perché finally non si usa con il past simple.","Perché finally va sempre a fine frase.","Perché glue non è un soggetto possibile."],a:"Perché finally chiude una serie di passaggi, non commenta l'esito di un tentativo."},
 {type:"reorder",instruction:"Riordina il racconto:",words:["first","we","chose","the","wax","then","we","melted","it","and","finally","we","poured","it","into","the","jars"],answer:"first we chose the wax then we melted it and finally we poured it into the jars"},
+{type:"mc",q:"Un compagno scrive: « First we were hiring the canoes, then we were paddling to the island. » Che cosa non torna?",options:["Gli avverbi di sequenza annunciano fatti conclusi in fila: il continuous apre scene e contraddice la sequenza.","Non si può usare first all'inizio di un racconto.","Then va sempre alla fine della frase.","I due verbi dovrebbero essere uguali."],a:"Gli avverbi di sequenza annunciano fatti conclusi in fila: il continuous apre scene e contraddice la sequenza."},
 {type:"wordbox",instruction:"Completa il racconto con gli avverbi del riquadro. Ognuno va usato una volta sola.",verbs:["First","Then","Finally"],sentences:[
 {pre:"",post:", we signed up for the cosplay workshop.",a:"First",accept:["first"]},
 {pre:"",post:", we chose our characters and took the measurements.",a:"Then",accept:["then"]},
 {pre:"",post:", we tried the costumes on in front of everybody.",a:"Finally",accept:["finally"]}
 ]},
-{type:"mc",q:"After o afterwards: quale versione è accettabile?",options:["After the workshop, Tanya went straight home.","Afterwards the workshop, Tanya went straight home.","After, the workshop Tanya went straight home.","Afterwards of the workshop, Tanya went straight home."],a:"After the workshop, Tanya went straight home."},
-{type:"errorcorrect",instruction:"Trova e correggi il tempo verbale.",wrong:"First we were hiring the canoes, then we were paddling to the island.",a:"First we hired the canoes, then we paddled to the island.",accept:["first we hired the canoes, then we paddled to the island."]},
-{type:"mc",q:"Perché in un racconto ordinato gli avverbi di sequenza vogliono il past simple?",options:["Perché indicano azioni concluse una dopo l'altra.","Perché sono avverbi di tempo.","Perché stanno all'inizio della frase.","Perché il past continuous non esiste nei racconti."],a:"Perché indicano azioni concluse una dopo l'altra."},
-{type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["we","tidied","the","studio","and","went","home","afterwards"],answer:"we tidied the studio and went home afterwards"},
-{type:"fill",q:"___ of all, read the instructions right through before you touch anything.",a:"First",accept:["first"]},
-{type:"mc",q:"In quale posizione della frase NON può stare afterwards?",options:["Davanti al nome a cui si riferisce.","All'inizio della frase.","Alla fine della frase.","Dopo il verbo principale."],a:"Davanti al nome a cui si riferisce."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"We had a shower and got dressed straight afterwards.",key:"AFTER",q:"We got dressed straight ___.",a:"after our shower",accept:["after our shower","after the shower","after a shower"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Next of all, we glued the wings onto the model.",a:"Next, we glued the wings onto the model.",accept:["next, we glued the wings onto the model."]},
+{type:"fill",q:"___ of all, read the instructions right through before you touch anything.",a:"First",accept:["first"]},
+{type:"mc",q:"In quale frase afterwards è usato male?",options:["Afterwards the rehearsal, the band packed up.","The band packed up afterwards.","Afterwards, the band packed up.","They rehearsed and went home afterwards."],a:"Afterwards the rehearsal, the band packed up."},
 {type:"reorder",instruction:"Riordina il racconto:",words:["first","Sienna","sorted","her","stamps","next","she","labelled","them","and","after","that","she","filed","them","away"],answer:"first Sienna sorted her stamps next she labelled them and after that she filed them away"},
 {type:"mc",q:"« I had a shower. Afterwards, I got dressed. » Come si può riscrivere senza cambiare il senso?",options:["After my shower, I got dressed.","Afterwards my shower, I got dressed.","After, my shower I got dressed.","I got dressed after that my shower."],a:"After my shower, I got dressed."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (after regge sempre qualcosa).",wrong:"Tanya labelled every jar. After, she stacked them in the cupboard.",a:"Tanya labelled every jar. Afterwards, she stacked them in the cupboard.",accept:["tanya labelled every jar. afterwards, she stacked them in the cupboard.","tanya labelled every jar. after that, she stacked them in the cupboard."]},
 {type:"fill",q:"We rehearsed for two hours and went out for chips ___ the show.",a:"after",accept:["after"]}
 ]},
 {id:"rC",type:"review",title:"⟳ RIPASSO C — tutta la unit",desc:"tutti e sei gli argomenti insieme · frasi nuove",
@@ -496,30 +499,23 @@ exercises:[
 {type:"fill",q:"When the projector broke, the teacher ___ us a story instead.",hint:"(tell)",a:"told",accept:["told"]},
 {type:"mc",q:"Quale frase NON descrive un'abitudine del passato ormai finita?",options:["Ivy did gymnastics until she was fourteen.","Ivy used to do gymnastics after school.","Ivy was doing gymnastics when she twisted her wrist.","Ivy used to do gymnastics at a club in town."],a:"Ivy was doing gymnastics when she twisted her wrist."}
 ]},
-{id:"final",type:"challenge",title:"★ SFIDA FINALE — Use your time!",desc:"key word transformation e open cloze · stile First",
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Use your time!",desc:"tutti gli argomenti insieme · scelte che cambiano il significato",
 exercises:[
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Maya stopped writing her blog three years ago.",key:"USED",q:"Maya ___ a blog.",a:"used to write",accept:["used to write"]},
-{type:"cloze",instruction:"Completa il testo con UNA sola parola per ogni spazio.",text:"Last Sunday I ___ tidying the loft when I found a box of my dad's old model cars. He ___ to build them himself when he was my age. ___ I opened the box, the dust went everywhere. First I cleaned them one by one, ___ that I lined them all up on the shelf.",gaps:[
-{a:"was",accept:["was"]},
-{a:"used",accept:["used"]},
-{a:"As",accept:["as","when"]},
-{a:"after",accept:["after"]}
-]},
 {type:"mc",q:"Abitudine finita, sfondo lungo, evento breve: quale versione tiene tutto insieme?",options:["Willow used to do yoga, and one evening, while she was practising, the lights went out.","Willow used to do yoga, and one evening, while she practised, the lights went out.","Willow was doing yoga, and one evening, while she was practising, the lights were going out.","Willow did yoga, and one evening, while she practised, the lights were going out."],a:"Willow used to do yoga, and one evening, while she was practising, the lights went out."},
+{type:"mc",q:"Un tuo compagno ha scritto: « When the coach blew the whistle, we were stopping. » Che cosa ha voluto dire e che cosa ha scritto davvero?",options:["Voleva dire che si sono fermati subito, ma ha scritto che erano già nel mezzo di un fermarsi che dura.","Voleva dire che si sono fermati piano, e l'ha scritto giusto.","La frase è corretta e significa che si sono fermati subito.","Voleva dire che il coach li ha fermati."],a:"Voleva dire che si sono fermati subito, ma ha scritto che erano già nel mezzo di un fermarsi che dura."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It isn't usual for Caleb to go fishing on his own.",key:"DOESN'T",q:"Caleb ___ fishing on his own.",a:"doesn't usually go",accept:["doesn't usually go"]},
 {type:"errorcorrect",instruction:"Trova e correggi i due errori di tempo.",wrong:"While we were setting up the stall, a woman was coming over and was buying three necklaces.",a:"While we were setting up the stall, a woman came over and bought three necklaces.",accept:["while we were setting up the stall, a woman came over and bought three necklaces."]},
-{type:"cloze",instruction:"Completa il testo con UNA sola parola per ogni spazio.",text:"When I was ten I ___ to go rollerblading every weekend. One Saturday, ___ I was going down the hill, a dog ran out in front of me. I ___ not see it in time and I fell. My knee ___ fine, though, and afterwards we all went for an ice cream.",gaps:[
-{a:"used",accept:["used"]},
-{a:"while",accept:["while","as","when"]},
-{a:"did",accept:["did"]},
-{a:"was",accept:["was"]}
-]},
+{type:"mc",q:"Vuoi dire che la mostra ti annoiava già da un pezzo quando è arrivata Holly. Quale versione lo dice?",options:["I was getting bored when Holly arrived.","I got bored when Holly arrived.","I used to get bored when Holly arrived.","I bored when Holly arrived."],a:"I was getting bored when Holly arrived."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sofia was in the middle of her shift when the news arrived.",key:"WORKING",q:"Sofia ___ when the news arrived.",a:"was still working",accept:["was still working","was working"]},
 {type:"mc",q:"Sviluppo graduale e reazione: quale versione è corretta?",options:["As the afternoon went on, the queue got longer and we were losing patience.","As the afternoon was going on, the queue got longer and we lost patience.","While the afternoon went on, the queue was getting longer and we lost patience.","When the afternoon went on, the queue got longer and we were losing patience."],a:"As the afternoon went on, the queue got longer and we were losing patience."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (abitudine passata, non azione in corso).",wrong:"We were doing voluntary work at the shelter every Saturday for two years, until it closed.",a:"We used to do voluntary work at the shelter every Saturday for two years, until it closed.",accept:["we used to do voluntary work at the shelter every saturday for two years, until it closed.","we did voluntary work at the shelter every saturday for two years, until it closed."]},
+{type:"mc",q:"Quale frase NON regge, e per quale motivo?",options:["Ethan was owning a kitesurf board back then.","Ethan was carrying his kitesurf board down the beach.","Ethan owned a kitesurf board back then.","Ethan bought a kitesurf board that summer."],a:"Ethan was owning a kitesurf board back then."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The doorbell interrupted Robin in the middle of his practice.",key:"WHILE",q:"The doorbell rang ___ .",a:"while Robin was practising",accept:["while Robin was practising","while robin was practicing"]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["as","the","light","was","fading","Oliver","realised","he","had","no","torch"],answer:"as the light was fading Oliver realised he had no torch"}
 ]}
 ];
+
 const SK='gq_u1pn_s',EK='gq_u1pn_e';
 let state={},errorMap={};
 function encodeState(){
@@ -626,7 +622,7 @@ function renderExercise(){
   if(ex.type==='fill'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
-    const opts=ex.options.map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
     const shuffled=shuffle([...ex.words]);
@@ -634,7 +630,7 @@ function renderExercise(){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
     const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${ex.verbs.join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='cloze'){
