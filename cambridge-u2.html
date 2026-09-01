@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 · Cambridge — Present Perfect Aspect</title>
+<meta name="description" content="The Structure · Unit 1 · Cambridge B2 First Use of English: Open Cloze, Multiple-choice Cloze, Key Word Transformation sul past narrative.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --emerald:#0f9d6b; --emerald2:#0a7048; --gold:#b8860b; --gold2:#8a6608; --rust:#c1502a; --rust2:#963a1d;
+  --ok:#1f9d57; --ok-soft:rgba(31,157,87,0.14); --bad:#cc3b3b; --bad-soft:rgba(204,59,59,0.12);
+  --glossc:#9a6b00;
+  --accent:#0f9d6b; --accent2:#0a7048;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---- topbar (controlli) ---- */
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 16px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.tb-brand{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.5);}
+.tb-btns{display:flex;gap:8px;}
+.tb-btn{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:7px 11px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.62);transition:.2s;white-space:nowrap;}
+.tb-tr.on{border-color:var(--gold);color:#e7c14a;background:rgba(184,134,11,.18);}
+.tb-tr:hover{border-color:var(--gold);color:#e7c14a;}
+.tb-reset:hover{border-color:#e2553f;color:#e2553f;}
+
+/* ---- foglio ---- */
+.stage{display:flex;justify-content:center;padding:26px 18px 64px;}
+.sheet{position:relative;width:100%;max-width:760px;background:var(--paper);border-radius:18px;overflow:hidden;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);
+  background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;}
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---- home: banda + timbro + testata ---- */
+.band{position:absolute;top:-90px;right:-130px;width:430px;height:430px;transform:rotate(32deg);pointer-events:none;
+  background:linear-gradient(135deg,var(--emerald),var(--gold) 55%,var(--rust));opacity:.92;}
+.band::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 18px,rgba(255,255,255,.06) 18px 19px);}
+.stamp{position:absolute;top:24px;left:28px;z-index:3;border:2.5px solid var(--ink);border-radius:6px;padding:6px 12px;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;transform:rotate(-4deg);}
+.stamp b{color:var(--rust);}
+.head{position:relative;z-index:2;padding:92px 34px 0;}
+.ey{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--rust);}
+.head h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(40px,11vw,70px);line-height:.92;letter-spacing:-1.5px;margin:6px 0 0;}
+.head h1 .thin{display:block;font-family:'Inter',sans-serif;font-weight:500;font-size:.26em;letter-spacing:0;color:var(--sub);margin-top:12px;line-height:1.5;}
+.lead{font-size:15px;color:var(--sub);max-width:440px;margin:18px 0 0;line-height:1.5;}
+
+/* ---- elenco prove ---- */
+.tasks{position:relative;z-index:2;margin-top:30px;}
+.task{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);cursor:pointer;transition:background .18s;}
+.tasks .task:last-child{border-bottom:1.5px solid var(--ink);}
+.task:hover{background:rgba(27,29,23,0.035);}
+.t-no{font-family:'Sora',sans-serif;font-weight:800;font-size:44px;line-height:1;width:108px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:#fff;}
+.task.a .t-no{background:linear-gradient(150deg,var(--emerald),var(--emerald2));}
+.task.b .t-no{background:linear-gradient(150deg,var(--gold),var(--gold2));}
+.task.c .t-no{background:linear-gradient(150deg,var(--rust),var(--rust2));}
+.t-mid{flex:1;padding:18px 20px;min-width:0;}
+.t-part{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
+.t-name{font-family:'Sora',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.3px;margin-bottom:5px;}
+.t-desc{font-size:13.5px;color:var(--sub);line-height:1.4;}
+.t-end{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:8px;padding:18px 22px 18px 0;}
+.t-items{font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;color:var(--mut);letter-spacing:1px;}
+.t-arrow{font-family:'Sora',sans-serif;font-size:22px;transition:transform .2s;}
+.task:hover .t-arrow{transform:translateX(5px);}
+.t-score{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;border:1.5px solid;white-space:nowrap;}
+.task.a .t-score{color:var(--emerald2);border-color:var(--emerald);}
+.task.b .t-score{color:var(--gold2);border-color:var(--gold);}
+.task.c .t-score{color:var(--rust2);border-color:var(--rust);}
+
+/* ---- footer codice ---- */
+.foot{position:relative;z-index:2;margin:30px 34px 38px;border:1.5px dashed var(--ink);border-radius:12px;padding:15px 18px;}
+.foot-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.foot-lab{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.foot-code{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:1.5px;font-size:14px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 13px;word-break:break-all;flex:1;min-width:130px;text-align:center;}
+.foot-hint{font-size:12px;color:var(--mut);margin-top:9px;line-height:1.45;}
+.foot-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:11px;}
+.mini{font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.3px;padding:8px 13px;border-radius:8px;cursor:pointer;transition:.2s;border:1.5px solid;}
+.mini-solid{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.mini-solid:hover{background:#000;}
+.mini-line{background:transparent;color:var(--ink);border-color:var(--line2);}
+.mini-line:hover{border-color:var(--ink);}
+.foot-imp{flex:1;min-width:150px;display:flex;gap:8px;}
+.foot-imp input{flex:1;min-width:90px;background:#fff;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:1px;color:var(--ink);outline:none;}
+.foot-imp input:focus{border-color:var(--rust);}
+.foot-msg{font-size:12px;margin-top:7px;min-height:15px;}
+.foot-msg.ok{color:var(--ok);}.foot-msg.err{color:var(--bad);}
+
+/* ---- exam ---- */
+#screen-exam{padding:30px 30px 42px;}
+.ex-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+.ex-head{min-width:0;}
+.ex-part{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.5px;line-height:1.05;}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;flex-shrink:0;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.ex-instr{font-size:14px;color:var(--sub);line-height:1.55;margin:14px 0 18px;padding:13px 16px;
+  background:rgba(27,29,23,0.04);border-left:3px solid var(--accent);border-radius:0 var(--rs) var(--rs) 0;}
+.ex-instr b{color:var(--accent);}
+
+.qblock{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;position:relative;overflow:hidden;box-shadow:0 6px 18px rgba(27,29,23,.06);}
+.qblock::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+.cloze-text{font-family:'Inter',sans-serif;font-size:17px;line-height:2.5;color:var(--ink);}
+.gapwrap{position:relative;display:inline-block;white-space:nowrap;}
+.gapnum{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;color:var(--accent);vertical-align:super;margin-right:3px;}
+.gap-input{display:inline-block;width:118px;background:#fff;border:1px solid var(--line2);border-radius:7px;padding:3px 9px;
+  font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--ink);outline:none;text-align:center;transition:.16s;}
+.gap-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(15,157,107,.12);}
+.gap-sel{display:inline-block;background:#fff;border:1px solid var(--line2);border-radius:7px;padding:4px 7px;
+  font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--ink);outline:none;cursor:pointer;}
+.gap-sel:focus{border-color:var(--accent);}
+.gap-input.gap-ok,.gap-sel.gap-ok{border-color:var(--ok);background:var(--ok-soft);color:#0d6e3c;}
+.gap-input.gap-bad,.gap-sel.gap-bad{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;text-decoration:line-through;}
+.corr{display:inline;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--ok);margin-left:6px;white-space:nowrap;}
+
+.tf-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px dashed var(--line2);}
+.tf-item:last-child{border-bottom:none;}
+.tf-num{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;color:var(--accent);min-width:22px;}
+.tf-body{flex:1;min-width:0;}
+.tf-prompt{font-size:15.5px;font-weight:500;color:var(--ink);background:rgba(27,29,23,0.04);border-radius:var(--rs);padding:9px 13px;margin-bottom:8px;}
+.tf-cue{font-size:13px;color:var(--mut);font-style:italic;margin-bottom:10px;}
+.tf-key{margin:2px 0 11px;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.tf-key-lab{font-size:9px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;}
+.tf-key b{display:inline-block;background:var(--ink);color:var(--paper);padding:3px 14px;border-radius:6px;letter-spacing:2.5px;font-size:13px;font-weight:700;}
+.tf-end{color:var(--accent);font-weight:700;}
+.tf-row{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;}
+.tf-start{color:var(--accent);font-weight:700;}
+.tf-input{width:auto;min-width:200px;max-width:100%;text-align:left;}
+.corr-tf{margin-top:9px;font-size:14px;font-weight:600;color:var(--ok);}
+.corr-tf b{color:#0d6e3c;}
+
+.gloss{position:relative;}
+body.tr-on .gloss{border-bottom:1px dotted var(--glossc);cursor:help;color:#7a5400;}
+#tip{position:fixed;z-index:200;display:none;background:rgba(20,16,4,.97);border:1px solid var(--gold);color:#fff;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;padding:7px 12px;border-radius:8px;max-width:240px;line-height:1.4;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);}
+#tip b{color:#e7c14a;font-weight:700;}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.4px;padding:13px 26px;border-radius:var(--rs);cursor:pointer;transition:.2s;border:1.5px solid transparent;}
+.btn-go{background:var(--accent);color:#fff;}
+.btn-go:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-ghost{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+
+.score{display:flex;align-items:center;gap:18px;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:18px;flex-wrap:wrap;}
+.score-ring{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;letter-spacing:.5px;padding:13px 19px;border-radius:13px;line-height:1;border:1.5px solid;}
+.score-ring.good{color:var(--ok);background:var(--ok-soft);border-color:var(--ok);}
+.score-ring.mid{color:var(--gold2);background:rgba(184,134,11,.14);border-color:var(--gold);}
+.score-ring.low{color:var(--bad);background:var(--bad-soft);border-color:var(--bad);}
+.score-txt{flex:1;min-width:160px;}
+.score-txt b{font-family:'Sora',sans-serif;font-size:15px;color:var(--ink);display:block;margin-bottom:3px;}
+.score-txt span{font-size:13.5px;color:var(--sub);}
+
+@media(max-width:560px){
+  #screen-exam{padding:24px 18px 36px;}
+  .head{padding:84px 22px 0;}
+  .foot{margin:26px 22px 30px;}
+  .t-no{width:74px;font-size:34px;}
+  .t-mid{padding:15px 14px;}
+  .t-end{padding:15px 14px 15px 0;}
+  .cloze-text{font-size:16px;line-height:2.6;}
+  .gap-input{width:100px;}
+  .ex-title{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div id="tip"></div>
+
+<div class="topbar">
+  <div class="tb-brand">The Structure · Cambridge</div>
+  <div class="tb-btns">
+    <button class="tb-btn tb-tr" id="trBtn" onclick="toggleTr()">🌐 IT: OFF</button>
+    <button class="tb-btn tb-reset" onclick="resetAll()">↻ RESET</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="sheet">
+
+    <!-- ========== HOME ========== -->
+    <div id="screen-home" class="screen active">
+      <div class="band"></div>
+      <div class="stamp">B2 First · <b>Use of English</b></div>
+      <div class="head">
+        <div class="ey">Unit 2</div>
+        <h1>Present Perfect<br>Aspect<span class="thin">Tre prove in stile esame Cambridge sul present perfect. Falle una alla volta: il tuo miglior punteggio resta salvato.</span></h1>
+      </div>
+      <div class="tasks" id="tasks"></div>
+      <div class="foot">
+        <div class="foot-top">
+          <span class="foot-lab">💾 Codice</span>
+          <span class="foot-code" id="saveCode">—</span>
+          <button class="mini mini-solid" id="copyBtn" onclick="copyCode()">⧉ COPIA</button>
+        </div>
+        <div class="foot-hint">Copia o fotografa il codice e incollalo su un altro dispositivo per ritrovare i tuoi punteggi.</div>
+        <div class="foot-row">
+          <span class="foot-imp"><input id="impInput" type="text" maxlength="120" placeholder="incolla codice…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')"><button class="mini mini-line" onclick="importCode()">↵ CARICA</button></span>
+        </div>
+        <div class="foot-msg" id="impMsg"></div>
+      </div>
+    </div>
+
+    <!-- ========== EXAM ========== -->
+    <div id="screen-exam" class="screen">
+      <div class="ex-top">
+        <div class="ex-head"><div class="ex-part" id="exPart"></div><div class="ex-title" id="exTitle"></div></div>
+        <button class="btn-back" onclick="goHome()">← Torna</button>
+      </div>
+      <div class="ex-instr" id="exInstr"></div>
+      <div id="exScore"></div>
+      <div id="exSheet"></div>
+      <div class="actions" id="exActions"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ===================== DATI — UNIT 1 PAST NARRATIVE ===================== */
+const UNIT_CODE='CU2';
+const TYPES=[
+{
+  id:'oc',accent:'#0f9d6b',accent2:'#0a7048',name:'Open Cloze',n:8,
+  part:'Reading & Use of English · Part 2',
+  short:'Completa il testo: una sola parola per ogni spazio.',
+  instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 2: present perfect continuous, for/since, present perfect vs past simple.',
+  text:`My sister Freya {1} been working as a dog walker since she {2} fifteen. She started by chance: a neighbour asked her for help one afternoon, and she has been doing it ever {3}. She has already earned enough money for a second-hand laptop, and she hasn't spent a penny of it {4}. Last winter she took a first-aid course for animals, {5} she wants to become a vet one day. How {6} has she been saving? Almost three years. I still haven't made {7} my mind about my own future, {8} her patience impresses me.`,
+  gaps:[
+    {a:"has",accept:["has"]},
+    {a:"was",accept:["was"]},
+    {a:"since",accept:["since"]},
+    {a:"yet",accept:["yet"]},
+    {a:"because",accept:["because","as","since"]},
+    {a:"long",accept:["long"]},
+    {a:"up",accept:["up"]},
+    {a:"but",accept:["but","though","although"]},
+  ],
+  gloss:{"by chance":"per caso","ever since":"da allora","second-hand":"di seconda mano","a penny":"un centesimo","first-aid":"pronto soccorso","patience":"pazienza","impresses":"colpisce"}
+},
+{
+  id:'mc',accent:'#b8860b',accent2:'#8a6608',name:'Multiple-choice Cloze',n:8,
+  part:'Reading & Use of English · Part 1',
+  short:'Scegli l\u2019opzione corretta per ogni spazio.',
+  instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: present perfect continuous, simple vs continuous, present perfect vs past simple, verbi di stato.',
+  text:`Harry {1} in the same restaurant since March. He {2} the job last spring, through a friend who was already working there. Since then he {3} four different sauces, and the head chef trusts him. "I {4} how hard it would be when I started," he admits. "Some evenings I {5} vegetables for three hours without stopping." He {6} his boss since Monday, because the shift rota is still a mess, but he doesn't want to complain. How many hours {7} this month? Almost ninety. He {8} up his mind yet, but he is thinking about catering college.`,
+  gaps:[
+    {options:["has been working","is working","works","was working"],a:"has been working"},
+    {options:["got","has got","has been getting","gets"],a:"got"},
+    {options:["has learnt","has been learning","learns","is learning"],a:"has learnt"},
+    {options:["didn't know","haven't known","haven't been knowing","wasn't knowing"],a:"didn't know"},
+    {options:["have been cutting","have cut","cut","was cutting"],a:"have been cutting"},
+    {options:["hasn't spoken to","hasn't been speaking to","doesn't speak to","didn't speak to"],a:"hasn't spoken to"},
+    {options:["has he worked","has he been working","did he work","is he working"],a:"has he worked"},
+    {options:["hasn't made","hasn't been making","didn't make","doesn't make"],a:"hasn't made"},
+  ],
+  gloss:{"through a friend":"tramite un amico","sauces":"salse","head chef":"capocuoco","trusts":"si fida di","admits":"ammette","shift rota":"turni","complain":"lamentarsi","catering college":"scuola alberghiera"}
+},
+{
+  id:'tr',accent:'#c1502a',accent2:'#963a1d',name:'Key Word Transformation',n:6,
+  part:'Reading & Use of English · Part 4',
+  short:'Completa con 2\u20135 parole, usando la parola chiave.',
+  instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
+  items:[
+    {prompt:"Mia started her apprenticeship in September and she is still doing it.",key:"BEEN",pre:"Mia",post:"her apprenticeship since September.",a:"has been doing",accept:["has been doing"]},
+    {prompt:"It is two years since Dylan last had an interview.",key:"HAD",pre:"Dylan",post:"an interview for two years.",a:"hasn't had",accept:["hasn't had","has not had"]},
+    {prompt:"Zara began revising at eight this morning and she is still revising.",key:"SINCE",pre:"Zara has been revising",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
+    {prompt:"Logan has never worked in a team before.",key:"FIRST",pre:"This is the",post:"Logan has worked in a team.",a:"first time",accept:["first time"]},
+    {prompt:"Willow last made a suggestion at the March meeting.",key:"MADE",pre:"Willow",post:"a suggestion since the March meeting.",a:"hasn't made",accept:["hasn't made","has not made"]},
+    {prompt:"How long is it since Noah got his qualification?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had"]},
+  ],
+  gloss:{"apprenticeship":"apprendistato","revising":"ripassando","suggestion":"proposta","qualification":"titolo di studio"}
+},
+];
+
+/* ===================== TRADUZIONE ===================== */
+const TR_KEY='cu2_tr';
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function applyGloss(text,gloss){
+  if(!gloss||!text)return text;
+  const lower={};Object.keys(gloss).forEach(k=>lower[k.toLowerCase()]=gloss[k]);
+  const keys=Object.keys(gloss).sort((a,b)=>b.length-a.length).map(escRe);
+  const re=new RegExp('\\b('+keys.join('|')+')\\b','gi');
+  return text.replace(re,m=>{const it=lower[m.toLowerCase()];if(!it)return m;return `<span class="gloss" data-it="${it.replace(/"/g,'&quot;')}" onclick="showGloss(event,this)">${m}</span>`;});
+}
+function showGloss(e,el){
+  e.stopPropagation();
+  if(!document.body.classList.contains('tr-on'))return;
+  const t=document.getElementById('tip');
+  t.innerHTML='<b>'+el.textContent+'</b> → '+el.getAttribute('data-it');
+  t.style.display='block';
+  const r=el.getBoundingClientRect();const tw=t.offsetWidth,th=t.offsetHeight;
+  let left=Math.min(Math.max(8,r.left+r.width/2-tw/2),innerWidth-tw-8);
+  let top=r.top-th-8;if(top<8)top=r.bottom+8;
+  t.style.left=left+'px';t.style.top=top+'px';
+}
+document.addEventListener('click',()=>{const t=document.getElementById('tip');if(t)t.style.display='none';});
+window.addEventListener('scroll',()=>{const t=document.getElementById('tip');if(t)t.style.display='none';},true);
+function toggleTr(){const on=document.body.classList.toggle('tr-on');try{localStorage.setItem(TR_KEY,on?'1':'0');}catch(e){}updateTrBtn();}
+function updateTrBtn(){const on=document.body.classList.contains('tr-on');const b=document.getElementById('trBtn');if(b){b.textContent=on?'🌐 IT: ON':'🌐 IT: OFF';b.classList.toggle('on',on);}}
+try{if(localStorage.getItem(TR_KEY)==='1')document.body.classList.add('tr-on');}catch(e){}
+
+/* ===================== STATO & SAVE CODE ===================== */
+const SK='cu2_progress';
+let progress={};
+function loadProgress(){try{progress=JSON.parse(localStorage.getItem(SK))||{};}catch(e){progress={};}}
+function saveProgress(){try{localStorage.setItem(SK,JSON.stringify(progress));}catch(e){}updateSaveCode();}
+function saveBest(id,c,n){if(!progress[id]||c>progress[id].c)progress[id]={c,n};saveProgress();}
+function encodeState(){
+  const parts=Object.keys(progress).map(k=>`${k}:${progress[k].c}/${progress[k].n}`);
+  if(!parts.length)return '—';
+  try{return UNIT_CODE+'.'+btoa(parts.join(',')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');}catch(e){return '—';}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z0-9]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);const p={};
+    raw.split(',').filter(Boolean).forEach(seg=>{const i=seg.indexOf(':');const k=seg.slice(0,i);const v=seg.slice(i+1);const[c,n]=v.split('/').map(Number);if(k&&!isNaN(c)&&!isNaN(n))p[k]={c,n};});
+    return p;
+  }catch(e){return null;}
+}
+function updateSaveCode(){const el=document.getElementById('saveCode');if(el)el.textContent=encodeState();}
+function copyCode(){
+  const code=encodeState();if(code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);});
+  const b=document.getElementById('copyBtn');if(b){const o=b.textContent;b.textContent='✓ FATTO';setTimeout(()=>b.textContent=o,1700);}
+}
+function importCode(){
+  const v=(document.getElementById('impInput').value||'').trim();const m=document.getElementById('impMsg');
+  if(!v){m.className='foot-msg err';m.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(v);
+  if(!obj){m.className='foot-msg err';m.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  progress=obj;saveProgress();m.className='foot-msg ok';m.textContent='Progresso caricato! ✓';
+  document.getElementById('impInput').value='';renderHome();
+}
+function resetAll(){
+  if(!confirm('Azzerare tutti i punteggi di questa Unit?'))return;
+  progress={};try{localStorage.removeItem(SK);}catch(e){}saveProgress();renderHome();
+}
+
+/* ===================== HOME ===================== */
+function renderHome(){
+  const box=document.getElementById('tasks');box.innerHTML='';
+  const letters=['a','b','c'];
+  TYPES.forEach((t,idx)=>{
+    const p=progress[t.id];
+    const end=(p?`<span class="t-score">★ ${p.c}/${p.n}</span>`:'')+`<span class="t-items">${t.n} ITEM</span><span class="t-arrow">→</span>`;
+    const el=document.createElement('div');el.className='task '+letters[idx];
+    el.innerHTML=`<div class="t-no">${String(idx+1).padStart(2,'0')}</div>
+      <div class="t-mid"><div class="t-part">${t.part}</div><div class="t-name">${t.name}</div><div class="t-desc">${t.short}</div></div>
+      <div class="t-end">${end}</div>`;
+    el.onclick=()=>openType(t.id);
+    box.appendChild(el);
+  });
+  updateSaveCode();showScreen('home');
+}
+
+/* ===================== EXAM ===================== */
+let current=null,graded=false;
+function openType(id){
+  current=TYPES.find(t=>t.id===id);graded=false;
+  document.documentElement.style.setProperty('--accent',current.accent);
+  document.documentElement.style.setProperty('--accent2',current.accent2);
+  document.getElementById('exTitle').textContent=current.name;
+  document.getElementById('exPart').textContent=current.part;
+  document.getElementById('exInstr').innerHTML=current.instr;
+  document.getElementById('exScore').innerHTML='';
+  renderSheet();
+  document.getElementById('exActions').innerHTML=`<button class="btn btn-go" onclick="grade()">✓ CORREGGI</button><button class="btn btn-ghost" onclick="goHome()">← Torna</button>`;
+  showScreen('exam');window.scrollTo(0,0);
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderSheet(){
+  const t=current;let html='';
+  if(t.id==='oc'){
+    let body=applyGloss(t.text,t.gloss);
+    t.gaps.forEach((g,i)=>{const n=i+1;
+      body=body.replace('{'+n+'}',`<span class="gapwrap"><span class="gapnum">${n}</span><input class="gap-input" id="g${n}" autocomplete="off" spellcheck="false"><span class="corr" id="cr${n}"></span></span>`);
+    });
+    html=`<div class="qblock"><div class="cloze-text">${body}</div></div>`;
+  } else if(t.id==='mc'){
+    let body=applyGloss(t.text,t.gloss);
+    t.gaps.forEach((g,i)=>{const n=i+1;
+      const opts=shuffle([...g.options]).map(o=>`<option value="${o.replace(/"/g,'&quot;')}">${o}</option>`).join('');
+      body=body.replace('{'+n+'}',`<span class="gapwrap"><span class="gapnum">${n}</span><select class="gap-sel" id="g${n}"><option value="" selected disabled>—</option>${opts}</select><span class="corr" id="cr${n}"></span></span>`);
+    });
+    html=`<div class="qblock"><div class="cloze-text">${body}</div></div>`;
+  } else {
+    const rows=t.items.map((it,i)=>`<div class="tf-item"><div class="tf-num">${i+1}</div><div class="tf-body">
+      <div class="tf-prompt">${applyGloss(it.prompt,it.gloss)}</div>
+      <div class="tf-key"><span class="tf-key-lab">Parola chiave</span> <b>${it.key}</b></div>
+      <div class="tf-row">${it.pre?`<span class="tf-start">${applyGloss(it.pre,it.gloss)}</span> `:''}<input class="gap-input tf-input" id="t${i}" autocomplete="off" spellcheck="false" placeholder="2\u20135 parole\u2026">${it.post?` <span class="tf-end">${applyGloss(it.post,it.gloss)}</span>`:''}</div>
+      <div class="corr-tf" id="crt${i}" style="display:none"></div></div></div>`).join('');
+    html=`<div class="qblock">${rows}</div>`;
+  }
+  document.getElementById('exSheet').innerHTML=html;
+}
+function norm(s){return (s||'').trim().toLowerCase().replace(/[.,!?;:]+$/,'').replace(/,/g,' ').replace(/[—–]/g,'-').replace(/\s+/g,' ').trim();}
+function grade(){
+  if(graded)return;graded=true;
+  const t=current;let correct=0;
+  if(t.id==='oc'||t.id==='mc'){
+    t.gaps.forEach((g,i)=>{
+      const n=i+1;const el=document.getElementById('g'+n);if(!el)return;
+      const ok=(g.accept||[g.a]).map(norm).includes(norm(el.value));
+      el.classList.add(ok?'gap-ok':'gap-bad');el.disabled=true;
+      if(ok)correct++;else{const c=document.getElementById('cr'+n);if(c)c.innerHTML='→ '+g.a;}
+    });
+  } else {
+    t.items.forEach((it,i)=>{
+      const el=document.getElementById('t'+i);if(!el)return;
+      const ok=(it.accept||[it.a]).map(norm).includes(norm(el.value));
+      el.classList.add(ok?'gap-ok':'gap-bad');el.disabled=true;
+      const c=document.getElementById('crt'+i);
+      if(ok){correct++;}
+      else if(c){c.className='corr-tf bad';c.style.display='block';c.innerHTML='✓ '+(it.pre?it.pre+' ':'')+'<b>'+it.a+'</b>'+(it.post?' '+it.post:'');}
+    });
+  }
+  const total=t.n,pct=Math.round(correct/total*100);
+  const cls=pct>=80?'good':pct>=50?'mid':'low';
+  const label=pct>=80?'Ottimo lavoro!':pct>=50?'Ci sei quasi — rivedi gli errori.':'Riprova: rileggi la regola e ritenta.';
+  document.getElementById('exScore').innerHTML=`<div class="score"><div class="score-ring ${cls}">${correct}/${total}</div><div class="score-txt"><b>${pct}%</b><span>${label} Le risposte corrette sono evidenziate in verde nel testo.</span></div></div>`;
+  saveBest(t.id,correct,total);
+  document.getElementById('exActions').innerHTML=`<button class="btn btn-go" onclick="openType('${t.id}')">↻ Riprova</button><button class="btn btn-ghost" onclick="goHome()">← Torna alla scelta</button>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');}
+function goHome(){renderHome();window.scrollTo(0,0);}
+
+/* init */
+updateTrBtn();loadProgress();renderHome();
+</script>
+</body>
+</html>
