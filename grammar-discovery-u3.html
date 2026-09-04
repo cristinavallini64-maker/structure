@@ -217,33 +217,64 @@ function chiudi(){
   d.scrollIntoView({block:'end', behavior:'smooth'});
 }
 
+// se una chiamata fallisce, l'ultima risposta dello studente NON deve restare
+// nello storico: altrimenti al tentativo dopo si inviano due turni di fila
+// dello studente e il tutor rifiuta per sempre.
+function annullaUltimoTurno(){
+  const ultimo = storico[storico.length - 1];
+  if(ultimo && ultimo.role === 'user'){
+    storico.pop();
+    const bolle = dialogo.querySelectorAll('.studente');
+    if(bolle.length) bolle[bolle.length - 1].remove();
+    campo.value = ultimo.content;
+    campo.style.height = 'auto';
+    campo.style.height = Math.min(campo.scrollHeight, 120) + 'px';
+    return true;
+  }
+  return false;
+}
+
+async function chiama(){
+  const r = await fetch(WORKER, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ messages: storico })
+  });
+  const dati = await r.json();
+  return { ok: r.ok, dati: dati };
+}
+
 async function parla(){
   occupato = true;
   invia.disabled = true;
   const attesa = puntini();
 
+  let esito = null;
   try{
-    const r = await fetch(WORKER, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ messages: storico })
-    });
-    const dati = await r.json();
-    attesa.remove();
-
-    if(!r.ok || !dati.reply){
-      avviso(dati.error || 'Il tutor non risponde. Controlla la connessione e riprova.');
-    } else {
-      let testo = dati.reply;
-      const finito = /PERCORSO COMPLETATO/i.test(testo);
-      testo = testo.replace(/PERCORSO COMPLETATO/ig, '').trim();
-      if(testo) bolla('tutor', testo);
-      storico.push({ role:'assistant', content: dati.reply });
-      if(finito) chiudi();
-    }
+    esito = await chiama();
   } catch(e){
-    attesa.remove();
-    avviso('Connessione non riuscita. Controlla la rete e riprova.');
+    // un tentativo in più: sulle reti scolastiche cade spesso la prima chiamata
+    await new Promise(r => setTimeout(r, 1200));
+    try { esito = await chiama(); } catch(e2){ esito = null; }
+  }
+
+  attesa.remove();
+
+  if(esito === null){
+    const recuperato = annullaUltimoTurno();
+    avviso(recuperato
+      ? 'Connessione caduta. La tua risposta è tornata nel riquadro: premi Invia per riprovare.'
+      : 'Connessione caduta. Ricarica la pagina per ricominciare.');
+  } else if(!esito.ok || !esito.dati.reply){
+    annullaUltimoTurno();
+    avviso((esito.dati && esito.dati.error) || 'Il tutor non risponde. Riprova fra poco.');
+  } else {
+    let testo = esito.dati.reply;
+    const finito = /PERCORSO COMPLETATO/i.test(testo);
+    testo = testo.replace(/PERCORSO COMPLETATO/ig, '').trim();
+    if(testo) bolla('tutor', testo);
+    storico.push({ role:'assistant', content: esito.dati.reply });
+    if(finito) chiudi();
   }
 
   occupato = false;
