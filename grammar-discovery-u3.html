@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scopri la regola · stop, remember, forget</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a1216;
+    --cyan:#00E5FF;
+    --cyan-scuro:#0099aa;
+    --testo:#dceef2;
+    --tenue:#7fa3ac;
+  }
+  body{
+    background:var(--bg);
+    font-family:'Poppins',sans-serif;
+    color:var(--testo);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header{
+    border-bottom:1px solid rgba(0,229,255,.22);
+    padding:16px 20px 14px;
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  header h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.05rem;
+    letter-spacing:2px;
+    color:var(--cyan);
+    text-transform:uppercase;
+  }
+  header p{font-size:.82rem;color:var(--tenue)}
+  header a{
+    margin-left:auto;
+    font-size:.78rem;
+    color:var(--tenue);
+    text-decoration:none;
+    border:1px solid rgba(0,229,255,.3);
+    border-radius:14px;
+    padding:4px 12px;
+  }
+  header a:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  main{
+    flex:1;
+    width:100%;
+    max-width:680px;
+    margin:0 auto;
+    padding:22px 18px 12px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .bolla{max-width:88%;line-height:1.55;font-size:.96rem;white-space:pre-wrap}
+  .tutor{
+    align-self:flex-start;
+    border-left:3px solid var(--cyan);
+    padding:2px 0 2px 14px;
+  }
+  .studente{
+    align-self:flex-end;
+    background:rgba(0,229,255,.09);
+    border-radius:14px 14px 4px 14px;
+    padding:10px 15px;
+    color:#eaf9fc;
+  }
+  .avviso{
+    align-self:center;
+    font-size:.85rem;
+    color:#ffb4a2;
+    border:1px dashed rgba(255,180,162,.45);
+    border-radius:10px;
+    padding:8px 14px;
+    max-width:88%;
+  }
+
+  .puntini{align-self:flex-start;padding-left:17px;color:var(--cyan-scuro);font-size:1.4rem;letter-spacing:3px}
+  .puntini span{animation:p 1.1s infinite}
+  .puntini span:nth-child(2){animation-delay:.18s}
+  .puntini span:nth-child(3){animation-delay:.36s}
+  @keyframes p{0%,60%,100%{opacity:.25}30%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.puntini span{animation:none;opacity:.6}}
+
+  footer{
+    position:sticky;
+    bottom:0;
+    background:linear-gradient(to top,var(--bg) 70%,rgba(10,18,22,0));
+    padding:14px 18px 20px;
+  }
+  .barra{
+    max-width:680px;
+    margin:0 auto;
+    display:flex;
+    gap:10px;
+    align-items:flex-end;
+  }
+  textarea{
+    flex:1;
+    resize:none;
+    font-family:'Poppins',sans-serif;
+    font-size:.95rem;
+    color:var(--testo);
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(0,229,255,.28);
+    border-radius:12px;
+    padding:11px 14px;
+    max-height:120px;
+    line-height:1.4;
+  }
+  textarea:focus{outline:2px solid var(--cyan);outline-offset:1px;border-color:transparent}
+  textarea::placeholder{color:#5c7f88}
+  button{
+    font-family:'Orbitron',sans-serif;
+    font-size:.8rem;
+    letter-spacing:1px;
+    background:var(--cyan);
+    color:#04181d;
+    border:none;
+    border-radius:12px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:700;
+  }
+  button:hover{background:#fff}
+  button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  button:disabled{opacity:.35;cursor:default}
+
+  .fine{
+    align-self:center;
+    text-align:center;
+    font-family:'Orbitron',sans-serif;
+    font-size:.9rem;
+    letter-spacing:2px;
+    color:var(--cyan);
+    border-top:1px solid rgba(0,229,255,.25);
+    border-bottom:1px solid rgba(0,229,255,.25);
+    padding:12px 22px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Scopri la regola</h1>
+  <p>stop · remember · forget</p>
+  <a href="javascript:window.close()">Chiudi</a>
+</header>
+
+<main id="dialogo"></main>
+
+<footer>
+  <div class="barra">
+    <textarea id="campo" rows="1" placeholder="Rispondi con parole tue…" autocomplete="off"></textarea>
+    <button id="invia">Invia</button>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// INDIRIZZO DEL WORKER — da sostituire dopo il deploy su Cloudflare
+// ============================================================
+const WORKER = "https://grammar-tutor.cristinavallini64.workers.dev";
+
+const dialogo = document.getElementById('dialogo');
+const campo   = document.getElementById('campo');
+const invia   = document.getElementById('invia');
+
+let storico = [];      // conversazione inviata al Worker
+let occupato = false;
+let concluso = false;
+
+function bolla(chi, testo){
+  const d = document.createElement('div');
+  d.className = 'bolla ' + chi;
+  d.textContent = testo;
+  dialogo.appendChild(d);
+  d.scrollIntoView({block:'end', behavior:'smooth'});
+  return d;
+}
+
+function avviso(testo){
+  const d = document.createElement('div');
+  d.className = 'avviso';
+  d.textContent = testo;
+  dialogo.appendChild(d);
+  d.scrollIntoView({block:'end', behavior:'smooth'});
+}
+
+function puntini(){
+  const d = document.createElement('div');
+  d.className = 'puntini';
+  d.innerHTML = '<span>·</span><span>·</span><span>·</span>';
+  dialogo.appendChild(d);
+  d.scrollIntoView({block:'end', behavior:'smooth'});
+  return d;
+}
+
+function chiudi(){
+  concluso = true;
+  campo.disabled = true;
+  invia.disabled = true;
+  const d = document.createElement('div');
+  d.className = 'fine';
+  d.textContent = 'PERCORSO COMPLETATO';
+  dialogo.appendChild(d);
+  d.scrollIntoView({block:'end', behavior:'smooth'});
+}
+
+async function parla(){
+  occupato = true;
+  invia.disabled = true;
+  const attesa = puntini();
+
+  try{
+    const r = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ messages: storico })
+    });
+    const dati = await r.json();
+    attesa.remove();
+
+    if(!r.ok || !dati.reply){
+      avviso(dati.error || 'Il tutor non risponde. Controlla la connessione e riprova.');
+    } else {
+      let testo = dati.reply;
+      const finito = /PERCORSO COMPLETATO/i.test(testo);
+      testo = testo.replace(/PERCORSO COMPLETATO/ig, '').trim();
+      if(testo) bolla('tutor', testo);
+      storico.push({ role:'assistant', content: dati.reply });
+      if(finito) chiudi();
+    }
+  } catch(e){
+    attesa.remove();
+    avviso('Connessione non riuscita. Controlla la rete e riprova.');
+  }
+
+  occupato = false;
+  if(!concluso){
+    invia.disabled = false;
+    campo.focus();
+  }
+}
+
+function manda(){
+  if(occupato || concluso) return;
+  const testo = campo.value.trim();
+  if(!testo) return;
+  bolla('studente', testo);
+  storico.push({ role:'user', content: testo });
+  campo.value = '';
+  campo.style.height = 'auto';
+  parla();
+}
+
+invia.addEventListener('click', manda);
+
+campo.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); manda(); }
+});
+campo.addEventListener('input', () => {
+  campo.style.height = 'auto';
+  campo.style.height = Math.min(campo.scrollHeight, 120) + 'px';
+});
+
+// avvio: il tutor parla per primo
+storico.push({ role:'user', content: 'Cominciamo.' });
+parla();
+</script>
+</body>
+</html>
