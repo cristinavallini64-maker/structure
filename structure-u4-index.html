@@ -20,6 +20,14 @@
   .btn.active:hover { opacity: 0.85; transform: scale(1.04); }
   .btn.soon { background: #333; color: #555; cursor: not-allowed; }
   .back { display: block; width: fit-content; margin: 0 auto 16px; color: #000; font-weight: 700; text-decoration: none; font-size: 0.9rem; background: #00E5FF; padding: 7px 18px; border-radius: 20px; }
+
+  /* --- pulsante "Scopri la regola" (aggiunto una volta sola) --- */
+  .btns { display: flex; flex-direction: column; gap: 7px; align-items: stretch; }
+  .btns .btn { text-align: center; }
+  .btn.discover { background: transparent; color: #00E5FF; border: 1.5px solid #00E5FF; cursor: pointer; }
+  .btn.discover:hover { background: #00E5FF; color: #000; }
+  .btn.soon { background: #333; color: #555; cursor: not-allowed; }
+  @media (max-width: 560px) { .item { flex-direction: column; align-items: stretch; } .btns { width: 100%; } }
 </style>
 </head>
 <body>
@@ -28,7 +36,7 @@
 </div>
 <div class="header">
   <h1>📖 Unit 4 · Perfect Tenses & Relative Clauses</h1>
-  <p>Scegli un argomento da ripassare</p>
+  <p>Per ogni regola: leggi la spiegazione, oppure scoprila da solo</p>
 </div>
 <div class="list">
   <div class="item">
@@ -36,30 +44,59 @@
       <div class="item-name">Past Perfect Simple</div>
       <div class="item-args">had + past participle · anteriorità nel passato · after/before/when/by the time</div>
     </div>
-    <a class="btn active" href="past-perfect-simple-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="past-perfect-simple-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="past-perfect-simple-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Narrative Tenses Review</div>
       <div class="item-args">Past simple · Past continuous · Past perfect · uso combinato</div>
     </div>
-    <a class="btn active" href="narrative-tenses-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="narrative-tenses-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="narrative-tenses-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Defining vs Non-defining Relative Clauses</div>
       <div class="item-args">who · which · that · whose · when · where · virgole e omissione</div>
     </div>
-    <a class="btn active" href="defining-non-defining-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="defining-non-defining-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="defining-non-defining-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Relative Pronouns Revision</div>
       <div class="item-args">soggetto vs oggetto · omissione del pronome · preposizioni</div>
     </div>
-    <a class="btn active" href="relative-pronouns-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="relative-pronouns-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="relative-pronouns-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
 
 </div>
+
+<script>
+/* Accende da solo il pulsante "Scopri la regola" se il file del tutor esiste
+   nel repo. Per attivare un tutor NON si tocca questa pagina: basta caricare
+   il file col nome indicato in data-tutor. */
+document.querySelectorAll('a[data-tutor]').forEach(function(el){
+  fetch(el.dataset.tutor, { method: 'HEAD' })
+    .then(function(r){
+      if(!r.ok) return;
+      el.classList.remove('soon');
+      el.classList.add('discover');
+      el.setAttribute('href', el.dataset.tutor);
+      el.setAttribute('target', '_blank');
+    })
+    .catch(function(){});
+});
+</script>
 </body>
 </html>

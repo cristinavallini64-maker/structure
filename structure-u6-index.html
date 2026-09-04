@@ -20,6 +20,14 @@
   .btn.active:hover { opacity: 0.85; transform: scale(1.04); }
   .btn.soon { background: #333; color: #555; cursor: not-allowed; }
   .back { display: block; width: fit-content; margin: 0 auto 16px; color: #000; font-weight: 700; text-decoration: none; font-size: 0.9rem; background: #00FF66; padding: 7px 18px; border-radius: 20px; }
+
+  /* --- pulsante "Scopri la regola" (aggiunto una volta sola) --- */
+  .btns { display: flex; flex-direction: column; gap: 7px; align-items: stretch; }
+  .btns .btn { text-align: center; }
+  .btn.discover { background: transparent; color: #00E5FF; border: 1.5px solid #00E5FF; cursor: pointer; }
+  .btn.discover:hover { background: #00E5FF; color: #000; }
+  .btn.soon { background: #333; color: #555; cursor: not-allowed; }
+  @media (max-width: 560px) { .item { flex-direction: column; align-items: stretch; } .btns { width: 100%; } }
 </style>
 </head>
 <body>
@@ -28,7 +36,7 @@
 </div>
 <div class="header">
   <h1>📖 Unit 6 · Conditionals, Wishes & Adverbs</h1>
-  <p>Scegli un argomento da ripassare</p>
+  <p>Per ogni regola: leggi la spiegazione, oppure scoprila da solo</p>
 </div>
 <div class="list">
   <div class="item">
@@ -36,37 +44,69 @@
       <div class="item-name">Second Conditional</div>
       <div class="item-args">if + past simple + would · ipotesi improbabile nel presente/futuro</div>
     </div>
-    <a class="btn active" href="second-conditional-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="second-conditional-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="second-conditional-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Third Conditional</div>
       <div class="item-args">if + past perfect + would have + p.p. · ipotesi nel passato</div>
     </div>
-    <a class="btn active" href="third-conditional-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="third-conditional-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="third-conditional-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">I wish / If only</div>
       <div class="item-args">desideri e rimpianti · wish + past simple / past perfect</div>
     </div>
-    <a class="btn active" href="wish-if-only-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="wish-if-only-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="wish-if-only-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Adverbs of Manner</div>
       <div class="item-args">come si svolge un'azione · formazione in -ly · avverbi irregolari</div>
     </div>
-    <a class="btn active" href="adverbs-of-manner-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="adverbs-of-manner-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="adverbs-of-manner-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
   <div class="item">
     <div>
       <div class="item-name">Comparative Adverbs</div>
       <div class="item-args">more + avverbio + than · irregolari · (not) as … as</div>
     </div>
-    <a class="btn active" href="comparative-adverbs-explanation.html">📖 Ripassa</a>
+    <div class="btns">
+      <a class="btn active" href="comparative-adverbs-explanation.html">📖 Ripassa</a>
+      <a class="btn soon" data-tutor="comparative-adverbs-discovery.html">🔍 Scopri la regola</a>
+    </div>
   </div>
 
 </div>
+
+<script>
+/* Accende da solo il pulsante "Scopri la regola" se il file del tutor esiste
+   nel repo. Per attivare un tutor NON si tocca questa pagina: basta caricare
+   il file col nome indicato in data-tutor. */
+document.querySelectorAll('a[data-tutor]').forEach(function(el){
+  fetch(el.dataset.tutor, { method: 'HEAD' })
+    .then(function(r){
+      if(!r.ok) return;
+      el.classList.remove('soon');
+      el.classList.add('discover');
+      el.setAttribute('href', el.dataset.tutor);
+      el.setAttribute('target', '_blank');
+    })
+    .catch(function(){});
+});
+</script>
 </body>
 </html>
