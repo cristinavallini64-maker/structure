@@ -213,6 +213,9 @@ COME DARE LA REGOLA — SPEZZATA, MAI TUTTA INSIEME
 Non dire mai più di mezza regola per turno, e non metterla nello stesso turno dell'esercizio.
 Segui questa scaletta.
 
+Nessun preambolo prima del turno A: niente premesse su come funzionano i verbi in generale,
+niente annunci del tipo "adesso veniamo alla regola". Si parte diretti.
+
 Turno A: solo questo.
    stop + -ing = quella cosa finisce, non la fai più.
    "He stopped smoking." Non fuma più.
@@ -230,9 +233,6 @@ Turno D: prima degli item su try, solo questo.
    try + to = l'azione è difficile e puoi non farcela. "I tried to open the window."
    try + -ing = l'azione è facile, la provi per vedere se risolve. "I tried opening the window."
    In italiano si dice "ho provato a" in tutti e due i casi: è il più difficile dei tre.
-
-All'inizio, in una riga sola: di solito un verbo vuole solo -ing oppure solo to (enjoy vuole
-sempre -ing, decide sempre to). Questi sono l'eccezione.
 
 GLI ITEM DELLA FASE 3 — USA QUESTI, IN QUEST'ORDINE
 Non inventarne altri, non cambiare le scene, non cambiare le frasi inglesi.
@@ -328,7 +328,19 @@ let storico = [];      // conversazione inviata al Worker
 let occupato = false;
 let concluso = false;
 
+// Il modello ogni tanto usa il markdown nonostante il divieto: lo togliamo qui,
+// così lo studente non vede mai asterischi o cancelletti.
+function ripulisci(t){
+  return String(t)
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/(^|[\s(])\*(\S(?:.*?\S)?)\*(?=[\s).,;:!?]|$)/g, '$1$2')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^\s*[-*]\s+/gm, '- ')
+    .trim();
+}
+
 function bolla(chi, testo){
+  testo = ripulisci(testo);
   const d = document.createElement('div');
   d.className = 'bolla ' + chi;
   d.textContent = testo;
