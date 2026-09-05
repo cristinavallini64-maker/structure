@@ -178,6 +178,11 @@ const WORKER = "https://grammar-tutor.cristinavallini64.workers.dev";
 // Il metodo (domande aperte, divieto di dare la regola, italiano) sta nel Worker
 // ed è uguale per tutti: il Worker non si tocca mai più.
 // ============================================================
+// tipo di regola: "contrasto" (due forme, cambia il significato)
+//                 "schema"    (un congegno da ricostruire, es. question tags)
+//                 "memoria"   (fatto arbitrario, es. quali verbi vogliono -ing)
+const TIPO = "contrasto";
+
 const ARGOMENTO = `Le strutture con STOP, REMEMBER, FORGET seguite da -ing oppure da to.
 - stop + -ing = smettere di fare una cosa
 - stop + to = fermarsi allo scopo di fare un'altra cosa
@@ -185,15 +190,18 @@ const ARGOMENTO = `Le strutture con STOP, REMEMBER, FORGET seguite da -ing oppur
 - remember/forget + to = l'azione deve ancora avvenire (ricordati di farlo)
 
 Passi del percorso:
-Passo 1. Presenti la coppia minima con stop:
+Passo 1. Scena: due amici che vivono insieme parlano di come è cambiata la loro settimana.
+   Dentro la scena presenti la coppia:
    "We stopped buying takeaway food." / "We stopped to buy takeaway food."
-   Chiedi che cosa cambia nel significato. Non anticipare nulla.
-Passo 2. Con controesempi porti lo studente a formulare da solo la differenza fra
-   stop + -ing e stop + to.
-Passo 3. Presenti la coppia con remember:
+   Chiedi che cosa è successo in ciascuna delle due, nella scena.
+Passo 2. Con altre due o tre situazioni brevi verifichi che lo studente distingua
+   stop + -ing da stop + to interpretando ogni volta la frase concreta.
+Passo 3. Scena: qualcuno esce di casa la mattina e più tardi ci ripensa.
+   Dentro la scena presenti la coppia:
    "I remember locking the door." / "I remembered to lock the door."
-   Fai osservare quale delle due azioni è già successa.
-Passo 4. Porti lo studente a formulare la differenza -ing / to per remember e forget.
+   Chiedi in ciascuna se la porta è stata chiusa e come lo sa.
+Passo 4. Con altre due o tre situazioni brevi verifichi che distingua -ing da to
+   con remember e con forget.
 
 Per le tre frasi di applicazione finali usa lessico quotidiano, non frasi del libro.`;
 
@@ -263,7 +271,7 @@ async function chiama(){
   const r = await fetch(WORKER, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ argomento: ARGOMENTO, messages: storico })
+    body: JSON.stringify({ tipo: TIPO, argomento: ARGOMENTO, messages: storico })
   });
   const dati = await r.json();
   return { ok: r.ok, dati: dati };
