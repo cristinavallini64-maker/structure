@@ -329,7 +329,10 @@ Dp: [
 };
 
 // ============================================================
-// SORTEGGIO — sedici scene, due per casella, ordine mescolato.
+// SORTEGGIO E PERCORSO
+// La pagina costruisce l'elenco delle scene e lo tiene per se'.
+// Al Worker ne passa DUE per volta: quella in corso e la prossima.
+// Cosi' il tutor non ha un elenco da cui deviare: vede solo dove sta.
 // ============================================================
 function mescola(a){
   const b = a.slice();
@@ -338,90 +341,84 @@ function mescola(a){
 }
 function pesca(pool,n){ return mescola(pool).slice(0,n); }
 
-function scriviComp(n, x){
-  return n+`. SCENA: `+x.s+`\n   FRASE: "`+x.f+`"\n   DOMANDA: `+x.d
-       + `\n   RISPOSTA GIUSTA: `+x.r+`\n   CONFERMA: `+x.c+`\n`;
-}
-function scriviProd(n, x){
-  return n+`. SCENA: `+x.s+`\n   FRASE COL BUCO: "`+x.f+`"\n   RISPOSTA GIUSTA: `+x.r
-       + `\n   VERBO: (`+x.v+`) — daglielo SOLO se dice che non sa quel verbo\n   CONFERMA: `+x.c+`\n`;
-}
+// scena 0 = l'apertura, gia' scritta a video dalla pagina
+const SCENA_ZERO = {
+  s:`(l'apertura, gia' mostrata dalla pagina: Ugo che non scrive piu' sul giornale, Ornella che si ferma ad annotare la targa)`,
+  f:`He stopped writing. / She stopped to write it down.`,
+  d:`Uno dei due oggi non scrive piu'. Chi?`,
+  r:`Ugo`,
+  c:`quel lavoro sul giornale e' finito, non lo fa piu'.`
+};
 
-function costruisciArgomento(){
+function costruisciPercorso(){
   const Ac=pesca(SCENE.Ac,2), Ap=pesca(SCENE.Ap,2),
         Bc=pesca(SCENE.Bc,2), Bp=pesca(SCENE.Bp,2),
         Cc=pesca(SCENE.Cc,2), Cp=pesca(SCENE.Cp,2),
         Dc=pesca(SCENE.Dc,2), Dp=pesca(SCENE.Dp,2);
+  return [SCENA_ZERO]
+    .concat([Ac[0],Bc[0],Ac[1],Bc[1]])
+    .concat(mescola([Ap[0],Bp[0],Ap[1],Bp[1]]))
+    .concat([Cc[0],Dc[0],Cc[1],Dc[1]])
+    .concat(mescola([Cp[0],Cp[1],Dp[0],Dp[1]]));
+}
 
-  const f1 = [Ac[0],Bc[0],Ac[1],Bc[1]];
-  const f2 = mescola([Ap[0],Bp[0],Ap[1],Bp[1]]);
-  const f3 = [Cc[0],Dc[0],Cc[1],Dc[1]];
-  const f4 = mescola([Cp[0],Cp[1],Dp[0],Dp[1]]);
+const PERCORSO = costruisciPercorso();
+let iScena = 0;
 
-  let t = `Le strutture con STOP, REMEMBER e FORGET seguite da -ing oppure da to.
-Solo questi tre verbi. Non parlare di try, go on o altri.
-- stop + -ing = ha smesso di fare quella cosa
-- stop + to = si è fermato per farne un'altra
-- remember/forget + to = c'era un compito da fare
-- remember/forget + -ing = si parla di una cosa già successa, che si ricorda o no
-
-L'apertura l'ha già data la pagina: Ugo che ha smesso di scrivere sul giornale e Ornella che
-si ferma ad annotare una targa, con la domanda su chi oggi non scrive più. La risposta è UGO.
-Se lo studente sbaglia o non sa, diglielo in una riga e vai avanti. Non spiegare e non
-commentare la differenza fra le due frasi: il tuo turno dopo è già la scena 1.
-
-=======================================================================
-LE SCENE SONO QUESTE E SOLO QUESTE. Sono sedici, numerate, nell'ordine in cui vanno date.
-NON inventarne altre. NON riusare una scena già fatta. NON cambiare le frasi inglesi.
-Una scena per turno. Quando finisci la sedicesima, chiudi con il riepilogo: non aggiungere
-una fase di ripasso con altri esempi, perche' altri esempi non ce ne sono.
-=======================================================================
-
---- PRIME QUATTRO: PER CAPIRE (stop) ---
-Racconta la scena e la frase esattamente come stanno scritte. Poi la domanda. Poi la
-conferma. Non fare domande su dettagli che la frase inglese non dice.
-
-`;
-  let n=1;
-  f1.forEach(x=>{ t+=scriviComp(n++,x); });
-
-  t += `
---- POI QUATTRO: PER PRODURRE (stop) ---
-Dai la scena, poi la frase col buco, e aspetti. Il verbo NON si scrive: lo mette lui.
-Se dice che quel verbo non lo sa, allora sì, daglielo fra parentesi e fagli riprovare.
-
-`;
-  f2.forEach(x=>{ t+=scriviProd(n++,x); });
-
-  t += `
---- POI QUATTRO: PER CAPIRE (remember / forget) ---
-
-`;
-  f3.forEach(x=>{ t+=scriviComp(n++,x); });
-
-  t += `
---- ULTIME QUATTRO: PER PRODURRE (remember / forget, mescolate) ---
-
-`;
-  f4.forEach(x=>{ t+=scriviProd(n++,x); });
-
-  t += `
-=======================================================================
-Quando sbaglia non spiegare: rimettigli davanti due scene già viste, una per forma, e
-chiedigli a quale delle due somiglia quella nuova.
-
-ALLA FINE, e solo alla fine, metti in parole quello che ha visto: una riga per stop + -ing,
-una per stop + to, una per remember/forget + to, una per remember/forget + -ing, citando
-le scene che ha fatto davvero. E il confine: questo vale per stop, remember e forget e per
-pochi altri verbi; con gli altri non si sceglie, ne vogliono uno solo (dopo enjoy ci va
-sempre -ing, dopo decide sempre to). Se ti chiede quali sono gli altri, rispondi che ce ne
-sono ma che qui si lavora su questi tre.
-Poi scrivi PERCORSO COMPLETATO.`;
-
+function descrivi(x, etichetta){
+  let t = etichetta+`\nSCENA: `+x.s+`\n`;
+  if(x.d){
+    t += `FRASE: "`+x.f+`"\nDOMANDA: `+x.d+`\nRISPOSTA GIUSTA: `+x.r+`\nCONFERMA: `+x.c+`\n`;
+  } else {
+    t += `FRASE COL BUCO: "`+x.f+`"\nRISPOSTA GIUSTA: `+x.r
+       + `\nVERBO: (`+x.v+`) — daglielo SOLO se dice che non sa quel verbo\nCONFERMA: `+x.c+`\n`;
+  }
   return t;
 }
 
-const ARGOMENTO = costruisciArgomento();
+const METODO = `Le strutture con STOP, REMEMBER e FORGET seguite da -ing oppure da to.
+Solo questi tre verbi. Non parlare di try, go on o altri.
+- stop + -ing = ha smesso di fare quella cosa
+- stop + to = si e' fermato per farne un'altra
+- remember/forget + to = c'era un compito da fare
+- remember/forget + -ing = si parla di una cosa gia' successa, che si ricorda o no
+
+COME FUNZIONA QUESTO TUTOR
+Le scene NON le scegli tu: te le passa la pagina, una per volta. Qui sotto ne trovi due.
+Non inventarne altre, non modificarle, non cambiare le frasi inglesi, non anticiparne una
+che non ti e' ancora stata data.
+
+Il tuo turno e' sempre lo stesso:
+1. giudichi la risposta dello studente alla SCENA IN CORSO;
+2. se ha indovinato: una riga di conferma (usa il testo alla voce CONFERMA), poi presenti
+   la SCENA SUCCESSIVA copiando scena e frase come stanno scritte, e chiudi il turno
+   scrivendo [AVANTI] sull'ultima riga;
+3. se ha sbagliato: diglielo, correggi senza enunciare la regola — rimettigli davanti due
+   scene gia' viste, una per forma, e chiedi a quale somiglia questa — e NON scrivere
+   [AVANTI]: la scena resta questa e lui riprova.
+
+Nelle scene col buco il verbo non si scrive: lo mette lui. Se dice che non conosce quel
+verbo, allora daglielo fra parentesi e fagli riprovare (senza [AVANTI]).
+Se ti chiede quanto manca, rispondi in mezza riga e vai avanti.
+`;
+
+function argomentoPer(i){
+  let t = METODO + `\n=======================================================================\n`;
+  t += descrivi(PERCORSO[i], `SCENA IN CORSO (numero `+(i+1)+` di `+PERCORSO.length+`) — gia' presentata, devi solo giudicare la risposta:`);
+  t += `\n`;
+  if(i+1 < PERCORSO.length){
+    t += descrivi(PERCORSO[i+1], `SCENA SUCCESSIVA — presentala solo dopo la conferma, poi scrivi [AVANTI]:`);
+  } else {
+    t += `SCENA SUCCESSIVA: nessuna, il percorso finisce qui.
+Dopo la conferma metti in parole quello che ha visto: una riga per stop + -ing, una per
+stop + to, una per remember/forget + to, una per remember/forget + -ing. E il confine:
+vale per stop, remember e forget e per pochi altri verbi; con gli altri non si sceglie, ne
+vogliono uno solo (dopo enjoy sempre -ing, dopo decide sempre to).
+Poi scrivi PERCORSO COMPLETATO.
+`;
+  }
+  return t;
+}
 
 
 
@@ -436,6 +433,7 @@ const invia   = document.getElementById('invia');
 let storico = [];      // conversazione inviata al Worker
 let occupato = false;
 let concluso = false;
+let ultimaRisposta = '';   // serve alla rete di sicurezza su [AVANTI]
 
 // Il modello ogni tanto usa il markdown nonostante il divieto: lo togliamo qui,
 // così lo studente non vede mai asterischi o cancelletti.
@@ -507,7 +505,7 @@ async function chiama(){
   const r = await fetch(WORKER, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ tipo: TIPO, argomento: ARGOMENTO, messages: storico })
+    body: JSON.stringify({ tipo: TIPO, argomento: argomentoPer(iScena), messages: storico })
   });
   const dati = await r.json();
   return { ok: r.ok, dati: dati };
@@ -540,7 +538,21 @@ async function parla(){
   } else {
     let testo = esito.dati.reply;
     const finito = /PERCORSO COMPLETATO/i.test(testo);
-    testo = testo.replace(/PERCORSO COMPLETATO/ig, '').trim();
+
+    // [AVANTI] = il tutor ha confermato e ha presentato la scena dopo.
+    // Rete di sicurezza: se il marcatore manca ma la risposta dello studente
+    // coincide con quella attesa, la scena avanza lo stesso.
+    let avanza = /\[AVANTI\]/i.test(testo);
+    if(!avanza && ultimaRisposta){
+      const atteso = String(PERCORSO[iScena].r || '').toLowerCase().replace(/[^a-z' ]/g,'').trim();
+      const dato   = ultimaRisposta.toLowerCase().replace(/[^a-z' ]/g,'').trim();
+      if(atteso && (dato === atteso || dato === atteso.replace(/^to /,''))) avanza = true;
+    }
+    if(avanza && iScena < PERCORSO.length - 1) iScena++;
+
+    testo = testo.replace(/\[AVANTI\]/ig, '')
+                 .replace(/PERCORSO COMPLETATO/ig, '')
+                 .trim();
     if(testo) bolla('tutor', testo);
     storico.push({ role:'assistant', content: esito.dati.reply });
     if(finito) chiudi();
@@ -558,6 +570,7 @@ function manda(){
   const testo = campo.value.trim();
   if(!testo) return;
   bolla('studente', testo);
+  ultimaRisposta = testo;
   storico.push({ role:'user', content: testo });
   campo.value = '';
   campo.style.height = 'auto';
