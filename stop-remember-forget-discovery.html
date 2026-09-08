@@ -168,272 +168,73 @@
 
 <script>
 // ============================================================
-// INDIRIZZO DEL WORKER — da sostituire dopo il deploy su Cloudflare
+// INDIRIZZO DEL WORKER
 // ============================================================
 const WORKER = "https://grammar-tutor.cristinavallini64.workers.dev";
 
 // ============================================================
-// ARGOMENTO DI QUESTO TUTOR
-// È l'unica parte da riscrivere per creare il tutor di un'altra regola.
-// Il metodo (domande aperte, divieto di dare la regola, italiano) sta nel Worker
-// ed è uguale per tutti: il Worker non si tocca mai più.
+// TIPO DI REGOLA
+//   "contrasto" = due forme entrambe corrette, cambia il significato
+//   "schema"    = un congegno da ricostruire (es. question tags)
+//   "memoria"   = fatto arbitrario, non c'è niente da scoprire
 // ============================================================
-// tipo di regola: "contrasto" (due forme, cambia il significato)
-//                 "schema"    (un congegno da ricostruire, es. question tags)
-//                 "memoria"   (fatto arbitrario, es. quali verbi vogliono -ing)
 const TIPO = "contrasto";
 
 // ============================================================
-// PRIMA BATTUTA — scritta qui, non generata.
-// Compare appena si apre la pagina, sempre identica.
-// ============================================================
-const APERTURA = `Ciao! Qui non ti spiego niente: ti do delle situazioni e la regola la tiri fuori tu. Ci vogliono una decina di minuti.
-
-Ugo teneva una rubrica settimanale sul giornale cittadino. A marzo il giornale ha chiuso le pagine locali e da allora non ha più consegnato un pezzo.
-"He stopped writing."
-
-Ornella stava attraversando il parcheggio quando ha visto un'auto uscire strisciando la sua. Ha tirato fuori il telefono e ha annotato la targa.
-"She stopped to write it down."
-
-Uno dei due oggi non scrive più. Chi?`;
-
-
-// ============================================================
-// MAZZO DELLE SCENE
-// Le situazioni sono scritte qui, tutte e trenta. Il tutor NON le inventa:
-// a ogni apertura la pagina ne sorteggia sedici e gli passa solo quelle.
-// Due studenti vicini non vedono lo stesso percorso, e chi rifà il tutor
-// una seconda volta trova scene nuove.
+// ARGOMENTO DI QUESTO PERCORSO
+// È l'UNICA parte da riscrivere per fare il tutor di un'altra regola.
+// Il metodo (mai la regola, tre tentativi, traduzione a richiesta,
+// criterio di uscita, italiano semplice) sta tutto nel Worker
+// ed è uguale per tutti: il Worker non si tocca più.
 //
-// Per aggiungere una scena basta scriverla nel gruppo giusto:
-//   Ac/Bc/Cc/Dc = comprensione (frase data, domanda sul fatto)
-//   Ap/Bp/Cp/Dp = produzione   (frase col buco, la forma la mette lo studente)
-// Nelle scene di produzione il campo v è l'infinito, che si dà SOLO se
-// lo studente dice che quel verbo non lo sa.
+// Nota: le situazioni NON stanno qui. Le costruisce il tutor una per una,
+// adattandole allo studente. Qui ci sono solo i CASI da coprire e i vincoli.
 // ============================================================
-const SCENE = {
+const ARGOMENTO = `Le strutture con STOP, REMEMBER e FORGET seguite dalla forma in -ing
+oppure dalla forma col to.
+Solo questi tre verbi. Mai try, mai go on, mai altri verbi con lo stesso comportamento.
 
-// --- A. stop + -ing : quell'abitudine è finita ---
-Ac: [
- {s:`Anna ha lavorato otto anni in una casa editrice a Torino. Da quando è nata la figlia traduce da casa come freelance, e in redazione non ci mette più piede.`,
-  f:`She stopped commuting to the office.`, d:`Anna va ancora in redazione?`, r:`no`,
-  c:`quel viaggio quotidiano è finito, non lo fa più.`},
- {s:`Elena insegna yoga. Per anni ha tenuto il corso del sabato mattina. Adesso il sabato quella sala è vuota e lei fa solo i turni serali infrasettimanali.`,
-  f:`She stopped teaching on Saturdays.`, d:`Il sabato Elena insegna?`, r:`no`,
-  c:`il corso del sabato è finito.`},
- {s:`L'azienda di Riccardo ha sostenuto per dieci anni la squadra di basket del paese. Quest'anno il budget pubblicitario è stato tagliato e sulle maglie c'è il logo di un'altra ditta.`,
-  f:`The firm stopped sponsoring the team.`, d:`L'azienda mette ancora i soldi nella squadra?`, r:`no`,
-  c:`quella sponsorizzazione è finita.`},
- {s:`La nonna di Nadia ha perso molta vista negli ultimi anni. Ha regalato la macchina al nipote e da due anni non si siede più al posto di guida.`,
-  f:`She stopped driving.`, d:`La nonna guida ancora?`, r:`no`,
-  c:`ha smesso, non guida più.`}
-],
-Ap: [
- {s:`Tommaso ha recensito ristoranti per un giornale locale per sei anni. La primavera scorsa il giornale ha chiuso le pagine culturali: il suo ultimo pezzo è di aprile.`,
-  f:`Tommaso stopped ___ restaurants.`, v:`review`, r:`reviewing`,
-  c:`quel lavoro è finito, non li recensisce più.`},
- {s:`Chiara andava in palestra due volte a settimana con un personal trainer. Dopo l'aumento dell'abbonamento ha disdetto il pacchetto e adesso si arrangia da sola con le schede.`,
-  f:`Chiara stopped ___ with a coach.`, v:`train`, r:`training`,
-  c:`con l'allenatore ha chiuso, adesso va da sola.`},
- {s:`Nel condominio di Sandro veniva una signora ogni venerdì a pulire le scale. In assemblea hanno votato per risparmiare e adesso i piani si puliscono a turno.`,
-  f:`The residents stopped ___ a cleaner.`, v:`employ`, r:`employing`,
-  c:`quella spesa è finita, la signora non viene più.`},
- {s:`Beatrice dormiva malissimo e il medico ha collegato la cosa agli schermi la sera tardi. Da gennaio il telefono resta in cucina dopo le dieci.`,
-  f:`Beatrice stopped ___ her phone in bed.`, v:`check`, r:`checking`,
-  c:`quell'abitudine è finita.`}
-],
+I CASI DA COPRIRE (sono quattro, e valgono per il criterio di chiusura)
+1. stop + forma in -ing  -> quella cosa non la fa più
+2. stop + forma col to   -> si è interrotto per fare un'altra cosa, e quella cosa l'ha fatta
+3. remember / forget + forma col to  -> c'era un compito da fare
+4. remember / forget + forma in -ing -> si parla di una cosa già successa
 
-// --- B. stop + to : si è fermato apposta, e quella cosa l'ha fatta ---
-Bc: [
- {s:`Matteo stava andando a un matrimonio in Umbria. A metà strada si è accesa la spia della benzina e lui è entrato in un'area di servizio.`,
-  f:`He stopped to fill up.`, d:`Ha messo benzina?`, r:`sì`,
-  c:`si è fermato apposta per quello, poi è ripartito.`},
- {s:`Irene stava presentando il bilancio al consiglio quando il proiettore si è spento di colpo. È scesa dal palco e si è avvicinata alla presa.`,
-  f:`She stopped to fix the cable.`, d:`Ha interrotto la presentazione per occuparsi del cavo?`, r:`sì`,
-  c:`si è fermata apposta per sistemarlo.`},
- {s:`Livia andava al lavoro in bici lungo il fiume. Sul ciglio della pista una borsa della spesa si era rotta e un signore raccoglieva la roba da terra. Lei è scesa dalla bici.`,
-  f:`She stopped to help him.`, d:`L'ha aiutato?`, r:`sì`,
-  c:`si è fermata apposta per dargli una mano.`},
- {s:`Enrico stava svuotando la soffitta. In una scatola ha trovato le lettere che suo padre scriveva dal fronte. Si è seduto per terra e ci è rimasto venti minuti.`,
-  f:`He stopped to read them.`, d:`Le lettere le ha lette?`, r:`sì`,
-  c:`ha interrotto quello che faceva apposta per leggerle.`}
-],
-Bp: [
- {s:`Serena stava facendo da guida in cattedrale. Un visitatore le ha chiesto di una cappella laterale che non era nel percorso previsto. Lei è tornata indietro con tutto il gruppo.`,
-  f:`Serena stopped ___ it.`, v:`explain`, r:`to explain`,
-  c:`ha interrotto il giro apposta per spiegarla, poi è ripartita.`},
- {s:`Gabriele era nel mezzo di un colloquio di lavoro quando il telefono ha squillato: era l'ospedale, per suo padre. Si è scusato con la commissione ed è uscito in corridoio.`,
-  f:`Gabriele stopped ___ the call.`, v:`answer`, r:`to answer`,
-  c:`si è interrotto apposta per rispondere.`},
- {s:`Valeria stava verniciando le persiane. È arrivato il corriere con un pacco per lei e serviva la firma. Ha posato il pennello sul davanzale.`,
-  f:`Valeria stopped ___ for it.`, v:`sign`, r:`to sign`,
-  c:`ha smesso di verniciare apposta per firmare, poi ha ripreso.`},
- {s:`Lorenzo correva sul lungomare. A un certo punto si è accorto che il tramonto era di un rosso che non aveva mai visto. Ha tirato fuori il telefono dalla tasca.`,
-  f:`Lorenzo stopped ___ a photo.`, v:`take`, r:`to take`,
-  c:`si è fermato apposta per fotografarlo.`}
-],
+IL CRITERIO DI CHIUSURA VA APPLICATO PER VERBO, SEPARATAMENTE:
+- stop (i due casi 1 e 2 messi a confronto)
+- remember (i due casi)
+- forget (i due casi)
+Un verbo è "fatto" quando lo studente ha scelto giusto due o tre volte di fila su
+quel verbo, con le due forme mescolate. Finché un verbo non è fatto, continui su quello.
 
-// --- C. remember / forget + to : c'era un compito da fare ---
-Cc: [
- {s:`Il contratto di Miriam prevede l'affitto entro il 5 del mese, altrimenti scatta la mora. Il 4 sera è andata sull'home banking e ha disposto il bonifico.`,
-  f:`I remembered to pay it on time.`, d:`L'affitto è stato pagato nei termini?`, r:`sì`,
-  c:`c'era da farlo e se n'è ricordata in tempo.`},
- {s:`Federica è l'ultima a uscire dalla serra della scuola il venerdì. Quel fine settimana era prevista una gelata e le prese d'aria andavano chiuse. Lunedì le piantine erano tutte nere.`,
-  f:`She forgot to close the vents.`, d:`Le prese d'aria sono state chiuse?`, r:`no`,
-  c:`c'era da farlo e non l'ha fatto.`},
- {s:`Alessio doveva mettere la sua responsabile in copia nella mail dell'offerta al cliente. La responsabile ha saputo dell'accordo dal cliente stesso, tre giorni dopo.`,
-  f:`He forgot to copy her in.`, d:`La responsabile ha ricevuto la mail?`, r:`no`,
-  c:`doveva metterla in copia e se n'è dimenticato.`}
-],
-Cp: [
- {s:`Il condominio di Giulia ha cambiato fornitore di luce. L'autolettura del contatore andava mandata entro il 30. Stamattina è arrivata una bolletta a stima, molto più alta del solito.`,
-  f:`Giulia forgot ___ the meter reading.`, v:`submit`, r:`to submit`,
-  c:`doveva mandarla e non l'ha fatto, per questo la bolletta è a stima.`},
- {s:`Camilla aveva scelto il ristorante per l'anniversario dei genitori e aveva compilato il modulo online. La sera, al banco, sotto il suo nome non risultava nessun tavolo: mancava il clic finale sulla mail di riepilogo.`,
-  f:`Camilla forgot ___ the reservation.`, v:`confirm`, r:`to confirm`,
-  c:`c'era un ultimo passaggio da fare e le è sfuggito.`},
- {s:`Stefano aveva il modulo per la borsa di dottorato pronto sul desktop da una settimana. Il bando si chiudeva a mezzanotte. Sul portale, alla voce domande ricevute, il suo nome non c'è.`,
-  f:`Stefano forgot ___ the form.`, v:`upload`, r:`to upload`,
-  c:`il file era pronto ma non l'ha caricato.`},
- {s:`Nicoletta presiede il comitato genitori e il verbale di ogni riunione va alla dirigente entro una settimana. Stamattina la dirigente le ha risposto ringraziando per il documento.`,
-  f:`Nicoletta remembered ___ the minutes.`, v:`send`, r:`to send`,
-  c:`c'era da mandarlo e se n'è ricordata.`}
-],
+COME DEVONO ESSERE LE SITUAZIONI DI QUESTO ARGOMENTO
+Qui la frase da sola non basta MAI: "He stopped reading" e "He stopped to read" sono
+tutte e due inglese corretto. Quello che decide è il racconto.
+- per stop + -ing serve un prima e un dopo: c'era un'abitudine, un lavoro, una cosa
+  che si faceva regolarmente, e adesso non c'è più;
+- per stop + to serve qualcuno in mezzo a un'altra attività, che si interrompe apposta
+  e poi riprende;
+- per remember/forget + to serve un compito con una conseguenza visibile
+  (la bolletta a stima, il tavolo che non risulta, il modulo mai caricato);
+- per remember/forget + -ing serve un fatto già avvenuto e un ricordo che lo riguarda,
+  spesso in contrasto con qualcuno che sostiene il contrario.
 
-// --- D. remember / forget + -ing : il ricordo di una cosa già successa ---
-Dc: [
- {s:`Dario sta preparando la dichiarazione dei redditi. Cerca la ricevuta dell'affitto di marzo e non la trova da nessuna parte, ma ha davanti agli occhi il momento in cui l'ha infilata nella cartellina blu.`,
-  f:`I remember filing it.`, d:`Dario sta dicendo che la ricevuta non l'ha archiviata?`, r:`no`,
-  c:`dice che si ricorda di averlo fatto; il foglio è archiviato, semplicemente non lo trova.`},
- {s:`Corrado ha settantotto anni. Sua figlia gli mostra una foto di piazza Santa Croce sommersa dal fango, novembre 1966. Lui aveva diciannove anni ed era lì con gli altri volontari.`,
-  f:`I'll never forget carrying books out of the library.`, d:`Corrado quei libri li ha portati fuori davvero?`, r:`sì`,
-  c:`è successo, e il ricordo gli è rimasto addosso.`},
- {s:`Emanuele è capoturno in magazzino. Nel carico di ieri manca un pallet dalla distinta. Il responsabile gli chiede se l'aveva passato al lettore. Lui ha bene in mente il bip e il numero sul display.`,
-  f:`I remember scanning it.`, d:`Sta dicendo di averlo scansionato?`, r:`sì`,
-  c:`quel gesto l'ha fatto e se lo ricorda.`},
- {s:`I genitori di Bianca insistono che da piccola ha conosciuto la bisnonna, morta quando lei aveva tre anni. C'è anche una foto delle due insieme. Bianca però non ha nessuna immagine in testa di quel giorno.`,
-  f:`I don't remember meeting her.`, d:`Bianca l'ha conosciuta?`, r:`sì`,
-  c:`la foto lo dimostra: manca il ricordo, non il fatto.`}
-],
-Dp: [
- {s:`In riunione Marta dice che la scadenza era stata spostata al 15 e che si era deciso tutti insieme. Paolo sostiene che nessuno gliel'ha mai detto. Marta gli mette davanti il verbale con la sua firma.`,
-  f:`Don't you remember ___ to it?`, v:`agree`, r:`agreeing`,
-  c:`si parla di una cosa già successa, e la firma lo dimostra.`},
- {s:`L'assicurazione contesta ad Aldo di non aver dichiarato il sinistro precedente quando ha stipulato la polizza. Aldo è sicurissimo di averlo scritto nel modulo, ricorda perfino in quale riquadro.`,
-  f:`I remember ___ it.`, v:`mention`, r:`mentioning`,
-  c:`parla di una cosa già fatta, di cui ha il ricordo.`},
- {s:`Il tracking del pacco di Greta è fermo da otto giorni: risulta mai preso in carico. Lei però rivede la scena allo sportello, la ricevuta gialla, la signora che le dice "arriva martedì".`,
-  f:`Greta remembers ___ it at the post office.`, v:`drop`, r:`dropping`,
-  c:`la consegna è avvenuta e lei se la ricorda bene.`}
-]
-};
+PRIMA DI MANDARE UNA SITUAZIONE, LA PROVA: se anche l'altra forma ci starebbe dentro,
+la situazione è da rifare. Non basta che sia "un po' più probabile".
 
-// ============================================================
-// SORTEGGIO E PERCORSO
-// La pagina costruisce l'elenco delle scene e lo tiene per se'.
-// Al Worker ne passa DUE per volta: quella in corso e la prossima.
-// Cosi' il tutor non ha un elenco da cui deviare: vede solo dove sta.
-// ============================================================
-function mescola(a){
-  const b = a.slice();
-  for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; }
-  return b;
-}
-function pesca(pool,n){ return mescola(pool).slice(0,n); }
-
-// scena 0 = l'apertura, gia' scritta a video dalla pagina
-const SCENA_ZERO = {
-  s:`(l'apertura, gia' mostrata dalla pagina: Ugo che non scrive piu' sul giornale, Ornella che si ferma ad annotare la targa)`,
-  f:`He stopped writing. / She stopped to write it down.`,
-  d:`Uno dei due oggi non scrive piu'. Chi?`,
-  r:`Ugo`,
-  c:`quel lavoro sul giornale e' finito, non lo fa piu'.`
-};
-
-function costruisciPercorso(){
-  const Ac=pesca(SCENE.Ac,2), Ap=pesca(SCENE.Ap,2),
-        Bc=pesca(SCENE.Bc,2), Bp=pesca(SCENE.Bp,2),
-        Cc=pesca(SCENE.Cc,2), Cp=pesca(SCENE.Cp,2),
-        Dc=pesca(SCENE.Dc,2), Dp=pesca(SCENE.Dp,2);
-  return [SCENA_ZERO]
-    .concat([Ac[0],Bc[0],Ac[1],Bc[1]])
-    .concat(mescola([Ap[0],Bp[0],Ap[1],Bp[1]]))
-    .concat([Cc[0],Dc[0],Cc[1],Dc[1]])
-    .concat(mescola([Cp[0],Cp[1],Dp[0],Dp[1]]));
-}
-
-const PERCORSO = costruisciPercorso();
-let iScena = 0;
-
-function descrivi(x, etichetta){
-  let t = etichetta+`\nSCENA: `+x.s+`\n`;
-  if(x.d){
-    t += `FRASE: "`+x.f+`"\nDOMANDA: `+x.d+`\nRISPOSTA GIUSTA: `+x.r+`\nCONFERMA: `+x.c+`\n`;
-  } else {
-    t += `FRASE COL BUCO: "`+x.f+`"\nRISPOSTA GIUSTA: `+x.r
-       + `\nVERBO: (`+x.v+`) — daglielo SOLO se dice che non sa quel verbo\nCONFERMA: `+x.c+`\n`;
-  }
-  return t;
-}
-
-const METODO = `Le strutture con STOP, REMEMBER e FORGET seguite da -ing oppure da to.
-Solo questi tre verbi. Non parlare di try, go on o altri.
-- stop + -ing = ha smesso di fare quella cosa
-- stop + to = si e' fermato per farne un'altra
-- remember/forget + to = c'era un compito da fare
-- remember/forget + -ing = si parla di una cosa gia' successa, che si ricorda o no
-
-COME FUNZIONA QUESTO TUTOR
-Le scene NON le scegli tu: te le passa la pagina, una per volta. Qui sotto ne trovi due.
-Non inventarne altre, non modificarle, non cambiare le frasi inglesi, non anticiparne una
-che non ti e' ancora stata data.
-
-Il tuo turno e' sempre lo stesso:
-1. giudichi la risposta dello studente alla SCENA IN CORSO;
-2. se ha indovinato: una riga di conferma (usa il testo alla voce CONFERMA), poi presenti
-   la SCENA SUCCESSIVA copiando scena e frase come stanno scritte, e chiudi il turno
-   scrivendo [AVANTI] sull'ultima riga;
-3. se ha sbagliato: diglielo, correggi senza enunciare la regola — rimettigli davanti due
-   scene gia' viste, una per forma, e chiedi a quale somiglia questa — e NON scrivere
-   [AVANTI]: la scena resta questa e lui riprova.
-
-Nelle scene col buco il verbo non si scrive: lo mette lui. Se dice che non conosce quel
-verbo, allora daglielo fra parentesi e fagli riprovare (senza [AVANTI]).
-Se ti chiede quanto manca, rispondi in mezza riga e vai avanti.
+VARIA. Non ricadere sempre sulle stesse due o tre scene: il caffè, le chiavi, il pane
+vanno bene ma non possono essere gli unici. Usa scuola, lavoretti estivi, sport,
+volontariato, viaggi, patente, musica, cucina, condominio, ufficio, ospedale, concerti.
+Lessico da B1+ verso B2.
 `;
-
-function argomentoPer(i){
-  let t = METODO + `\n=======================================================================\n`;
-  t += descrivi(PERCORSO[i], `SCENA IN CORSO (numero `+(i+1)+` di `+PERCORSO.length+`) — gia' presentata, devi solo giudicare la risposta:`);
-  t += `\n`;
-  if(i+1 < PERCORSO.length){
-    t += descrivi(PERCORSO[i+1], `SCENA SUCCESSIVA — presentala solo dopo la conferma, poi scrivi [AVANTI]:`);
-  } else {
-    t += `SCENA SUCCESSIVA: nessuna, il percorso finisce qui.
-Dopo la conferma metti in parole quello che ha visto: una riga per stop + -ing, una per
-stop + to, una per remember/forget + to, una per remember/forget + -ing. E il confine:
-vale per stop, remember e forget e per pochi altri verbi; con gli altri non si sceglie, ne
-vogliono uno solo (dopo enjoy sempre -ing, dopo decide sempre to).
-Poi scrivi PERCORSO COMPLETATO.
-`;
-  }
-  return t;
-}
-
-
-
-
-
-
 
 const dialogo = document.getElementById('dialogo');
 const campo   = document.getElementById('campo');
 const invia   = document.getElementById('invia');
 
-let storico = [];      // conversazione inviata al Worker
+let storico = [];
 let occupato = false;
 let concluso = false;
-let ultimaRisposta = '';   // serve alla rete di sicurezza su [AVANTI]
 
 // Il modello ogni tanto usa il markdown nonostante il divieto: lo togliamo qui,
 // così lo studente non vede mai asterischi o cancelletti.
@@ -489,7 +290,7 @@ function chiudi(){
 // dello studente e il tutor rifiuta per sempre.
 function annullaUltimoTurno(){
   const ultimo = storico[storico.length - 1];
-  if(ultimo && ultimo.role === 'user'){
+  if(ultimo && ultimo.role === 'user' && ultimo.content !== 'Cominciamo.'){
     storico.pop();
     const bolle = dialogo.querySelectorAll('.studente');
     if(bolle.length) bolle[bolle.length - 1].remove();
@@ -505,7 +306,7 @@ async function chiama(){
   const r = await fetch(WORKER, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ tipo: TIPO, argomento: argomentoPer(iScena), messages: storico })
+    body: JSON.stringify({ tipo: TIPO, argomento: ARGOMENTO, messages: storico })
   });
   const dati = await r.json();
   return { ok: r.ok, dati: dati };
@@ -538,21 +339,7 @@ async function parla(){
   } else {
     let testo = esito.dati.reply;
     const finito = /PERCORSO COMPLETATO/i.test(testo);
-
-    // [AVANTI] = il tutor ha confermato e ha presentato la scena dopo.
-    // Rete di sicurezza: se il marcatore manca ma la risposta dello studente
-    // coincide con quella attesa, la scena avanza lo stesso.
-    let avanza = /\[AVANTI\]/i.test(testo);
-    if(!avanza && ultimaRisposta){
-      const atteso = String(PERCORSO[iScena].r || '').toLowerCase().replace(/[^a-z' ]/g,'').trim();
-      const dato   = ultimaRisposta.toLowerCase().replace(/[^a-z' ]/g,'').trim();
-      if(atteso && (dato === atteso || dato === atteso.replace(/^to /,''))) avanza = true;
-    }
-    if(avanza && iScena < PERCORSO.length - 1) iScena++;
-
-    testo = testo.replace(/\[AVANTI\]/ig, '')
-                 .replace(/PERCORSO COMPLETATO/ig, '')
-                 .trim();
+    testo = testo.replace(/PERCORSO COMPLETATO/ig, '').trim();
     if(testo) bolla('tutor', testo);
     storico.push({ role:'assistant', content: esito.dati.reply });
     if(finito) chiudi();
@@ -570,7 +357,6 @@ function manda(){
   const testo = campo.value.trim();
   if(!testo) return;
   bolla('studente', testo);
-  ultimaRisposta = testo;
   storico.push({ role:'user', content: testo });
   campo.value = '';
   campo.style.height = 'auto';
@@ -587,12 +373,9 @@ campo.addEventListener('input', () => {
   campo.style.height = Math.min(campo.scrollHeight, 120) + 'px';
 });
 
-// avvio: la prima battuta è fissa, non si chiede al Worker.
-// Resta comunque nello storico, così il tutor sa da dove si riparte.
+// Avvio: la prima battuta la scrive il tutor, così cambia a ogni sessione.
 storico.push({ role:'user', content: 'Cominciamo.' });
-storico.push({ role:'assistant', content: APERTURA });
-bolla('tutor', APERTURA);
-campo.focus();
+parla();
 </script>
 </body>
 </html>
