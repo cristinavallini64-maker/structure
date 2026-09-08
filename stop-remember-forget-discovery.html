@@ -331,7 +331,7 @@ function chiudi(){
 // dello studente e il tutor rifiuta per sempre.
 function annullaUltimoTurno(){
   const ultimo = storico[storico.length - 1];
-  if(ultimo && ultimo.role === 'user' && ultimo.content !== 'Cominciamo.'){
+  if(ultimo && ultimo.role === 'user' && storico.length > 1){
     storico.pop();
     const bolle = dialogo.querySelectorAll('.studente');
     if(bolle.length) bolle[bolle.length - 1].remove();
@@ -436,9 +436,41 @@ function introduzione(){
   dialogo.appendChild(d);
 }
 
+// ============================================================
+// SORTEGGIO DI APERTURA
+// Il tutor non ha memoria fra una sessione e l'altra: da solo ricadrebbe
+// sempre sulla stessa prima scena. Quindi decide la pagina, a sorte, e
+// glielo dice nel primo messaggio (che non viene mostrato allo studente).
+// ============================================================
+const AMBIENTI = [
+  'una piscina comunale', 'un negozio di biciclette', 'una sagra di paese',
+  'un canile', 'una scuola di musica', 'un cantiere', 'un rifugio in montagna',
+  'una redazione di giornalino scolastico', 'un vivaio', 'un ostello',
+  'una gelateria', 'un campo di atletica', 'una biblioteca di quartiere',
+  'un mercato del sabato', 'una casa di riposo', 'un teatro amatoriale',
+  'un traghetto', 'una falegnameria', 'un osservatorio astronomico',
+  'una squadra di pallavolo'
+];
+
+function a_caso(lista){ return lista[Math.floor(Math.random() * lista.length)]; }
+
+function istruzioneApertura(){
+  const verbi = ['stop', 'remember', 'forget'];
+  // ordine sorteggiato: cambia quale verbo si affronta per primo
+  for(let i = verbi.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [verbi[i], verbi[j]] = [verbi[j], verbi[i]];
+  }
+  const due = [a_caso(AMBIENTI), a_caso(AMBIENTI)];
+  return 'Cominciamo. Ordine dei verbi per questa sessione: '
+       + verbi.join(', ') + '. '
+       + 'Ambienta le prime due scene qui: ' + due[0] + ', ' + due[1] + '. '
+       + 'Non nominare questo messaggio, comincia direttamente dalla prima scena.';
+}
+
 // Avvio: introduzione fissa a video, poi il tutor manda la prima situazione.
 introduzione();
-storico.push({ role:'user', content: 'Cominciamo.' });
+storico.push({ role:'user', content: istruzioneApertura() });
 parla();
 </script>
 </body>
