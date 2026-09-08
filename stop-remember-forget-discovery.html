@@ -135,6 +135,26 @@
   button:focus-visible{outline:2px solid #fff;outline-offset:2px}
   button:disabled{opacity:.35;cursor:default}
 
+  .intro{
+    align-self:stretch;
+    border:1px solid rgba(0,229,255,.28);
+    border-radius:14px;
+    padding:18px 20px 16px;
+    background:rgba(0,229,255,.04);
+  }
+  .intro h2{
+    font-family:'Orbitron',sans-serif;
+    font-size:.82rem;
+    letter-spacing:2px;
+    color:var(--cyan);
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .intro p{font-size:.92rem;line-height:1.6;margin-bottom:9px}
+  .intro p:last-child{margin-bottom:0}
+  .intro .chiave{color:var(--cyan)}
+  .intro .nota{color:var(--tenue);font-size:.85rem}
+
   .fine{
     align-self:center;
     text-align:center;
@@ -219,13 +239,34 @@ tutte e due inglese corretto. Quello che decide è il racconto.
 - per remember/forget + -ing serve un fatto già avvenuto e un ricordo che lo riguarda,
   spesso in contrasto con qualcuno che sostiene il contrario.
 
-PRIMA DI MANDARE UNA SITUAZIONE, LA PROVA: se anche l'altra forma ci starebbe dentro,
+DUE PROVE DA FARE PRIMA DI MANDARE UNA SITUAZIONE
+
+Prova 1 — l'altra forma deve essere esclusa. Se anche l'altra forma ci starebbe dentro,
 la situazione è da rifare. Non basta che sia "un po' più probabile".
+
+Prova 2 — l'italiano NON deve contenere la risposta. Il racconto italiano si ferma prima
+del finale: è la frase inglese che dice come è andata. Se lo studente può rispondere
+ricopiando il racconto senza leggere l'inglese, l'item è rotto.
+
+  SBAGLIATA: "Dario faceva atletica tre volte a settimana. Poi si è fatto male al ginocchio
+  e ora non si allena più." — "Dario stopped training." — Dario si allena ancora?
+  Qui la risposta è già scritta in italiano: non serve l'inglese.
+
+  GIUSTA: "Dario correva i 1500 a livello agonistico. Due anni fa un problema al ginocchio
+  l'ha tenuto fermo per mesi di fisioterapia." — "Dario stopped training after the injury."
+  — Dario oggi si allena?
+  Qui la fisioterapia non dice come è finita: uno può benissimo essere tornato in pista.
+  La risposta sta solo nell'inglese.
 
 VARIA. Non ricadere sempre sulle stesse due o tre scene: il caffè, le chiavi, il pane
 vanno bene ma non possono essere gli unici. Usa scuola, lavoretti estivi, sport,
 volontariato, viaggi, patente, musica, cucina, condominio, ufficio, ospedale, concerti.
 Lessico da B1+ verso B2.
+
+L'INTRODUZIONE L'HA GIÀ DATA LA PAGINA
+Lo studente ha già letto come funziona il percorso e che può chiedere il significato
+delle parole. Non ripetere niente di tutto questo, non salutare, non presentarti:
+il tuo primo turno è direttamente la prima situazione.
 `;
 
 const dialogo = document.getElementById('dialogo');
@@ -373,7 +414,30 @@ campo.addEventListener('input', () => {
   campo.style.height = Math.min(campo.scrollHeight, 120) + 'px';
 });
 
-// Avvio: la prima battuta la scrive il tutor, così cambia a ogni sessione.
+// ============================================================
+// INTRODUZIONE — fissa, scritta qui.
+// Compare subito, senza aspettare la rete. Il tutor sa che c'è già
+// (glielo dice ARGOMENTO) e parte direttamente dalla prima situazione.
+// ============================================================
+function introduzione(){
+  const d = document.createElement('div');
+  d.className = 'intro';
+  d.innerHTML =
+    '<h2>Come funziona</h2>' +
+    '<p>Impariamo qualcosa di nuovo. Ti faccio vedere l\u2019inglese all\u2019opera e ti ' +
+    'faccio delle domande: si va avanti un pezzo per volta, senza fretta.</p>' +
+    '<p>Rispondi come ti viene, in italiano. Se sbagli non è un problema: ' +
+    'ti faccio una domanda che ti aiuta a guardare nel punto giusto.</p>' +
+    '<p>Se c\u2019è una parola che non conosci — o non sai come si dice in inglese una ' +
+    'parola italiana — <span class="chiave">chiedimela quando vuoi</span>. ' +
+    'Non conta come errore.</p>' +
+    '<p class="nota">Nessun voto, nessun cronometro. Si va avanti finché non ti viene ' +
+    'naturale. Cominciamo.</p>';
+  dialogo.appendChild(d);
+}
+
+// Avvio: introduzione fissa a video, poi il tutor manda la prima situazione.
+introduzione();
 storico.push({ role:'user', content: 'Cominciamo.' });
 parla();
 </script>
