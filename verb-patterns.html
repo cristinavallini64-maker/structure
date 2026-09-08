@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 · Verb Patterns &amp; Compounds — Grammar Practice (B2)</title>
+<meta name="description" content="The Structure · Esercizi interattivi Unit 3 Verb Patterns &amp; Compounds: common verb patterns, stop/remember/forget, composti di some any every no, question tags. Preparazione B2 First.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 3 · Verb Patterns &amp; Compounds</div><span class="logo-sub">grammar practice · B2</span></div>
+  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Practice</h2>
+    <h1>All in a day's work</h1>
+    <p>verb patterns · stop, remember, forget · some, any, every, no compounds · question tags</p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-results" class="screen"></div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const LEVELS=[
+{id:1,type:"study",title:"LIVELLO 01 — VERB PATTERNS: BASE, -ING, TO",desc:"che cosa vuole il primo verbo · nessuna logica, si riconosce",
+rule:`<strong>COMMON VERB PATTERNS &mdash; Unit 3:</strong><br>
+&#x2714; <code>verbo + forma base</code> dopo i modali: <em>can, could, must, have to, should, will, would rather</em>. &mdash; <em>I must tidy my bedroom!</em><br>
+&#x2714; <code>verbo + forma in -ing</code>: <em>love, like, enjoy, prefer, don't mind, hate, miss, finish, give up, avoid, dream of, look forward to</em>. &mdash; <em>She's dreamt of visiting Japan for ages.</em><br>
+&#x2714; <code>verbo + to + forma base</code>: <em>want, would like, would love, would prefer, decide, try, manage, hope, refuse, promise, afford, agree, arrange, need</em>. &mdash; <em>We've decided to move to the country.</em><br>
+&#x26A0; In <em>look forward to</em> e <em>dream of</em>, quel <em>to</em> e quel <em>of</em> sono preposizioni: dopo va la forma in <strong>-ing</strong>.<br>
+&#x26A0; Dopo i modali <strong>niente to</strong>: <em>I must tidy</em>, non <s>I must to tidy</s>.`,
+exercises:[
+{type:"mc",q:"Un compagno scrive: « I look forward to see your new terrace. » Che cosa deve correggere?",options:["Dopo look forward to serve la forma in -ing, perché quel to è una preposizione.","Deve usare will see.","Deve togliere il to.","Niente: la frase è corretta."],a:"Dopo look forward to serve la forma in -ing, perché quel to è una preposizione."},
+{type:"fill",q:"Mum can't afford ___ a new dishwasher this year.",hint:"(buy)",a:"to buy",accept:["to buy"]},
+{type:"fill",q:"We've given up ___ the attic tidy — the boys use it as a studio.",hint:"(keep)",a:"keeping",accept:["keeping"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (attenzione a che cosa vuole il primo verbo).",wrong:"We have decided moving to a bigger flat.",a:"We have decided to move to a bigger flat.",accept:["we have decided to move to a bigger flat.","we've decided to move to a bigger flat."]},
+{type:"fill",q:"Leo doesn't mind ___ in the basement flat: it's cheap and close to work.",hint:"(live)",a:"living",accept:["living"]},
+{type:"mc",q:"Perché « I must to tidy my room » è sbagliato?",options:["Perché dopo i modali come must si usa la forma base senza to.","Perché tidy non può essere un verbo.","Perché serve la forma in -ing.","Perché must vuole il past simple."],a:"Perché dopo i modali come must si usa la forma base senza to."},
+{type:"fill",q:"The landlord refused ___ the blinds in the study.",hint:"(replace)",a:"to replace",accept:["to replace"]},
+{type:"fill",q:"I'd rather ___ in a house with a garden than in a flat on the fourth floor.",hint:"(live)",a:"live",accept:["live"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It's impossible for us to get a new cooker this month.",key:"AFFORD",q:"We ___ a new cooker this month.",a:"can't afford to buy",accept:["can't afford to buy","cannot afford to buy","can't afford to get","cannot afford to get"]},
+{type:"fill",q:"Have you finished ___ the shelves in the laundry room?",hint:"(paint)",a:"painting",accept:["painting"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo i modali non va il to).",wrong:"I must to hoover the stairs before Sunday.",a:"I must hoover the stairs before Sunday.",accept:["i must hoover the stairs before sunday."]},
+{type:"fill",q:"We managed ___ the wardrobe up the stairs without scratching it.",hint:"(get)",a:"to get",accept:["to get"]},
+{type:"fill",q:"Nobody wants ___ on the top floor while the lift is out of order.",hint:"(live)",a:"to live",accept:["to live"]},
+{type:"mc",q:"Quale di questi verbi vuole « to + forma base » e non la forma in -ing?",options:["afford","avoid","finish","give up"],a:"afford"},
+{type:"fill",q:"Ines avoided ___ about the damp in the basement until the survey arrived.",hint:"(talk)",a:"talking",accept:["talking"]},
+{type:"fill",q:"My gran misses ___ on her old balcony every morning.",hint:"(sit)",a:"sitting",accept:["sitting"]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro: forma in -ing oppure to + forma base.",verbs:["install","clean","hang","move"],sentences:[
+{pre:"We've arranged",post:"the new cooker on Friday morning.",a:"to install",accept:["to install"]},
+{pre:"Dad has given up",post:"the gutters himself — he's called a firm.",a:"cleaning",accept:["cleaning"]},
+{pre:"Nadia doesn't mind",post:"the pictures for us while we unpack.",a:"hanging",accept:["hanging"]},
+{pre:"They hope",post:"into the terraced house before Christmas.",a:"to move",accept:["to move"]}
+]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (quel to è una preposizione).",wrong:"Ruby dreams of buy a cottage with a big attic.",a:"Ruby dreams of buying a cottage with a big attic.",accept:["ruby dreams of buying a cottage with a big attic."]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Ruben said he would definitely mend the front door.",key:"PROMISED",q:"Ruben ___ the front door.",a:"promised to mend",accept:["promised to mend","promised to fix","promised to repair"]},
+{type:"fill",q:"Sasha has agreed ___ the boxes in her garage until we find a flat.",hint:"(store)",a:"to store",accept:["to store"]}
+]},
+
+{id:2,type:"study",title:"LIVELLO 02 — OGGETTO + TO · START · LIKE, LOVE, HATE, PREFER",desc:"chi fa la seconda azione · gusto generale o scelta di adesso",
+rule:`<strong>ALTRI PATTERN &mdash; Unit 3:</strong><br>
+&#x2714; <code>verbo + oggetto + to + forma base</code>: <em>want, would like, ask, tell, remind, convince, persuade, order, invite, help</em>. &mdash; <em>She invited us to stay for the night.</em><br>
+&#x26A0; In italiano si dice &laquo;voglio <strong>che tu</strong> venga&raquo;; in inglese <strong>niente that</strong>: <em>I want you to come.</em><br>
+&#x26A0; <em>tell</em> e <em>ask</em> non vogliono <em>to</em> davanti alla persona: <em>The teacher told the students to&hellip;</em><br>
+&#x2714; <em>begin</em>, <em>start</em>, <em>continue</em>: le due forme sono <strong>equivalenti</strong>. &mdash; <em>I started to go = I started going.</em><br>
+&#x2714; <em>like, love, hate, prefer</em> + <strong>-ing</strong> quando si parla dell'attivit&agrave; in s&eacute;; + <strong>to</strong> quando si parla di una <strong>scelta o preferenza in una situazione precisa</strong>: <em>I prefer to wait here, thanks.</em><br>
+&#x26A0; Dopo <code>would like / would love / would hate / would prefer</code> ci vuole <strong>sempre to</strong>: <em>I'd hate to share my room.</em>`,
+exercises:[
+{type:"mc",q:"« I started to go » e « I started going »: che differenza c'è?",options:["Nessuna: con start le due forme dicono la stessa cosa.","La prima è al passato, la seconda al presente.","La prima indica un'abitudine, la seconda un'azione unica.","La seconda è sbagliata."],a:"Nessuna: con start le due forme dicono la stessa cosa."},
+{type:"fill",q:"Mum asked my brother ___ the recycling out before dinner.",hint:"(take)",a:"to take",accept:["to take"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese non si usa that dopo want).",wrong:"My parents don't want that I move out.",a:"My parents don't want me to move out.",accept:["my parents don't want me to move out.","my parents do not want me to move out."]},
+{type:"fill",q:"The landlord ordered the tenants ___ the satellite dish from the balcony.",hint:"(remove)",a:"to remove",accept:["to remove"]},
+{type:"mc",q:"« I love cooking » ma « I'd prefer to wait in the hall, thanks. » Quando si usa il to con like, love, hate e prefer?",options:["Quando si parla di una scelta in una situazione precisa, non di un gusto generale.","Quando la frase è negativa.","Quando il soggetto è alla prima persona.","Quando il verbo dopo comincia per consonante."],a:"Quando si parla di una scelta in una situazione precisa, non di un gusto generale."},
+{type:"fill",q:"Zoe reminded her flatmate ___ the dishwasher on before going to bed.",hint:"(put)",a:"to put",accept:["to put"]},
+{type:"fill",q:"I persuaded Mum ___ me paint the study dark green.",hint:"(let)",a:"to let",accept:["to let"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (tell non vuole to davanti alla persona).",wrong:"The estate agent told to the tenants to leave the keys inside.",a:"The estate agent told the tenants to leave the keys inside.",accept:["the estate agent told the tenants to leave the keys inside."]},
+{type:"fill",q:"Our neighbours invited us ___ round on Sunday afternoon.",hint:"(come)",a:"to come",accept:["to come"]},
+{type:"fill",q:"In general Grandad prefers ___ the stairs: he says the lift is for lazy people.",hint:"(use)",a:"using",accept:["using"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Could you water the plants on the terrace? » Mum said to me.",key:"ASKED",q:"Mum ___ the plants on the terrace.",a:"asked me to water",accept:["asked me to water"]},
+{type:"fill",q:"It's freezing out here — I'd prefer ___ inside, if that's all right.",hint:"(wait)",a:"to wait",accept:["to wait"]},
+{type:"mc",q:"Un compagno scrive: « I would love cooking for everyone tomorrow. » Che cosa sbaglia?",options:["Dopo would love ci vuole sempre to + forma base.","Deve usare il past simple.","Deve togliere would.","Niente: la frase è corretta."],a:"Dopo would love ci vuole sempre to + forma base."},
+{type:"fill",q:"Frankie has continued ___ in the attic all winter, with two heaters on.",hint:"(work)",a:"working",accept:["working","to work"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo would hate serve un'altra forma).",wrong:"I'd hate sharing a bathroom with four other students.",a:"I'd hate to share a bathroom with four other students.",accept:["i'd hate to share a bathroom with four other students.","i would hate to share a bathroom with four other students."]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro.",verbs:["decorate","get up","live","do"],sentences:[
+{pre:"I love",post:"the flat at Christmas — it takes a whole weekend, but it's worth it.",a:"decorating",accept:["decorating"]},
+{pre:"On cold mornings I'd prefer",post:"an hour later.",a:"to get up",accept:["to get up"]},
+{pre:"My cousins hate",post:"on the ground floor: they say the street is too noisy.",a:"living",accept:["living"]},
+{pre:"I'd hate",post:"the washing-up every single evening.",a:"to do",accept:["to do"]}
+]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Leo kept saying I should see the new loft conversion, and in the end I did.",key:"PERSUADED",q:"Leo ___ the new loft conversion.",a:"persuaded me to see",accept:["persuaded me to see","persuaded me to visit"]},
+{type:"fill",q:"Could you help me ___ the chest of drawers into the spare bedroom?",hint:"(carry)",a:"to carry",accept:["to carry","carry"]}
+]},
+
+{id:3,type:"study",title:"LIVELLO 03 — STOP, REMEMBER, FORGET",desc:"qui la forma cambia il significato · si capisce dalla situazione",
+rule:`<strong>STOP, REMEMBER, FORGET &mdash; Unit 3:</strong><br>
+&#x2714; <code>stop + -ing</code> = quella cosa <strong>&egrave; finita</strong>, non si fa pi&ugrave;. &mdash; <em>We stopped buying fast food.</em><br>
+&#x2714; <code>stop + to</code> = ci si &egrave; <strong>fermati per fare un'altra cosa</strong>, e poi si riprende. &mdash; <em>I stopped to ask for directions.</em><br>
+&#x2714; <code>remember / forget + -ing</code> = si parla di una cosa <strong>gi&agrave; successa</strong>, che si ricorda o no. &mdash; <em>He remembers visiting Paris when he was a child.</em><br>
+&#x2714; <code>remember / forget + to</code> = c'era un <strong>compito da fare</strong>. &mdash; <em>Please remember to lock the door.</em><br>
+&#x26A0; Le due frasi sono <strong>tutte e due corrette</strong>: a decidere &egrave; la situazione, non la grammatica.`,
+exercises:[
+{type:"mc",q:"« We stopped buying fast food » e « We stopped to buy fast food »: quale delle due dice che quell'abitudine è finita?",options:["La prima: quello che si faceva prima adesso non si fa più.","La seconda: ci si è fermati apposta per comprarlo.","Tutte e due: cambia solo lo stile.","Nessuna delle due: parlano del futuro."],a:"La prima: quello che si faceva prima adesso non si fa più."},
+{type:"fill",q:"On the way back from the tip we stopped ___ some bread and a bag of ice.",hint:"(buy)",a:"to buy",accept:["to buy"]},
+{type:"fill",q:"Aunt Nadia stopped ___ the top floor after her knee operation, so her bed is in the study now.",hint:"(use)",a:"using",accept:["using"]},
+{type:"mc",q:"« I remember locking the door. » La porta è chiusa a chiave?",options:["Sì: chi parla ha in mente il momento in cui l'ha fatto.","No: se l'è dimenticato.","Non si può sapere.","No: deve ancora farlo."],a:"Sì: chi parla ha in mente il momento in cui l'ha fatto."},
+{type:"fill",q:"Did you remember ___ the immersion heater off before we left?",hint:"(turn)",a:"to turn",accept:["to turn"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (si parla di una cosa già successa).",wrong:"I remember to visit that cottage when I was a child.",a:"I remember visiting that cottage when I was a child.",accept:["i remember visiting that cottage when i was a child."]},
+{type:"fill",q:"I clearly remember ___ my keys on the coffee table, and now they're gone.",hint:"(leave)",a:"leaving",accept:["leaving"]},
+{type:"fill",q:"Callum forgot ___ the blinds, so the study was boiling by midday.",hint:"(close)",a:"to close",accept:["to close"]},
+{type:"mc",q:"« Remember to defrost the freezer before Friday. » Il freezer è già stato scongelato?",options:["No: è un compito che deve ancora essere fatto.","Sì, ed è per questo che si usa remember.","Sì, ma solo in parte.","Non si capisce dalla frase."],a:"No: è un compito che deve ancora essere fatto."},
+{type:"fill",q:"I'll never forget ___ into this house: it rained for three days and the lift broke.",hint:"(move)",a:"moving",accept:["moving"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (c'è un compito da fare prima di uscire).",wrong:"Please remember locking the door when you go out.",a:"Please remember to lock the door when you go out.",accept:["please remember to lock the door when you go out."]},
+{type:"fill",q:"The builders stopped ___ at six, and the scaffolding is still against the wall.",hint:"(work)",a:"working",accept:["working"]},
+{type:"fill",q:"She was carrying the boxes upstairs when she stopped ___ the plumber from the landing.",hint:"(phone)",a:"to phone",accept:["to phone","to call"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (quell'abitudine è finita due anni fa).",wrong:"We stopped to order takeaway two years ago and we feel much better.",a:"We stopped ordering takeaway two years ago and we feel much better.",accept:["we stopped ordering takeaway two years ago and we feel much better."]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Marta doesn't order takeaway any more.",key:"STOPPED",q:"Marta ___ takeaway.",a:"stopped ordering",accept:["stopped ordering","has stopped ordering"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"I'm sure I switched the cooker off — I can picture myself doing it.",key:"REMEMBER",q:"I ___ the cooker off.",a:"remember switching",accept:["remember switching","remember turning"]}
+]},
+{id:"rA",type:"review",title:"⟳ RIPASSO A — i pattern dei verbi",desc:"i primi tre argomenti insieme · frasi nuove",
+rule:`<strong>RIPASSO A:</strong> tutto quello che pu&ograve; venire dopo il primo verbo &mdash; forma base, forma in -ing, <em>to</em> + forma base, oggetto + <em>to</em>, e i tre verbi che cambiano significato.<br>
+&#x26A0; Con <em>stop</em>, <em>remember</em> e <em>forget</em> rileggi <strong>la situazione</strong> prima di scegliere: le due forme sono tutte e due corrette.`,
+exercises:[
+{type:"mc",q:"Un compagno scrive: « The surveyor convinced us checking the ceiling. » Che cosa sbaglia?",options:["Dopo convince + oggetto ci vuole to + forma base.","Deve usare il past simple.","Deve togliere us.","Niente: la frase è corretta."],a:"Dopo convince + oggetto ci vuole to + forma base."},
+{type:"fill",q:"Rosa can't stand the cold, so she refuses ___ the radiator in the hall off.",hint:"(switch)",a:"to switch",accept:["to switch","to turn"]},
+{type:"fill",q:"After the flood we gave up ___ the carpet and put down a rug instead.",hint:"(save)",a:"saving",accept:["saving"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo would prefer serve un'altra forma).",wrong:"I'd prefer sleeping in the attic than in the basement.",a:"I'd prefer to sleep in the attic than in the basement.",accept:["i'd prefer to sleep in the attic than in the basement.","i would prefer to sleep in the attic than in the basement."]},
+{type:"fill",q:"On the way to the tip Ivan stopped ___ a lamp that someone had left by the bins.",hint:"(pick up)",a:"to pick up",accept:["to pick up"]},
+{type:"mc",q:"« Sofia stopped watering the plants on the terrace. » Le piante vengono ancora annaffiate da lei?",options:["No: quell'abitudine è finita.","Sì: si è fermata apposta per farlo.","Sì, ma solo d'estate.","Non si capisce dalla frase."],a:"No: quell'abitudine è finita."},
+{type:"fill",q:"Nour has arranged ___ the boiler serviced before the cold weather starts.",hint:"(have)",a:"to have",accept:["to have"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Don't leave the bikes on the landing, » the caretaker said to us.",key:"TOLD",q:"The caretaker ___ the bikes on the landing.",a:"told us not to leave",accept:["told us not to leave"]},
+{type:"fill",q:"Bruno doesn't mind ___ the bunk beds apart, but he wants help carrying them down.",hint:"(take)",a:"taking",accept:["taking"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (quel to è una preposizione).",wrong:"We're looking forward to see the finished conservatory.",a:"We're looking forward to seeing the finished conservatory.",accept:["we're looking forward to seeing the finished conservatory.","we are looking forward to seeing the finished conservatory."]},
+{type:"fill",q:"I'd forgotten ___ the shower curtain, so there was water all over the bathroom floor.",hint:"(close)",a:"to close",accept:["to close","to pull"]},
+{type:"fill",q:"Vera remembers ___ that chest of drawers at a car boot sale for six pounds.",hint:"(buy)",a:"buying",accept:["buying"]}
+]},
+
+{id:4,type:"study",title:"LIVELLO 04 — SOME, ANY, EVERY, NO COMPOUNDS",desc:"someone · anything · everywhere · nobody · quando si usa quale",
+rule:`<strong>COMPOSTI DI SOME, ANY, EVERY, NO &mdash; Unit 3:</strong><br>
+&#x2714; <code>some/any/every/no</code> + <em>thing</em> (cose), <em>one / body</em> (persone), <em>where</em> (luoghi).<br>
+&#x2714; I composti di <strong>some</strong>: nelle affermative, e nelle domande che sono <strong>offerte o richieste</strong> in cui ci si aspetta di s&igrave;. &mdash; <em>Would you like something to eat?</em><br>
+&#x2714; I composti di <strong>any</strong>: nelle <strong>negative e interrogative</strong>; nelle affermative valgono &laquo;qualsiasi cosa, chiunque, ovunque&raquo;. &mdash; <em>You can choose anything you like.</em><br>
+&#x2714; Dopo i composti di <strong>every</strong> il verbo va al <strong>singolare</strong>. &mdash; <em>Everyone deserves fair pay.</em><br>
+&#x2714; I composti di <strong>no</strong> hanno significato negativo, ma il verbo resta <strong>affermativo</strong>. &mdash; <em>There's no one on the beach.</em><br>
+&#x26A0; L'aggettivo va subito dopo, <strong>senza of</strong>: <em>something strange</em>, non <s>something of strange</s>.`,
+exercises:[
+{type:"mc",q:"« Would you like something to drink? » Perché some- e non any-, se è una domanda?",options:["Perché è un'offerta e chi parla si aspetta di sì.","Perché la frase è al condizionale.","Perché drink è un verbo.","Perché any- non si usa mai nelle domande."],a:"Perché è un'offerta e chi parla si aspetta di sì."},
+{type:"fill",q:"There's ___ at the front door — I heard the bell twice.",a:"someone",accept:["someone","somebody"]},
+{type:"fill",q:"I've looked in every room and I can't find the spare keys ___.",a:"anywhere",accept:["anywhere"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo i composti di every il verbo è singolare).",wrong:"Everyone are complaining about the new block of flats.",a:"Everyone is complaining about the new block of flats.",accept:["everyone is complaining about the new block of flats."]},
+{type:"fill",q:"___ went wrong with the extractor fan and the kitchen is full of smoke.",a:"Something",accept:["something"]},
+{type:"mc",q:"« There's nothing to do here » e « There isn't anything to do here »: che differenza c'è?",options:["Nessuna nel significato: cambia solo dove sta la negazione, nel pronome o nel verbo.","La prima è più formale e si usa solo per iscritto.","La prima parla di cose, la seconda di persone.","La seconda è sbagliata."],a:"Nessuna nel significato: cambia solo dove sta la negazione, nel pronome o nel verbo."},
+{type:"fill",q:"The lights are off and the car isn't in the garage: there's ___ at home.",a:"nobody",accept:["nobody","no one","noone"]},
+{type:"fill",q:"With this pass you can travel ___ in the city, even out to the coast.",a:"anywhere",accept:["anywhere"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'aggettivo va senza of).",wrong:"There's something of wrong with the boiler — it keeps rattling.",a:"There's something wrong with the boiler — it keeps rattling.",accept:["there's something wrong with the boiler — it keeps rattling.","there is something wrong with the boiler — it keeps rattling.","there's something wrong with the boiler - it keeps rattling."]},
+{type:"fill",q:"___ in this building knows the caretaker by name.",a:"Everybody",accept:["everybody","everyone"]},
+{type:"fill",q:"We searched the whole terrace after the storm and found ___ but a broken plant pot.",a:"nothing",accept:["nothing"]},
+{type:"mc",q:"Un compagno scrive: « I haven't got nothing to do this evening. » Che cosa deve correggere?",options:["In inglese non si mettono due negazioni: o « haven't got anything » o « have got nothing ».","Deve usare something.","Deve togliere got.","Niente: la frase è corretta."],a:"In inglese non si mettono due negazioni: o « haven't got anything » o « have got nothing »."},
+{type:"fill",q:"I haven't heard ___ from the estate agent since Tuesday.",a:"anything",accept:["anything"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"There isn't anybody in the laundry room at this hour.",key:"NOBODY",q:"There ___ the laundry room at this hour.",a:"is nobody in",accept:["is nobody in"]},
+{type:"fill",q:"___ who wants a bookcase can come and take one on Saturday.",a:"Anyone",accept:["anyone","anybody"]},
+{type:"mc",q:"« No one has been up to the attic for years. » Perché il verbo non è negativo?",options:["Perché il composto di no è già negativo: il verbo resta affermativo.","Perché attic è un nome di luogo.","Perché la frase è al present perfect.","Perché no one si usa solo nelle domande."],a:"Perché il composto di no è già negativo: il verbo resta affermativo."},
+{type:"wordbox",instruction:"Completa con il composto giusto del riquadro.",verbs:["something","anywhere","everyone","nothing"],sentences:[
+{pre:"There's",post:"strange about that damp patch on the ceiling.",a:"something",accept:["something"]},
+{pre:"We couldn't park",post:"near the terraced houses on market day.",a:"anywhere",accept:["anywhere"]},
+{pre:"After the clearance",post:"was left in the attic except an old rug.",a:"nothing",accept:["nothing"]},
+{pre:"In our block",post:"knows whose bike is chained to the railings.",a:"everyone",accept:["everyone"]}
+]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (che tipo di composto serve in una frase negativa?).",wrong:"I looked in the wardrobe but I didn't see nothing unusual.",a:"I looked in the wardrobe but I didn't see anything unusual.",accept:["i looked in the wardrobe but i didn't see anything unusual.","i looked in the wardrobe but i did not see anything unusual."]},
+{type:"fill",q:"Would you like ___ to sit on? There's a cushion by the fireplace.",a:"something",accept:["something"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"All the flats on this floor have a balcony.",key:"EVERY",q:"___ on this floor has a balcony.",a:"Every flat",accept:["every flat"]}
+]},
+
+{id:5,type:"study",title:"LIVELLO 05 — QUESTION TAGS",desc:"chiedere conferma · l'ausiliare si ripete · i casi speciali",
+rule:`<strong>QUESTION TAGS &mdash; Unit 3:</strong><br>
+&#x2714; Frase <strong>affermativa</strong> &rarr; tag <strong>negativa</strong>; frase <strong>negativa</strong> &rarr; tag <strong>affermativa</strong>. &mdash; <em>She can paint well, can't she?</em><br>
+&#x2714; La tag <strong>ripete l'ausiliare o il modale</strong> della frase principale, seguito dal pronome. &mdash; <em>They've got a new car, haven't they?</em><br>
+&#x2714; Se la frase &egrave; al <strong>present simple</strong>, la tag usa <em>do / does</em>; se &egrave; al <strong>past simple</strong>, usa <em>did</em>. &mdash; <em>He missed the bus, didn't he?</em><br>
+&#x2714; Con <em>I am</em> la tag negativa &egrave; <strong>aren't I</strong>. &mdash; <em>I'm late, aren't I?</em><br>
+&#x2714; Con <em>somebody, anybody, nobody, no one</em> come soggetto, il pronome della tag &egrave; <strong>they</strong>. &mdash; <em>Nobody heard them arguing, did they?</em><br>
+&#x2714; Con <em>there is / there are</em> si ripete <strong>there</strong>. &mdash; <em>There's a bath in the loft, isn't there?</em>`,
+exercises:[
+{type:"mc",q:"Un compagno scrive: « You live on the top floor, isn't it? » Che cosa sbaglia?",options:["La tag deve ripetere l'ausiliare della frase: qui va « don't you ».","Deve usare « aren't you ».","Deve mettere la tag all'inizio.","Niente: la frase è corretta."],a:"La tag deve ripetere l'ausiliare della frase: qui va « don't you »."},
+{type:"fill",q:"You've taken the wrong set of keys, ___?",a:"haven't you",accept:["haven't you","have not you"]},
+{type:"fill",q:"Amy was at the flat viewing yesterday, ___?",a:"wasn't she",accept:["wasn't she","was not she"]},
+{type:"mc",q:"« Nobody heard the smoke alarm, ___? » Quale tag va bene?",options:["did they","didn't they","did he","didn't he"],a:"did they"},
+{type:"fill",q:"There's a bidet in the downstairs bathroom, ___?",a:"isn't there",accept:["isn't there","is not there"]},
+{type:"fill",q:"You won't forget to bolt the front door, ___?",a:"will you",accept:["will you"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore nella question tag.",wrong:"She hasn't been shopping, hasn't she?",a:"She hasn't been shopping, has she?",accept:["she hasn't been shopping, has she?","she has not been shopping, has she?"]},
+{type:"fill",q:"Your mum isn't driving you to the new house, ___?",a:"is she",accept:["is she"]},
+{type:"fill",q:"These radiators make an awful noise, ___?",a:"don't they",accept:["don't they","do not they"]},
+{type:"mc",q:"Perché si dice « I'm late, aren't I? » e non « amn't I »?",options:["Perché con I am la tag negativa in inglese è aren't I: è una forma fissa.","Perché aren't si usa con tutti i soggetti.","Perché late è un aggettivo.","Perché la frase è informale."],a:"Perché con I am la tag negativa in inglese è aren't I: è una forma fissa."},
+{type:"fill",q:"Dad isn't getting annoyed about the scaffolding, ___?",a:"is he",accept:["is he"]},
+{type:"fill",q:"Marek fitted the blinds himself, ___?",a:"didn't he",accept:["didn't he","did not he"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (il soggetto è nobody).",wrong:"Nobody uses the laundry room downstairs, don't they?",a:"Nobody uses the laundry room downstairs, do they?",accept:["nobody uses the laundry room downstairs, do they?"]},
+{type:"fill",q:"I'm sitting in your seat, ___?",a:"aren't I",accept:["aren't I","are not I"]},
+{type:"fill",q:"There aren't any sockets behind the bookcase, ___?",a:"are there",accept:["are there"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"I think this hallway is enormous — do you agree?",key:"ISN'T",q:"This hallway is enormous, ___?",a:"isn't it",accept:["isn't it"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (che tempo è la frase principale?).",wrong:"You bought that mirror at the market, don't you?",a:"You bought that mirror at the market, didn't you?",accept:["you bought that mirror at the market, didn't you?"]},
+{type:"wordbox",instruction:"Completa con la question tag giusta del riquadro.",verbs:["did they","aren't I","have you","is there"],sentences:[
+{pre:"Nobody complained about the drilling,",post:"?",a:"did they",accept:["did they"]},
+{pre:"I'm on the list for the parking space,",post:"?",a:"aren't I",accept:["aren't I"]},
+{pre:"You haven't seen my green cushion anywhere,",post:"?",a:"have you",accept:["have you"]},
+{pre:"There isn't a lift in this block,",post:"?",a:"is there",accept:["is there"]}
+]},
+{type:"mc",q:"« There's someone at the door, ___? » Quale tag?",options:["isn't there","isn't he","isn't it","aren't they"],a:"isn't there"}
+]},
+{id:"rB",type:"review",title:"⟳ RIPASSO B — tutta la unit",desc:"pattern, composti e question tags insieme · frasi nuove",
+rule:`<strong>RIPASSO B:</strong> i quattro argomenti della unit insieme.<br>
+&#x26A0; Tre cose da non sbagliare: dopo i modali <strong>niente to</strong>; dopo i composti di <em>every</em> il verbo &egrave; <strong>singolare</strong>; la question tag <strong>ripete l'ausiliare</strong> della frase.`,
+exercises:[
+{type:"fill",q:"Nobody has been down to the cellar since the flood, ___?",a:"have they",accept:["have they"]},
+{type:"fill",q:"Silvia has decided ___ the loft into a study for her translations.",hint:"(convert)",a:"to convert",accept:["to convert","to turn"]},
+{type:"mc",q:"« Everything in that showroom costs a fortune. » Perché costs e non cost?",options:["Perché dopo i composti di every il verbo va al singolare.","Perché everything è un plurale irregolare.","Perché la frase è al present continuous.","Perché showroom è singolare."],a:"Perché dopo i composti di every il verbo va al singolare."},
+{type:"fill",q:"We couldn't find ___ tall enough to reach the top shelf of the bookcase.",a:"anybody",accept:["anybody","anyone"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese non si usa that dopo would like).",wrong:"I would like that my brother helps me with the wardrobe.",a:"I would like my brother to help me with the wardrobe.",accept:["i would like my brother to help me with the wardrobe.","i'd like my brother to help me with the wardrobe."]},
+{type:"fill",q:"On his way back to the van Otis stopped ___ the neighbours a hand with their sofa.",hint:"(give)",a:"to give",accept:["to give"]},
+{type:"fill",q:"You've never been up to the top floor, ___?",a:"have you",accept:["have you"]},
+{type:"mc",q:"« Rita forgot feeding the cat » e « Rita forgot to feed the cat »: quale delle due dice che il gatto è rimasto senza cibo?",options:["La seconda: c'era un compito e non l'ha fatto.","La prima: non si ricorda di averlo fatto.","Tutte e due allo stesso modo.","Nessuna delle due: parlano del futuro."],a:"La seconda: c'era un compito e non l'ha fatto."},
+{type:"fill",q:"The surveyor reminded us ___ the ceiling in the back bedroom.",hint:"(check)",a:"to check",accept:["to check"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore nella question tag.",wrong:"There's a terrace on the second floor, isn't it?",a:"There's a terrace on the second floor, isn't there?",accept:["there's a terrace on the second floor, isn't there?","there is a terrace on the second floor, isn't there?"]},
+{type:"fill",q:"After three winters in that draughty cottage they gave up ___ the wood burner going all night.",hint:"(keep)",a:"keeping",accept:["keeping"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"There isn't anything left in the chest of drawers.",key:"NOTHING",q:"There ___ in the chest of drawers.",a:"is nothing left",accept:["is nothing left"]},
+{type:"fill",q:"I'm the only one without a key, ___?",a:"aren't I",accept:["aren't I"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (che forma vuole avoid?).",wrong:"Tenants should avoid to hang wet clothes on the radiators.",a:"Tenants should avoid hanging wet clothes on the radiators.",accept:["tenants should avoid hanging wet clothes on the radiators."]}
+]},
+
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Moving day",desc:"tutti gli argomenti insieme · scelte che cambiano il significato",
+rule:`<strong>SFIDA FINALE.</strong> Nessun aiuto per argomento: rileggi ogni situazione e decidi.<br>
+&#x26A0; Con <em>stop</em>, <em>remember</em> e <em>forget</em> le due forme sono <strong>tutte e due corrette</strong>: guarda che cosa &egrave; successo davvero.`,
+exercises:[
+{type:"mc",q:"Dal racconto del trasloco: « Halfway down the motorway Dad stopped to check the ropes on the roof rack. » Che cosa è successo?",options:["Si è fermato apposta per controllare le corde, poi è ripartito.","Ha smesso di controllare le corde.","Non ha controllato le corde.","Ha guidato e controllato le corde nello stesso momento."],a:"Si è fermato apposta per controllare le corde, poi è ripartito."},
+{type:"fill",q:"The removal men refused ___ the piano up to the first floor without a hoist.",hint:"(carry)",a:"to carry",accept:["to carry","to take"]},
+{type:"fill",q:"There wasn't ___ in the flat when we got there — not even a light bulb.",a:"anything",accept:["anything"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Everybody were waiting on the landing with their boxes.",a:"Everybody was waiting on the landing with their boxes.",accept:["everybody was waiting on the landing with their boxes."]},
+{type:"fill",q:"You didn't sign for the delivery, ___?",a:"did you",accept:["did you"]},
+{type:"fill",q:"At three o'clock we stopped ___ and ate our sandwiches on the terrace.",hint:"(unpack)",a:"unpacking",accept:["unpacking"]},
+{type:"mc",q:"« I'll always remember carrying that wardrobe up four flights of stairs. » Quel guardaroba è stato portato su?",options:["Sì, ed è un ricordo che resta.","No: se n'era dimenticato.","Non si può sapere.","No: doveva ancora farlo."],a:"Sì, ed è un ricordo che resta."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Please check the meter reading, » the landlord said to Ines.",key:"ASKED",q:"The landlord ___ the meter reading.",a:"asked Ines to check",accept:["asked ines to check"]},
+{type:"fill",q:"Nobody wants the old cooker, ___?",a:"do they",accept:["do they"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We must to hand the keys back before midday.",a:"We must hand the keys back before midday.",accept:["we must hand the keys back before midday."]},
+{type:"fill",q:"By six o'clock there was ___ left to do except make the beds.",a:"nothing",accept:["nothing"]},
+{type:"fill",q:"Ilaria forgot ___ the water back on, so we had no shower that night.",hint:"(turn)",a:"to turn",accept:["to turn","to switch"]},
+{type:"mc",q:"Un compagno scrive: « I'd rather to stay in the old flat. » Che cosa deve correggere?",options:["Dopo would rather ci vuole la forma base senza to.","Deve usare would like.","Deve mettere la forma in -ing.","Niente: la frase è corretta."],a:"Dopo would rather ci vuole la forma base senza to."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Dad doesn't drive the van any more.",key:"GIVEN",q:"Dad ___ the van.",a:"has given up driving",accept:["has given up driving"]}
+]}
+];
+
+const SK='gq_u3vp_s',EK='gq_u3vp_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'GQU.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 1 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[];
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,'').replace(/\s+/g,' ').trim();}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none')nextExercise();
+  else if(cb&&cb.style.display!=='none')checkExercise();
+});
+loadState();renderMap();
+
+</script>
+</body>
+</html>
