@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 · Perfect Tenses &amp; Relative Clauses — Grammar Practice (B2)</title>
+<meta name="description" content="The Structure · Esercizi interattivi Unit 4 Perfect Tenses &amp; Relative Clauses: past perfect simple, narrative tenses, defining e non-defining relative clauses, pronomi relativi. Preparazione B2 First.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 4 · Perfect Tenses &amp; Relative Clauses</div><span class="logo-sub">grammar practice · B2</span></div>
+  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Practice</h2>
+    <h1>Book club</h1>
+    <p>past perfect simple · narrative tenses · defining e non-defining relative clauses · whose, where, when</p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-results" class="screen"></div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const LEVELS=[
+{id:1,type:"study",title:"LIVELLO 01 — PAST PERFECT SIMPLE",desc:"quello che era già successo prima · negativa, domande, risposte brevi",
+rule:`<strong>PAST PERFECT SIMPLE &mdash; Unit 4:</strong><br>
+&#x2714; <code>had + participio passato</code> per un'azione avvenuta <strong>prima</strong> di un'altra azione o di un momento del passato. Corrisponde al trapassato prossimo. &mdash; <em>Tom's brother had left. Il fratello di Tom era andato via.</em><br>
+&#x2714; Negativa: <code>hadn't + participio</code>. Domanda: <code>Had + soggetto + participio?</code> Risposte brevi: <em>Yes, I had. / No, I hadn't.</em><br>
+&#x2714; Spesso con <em>just, already, ever, never, before</em> e con <em>because</em>. &mdash; <em>When I got to the station, the train had already left.</em><br>
+&#x26A0; In inglese l'ausiliare &egrave; <strong>sempre had</strong>, anche con i verbi di movimento: <em>Your sister had gone to the gym</em> (non &laquo;was gone&raquo;).`,
+exercises:[
+{type:"mc",q:"«Quando sono arrivata al circolo del libro, avevano già scelto il romanzo.» Quale frase inglese lo dice?",options:["When I got there, they had already chosen the novel.","When I got there, they already chose the novel.","When I got there, they have already chosen the novel.","When I got there, they were already choosing the novel."],a:"When I got there, they had already chosen the novel."},
+{type:"fill",q:"Zoe didn't want to see the film because she ___ the ending on a blog.",hint:"(read)",a:"had read",accept:["had read","had already read"]},
+{type:"fill",q:"By the time the bookshop opened, a queue of fans ___ round the corner.",hint:"(form)",a:"had formed",accept:["had formed","had already formed"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (il momento di riferimento è nel passato).",wrong:"I have never heard of that novelist before my cousin lent me his autobiography.",a:"I had never heard of that novelist before my cousin lent me his autobiography.",accept:["i had never heard of that novelist before my cousin lent me his autobiography."]},
+{type:"fill",q:"Had the twins finished the graphic novel before the lesson? — No, they ___.",a:"hadn't",accept:["hadn't","had not"]},
+{type:"mc",q:"«When the detective arrived, the thief had left the building.» Il ladro era ancora lì?",options:["No: se n'era già andato prima.","Sì: se n'è andato proprio mentre il detective arrivava.","Sì: se n'è andato subito dopo.","La frase non lo dice."],a:"No: se n'era già andato prima."},
+{type:"fill",q:"Nour was furious: someone ___ her the ending of the thriller.",hint:"(tell)",a:"had told",accept:["had told"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"That evening was Ivan's first time at a book club.",key:"BEEN",q:"Ivan ___ to a book club before that evening.",a:"had never been",accept:["had never been"]},
+{type:"fill",q:"The author admitted that she ___ the beginning of the novel eleven times.",hint:"(rewrite)",a:"had rewritten",accept:["had rewritten"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (guarda la risposta breve).",wrong:"Had you read the biography? Yes, I did.",a:"Had you read the biography? Yes, I had.",accept:["had you read the biography? yes, i had."]},
+{type:"fill",q:"Marek ___ a cookbook in his life until he moved out of his parents' flat.",hint:"(not open)",a:"hadn't opened",accept:["hadn't opened","had not opened","hadn't ever opened","had never opened"]},
+{type:"mc",q:"Un compagno scrive: «I had went to the bookshop before it closed.» Che cosa deve correggere?",options:["Dopo had ci vuole il participio passato: had gone.","Deve usare il past simple: went.","Deve scrivere had going.","Niente: la frase è corretta."],a:"Dopo had ci vuole il participio passato: had gone."},
+{type:"fill",q:"By nine o'clock Silvia ___ only two lines of her review of the romantic novel, so she gave up.",hint:"(write)",a:"had written",accept:["had written","had only written"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sara read the biography first and watched the documentary afterwards.",key:"ALREADY",q:"Sara ___ the biography when she watched the documentary.",a:"had already read",accept:["had already read"]},
+{type:"mc",q:"Perché in «She was disappointed because she had expected a happier ending» ci vuole il past perfect?",options:["Perché l'aspettativa viene prima della delusione.","Perché le due cose succedono nello stesso momento.","Perché il finale deve ancora arrivare.","Perché dopo because ci vuole sempre had."],a:"Perché l'aspettativa viene prima della delusione."},
+{type:"fill",q:"Callum couldn't join the discussion because he ___ past chapter two.",hint:"(not get)",a:"hadn't got",accept:["hadn't got","had not got","hadn't gotten","hadn't read"]}
+]},
+
+{id:2,type:"study",title:"LIVELLO 02 — PAST PERFECT vs PAST SIMPLE",desc:"when · after · before · by the time · il tempo verbale cambia l'ordine dei fatti",
+rule:`<strong>DUE AZIONI NEL PASSATO &mdash; Unit 4:</strong><br>
+&#x2714; L'azione <strong>precedente</strong> va al past perfect, quella <strong>pi&ugrave; recente</strong> al past simple. Spesso si collegano con <em>by the time, when, after, before</em>.<br>
+&#x2714; Le due frasi sono tutte e due corrette ma dicono cose diverse:<br>
+&nbsp;&nbsp;<em>When I saw them, they stopped talking.</em> &rarr; prima li ho visti, <strong>poi</strong> hanno smesso.<br>
+&nbsp;&nbsp;<em>When I saw them, they had stopped talking.</em> &rarr; quando li ho visti <strong>avevano gi&agrave;</strong> smesso.<br>
+&#x26A0; Se i fatti sono gi&agrave; in ordine cronologico e la sequenza &egrave; chiara, il past simple basta: <em>He finished the chapter and turned off the lamp.</em>`,
+exercises:[
+{type:"mc",q:"In quale frase la classe aveva già smesso di leggere prima che suonasse la campanella?",options:["When the bell rang, the class had stopped reading.","When the bell rang, the class stopped reading.","When the bell rang, the class was stopping reading.","When the bell rang, the class has stopped reading."],a:"When the bell rang, the class had stopped reading."},
+{type:"fill",q:"By the time we got to the cinema, the film ___.",hint:"(start)",a:"had started",accept:["had started","had already started","had begun","had already begun"]},
+{type:"fill",q:"Elena went back to page one because she ___ the villain's name.",hint:"(forget)",a:"had forgotten",accept:["had forgotten"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (in italiano è un trapassato).",wrong:"When I opened the box, someone already took the comic books.",a:"When I opened the box, someone had already taken the comic books.",accept:["when i opened the box, someone had already taken the comic books."]},
+{type:"fill",q:"Bruno recognised the evil twin at once: he ___ the film version as a child.",hint:"(see)",a:"had seen",accept:["had seen","had watched"]},
+{type:"mc",q:"«Frankie phoned the library after he found the book under his bed.» Che cosa è successo per primo?",options:["Ha trovato il libro.","Ha telefonato alla biblioteca.","Le due cose insieme.","La frase non lo dice."],a:"Ha trovato il libro."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Otis saw the film first and read the novel afterwards.",key:"BEFORE",q:"Otis ___ he read the novel.",a:"had seen the film before",accept:["had seen the film before","had watched the film before"]},
+{type:"fill",q:"Serena had to explain who the author was, because nobody else ___ of him.",hint:"(hear)",a:"had heard",accept:["had heard","had ever heard"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (by the time chiede il trapassato).",wrong:"By the time we reached the last chapter, we guessed already who the villain was.",a:"By the time we reached the last chapter, we had already guessed who the villain was.",accept:["by the time we reached the last chapter, we had already guessed who the villain was."]},
+{type:"fill",q:"The library was closed, so Sasha ___ home without the travel book.",hint:"(walk)",a:"walked",accept:["walked"]},
+{type:"mc",q:"Un compagno traduce «Quando sono entrato, avevano già spento la luce» con «When I came in, they already turned off the light.» Che cosa manca?",options:["Il past perfect: they had already turned off the light.","Il present perfect: they have already turned off the light.","Il past continuous: they were already turning off the light.","Niente: la frase va bene."],a:"Il past perfect: they had already turned off the light."},
+{type:"fill",q:"When the parcel arrived, Nadia saw that she ___ an awful pirate edition.",hint:"(order)",a:"had ordered",accept:["had ordered"]},
+{type:"wordbox",instruction:"Completa con il past simple o con il past perfect dei verbi del riquadro. Chiediti sempre quale fatto viene prima.",verbs:["lend","meet","leave","win"],sentences:[
+{pre:"Callum couldn't hand the book back because he",post:"it on the bus that morning.",a:"had left",accept:["had left"]},
+{pre:"Rita",post:"the author at a signing in Padua last spring.",a:"met",accept:["met"]},
+{pre:"Everybody clapped: the biography",post:"the prize the night before.",a:"had won",accept:["had won"]},
+{pre:"My uncle",post:"me his old comic books when I was ten.",a:"lent",accept:["lent"]}
+]},
+{type:"mc",q:"«By the time the credits rolled, Otis had guessed the ending.» Quando ha indovinato?",options:["Prima della fine del film.","Esattamente alla fine del film.","Dopo la fine del film.","Non ha indovinato."],a:"Prima della fine del film."}
+]},
+
+{id:3,type:"study",title:"LIVELLO 03 — NARRATIVE TENSES",desc:"la catena dei fatti · la scena sullo sfondo · quello che c'era già prima",
+rule:`<strong>I TEMPI DEL RACCONTO &mdash; Unit 4:</strong><br>
+&#x2714; <strong>Past simple</strong>: i fatti conclusi, uno dopo l'altro in ordine cronologico. &mdash; <em>He went out, locked the door and smiled.</em><br>
+&#x2714; <strong>Past perfect</strong>: quello che era gi&agrave; successo prima di quel punto del racconto. &mdash; <em>Someone had stolen my tablet.</em><br>
+&#x2714; <strong>Past continuous</strong>: l'azione in corso in quel momento, la <strong>scena</strong> o lo sfondo. &mdash; <em>I was studying at university at the time.</em><br>
+&#x2714; Nella stessa frase: l'azione lunga al past continuous viene interrotta da un'azione breve al past simple, con <em>while, when, as</em>. &mdash; <em>She was drinking her tea when the phone rang.</em><br>
+&#x26A0; Un'abitudine del passato <strong>non</strong> va al past continuous: <em>Every evening he read to us</em> (non &laquo;was reading&raquo;).`,
+exercises:[
+{type:"mc",q:"«The rain was beating on the window and the house was completely silent.» A che cosa serve il past continuous qui?",options:["A dipingere la scena in cui succederà qualcosa.","A dire che le due azioni sono finite e concluse.","A dire che una viene prima dell'altra.","A dire che succedeva ogni giorno."],a:"A dipingere la scena in cui succederà qualcosa."},
+{type:"fill",q:"While the heroine ___ the last page, somebody knocked at the door.",hint:"(turn)",a:"was turning",accept:["was turning"]},
+{type:"fill",q:"Silvia ___ on the sofa when the storm knocked the power out.",hint:"(read)",a:"was reading",accept:["was reading"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (è un'abitudine, non una scena).",wrong:"Every evening my grandfather was reading us a chapter of a history book.",a:"Every evening my grandfather read us a chapter of a history book.",accept:["every evening my grandfather read us a chapter of a history book."]},
+{type:"mc",q:"«He was walking home when he found the notebook.» Quale azione interrompe l'altra?",options:["Il ritrovamento del quaderno interrompe la camminata.","La camminata interrompe il ritrovamento.","Le due azioni durano uguale.","Nessuna delle due interrompe l'altra."],a:"Il ritrovamento del quaderno interrompe la camminata."},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The hero reached the tower, but the dragon had already flown away.",key:"BY",q:"___ the hero reached the tower, the dragon had flown away.",a:"By the time",accept:["by the time"]},
+{type:"fill",q:"While the crew ___ the set, the director rewrote the final scene.",hint:"(build)",a:"was building",accept:["was building","were building"]},
+{type:"fill",q:"The audience ___ when the cruel stepmother finally appeared on stage.",hint:"(gasp)",a:"gasped",accept:["gasped"]},
+{type:"mc",q:"Un compagno traduce «Mentre leggevo, mio fratello è entrato» con «While I read, my brother was coming in.» Che cosa ha invertito?",options:["I due tempi: While I was reading, my brother came in.","Niente: la frase è corretta.","Deve mettere il past perfect in tutte e due.","Deve togliere while."],a:"I due tempi: While I was reading, my brother came in."},
+{type:"wordbox",instruction:"Completa il racconto con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["snow","notice","hide","ring"],sentences:[
+{pre:"It",post:"heavily when the coach finally reached the village.",a:"was snowing",accept:["was snowing"]},
+{pre:"Nobody",post:"the small door behind the bookcase until Zoe pointed at it.",a:"noticed",accept:["noticed"]},
+{pre:"Somebody",post:"the key there many years before.",a:"had hidden",accept:["had hidden"]},
+{pre:"The bell",post:"twice while the guests were still arriving.",a:"rang",accept:["rang"]}
+]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'azione breve non va al past continuous).",wrong:"While Sasha was walking to school, she was finding a wallet on the pavement.",a:"While Sasha was walking to school, she found a wallet on the pavement.",accept:["while sasha was walking to school, she found a wallet on the pavement."]},
+{type:"fill",q:"By the time the search party set off, the snow ___ every footprint.",hint:"(cover)",a:"had covered",accept:["had covered"]},
+{type:"mc",q:"Quale di queste frasi mette la scena sullo sfondo di un capitolo?",options:["A cold wind was blowing across the moor.","A cold wind blew the door shut.","A cold wind had blown the door shut.","A cold wind blows across the moor."],a:"A cold wind was blowing across the moor."},
+{type:"fill",q:"Marta closed the book, ___ off the lamp and went straight to bed.",hint:"(switch)",a:"switched",accept:["switched","turned"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The lights went out during Rita's speech.",key:"WHILE",q:"The lights went out ___ her speech.",a:"while Rita was making",accept:["while rita was making","while rita was giving"]}
+]},
+
+{id:"rA",type:"review",title:"⟳ RIPASSO A — i tempi del racconto",desc:"past simple, past continuous, past perfect insieme · frasi nuove",
+rule:`<strong>RIPASSO A.</strong> Prima di rispondere chiediti: questo fatto <strong>viene prima</strong> di un altro (past perfect), <strong>era in corso</strong> in quel momento (past continuous) o &egrave; semplicemente <strong>il fatto successivo</strong> del racconto (past simple)?`,
+exercises:[
+{type:"mc",q:"«The train was pulling out of the station when Nour realised she had left her book on the seat.» In che ordine sono andate le cose?",options:["Prima ha lasciato il libro, poi il treno stava partendo e in quel momento se n'è accorta.","Prima se n'è accorta, poi ha lasciato il libro sul sedile.","Le tre cose sono successe nello stesso istante.","Il treno è partito dopo che se n'era accorta."],a:"Prima ha lasciato il libro, poi il treno stava partendo e in quel momento se n'è accorta."},
+{type:"fill",q:"Nour ___ the whole tragic trilogy during one very rainy week in August.",hint:"(finish)",a:"finished",accept:["finished"]},
+{type:"fill",q:"Grandad ___ the same travel book every winter, always in the same armchair.",hint:"(reread)",a:"reread",accept:["reread","re-read"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"When we arrived at the theatre, the play already started.",a:"When we arrived at the theatre, the play had already started.",accept:["when we arrived at the theatre, the play had already started."]},
+{type:"fill",q:"The illustrations ___ terrific, but the plot was weak and the characters average.",a:"were",accept:["were"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Marta didn't recognise the quotation. She had never opened that history book.",key:"BECAUSE",q:"Marta didn't recognise the quotation ___ that history book.",a:"because she had never opened",accept:["because she had never opened"]},
+{type:"mc",q:"Un compagno scrive: «The story had been a real page-turner, so I finished it in one evening.» Perché il past perfect non va bene?",options:["Non c'è nessun altro fatto passato prima: basta il past simple, was.","Perché page-turner non si può usare con be.","Perché ci vuole il past continuous.","Non è sbagliato: va benissimo."],a:"Non c'è nessun altro fatto passato prima: basta il past simple, was."},
+{type:"fill",q:"While the guide ___ about the castle, Otis was reading the plaque on the wall.",hint:"(talk)",a:"was talking",accept:["was talking","was speaking"]},
+{type:"fill",q:"Rosa recognised the handwriting at once: her aunt ___ the dedication herself.",hint:"(write)",a:"had written",accept:["had written"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Had the class finished the play before they watched it? Yes, they have.",a:"Had the class finished the play before they watched it? Yes, they had.",accept:["had the class finished the play before they watched it? yes, they had."]},
+{type:"fill",q:"Not one of us ___ the villain's real name until the very last chapter.",hint:"(guess)",a:"guessed",accept:["guessed"]},
+{type:"wordbox",instruction:"Completa con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["wait","disappear","pack","laugh"],sentences:[
+{pre:"Serena",post:"at the stop when the bus finally turned the corner.",a:"was waiting",accept:["was waiting"]},
+{pre:"By Monday morning the poster",post:"from the noticeboard.",a:"had disappeared",accept:["had disappeared"]},
+{pre:"Marek",post:"his suitcase and left without saying goodbye.",a:"packed",accept:["packed"]},
+{pre:"The whole class",post:"while the teacher was reading the funny chapter aloud.",a:"laughed",accept:["laughed"]}
+]},
+{type:"mc",q:"«As I was closing the shop, a customer came in and asked for a cookbook.» Che cosa stava già succedendo?",options:["La chiusura del negozio.","L'entrata del cliente.","La richiesta del cookbook.","Niente di tutto questo."],a:"La chiusura del negozio."}
+]},
+
+{id:4,type:"study",title:"LIVELLO 04 — DEFINING: SOGGETTO O OGGETTO",desc:"who · which · that · quando il pronome si può togliere e quando no",
+rule:`<strong>DEFINING RELATIVE CLAUSES &mdash; Unit 4:</strong><br>
+&#x2714; La <strong>defining relative clause</strong> serve a <strong>identificare</strong> di che cosa o di chi si parla, e sta <strong>subito dopo</strong> il nome. Niente virgole.<br>
+&#x2714; <em>who</em> per le persone, <em>which</em> per le cose; <em>that</em> vale per tutti e due, ma <strong>solo</strong> nelle defining.<br>
+&#x2714; Se il pronome fa da <strong>soggetto</strong> della relativa, <strong>non si pu&ograve; togliere</strong>. &mdash; <em>The author who won the prize&hellip;</em><br>
+&#x2714; Se fa da <strong>complemento oggetto</strong>, <strong>si pu&ograve; togliere</strong>. &mdash; <em>The book (that) they love&hellip;</em><br>
+&#x26A0; La preposizione resta in fondo e non si ripete: <em>the book I told you about</em> (non &laquo;about it&raquo;).`,
+exercises:[
+{type:"mc",q:"In «The novelist who wrote this thriller lives in Dublin», si può togliere who?",options:["No: who è il soggetto della relativa.","Sì: il pronome relativo si può sempre togliere.","Sì, ma solo sostituendolo con that.","Sì, se si aggiunge una virgola."],a:"No: who è il soggetto della relativa."},
+{type:"mc",q:"In «The thriller that I finished last night was terrifying», si può togliere that?",options:["Sì: that è complemento oggetto della relativa.","No: that non si toglie mai.","No: bisogna prima cambiarlo in which.","Sì, ma solo quando si parla di persone."],a:"Sì: that è complemento oggetto della relativa."},
+{type:"fill",q:"The heroine ___ saves the village is only fifteen.",a:"who",accept:["who","that"]},
+{type:"fill",q:"A biography ___ leaves out the difficult years is not very informative.",a:"which",accept:["which","that"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (which non va con le persone).",wrong:"The author which won the prize writes historical novels.",a:"The author who won the prize writes historical novels.",accept:["the author who won the prize writes historical novels.","the author that won the prize writes historical novels."]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Bruno recommended a graphic novel. It changed my mind about comics.",key:"WHICH",q:"Bruno recommended a graphic novel ___ my mind about comics.",a:"which changed",accept:["which changed"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"I met an author at the festival. She writes crime novels.",key:"WHO",q:"The author ___ at the festival writes crime novels.",a:"who I met",accept:["who i met"]},
+{type:"mc",q:"Quale di queste frasi è sbagliata?",options:["The chapter is too long that I read yesterday.","The chapter that I read yesterday is too long.","The chapter I read yesterday is too long.","The chapter which I read yesterday is too long."],a:"The chapter is too long that I read yesterday."},
+{type:"fill",q:"That's the blogger ___ reviews every new fantasy novel within a day.",a:"who",accept:["who","that"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese la preposizione non si ripete).",wrong:"The book that I told you about it is a real page-turner.",a:"The book that I told you about is a real page-turner.",accept:["the book that i told you about is a real page-turner.","the book i told you about is a real page-turner.","the book which i told you about is a real page-turner."]},
+{type:"fill",q:"The illustrations ___ open each chapter were drawn by the author's daughter.",a:"which",accept:["which","that"]},
+{type:"mc",q:"Perché in «The villain who the hero defeats is more interesting than the hero» si può togliere who?",options:["Perché il soggetto della relativa è the hero, non the villain.","Perché who non si usa mai con le persone.","Perché la frase è al presente.","Perché c'è un comparativo."],a:"Perché il soggetto della relativa è the hero, non the villain."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (who non va con le cose).",wrong:"The short story who won the competition is only two pages long.",a:"The short story which won the competition is only two pages long.",accept:["the short story which won the competition is only two pages long.","the short story that won the competition is only two pages long."]},
+{type:"mc",q:"In quale di questi gruppi di parole il pronome relativo NON si può togliere?",options:["the author who moved to Berlin","the author who I met in Berlin","the novel I finished yesterday","the novel that Zoe recommended"],a:"the author who moved to Berlin"},
+{type:"fill",q:"We finally found the shop ___ sells second-hand comic books.",a:"which",accept:["which","that"]},
+{type:"fill",q:"Ines is the kind of reader ___ never skips a single line.",a:"who",accept:["who","that"]}
+]},
+
+{id:5,type:"study",title:"LIVELLO 05 — WHOSE · WHERE · WHEN E LA PREPOSIZIONE",desc:"di chi è · in che posto · in che momento · e la preposizione che resta in fondo",
+rule:`<strong>I PRONOMI RELATIVI &mdash; Unit 4:</strong><br>
+&#x2714; <em>whose</em> = possesso, appartenenza, legame. &mdash; <em>She has a friend whose job is a pilot.</em><br>
+&#x2714; <em>where</em> = luoghi. &mdash; <em>Turin, where FIAT has its headquarters&hellip;</em><br>
+&#x2714; <em>when</em> = momenti nel tempo. &mdash; <em>his first concert when he was 12</em><br>
+&#x26A0; A differenza dell'italiano, se il verbo &egrave; seguito da una <strong>preposizione</strong>, questa si mette <strong>dopo il verbo</strong> e non davanti al pronome: <em>the boy (who) you're going out with</em>, non &laquo;with who you're going out&raquo;.`,
+exercises:[
+{type:"fill",q:"That's the novelist ___ autobiography sold two million copies.",a:"whose",accept:["whose"]},
+{type:"fill",q:"This is the café ___ the book club meets on Thursdays.",a:"where",accept:["where"]},
+{type:"fill",q:"The novel opens in 1929, ___ the family loses everything.",a:"when",accept:["when"]},
+{type:"mc",q:"Un compagno scrive: «The girl with who I share a desk loves horror stories.» Che cosa deve correggere?",options:["In inglese la preposizione va in fondo: the girl I share a desk with.","Deve usare which al posto di who.","Deve aggiungere una virgola dopo girl.","Niente: la frase è corretta."],a:"In inglese la preposizione va in fondo: the girl I share a desk with."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dove va la preposizione?).",wrong:"This is the author about who my sister wrote her thesis.",a:"This is the author my sister wrote her thesis about.",accept:["this is the author my sister wrote her thesis about.","this is the author who my sister wrote her thesis about.","this is the author that my sister wrote her thesis about."]},
+{type:"fill",q:"The villain ___ plan almost works is the most believable character in the series.",a:"whose",accept:["whose"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"My cousin writes a blog about science fiction. He lives in Cork.",key:"WHOSE",q:"The cousin ___ is about science fiction lives in Cork.",a:"whose blog",accept:["whose blog"]},
+{type:"mc",q:"Perché in «the hotel where the crime takes place» non va bene which?",options:["Perché l'albergo è il luogo in cui succede il fatto, non l'oggetto del verbo.","Perché which non si usa con le cose.","Perché manca una virgola.","Perché il verbo è al presente."],a:"Perché l'albergo è il luogo in cui succede il fatto, non l'oggetto del verbo."},
+{type:"fill",q:"It all started last July, ___ we read the whole series aloud on the beach.",a:"when",accept:["when"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese basta una parola sola).",wrong:"That's the novel of which the ending is very confusing.",a:"That's the novel whose ending is very confusing.",accept:["that's the novel whose ending is very confusing."]},
+{type:"fill",q:"The library ___ we borrowed the graphic novels has closed down.",a:"where",accept:["where"]},
+{type:"fill",q:"Amy is the friend I go to the book fair ___ every May.",a:"with",accept:["with"]},
+{type:"mc",q:"«That's the shelf where I keep my comic books» e «That's the shelf which I built last summer»: perché una vuole where e l'altra which?",options:["Nella prima lo scaffale è il luogo dell'azione, nella seconda è l'oggetto del verbo.","Perché la prima frase è al presente.","Perché which non si può usare con i mobili.","Perché la seconda frase è più lunga."],a:"Nella prima lo scaffale è il luogo dell'azione, nella seconda è l'oggetto del verbo."},
+{type:"fill",q:"The novelist we were talking ___ has just published a cookbook.",a:"about",accept:["about"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"We stayed in a small village. The historical novel is set there.",key:"WHERE",q:"We stayed in ___ the historical novel is set.",a:"the village where",accept:["the village where","the small village where"]},
+{type:"fill",q:"The illustrator ___ drawings I love has her own comic book now.",a:"whose",accept:["whose"]}
+]},
+
+{id:6,type:"study",title:"LIVELLO 06 — DEFINING vs NON-DEFINING",desc:"le virgole cambiano il significato · niente that · il pronome non si toglie",
+rule:`<strong>NON-DEFINING RELATIVE CLAUSES &mdash; Unit 4:</strong><br>
+&#x2714; La <strong>non-defining</strong> d&agrave; un'informazione <strong>in pi&ugrave;</strong>: si potrebbe togliere e la frase resterebbe in piedi.<br>
+&#x2714; Va <strong>fra virgole</strong>; si usa solo <em>which</em> o <em>who</em> (<del>that</del>); il pronome <strong>non si pu&ograve; mai omettere</strong>.<br>
+&#x2714; Le virgole cambiano il significato:<br>
+&nbsp;&nbsp;<em>The boy who was buying a ticket fainted.</em> &rarr; c'erano pi&ugrave; ragazzi, quello che comprava il biglietto &egrave; svenuto.<br>
+&nbsp;&nbsp;<em>The boy, who was buying a ticket, fainted.</em> &rarr; c'era un ragazzo solo.<br>
+&#x26A0; Con <em>whose</em>, <em>where</em> e <em>when</em> vale la stessa regola: fra virgole se l'informazione &egrave; in pi&ugrave;.`,
+exercises:[
+{type:"mc",q:"In quale frase si capisce che ho più di un cugino?",options:["My cousin who lives in Rome is a novelist.","My cousin, who lives in Rome, is a novelist.","My cousin, whose home is in Rome, is a novelist.","My cousin, who is a novelist, lives in Rome."],a:"My cousin who lives in Rome is a novelist."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (fra virgole non si usa that).",wrong:"Dune, that came out in 1965, is still a bestseller.",a:"Dune, which came out in 1965, is still a bestseller.",accept:["dune, which came out in 1965, is still a bestseller."]},
+{type:"fill",q:"Sofia's autobiography, ___ came out in March, is funny and surprisingly realistic.",a:"which",accept:["which"]},
+{type:"fill",q:"Our English teacher, ___ reads a chapter aloud every Friday, is retiring in June.",a:"who",accept:["who"]},
+{type:"mc",q:"Perché in «The Hobbit, which Tolkien wrote in 1937, is easy-to-read» non si può togliere which?",options:["Perché nelle non-defining il pronome non si omette mai.","Perché which fa da soggetto della relativa.","Perché nella frase c'è una data.","Perché Tolkien è un nome proprio."],a:"Perché nelle non-defining il pronome non si omette mai."},
+{type:"mc",q:"«My uncle who has read every horror story in the shop gave me this one.» Se ho un solo zio, che cosa cambio?",options:["Aggiungo le virgole: My uncle, who has read every horror story in the shop, gave me this one.","Non cambio niente.","Metto una virgola sola, dopo uncle.","Tolgo who."],a:"Aggiungo le virgole: My uncle, who has read every horror story in the shop, gave me this one."},
+{type:"fill",q:"Padua, ___ my grandmother was born, has a wonderful old bookshop.",a:"where",accept:["where"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Ruby's blog is about horror stories. It has twenty thousand readers.",key:"WHICH",q:"Ruby's blog, ___ twenty thousand readers, is about horror stories.",a:"which has",accept:["which has"]},
+{type:"mc",q:"Perché «The novel, that won the prize, is set in Naples» è sbagliato?",options:["Perché fra virgole non si può usare that: ci vuole which.","Perché which non si usa con i libri.","Perché manca who.","Perché il verbo è al passato."],a:"Perché fra virgole non si può usare that: ci vuole which."},
+{type:"fill",q:"J.R.R. Tolkien, ___ died in 1973, also taught at Oxford University.",a:"who",accept:["who"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (manca il pronome relativo).",wrong:"My best friend, she reads two novels a week, works in a bookshop.",a:"My best friend, who reads two novels a week, works in a bookshop.",accept:["my best friend, who reads two novels a week, works in a bookshop."]},
+{type:"fill",q:"The Colour Purple, ___ Alice Walker published in 1982, deals with very difficult themes.",a:"which",accept:["which"]},
+{type:"mc",q:"«There were two possible endings. The ending which the author preferred is not in the film.» Perché qui niente virgole?",options:["Perché la relativa serve a distinguere quale dei due finali.","Perché which non vuole mai le virgole.","Perché la frase è troppo breve.","Perché author è singolare."],a:"Perché la relativa serve a distinguere quale dei due finali."},
+{type:"fill",q:"Zoe, ___ father is a well-known novelist, has never read one of his books.",a:"whose",accept:["whose"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Aldbury is a tiny village. We spent the whole summer there.",key:"WHERE",q:"Aldbury, ___ the whole summer, is a tiny village.",a:"where we spent",accept:["where we spent"]}
+]},
+
+{id:"rB",type:"review",title:"⟳ RIPASSO B — le relative",desc:"defining, non-defining, whose, where, when · frasi nuove",
+rule:`<strong>RIPASSO B.</strong> Per ogni frase chiediti prima: la relativa serve a <strong>identificare</strong> (niente virgole, si pu&ograve; usare <em>that</em>, il pronome oggetto si pu&ograve; togliere) oppure d&agrave; un'informazione <strong>in pi&ugrave;</strong> (virgole, mai <em>that</em>, pronome obbligatorio)?`,
+exercises:[
+{type:"mc",q:"In quale di queste frasi la relativa dà un'informazione in più, che si potrebbe togliere?",options:["Mr Ali, who teaches us Italian, has written a travel book.","The man who teaches us Italian has written a travel book.","The travel book that Mr Ali wrote is out of print.","The shop where I bought it has closed down."],a:"Mr Ali, who teaches us Italian, has written a travel book."},
+{type:"fill",q:"The comic book ___ illustrations won a prize is completely sold out.",a:"whose",accept:["whose"]},
+{type:"fill",q:"Bologna, ___ the festival takes place, is full of little bookshops.",a:"where",accept:["where"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (dove va la preposizione?).",wrong:"That's the shop assistant to who I gave the wrong title.",a:"That's the shop assistant I gave the wrong title to.",accept:["that's the shop assistant i gave the wrong title to.","that's the shop assistant who i gave the wrong title to.","that's the shop assistant that i gave the wrong title to."]},
+{type:"mc",q:"«The students who had finished the novel wrote a review.» Tutti gli studenti hanno scritto la recensione?",options:["No: soltanto quelli che avevano finito il romanzo.","Sì, tutti quanti.","Nessuno di loro.","La frase non lo dice."],a:"No: soltanto quelli che avevano finito il romanzo."},
+{type:"fill",q:"The reading room ___ we go every Saturday stays open until eight.",a:"where",accept:["where"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Ines borrowed a horror story from me. It is still on her desk.",key:"WHICH",q:"The horror story ___ from me is still on her desk.",a:"which Ines borrowed",accept:["which ines borrowed"]},
+{type:"fill",q:"Serena, ___ blog I follow, has just signed a contract with a publisher.",a:"whose",accept:["whose"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (fra virgole non si usa that).",wrong:"Roald Dahl, that also worked as a pilot, wrote James and the Giant Peach.",a:"Roald Dahl, who also worked as a pilot, wrote James and the Giant Peach.",accept:["roald dahl, who also worked as a pilot, wrote james and the giant peach."]},
+{type:"fill",q:"We still talk about that evening in June, ___ we argued for an hour about the disappointing ending.",a:"when",accept:["when"]},
+{type:"mc",q:"In «The novel I couldn't put down was a crime story», che cosa manca fra novel e I?",options:["Niente: il pronome è complemento oggetto e si può togliere.","Manca who.","Manca whose.","Manca una virgola."],a:"Niente: il pronome è complemento oggetto e si può togliere."},
+{type:"fill",q:"The character ___ frightens everyone is not the villain but his charming younger sister.",a:"who",accept:["who","that"]},
+{type:"mc",q:"Un compagno scrive: «Verona, where I was born there, appears in many novels.» Che cosa deve togliere?",options:["there: lo dice già where.","where.","la prima virgola.","Niente: la frase è corretta."],a:"there: lo dice già where."}
+]},
+
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Book club",desc:"tempi del racconto e relative insieme · scelte che cambiano il significato",
+rule:`<strong>SFIDA FINALE.</strong> Nessun aiuto per argomento. Per ogni frase decidi da sola o da solo: quale fatto viene prima, che cosa era in corso, e se la relativa <strong>identifica</strong> oppure <strong>aggiunge</strong>.`,
+exercises:[
+{type:"mc",q:"«By the time the club met, everybody had read the first three chapters — except Leo, who had lost his copy.» Chi non aveva letto?",options:["Leo, e non per pigrizia: aveva perso la sua copia.","Tutti tranne chi racconta.","Nessuno: avevano letto tutti.","Leo, che aveva letto solo il primo capitolo."],a:"Leo, e non per pigrizia: aveva perso la sua copia."},
+{type:"fill",q:"The illustrated edition ___ arrived yesterday costs twice as much.",a:"which",accept:["which","that"]},
+{type:"fill",q:"Rita was annoyed because nobody ___ her that the meeting had moved.",hint:"(warn)",a:"had warned",accept:["had warned","had told"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'azione breve non va al past continuous).",wrong:"While we were discussing the ending, Otis was arriving late with the biscuits.",a:"While we were discussing the ending, Otis arrived late with the biscuits.",accept:["while we were discussing the ending, otis arrived late with the biscuits."]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sofia joined the club after she had finished the first novel.",key:"BEFORE",q:"Sofia finished the first novel ___ the club.",a:"before she joined",accept:["before she joined"]},
+{type:"fill",q:"The member ___ turn it is chooses the book for the next meeting.",a:"whose",accept:["whose"]},
+{type:"mc",q:"«The book, which nobody had finished, was nine hundred pages long.» Quante persone l'avevano finito?",options:["Nessuna.","Tutte quante.","Soltanto una.","La frase non lo dice."],a:"Nessuna."},
+{type:"fill",q:"Halfway through the meeting Bruno realised he ___ his copy on the bus.",hint:"(leave)",a:"had left",accept:["had left"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore (which non va con le persone).",wrong:"The blogger which reviewed our book club came last Thursday.",a:"The blogger who reviewed our book club came last Thursday.",accept:["the blogger who reviewed our book club came last thursday.","the blogger that reviewed our book club came last thursday."]},
+{type:"fill",q:"Nobody spoke for a minute: the last chapter ___ everyone.",hint:"(shock)",a:"shocked",accept:["shocked"]},
+{type:"mc",q:"Un compagno traduce «Il romanzo di cui ti ho parlato» con «The novel of which I told you about.» Che cosa non va?",options:["C'è la preposizione due volte: basta The novel I told you about.","Manca who.","Ci vuole whose.","Niente: va bene così."],a:"C'è la preposizione due volte: basta The novel I told you about."},
+{type:"fill",q:"Vera, ___ had never opened a science fiction book before, found it thoroughly enjoyable.",a:"who",accept:["who"]},
+{type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"We met in the back room. The club keeps its old posters there.",key:"WHERE",q:"We met in the back room, ___ its old posters.",a:"where the club keeps",accept:["where the club keeps"]},
+{type:"fill",q:"By the time the café closed, we ___ on the book for January.",hint:"(decide)",a:"had decided",accept:["had decided","had agreed"]},
+{type:"mc",q:"«The members, who arrive late, never get a biscuit.» In questa frase, chi arriva tardi?",options:["Tutti i membri.","Soltanto alcuni membri.","Nessuno.","La frase non lo dice."],a:"Tutti i membri."},
+{type:"fill",q:"The author ___ agreed to come couldn't make it in the end.",a:"who",accept:["who","that"]}
+]}
+];
+
+const SK='gq_u4pr_s',EK='gq_u4pr_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'GQU.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 4 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[];
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,'').replace(/\s+/g,' ').trim();}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none')nextExercise();
+  else if(cb&&cb.style.display!=='none')checkExercise();
+});
+loadState();renderMap();
+
+</script>
+</body>
+</html>
