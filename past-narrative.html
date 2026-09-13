@@ -221,6 +221,8 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
   .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
   .res-breakdown{gap:22px;}
 }
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
 </style>
 </head>
 <body>
@@ -294,6 +296,11 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
+const GLOSS={"archery":"tiro con l'arco","brush":"pennello","candles":"candele","choir":"coro","coast":"costa","collapsed":"è crollato","comics":"fumetti","costume":"costume","crosswords":"parole crociate","cupboard":"armadietto","desks":"banchi","doorbell":"campanello","eightieth":"ottantesimo","fading":"calando","fair":"mercatino","fencing":"scherma","filed":"archiviò","frozen":"ghiacciato","glass figures":"figurine di vetro","glued":"incollammo","hammer":"martello","headed":"si diressero","hills":"colline","jacket":"giacca","jumped":"saltarono","knock":"colpo, bussata","knocked":"bussò","labelled":"etichettò","loft":"soffitta","match":"partita","melted":"sciogliemmo","miserable":"tetro, grigio","models":"modellini","mural":"murale","nan":"nonna","necklaces":"collane","pottery":"ceramica","poured":"versammo","queuing":"in fila","realised":"si accorse","recipe":"ricetta","rehearsed":"provammo","rollerblading":"pattinaggio in linea","sailing":"vela","sauce":"sugo","shelf":"mensola","shells":"conchiglie","shelter":"rifugio, canile","shift":"turno","shook":"scosse","skates":"pattini","snapped":"si è spezzato","snow":"nevicare","sorted":"ordinò","stacked":"impilò","stage":"palco","stall":"bancarella","stamps":"francobolli","straight":"subito","takeaway":"cibo da asporto","taught":"ha insegnato","tent":"tenda","thumb":"pollice","tidying":"mettendo in ordine","torch":"torcia","tricks":"trucchi","tuning":"accordando","varnishing":"verniciando","voluntary":"volontario","wax":"cera","weights":"pesi","windowsill":"davanzale","wings":"ali"};
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
 const LEVELS=[
 {id:1,type:"study",title:"LIVELLO 01 — USED TO",desc:"abitudini e passatempi di una volta · used to vs past simple",
 rule:`<strong>USED TO &mdash; Unit 1:</strong><br>
@@ -335,7 +342,7 @@ exercises:[
 {type:"fill",q:"Willow took up archery last year and now she ___ it every Thursday at the club.",a:"does",accept:["does"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My little brother does football every Saturday morning.",a:"My little brother plays football every Saturday morning.",accept:["my little brother plays football every saturday morning."]},
 {type:"mc",q:"« Paddleboarding » è una parola che non hai mai visto. Quale frase è corretta?",options:["We go paddleboarding whenever the sea is calm.","We do paddleboarding whenever the sea is calm.","We play paddleboarding whenever the sea is calm.","We make paddleboarding whenever the sea is calm."],a:"We go paddleboarding whenever the sea is calm."},
-{type:"fill",q:"Ethan ___ in a band with three friends from his old school.",a:"plays",accept:["plays"]},
+{type:"fill",q:"These days Ethan ___ in a band with three friends from his old school.",a:"plays",accept:["plays"]},
 {type:"wordbox",instruction:"Completa con play, do o go nella forma giusta.",verbs:["play","do","go"],sentences:[
 {pre:"I",post:"karate twice a week at the sports centre.",a:"do",accept:["do"]},
 {pre:"On windy Sundays my parents",post:"kitesurfing down at the beach.",a:"go",accept:["go"]},
@@ -343,21 +350,21 @@ exercises:[
 {pre:"Ivy wants to",post:"yoga to unwind after school.",a:"do",accept:["do"]}
 ]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Do you want to play running with me tomorrow morning?",a:"Do you want to go running with me tomorrow morning?",accept:["do you want to go running with me tomorrow morning?"]},
-{type:"fill",q:"Grandma ___ crosswords every evening after dinner.",a:"does",accept:["does"]},
+{type:"fill",q:"Grandma still ___ crosswords every evening after dinner.",a:"does",accept:["does"]},
 {type:"mc",q:"« Orienteering » si pratica da soli, nei boschi, e ci si va apposta. Quale verbo regge?",options:["go","have","play","make"],a:"go"},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["we","go","mountain","biking","in","the","hills","every","Sunday"],answer:"we go mountain biking in the hills every Sunday",accept:["we go mountain biking in the hills every sunday","every sunday we go mountain biking in the hills"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My sister goes gymnastics at a club in town.",a:"My sister does gymnastics at a club in town.",accept:["my sister does gymnastics at a club in town."]},
-{type:"fill",q:"Sofia ___ weights at the gym three times a week.",a:"does",accept:["does"]},
+{type:"fill",q:"Sofia is very strong: she ___ weights at the gym three times a week.",a:"does",accept:["does"]},
 {type:"mc",q:"Quale coppia è tutta corretta?",options:["do fencing · play volleyball","go fencing · do volleyball","play fencing · go volleyball","do fencing · do volleyball"],a:"do fencing · play volleyball"},
-{type:"fill",q:"Every February the whole family ___ ice-skating on the frozen lake.",a:"goes",accept:["goes"]},
+{type:"fill",q:"Every February the whole family ___ ice-skating on the frozen lake: it's our winter tradition.",a:"goes",accept:["goes"]},
 {type:"mc",q:"« I play chess » ma « I do puzzles » : da che cosa dipende la differenza?",options:["Chess è un gioco con un avversario da battere, i puzzle sono un'attività individuale.","Chess si fa in palestra, i puzzle no.","Chess finisce in -ing, i puzzle no.","È solo un'eccezione da imparare a memoria."],a:"Chess è un gioco con un avversario da battere, i puzzle sono un'attività individuale."}
 ]},
 {id:"rA",type:"review",title:"⟳ RIPASSO A — used to · play, do, go",desc:"i primi due argomenti insieme · frasi nuove",
 exercises:[
-{type:"fill",q:"Aurora ___ pottery every Wednesday at the community centre.",a:"does",accept:["does"]},
+{type:"fill",q:"Aurora ___ pottery every Wednesday at the community centre and she loves it.",a:"does",accept:["does"]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Caleb doesn't build robots any more.",key:"USED",q:"Caleb ___ robots.",a:"used to build",accept:["used to build"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"When I was eight, I use to make candles with my nan.",a:"When I was eight, I used to make candles with my nan.",accept:["when i was eight, i used to make candles with my nan."]},
-{type:"mc",q:"« Bouldering » è una nuova parola per te: si arrampica da soli su pareti basse, in una palestra apposita. Quale frase è corretta?",options:["Nadia goes bouldering on Fridays.","Nadia plays bouldering on Fridays.","Nadia makes bouldering on Fridays.","Nadia bouldering on Fridays."],a:"Nadia goes bouldering on Fridays."},
+{type:"mc",q:"Nadia ha lasciato la ginnastica e adesso fa snowboard. Quale frase lo dice correttamente?",options:["Nadia used to do gymnastics, but now she goes snowboarding.","Nadia used to doing gymnastics, but now she does snowboarding.","Nadia use to do gymnastics, but now she plays snowboarding.","Nadia used to go gymnastics, but now she does snowboarding."],a:"Nadia used to do gymnastics, but now she goes snowboarding."},
 {type:"fill",q:"Did you ___ the piano before you switched to the drums?",hint:"(play)",a:"use to play",accept:["use to play"]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["Holly","never","used","to","watch","videos","about","cosplay"],answer:"Holly never used to watch videos about cosplay"},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Luke and Robin do basketball at the sports hall on Tuesdays.",a:"Luke and Robin play basketball at the sports hall on Tuesdays.",accept:["luke and robin play basketball at the sports hall on tuesdays."]},
@@ -374,7 +381,7 @@ exercises:[
 {type:"mc",q:"Un racconto si apre così: « It rained all afternoon. » Perché uno scrittore preferirebbe « It was raining all afternoon » ?",options:["Perché apre una scena: il lettore si aspetta che dentro quel pomeriggio succeda qualcosa.","Perché la pioggia è durata di più.","Perché il past simple non si usa con all afternoon.","Perché il past continuous è più formale."],a:"Perché apre una scena: il lettore si aspetta che dentro quel pomeriggio succeda qualcosa."},
 {type:"fill",q:"When Evie texted me, we ___ dinner out in the garden.",hint:"(have)",a:"were having",accept:["were having"]},
 {type:"mc",q:"Due inizi di racconto. Quale dei due promette che sta per succedere qualcosa?",options:["The wind was rattling the shutters and the dog was whining at the door.","The wind rattled the shutters and the dog whined at the door.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"The wind was rattling the shutters and the dog was whining at the door."},
-{type:"fill",q:"I ___ attention in class, so I missed half the instructions.",hint:"(pay)",a:"wasn't paying",accept:["wasn't paying","was not paying"]},
+{type:"fill",q:"The others were already on stage, but Ivy ___ yet: she was still tuning her guitar.",hint:"(sing)",a:"wasn't singing",accept:["wasn't singing","was not singing"]},
 {type:"mc",q:"« The band played for two hours » e « The band was playing for two hours » sono entrambe corrette. Che differenza c'è?",options:["La prima racconta il concerto come un fatto concluso, la seconda lo usa come sfondo di qualcos'altro.","La prima dice che hanno suonato bene, la seconda che hanno suonato male.","La prima è al passato, la seconda al presente.","Non c'è nessuna differenza."],a:"La prima racconta il concerto come un fatto concluso, la seconda lo usa come sfondo di qualcos'altro."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (qui serve la scena, non l'evento concluso).",wrong:"It was a miserable morning: it rained hard and the wind shook the windows.",a:"It was a miserable morning: it was raining hard and the wind was shaking the windows.",accept:["it was a miserable morning: it was raining hard and the wind was shaking the windows."]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"My cousins spent the whole afternoon on their models.",key:"WERE",q:"All afternoon my cousins ___ their models.",a:"were building",accept:["were building","were making","were working on"]},
@@ -405,18 +412,18 @@ exercises:[
 {type:"fill",q:"Nobody asked me, and yet I ___ the answer perfectly well.",hint:"(know)",a:"knew",accept:["knew"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di percezione).",wrong:"I was seeing Lea at the theatre last night.",a:"I saw Lea at the theatre last night.",accept:["i saw lea at the theatre last night."]},
 {type:"mc",q:"Quale frase descrive due azioni brevi una dopo l'altra?",options:["Ivy switched off the lamp and closed the door.","Ivy was switching off the lamp and was closing the door.","Ivy was switching off the lamp and closed the door.","Ivy switched off the lamp and was closing the door."],a:"Ivy switched off the lamp and closed the door."},
-{type:"fill",q:"We ___ our things when the fire alarm suddenly went off.",hint:"(pack)",a:"were packing",accept:["were packing"]},
+{type:"fill",q:"We ___ our things when the fire alarm suddenly went off, so we left everything on the desks.",hint:"(pack)",a:"were packing",accept:["were packing"]},
 {type:"wordbox",instruction:"Scegli la forma corretta: alcuni verbi sono verbi di stato.",verbs:["was cutting","wanted","were listening","believed"],sentences:[
 {pre:"Oliver",post:"to try snowboarding, but the lessons were full.",a:"wanted",accept:["wanted"]},
 {pre:"The girls",post:"to a podcast while they tidied the studio.",a:"were listening",accept:["were listening"]},
-{pre:"Nobody",post:"me when I said I had met her.",a:"believed",accept:["believed"]},
+{pre:"Nobody",post:"me when I told them about the fox in the garden.",a:"believed",accept:["believed"]},
 {pre:"Riya",post:"the paper for her collage when the scissors broke.",a:"was cutting",accept:["was cutting"]}
 ]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["Sam","was","varnishing","the","shelf","when","the","brush","snapped"],answer:"Sam was varnishing the shelf when the brush snapped",accept:["sam was varnishing the shelf when the brush snapped","when the brush snapped sam was varnishing the shelf"]},
 {type:"mc",q:"« We were having a lovely time » è corretta, ma « We were having a car » no. Perché?",options:["Con il significato di « possedere » have è un verbo di stato; nelle espressioni come have a good time è un'azione.","Perché car è un nome numerabile.","Perché la prima frase è al plurale.","Perché have non si usa mai al past continuous."],a:"Con il significato di « possedere » have è un verbo di stato; nelle espressioni come have a good time è un'azione."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"While I was tidying my desk, I was finding an old photo of us.",a:"While I was tidying my desk, I found an old photo of us.",accept:["while i was tidying my desk, i found an old photo of us."]},
 {type:"fill",q:"That jacket ___ to my grandfather long before it was mine.",hint:"(belong)",a:"belonged",accept:["belonged"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Ivy's phone rang in the middle of her guitar practice.",key:"WAS",q:"Ivy's phone rang while she ___ the guitar.",a:"was practising",accept:["was practising","was practicing"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Ivy's phone rang in the middle of her guitar practice.",key:"WAS",q:"Ivy's phone rang while she ___ the guitar.",a:"was practising",accept:["was practising","was practicing","was playing"]},
 {type:"mc",q:"« When the teacher came in, Leo was talking » e « When the teacher came in, Leo talked » : che cosa cambia?",options:["Nella prima Leo parlava già; nella seconda ha cominciato dopo.","Nella prima Leo ha cominciato dopo; nella seconda parlava già.","Non cambia nulla, sono equivalenti.","La seconda è sbagliata."],a:"Nella prima Leo parlava già; nella seconda ha cominciato dopo."},
 {type:"fill",q:"The soup ___ delicious, so I asked for the recipe.",hint:"(taste)",a:"tasted",accept:["tasted"]}
 ]},
@@ -425,7 +432,7 @@ exercises:[
 {type:"fill",q:"At half past seven the kitchen was warm: Willow ___ candles for the school fair.",hint:"(make)",a:"was making",accept:["was making"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di stato).",wrong:"I was hating chess until my grandad taught me a few tricks.",a:"I hated chess until my grandad taught me a few tricks.",accept:["i hated chess until my grandad taught me a few tricks."]},
 {type:"mc",q:"Siamo arrivati a partita iniziata. Quale versione lo dice?",options:["When we got there, they were playing volleyball.","When we got there, they played volleyball.","When we got there, they play volleyball.","When we got there, they used to play volleyball."],a:"When we got there, they were playing volleyball."},
-{type:"fill",q:"Every August my grandparents ___ sailing along the Croatian coast.",a:"go",accept:["go"]},
+{type:"fill",q:"Last August my grandparents ___ sailing along the Croatian coast.",a:"went",accept:["went"]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Tanya doesn't do fencing now, but she did at university.",key:"USED",q:"Tanya ___ fencing at university.",a:"used to do",accept:["used to do"]},
 {type:"reorder",instruction:"Metti le parole nell'ordine giusto:",words:["Claire","was","developing","her","photos","when","the","lights","went","out"],answer:"Claire was developing her photos when the lights went out",accept:["claire was developing her photos when the lights went out","when the lights went out claire was developing her photos"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Aurora does rollerblading in the park after school.",a:"Aurora goes rollerblading in the park after school.",accept:["aurora goes rollerblading in the park after school."]},
@@ -454,7 +461,7 @@ exercises:[
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The storm broke during our walk along the river.",key:"WHILE",q:"The storm broke ___ along the river.",a:"while we were walking",accept:["while we were walking"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I hurt my thumb while I dropped the hammer on it.",a:"I hurt my thumb when I dropped the hammer on it.",accept:["i hurt my thumb when i dropped the hammer on it.","i hurt my thumb as i dropped the hammer on it."]},
 {type:"mc",q:"Perché « While the door opened, the cat ran in » non funziona?",options:["Perché while non può introdurre un'azione breve e conclusa.","Perché while non si usa al passato.","Perché manca la virgola.","Perché il soggetto delle due frasi è diverso."],a:"Perché while non può introdurre un'azione breve e conclusa."},
-{type:"fill",q:"When Ethan finally got home, his brother ___ the drums in the garage.",hint:"(play)",a:"was playing",accept:["was playing"]}
+{type:"fill",q:"When Ethan finally got home, his brother ___ the drums in the garage and didn't even hear him come in.",hint:"(play)",a:"was playing",accept:["was playing"]}
 ]},
 {id:6,type:"study",title:"LIVELLO 06 — ADVERBS OF SEQUENCE",desc:"first · next · then · after that · afterwards · finally · after o afterwards",
 rule:`<strong>ADVERBS OF SEQUENCE &mdash; Unit 1:</strong><br>
@@ -477,7 +484,7 @@ exercises:[
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"We had a shower and got dressed straight afterwards.",key:"AFTER",q:"We got dressed straight ___.",a:"after our shower",accept:["after our shower","after the shower","after a shower"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Next of all, we glued the wings onto the model.",a:"Next, we glued the wings onto the model.",accept:["next, we glued the wings onto the model."]},
 {type:"fill",q:"___ of all, read the instructions right through before you touch anything.",a:"First",accept:["first"]},
-{type:"mc",q:"In quale frase afterwards è usato male?",options:["Afterwards the rehearsal, the band packed up.","The band packed up afterwards.","Afterwards, the band packed up.","They rehearsed and went home afterwards."],a:"Afterwards the rehearsal, the band packed up."},
+{type:"mc",q:"Un racconto in tre passaggi. Quale versione ordina bene i fatti?",options:["First we picked the apples, then we washed them, and finally we made the pie.","Finally we picked the apples, then we washed them, and first we made the pie.","Then we picked the apples, finally we washed them, and next we made the pie.","Next we picked the apples, first we washed them, and then we made the pie."],a:"First we picked the apples, then we washed them, and finally we made the pie."},
 {type:"reorder",instruction:"Riordina il racconto:",words:["first","Sienna","sorted","her","stamps","next","she","labelled","them","and","after","that","she","filed","them","away"],answer:"first Sienna sorted her stamps next she labelled them and after that she filed them away"},
 {type:"mc",q:"« I had a shower. Afterwards, I got dressed. » Come si può riscrivere senza cambiare il senso?",options:["After my shower, I got dressed.","Afterwards my shower, I got dressed.","After, my shower I got dressed.","I got dressed after that my shower."],a:"After my shower, I got dressed."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (after regge sempre qualcosa).",wrong:"Tanya labelled every jar. After, she stacked them in the cupboard.",a:"Tanya labelled every jar. Afterwards, she stacked them in the cupboard.",accept:["tanya labelled every jar. afterwards, she stacked them in the cupboard.","tanya labelled every jar. after that, she stacked them in the cupboard."]},
@@ -489,10 +496,10 @@ exercises:[
 {type:"mc",q:"Quale frase dice che Chloe suonava già quando siamo entrati?",options:["When we came in, Chloe was playing the piano.","When we came in, Chloe played the piano.","When we came in, Chloe used to play the piano.","When we came in, Chloe plays the piano."],a:"When we came in, Chloe was playing the piano."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Afterwards lunch, the whole group went kitesurfing.",a:"After lunch, the whole group went kitesurfing.",accept:["after lunch, the whole group went kitesurfing."]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Jack doesn't go snowboarding any more.",key:"USED",q:"Jack ___ snowboarding.",a:"used to go",accept:["used to go"]},
-{type:"fill",q:"Bebe ___ table tennis every lunchtime with the girls from her class.",a:"plays",accept:["plays"]},
+{type:"fill",q:"Bebe ___ table tennis every lunchtime with the girls from her class — she's the best in the year.",a:"plays",accept:["plays"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di stato).",wrong:"I was preferring the first costume, but everyone voted for the second.",a:"I preferred the first costume, but everyone voted for the second.",accept:["i preferred the first costume, but everyone voted for the second."]},
 {type:"reorder",instruction:"Riordina il racconto:",words:["first","we","booked","the","tickets","then","we","packed","and","finally","we","caught","the","early","train"],answer:"first we booked the tickets then we packed and finally we caught the early train"},
-{type:"mc",q:"In quale frase while è sbagliato?",options:["While the kettle boiled over, Mum ran into the kitchen.","While the kettle was boiling, Mum laid the table.","While we were queuing, the doors opened.","While Dad was driving, we sang along to the radio."],a:"While the kettle boiled over, Mum ran into the kitchen."},
+{type:"mc",q:"« ___ we were putting up the tent, it started to snow. » Quale parola NON può stare nello spazio?",options:["During","While","As","When"],a:"During"},
 {type:"fill",q:"When the projector broke, the teacher ___ us a story instead.",hint:"(tell)",a:"told",accept:["told"]},
 {type:"mc",q:"Quale frase NON descrive un'abitudine del passato ormai finita?",options:["Ivy did gymnastics until she was fourteen.","Ivy used to do gymnastics after school.","Ivy was doing gymnastics when she twisted her wrist.","Ivy used to do gymnastics at a club in town."],a:"Ivy was doing gymnastics when she twisted her wrist."}
 ]},
@@ -501,7 +508,7 @@ exercises:[
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Maya stopped writing her blog three years ago.",key:"USED",q:"Maya ___ a blog.",a:"used to write",accept:["used to write"]},
 {type:"mc",q:"Abitudine finita, sfondo lungo, evento breve: quale versione tiene tutto insieme?",options:["Willow used to do yoga, and one evening, while she was practising, the lights went out.","Willow used to do yoga, and one evening, while she practised, the lights went out.","Willow was doing yoga, and one evening, while she was practising, the lights were going out.","Willow did yoga, and one evening, while she practised, the lights were going out."],a:"Willow used to do yoga, and one evening, while she was practising, the lights went out."},
 {type:"mc",q:"« When the coach blew the whistle, we were stopping. » Che cosa dice questa frase?",options:["Si stavano già fermando quando è arrivato il fischio.","Si sono fermati appena hanno sentito il fischio.","È stato il fischio a costringerli a fermarsi.","Hanno continuato a correre anche dopo il fischio."],a:"Si stavano già fermando quando è arrivato il fischio."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It isn't usual for Caleb to go fishing on his own.",key:"DOESN'T",q:"Caleb ___ fishing on his own.",a:"doesn't usually go",accept:["doesn't usually go"]},
+{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It isn't usual for Caleb to go fishing on his own.",key:"DOESN'T",q:"Caleb ___ fishing on his own.",a:"doesn't usually go",accept:["doesn't usually go","doesn't often go"]},
 {type:"errorcorrect",instruction:"Trova e correggi i due errori di tempo.",wrong:"While we were setting up the stall, a woman was coming over and was buying three necklaces.",a:"While we were setting up the stall, a woman came over and bought three necklaces.",accept:["while we were setting up the stall, a woman came over and bought three necklaces."]},
 {type:"mc",q:"Vuoi dire che ti stavi annoiando sempre di più, e a quel punto è arrivata Holly. Quale versione lo dice?",options:["I was getting bored when Holly arrived.","I got bored when Holly arrived.","I used to get bored when Holly arrived.","I bored when Holly arrived."],a:"I was getting bored when Holly arrived."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sofia was in the middle of her shift when the news arrived.",key:"WORKING",q:"Sofia ___ when the news arrived.",a:"was still working",accept:["was still working","was working"]},
@@ -616,24 +623,24 @@ function renderExercise(){
   if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
   if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
   if(ex.type==='fill'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
-    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
     const shuffled=shuffle([...ex.words]);
     const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
-    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='cloze'){
     let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='errorcorrect'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${gl(ex.wrong)}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
   document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);

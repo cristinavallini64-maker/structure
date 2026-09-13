@@ -238,7 +238,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
   instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola). Tutto ciò che serve è nella Unit 1: used to, past continuous, when/while/as, adverbs of sequence.',
-  text:`When I was younger, my family {1} to spend every August in a small village in the mountains. My grandmother used {2} tell us stories every evening before bed. I still remember one stormy night. {3} a loud noise suddenly woke me up, I {4} sleeping peacefully under three blankets. {5} I was looking out of the window, I saw my grandfather walking in the rain. First of {6}, he checked the animals; then he came back inside, soaked but calm. I didn't {7} to like storms, but that night changed my mind. {8} the years passed, those summers became my happiest memories.`,
+  text:`When I was younger, my family {1} to spend every August in a small village in the mountains. Nobody made us go: we all loved it. My grandmother used {2} tell us stories every evening before bed. I still remember one stormy night. {3} a loud noise suddenly woke me up, I {4} sleeping peacefully under three blankets. {5} I was looking out of the window, I saw my grandfather walking in the rain. First of {6}, he checked the animals; then he came back inside, soaked but calm. I didn't {7} to like storms, but that night changed my mind. {8} the years passed, those summers became my happiest memories.`,
   gaps:[
     {a:"used",accept:["used"]},
     {a:"to",accept:["to"]},
@@ -409,7 +409,7 @@ function renderSheet(){
   }
   document.getElementById('exSheet').innerHTML=html;
 }
-function norm(s){return (s||'').trim().toLowerCase().replace(/[.,!?;:]+$/,'').replace(/,/g,' ').replace(/[—–]/g,'-').replace(/\s+/g,' ').trim();}
+function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,' ').replace(/\s+/g,' ').trim();}
 function grade(){
   if(graded)return;graded=true;
   const t=current;let correct=0;
