@@ -221,6 +221,9 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
   .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
   .res-breakdown{gap:22px;}
 }
+.gloss{border-bottom:1px dotted #ffcc00;cursor:help;}
+#glossTip{position:fixed;z-index:9999;display:none;max-width:78vw;background:#11151c;border:1px solid #ffcc00;color:#ffe89a;
+ padding:8px 12px;border-radius:8px;font-size:.9rem;line-height:1.35;box-shadow:0 6px 24px rgba(0,0,0,.5);}
 </style>
 </head>
 <body>
@@ -289,6 +292,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
   </div>
 </div>
 
+<div id="glossTip"></div>
 <script>
 /* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
 function spawnBurst(){}
@@ -304,32 +308,32 @@ rule:`<strong>PRESENT PERFECT CONTINUOUS &mdash; Unit 2:</strong><br>
 &#x26A0; In italiano questi casi si dicono al <strong>presente</strong>: <em>I've been waiting since three</em> = &laquo;aspetto dalle tre&raquo;, non &laquo;ho aspettato&raquo;.<br>
 &#x26A0; Nelle domande sulla durata, <code>long</code> va <strong>in fondo</strong>: <em>Has she been studying long?</em>`,
 exercises:[
-{type:"mc",q:"« Molly's been going out a lot lately. » Che cosa sappiamo?",options:["È uscita parecchie volte in un periodo recente, senza precisare quando.","È uscita una volta sola, ieri sera.","Sta uscendo proprio in questo momento.","Usciva spesso da bambina."],a:"È uscita parecchie volte in un periodo recente, senza precisare quando."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese non si usa il presente per la durata).",wrong:"I'm exhausted. I swim for half an hour.",a:"I'm exhausted. I've been swimming for half an hour.",accept:["i'm exhausted. i've been swimming for half an hour.","i am exhausted. i have been swimming for half an hour.","i'm exhausted. i have been swimming for half an hour."]},
-{type:"mc",q:"« What a nice smell! What have you been cooking? » Perché il continuous e non « What have you cooked? »",options:["Perché quello che conta è il segno lasciato dall'attività, che si sente adesso.","Perché il piatto è finito e pronto in tavola.","Perché si parla di un'abitudine di tutti i giorni.","Perché cook non ammette il present perfect simple."],a:"Perché quello che conta è il segno lasciato dall'attività, che si sente adesso."},
+{type:"mc",q:"« Nadia's been taking on extra shifts lately. » Che cosa sappiamo?",options:["Ha preso turni in più parecchie volte in un periodo recente, senza precisare quando.","Ha preso un turno in più, ieri sera.","Sta facendo un turno proprio in questo momento.","Prendeva turni in più quando era studentessa."],a:"Ha preso turni in più parecchie volte in un periodo recente, senza precisare quando."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I'm exhausted. I swim for half an hour.",a:"I'm exhausted. I've been swimming for half an hour.",accept:["i'm exhausted. i've been swimming for half an hour.","i am exhausted. i have been swimming for half an hour.","i'm exhausted. i have been swimming for half an hour."]},
+{type:"mc",q:"« I've been filling in this application form for an hour. » Perché il continuous e non « I've filled in »?",options:["Perché l'attività è ancora in corso e il modulo non è finito.","Perché il modulo è pronto da consegnare.","Perché si parla di un'abitudine di tutti i giorni.","Perché fill in non ammette il present perfect simple."],a:"Perché l'attività è ancora in corso e il modulo non è finito."},
 {type:"fill",q:"You look shattered. How long ___ on that report?",hint:"(work)",a:"have you been working",accept:["have you been working"]},
 {type:"fill",q:"I ___ much progress with my portfolio lately — I keep putting it off.",hint:"(make)",a:"haven't been making",accept:["haven't been making","have not been making","haven't made","have not made"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Theo started his apprenticeship two years ago and he is still doing it.",key:"BEEN",q:"Theo ___ his apprenticeship for two years.",a:"has been doing",accept:["has been doing"]},
-{type:"mc",q:"Come si dice in italiano « I've been waiting for the plumber since nine » ?",options:["Aspetto l'idraulico dalle nove.","Ho aspettato l'idraulico alle nove.","Aspettavo l'idraulico dalle nove.","Avrò aspettato l'idraulico dalle nove."],a:"Aspetto l'idraulico dalle nove."},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Theo works in that workshop since two years.",a:"Theo has been working in that workshop for two years.",accept:["theo has been working in that workshop for two years.","theo has worked in that workshop for two years."]},
+{type:"mc",q:"Come si dice in italiano « Lena has been studying German for three years » ?",options:["Lena studia tedesco da tre anni.","Lena ha studiato tedesco tre anni fa.","Lena studiava tedesco da tre anni.","Lena avrà studiato tedesco per tre anni."],a:"Lena studia tedesco da tre anni."},
 {type:"fill",q:"How long ___ for a job? — Since I finished my course.",hint:"(look)",a:"have you been looking",accept:["have you been looking"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore di ordine delle parole.",wrong:"How long you have been living in Bristol?",a:"How long have you been living in Bristol?",accept:["how long have you been living in bristol?"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"How long you have been living in Bristol?",a:"How long have you been living in Bristol?",accept:["how long have you been living in bristol?"]},
 {type:"fill",q:"The kitchen is covered in flour — Dad ___ biscuits all afternoon.",hint:"(bake)",a:"has been baking",accept:["has been baking"]},
-{type:"wordbox",instruction:"Completa con il present perfect continuous dei verbi del riquadro.",verbs:["revise","train","argue","rain"],sentences:[
+{type:"wordbox",instruction:"Completa con il present perfect continuous dei verbi del riquadro.",verbs:["revise","train","argue","rain","apply"],sentences:[
 {pre:"Zara",post:"for her paramedic exams since September and her marks are getting better.",a:"has been revising",accept:["has been revising"]},
 {pre:"It",post:"all week and the pitch is a swamp.",a:"has been raining",accept:["has been raining"]},
 {pre:"My parents",post:"about my gap year for a fortnight — neither of them makes an effort to listen.",a:"have been arguing",accept:["have been arguing"]},
-{pre:"Finley",post:"at the gym every morning before his shift.",a:"has been training",accept:["has been training"]}
+{pre:"Finley",post:"at the gym every morning for the last month, and he can see the difference.",a:"has been training",accept:["has been training"]}
 ]},
-{type:"mc",q:"Dove va « long » in una domanda sulla durata?",options:["Has she been studying long?","Has she long been studying?","Long has she been studying?","Has long she been studying?"],a:"Has she been studying long?"},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Orla started writing her blog in March and she still writes it.",key:"SINCE",q:"Orla has been writing her blog ___.",a:"since March",accept:["since march"]},
+{type:"mc",q:"Dove va « long » in una domanda sulla durata?",options:["Has he been training long?","Has he long been training?","Long has he been training?","Has long he been training?"],a:"Has he been training long?"},
+{type:"mc",q:"Quale frase può continuare con « …and I still haven't finished »?",options:["I've been tidying the stockroom all afternoon.","I've tidied the stockroom.","I tidied the stockroom this afternoon.","I tidy the stockroom every Saturday."],a:"I've been tidying the stockroom all afternoon."},
 {type:"fill",q:"Darcie's eyes are red and sore: she ___ at a screen since eight this morning.",hint:"(stare)",a:"has been staring",accept:["has been staring"]},
 {type:"fill",q:"___ Darcie been working at the surgery long?",a:"Has",accept:["has"]},
 {type:"fill",q:"— Have the twins been waiting long? — Yes, they ___.",a:"have",accept:["have"]},
-{type:"fill",q:"Sophie ___ the job ads every evening this week, but she hasn't applied yet.",hint:"(check)",a:"has been checking",accept:["has been checking"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"My sister started revising on Monday and she hasn't stopped.",key:"BEEN",q:"My sister ___ all week.",a:"has been revising",accept:["has been revising","has been studying"]},
+{type:"fill",q:"Sophie ___ the job ads all week, but she hasn't applied yet.",hint:"(check)",a:"has been checking",accept:["has been checking"]},
+{type:"fill",q:"Don't wash that mug — I ___ out of it all morning.",hint:"(drink)",a:"have been drinking",accept:["have been drinking"]},
 {type:"fill",q:"We ___ the cleaning properly lately: look at the state of the staffroom.",hint:"(do)",a:"haven't been doing",accept:["haven't been doing","have not been doing","haven't done","have not done"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Blake has done the same paper round every morning since September.",key:"BEEN",q:"Blake ___ the same paper round since September.",a:"has been doing",accept:["has been doing"]},
-{type:"mc",q:"Perché « The bin is full of tins — I've cooked » suona incompleta, mentre « I've been cooking » funziona?",options:["Perché il bidone è la traccia di un'attività che è andata avanti, non il suo risultato finito.","Perché cook vuole sempre il continuous.","Perché il bidone è un oggetto plurale.","Perché il present perfect simple non si usa in casa."],a:"Perché il bidone è la traccia di un'attività che è andata avanti, non il suo risultato finito."}
+{type:"fill",q:"My hands are black — I ___ the ink cartridge for the last twenty minutes.",hint:"(change)",a:"have been changing",accept:["have been changing"]},
+{type:"mc",q:"Perché « The bin is full of tins — I've cooked » suona incompleta, mentre « I've been cooking » funziona?",options:["Perché il bidone è la traccia di un'attività che è andata avanti, non il suo risultato finito.","Perché cook vuole sempre il continuous.","Perché « I've cooked » vuole sempre un oggetto (I've cooked dinner).","Perché il present perfect simple si usa solo con i verbi di stato."],a:"Perché il bidone è la traccia di un'attività che è andata avanti, non il suo risultato finito."}
 ]},
 {id:2,type:"study",title:"LIVELLO 02 — SIMPLE vs CONTINUOUS",desc:"risultato o attività · quantità · verbi di stato · never, already, yet, still",
 rule:`<strong>PRESENT PERFECT SIMPLE vs CONTINUOUS &mdash; Unit 2:</strong><br>
@@ -340,34 +344,34 @@ rule:`<strong>PRESENT PERFECT SIMPLE vs CONTINUOUS &mdash; Unit 2:</strong><br>
 &#x26A0; Alla <strong>forma negativa</strong> con for/since si usa il <strong>simple</strong>: <em>She hasn't talked to me since Sunday.</em><br>
 &#x2714; Con for/since sono possibili entrambi: <strong>simple</strong> se la situazione &egrave; stabile o di lunga durata, <strong>continuous</strong> se &egrave; temporanea.`,
 exercises:[
-{type:"mc",q:"« Mum's made cupcakes » e « Mum's been making cupcakes »: quale dice che i cupcakes sono pronti?",options:["Mum's made cupcakes.","Mum's been making cupcakes.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"Mum's made cupcakes."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di stato).",wrong:"I've been knowing Sofia since primary school.",a:"I've known Sofia since primary school.",accept:["i've known sofia since primary school.","i have known sofia since primary school."]},
+{type:"mc",q:"« Ivan's painted the hallway » e « Ivan's been painting the hallway »: quale dice che il lavoro è finito?",options:["Ivan's painted the hallway.","Ivan's been painting the hallway.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"Ivan's painted the hallway."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I've been knowing Sofia since primary school.",a:"I've known Sofia since primary school.",accept:["i've known sofia since primary school.","i have known sofia since primary school."]},
 {type:"fill",q:"Ellis ___ two job offers since he finished his course.",hint:"(have)",a:"has had",accept:["has had"]},
 {type:"mc",q:"« I've been reading that report » e « I've read that report »: quale delle due dice che l'hai finito?",options:["I've read that report.","I've been reading that report.","Tutte e due.","Nessuna delle due."],a:"I've read that report."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (con for/since la negativa vuole il simple).",wrong:"Megan hasn't been answering my messages since Tuesday.",a:"Megan hasn't answered my messages since Tuesday.",accept:["megan hasn't answered my messages since tuesday.","megan has not answered my messages since tuesday."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Megan hasn't been answering my messages since Tuesday.",a:"Megan hasn't answered my messages since Tuesday.",accept:["megan hasn't answered my messages since tuesday.","megan has not answered my messages since tuesday."]},
 {type:"mc",q:"Perché « How much money have you been spending? » non va bene se vuoi sapere la cifra?",options:["Perché quando si chiede una quantità precisa serve il simple.","Perché spend è un verbo di stato.","Perché money è un nome non numerabile.","Perché la domanda è al passato."],a:"Perché quando si chiede una quantità precisa serve il simple."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Caleb has already been finishing his degree.",a:"Caleb has already finished his degree.",accept:["caleb has already finished his degree."]},
 {type:"fill",q:"Leo ___ in that café for two months, just until he finds something in his field.",hint:"(work)",a:"has been working",accept:["has been working"]},
 {type:"mc",q:"Due frasi corrette. Quale suggerisce che si tratta di una sistemazione provvisoria?",options:["Ruby has been working at the salon for three weeks.","Ruby has worked at the salon since she qualified.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"Ruby has been working at the salon for three weeks."},
-{type:"wordbox",instruction:"Simple o continuous? Scegli la forma giusta dal riquadro.",verbs:["has broken","has been breaking","have made","have been making"],sentences:[
+{type:"wordbox",instruction:"Simple o continuous? Scegli la forma giusta dal riquadro.",verbs:["has broken","has been breaking","have made","have been making","have been breaking"],sentences:[
 {pre:"Sienna",post:"three plates this week — she's so clumsy.",a:"has broken",accept:["has broken"]},
 {pre:"That old printer",post:"down every other day since we bought it.",a:"has been breaking",accept:["has been breaking"]},
 {pre:"I",post:"two serious mistakes in this report.",a:"have made",accept:["have made"]},
 {pre:"The neighbours",post:"a terrible noise all evening.",a:"have been making",accept:["have been making"]}
 ]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Asher is still doing the washing-up: he started an hour ago.",key:"BEEN",q:"Asher ___ the washing-up for an hour.",a:"has been doing",accept:["has been doing"]},
+{type:"mc",q:"Il tuo capo vuole sapere il numero esatto di clienti serviti oggi. Come lo chiede?",options:["How many customers have you served today?","How many customers have you been serving today?","How many customers were you serving today?","How many customers do you serve today?"],a:"How many customers have you served today?"},
 {type:"fill",q:"Willow ___ three suggestions for the staff rota, and none of them was accepted.",hint:"(make)",a:"has made",accept:["has made"]},
 {type:"mc",q:"Verbo di stato alla forma negativa con since: quale versione regge?",options:["We haven't had a decent coffee machine since March.","We haven't been having a decent coffee machine since March.","We haven't been had a decent coffee machine since March.","We aren't having a decent coffee machine since March."],a:"We haven't had a decent coffee machine since March."},
 {type:"fill",q:"Blake ___ for jobs all month, but nobody has replied yet.",hint:"(apply)",a:"has been applying",accept:["has been applying"]},
-{type:"mc",q:"« He's been losing a lot of money recently » : perché il continuous?",options:["Perché descrive una cosa che si ripete in un periodo, non un singolo episodio.","Perché la somma è precisa.","Perché lose è un verbo di stato.","Perché l'azione è finita e chiusa."],a:"Perché descrive una cosa che si ripete in un periodo, non un singolo episodio."}
+{type:"mc",q:"« The café has been losing customers since the roadworks started » : perché il continuous?",options:["Perché descrive una cosa che si ripete in un periodo, non un singolo episodio.","Perché il numero dei clienti è preciso.","Perché lose è un verbo di stato.","Perché l'azione è finita e chiusa."],a:"Perché descrive una cosa che si ripete in un periodo, non un singolo episodio."}
 ]},
 {id:"rA",type:"review",title:"⟳ RIPASSO A — continuous e contrasto con il simple",desc:"i primi due argomenti insieme · frasi nuove",
 exercises:[
-{type:"fill",q:"Damon's hands are covered in oil: he ___ his bike since lunchtime.",hint:"(repair)",a:"has been repairing",accept:["has been repairing"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di stato).",wrong:"Eve has been having her own flat since January.",a:"Eve has had her own flat since January.",accept:["eve has had her own flat since january."]},
+{type:"fill",q:"Damon ___ his bike since lunchtime and he still hasn't finished.",hint:"(repair)",a:"has been repairing",accept:["has been repairing"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Eve has been having her own flat since January.",a:"Eve has had her own flat since January.",accept:["eve has had her own flat since january."]},
 {type:"mc",q:"Quale frase dice quante volte è successo?",options:["Matthew has failed the theory test twice.","Matthew has been failing the theory test.","Matthew has been taking the theory test.","Matthew has been studying for the theory test."],a:"Matthew has failed the theory test twice."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sophie started her beautician course last autumn and she is still on it.",key:"BEEN",q:"Sophie ___ a beautician course since last autumn.",a:"has been doing",accept:["has been doing"]},
-{type:"fill",q:"How many CVs ___ this week?",hint:"(send)",a:"have you sent",accept:["have you sent"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Sophie is doing a beautician course since last autumn and she hasn't finish yet.",a:"Sophie has been doing a beautician course since last autumn and she hasn't finished yet.",accept:["sophie has been doing a beautician course since last autumn and she hasn't finished yet.","sophie has been doing a beautician course since last autumn and she has not finished yet.","sophie has been doing a beautician course since last autumn and she hasn't finished it yet.","sophie has been taking a beautician course since last autumn and she hasn't finished yet."]},
+{type:"fill",q:"How many CVs ___ this week?",hint:"(send)",a:"have you sent",accept:["have you sent","have you sent out"]},
 {type:"mc",q:"« The pavement is soaking. » Quale frase spiega meglio quello che vedi?",options:["It's been raining.","It's rained three times.","It rains a lot here.","It has never rained."],a:"It's been raining."},
 {type:"fill",q:"Logan ___ a word to his manager since Friday's argument.",hint:"(speak)",a:"hasn't spoken",accept:["hasn't spoken","has not spoken"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Have you been finishing your application yet?",a:"Have you finished your application yet?",accept:["have you finished your application yet?"]}
@@ -379,15 +383,15 @@ rule:`<strong>PRESENT PERFECT SIMPLE vs PAST SIMPLE &mdash; Unit 2:</strong><br>
 &#x2714; Con <em>this morning</em>, <em>this afternoon</em>: <strong>present perfect</strong> se il periodo <strong>non &egrave; ancora concluso</strong>, <strong>past simple</strong> se &egrave; gi&agrave; passato.<br>
 &#x26A0; In italiano la distinzione non esiste: <em>ho scritto</em> traduce tutti e due. Qui la scelta la fa il <strong>riferimento al tempo</strong>, non il verbo.`,
 exercises:[
-{type:"mc",q:"« We've met Jesse's sister. » Che cosa NON dice questa frase?",options:["Quando l'abbiamo conosciuta.","Che l'abbiamo conosciuta.","Che è la sorella di Jesse.","Che l'incontro è avvenuto."],a:"Quando l'abbiamo conosciuta."},
+{type:"mc",q:"« I've worked with Ms Patel's team before. » Che cosa NON dice questa frase?",options:["Quando ci ho lavorato.","Che ci ho lavorato.","Che conosco quel gruppo.","Che l'esperienza c'è stata."],a:"Quando ci ho lavorato."},
 {type:"fill",q:"Viola ___ for Australia in 2023 and worked there as a nanny.",hint:"(leave)",a:"left",accept:["left"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I've seen that documentary about firefighters yesterday.",a:"I saw that documentary about firefighters yesterday.",accept:["i saw that documentary about firefighters yesterday."]},
-{type:"mc",q:"Sono le quattro del pomeriggio. Quale frase è corretta?",options:["She's written fifty pages this afternoon.","She wrote fifty pages this afternoon.","She writes fifty pages this afternoon.","She was writing fifty pages this afternoon."],a:"She's written fifty pages this afternoon."},
-{type:"mc",q:"È sera tardi e il pomeriggio è finito da un pezzo. Quale frase è corretta?",options:["She wrote fifty pages this afternoon.","She's written fifty pages this afternoon.","She has been writing fifty pages this afternoon.","She writes fifty pages this afternoon."],a:"She wrote fifty pages this afternoon."},
+{type:"mc",q:"Sono le quattro del pomeriggio. Quale frase è corretta?",options:["Nina's written fifty pages this afternoon.","Nina wrote fifty pages this afternoon.","Nina writes fifty pages this afternoon.","Nina was writing fifty pages this afternoon."],a:"Nina's written fifty pages this afternoon."},
+{type:"mc",q:"È sera tardi e il pomeriggio è finito da un pezzo. Quale frase è corretta?",options:["Kai repaired six bikes this afternoon.","Kai's repaired six bikes this afternoon.","Kai has been repairing six bikes this afternoon.","Kai repairs six bikes this afternoon."],a:"Kai repaired six bikes this afternoon."},
 {type:"fill",q:"Have you ever ___ for a job with a really good salary?",hint:"(apply)",a:"applied",accept:["applied"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Oscar's last visit to the careers office was in October.",key:"HASN'T",q:"Oscar ___ the careers office since October.",a:"hasn't visited",accept:["hasn't visited"]},
-{type:"mc",q:"« I worked in a kebab shop last summer » e « I've worked in a kebab shop »: quale delle due colloca l'esperienza nel tempo?",options:["I worked in a kebab shop last summer.","I've worked in a kebab shop.","Tutte e due.","Nessuna delle due."],a:"I worked in a kebab shop last summer."},
-{type:"wordbox",instruction:"Present perfect o past simple? Scegli la forma giusta dal riquadro.",verbs:["has graduated","graduated","have you had","did you have"],sentences:[
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Oscar didn't visit the careers office since October.",a:"Oscar hasn't visited the careers office since October.",accept:["oscar hasn't visited the careers office since october.","oscar has not visited the careers office since october."]},
+{type:"mc",q:"« Leo trained as a plumber in 2021 » e « Leo has trained as a plumber »: quale delle due colloca l'esperienza nel tempo?",options:["Leo trained as a plumber in 2021.","Leo has trained as a plumber.","Tutte e due.","Nessuna delle due."],a:"Leo trained as a plumber in 2021."},
+{type:"wordbox",instruction:"Present perfect o past simple? Scegli la forma giusta dal riquadro.",verbs:["has graduated","graduated","have you had","did you have","did you get"],sentences:[
 {pre:"Charlotte",post:"in 2022 and moved to Dublin straight after.",a:"graduated",accept:["graduated"]},
 {pre:"Amelia",post:"and is now looking for her first job.",a:"has graduated",accept:["has graduated"]},
 {pre:"How many interviews",post:"since the beginning of the year?",a:"have you had",accept:["have you had"]},
@@ -405,28 +409,28 @@ exercises:[
 {type:"mc",q:"Quale frase dice che il lavoro è ancora in corso adesso?",options:["Robyn has been redecorating the salon since Monday.","Robyn has redecorated the salon.","Robyn redecorated the salon last Monday.","Robyn redecorates the salon every spring."],a:"Robyn has been redecorating the salon since Monday."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My cousin has become an app developer three years ago.",a:"My cousin became an app developer three years ago.",accept:["my cousin became an app developer three years ago."]},
 {type:"fill",q:"Milly ___ up her mind yet: she can't decide between a degree and an apprenticeship.",hint:"(make)",a:"hasn't made",accept:["hasn't made","has not made"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Jamie started as a personal trainer in June and he is still doing it.",key:"BEEN",q:"Jamie ___ as a personal trainer since June.",a:"has been working",accept:["has been working"]},
-{type:"mc",q:"È tardi, il pomeriggio è finito da ore. Che cosa scrivi?",options:["I did a lot of research this afternoon.","I've done a lot of research this afternoon.","I've been doing a lot of research this afternoon.","I do a lot of research this afternoon."],a:"I did a lot of research this afternoon."},
+{type:"mc",q:"Jamie ha cominciato a giugno e lavora ancora lì. Quale frase lo dice mettendo l'accento sulla durata?",options:["Jamie has been working as a personal trainer since June.","Jamie works as a personal trainer since June.","Jamie has been worked as a personal trainer since June.","Jamie is working as a personal trainer since June."],a:"Jamie has been working as a personal trainer since June."},
+{type:"mc",q:"« Zoe worked at the leisure centre last summer. » Che cosa ci dice questa frase?",options:["Che il lavoro è finito e collocato in un periodo concluso.","Che Zoe lavora ancora lì.","Che Zoe ha appena cominciato a lavorare lì.","Che non sappiamo quando è successo."],a:"Che il lavoro è finito e collocato in un periodo concluso."},
 {type:"fill",q:"How many appointments ___ this morning? It's only ten o'clock.",hint:"(have)",a:"have you had",accept:["have you had"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (verbo di stato).",wrong:"Darcie has been wanting to be a vet since she was six.",a:"Darcie has wanted to be a vet since she was six.",accept:["darcie has wanted to be a vet since she was six."]},
-{type:"fill",q:"Your brother ___ unemployed since the factory closed, hasn't he?",hint:"(be)",a:"has been",accept:["has been"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Darcie has been wanting to be a vet since she was six.",a:"Darcie has wanted to be a vet since she was six.",accept:["darcie has wanted to be a vet since she was six."]},
+{type:"fill",q:"Your brother ___ unemployed since the factory closed.",hint:"(be)",a:"has been",accept:["has been"]},
 {type:"mc",q:"Quale delle due insiste sul tempo passato a imparare, non sul risultato?",options:["Zack has been training with a pastry chef.","Zack has trained with a pastry chef.","Tutte e due allo stesso modo.","Nessuna delle due."],a:"Zack has been training with a pastry chef."},
-{type:"fill",q:"Sorry about the mess — the twins ___ the shopping and the cleaning all morning.",hint:"(do)",a:"have been doing",accept:["have been doing"]}
+{type:"fill",q:"You can put your feet up — the twins ___ the shopping and the cleaning all morning.",hint:"(do)",a:"have been doing",accept:["have been doing"]}
 ]},
 {id:"final",type:"challenge",title:"★ SFIDA FINALE — All in a day's work",desc:"tutti gli argomenti insieme · scelte che cambiano il significato",
 exercises:[
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Freya got her first job when she was thirteen and she still has it.",key:"HAD",q:"Freya ___ the same job since she was thirteen.",a:"has had",accept:["has had"]},
-{type:"mc",q:"Quale versione è del tutto corretta?",options:["Harry has been working in a restaurant for six months and has already learnt a lot.","Harry has been working in a restaurant for six months and has already been learning a lot.","Harry works in a restaurant for six months and has already learnt a lot.","Harry has worked in a restaurant for six months and has already been learning a lot."],a:"Harry has been working in a restaurant for six months and has already learnt a lot."},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Freya has the same job since she is thirteen.",a:"Freya has had the same job since she was thirteen.",accept:["freya has had the same job since she was thirteen."]},
+{type:"mc",q:"Quale versione è del tutto corretta?",options:["Ines has been working in a bakery for six months and has already learnt a lot.","Ines has been working in a bakery for six months and has already been learning a lot.","Ines works in a bakery for six months and has already learnt a lot.","Ines has worked in a bakery for six months and has already been learning a lot."],a:"Ines has been working in a bakery for six months and has already learnt a lot."},
 {type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"I've been knowing Mia since 2019 and we have met at a summer camp.",a:"I've known Mia since 2019 and we met at a summer camp.",accept:["i've known mia since 2019 and we met at a summer camp.","i have known mia since 2019 and we met at a summer camp."]},
 {type:"mc",q:"Vuoi dire che stai cercando lavoro da marzo e non hai ancora trovato niente. Quale versione lo dice?",options:["I've been looking for a job since March and I still haven't found anything.","I look for a job since March and I still don't find anything.","I've looked for a job since March and I'm still not finding anything.","I've been looking for a job since March and I still haven't been finding anything."],a:"I've been looking for a job since March and I still haven't found anything."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Mia last picked up litter on the beach two weeks ago.",key:"BEEN",q:"Mia ___ to the beach for two weeks.",a:"hasn't been",accept:["hasn't been","has not been"]},
-{type:"mc",q:"« How much have you earned? » e « How long have you been earning that much? »: perché la prima non può andare al continuous?",options:["Perché chiede una quantità precisa, e la quantità vuole il simple.","Perché earn è un verbo di stato.","Perché la domanda comincia con How much.","Perché il continuous non si usa nelle domande."],a:"Perché chiede una quantità precisa, e la quantità vuole il simple."},
-{type:"fill",q:"George looks worn out: he ___ double shifts all week.",hint:"(work)",a:"has been working",accept:["has been working"]},
+{type:"mc",q:"Mia non va in spiaggia da due settimane. Quale frase lo dice?",options:["Mia hasn't been to the beach for two weeks.","Mia isn't going to the beach for two weeks.","Mia doesn't go to the beach for two weeks.","Mia hasn't been going to the beach since two weeks."],a:"Mia hasn't been to the beach for two weeks."},
+{type:"mc",q:"Quale frase dà il totale guadagnato, e non il tempo passato a lavorare?",options:["Elsa has earned four hundred euros this month.","Elsa has been earning four hundred euros this month.","Elsa has been earning money all month.","Elsa earns four hundred euros this month."],a:"Elsa has earned four hundred euros this month."},
+{type:"fill",q:"George ___ double shifts all week and he is on the rota again tomorrow.",hint:"(work)",a:"has been working",accept:["has been working"]},
 {type:"mc",q:"Fatti dello scorso mese e bilancio di oggi: quale versione regge?",options:["Samir applied for six jobs last month and has had two interviews so far.","Samir has applied for six jobs last month and has had two interviews so far.","Samir has been applying for six jobs last month and had two interviews so far.","Samir applied for six jobs last month and has been having two interviews so far."],a:"Samir applied for six jobs last month and has had two interviews so far."},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Lily hasn't been speaking to her boss since the argument on Monday.",a:"Lily hasn't spoken to her boss since the argument on Monday.",accept:["lily hasn't spoken to her boss since the argument on monday.","lily has not spoken to her boss since the argument on monday."]},
-{type:"fill",q:"Dylan looks shattered — he ___ for the neighbours since seven o'clock.",hint:"(babysit)",a:"has been babysitting",accept:["has been babysitting"]},
+{type:"fill",q:"Dylan ___ for the neighbours since seven o'clock and the children still aren't in bed.",hint:"(babysit)",a:"has been babysitting",accept:["has been babysitting"]},
 {type:"mc",q:"« The photocopier has broken » e « The photocopier has been breaking down »: che differenza c'è?",options:["La prima è un guasto adesso, la seconda un difetto che si ripete da un po'.","La prima è un difetto che si ripete, la seconda un guasto adesso.","Non c'è differenza.","La seconda è sbagliata."],a:"La prima è un guasto adesso, la seconda un difetto che si ripete da un po'."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It is three months since Noah started his course.",key:"BEEN",q:"Noah ___ his course for three months.",a:"has been on",accept:["has been on"]}
+{type:"errorcorrect",instruction:"Trova e correggi i tre errori.",wrong:"Noah is on his course since three months and he has already finish the first module.",a:"Noah has been on his course for three months and he has already finished the first module.",accept:["noah has been on his course for three months and he has already finished the first module."]}
 ]}
 ];
 const SK='gq_u2pp_s',EK='gq_u2pp_e';
@@ -496,7 +500,7 @@ function renderMap(){
   const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
   document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
   document.getElementById('overallText').textContent=`${done} / ${total}`;
-  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 1 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 2 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
   LEVELS.forEach(s=>{
     const st=state[s.id];const card=document.createElement('div');
     let cls='section-card ',badge='',icon='';
@@ -518,6 +522,52 @@ function openLevel(s){
   showScreen('exercise');renderExercise();
 }
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+const GLOSS={
+"apprenticeship":"apprendistato","paper round":"giro di consegna dei giornali","shattered":"distrutto, a pezzi",
+"worn out":"sfinito","exhausted":"esausto","portfolio":"raccolta dei propri lavori","staffroom":"sala insegnanti",
+"surgery":"ambulatorio","beautician":"estetista","staff rota":"turni del personale","rota":"turni",
+"double shifts":"turni doppi","shifts":"turni","litter":"rifiuti","babysitting":"fare da baby-sitter",
+"job ads":"annunci di lavoro","careers office":"ufficio orientamento","qualification":"titolo di studio",
+"degree":"laurea","gap year":"anno sabbatico","washing-up":"i piatti da lavare","unemployed":"disoccupato",
+"salary":"stipendio","plumber":"idraulico","paramedic":"paramedico","app developer":"sviluppatore di app",
+"nanny":"bambinaia","revising":"ripassando","revise":"ripassare","arguing":"litigando","argument":"litigio",
+"sore":"irritati","flour":"farina","biscuits":"biscotti","pitch":"campo da gioco","swamp":"pantano",
+"fortnight":"due settimane","pastry chef":"pasticcere","kebab shop":"chiosco di kebab","redecorating":"rimettere a nuovo",
+"salon":"salone di bellezza","theory test":"esame di teoria","mess":"disordine","neighbours":"vicini di casa",
+"tins":"lattine","bin":"bidone","photocopier":"fotocopiatrice","suggestions":"proposte","interviews":"colloqui",
+"appointments":"appuntamenti","staring":"fissando","first-aid":"pronto soccorso","stopping":"smettere",
+"rehearsing":"provando","spent":"speso","earned":"guadagnato","application form":"modulo di domanda","roadworks":"lavori stradali","customers":"clienti","hallway":"corridoio","extra shifts":"turni in più","stockroom":"magazzino","kettle":"bollitore","workshop":"officina","module":"modulo","ink cartridge":"cartuccia","stockroom":"magazzino"};
+const GLOSS_RE=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length)
+  .map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function applyGloss(root){
+  if(!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    const p=n.parentNode;if(!p)return NodeFilter.FILTER_REJECT;
+    const t=p.nodeName;
+    if(t==='INPUT'||t==='SCRIPT'||t==='STYLE'||t==='BUTTON')return NodeFilter.FILTER_REJECT;
+    if(p.closest&&p.closest('button,.mc-option,.word-chip'))return NodeFilter.FILTER_REJECT;
+    if(p.classList&&p.classList.contains('gloss'))return NodeFilter.FILTER_REJECT;
+    GLOSS_RE.lastIndex=0;
+    return GLOSS_RE.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}});
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(n=>{
+    GLOSS_RE.lastIndex=0;
+    const html=n.nodeValue.replace(GLOSS_RE,m=>{
+      const it=GLOSS[m.toLowerCase()];if(!it)return m;
+      return '<span class="gloss" data-it="'+it.replace(/"/g,'&quot;')+'" onclick="showGloss(event,this)">'+m+'</span>';});
+    if(html!==n.nodeValue){const sp=document.createElement('span');sp.innerHTML=html;n.parentNode.replaceChild(sp,n);}
+  });
+}
+function showGloss(e,el){
+  e.stopPropagation();
+  const t=document.getElementById('glossTip');
+  t.innerHTML='<b>'+el.textContent+'</b> &rarr; '+el.getAttribute('data-it');
+  t.style.display='block';
+  const r=el.getBoundingClientRect();
+  t.style.left=Math.max(8,Math.min(r.left,innerWidth-t.offsetWidth-8))+'px';
+  t.style.top=(r.bottom+8+t.offsetHeight>innerHeight?r.top-t.offsetHeight-8:r.bottom+8)+'px';
+}
+document.addEventListener('click',()=>{const t=document.getElementById('glossTip');if(t)t.style.display='none';});
 function renderExercise(){
   exChecked=false;selectedMC=-1;reorderWords=[];
   const ex=exQueue[exIdx];
@@ -552,6 +602,7 @@ function renderExercise(){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
   document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  applyGloss(document.getElementById('exerciseArea'));
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
 }
 function selectMC(idx,val,el){
@@ -566,7 +617,19 @@ function addWord(idx,el){
   const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
   area.appendChild(chip);
 }
-function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,'').replace(/\s+/g,' ').trim();}
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
 function checkExercise(){
   if(exChecked)return;exChecked=true;
   const ex=exQueue[exIdx];let correct=false;

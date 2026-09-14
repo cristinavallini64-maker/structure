@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 2 · Cambridge — Present Perfect Aspect</title>
-<meta name="description" content="The Structure · Unit 1 · Cambridge B2 First Use of English: Open Cloze, Multiple-choice Cloze, Key Word Transformation sul past narrative.">
+<meta name="description" content="The Structure · Unit 2 · Cambridge B2 First Use of English: Open Cloze, Multiple-choice Cloze, Key Word Transformation sul present perfect.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -238,7 +238,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
   instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 2: present perfect continuous, for/since, present perfect vs past simple.',
-  text:`My sister Freya {1} been working as a dog walker since she {2} fifteen. She started by chance: a neighbour asked her for help one afternoon, and she has been doing it ever {3}. She has already earned enough money for a second-hand laptop, and she hasn't spent a penny of it {4}. Last winter she took a first-aid course for animals, {5} she wants to become a vet one day. How {6} has she been saving? Almost three years. I still haven't made {7} my mind about my own future, {8} her patience impresses me.`,
+  text:`My sister Nell {1} been working as a dog walker since she {2} fifteen. She started by chance: a neighbour asked her for help one afternoon, and she has been doing it ever {3}. She has already earned enough money for a second-hand laptop, and she hasn't spent a penny of it {4}. Last winter she took a first-aid course for animals, {5} she wants to become a vet one day. How {6} has she been saving? Almost three years. I still haven't made {7} my mind about my own future, {8} her patience impresses me.`,
   gaps:[
     {a:"has",accept:["has"]},
     {a:"was",accept:["was"]},
@@ -256,7 +256,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
   instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: present perfect continuous, simple vs continuous, present perfect vs past simple, verbi di stato.',
-  text:`Harry {1} in the same restaurant since March. He {2} the job through a friend who was already working there at the time. Since then he {3} to make four different sauces, and the head chef trusts him. "I {4} how hard it would be when I started," he admits. "Some evenings I {5} vegetables for three hours without stopping." He {6} a proper break since Monday, because the shift rota is still a mess, but he doesn't want to complain. How many hours {7} this month? Almost ninety. He {8} up his mind yet, but he is thinking about catering college.`,
+  text:`Harry {1} in the same restaurant since March. He {2} the job through a friend who was already working there at the time. Since then he {3} to make four different sauces, and the head chef trusts him. "I {4} how hard it would be when I started," he admits. "Today I {5} vegetables for three hours without stopping." He {6} a proper break since Monday, because the shift rota is still a mess, but he doesn't want to complain. How many hours {7} this month? Almost ninety. He {8} up his mind yet, but he is thinking about catering college.`,
   gaps:[
     {options:["has been working","is working","works","was working"],a:"has been working"},
     {options:["got","has got","has been getting","gets"],a:"got"},
@@ -275,14 +275,14 @@ const TYPES=[
   short:'Completa con 2\u20135 parole, usando la parola chiave.',
   instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
   items:[
-    {prompt:"Mia started her apprenticeship in September and she is still doing it.",key:"BEEN",pre:"Mia",post:"her apprenticeship since September.",a:"has been doing",accept:["has been doing"]},
+    {prompt:"Kofi began working at the garden centre in September and he hasn't stopped.",key:"BEEN",pre:"Kofi",post:"at the garden centre since September.",a:"has been working",accept:["has been working"]},
     {prompt:"It is two years since Dylan last had an interview.",key:"HAD",pre:"Dylan",post:"an interview for two years.",a:"hasn't had",accept:["hasn't had","has not had"]},
     {prompt:"Zara began rehearsing at eight this morning and she is still rehearsing.",key:"SINCE",pre:"Zara has been rehearsing",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
-    {prompt:"Logan has never worked in a team before.",key:"FIRST",pre:"This is the",post:"Logan has worked in a team.",a:"first time",accept:["first time"]},
-    {prompt:"Elsa became a dog walker five years ago and she still does it.",key:"WORKED",pre:"Elsa",post:"as a dog walker for five years.",a:"has worked",accept:["has worked"]},
+    {prompt:"Priya has never given a presentation before.",key:"FIRST",pre:"This is the",post:"Priya has given a presentation.",a:"first time",accept:["first time"]},
+    {prompt:"Elsa became a swimming coach five years ago and she still does it.",key:"WORKED",pre:"Elsa",post:"as a swimming coach for five years.",a:"has worked",accept:["has worked"]},
     {prompt:"How long is it since Noah got his qualification?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had"]},
   ],
-  gloss:{"apprenticeship":"apprendistato","rehearsing":"provando","qualification":"titolo di studio"}
+  gloss:{"garden centre":"vivaio","rehearsing":"provando","qualification":"titolo di studio","presentation":"presentazione"}
 },
 ];
 
@@ -409,7 +409,19 @@ function renderSheet(){
   }
   document.getElementById('exSheet').innerHTML=html;
 }
-function norm(s){return (s||'').trim().toLowerCase().replace(/[.,!?;:]+$/,'').replace(/,/g,' ').replace(/[—–]/g,'-').replace(/\s+/g,' ').trim();}
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
 function grade(){
   if(graded)return;graded=true;
   const t=current;let correct=0;
