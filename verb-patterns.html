@@ -209,6 +209,16 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
 .rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
 
+/* ---------- GLOSSARIO ---------- */
+.gloss{position:relative;}
+body.tr-on .gloss{border-bottom:1px dotted #9a6b00;cursor:help;color:#7a5400;}
+#tip{position:fixed;z-index:200;display:none;background:rgba(20,16,4,.97);border:1px solid var(--gold);color:#fff;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;padding:7px 12px;border-radius:8px;max-width:240px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+#tip b{color:#e7c14a;font-weight:700;}
+.hdr-btns{display:flex;gap:8px;align-items:center;}
+.btn-tr{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-tr.on{border-color:var(--gold);color:#e7c14a;}
 /* ---------- MODAL ---------- */
 .modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
 .modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
@@ -224,9 +234,10 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 </style>
 </head>
 <body>
+<div id="tip"></div>
 <header>
   <div><div class="logo">Unit 3 · Verb Patterns &amp; Compounds</div><span class="logo-sub">grammar practice · B2</span></div>
-  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+  <div class="hdr-btns"><button class="btn-tr" id="trBtn" onclick="toggleTr()" title="Mostra la traduzione delle parole nuove">🌐 IT: OFF</button><button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button></div>
 </header>
 
 <div id="screen-map" class="screen active">
@@ -281,7 +292,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 <div id="resetModal" class="modal-overlay" style="display:none">
   <div class="modal">
     <h2>Azzerare i progressi?</h2>
-    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <p>Tutti i livelli completati torneranno da fare. L'azione non si può annullare.</p>
     <div class="modal-actions">
       <button class="btn btn-primary" onclick="doReset()">Azzera</button>
       <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
@@ -303,31 +314,31 @@ rule:`<strong>COMMON VERB PATTERNS &mdash; Unit 3:</strong><br>
 &#x26A0; In <em>look forward to</em> e <em>dream of</em>, quel <em>to</em> e quel <em>of</em> sono preposizioni: dopo va la forma in <strong>-ing</strong>.<br>
 &#x26A0; Dopo i modali <strong>niente to</strong>: <em>I must tidy</em>, non <s>I must to tidy</s>.`,
 exercises:[
-{type:"mc",q:"Un compagno scrive: « I look forward to see your new terrace. » Che cosa deve correggere?",options:["Dopo look forward to serve la forma in -ing, perché quel to è una preposizione.","Deve usare will see.","Deve togliere il to.","Niente: la frase è corretta."],a:"Dopo look forward to serve la forma in -ing, perché quel to è una preposizione."},
-{type:"fill",q:"Mum can't afford ___ a new dishwasher this year.",hint:"(buy)",a:"to buy",accept:["to buy"]},
+{type:"mc",q:"Un compagno scrive: « I look forward to see your new terrace. » Che cosa deve correggere?",options:["Dopo look forward to serve la forma in -ing: quel to è una preposizione.", "Dopo look forward to serve il futuro con will: « I look forward to will see ».", "Il to va tolto: dopo look forward si usa la forma base del verbo.", "Niente: dopo to si usa sempre la forma base, quindi la frase è corretta."],a:"Dopo look forward to serve la forma in -ing: quel to è una preposizione."},
+{type:"fill",q:"Mum can't afford ___ a new armchair for the living room.",hint:"(buy)",a:"to buy",accept:["to buy"]},
 {type:"fill",q:"We've given up ___ the attic tidy — the boys use it as a studio.",hint:"(keep)",a:"keeping",accept:["keeping"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (attenzione a che cosa vuole il primo verbo).",wrong:"We have decided moving to a bigger flat.",a:"We have decided to move to a bigger flat.",accept:["we have decided to move to a bigger flat.","we've decided to move to a bigger flat."]},
-{type:"fill",q:"Leo doesn't mind ___ in the basement flat: it's cheap and close to work.",hint:"(live)",a:"living",accept:["living"]},
-{type:"mc",q:"Perché « I must to tidy my room » è sbagliato?",options:["Perché dopo i modali come must si usa la forma base senza to.","Perché tidy non può essere un verbo.","Perché serve la forma in -ing.","Perché must vuole il past simple."],a:"Perché dopo i modali come must si usa la forma base senza to."},
-{type:"fill",q:"The landlord refused ___ the blinds in the study.",hint:"(replace)",a:"to replace",accept:["to replace"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We have decided moving to a bigger flat.",a:"We have decided to move to a bigger flat.",accept:["we have decided to move to a bigger flat."]},
+{type:"fill",q:"Situazione: a Leo non pesa affatto abitare nel seminterrato: costa poco ed è vicino al lavoro.<br>Leo ___ in the basement flat.",hint:"(mind, live)",a:"doesn't mind living",accept:["doesn't mind living"]},
+{type:"mc",q:"Perché « I must to tidy my room » è sbagliato?",options:["Perché dopo i modali come must si usa la forma base, senza to.", "Perché dopo must si usa la forma in -ing: « I must tidying my room ».", "Perché must non si usa mai con i verbi che indicano un obbligo.", "Perché dopo must il to è obbligatorio solo nelle frasi negative."],a:"Perché dopo i modali come must si usa la forma base, senza to."},
+{type:"fill",q:"Situazione: Ruben ci ha assicurato che sistemerà la porta d'ingresso entro sabato.<br>Ruben ___ the front door by Saturday.",hint:"(promise, mend)",a:"has promised to mend",accept:["has promised to mend", "promised to mend"]},
 {type:"fill",q:"I'd rather ___ in a house with a garden than in a flat on the fourth floor.",hint:"(live)",a:"live",accept:["live"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"It's impossible for us to get a new cooker this month.",key:"AFFORD",q:"We ___ a new cooker this month.",a:"can't afford to buy",accept:["can't afford to buy","cannot afford to buy","can't afford to get","cannot afford to get"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Tom and Jess can't afford buying a house yet, so they hope renting a flat near the station.",a:"Tom and Jess can't afford to buy a house yet, so they hope to rent a flat near the station.",accept:["tom and jess can't afford to buy a house yet, so they hope to rent a flat near the station."]},
 {type:"fill",q:"Have you finished ___ the shelves in the laundry room?",hint:"(paint)",a:"painting",accept:["painting"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo i modali non va il to).",wrong:"I must to hoover the stairs before Sunday.",a:"I must hoover the stairs before Sunday.",accept:["i must hoover the stairs before sunday."]},
-{type:"fill",q:"We managed ___ the wardrobe up the stairs without scratching it.",hint:"(get)",a:"to get",accept:["to get"]},
-{type:"fill",q:"Nobody wants ___ on the top floor while the lift is out of order.",hint:"(live)",a:"to live",accept:["to live"]},
-{type:"mc",q:"Quale di questi verbi vuole « to + forma base » e non la forma in -ing?",options:["afford","avoid","finish","give up"],a:"afford"},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I must to hoover the stairs before Sunday.",a:"I must hoover the stairs before Sunday.",accept:["i must hoover the stairs before sunday.","i have to hoover the stairs before sunday."]},
+{type:"fill",q:"Situazione: sembrava impossibile, ma alla fine l'armadio è arrivato in cima alle scale senza un graffio.<br>We ___ the wardrobe up the stairs without scratching it.",hint:"(manage, get)",a:"managed to get",accept:["managed to get", "have managed to get"]},
+{type:"fill",q:"Nobody wants ___ on the top floor while the lift is out of order.",hint:"(stay)",a:"to stay",accept:["to stay"]},
+{type:"mc",q:"Una sola di queste frasi è sbagliata. Quale?",options:["We've agreed repainting the hall.", "We've decided to repaint the hall.", "We've finished repainting the hall.", "We'd rather repaint the hall."],a:"We've agreed repainting the hall."},
 {type:"fill",q:"Ines avoided ___ about the damp in the basement until the survey arrived.",hint:"(talk)",a:"talking",accept:["talking"]},
-{type:"fill",q:"My gran misses ___ on her old balcony every morning.",hint:"(sit)",a:"sitting",accept:["sitting"]},
-{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro: forma in -ing oppure to + forma base.",verbs:["install","clean","hang","move"],sentences:[
-{pre:"We've arranged",post:"the new cooker on Friday morning.",a:"to install",accept:["to install"]},
-{pre:"Dad has given up",post:"the gutters himself — he's called a firm.",a:"cleaning",accept:["cleaning"]},
-{pre:"Nadia doesn't mind",post:"the pictures for us while we unpack.",a:"hanging",accept:["hanging"]},
+{type:"fill",q:"My gran misses ___ breakfast on the balcony of her old flat.",hint:"(have)",a:"having",accept:["having"]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro. Un verbo non serve.",verbs:["collect","clean","hang","move","cook"],sentences:[
+{pre:"We've arranged",post:"the keys from the estate agent on Friday morning.",a:"to collect",accept:["to collect"]},
+{pre:"Dad has given up",post:"the windows himself — he pays a window cleaner now.",a:"cleaning",accept:["cleaning"]},
+{pre:"Nadia doesn't mind",post:"the pictures on the wall for us while we unpack.",a:"hanging",accept:["hanging"]},
 {pre:"They hope",post:"into the terraced house before Christmas.",a:"to move",accept:["to move"]}
 ]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (quel to è una preposizione).",wrong:"Ruby dreams of buy a cottage with a big attic.",a:"Ruby dreams of buying a cottage with a big attic.",accept:["ruby dreams of buying a cottage with a big attic."]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Ruben said he would definitely mend the front door.",key:"PROMISED",q:"Ruben ___ the front door.",a:"promised to mend",accept:["promised to mend","promised to fix","promised to repair"]},
-{type:"fill",q:"Sasha has agreed ___ the boxes in her garage until we find a flat.",hint:"(store)",a:"to store",accept:["to store"]}
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Ruby dreams of buy a cottage with a big attic.",a:"Ruby dreams of buying a cottage with a big attic.",accept:["ruby dreams of buying a cottage with a big attic."]},
+{type:"fill",q:"The washing machine is leaking again: we need ___ a plumber.",hint:"(call)",a:"to call",accept:["to call"]},
+{type:"fill",q:"Situazione: Sasha ci ha detto di sì: terrà la nostra vecchia cucina nel suo garage finché non troviamo casa.<br>Sasha ___ our old cooker in her garage until we find a flat.",hint:"(agree, store)",a:"has agreed to store",accept:["has agreed to store", "agreed to store"]}
 ]},
 
 {id:2,type:"study",title:"LIVELLO 02 — OGGETTO + TO · START · LIKE, LOVE, HATE, PREFER",desc:"chi fa la seconda azione · gusto generale o scelta di adesso",
@@ -340,70 +351,70 @@ rule:`<strong>ALTRI PATTERN &mdash; Unit 3:</strong><br>
 &#x26A0; Dopo <code>would like / would love / would hate / would prefer</code> ci vuole <strong>sempre to</strong>: <em>I'd hate to share my room.</em>`,
 exercises:[
 {type:"mc",q:"« I started to go » e « I started going »: che differenza c'è?",options:["Nessuna: con start le due forme dicono la stessa cosa.","La prima è al passato, la seconda al presente.","La prima indica un'abitudine, la seconda un'azione unica.","La seconda è sbagliata."],a:"Nessuna: con start le due forme dicono la stessa cosa."},
-{type:"fill",q:"Mum asked my brother ___ the recycling out before dinner.",hint:"(take)",a:"to take",accept:["to take"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese non si usa that dopo want).",wrong:"My parents don't want that I move out.",a:"My parents don't want me to move out.",accept:["my parents don't want me to move out.","my parents do not want me to move out."]},
+{type:"fill",q:"Situazione: prima di cena la mamma ha chiesto a mio fratello di portare fuori la differenziata.<br>Mum ___ the recycling out before dinner.",hint:"(ask, take)",a:"asked my brother to take",accept:["asked my brother to take", "asked him to take", "has asked my brother to take", "has asked him to take"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My parents don't want that I move out.",a:"My parents don't want me to move out.",accept:["my parents don't want me to move out."]},
 {type:"fill",q:"The landlord ordered the tenants ___ the satellite dish from the balcony.",hint:"(remove)",a:"to remove",accept:["to remove"]},
-{type:"mc",q:"« I love cooking » ma « I'd prefer to wait in the hall, thanks. » Quando si usa il to con like, love, hate e prefer?",options:["Quando si parla di una scelta in una situazione precisa, non di un gusto generale.","Quando la frase è negativa.","Quando il soggetto è alla prima persona.","Quando il verbo dopo comincia per consonante."],a:"Quando si parla di una scelta in una situazione precisa, non di un gusto generale."},
-{type:"fill",q:"Zoe reminded her flatmate ___ the dishwasher on before going to bed.",hint:"(put)",a:"to put",accept:["to put"]},
-{type:"fill",q:"I persuaded Mum ___ me paint the study dark green.",hint:"(let)",a:"to let",accept:["to let"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (tell non vuole to davanti alla persona).",wrong:"The estate agent told to the tenants to leave the keys inside.",a:"The estate agent told the tenants to leave the keys inside.",accept:["the estate agent told the tenants to leave the keys inside."]},
-{type:"fill",q:"Our neighbours invited us ___ round on Sunday afternoon.",hint:"(come)",a:"to come",accept:["to come"]},
-{type:"fill",q:"In general Grandad prefers ___ the stairs: he says the lift is for lazy people.",hint:"(use)",a:"using",accept:["using"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Could you water the plants on the terrace? » Mum said to me.",key:"ASKED",q:"Mum ___ the plants on the terrace.",a:"asked me to water",accept:["asked me to water"]},
-{type:"fill",q:"It's freezing out here — I'd prefer ___ inside, if that's all right.",hint:"(wait)",a:"to wait",accept:["to wait"]},
-{type:"mc",q:"Un compagno scrive: « I would love cooking for everyone tomorrow. » Che cosa sbaglia?",options:["Dopo would love ci vuole sempre to + forma base.","Deve usare il past simple.","Deve togliere would.","Niente: la frase è corretta."],a:"Dopo would love ci vuole sempre to + forma base."},
+{type:"mc",q:"« I love cooking » ma « I prefer to wait in the hall, thanks. » Quando si usa il to con like, love, hate e prefer?",options:["Quando si parla di una scelta in una situazione precisa.", "Quando si parla di un'attività che piace in generale.", "Quando la frase è negativa o c'è un soggetto diverso.", "Quando il verbo che segue comincia per consonante."],a:"Quando si parla di una scelta in una situazione precisa."},
+{type:"fill",q:"Situazione: prima di andare a letto, Zoe ha detto alla sua coinquilina di non dimenticare di far partire la lavastoviglie.<br>Zoe ___ the dishwasher on before going to bed.",hint:"(remind, put)",a:"reminded her flatmate to put",accept:["reminded her flatmate to put", "reminded her to put", "has reminded her flatmate to put", "has reminded her to put"]},
+{type:"fill",q:"Situazione: alla fine ho convinto la mamma: posso dipingere lo studio di verde scuro.<br>I ___ me paint the study dark green.",hint:"(persuade, let)",a:"persuaded Mum to let",accept:["persuaded mum to let", "persuaded my mum to let", "persuaded her to let", "have persuaded mum to let", "have persuaded my mum to let", "have persuaded her to let"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The estate agent told to the tenants to leave the keys inside.",a:"The estate agent told the tenants to leave the keys inside.",accept:["the estate agent told the tenants to leave the keys inside."]},
+{type:"fill",q:"My aunt has invited us ___ Easter at her cottage by the lake.",hint:"(spend)",a:"to spend",accept:["to spend"]},
+{type:"fill",q:"Nothing can convince Grandad ___ the lift: he says it's for lazy people.",hint:"(use)",a:"to use",accept:["to use"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"The Parkers invited us coming round and asked us bringing some chairs for the dining room.",a:"The Parkers invited us to come round and asked us to bring some chairs for the dining room.",accept:["the parkers invited us to come round and asked us to bring some chairs for the dining room."]},
+{type:"fill",q:"It's freezing out here — I ___ inside, if that's all right.",hint:"(prefer, wait)",a:"would prefer to wait",accept:["would prefer to wait", "prefer to wait"]},
+{type:"mc",q:"Un compagno scrive: « I would love cooking for everyone tomorrow. » Che cosa sbaglia?",options:["Dopo would love ci vuole sempre to + forma base.", "Dopo would love ci vuole il past simple: « cooked ».", "Would va tolto: con tomorrow basta « I love cooking ».", "Niente: dopo love va sempre la forma in -ing."],a:"Dopo would love ci vuole sempre to + forma base."},
 {type:"fill",q:"Frankie has continued ___ in the attic all winter, with two heaters on.",hint:"(work)",a:"working",accept:["working","to work"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo would hate serve un'altra forma).",wrong:"I'd hate sharing a bathroom with four other students.",a:"I'd hate to share a bathroom with four other students.",accept:["i'd hate to share a bathroom with four other students.","i would hate to share a bathroom with four other students."]},
-{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro.",verbs:["decorate","get up","live","do"],sentences:[
-{pre:"I love",post:"the flat at Christmas — it takes a whole weekend, but it's worth it.",a:"decorating",accept:["decorating"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I'd hate sharing a bathroom with four other students.",a:"I'd hate to share a bathroom with four other students.",accept:["i'd hate to share a bathroom with four other students."]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro. Un verbo non serve.",verbs:["decorate","get up","live","do","swim"],sentences:[
+{pre:"I love",post:"the flat at Christmas — it takes a whole weekend, but it's worth it.",a:"decorating",accept:["decorating","to decorate"]},
 {pre:"On cold mornings I'd prefer",post:"an hour later.",a:"to get up",accept:["to get up"]},
-{pre:"My cousins hate",post:"on the ground floor: they say the street is too noisy.",a:"living",accept:["living"]},
+{pre:"My cousins hate",post:"on the ground floor: they say the street is too noisy.",a:"living",accept:["living","to live"]},
 {pre:"I'd hate",post:"the washing-up every single evening.",a:"to do",accept:["to do"]}
 ]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Leo kept saying I should see the new loft conversion, and in the end I did.",key:"PERSUADED",q:"Leo ___ the new loft conversion.",a:"persuaded me to see",accept:["persuaded me to see","persuaded me to visit"]},
+{type:"mc",q:"« I want to paint the study » e « I want you to paint the study »: che differenza c'è?",options:["Nella prima dipingo io, nella seconda devi dipingere tu.","Nessuna: cambia solo il tono.","La seconda è sbagliata: si dice « I want that you paint ».","La prima parla del futuro, la seconda del presente."],a:"Nella prima dipingo io, nella seconda devi dipingere tu."},
 {type:"fill",q:"Could you help me ___ the chest of drawers into the spare bedroom?",hint:"(carry)",a:"to carry",accept:["to carry","carry"]}
 ]},
 
 {id:3,type:"study",title:"LIVELLO 03 — STOP, REMEMBER, FORGET",desc:"qui la forma cambia il significato · si capisce dalla situazione",
 rule:`<strong>STOP, REMEMBER, FORGET &mdash; Unit 3:</strong><br>
-&#x2714; <code>stop + -ing</code> = quella cosa <strong>&egrave; finita</strong>, non si fa pi&ugrave;. &mdash; <em>We stopped buying fast food.</em><br>
-&#x2714; <code>stop + to</code> = ci si &egrave; <strong>fermati per fare un'altra cosa</strong>, e poi si riprende. &mdash; <em>I stopped to ask for directions.</em><br>
+&#x2714; <code>stop + -ing</code> = <strong>smettere di fare</strong> quella cosa: un'abitudine che finisce o un'attivit&agrave; che si interrompe. &mdash; <em>We stopped buying fast food.</em><br>
+&#x2714; <code>stop + to</code> = ci si &egrave; <strong>fermati per fare un'altra cosa</strong>. &mdash; <em>I stopped to ask for directions.</em><br>
 &#x2714; <code>remember / forget + -ing</code> = si parla di una cosa <strong>gi&agrave; successa</strong>, che si ricorda o no. &mdash; <em>He remembers visiting Paris when he was a child.</em><br>
 &#x2714; <code>remember / forget + to</code> = c'era un <strong>compito da fare</strong>. &mdash; <em>Please remember to lock the door.</em><br>
-&#x26A0; Le due frasi sono <strong>tutte e due corrette</strong>: a decidere &egrave; la situazione, non la grammatica.`,
+&#x26A0; Le due forme sono <strong>tutte e due corrette</strong>: a decidere &egrave; la situazione, non la grammatica.`,
 exercises:[
-{type:"mc",q:"« We stopped buying fast food » e « We stopped to buy fast food »: quale delle due dice che quell'abitudine è finita?",options:["La prima: quello che si faceva prima adesso non si fa più.","La seconda: ci si è fermati apposta per comprarlo.","Tutte e due: cambia solo lo stile.","Nessuna delle due: parlano del futuro."],a:"La prima: quello che si faceva prima adesso non si fa più."},
-{type:"fill",q:"On the way back from the tip we stopped ___ some bread and a bag of ice.",hint:"(buy)",a:"to buy",accept:["to buy"]},
+{type:"mc",q:"« We stopped buying fast food » e « We stopped to buy fast food »: quale delle due dice che quell'abitudine è finita?",options:["La prima: quello che si faceva prima adesso non si fa più.", "La seconda: to buy indica un'abitudine che non si ripeterà più.", "Tutte e due: cambia solo lo stile, non il significato della frase.", "Nessuna delle due: tutte e due parlano di un'azione futura."],a:"La prima: quello che si faceva prima adesso non si fa più."},
+{type:"fill",q:"On the way back from the tip we stopped ___ some bread and a bag of ice.",hint:"(get)",a:"to get",accept:["to get"]},
 {type:"fill",q:"Aunt Nadia stopped ___ the top floor after her knee operation, so her bed is in the study now.",hint:"(use)",a:"using",accept:["using"]},
-{type:"mc",q:"« I remember locking the door. » La porta è chiusa a chiave?",options:["Sì: chi parla ha in mente il momento in cui l'ha fatto.","No: se l'è dimenticato.","Non si può sapere.","No: deve ancora farlo."],a:"Sì: chi parla ha in mente il momento in cui l'ha fatto."},
-{type:"fill",q:"Did you remember ___ the immersion heater off before we left?",hint:"(turn)",a:"to turn",accept:["to turn"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (si parla di una cosa già successa).",wrong:"I remember to visit that cottage when I was a child.",a:"I remember visiting that cottage when I was a child.",accept:["i remember visiting that cottage when i was a child."]},
+{type:"mc",q:"« I remember locking the door. » La porta è chiusa a chiave?",options:["Sì: chi parla ricorda il momento in cui l'ha chiusa.", "No: chi parla si è dimenticato di chiuderla a chiave.", "Non si può sapere: la frase parla solo di un'intenzione.", "No: è un compito che chi parla deve ancora fare."],a:"Sì: chi parla ricorda il momento in cui l'ha chiusa."},
+{type:"fill",q:"Did you remember ___ the oven off before we left?",hint:"(switch)",a:"to switch",accept:["to switch"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I remember to visit that cottage when I was a child.",a:"I remember visiting that cottage when I was a child.",accept:["i remember visiting that cottage when i was a child."]},
 {type:"fill",q:"I clearly remember ___ my keys on the coffee table, and now they're gone.",hint:"(leave)",a:"leaving",accept:["leaving"]},
-{type:"fill",q:"Callum forgot ___ the blinds, so the study was boiling by midday.",hint:"(close)",a:"to close",accept:["to close"]},
-{type:"mc",q:"« Remember to defrost the freezer before Friday. » Il freezer è già stato scongelato?",options:["No: è un compito che deve ancora essere fatto.","Sì, ed è per questo che si usa remember.","Sì, ma solo in parte.","Non si capisce dalla frase."],a:"No: è un compito che deve ancora essere fatto."},
-{type:"fill",q:"I'll never forget ___ into this house: it rained for three days and the lift broke.",hint:"(move)",a:"moving",accept:["moving"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (c'è un compito da fare prima di uscire).",wrong:"Please remember locking the door when you go out.",a:"Please remember to lock the door when you go out.",accept:["please remember to lock the door when you go out."]},
-{type:"fill",q:"The builders stopped ___ at six, and the scaffolding is still against the wall.",hint:"(work)",a:"working",accept:["working"]},
-{type:"fill",q:"She was carrying the boxes upstairs when she stopped ___ the plumber from the landing.",hint:"(phone)",a:"to phone",accept:["to phone","to call"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (quell'abitudine è finita due anni fa).",wrong:"We stopped to order takeaway two years ago and we feel much better.",a:"We stopped ordering takeaway two years ago and we feel much better.",accept:["we stopped ordering takeaway two years ago and we feel much better."]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Marek doesn't take the lift any more.",key:"STOPPED",q:"Marek ___ the lift.",a:"stopped taking",accept:["stopped taking","has stopped taking"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"I'm sure I switched the cooker off — I can picture myself doing it.",key:"REMEMBER",q:"I ___ the cooker off.",a:"remember switching",accept:["remember switching","remember turning"]}
+{type:"fill",q:"Situazione: Callum non si è ricordato di chiudere le tende, e a mezzogiorno lo studio era un forno.<br>Callum ___ the blinds, so the study was boiling by midday.",hint:"(forget, close)",a:"forgot to close",accept:["forgot to close"]},
+{type:"mc",q:"« Remember to defrost the freezer before Friday. » Il freezer è già stato scongelato?",options:["No: è un compito che deve ancora essere fatto.", "Sì: remember dice che l'azione è già avvenuta.", "Sì, ma solo in parte: il lavoro è cominciato.", "Non si capisce: la frase non dice nulla sul tempo."],a:"No: è un compito che deve ancora essere fatto."},
+{type:"fill",q:"I'll never forget ___ into this flat: it rained for three days and the lift broke.",hint:"(move)",a:"moving",accept:["moving"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Don't forget turning off the lights, and stop to leave your shoes in the hall.",a:"Don't forget to turn off the lights, and stop leaving your shoes in the hall.",accept:["don't forget to turn off the lights, and stop leaving your shoes in the hall.", "don't forget to turn the lights off, and stop leaving your shoes in the hall."]},
+{type:"fill",q:"The builders stopped ___ at six, so the kitchen is still half painted.",hint:"(work)",a:"working",accept:["working"]},
+{type:"fill",q:"Halfway up the stairs Lena stopped ___ the electrician, then carried on with the boxes.",hint:"(phone)",a:"to phone",accept:["to phone"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We stopped to order takeaway two years ago and we feel much better.",a:"We stopped ordering takeaway two years ago and we feel much better.",accept:["we stopped ordering takeaway two years ago and we feel much better."]},
+{type:"mc",q:"Situazione: da quando ha scoperto che le scale fanno bene al cuore, Marek sale sempre a piedi e l'ascensore non lo prende più. Quale frase lo dice?",options:["Marek has stopped taking the lift.","Marek has stopped to take the lift.","Marek has stopped take the lift.","Marek has stopped for taking the lift."],a:"Marek has stopped taking the lift."},
+{type:"fill",q:"I'm sure the back door is locked: I remember ___ the key twice.",hint:"(turn)",a:"turning",accept:["turning"]},
 ]},
 {id:"rA",type:"review",title:"⟳ RIPASSO A — i pattern dei verbi",desc:"i primi tre argomenti insieme · frasi nuove",
 rule:`<strong>RIPASSO A:</strong> tutto quello che pu&ograve; venire dopo il primo verbo &mdash; forma base, forma in -ing, <em>to</em> + forma base, oggetto + <em>to</em>, e i tre verbi che cambiano significato.<br>
 &#x26A0; Con <em>stop</em>, <em>remember</em> e <em>forget</em> rileggi <strong>la situazione</strong> prima di scegliere: le due forme sono tutte e due corrette.`,
 exercises:[
-{type:"mc",q:"Un compagno scrive: « The surveyor convinced us checking the ceiling. » Che cosa sbaglia?",options:["Dopo convince + oggetto ci vuole to + forma base.","Deve usare il past simple.","Deve togliere us.","Niente: la frase è corretta."],a:"Dopo convince + oggetto ci vuole to + forma base."},
-{type:"fill",q:"Rosa can't stand the cold, so she refuses ___ the radiator in the hall off.",hint:"(switch)",a:"to switch",accept:["to switch","to turn"]},
-{type:"fill",q:"After the flood we gave up ___ the carpet and put down a rug instead.",hint:"(save)",a:"saving",accept:["saving"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo would prefer serve un'altra forma).",wrong:"I'd prefer sleeping in the attic than in the basement.",a:"I'd prefer to sleep in the attic than in the basement.",accept:["i'd prefer to sleep in the attic than in the basement.","i would prefer to sleep in the attic than in the basement."]},
-{type:"fill",q:"On the way to the tip Ivan stopped ___ a lamp that someone had left by the bins.",hint:"(pick up)",a:"to pick up",accept:["to pick up"]},
-{type:"mc",q:"« Sofia stopped watering the plants on the terrace. » Le piante vengono ancora annaffiate da lei?",options:["No: quell'abitudine è finita.","Sì: si è fermata apposta per farlo.","Sì, ma solo d'estate.","Non si capisce dalla frase."],a:"No: quell'abitudine è finita."},
-{type:"fill",q:"Nour has arranged ___ the boiler serviced before the cold weather starts.",hint:"(have)",a:"to have",accept:["to have"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Don't leave the bikes on the landing, » the caretaker said to us.",key:"TOLD",q:"The caretaker ___ the bikes on the landing.",a:"told us not to leave",accept:["told us not to leave"]},
-{type:"fill",q:"Bruno doesn't mind ___ the bunk beds apart, but he wants help carrying them down.",hint:"(take)",a:"taking",accept:["taking"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (quel to è una preposizione).",wrong:"We're looking forward to see the finished conservatory.",a:"We're looking forward to seeing the finished conservatory.",accept:["we're looking forward to seeing the finished conservatory.","we are looking forward to seeing the finished conservatory."]},
-{type:"fill",q:"I'd forgotten ___ the shower curtain, so there was water all over the bathroom floor.",hint:"(close)",a:"to close",accept:["to close","to pull"]},
+{type:"mc",q:"Un compagno scrive: « The surveyor convinced us checking the ceiling. » Che cosa sbaglia?",options:["Dopo convince + oggetto ci vuole to + forma base.", "Dopo convince serve il past simple: « checked ».", "Us va tolto: dopo convince non si mette la persona.", "Niente: dopo convince si usa sempre la forma in -ing."],a:"Dopo convince + oggetto ci vuole to + forma base."},
+{type:"fill",q:"Situazione: Rosa non sopporta il freddo: il termosifone dell'ingresso non lo spegne, punto e basta.<br>Rosa ___ the radiator in the hall off.",hint:"(refuse, switch)",a:"refuses to switch",accept:["refuses to switch"]},
+{type:"fill",q:"After the flood we gave up ___ the old carpet and put down a rug instead.",hint:"(clean)",a:"cleaning",accept:["cleaning"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I'd prefer sleeping in the attic tonight — it's warmer up there.",a:"I'd prefer to sleep in the attic tonight — it's warmer up there.",accept:["i'd prefer to sleep in the attic tonight — it's warmer up there.","i'd rather sleep in the attic tonight — it's warmer up there."]},
+{type:"fill",q:"On the way to the tip Ivan stopped ___ a lamp lying next to the bins.",hint:"(pick up)",a:"to pick up",accept:["to pick up"]},
+{type:"mc",q:"« Sofia stopped parking her car in the garage. » Usa ancora il garage per la macchina?",options:["No: non lo fa più.","Sì: si è fermata apposta per parcheggiare.","Sì, ma solo d'inverno.","Non si capisce dalla frase."],a:"No: non lo fa più."},
+{type:"fill",q:"Situazione: Nour si è messa d'accordo con l'idraulico: si vedono all'appartamento lunedì mattina.<br>Nour ___ the plumber at the flat on Monday morning.",hint:"(arrange, meet)",a:"has arranged to meet",accept:["has arranged to meet", "arranged to meet"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Our neighbour told us don't park in front of her garage.",a:"Our neighbour told us not to park in front of her garage.",accept:["our neighbour told us not to park in front of her garage."]},
+{type:"fill",q:"Situazione: Bruno spera di smontare i letti a castello prima che arrivi il furgone.<br>Bruno ___ the bunk beds apart before the removal van arrives.",hint:"(hope, take)",a:"hopes to take",accept:["hopes to take"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Tomasz enjoys to read in the conservatory, and he'd like that we join him.",a:"Tomasz enjoys reading in the conservatory, and he'd like us to join him.",accept:["tomasz enjoys reading in the conservatory, and he'd like us to join him."]},
+{type:"fill",q:"I forgot ___ the shower curtain, so there was water all over the bathroom floor.",hint:"(close)",a:"to close",accept:["to close"]},
 {type:"fill",q:"Vera remembers ___ that chest of drawers at a car boot sale for six pounds.",hint:"(buy)",a:"buying",accept:["buying"]}
 ]},
 
@@ -416,31 +427,31 @@ rule:`<strong>COMPOSTI DI SOME, ANY, EVERY, NO &mdash; Unit 3:</strong><br>
 &#x2714; I composti di <strong>no</strong> hanno significato negativo, ma il verbo resta <strong>affermativo</strong>. &mdash; <em>There's no one on the beach.</em><br>
 &#x26A0; L'aggettivo va subito dopo, <strong>senza of</strong>: <em>something strange</em>, non <s>something of strange</s>.`,
 exercises:[
-{type:"mc",q:"« Would you like something to drink? » Perché some- e non any-, se è una domanda?",options:["Perché è un'offerta e chi parla si aspetta di sì.","Perché la frase è al condizionale.","Perché drink è un verbo.","Perché any- non si usa mai nelle domande."],a:"Perché è un'offerta e chi parla si aspetta di sì."},
+{type:"mc",q:"« Would you like something to drink? » Perché some- e non any-, se è una domanda?",options:["Perché è un'offerta e chi parla si aspetta di sì.", "Perché la frase è al condizionale e non al presente.", "Perché something si usa solo con verbi come drink ed eat.", "Perché any- non si usa mai nelle frasi interrogative."],a:"Perché è un'offerta e chi parla si aspetta di sì."},
 {type:"fill",q:"There's ___ at the front door — I heard the bell twice.",a:"someone",accept:["someone","somebody"]},
 {type:"fill",q:"I've looked in every room and I can't find the spare keys ___.",a:"anywhere",accept:["anywhere"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dopo i composti di every il verbo è singolare).",wrong:"Everyone are complaining about the new block of flats.",a:"Everyone is complaining about the new block of flats.",accept:["everyone is complaining about the new block of flats."]},
-{type:"fill",q:"___ went wrong with the extractor fan and the kitchen is full of smoke.",a:"Something",accept:["something"]},
-{type:"mc",q:"« There's nothing to do here » e « There isn't anything to do here »: che differenza c'è?",options:["Nessuna nel significato: cambia solo dove sta la negazione, nel pronome o nel verbo.","La prima è più formale e si usa solo per iscritto.","La prima parla di cose, la seconda di persone.","La seconda è sbagliata."],a:"Nessuna nel significato: cambia solo dove sta la negazione, nel pronome o nel verbo."},
-{type:"fill",q:"The lights are off and the car isn't in the garage: there's ___ at home.",a:"nobody",accept:["nobody","no one","noone"]},
-{type:"fill",q:"With this pass you can travel ___ in the city, even out to the coast.",a:"anywhere",accept:["anywhere"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'aggettivo va senza of).",wrong:"There's something of wrong with the boiler — it keeps rattling.",a:"There's something wrong with the boiler — it keeps rattling.",accept:["there's something wrong with the boiler — it keeps rattling.","there is something wrong with the boiler — it keeps rattling.","there's something wrong with the boiler - it keeps rattling."]},
-{type:"fill",q:"___ in this building knows the caretaker by name.",a:"Everybody",accept:["everybody","everyone"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Everyone are complaining because there isn't nowhere to park.",a:"Everyone is complaining because there isn't anywhere to park.",accept:["everyone is complaining because there isn't anywhere to park.", "everyone is complaining because there is nowhere to park."]},
+{type:"fill",q:"___ went wrong with the air fryer and the kitchen is full of smoke.",a:"Something",accept:["something"]},
+{type:"mc",q:"« There's nothing to do here » e « There isn't anything to do here »: che differenza c'è?",options:["Nessuna nel significato: cambia solo dove sta la negazione.", "La prima è più formale e si usa solo nella lingua scritta.", "La prima parla di cose, la seconda parla di persone.", "La seconda è sbagliata: any- non va nelle frasi negative."],a:"Nessuna nel significato: cambia solo dove sta la negazione."},
+{type:"fill",q:"The lights are off and the car isn't in the garage: there's ___ at home.",a:"nobody",accept:["nobody","no one"]},
+{type:"fill",q:"Has ___ seen my phone charger? It was on the desk this morning.",a:"anyone",accept:["anyone","anybody"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"There's something of wrong with the boiler — it keeps rattling.",a:"There's something wrong with the boiler — it keeps rattling.",accept:["there's something wrong with the boiler — it keeps rattling."]},
+{type:"fill",q:"The party was a great success: ___ stayed until midnight, even Grandad.",a:"everyone",accept:["everyone","everybody"]},
 {type:"fill",q:"We searched the whole terrace after the storm and found ___ but a broken plant pot.",a:"nothing",accept:["nothing"]},
-{type:"mc",q:"Un compagno scrive: « I haven't got nothing to do this evening. » Che cosa deve correggere?",options:["In inglese non si mettono due negazioni: o « haven't got anything » o « have got nothing ».","Deve usare something.","Deve togliere got.","Niente: la frase è corretta."],a:"In inglese non si mettono due negazioni: o « haven't got anything » o « have got nothing »."},
+{type:"mc",q:"Un compagno scrive: « I haven't got nothing to do this evening. » Che cosa deve correggere?",options:["Non si mettono due negazioni: « haven't got anything ».", "Serve something: « I haven't got something to do ».", "Got va tolto: « I haven't nothing to do this evening ».", "Niente: in inglese la doppia negazione rafforza il no."],a:"Non si mettono due negazioni: « haven't got anything »."},
 {type:"fill",q:"I haven't heard ___ from the estate agent since Tuesday.",a:"anything",accept:["anything"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"There isn't anybody in the laundry room at this hour.",key:"NOBODY",q:"There ___ the laundry room at this hour.",a:"is nobody in",accept:["is nobody in"]},
-{type:"fill",q:"___ who wants a bookcase can come and take one on Saturday.",a:"Anyone",accept:["anyone","anybody"]},
-{type:"mc",q:"« No one has been up to the attic for years. » Perché il verbo non è negativo?",options:["Perché il composto di no è già negativo: il verbo resta affermativo.","Perché attic è un nome di luogo.","Perché la frase è al present perfect.","Perché no one si usa solo nelle domande."],a:"Perché il composto di no è già negativo: il verbo resta affermativo."},
-{type:"wordbox",instruction:"Completa con il composto giusto del riquadro.",verbs:["something","anywhere","everyone","nothing"],sentences:[
-{pre:"There's",post:"strange about that damp patch on the ceiling.",a:"something",accept:["something"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Nobody didn't see the delivery van, so the parcel went back to the depot.",a:"Nobody saw the delivery van, so the parcel went back to the depot.",accept:["nobody saw the delivery van, so the parcel went back to the depot."]},
+{type:"fill",q:"You can sit ___ you like at the residents' meeting — none of the chairs are reserved.",a:"anywhere",accept:["anywhere"]},
+{type:"mc",q:"« No one has been up to the attic for years. » Perché il verbo non è negativo?",options:["Perché no one è già negativo e il verbo resta affermativo.", "Perché attic è un nome di luogo e non vuole il negativo.", "Perché al present perfect il verbo non va mai al negativo.", "Perché no one si usa solo nelle domande, non nelle risposte."],a:"Perché no one è già negativo e il verbo resta affermativo."},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola non serve.",verbs:["something","anywhere","everyone","nothing","somewhere"],sentences:[
+{pre:"There's",post:"strange about that damp patch on the ceiling — it gets bigger every day.",a:"something",accept:["something"]},
 {pre:"We couldn't park",post:"near the terraced houses on market day.",a:"anywhere",accept:["anywhere"]},
-{pre:"After the clearance",post:"was left in the attic except an old rug.",a:"nothing",accept:["nothing"]},
+{pre:"After the clearance",post:"was left in the garage except a rusty bike.",a:"nothing",accept:["nothing"]},
 {pre:"In our block",post:"knows whose bike is chained to the railings.",a:"everyone",accept:["everyone"]}
 ]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (che tipo di composto serve in una frase negativa?).",wrong:"I looked in the wardrobe but I didn't see nothing unusual.",a:"I looked in the wardrobe but I didn't see anything unusual.",accept:["i looked in the wardrobe but i didn't see anything unusual.","i looked in the wardrobe but i did not see anything unusual."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I looked in the cupboard but I didn't see nothing unusual.",a:"I looked in the cupboard but I didn't see anything unusual.",accept:["i looked in the cupboard but i didn't see anything unusual.","i looked in the cupboard but i saw nothing unusual."]},
 {type:"fill",q:"Would you like ___ to sit on? There's a cushion by the fireplace.",a:"something",accept:["something"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"All the flats on this floor have a balcony.",key:"EVERY",q:"___ on this floor has a balcony.",a:"Every flat",accept:["every flat"]}
+{type:"fill",q:"We've looked ___ for the remote: in the sofa, under the rug, even in the fridge.",a:"everywhere",accept:["everywhere"]},
 ]},
 
 {id:5,type:"study",title:"LIVELLO 05 — QUESTION TAGS",desc:"chiedere conferma · l'ausiliare si ripete · i casi speciali",
@@ -452,72 +463,98 @@ rule:`<strong>QUESTION TAGS &mdash; Unit 3:</strong><br>
 &#x2714; Con <em>somebody, anybody, nobody, no one</em> come soggetto, il pronome della tag &egrave; <strong>they</strong>. &mdash; <em>Nobody heard them arguing, did they?</em><br>
 &#x2714; Con <em>there is / there are</em> si ripete <strong>there</strong>. &mdash; <em>There's a bath in the loft, isn't there?</em>`,
 exercises:[
-{type:"mc",q:"Un compagno scrive: « You live on the top floor, isn't it? » Che cosa sbaglia?",options:["La tag deve ripetere l'ausiliare della frase: qui va « don't you ».","Deve usare « aren't you ».","Deve mettere la tag all'inizio.","Niente: la frase è corretta."],a:"La tag deve ripetere l'ausiliare della frase: qui va « don't you »."},
-{type:"fill",q:"You've taken the wrong set of keys, ___?",a:"haven't you",accept:["haven't you","have not you"]},
-{type:"fill",q:"Amy was at the flat viewing yesterday, ___?",a:"wasn't she",accept:["wasn't she","was not she"]},
-{type:"mc",q:"« Nobody heard the smoke alarm, ___? » Quale tag va bene?",options:["did they","didn't they","did he","didn't he"],a:"did they"},
-{type:"fill",q:"There's a bidet in the downstairs bathroom, ___?",a:"isn't there",accept:["isn't there","is not there"]},
-{type:"fill",q:"You won't forget to bolt the front door, ___?",a:"will you",accept:["will you"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore nella question tag.",wrong:"She hasn't been shopping, hasn't she?",a:"She hasn't been shopping, has she?",accept:["she hasn't been shopping, has she?","she has not been shopping, has she?"]},
-{type:"fill",q:"Your mum isn't driving you to the new house, ___?",a:"is she",accept:["is she"]},
-{type:"fill",q:"These radiators make an awful noise, ___?",a:"don't they",accept:["don't they","do not they"]},
-{type:"mc",q:"Perché si dice « I'm late, aren't I? » e non « amn't I »?",options:["Perché con I am la tag negativa in inglese è aren't I: è una forma fissa.","Perché aren't si usa con tutti i soggetti.","Perché late è un aggettivo.","Perché la frase è informale."],a:"Perché con I am la tag negativa in inglese è aren't I: è una forma fissa."},
-{type:"fill",q:"Dad isn't getting annoyed about the scaffolding, ___?",a:"is he",accept:["is he"]},
-{type:"fill",q:"Marek fitted the blinds himself, ___?",a:"didn't he",accept:["didn't he","did not he"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (il soggetto è nobody).",wrong:"Nobody uses the laundry room downstairs, don't they?",a:"Nobody uses the laundry room downstairs, do they?",accept:["nobody uses the laundry room downstairs, do they?"]},
-{type:"fill",q:"I'm sitting in your seat, ___?",a:"aren't I",accept:["aren't I","are not I"]},
-{type:"fill",q:"There aren't any sockets behind the bookcase, ___?",a:"are there",accept:["are there"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"I think this hallway is enormous — do you agree?",key:"ISN'T",q:"This hallway is enormous, ___?",a:"isn't it",accept:["isn't it"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (che tempo è la frase principale?).",wrong:"You bought that mirror at the market, don't you?",a:"You bought that mirror at the market, didn't you?",accept:["you bought that mirror at the market, didn't you?"]},
-{type:"wordbox",instruction:"Completa con la question tag giusta del riquadro.",verbs:["did they","aren't I","have you","is there"],sentences:[
+{type:"mc",q:"Un compagno scrive: « You live on the top floor, isn't it? » Che cosa sbaglia?",options:["La tag deve ripetere l'ausiliare: qui va « don't you ».", "Con you la tag giusta è sempre « aren't you », non isn't it.", "La tag va messa all'inizio: « Isn't it, you live… ».", "Niente: « isn't it » va bene dopo qualsiasi frase."],a:"La tag deve ripetere l'ausiliare: qui va « don't you »."},
+{type:"fill",q:"You've already paid the deposit, ___?",a:"haven't you",accept:["haven't you"]},
+{type:"fill",q:"Your sister was upstairs when the pipe under the sink burst, ___?",a:"wasn't she",accept:["wasn't she"]},
+{type:"mc",q:"« Nobody locked the bike shed, ___? » Quale tag va bene?",options:["did they","didn't they","did he","didn't he"],a:"did they"},
+{type:"fill",q:"Nobody's in the laundry room at the moment, ___?",a:"are they",accept:["are they"]},
+{type:"fill",q:"You won't leave the balcony door open again, ___?",a:"will you",accept:["will you"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The tenants haven't signed the contract yet, haven't they?",a:"The tenants haven't signed the contract yet, have they?",accept:["the tenants haven't signed the contract yet, have they?"]},
+{type:"fill",q:"The removal van isn't coming until Friday, ___?",a:"is it",accept:["is it"]},
+{type:"fill",q:"These radiators make an awful noise, ___?",a:"don't they",accept:["don't they"]},
+{type:"mc",q:"Perché si dice « I'm next, aren't I? » e non « amn't I »?",options:["Perché con I am la tag negativa è aren't I: è una forma fissa.", "Perché aren't si usa con tutti i soggetti, anche con I.", "Perché next è un aggettivo e vuole sempre aren't nella tag.", "Perché amn't si usa solo nelle frasi molto formali."],a:"Perché con I am la tag negativa è aren't I: è una forma fissa."},
+{type:"fill",q:"Uncle Pete's got a spare key, ___?",a:"hasn't he",accept:["hasn't he"]},
+{type:"fill",q:"Marek hung the curtains himself, ___?",a:"didn't he",accept:["didn't he"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Nobody uses the downstairs toilet, don't they?",a:"Nobody uses the downstairs toilet, do they?",accept:["nobody uses the downstairs toilet, do they?"]},
+{type:"mc",q:"Situazione: sei quasi sicuro che Sam non abbia ancora pagato l'affitto e vuoi solo una conferma. Quale frase usi?",options:["Sam hasn't paid the rent yet, has he?", "Sam has paid the rent now, hasn't he?", "Sam hasn't paid the rent yet, hasn't he?", "Sam has paid the rent now, has he?"],a:"Sam hasn't paid the rent yet, has he?"},
+{type:"fill",q:"The flat's been empty since June, ___?",a:"hasn't it",accept:["hasn't it"]},
+{type:"fill",q:"She's lived in the flat above ours for years, ___?",a:"hasn't she",accept:["hasn't she"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"You bought that mirror at the market, don't you? Everybody say it was a bargain.",a:"You bought that mirror at the market, didn't you? Everybody says it was a bargain.",accept:["you bought that mirror at the market, didn't you? everybody says it was a bargain."]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una non serve.",verbs:["did they","aren't I","have you","is there","didn't they"],sentences:[
 {pre:"Nobody complained about the drilling,",post:"?",a:"did they",accept:["did they"]},
 {pre:"I'm on the list for the parking space,",post:"?",a:"aren't I",accept:["aren't I"]},
 {pre:"You haven't seen my green cushion anywhere,",post:"?",a:"have you",accept:["have you"]},
 {pre:"There isn't a lift in this block,",post:"?",a:"is there",accept:["is there"]}
 ]},
-{type:"mc",q:"« There's someone at the door, ___? » Quale tag?",options:["isn't there","isn't he","isn't it","aren't they"],a:"isn't there"}
+{type:"mc",q:"« There's a parcel for me in the hall, ___? » Quale tag?",options:["isn't there","isn't it","is there","doesn't it"],a:"isn't there"}
 ]},
 {id:"rB",type:"review",title:"⟳ RIPASSO B — tutta la unit",desc:"pattern, composti e question tags insieme · frasi nuove",
 rule:`<strong>RIPASSO B:</strong> i quattro argomenti della unit insieme.<br>
 &#x26A0; Tre cose da non sbagliare: dopo i modali <strong>niente to</strong>; dopo i composti di <em>every</em> il verbo &egrave; <strong>singolare</strong>; la question tag <strong>ripete l'ausiliare</strong> della frase.`,
 exercises:[
 {type:"fill",q:"Nobody has been down to the cellar since the flood, ___?",a:"have they",accept:["have they"]},
-{type:"fill",q:"Silvia has decided ___ the loft into a study for her translations.",hint:"(convert)",a:"to convert",accept:["to convert","to turn"]},
-{type:"mc",q:"« Everything in that showroom costs a fortune. » Perché costs e non cost?",options:["Perché dopo i composti di every il verbo va al singolare.","Perché everything è un plurale irregolare.","Perché la frase è al present continuous.","Perché showroom è singolare."],a:"Perché dopo i composti di every il verbo va al singolare."},
-{type:"fill",q:"We couldn't find ___ tall enough to reach the top shelf of the bookcase.",a:"anybody",accept:["anybody","anyone"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese non si usa that dopo would like).",wrong:"I would like that my brother helps me with the wardrobe.",a:"I would like my brother to help me with the wardrobe.",accept:["i would like my brother to help me with the wardrobe.","i'd like my brother to help me with the wardrobe."]},
-{type:"fill",q:"On his way back to the van Otis stopped ___ the neighbours a hand with their sofa.",hint:"(give)",a:"to give",accept:["to give"]},
-{type:"fill",q:"You've never been up to the top floor, ___?",a:"have you",accept:["have you"]},
-{type:"mc",q:"« Rita forgot feeding the cat » e « Rita forgot to feed the cat »: quale delle due dice che il gatto è rimasto senza cibo?",options:["La seconda: c'era un compito e non l'ha fatto.","La prima: non si ricorda di averlo fatto.","Tutte e due allo stesso modo.","Nessuna delle due: parlano del futuro."],a:"La seconda: c'era un compito e non l'ha fatto."},
-{type:"fill",q:"The surveyor reminded us ___ the ceiling in the back bedroom.",hint:"(check)",a:"to check",accept:["to check"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore nella question tag.",wrong:"There's a terrace on the second floor, isn't it?",a:"There's a terrace on the second floor, isn't there?",accept:["there's a terrace on the second floor, isn't there?","there is a terrace on the second floor, isn't there?"]},
+{type:"fill",q:"Situazione: Silvia ha preso la sua decisione: il sottotetto diventerà uno studio per le sue traduzioni.<br>Silvia ___ the loft into a study for her translations.",hint:"(decide, convert)",a:"has decided to convert",accept:["has decided to convert", "decided to convert"]},
+{type:"mc",q:"« Everything in that showroom costs a fortune. » Perché costs e non cost?",options:["Perché dopo i composti di every il verbo va al singolare.", "Perché everything è un plurale irregolare, come children.", "Perché showroom è singolare e il verbo si accorda con lui.", "Perché quando si parla di prezzi il verbo è sempre singolare."],a:"Perché dopo i composti di every il verbo va al singolare."},
+{type:"fill",q:"We needed help with the top shelf, but we couldn't find ___ tall enough to reach it.",a:"anybody",accept:["anybody","anyone"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"I would like that my brother helps me with the wardrobe, but nobody never listens to me.",a:"I would like my brother to help me with the wardrobe, but nobody ever listens to me.",accept:["i would like my brother to help me with the wardrobe, but nobody ever listens to me.","i would like my brother to help me with the wardrobe, but nobody listens to me."]},
+{type:"fill",q:"Situazione: Otis stava tornando al furgone quando ha visto i vicini in difficoltà con il divano, e si è fermato un momento ad aiutarli.<br>On his way back to the van Otis ___ the neighbours a hand with their sofa.",hint:"(stop, give)",a:"stopped to give",accept:["stopped to give"]},
+{type:"fill",q:"The kitchen looks bigger without the table, ___?",a:"doesn't it",accept:["doesn't it"]},
+{type:"mc",q:"« Rita forgot feeding the cat » e « Rita forgot to feed the cat »: quale delle due dice che il gatto è rimasto senza cibo?",options:["La seconda: c'era un compito e non l'ha fatto.", "La prima: non si ricorda di avergli dato da mangiare.", "Tutte e due allo stesso modo: cambia solo la forma.", "Nessuna delle due: parlano tutte e due del futuro."],a:"La seconda: c'era un compito e non l'ha fatto."},
+{type:"fill",q:"Situazione: l'agente immobiliare ci ha raccomandato di non dimenticare le chiavi: vanno lasciate sotto lo zerbino.<br>The estate agent ___ the keys under the mat.",hint:"(remind, leave)",a:"reminded us to leave",accept:["reminded us to leave", "has reminded us to leave"]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"There's a terrace on the second floor, isn't it? Everybody have their breakfast up there.",a:"There's a terrace on the second floor, isn't there? Everybody has their breakfast up there.",accept:["there's a terrace on the second floor, isn't there? everybody has their breakfast up there."]},
 {type:"fill",q:"After three winters in that draughty cottage they gave up ___ to heat the whole house.",hint:"(try)",a:"trying",accept:["trying"]},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"There isn't anything left in the chest of drawers.",key:"NOTHING",q:"There ___ in the chest of drawers.",a:"is nothing left",accept:["is nothing left"]},
+{type:"fill",q:"There's ___ to keep the bikes in this flat — no garage, no balcony, not even a hall.",a:"nowhere",accept:["nowhere"]},
 {type:"fill",q:"I'm the only one without a key, ___?",a:"aren't I",accept:["aren't I"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (che forma vuole avoid?).",wrong:"Tenants should avoid to hang wet clothes on the radiators.",a:"Tenants should avoid hanging wet clothes on the radiators.",accept:["tenants should avoid hanging wet clothes on the radiators."]}
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Tenants should avoid to hang wet clothes on the radiators.",a:"Tenants should avoid hanging wet clothes on the radiators.",accept:["tenants should avoid hanging wet clothes on the radiators."]}
 ]},
 
 {id:"final",type:"challenge",title:"★ SFIDA FINALE — My house, my home",desc:"tutti gli argomenti insieme · scelte che cambiano il significato",
 rule:`<strong>SFIDA FINALE.</strong> Nessun aiuto per argomento: rileggi ogni situazione e decidi.<br>
 &#x26A0; Con <em>stop</em>, <em>remember</em> e <em>forget</em> le due forme sono <strong>tutte e due corrette</strong>: guarda che cosa &egrave; successo davvero.`,
 exercises:[
-{type:"mc",q:"Dal racconto del trasloco: « Halfway down the motorway Dad stopped to check the ropes on the roof rack. » Che cosa è successo?",options:["Si è fermato apposta per controllare le corde, poi è ripartito.","Ha smesso di controllare le corde.","Non ha controllato le corde.","Ha guidato e controllato le corde nello stesso momento."],a:"Si è fermato apposta per controllare le corde, poi è ripartito."},
-{type:"fill",q:"The removal men refused ___ the piano up to the first floor without a hoist.",hint:"(carry)",a:"to carry",accept:["to carry","to take"]},
+{type:"mc",q:"Dal racconto del trasloco: « Halfway down the motorway Dad stopped to check the ropes on the roof rack. » Che cosa è successo?",options:["Si è fermato apposta per controllare le corde.", "Ha smesso di controllare le corde per il resto del viaggio.", "Non ha controllato le corde perché era in autostrada.", "Ha guidato e controllato le corde nello stesso momento."],a:"Si è fermato apposta per controllare le corde."},
+{type:"fill",q:"Situazione: gli addetti al trasloco non avevano nessuna voglia di portare il pianoforte al primo piano senza montacarichi.<br>The removal men ___ the piano up to the first floor without a hoist.",hint:"(want, carry)",a:"didn't want to carry",accept:["didn't want to carry"]},
 {type:"fill",q:"There wasn't ___ in the flat when we got there — not even a light bulb.",a:"anything",accept:["anything"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Everybody were waiting on the landing with their boxes.",a:"Everybody was waiting on the landing with their boxes.",accept:["everybody was waiting on the landing with their boxes."]},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"Everybody were waiting on the landing, but nobody remembered bringing the tape.",a:"Everybody was waiting on the landing, but nobody remembered to bring the tape.",accept:["everybody was waiting on the landing, but nobody remembered to bring the tape."]},
 {type:"fill",q:"You didn't sign for the delivery, ___?",a:"did you",accept:["did you"]},
-{type:"fill",q:"At three o'clock we stopped ___ and ate our sandwiches on the terrace.",hint:"(unpack)",a:"unpacking",accept:["unpacking"]},
-{type:"mc",q:"« I'll always remember carrying that wardrobe up four flights of stairs. » Quel guardaroba è stato portato su?",options:["Sì, ed è un ricordo che resta.","No: se n'era dimenticato.","Non si può sapere.","No: doveva ancora farlo."],a:"Sì, ed è un ricordo che resta."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"« Please check the meter reading, » the landlord said to Ines.",key:"ASKED",q:"The landlord ___ the meter reading.",a:"asked Ines to check",accept:["asked ines to check"]},
-{type:"fill",q:"Nobody wants the old cooker, ___?",a:"do they",accept:["do they"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We must to hand the keys back before midday.",a:"We must hand the keys back before midday.",accept:["we must hand the keys back before midday."]},
-{type:"fill",q:"By six o'clock there was ___ left to do except make the beds.",a:"nothing",accept:["nothing"]},
-{type:"fill",q:"Ilaria forgot ___ the water back on, so we had no shower that night.",hint:"(turn)",a:"to turn",accept:["to turn","to switch"]},
-{type:"mc",q:"Un compagno scrive: « I'd rather to stay in the old flat. » Che cosa deve correggere?",options:["Dopo would rather ci vuole la forma base senza to.","Deve usare would like.","Deve mettere la forma in -ing.","Niente: la frase è corretta."],a:"Dopo would rather ci vuole la forma base senza to."},
-{type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Dad doesn't drive the van any more.",key:"GIVEN",q:"Dad ___ the van.",a:"has given up driving",accept:["has given up driving"]}
+{type:"fill",q:"At three o'clock we stopped ___ and ate our sandwiches on the terrace.",hint:"(paint)",a:"painting",accept:["painting"]},
+{type:"mc",q:"« I'll always remember carrying that wardrobe up four flights of stairs. » Quel guardaroba è stato portato su?",options:["Sì: chi parla ricorda di averlo fatto.", "No: si è dimenticato di portarlo su.", "Non si può sapere: è solo un progetto.", "No: è un lavoro da fare domani."],a:"Sì: chi parla ricorda di averlo fatto."},
+{type:"errorcorrect",instruction:"Trova e correggi i due errori.",wrong:"The landlord asked to Ines checking the meter reading.",a:"The landlord asked Ines to check the meter reading.",accept:["the landlord asked ines to check the meter reading."]},
+{type:"fill",q:"Nobody wants the old microwave, ___?",a:"do they",accept:["do they"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"In the end we managed finding a van big enough for the double bed.",a:"In the end we managed to find a van big enough for the double bed.",accept:["in the end we managed to find a van big enough for the double bed."]},
+{type:"fill",q:"By six o'clock there was ___ left to do except put up the posters.",a:"nothing",accept:["nothing"]},
+{type:"fill",q:"Ilaria forgot ___ the water back on, so we had no shower that night.",hint:"(turn)",a:"to turn",accept:["to turn"]},
+{type:"mc",q:"Un compagno scrive: « I'd rather to stay in the old flat. » Che cosa deve correggere?",options:["Dopo would rather ci vuole la forma base senza to.", "Dopo would rather ci vuole like: « would like to stay ».", "Dopo would rather va la forma in -ing: « staying ».", "Niente: would rather vuole sempre to + forma base."],a:"Dopo would rather ci vuole la forma base senza to."},
+{type:"fill",q:"We're all looking forward to ___ the first night in the new flat.",hint:"(spend)",a:"spending",accept:["spending"]}
 ]}
 ];
 
+const GLOSS={"attic": "soffitta", "basement": "seminterrato", "blinds": "tende avvolgibili", "cooker": "cucina (i fornelli)", "laundry room": "lavanderia", "landlord": "padrone di casa", "tenants": "inquilini", "estate agent": "agente immobiliare", "landing": "pianerottolo", "chest of drawers": "cassettone", "wardrobe": "armadio", "bunk beds": "letti a castello", "shelves": "scaffali", "damp": "umidità", "survey": "perizia", "surveyor": "perito", "satellite dish": "parabola", "recycling": "raccolta differenziata", "conservatory": "veranda", "tip": "discarica", "defrost": "sbrinare", "builders": "muratori", "plumber": "idraulico", "electrician": "elettricista", "hoover": "passare l'aspirapolvere", "terraced house": "casa a schiera", "cottage": "casetta", "radiator": "termosifone", "radiators": "termosifoni", "bins": "bidoni della spazzatura", "car boot sale": "mercatino dell'usato", "boiler": "caldaia", "rattling": "sferragliare", "plant pot": "vaso", "cushion": "cuscino", "fireplace": "camino", "drilling": "rumore del trapano", "parking space": "posto auto", "cellar": "cantina", "flood": "allagamento", "showroom": "negozio espositivo", "draughty": "pieno di spifferi", "removal men": "addetti al trasloco", "hoist": "montacarichi", "light bulb": "lampadina", "sign for": "firmare la ricevuta di", "delivery": "consegna", "meter reading": "lettura del contatore", "roof rack": "portapacchi", "ropes": "corde", "mirror": "specchio", "deposit": "deposito cauzionale", "removal van": "furgone del trasloco", "shower curtain": "tenda della doccia", "rug": "tappeto", "carpet": "moquette", "clearance": "sgombero", "railings": "ringhiera", "chained": "legata con la catena", "heaters": "stufette", "mat": "zerbino", "remote": "telecomando", "loft": "sottotetto", "spare bedroom": "camera degli ospiti", "hall": "ingresso", "top floor": "ultimo piano", "ground floor": "piano terra", "first floor": "primo piano", "terrace": "terrazzo", "balcony": "balcone", "ceiling": "soffitto", "stairs": "scale", "lift": "ascensore", "study": "studio", "depot": "magazzino", "motorway": "autostrada", "damp patch": "macchia di umidità", "flights of stairs": "rampe di scale", "out of order": "guasto", "gran": "nonna", "phone charger": "caricabatterie", "lying": "lasciata lì", "boiling": "un forno (caldissimo)", "freezing": "si gela", "washing-up": "i piatti da lavare", "carried on": "ha continuato", "apart": "a pezzi (take apart = smontare)", "knee operation": "operazione al ginocchio", "a hand": "una mano", "shelf": "ripiano", "unpack": "svuotiamo gli scatoloni", "bike shed": "deposito delle bici", "parcel": "pacco", "residents' meeting": "riunione condominiale", "window cleaner": "lavavetri", "armchair": "poltrona", "living room": "soggiorno", "washing machine": "lavatrice", "leaking": "perde acqua", "oven": "forno", "air fryer": "friggitrice ad aria", "cupboard": "armadietto", "curtains": "tende", "hung": "ha appeso", "pipe": "tubo", "sink": "lavandino", "burst": "è scoppiato", "dining room": "sala da pranzo", "posters": "poster", "double bed": "letto matrimoniale", "microwave": "forno a microonde", "dishwasher": "lavastoviglie", "spare key": "chiave di scorta", "contract": "contratto", "tape": "nastro adesivo", "bargain": "affare", "front door": "porta d'ingresso"};
+const TR_KEY='gq_u3vp_tr';
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function applyGloss(text){
+  if(!text)return text;
+  const lower={};Object.keys(GLOSS).forEach(k=>lower[k.toLowerCase()]=GLOSS[k]);
+  const keys=Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(escRe);
+  const re=new RegExp('\\b('+keys.join('|')+')\\b','gi');
+  return text.replace(re,m=>{const it=lower[m.toLowerCase()];if(!it)return m;return `<span class="gloss" data-it="${it.replace(/"/g,'&quot;')}" onclick="showGloss(event,this)">${m}</span>`;});
+}
+function showGloss(e,el){
+  if(!document.body.classList.contains('tr-on'))return;
+  e.stopPropagation();
+  const t=document.getElementById('tip');
+  t.innerHTML='<b>'+el.textContent+'</b> → '+el.getAttribute('data-it');
+  t.style.display='block';
+  const r=el.getBoundingClientRect();const tw=t.offsetWidth,th=t.offsetHeight;
+  let left=Math.min(Math.max(8,r.left+r.width/2-tw/2),innerWidth-tw-8);
+  let top=r.top-th-8;if(top<8)top=r.bottom+8;
+  t.style.left=left+'px';t.style.top=top+'px';
+}
+document.addEventListener('click',()=>{const t=document.getElementById('tip');if(t)t.style.display='none';});
+window.addEventListener('scroll',()=>{const t=document.getElementById('tip');if(t)t.style.display='none';},true);
+function toggleTr(){const on=document.body.classList.toggle('tr-on');try{localStorage.setItem(TR_KEY,on?'1':'0');}catch(e){}updateTrBtn();}
+function updateTrBtn(){const on=document.body.classList.contains('tr-on');const b=document.getElementById('trBtn');if(b){b.textContent=on?'🌐 IT: ON':'🌐 IT: OFF';b.classList.toggle('on',on);}}
+try{if(localStorage.getItem(TR_KEY)==='1')document.body.classList.add('tr-on');}catch(e){}
 const SK='gq_u3vp_s',EK='gq_u3vp_e';
 let state={},errorMap={};
 function encodeState(){
@@ -585,7 +622,7 @@ function renderMap(){
   const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
   document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
   document.getElementById('overallText').textContent=`${done} / ${total}`;
-  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 1 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 3 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
   LEVELS.forEach(s=>{
     const st=state[s.id];const card=document.createElement('div');
     let cls='section-card ',badge='',icon='';
@@ -621,16 +658,16 @@ function renderExercise(){
   if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
   if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
   if(ex.type==='fill'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${applyGloss(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
     const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${applyGloss(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
     const shuffled=shuffle([...ex.words]);
     const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
-    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${applyGloss(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${applyGloss(s.post)}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
@@ -638,7 +675,7 @@ function renderExercise(){
     let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='errorcorrect'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${applyGloss(ex.wrong)}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
   document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
@@ -655,7 +692,20 @@ function addWord(idx,el){
   const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
   area.appendChild(chip);
 }
-function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,'').replace(/\s+/g,' ').trim();}
+function norm(s){
+  let t=String(s||'').toLowerCase().replace(/[\u2019\u2018`\u00b4]/g,"'").replace(/[\u2014\u2013]/g,' - ');
+  t=t.replace(/[\u201c\u201d"\u00ab\u00bb()\[\].,!?;:]/g,' ').replace(/(^|\s)-+(?=\s|$)/g,' ');
+  t=' '+t.replace(/\s+/g,' ').trim()+' ';
+  t=t.replace(/\bno-one\b|\bnoone\b/g,'no one');
+  t=t.replace(/\bcan't\b|\bcant\b|\bcan not\b/g,'cannot').replace(/\bwon't\b|\bwont\b/g,'will not').replace(/\bshan't\b/g,'shall not');
+  t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
+  t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
+  t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
+  t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
+  t=t.replace(/\b(he|she|it|there|that|what|where|who|here|how|everyone|everybody|someone|somebody|nobody|no one|anyone|anybody|something|everything|nothing|anything)'s\b/g,'$1 is');
+  t=t.replace(/\bim\b/g,'i am').replace(/\bive\b/g,'i have').replace(/\b(you|we|they)re\b/g,'$1 are').replace(/\b(you|we|they)ve\b/g,'$1 have').replace(/\b(there|that|what)s\b/g,'$1 is');
+  return t.replace(/\s+/g,' ').trim();
+}
 function checkExercise(){
   if(exChecked)return;exChecked=true;
   const ex=exQueue[exIdx];let correct=false;
@@ -737,7 +787,7 @@ document.addEventListener('keydown',function(e){
   if(nb&&nb.style.display!=='none')nextExercise();
   else if(cb&&cb.style.display!=='none')checkExercise();
 });
-loadState();renderMap();
+updateTrBtn();loadState();renderMap();
 
 </script>
 </body>
