@@ -98,9 +98,12 @@ async function sendMessage() {
     const data = await response.json();
     removeTypingIndicator(typingId);
 
-    if (data.reply) {
-      appendMessage(data.reply, 'assistant');
-      conversationHistory.push({ role: 'assistant', content: data.reply });
+    // Accetta qualsiasi chiave restituisca il Worker ed evita il blocco
+    const botReply = data.reply || data.response || data.message || data.error;
+
+    if (botReply) {
+      appendMessage(botReply, 'assistant');
+      conversationHistory.push({ role: 'assistant', content: botReply });
     } else {
       appendMessage("C'è stato un piccolo errore di elaborazione. Riprova tra un attimo.", 'assistant');
     }
