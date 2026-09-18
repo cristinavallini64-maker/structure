@@ -172,7 +172,6 @@
     border-left: 4px solid #FFFF00;
     border-radius: 8px;
     color: #fff;
-    white-space: pre-wrap;
     font-size: 0.95rem;
     line-height: 1.7;
     font-family: 'Nunito', sans-serif;
@@ -435,7 +434,10 @@
     const text = wtTextarea.value.trim();
     const taskPrompt = document.getElementById('wtTaskPrompt').value.trim();
     const taskType = document.getElementById('wtTaskType').value;
+    
+    // URL reale del Cloudflare Worker già impostato
     const workerUrl = 'https://writingtutor.cristinavallini64.workers.dev/';
+    
     const submitBtn = document.getElementById('wtSubmitBtn');
     const errorBox = document.getElementById('wtError');
     const resultBox = document.getElementById('wtResult');
@@ -461,20 +463,7 @@ Traccia dell'esercizio (Task Prompt): ${taskPrompt ? taskPrompt : "Nessuna tracc
 Testo dello studente:
 """
 ${text}
-"""
-
-Fornisci la tua valutazione seguendo esattamente questa struttura:
-1. **Valutazione Sintetica dei 4 Criteri (voto da 1 a 5 per ciascuno):**
-   - Content (Verifica se lo studente ha risposto a tutti i punti della traccia fornita)
-   - Communicative Achievement
-   - Organisation
-   - Language
-
-2. **Errori Principali e Correzioni:**
-   - Elenca gli errori grammaticali, di lessico o ortografia trovati nel testo, indicando la frase errata e la versione corretta.
-
-3. **Suggerimenti per Migliorare:**
-   - Consigli pratici per alzare il livello del testo (es. connettivi, vocaboli B2/C1 migliori).`;
+"""`;
 
     try {
       const response = await fetch(workerUrl, {
@@ -489,7 +478,8 @@ Fornisci la tua valutazione seguendo esattamente questa struttura:
         throw new Error(data.error || `Errore del server (${response.status})`);
       }
 
-      resultBox.textContent = data.result;
+      // Uso innerHTML per renderizzare la tabella e i tag HTML inviati dal Worker
+      resultBox.innerHTML = data.result;
       resultBox.style.display = 'block';
 
     } catch (err) {
