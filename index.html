@@ -73,6 +73,115 @@
   }
 
   .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FFFF00, #00E5FF, #00FF66); }
+
+  /* STILI DEDICATI PER IL WRITING TUTOR INTEGRATO */
+  .writing-tutor-container {
+    background: #151515;
+    border: 2px solid #FFFF00;
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.15);
+  }
+  .writing-tutor-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: #FFFF00;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .writing-tutor-desc {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+    font-weight: 700;
+  }
+  .wt-form-group {
+    margin-bottom: 18px;
+  }
+  .wt-form-group label {
+    display: block;
+    color: #FFFF00;
+    font-weight: 900;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .wt-select, .wt-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #000;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+  }
+  .wt-select:focus, .wt-textarea:focus {
+    outline: none;
+    border-color: #FFFF00;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+  }
+  .wt-textarea {
+    min-height: 200px;
+    resize: vertical;
+  }
+  .wt-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-top: 6px;
+  }
+  .wt-btn {
+    background: #FFFF00;
+    color: #000;
+    font-weight: 900;
+    font-size: 1.1rem;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .wt-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 20px #FFFF00;
+  }
+  .wt-btn:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .wt-result {
+    display: none;
+    margin-top: 25px;
+    padding: 22px;
+    background: #000;
+    border-left: 4px solid #FFFF00;
+    border-radius: 8px;
+    color: #fff;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .wt-error {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 0, 0, 0.15);
+    border: 1px solid #ff4444;
+    border-radius: 8px;
+    color: #ff6666;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
 </style>
 </head>
 <body>
@@ -266,6 +375,119 @@
     </div>
   </div>
 
+  <!-- DIVIDER E SEZIONE AGGIUNTIVA WRITING TUTOR -->
+  <div class="divider"></div>
+
+  <div class="writing-tutor-container">
+    <div class="writing-tutor-title">✍️ CAMBRIDGE B2 FIRST — WRITING TUTOR IA</div>
+    <p class="writing-tutor-desc">Seleziona la tipologia di testo, incolla la tua produzione e ricevi un feedback dettagliato secondo i criteri Cambridge.</p>
+
+    <div class="wt-form-group">
+      <label for="wtTaskType">Tipologia di Testo (Task Type)</label>
+      <select id="wtTaskType" class="wt-select">
+        <option value="Essay">Essay (Saggio)</option>
+        <option value="Article">Article (Articolo)</option>
+        <option value="Email / Letter">Email / Letter (Email / Lettera)</option>
+        <option value="Report">Report (Relazione)</option>
+        <option value="Review">Review (Recensione)</option>
+      </select>
+    </div>
+
+    <div class="wt-form-group">
+      <label for="wtText">Il tuo testo (Incolla qui)</label>
+      <textarea id="wtText" class="wt-textarea" placeholder="Write your essay or text here... (140-190 words)"></textarea>
+      <div class="wt-meta">
+        <span id="wtWordCount">Parole: 0</span>
+        <span>Target: 140 - 190 parole</span>
+      </div>
+    </div>
+
+    <button id="wtSubmitBtn" class="wt-btn" onclick="runWritingTutor()">Valuta il mio Writing</button>
+
+    <div id="wtError" class="wt-error"></div>
+    <div id="wtResult" class="wt-result"></div>
+  </div>
+
 </div>
+
+<script>
+  const wtTextarea = document.getElementById('wtText');
+  const wtWordCountSpan = document.getElementById('wtWordCount');
+
+  wtTextarea.addEventListener('input', () => {
+    const text = wtTextarea.value.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    wtWordCountSpan.textContent = `Parole: ${words}`;
+  });
+
+  async function runWritingTutor() {
+    const text = wtTextarea.value.trim();
+    const taskType = document.getElementById('wtTaskType').value;
+    const workerUrl = 'https://writingtutor.cristinavallini64.workers.dev/';
+    const submitBtn = document.getElementById('wtSubmitBtn');
+    const errorBox = document.getElementById('wtError');
+    const resultBox = document.getElementById('wtResult');
+
+    errorBox.style.display = 'none';
+    resultBox.style.display = 'none';
+
+    if (!text) {
+      errorBox.textContent = "Per favore, inserisci un testo prima di richiedere la valutazione.";
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "ANALISI IN CORSO CON GEMINI IA...";
+
+    const prompt = `Sei un esaminatore ufficiale Cambridge B2 First (FCE).
+Valuta il seguente testo fornendo una risposta in lingua italiana ma citando le frasi originali in inglese per le correzioni.
+
+Tipologia di task: ${taskType}
+
+Testo dello studente:
+"""
+${text}
+"""
+
+Fornisci la tua valutazione seguendo esattamente questa struttura:
+1. **Valutazione Sintetica dei 4 Criteri (voto da 1 a 5 per ciascuno):**
+   - Content
+   - Communicative Achievement
+   - Organisation
+   - Language
+
+2. **Errori Principali e Correzioni:**
+   - Elenca gli errori grammaticali, di lessico o ortografia trovati nel testo, indicando la frase errata e la versione corretta.
+
+3. **Suggerimenti per Migliorare:**
+   - Consigli pratici per alzare il livello del testo (es. connettivi, vocaboli B2/C1 migliori).`;
+
+    try {
+      const response = await fetch(workerUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: prompt })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || `Errore del server (${response.status})`);
+      }
+
+      resultBox.textContent = data.result;
+      resultBox.style.display = 'block';
+
+    } catch (err) {
+      errorBox.textContent = "Si è verificato un errore durante la richiesta: " + err.message;
+      errorBox.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "VALUTA IL MIO WRITING";
+    }
+  }
+</script>
+
 </body>
 </html>
