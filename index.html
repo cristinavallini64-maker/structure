@@ -47,8 +47,8 @@
   .tag.tag-cambridge { background: #000; color: #fff; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25); }
   .tag.tag-cambridge:hover { background: #fff; color: #000; box-shadow: 0 0 14px rgba(0,0,0,0.45); }
 
-  .tag.tag-tutor { background: #fff; color: #000; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25); }
-  .tag.tag-tutor:hover { background: #000; color: #fff; }
+  .tag.tag-studia { background: #fff; color: #000; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25); }
+  .tag.tag-studia:hover { background: #000; color: #fff; }
 
   .final-revision-box { grid-column: 1 / -1; margin-top: 15px; padding: 22px 26px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
   
@@ -69,107 +69,6 @@
   }
 
   .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FFFF00, #00E5FF, #00FF66); }
-
-  /* BOX DI CHAT DEL TUTOR MAIEUTICO INTEGRATO NELLA CARD */
-  .inline-tutor-box {
-    display: none;
-    grid-column: 1 / -1;
-    background: #111;
-    border: 2px solid #000;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-  }
-  .inline-tutor-box.active {
-    display: block;
-  }
-  .it-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    color: #fff;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-  .it-desc {
-    color: #aaa;
-    font-size: 0.85rem;
-    margin-bottom: 14px;
-    font-weight: 700;
-  }
-  .it-chat-box {
-    background: #000;
-    border: 1px solid #333;
-    border-radius: 8px;
-    height: 260px;
-    overflow-y: auto;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .it-msg {
-    padding: 10px 14px;
-    border-radius: 8px;
-    max-width: 88%;
-    line-height: 1.4;
-    font-size: 0.9rem;
-  }
-  .it-msg-model {
-    background: #1a2634;
-    color: #00E5FF;
-    align-self: flex-start;
-    border-left: 3px solid #00E5FF;
-  }
-  .it-msg-user {
-    background: #00E5FF;
-    color: #000;
-    align-self: flex-end;
-    font-weight: 700;
-  }
-  .it-input-row {
-    display: flex;
-    gap: 8px;
-  }
-  .it-input {
-    flex: 1;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background: #000;
-    color: #fff;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9rem;
-  }
-  .it-input:focus {
-    outline: none;
-    border-color: #00E5FF;
-    box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
-  }
-  .it-btn {
-    background: #00E5FF;
-    color: #000;
-    font-weight: 900;
-    font-size: 0.9rem;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.2s;
-  }
-  .it-btn:hover { background: #fff; box-shadow: 0 0 15px #00E5FF; }
-  .it-error {
-    display: none;
-    margin-top: 10px;
-    padding: 10px;
-    background: rgba(255,0,0,0.15);
-    border: 1px solid #ff4444;
-    border-radius: 6px;
-    color: #ff6666;
-    font-size: 0.85rem;
-  }
 
   /* FIX GRAFICO PER IL WRITING TUTOR */
   .writing-tutor-container {
@@ -308,21 +207,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u1-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u1.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/past-narrative.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u1.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u1')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u1" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 1</div>
-          <div class="it-desc">Chiedi aiuto su Used to, Past Continuous o connettivi temporali. Ti guiderò senza dare risposte pronte!</div>
-          <div class="it-chat-box" id="box-u1">
-            <div class="it-msg it-msg-model">Hello! Sono il tuo tutor per Unit 1. Quale dubbio hai sugli argomenti di questa unità?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u1" placeholder="Scrivi la tua domanda o il tuo esercizio..." onkeypress="handleKey(event, 'u1', 'Unit 1: Past Narrative')" />
-            <button class="it-btn" onclick="sendInlineTutor('u1', 'Unit 1: Past Narrative')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u1"></div>
         </div>
       </div>
 
@@ -334,21 +221,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u2-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u2.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/present-perfect-advanced.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u2.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u2')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u2" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 2</div>
-          <div class="it-desc">Chiedi supporto sul Present Perfect Aspect.</div>
-          <div class="it-chat-box" id="box-u2">
-            <div class="it-msg it-msg-model">Hello! Pronto a lavorare sul Present Perfect? Dimmi tutto.</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u2" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u2', 'Unit 2: Present Perfect Aspect')" />
-            <button class="it-btn" onclick="sendInlineTutor('u2', 'Unit 2: Present Perfect Aspect')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u2"></div>
         </div>
       </div>
 
@@ -360,21 +235,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u3-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u3.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/verb-patterns.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u3.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u3')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u3" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 3</div>
-          <div class="it-desc">Esamina verbi con -ing o to, stop, remember e question tags.</div>
-          <div class="it-chat-box" id="box-u3">
-            <div class="it-msg it-msg-model">Hello! Quale verbo o struttura ti sta creando grattacapi in Unit 3?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u3" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u3', 'Unit 3: Verb Patterns & Compounds')" />
-            <button class="it-btn" onclick="sendInlineTutor('u3', 'Unit 3: Verb Patterns & Compounds')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u3"></div>
         </div>
       </div>
 
@@ -386,21 +249,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u4-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u4.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/past-perfect-relatives.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u4.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u4')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u4" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 4</div>
-          <div class="it-desc">Approfondisci Past Perfect e Relative Clauses.</div>
-          <div class="it-chat-box" id="box-u4">
-            <div class="it-msg it-msg-model">Hello! Parliamo di Past Perfect o frasi relative. Come posso aiutarti?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u4" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u4', 'Unit 4: Perfect Tenses & Relative Clauses')" />
-            <button class="it-btn" onclick="sendInlineTutor('u4', 'Unit 4: Perfect Tenses & Relative Clauses')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u4"></div>
         </div>
       </div>
 
@@ -412,21 +263,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u5-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u5.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/first-conditional.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u5.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u5')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u5" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 5</div>
-          <div class="it-desc">Gestisci First Conditional e connettori temporali.</div>
-          <div class="it-chat-box" id="box-u5">
-            <div class="it-msg it-msg-model">Hello! Dubbi su unless, if o connettori? Scrivimi pure.</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u5" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u5', 'Unit 5: First Conditional & Connectors')" />
-            <button class="it-btn" onclick="sendInlineTutor('u5', 'Unit 5: First Conditional & Connectors')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u5"></div>
         </div>
       </div>
 
@@ -452,21 +291,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u6-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u6.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/second-conditional.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u6.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u6')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u6" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 6</div>
-          <div class="it-desc">Lavora su Second/Third Conditional e I wish / If only.</div>
-          <div class="it-chat-box" id="box-u6">
-            <div class="it-msg it-msg-model">Hello! Come te la cavi con i periodi ipotetici avanzati e i desideri?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u6" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u6', 'Unit 6: Conditionals, Wishes & Adverbs')" />
-            <button class="it-btn" onclick="sendInlineTutor('u6', 'Unit 6: Conditionals, Wishes & Adverbs')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u6"></div>
         </div>
       </div>
 
@@ -478,21 +305,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u7-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u7.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/modals-advice.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u7.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u7')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u7" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 7</div>
-          <div class="it-desc">Chiedi aiuto su verbi modali di consiglio e pronomi riflessivi/reciproci.</div>
-          <div class="it-chat-box" id="box-u7">
-            <div class="it-msg it-msg-model">Hello! Quale dubbio hai sui modali di consiglio in Unit 7?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u7" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u7', 'Unit 7: Advice, Perception & Pronouns')" />
-            <button class="it-btn" onclick="sendInlineTutor('u7', 'Unit 7: Advice, Perception & Pronouns')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u7"></div>
         </div>
       </div>
 
@@ -504,21 +319,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u8-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u8.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/modal-deduction.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u8.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u8')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u8" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 8</div>
-          <div class="it-desc">Gestisci i modali di deduzione al presente e passato, e quantificatori.</div>
-          <div class="it-chat-box" id="box-u8">
-            <div class="it-msg it-msg-model">Hello! Must, might, can't... facciamo chiarezza sulla deduzione? Scrivimi.</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u8" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u8', 'Unit 8: Modals of Deduction & Quantifiers')" />
-            <button class="it-btn" onclick="sendInlineTutor('u8', 'Unit 8: Modals of Deduction & Quantifiers')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u8"></div>
         </div>
       </div>
 
@@ -530,21 +333,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u9-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u9.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/passive-voice.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u9.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u9')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u9" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 9</div>
-          <div class="it-desc">Allenati con la forma passiva e i phrasal verbs.</div>
-          <div class="it-chat-box" id="box-u9">
-            <div class="it-msg it-msg-model">Hello! Come procedi con il Passivo e i Phrasal Verbs? Dimmi tutto.</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u9" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u9', 'Unit 9: Passive Voice & Phrasal Verbs')" />
-            <button class="it-btn" onclick="sendInlineTutor('u9', 'Unit 9: Passive Voice & Phrasal Verbs')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u9"></div>
         </div>
       </div>
 
@@ -556,21 +347,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/structure-u10-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u10.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/reported-speech.html" class="tag">✏️ Esercitati</a>
           <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u10.html" class="tag tag-cambridge">🎓 Cambridge</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-u10')">💬 Tutor</button>
-        </div>
-        <div id="tutor-u10" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Unit 10</div>
-          <div class="it-desc">Pratica il discorso indiretto, backshift dei tempi e say vs tell.</div>
-          <div class="it-chat-box" id="box-u10">
-            <div class="it-msg it-msg-model">Hello! Dubbi sui cambiamenti di tempo o domande indirette in Unit 10?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-u10" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'u10', 'Unit 10: Reported Speech')" />
-            <button class="it-btn" onclick="sendInlineTutor('u10', 'Unit 10: Reported Speech')">Invia</button>
-          </div>
-          <div class="it-error" id="err-u10"></div>
         </div>
       </div>
 
@@ -595,21 +374,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/word-formation-explanation.html" class="tag">📖 Spiegazione</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-wf.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/word-formation-list.html" class="tag">📋 Famiglie di parole</a>
           <a href="https://cristinavallini64-maker.github.io/structure/word-formation-tutor.html" class="tag">✏️ Esercitati</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-wf')">💬 Tutor</button>
-        </div>
-        <div id="tutor-wf" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Word Formation</div>
-          <div class="it-desc">Ricevi supporto su prefissi, suffissi e trasformazione lessicale.</div>
-          <div class="it-chat-box" id="box-wf">
-            <div class="it-msg it-msg-model">Hello! Quale suffissazione o prefisso ti sta dando filo da torcere?</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-wf" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'wf', 'Word Formation')" />
-            <button class="it-btn" onclick="sendInlineTutor('wf', 'Word Formation')">Invia</button>
-          </div>
-          <div class="it-error" id="err-wf"></div>
         </div>
       </div>
 
@@ -621,21 +388,9 @@
         </div>
         <div class="topic-links">
           <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-explanation.html" class="tag">📖 Spiegazione</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-st.html" class="tag tag-studia">🧠 Studia</a>
           <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-list.html" class="tag">📋 Famiglie di strutture</a>
           <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-tutor.html" class="tag">✏️ Esercitati</a>
-          <button class="tag tag-tutor" onclick="toggleTutor('tutor-st')">💬 Tutor</button>
-        </div>
-        <div id="tutor-st" class="inline-tutor-box">
-          <div class="it-title">🤖 Tutor Maieutico — Sentence Transformation</div>
-          <div class="it-desc">Allenati con le trasformazioni Cambridge a parola chiave.</div>
-          <div class="it-chat-box" id="box-st">
-            <div class="it-msg it-msg-model">Hello! Inserisci la frase di partenza e la parola chiave: ti guiderò nella trasformazione!</div>
-          </div>
-          <div class="it-input-row">
-            <input type="text" class="it-input" id="input-st" placeholder="Scrivi qui..." onkeypress="handleKey(event, 'st', 'Sentence Transformation')" />
-            <button class="it-btn" onclick="sendInlineTutor('st', 'Sentence Transformation')">Invia</button>
-          </div>
-          <div class="it-error" id="err-st"></div>
         </div>
       </div>
 
@@ -683,89 +438,6 @@
 </div>
 
 <script>
-  // --- GESTIONE APERTURA/CHIUSURA BOX TUTOR NELLE CARD ---
-  const chatHistories = {};
-
-  function toggleTutor(tutorId) {
-    const box = document.getElementById(tutorId);
-    box.classList.toggle('active');
-  }
-
-  function handleKey(e, keyId, unitName) {
-    if (e.key === 'Enter') {
-      sendInlineTutor(keyId, unitName);
-    }
-  }
-
-  async function sendInlineTutor(keyId, unitName) {
-    const inputEl = document.getElementById(`input-${keyId}`);
-    const chatBox = document.getElementById(`box-${keyId}`);
-    const errorBox = document.getElementById(`err-${keyId}`);
-    const text = inputEl.value.trim();
-
-    if (!text) return;
-    errorBox.style.display = 'none';
-
-    // Inizializza cronologia per questa specifica card se non esiste
-    if (!chatHistories[keyId]) {
-      chatHistories[keyId] = [];
-    }
-
-    // Aggiungi messaggio utente
-    appendMsg(chatBox, text, 'user');
-    chatHistories[keyId].push({ role: 'user', content: text });
-    inputEl.value = '';
-
-    // Messaggio di attesa
-    const loadingId = `load-${keyId}-${Date.now()}`;
-    appendMsg(chatBox, "Il tutor sta riflettendo...", 'model', loadingId);
-
-    const workerUrl = 'https://writingtutor.cristinavallini64.workers.dev/';
-    const systemPrompt = `Sei un tutor maieutico di lingua inglese per studenti delle scuole superiori (istituto tecnico), integrato nella sezione "${unitName}".
-Il tuo obiettivo fondamentale è guidare lo studente con un approccio maieutico: NON dare mai le risposte pronte o la soluzione diretta agli esercizi. Fai domande stimolanti, evidenzia eventuali piccoli errori logici o grammaticali e spingi lo studente a riflettere e a correggersi autonomamente in italiano con esempi in inglese.`;
-
-    let fullPrompt = systemPrompt + "\n\nCronologia della conversazione:\n";
-    chatHistories[keyId].forEach(m => {
-      fullPrompt += `${m.role === 'user' ? 'Studente' : 'Tutor'}: ${m.content}\n`;
-    });
-    fullPrompt += "Tutor:";
-
-    try {
-      const response = await fetch(workerUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: fullPrompt })
-      });
-
-      const data = await response.json();
-      const loadElem = document.getElementById(loadingId);
-      if (loadElem) loadElem.remove();
-
-      if (!response.ok || data.error) {
-        throw new Error(data.error || `Errore del server (${response.status})`);
-      }
-
-      const reply = data.result || "Risposta non ricevuta correttamente.";
-      appendMsg(chatBox, reply, 'model');
-      chatHistories[keyId].push({ role: 'model', content: reply });
-
-    } catch (err) {
-      const loadElem = document.getElementById(loadingId);
-      if (loadElem) loadElem.remove();
-      errorBox.textContent = "Errore di connessione: " + err.message;
-      errorBox.style.display = 'block';
-    }
-  }
-
-  function appendMsg(chatBoxEl, text, sender, customId = null) {
-    const msgDiv = document.createElement('div');
-    if (customId) msgDiv.id = customId;
-    msgDiv.className = `it-msg ${sender === 'user' ? 'it-msg-user' : 'it-msg-model'}`;
-    msgDiv.textContent = text;
-    chatBoxEl.appendChild(msgDiv);
-    chatBoxEl.scrollTop = chatBoxEl.scrollHeight;
-  }
-
   // --- SCRIPTS PER IL WRITING TUTOR ---
   const wtTextarea = document.getElementById('wtText');
   const wtWordCountSpan = document.getElementById('wtWordCount');
