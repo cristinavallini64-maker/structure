@@ -9,7 +9,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0d0d0d; font-family: 'Nunito', sans-serif; }
 
-  /* Intestazione: Giallo Neon Fluorescente, energico e brillante */
+  /* Intestazione: Giallo Neon Fluorescente */
   .hero { background: #FFFF00; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
   .hero-letter { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: #000; line-height: 1; flex-shrink: 0; }
   .hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: #000; }
@@ -22,20 +22,17 @@
   .year-block { margin-bottom: 48px; }
   .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; padding: 12px 24px; border-radius: 8px; margin-bottom: 28px; display: inline-block; color: #000; font-weight: 900; }
   
-  /* Colori Brillanti per i due livelli */
-  .year-title.b2-level1 { background: #00E5FF; } /* Ciano Elettrico */
-  .year-title.b2-level2 { background: #00FF66; } /* Lime Neon */
+  .year-title.b2-level1 { background: #00E5FF; }
+  .year-title.b2-level2 { background: #00FF66; }
 
   .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
 
   .topic-card { border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 25px rgba(0,0,0,0.6); }
   .topic-card:hover { transform: translateY(-5px); }
 
-  /* Card Level 1 - Ciano Elettrico */
   .card-cyan { background: #00E5FF; }
   .card-cyan:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
 
-  /* Card Level 2 - Lime Neon */
   .card-lime { background: #00FF66; }
   .card-lime:hover { box-shadow: 0 0 25px rgba(0, 255, 102, 0.4); }
 
@@ -47,20 +44,16 @@
   .tag { border-radius: 20px; padding: 7px 18px; font-size: 0.85rem; font-weight: 900; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; background: rgba(0,0,0,0.22); color: #000; display: inline-block; text-transform: uppercase; }
   .tag:hover { background: #000; color: #fff; }
 
-  /* Pulsante Cambridge — nero pieno, stile "esame", distinto dagli altri tag */
   .tag.tag-cambridge { background: #000; color: #fff; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25); }
   .tag.tag-cambridge:hover { background: #fff; color: #000; box-shadow: 0 0 14px rgba(0,0,0,0.45); }
 
-  /* Box METTITI ALLA PROVA con scritte e bordi accesi */
   .final-revision-box { grid-column: 1 / -1; margin-top: 15px; padding: 22px 26px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
   
-  /* Box 1 Coordinato con il Ciano */
   .final-revision-box.box-lvl1 { background: rgba(0, 229, 255, 0.04); border: 2.5px dashed #00E5FF; box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.05); }
   .final-revision-box.box-lvl1 .final-revision-text { color: #00E5FF; font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; }
   .final-revision-box.box-lvl1 .tag-final { background: #00E5FF; color: #000; }
   .final-revision-box.box-lvl1 .tag-final:hover { background: #fff; box-shadow: 0 0 20px #00E5FF; }
 
-  /* Box 2 Coordinato con il Lime */
   .final-revision-box.box-lvl2 { background: rgba(0, 255, 102, 0.04); border: 2.5px dashed #00FF66; box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.05); }
   .final-revision-box.box-lvl2 .final-revision-text { color: #00FF66; font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; }
   .final-revision-box.box-lvl2 .tag-final { background: #00FF66; color: #000; }
@@ -74,7 +67,7 @@
 
   .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FFFF00, #00E5FF, #00FF66); }
 
-  /* STILI DEDICATI PER IL WRITING TUTOR INTEGRATO */
+  /* FIX GRAFICO PER IL WRITING TUTOR */
   .writing-tutor-container {
     background: #151515;
     border: 2px solid #FFFF00;
@@ -98,6 +91,7 @@
   }
   .wt-form-group {
     margin-bottom: 18px;
+    width: 100%;
   }
   .wt-form-group label {
     display: block;
@@ -107,28 +101,35 @@
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .wt-select, .wt-textarea, .wt-input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    background: #000;
-    color: #fff;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
+  .wt-select, .wt-textarea, .wt-textarea-prompt {
+    width: 100% !important;
+    display: block !important;
+    padding: 14px 16px !important;
+    border-radius: 10px !important;
+    border: 1px solid #333 !important;
+    background: #000 !important;
+    color: #fff !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
   }
-  .wt-select:focus, .wt-textarea:focus, .wt-input:focus {
-    outline: none;
-    border-color: #FFFF00;
-    box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+  .wt-select:focus, .wt-textarea:focus, .wt-textarea-prompt:focus {
+    outline: none !important;
+    border-color: #FFFF00 !important;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.3) !important;
   }
   .wt-textarea-prompt {
-    min-height: 80px;
-    resize: vertical;
+    min-height: 90px !important;
+    resize: vertical !important;
   }
   .wt-textarea {
-    min-height: 200px;
-    resize: vertical;
+    min-height: 220px !important;
+    resize: vertical !important;
+  }
+  .wt-textarea::placeholder, .wt-textarea-prompt::placeholder {
+    color: #666 !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-size: 0.95rem !important;
   }
   .wt-meta {
     display: flex;
@@ -174,6 +175,7 @@
     white-space: pre-wrap;
     font-size: 0.95rem;
     line-height: 1.7;
+    font-family: 'Nunito', sans-serif;
   }
   .wt-error {
     display: none;
@@ -379,7 +381,7 @@
     </div>
   </div>
 
-  <!-- DIVIDER E SEZIONE AGGIUNTIVA WRITING TUTOR -->
+  <!-- WRITING TUTOR INTEGRATO -->
   <div class="divider"></div>
 
   <div class="writing-tutor-container">
