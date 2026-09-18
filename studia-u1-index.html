@@ -52,24 +52,23 @@ body{min-height:100vh;font-family:'Inter',sans-serif;font-size:15px;color:var(--
   <div class="chat-header">
     <div>
       <span class="chat-title">Tutor Maieutico · Unit 1</span>
-      <span class="chat-subtitle">Spiegazioni guidate, esercizi di rinforzo e supporto lessicale</span>
+      <span class="chat-subtitle">Livello 01: Used to &amp; Past Narrative</span>
     </div>
   </div>
 
   <div class="chat-messages" id="chatMessages">
     <div class="message assistant">
-      Ciao! Sono il tuo docente di supporto per la <strong>Unit 1 (Past Narrative)</strong>. Cominciamo subito con il Livello 01 su <em>used to</em> oppure hai qualche dubbio da chiarire prima?
+      Benvenuto nel laboratorio di inglese! Cominciamo subito con il <strong>Livello 01</strong> dedicato a <em>used to</em> per le abitudini del passato. Dimmi: come tradurresti in inglese la frase <em>"Da ragazzo collezionavo francobolli"</em>?
     </div>
   </div>
 
   <div class="chat-input-area">
-    <input type="text" id="userInput" class="chat-input" placeholder="Scrivi una risposta o chiedi una spiegazione..." autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()">
+    <input type="text" id="userInput" class="chat-input" placeholder="Scrivi la tua risposta qui..." autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()">
     <button class="btn-send" id="sendBtn" onclick="sendMessage()">Invia</button>
   </div>
 </div>
 
 <script>
-// URL del tuo Cloudflare Worker integrato
 const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
 
 let conversationHistory = [];
