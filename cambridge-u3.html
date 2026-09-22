@@ -238,7 +238,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
   instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 3: verb patterns, stop/remember/forget, composti di some, any, every, no, question tags.',
-  text:`When my parents decided to move to a smaller flat, {1} in the family was happy about it. My sister refused even {2} look at the photos from the estate agent, and I sulked for a week. There was {3} at all we could do, though: the old house cost a fortune to heat. We spent a whole weekend packing, and by Sunday evening there wasn't {4} left in the attic. Mum kept reminding {5} to label the boxes, but of course we forgot. “The new flat hasn't got a balcony, {6} it?” my sister asked. Actually it has one, and it faces south. {7} has settled in now, even the cat. I still dream {8} having a garden one day, but I've given up complaining.`,
+  text:`When my parents decided to leave our cottage in the countryside for a smaller flat in the suburbs, {1} in the family was happy about it. My sister refused even {2} look at the photos from the estate agent, and I sulked for a week. There was {3} at all we could do, though: the old house cost a fortune to heat and it was miles from anywhere. We spent a whole weekend packing, and by Sunday evening there wasn't {4} left in the attic except a broken lamp and two old cushions. Mum kept reminding {5} to label the boxes, but of course we forgot, so the plates ended up in the wardrobe box and the books in the fridge box. “The new flat hasn't got a balcony, {6} it?” my sister asked. Actually it has one: it's nothing fancy, but it faces south, and the flat is only ten minutes' walk from my school. {7} has settled in now, even the cat, who sleeps on the sofa all day. I still dream {8} having a garden one day, but I've given up complaining.`,
   gaps:[
     {a:"nobody",accept:["nobody","no-one"]},
     {a:"to",accept:["to"]},
@@ -249,14 +249,14 @@ const TYPES=[
     {a:"Everyone",accept:["everyone","everybody"]},
     {a:"of",accept:["of","about"]},
   ],
-  gloss:{"estate agent":"agenzia immobiliare","sulked":"ho tenuto il broncio","cost a fortune":"costava un patrimonio","to heat":"da riscaldare","packing":"a fare gli scatoloni","attic":"soffitta","label":"etichettare","balcony":"balcone","faces south":"è esposto a sud","settled in":"si è ambientato","complaining":"lamentarmi"}
+  gloss:{"estate agent":"agenzia immobiliare","sulked":"ho tenuto il broncio","cost a fortune":"costava un patrimonio","to heat":"da riscaldare","packing":"a fare gli scatoloni","attic":"soffitta","countryside":"campagna","suburbs":"periferia","miles from anywhere":"in capo al mondo","nothing fancy":"niente di speciale","ten minutes' walk":"a dieci minuti a piedi","lamp":"lampada","cushions":"cuscini","plates":"piatti","wardrobe":"armadio","fridge":"frigorifero","sofa":"divano","label":"etichettare","balcony":"balcone","faces south":"è esposto a sud","settled in":"si è ambientato","complaining":"lamentarmi"}
 },
 {
   id:'mc',accent:'#b8860b',accent2:'#8a6608',name:'Multiple-choice Cloze',n:8,
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
   instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: che cosa vuole il primo verbo, stop/remember/forget, composti di some, any, every, no, question tags.',
-  text:`As a boy, Ravi dreamt {1} in an old house with high ceilings and a proper cellar. Two years ago he finally managed {2} one, though the survey was alarming. His parents tried {3} him not to sign anything. "You'll regret it," his father kept saying. Ravi didn't mind {4} without a kitchen for six months: he cooked on a camping stove in the hall. He stopped {5} the ground floor in October, because the money ran out and there was {6} he could do about it. “The house is nearly finished now, {7}?” I asked him last week. {8} says the same thing after visiting: it was worth the wait.`,
+  text:`As a boy, Ravi dreamt {1} in an old house with high ceilings and a proper cellar. Two years ago he finally managed {2} one, though the survey was alarming. His parents tried {3} him not to sign anything. “You'll regret it,” his father kept saying. Ravi didn't mind {4} without a kitchen for six months: he cooked on a camping stove in the hall and kept his food in a cupboard in the dining room. For months his only furniture was a single bed in the living room, whereas upstairs there was just a desk, an old armchair and a rug. He stopped {5} the ground floor in October, because the money ran out and there was {6} he could do about it. “The house is nearly finished now, {7}?” I asked him last week. “We'll see,” he said. Compared to the old ruin he bought, it looks amazing. {8} in the neighbourhood says the same thing after visiting: it was worth the wait.`,
   gaps:[
     {options:["of living","to live","living","for living"],a:"of living"},
     {options:["to buy","buying","buy","of buying"],a:"to buy"},
@@ -267,7 +267,7 @@ const TYPES=[
     {options:["isn't it","is it","doesn't it","hasn't it"],a:"isn't it"},
     {options:["Everyone","Anyone","No one","Someone"],a:"Everyone"},
   ],
-  gloss:{"ceilings":"soffitti","cellar":"cantina","survey":"perizia","alarming":"preoccupante","regret":"pentirti","camping stove":"fornello da campeggio","hall":"ingresso","ran out":"è finita","worth the wait":"valsa l'attesa"}
+  gloss:{"ceilings":"soffitti","cellar":"cantina","dining room":"sala da pranzo","living room":"soggiorno","whereas":"mentre invece","Compared to":"rispetto a","ruin":"rudere","neighbourhood":"quartiere","We'll see":"vedremo","single bed":"letto singolo","desk":"scrivania","armchair":"poltrona","rug":"tappeto","cupboard":"armadietto","survey":"perizia","alarming":"preoccupante","regret":"pentirti","camping stove":"fornello da campeggio","hall":"ingresso","ran out":"è finita","worth the wait":"valsa l'attesa"}
 },
 {
   id:'tr',accent:'#c1502a',accent2:'#963a1d',name:'Key Word Transformation',n:6,
@@ -278,11 +278,11 @@ const TYPES=[
     {prompt:"Bea doesn't play the piano in the front room any more.",key:"GIVEN",pre:"Bea",post:"the piano in the front room.",a:"has given up playing",accept:["has given up playing"]},
     {prompt:"\u201CDon't leave your bike in the hall,\u201D the caretaker said to Milo.",key:"TOLD",pre:"The caretaker",post:"his bike in the hall.",a:"told Milo not to leave",accept:["told milo not to leave","told him not to leave"]},
     {prompt:"Ivo says he definitely posted the rent cheque, but it hasn't arrived.",key:"REMEMBER",pre:"Ivo",post:"the rent cheque.",a:"remembers posting",accept:["remembers posting","clearly remembers posting","can remember posting","remembers sending","clearly remembers sending"]},
-    {prompt:"There isn't anybody in the flat upstairs.",key:"NOBODY",pre:"There",post:"in the flat upstairs.",a:"is nobody",accept:["is nobody"]},
-    {prompt:"It is too expensive for us to replace the boiler this year.",key:"AFFORD",pre:"We",post:"the boiler this year.",a:"can't afford to replace",accept:["can't afford to replace","cannot afford to replace"]},
+    {prompt:"There isn't anybody in the building at the weekend.",key:"NOBODY",pre:"There",post:"in the building at the weekend.",a:"is nobody",accept:["is nobody"]},
+    {prompt:"It is too expensive for us to replace the dishwasher this year.",key:"AFFORD",pre:"We",post:"the dishwasher this year.",a:"can't afford to replace",accept:["can't afford to replace","cannot afford to replace"]},
     {prompt:"Ilse used to grow tomatoes on the balcony, but she doesn't any more.",key:"STOPPED",pre:"Ilse",post:"tomatoes on the balcony.",a:"has stopped growing",accept:["has stopped growing","stopped growing"]},
   ],
-  gloss:{"front room":"salotto","caretaker":"portinaio","hall":"ingresso","upstairs":"al piano di sopra","boiler":"caldaia","rent cheque":"assegno dell'affitto"}
+  gloss:{"front room":"salotto","caretaker":"portinaio","hall":"ingresso","building":"edificio","dishwasher":"lavastoviglie","rent cheque":"assegno dell'affitto"}
 },
 ];
 
