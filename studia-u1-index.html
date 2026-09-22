@@ -1,148 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grammar Tutor · Unit 1</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
-  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
-  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
-  --plum:#7a3b8f; --plum2:#5a2a6b; --done:#1f9d57; --bad:#cc3b3b;
-  --r:14px; --rs:9px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{min-height:100vh;font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);
-  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);
-  display:flex;flex-direction:column;align-items:center;padding:20px;}
-
-.chat-container{width:100%;max-width:720px;height:90vh;background:var(--paper);border-radius:18px;
-  box-shadow:0 26px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;overflow:hidden;
-  border:1px solid rgba(255,255,255,0.1);}
-
-.chat-header{padding:18px 24px;background:var(--paper2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
-.chat-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--ink);display:block;}
-.chat-subtitle{font-size:12px;color:var(--sub);margin-top:2px;}
-
-.chat-messages{flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.04) 1px,transparent 0);background-size:22px 22px;}
-
-.message{max-width:82%;padding:12px 16px;border-radius:12px;line-height:1.55;font-size:14.5px;word-break:break-word;}
-.message.assistant{background:var(--paper2);color:var(--ink);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px;}
-.message.user{background:var(--plum);color:#fff;align-self:flex-end;border-bottom-right-radius:3px;}
-
-.chat-input-area{padding:16px;background:var(--paper2);border-top:1px solid var(--line);display:flex;gap:10px;}
-.chat-input{flex:1;background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 14px;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);outline:none;transition:.2s;}
-.chat-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
-.btn-send{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:0 22px;background:var(--plum);color:#fff;border:none;border-radius:var(--rs);cursor:pointer;transition:.2s;text-transform:uppercase;}
-.btn-send:hover{filter:brightness(1.08);}
-.btn-send:disabled{opacity:0.5;cursor:not-allowed;}
-
-.typing-indicator{display:flex;gap:4px;padding:8px 12px;align-items:center;}
-.typing-dot{width:7px;height:7px;background:var(--sub);border-radius:50%;animation:bounce 1.4s infinite ease-in-out both;}
-.typing-dot:nth-child(1){animation-delay:-0.32s;}
-.typing-dot:nth-child(2){animation-delay:-0.16s;}
-@keyframes bounce{0%,80%,100%{transform:scale(0);}40%{transform:scale(1.0);}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 1</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
 </head>
 <body>
-
-<div class="chat-container">
-  <div class="chat-header">
-    <div>
-      <span class="chat-title">Grammar Tutor</span>
-      <span class="chat-subtitle">Unit 1: Past Narrative</span>
-    </div>
-  </div>
-
-  <div class="chat-messages" id="chatMessages">
-    <div class="message assistant">
-      Ciao! Sono il tuo <strong>Grammar Tutor</strong> per la <strong>Unit 1 (Past Narrative)</strong>. Cominciamo a riflettere insieme: quando raccontiamo qualcosa del passato, perché secondo te avvertiamo l'esigenza di distinguere un'abitudine di un tempo da un evento singolo e circoscritto? Ti va di impostare il discorso partendo da qui?
-    </div>
-  </div>
-
-  <div class="chat-input-area">
-    <input type="text" id="userInput" class="chat-input" placeholder="Scrivi una risposta o chiedi un chiarimento..." autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()">
-    <button class="btn-send" id="sendBtn" onclick="sendMessage()">Invia</button>
-  </div>
-</div>
-
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="feedback" id="feedback"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi ciò che pensi…"></textarea>
+    <div class="actions"><button class="link" id="restart">Ricomincia</button><button class="primary" id="submit">Continua</button></div>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Unit 1 completata</h1><p>Hai dimostrato la comprensione dei cinque nuclei grammaticali attraverso esempi nuovi e una produzione finale.</p><button class="primary" id="again">Ricomincia</button></section>
+</main>
 <script>
-const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const storageKey = "grammar-tutor-demo-v1";
+  const $ = id => document.getElementById(id);
+  let current = null;
 
-let conversationHistory = [];
-
-async function sendMessage() {
-  const inputEl = document.getElementById('userInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const text = inputEl.value.trim();
-  
-  if (!text) return;
-
-  appendMessage(text, 'user');
-  conversationHistory.push({ role: 'user', content: text });
-  inputEl.value = '';
-  inputEl.disabled = true;
-  sendBtn.disabled = true;
-
-  const typingId = showTypingIndicator();
-
-  try {
-    const response = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: conversationHistory })
-    });
-
-    const data = await response.json();
-    removeTypingIndicator(typingId);
-
-    // Accetta qualsiasi chiave restituisca il Worker ed evita il blocco
-    const botReply = data.reply || data.response || data.message || data.error;
-
-    if (botReply) {
-      appendMessage(botReply, 'assistant');
-      conversationHistory.push({ role: 'assistant', content: botReply });
-    } else {
-      appendMessage("C'è stato un piccolo errore di elaborazione. Riprova tra un attimo.", 'assistant');
-    }
-  } catch (err) {
-    removeTypingIndicator(typingId);
-    appendMessage("Errore di rete durante la comunicazione con il tutor.", 'assistant');
-  } finally {
-    inputEl.disabled = false;
-    sendBtn.disabled = false;
-    inputEl.focus();
+  function setBusy(on){ $("submit").disabled=on; $("answer").disabled=on; $("submit").textContent=on?"Sto valutando…":"Continua"; }
+  function safeText(el,text){ el.textContent=text||""; }
+  function render(data){
+    current=data; localStorage.setItem(storageKey,JSON.stringify(data));
+    if(data.completed){ $("lesson").hidden=true; $("complete").hidden=false; $("progress").style.width="100%"; return; }
+    $("complete").hidden=true; $("lesson").hidden=false;
+    safeText($("unitTitle"),data.unit.title); safeText($("phase"),data.activity.phase); safeText($("prompt"),data.activity.prompt); safeText($("question"),data.activity.question); safeText($("moduleTitle"),`Percorso ${data.module.index} di ${data.unit.totalModules}: ${data.module.title}`);
+    safeText($("status"),`Passo ${data.state.step+1} di ${data.unit.totalSteps}`); $("progress").style.width=`${(data.state.step/data.unit.totalSteps)*100}%`;
+    $("examples").replaceChildren(...data.activity.examples.map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d;}));
+    $("choices").replaceChildren(...data.activity.choices.map(t=>{const b=document.createElement("button");b.className="choice";b.textContent=t;b.onclick=()=>{$("answer").value=t;$("answer").focus()};return b;}));
+    const fb=$("feedback"); safeText(fb,data.message||""); fb.classList.toggle("show",Boolean(data.message)); $("answer").value=""; $("answer").focus();
   }
-}
-
-function appendMessage(text, sender) {
-  const chatMessages = document.getElementById('chatMessages');
-  const msgDiv = document.createElement('div');
-  msgDiv.className = `message ${sender}`;
-  msgDiv.innerHTML = text.replace(/\n/g, '<br>');
-  chatMessages.appendChild(msgDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function showTypingIndicator() {
-  const chatMessages = document.getElementById('chatMessages');
-  const id = 'typing-' + Date.now();
-  const div = document.createElement('div');
-  div.id = id;
-  div.className = 'message assistant';
-  div.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-  return id;
-}
-
-function removeTypingIndicator(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
+  async function call(payload){
+    setBusy(true); $("feedback").classList.remove("show");
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),25000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok) throw new Error(data.error||`Errore ${res.status}`); render(data);
+    }catch(e){ const fb=$("feedback");fb.className="feedback show error";safeText(fb,e.name==="AbortError"?"Il collegamento è lento. Riprova tra poco.":e.message); }
+    finally{clearTimeout(timer);setBusy(false)}
+  }
+  $("submit").onclick=()=>{const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}call({action:"answer",answer,state:current.state})};
+  $("answer").addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")$("submit").click()});
+  function restart(){localStorage.removeItem(storageKey);call({action:"restart"})} $("restart").onclick=restart;$("again").onclick=restart;
+  const saved=localStorage.getItem(storageKey); if(saved){try{render(JSON.parse(saved))}catch{restart()}}else call({action:"start"});
 </script>
-
 </body>
 </html>
