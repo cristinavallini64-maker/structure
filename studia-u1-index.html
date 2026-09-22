@@ -12,7 +12,7 @@
     .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
     article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
     h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
-    .question{font-size:1.06rem;margin:22px 0 14px}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}
+    .question{font-size:1.06rem;margin:22px 0 14px}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}
     textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
     .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}
     .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
@@ -27,18 +27,18 @@
   <article id="lesson" hidden>
     <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
     <div class="feedback" id="feedback"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
-    <label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi ciò che pensi…"></textarea>
-    <div class="actions"><button class="link" id="restart">Ricomincia</button><button class="primary" id="submit">Continua</button></div>
+    <form id="answerForm"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi la risposta. Premi Invio per inviare; Maiusc + Invio per andare a capo."></textarea>
+    <div class="actions"><button type="button" class="link" id="restart">Ricomincia</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
   </article>
-  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Unit 1 completata</h1><p>Hai dimostrato la comprensione dei cinque nuclei grammaticali attraverso esempi nuovi e una produzione finale.</p><button class="primary" id="again">Ricomincia</button></section>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Unit 1 completata</h1><p>Hai usato le forme della Unit 1 in frasi contestualizzate e in un cloze finale.</p><button class="primary" id="again">Ricomincia</button></section>
 </main>
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
-  const storageKey = "grammar-tutor-demo-v1";
+  const storageKey = "grammar-tutor-unit1-v2";
   const $ = id => document.getElementById(id);
   let current = null;
 
-  function setBusy(on){ $("submit").disabled=on; $("answer").disabled=on; $("submit").textContent=on?"Sto valutando…":"Continua"; }
+  function setBusy(on){ $("submit").disabled=on; $("answer").disabled=on; $("submit").textContent=on?"Sto valutando…":"Invia risposta"; }
   function safeText(el,text){ el.textContent=text||""; }
   function render(data){
     current=data; localStorage.setItem(storageKey,JSON.stringify(data));
@@ -48,7 +48,9 @@
     safeText($("status"),`Passo ${data.state.step+1} di ${data.unit.totalSteps}`); $("progress").style.width=`${(data.state.step/data.unit.totalSteps)*100}%`;
     $("examples").replaceChildren(...data.activity.examples.map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d;}));
     $("choices").replaceChildren(...data.activity.choices.map(t=>{const b=document.createElement("button");b.className="choice";b.textContent=t;b.onclick=()=>{$("answer").value=t;$("answer").focus()};return b;}));
-    const fb=$("feedback"); safeText(fb,data.message||""); fb.classList.toggle("show",Boolean(data.message)); $("answer").value=""; $("answer").focus();
+    const fb=$("feedback"); fb.className="feedback"; safeText(fb,data.message||"");
+    if(data.message){fb.classList.add("show");if(/^(Risposta corretta|Obiettivo verificato)/i.test(data.message))fb.classList.add("success")}
+    $("answer").value=""; $("answer").focus();
   }
   async function call(payload){
     setBusy(true); $("feedback").classList.remove("show");
@@ -60,8 +62,13 @@
     }catch(e){ const fb=$("feedback");fb.className="feedback show error";safeText(fb,e.name==="AbortError"?"Il collegamento è lento. Riprova tra poco.":e.message); }
     finally{clearTimeout(timer);setBusy(false)}
   }
-  $("submit").onclick=()=>{const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}call({action:"answer",answer,state:current.state})};
-  $("answer").addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")$("submit").click()});
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}call({action:"answer",answer,state:current.state})});
+  $("answer").addEventListener("keydown",e=>{
+    if((e.key==="Enter"||e.code==="Enter"||e.code==="NumpadEnter")&&!e.shiftKey&&!e.isComposing){
+      e.preventDefault();
+      if(!$("submit").disabled)$("answerForm").requestSubmit();
+    }
+  });
   function restart(){localStorage.removeItem(storageKey);call({action:"restart"})} $("restart").onclick=restart;$("again").onclick=restart;
   const saved=localStorage.getItem(storageKey); if(saved){try{render(JSON.parse(saved))}catch{restart()}}else call({action:"start"});
 </script>
