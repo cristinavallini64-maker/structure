@@ -12,7 +12,7 @@
     .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
     article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
     h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
-    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
     textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
     .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
     .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
@@ -35,7 +35,7 @@
 </main>
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
-  const storageKey = "grammar-tutor-unit1-v5";
+  const storageKey = "grammar-tutor-unit1-v6";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
   const text=(id,value)=>{$(id).textContent=value||""};
@@ -85,7 +85,7 @@
     if(pending){
       text("submitted","La tua risposta: "+submitted);
       text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
-      if(pending.outcome==="correct")fb.classList.add("success");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
     }
     setBusy(busy);focusActive();
   }
