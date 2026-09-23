@@ -14,7 +14,7 @@
     h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
     .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}
     textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
-    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
     .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
     .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
     @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
@@ -28,7 +28,7 @@
     <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
     <div class="question" id="question"></div><div class="choices" id="choices"></div>
     <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
-    <p id="submitted" hidden></p><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
     <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
   </article>
   <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 1. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
@@ -43,6 +43,7 @@
   const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
   function setBusy(on){
     busy=on;
+    $("waiting").classList.toggle("show",on);
     ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
     document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
     text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
@@ -65,7 +66,7 @@
     $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
     $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
       const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
-      b.onclick=()=>{if(busy)return;draft=t;$("answer").value=t;save();proceed()};return b;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
     }));
     $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
     $("submitted").hidden=!pending;$("answer").value=draft;
