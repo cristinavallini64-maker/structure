@@ -26,51 +26,87 @@
   <div class="progress"><span id="progress"></span></div>
   <article id="lesson" hidden>
     <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
-    <div class="feedback" id="feedback"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
-    <form id="answerForm"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi la risposta. Premi Invio per inviare; Maiusc + Invio per andare a capo."></textarea>
+    <div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
     <div class="actions"><button type="button" class="link" id="restart">Ricomincia</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
   </article>
   <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Unit 1 completata</h1><p>Hai usato le forme della Unit 1 in frasi contestualizzate e in un cloze finale.</p><button class="primary" id="again">Ricomincia</button></section>
 </main>
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
-  const storageKey = "grammar-tutor-unit1-v2";
+  const storageKey = "grammar-tutor-unit1-v3";
   const $ = id => document.getElementById(id);
-  let current = null;
-
-  function setBusy(on){ $("submit").disabled=on; $("answer").disabled=on; $("submit").textContent=on?"Sto valutando…":"Invia risposta"; }
-  function safeText(el,text){ el.textContent=text||""; }
-  function render(data){
-    current=data; localStorage.setItem(storageKey,JSON.stringify(data));
-    if(data.completed){ $("lesson").hidden=true; $("complete").hidden=false; $("progress").style.width="100%"; return; }
-    $("complete").hidden=true; $("lesson").hidden=false;
-    safeText($("unitTitle"),data.unit.title); safeText($("phase"),data.activity.phase); safeText($("prompt"),data.activity.prompt); safeText($("question"),data.activity.question); safeText($("moduleTitle"),`Percorso ${data.module.index} di ${data.unit.totalModules}: ${data.module.title}`);
-    safeText($("status"),`Passo ${data.state.step+1} di ${data.unit.totalSteps}`); $("progress").style.width=`${(data.state.step/data.unit.totalSteps)*100}%`;
-    $("examples").replaceChildren(...data.activity.examples.map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d;}));
-    $("choices").replaceChildren(...data.activity.choices.map(t=>{const b=document.createElement("button");b.className="choice";b.textContent=t;b.onclick=()=>{$("answer").value=t;$("answer").focus()};return b;}));
-    const fb=$("feedback"); fb.className="feedback"; safeText(fb,data.message||"");
-    if(data.message){fb.classList.add("show");if(/^(Risposta corretta|Obiettivo verificato)/i.test(data.message))fb.classList.add("success")}
-    $("answer").value=""; $("answer").focus();
+  let current=null, pending=null, submitted="", draft="", busy=false;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  function setBusy(on){
+    busy=on;
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){if(!busy&&!current?.completed)(pending||!current?$("submit"):$("answer")).focus({preventScroll:true})}
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 1 · Past Narrative");$("inputArea").hidden=true;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.state.topic===5?"Sintesi della Unit 1":`Percorso ${current.module.index} di 5: ${current.module.title}`);
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${current.state.step/6*100}%`;
+    $("examples").replaceChildren(...a.examples.map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;draft=t;$("answer").value=t;save();$("answer").focus()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending);$("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct"||/^(Risposta corretta|Obiettivo verificato)/i.test(pending.message||""))fb.classList.add("success");
+    }
+    setBusy(busy);focusActive();
   }
   async function call(payload){
-    setBusy(true); $("feedback").classList.remove("show");
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
     const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),25000);
     try{
       const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:controller.signal});
       const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
-      if(!res.ok) throw new Error(data.error||`Errore ${res.status}`); render(data);
-    }catch(e){ const fb=$("feedback");fb.className="feedback show error";safeText(fb,e.name==="AbortError"?"Il collegamento è lento. Riprova tra poco.":e.message); }
-    finally{clearTimeout(timer);setBusy(false)}
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";draft=""}
+      save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
   }
-  $("answerForm").addEventListener("submit",e=>{e.preventDefault();const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}call({action:"answer",answer,state:current.state})});
-  $("answer").addEventListener("keydown",e=>{
-    if((e.key==="Enter"||e.code==="Enter"||e.code==="NumpadEnter")&&!e.shiftKey&&!e.isComposing){
-      e.preventDefault();
-      if(!$("submit").disabled)$("answerForm").requestSubmit();
-    }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call({action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
   });
-  function restart(){localStorage.removeItem(storageKey);call({action:"restart"})} $("restart").onclick=restart;$("again").onclick=restart;
-  const saved=localStorage.getItem(storageKey); if(saved){try{render(JSON.parse(saved))}catch{restart()}}else call({action:"start"});
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  $("restart").onclick=()=>call({action:"restart"});$("again").onclick=()=>call({action:"restart"});
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state&&saved.current.activity){({current,pending=null,submitted="",draft=""}=saved)}
+    else{const old=JSON.parse(localStorage.getItem("grammar-tutor-unit1-v2")||"null");if(old?.state&&old.activity)current=old}
+  }catch{}
+  render();if(!current)call({action:"start"});
 </script>
 </body>
 </html>
