@@ -175,12 +175,19 @@
     if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
     return out;
   }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
   function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
   function leggi(){
     if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
     if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
     voce.cancel();
-    const pezzi=pezziDaLeggere();if(!pezzi.length)return;
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
     $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
     pezzi.forEach((p,i)=>{
       const u=new SpeechSynthesisUtterance(p.t);
