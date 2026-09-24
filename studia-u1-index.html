@@ -6,7 +6,13 @@
   <title>Grammar Tutor · Unit 1</title>
   <style>
     :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
     main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
     header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
     .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
@@ -23,6 +29,11 @@
 <body>
 <main>
   <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
   <div class="progress"><span id="progress"></span></div>
   <article id="lesson" hidden>
     <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
@@ -125,6 +136,65 @@
     const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
     if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
   }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    const pezzi=pezziDaLeggere();if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
   render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
 </script>
 </body>
