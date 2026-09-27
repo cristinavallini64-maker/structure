@@ -46,6 +46,584 @@
 </main>
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+  "titolo": "Unit 1 · Past Narrative",
+  "fuoriProgramma": "present continuous (anche per situazioni temporanee come these days I'm taking…), present perfect, would per le abitudini, be/get used to + -ing, was/were going to, by the time, meanwhile, eventually, no sooner / hardly (inversione), present perfect continuous, future in the past",
+  "vietate": "(?:\\b(?:am|is|are)|'m|'re|\\b(?:isn't|aren't))\\s+(not\\s+)?(?!going\\b)[a-z]+ing\\b|(?:\\b(?:have|has|haven't|hasn't)|'ve)\\s+(been|had|done|made|seen|gone|taken|lived|played|worked|visited)\\b|\\bwould\\b|\\b(be|am|is|are|was|were|been|being|get|gets|got|getting)\\s+used\\s+to\\b|\\bwas going to\\b|\\bwere going to\\b|\\bby the time\\b|\\bmeanwhile\\b|\\beventually\\b|\\bno sooner\\b|\\bhardly\\b",
+  "topics": [
+    {
+      "title": "Used to",
+      "tempi": "used to, past simple; present simple solo per le abitudini di oggi. Niente past continuous.",
+      "vietate": "\\b(was|were|wasn't|weren't)\\s+(not\\s+)?[a-z]+ing\\b",
+      "scoperta": {
+        "storia": "Luca racconta di suo nonno, che ha 80 anni.",
+        "passi": [
+          {
+            "mostra": [
+              "My grandad used to play football every Sunday. Now he plays cards with his friends."
+            ],
+            "domanda": "Adesso il nonno gioca ancora a calcio la domenica?",
+            "obiettivo": "Capire che oggi il nonno non gioca più a calcio: era una cosa di prima, adesso gioca a carte. Basta 'no', 'gioca a carte', 'lo faceva prima'."
+          },
+          {
+            "mostra": [
+              "My grandad used to play football every Sunday. Now he plays cards with his friends."
+            ],
+            "domanda": "Guarda every Sunday. Il nonno ha giocato una domenica sola, o tante domeniche, per anni?",
+            "obiettivo": "Capire che era una cosa ripetuta tante volte: 'tante', 'ogni domenica', 'sempre'."
+          },
+          {
+            "mostra": [
+              "Last Sunday my grandad played football."
+            ],
+            "domanda": "Qui non c'è used to. È un'abitudine come prima, o è successo una volta sola?",
+            "obiettivo": "Capire che è successo una volta sola, domenica scorsa."
+          },
+          {
+            "mostra": [
+              "My grandad used to play football every Sunday.",
+              "Last Sunday my grandad played football."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Last summer my grandad ___ (fly) to Canada.",
+            "attese": [
+              "flew"
+            ],
+            "obiettivo": "Usare il past simple per una cosa successa una volta sola (last summer): flew, non used to fly."
+          },
+          {
+            "mostra": [
+              "My grandad used to play football every Sunday."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "When I was little, I used to ___ (watch) cartoons every morning.",
+            "attese": [
+              "watch"
+            ],
+            "obiettivo": "Usare la forma base dopo used to: watch, non watched o watching."
+          },
+          {
+            "mostra": [
+              "Luca: Did you use to play football at school too?",
+              "Grandad: No, I didn't use to like sport at school!"
+            ],
+            "domanda": "Il nonno, quando andava a scuola, amava lo sport?",
+            "obiettivo": "Capire dal contesto che no, a scuola non gli piaceva lo sport. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Grandad: No, I didn't use to like sport at school!"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "My grandad didn't ___ to like vegetables.",
+            "attese": [
+              "use"
+            ],
+            "obiettivo": "Scrivere use senza -d dopo didn't."
+          },
+          {
+            "mostra": [
+              "These days my grandad usually plays cards on Sundays."
+            ],
+            "domanda": "Questa frase parla di un'abitudine di adesso o di prima?",
+            "obiettivo": "Capire che parla di adesso. Basta 'adesso', 'di oggi'."
+          },
+          {
+            "mostra": [
+              "These days my grandad usually plays cards on Sundays."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "These days my grandma ___ (go) swimming on Saturdays.",
+            "attese": [
+              "goes",
+              "usually goes"
+            ],
+            "obiettivo": "Usare il presente per l'abitudine di oggi: goes (con la -es, perché è my grandma)."
+          }
+        ],
+        "sintesi": [
+          "used to + forma base → una cosa che si ripeteva nel passato e adesso non si fa più",
+          "successo una volta sola, o un numero preciso di volte → past simple: Last Sunday he played",
+          "used to non cambia con la persona; con did / didn't diventa use to",
+          "le abitudini di oggi → usually + present simple: he usually plays cards"
+        ]
+      },
+      "points": [
+        {
+          "titolo": "Abitudini e situazioni passate, oggi finite",
+          "regola": "Used to + forma base indica abitudini ripetute, situazioni o stati del passato che oggi non ci sono più. È invariabile per tutte le persone. She used to play the violin (prima suonava il violino, ora no). We used to have a dog (prima avevamo un cane).",
+          "nota": "Dove va bene used to va bene quasi sempre anche il past simple: non chiedere completamenti che pretendono used to come unica risposta. Usa la riscrittura con parola chiave USED: la frase di partenza descrive un'abitudine passata finita con un VERBO D'AZIONE ripetuto e un'espressione di frequenza sensata (Sarah played tennis every Sunday, Luca walked to school every day), seguita da una seconda parte coerente con quel verbo (but she doesn't any more = non gioca più; but now he takes the bus). Mai combinazioni senza senso come 'lived in Paris every year, but he doesn't any more'. Lo studente la riscrive con used to. La frase di partenza deve avere senso: le frequenze (every Sunday, often, every summer) vanno solo con azioni ripetute (play, go, visit, eat); con gli stati (live, have, be, like) niente frequenza (Tom lived in Paris, but he doesn't any more). In attese metti la frase riscritta, anche nelle varianti corrette (con e senza avverbi come often)."
+        },
+        {
+          "titolo": "Evento unico o numero preciso di volte → past simple",
+          "regola": "Se l'azione è successa una volta sola, in un momento preciso, o un numero preciso di volte, si usa il past simple, non used to. I went to Rome last summer. I visited Rome three times (NON I used to visit Rome three times).",
+          "nota": "Frasi con ancore come last summer, in 2019, yesterday, three times, once: la risposta attesa è solo il past simple."
+        },
+        {
+          "titolo": "La forma: used to / didn't use to / Did … use to?",
+          "regola": "All'affermativa used to (con la -d). Alla negativa e alla domanda c'è did, che porta già il passato, quindi use to senza -d: I didn't use to like fish. Did you use to walk to school? Le short answer usano did/didn't: Yes, I did. / No, I didn't.",
+          "nota": "Buoni esercizi: correggere l'errore (Did you used to…, She use to…) con tipo riscrivi; short answer (Yes, I did / No, I didn't). Evita completamenti in cui anche il past simple semplice è corretto."
+        },
+        {
+          "titolo": "Abitudini di oggi → usually + present simple",
+          "regola": "Used to esiste solo al passato: non c'è un presente. Per le abitudini di oggi si usa usually + present simple: I usually walk to school (NON I use to walk to school).",
+          "nota": "La frase DEVE contenere un segnale esplicito che si parla di oggi: these days, nowadays o now, fuori dallo spazio. Every day / every afternoon da soli NON bastano, perché la frase potrebbe essere al passato. Meglio ancora un contrasto con il passato nella stessa frase (He used to walk to school, but these days he ___ (take) the bus). Lo studente scrive solo il verbo al present simple, nella forma giusta per il soggetto: con he / she / it o un nome singolare SOLO la forma con -s (takes), con I / you / we / they solo la forma base (take). In attese metti solo quella forma. Mai il present continuous: è fuori programma in questa unità.",
+          "soloPercorso": true
+        }
+      ]
+    },
+    {
+      "title": "Past continuous",
+      "tempi": "past continuous, past simple (per i verbi di stato e per l'evento).",
+      "scoperta": {
+        "storia": "Ieri alle 7 di sera nel palazzo di Sara è saltata la luce. Sara racconta che cosa stava facendo ognuno.",
+        "passi": [
+          {
+            "mostra": [
+              "At 7 o'clock I was having a shower.",
+              "My brother was playing a video game."
+            ],
+            "domanda": "Alle 7 la doccia di Sara era già finita, doveva ancora cominciare, o era in corso?",
+            "obiettivo": "Capire che alle 7 la doccia era in corso: Sara stava facendo la doccia in quel momento."
+          },
+          {
+            "mostra": [
+              "At 7 o'clock I was having a shower.",
+              "My brother was playing a video game."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "What were you doing at 7? — I ___ (read) a comic.",
+            "attese": [
+              "was reading"
+            ],
+            "obiettivo": "Usare was + -ing per un'azione in corso in quel momento: was reading."
+          },
+          {
+            "mostra": [
+              "My parents were cooking dinner.",
+              "My grandma was cooking dinner too."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "My cousins ___ (play) cards when the lights went out.",
+            "attese": [
+              "were playing"
+            ],
+            "obiettivo": "Usare were + -ing con un soggetto plurale: were playing."
+          },
+          {
+            "mostra": [
+              "My brother was playing a video game while my parents were cooking."
+            ],
+            "domanda": "Il fratello e i genitori hanno fatto le loro cose una dopo l'altra, o nello stesso momento?",
+            "obiettivo": "Capire che erano nello stesso momento."
+          },
+          {
+            "mostra": [
+              "It was dark and it was raining outside. Somebody was singing on the stairs."
+            ],
+            "domanda": "Queste frasi raccontano un fatto che succede, o descrivono com'era la scena intorno a Sara?",
+            "obiettivo": "Capire che descrivono la scena, com'era intorno."
+          },
+          {
+            "mostra": [
+              "Sara was looking for the candles.",
+              "Sara knew where the candles were."
+            ],
+            "domanda": "Cercare le candele è una cosa che Sara stava facendo in quel momento. E sapere dove sono: è anche quella una cosa che si sta facendo?",
+            "obiettivo": "Capire che sapere non è un'azione che si sta facendo: si sa e basta. Basta 'no', 'lo sa e basta'."
+          },
+          {
+            "mostra": [
+              "Sara knew where the candles were."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The next day, Sara ___ (want) to buy a new torch.",
+            "attese": [
+              "wanted"
+            ],
+            "obiettivo": "Usare il past simple con un verbo di stato: wanted, non was wanting."
+          },
+          {
+            "mostra": [
+              "Were you sleeping when the lights went out? — No, I wasn't."
+            ],
+            "domanda": "Adesso usala tu. Completa la risposta breve:",
+            "frase": "Were your parents watching TV when the lights went out? — Yes, they ___.",
+            "attese": [
+              "were"
+            ],
+            "obiettivo": "Usare nella risposta breve solo were, senza il verbo."
+          }
+        ],
+        "sintesi": [
+          "was / were + verbo -ing → un'azione in corso in un momento del passato",
+          "I / he / she / it → was · you / we / they → were",
+          "serve anche per due azioni nello stesso momento e per descrivere la scena",
+          "know, want, like, have (possedere)… sono stati, non azioni → past simple",
+          "risposte brevi solo con was / were: No, I wasn't."
+        ]
+      },
+      "points": [
+        {
+          "titolo": "La forma: was/were + -ing",
+          "regola": "Il past continuous si forma con was/were + verbo in -ing: I/he/she/it was working, you/we/they were working. Negativa: wasn't/weren't working. Domanda: Were you sleeping? Short answer solo con was/were: Yes, I was. / No, I wasn't.",
+          "nota": "Esercizi su accordo (was/were), domanda, short answer. Accetta forme contratte ed estese."
+        },
+        {
+          "titolo": "Azione in corso in un momento preciso",
+          "regola": "Il past continuous descrive un'azione che era in corso in un momento preciso del passato: At 7 o'clock I was having a shower (alle 7 stavo facendo la doccia).",
+          "nota": "Un orario da solo NON basta: 'At 8, Tom ___ (watch) TV' accetta anche watched. Usa ancore che escludono il past simple: una domanda al past continuous seguita dalla risposta ('What were you doing at 8? — I ___ (watch) TV'), oppure still ('At midnight Tom was still ___ (study)… ' con il buco sul verbo -ing), oppure un'azione chiaramente a metà ('At 8 I ___ (cook), so I couldn't answer the phone')."
+        },
+        {
+          "titolo": "Lo sfondo della scena",
+          "regola": "Nei racconti il past continuous descrive lo sfondo, cioè che cosa stava succedendo intorno: The sun was shining and people were walking along the beach.",
+          "nota": "Contesti di descrizione della scena, meglio se introdotti da un momento preciso ('When I looked out of the window, it ___ (rain) and people ___ …' con un solo buco). Evita frasi in cui anche il past simple narrativo sia naturale."
+        },
+        {
+          "titolo": "Due azioni in corso nello stesso momento",
+          "regola": "Per due azioni che si svolgevano contemporaneamente si usa il past continuous per tutte e due: Lara was drawing while I was doing a crossword.",
+          "nota": "Un solo buco: una delle due azioni è già data al past continuous."
+        },
+        {
+          "titolo": "I verbi di stato non vanno al past continuous",
+          "regola": "I verbi che indicano uno stato e non un'azione (know, believe, like, love, want, need, own, have = possedere, think = credere) si usano al past simple: He knew the answer (NON He was knowing). Alcuni cambiano significato: I thought you were at home (credevo) / She was thinking about the evening (stava riflettendo); We had a dog (possedevamo) / I was having a shower (azione).",
+          "nota": "Frasi con verbi di stato in un momento preciso del passato (When I met Carla, she ___ (know) nobody): la risposta attesa è il past simple. Evita contesti di abitudine passata (when I was a child…), dove sarebbe corretto anche used to. Coppie think/have con i due significati."
+        }
+      ]
+    },
+    {
+      "title": "Past continuous vs past simple",
+      "tempi": "past continuous, past simple.",
+      "scoperta": {
+        "storia": "Nico racconta che cosa gli è successo tornando a casa dall'allenamento.",
+        "passi": [
+          {
+            "mostra": [
+              "Nico was riding his bike home when a tyre burst."
+            ],
+            "domanda": "Quale azione era già cominciata prima: andare in bici, o la gomma che scoppia?",
+            "obiettivo": "Capire che andare in bici era già in corso."
+          },
+          {
+            "mostra": [
+              "Nico was riding his bike home when a tyre burst."
+            ],
+            "domanda": "E quale delle due è durata un attimo e ha interrotto l'altra?",
+            "obiettivo": "Capire che la gomma che scoppia è l'attimo che interrompe."
+          },
+          {
+            "mostra": [
+              "Nico was riding his bike home when a tyre burst."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Nico ___ (text) his dad when his phone died.",
+            "attese": [
+              "was texting"
+            ],
+            "obiettivo": "Usare il past continuous per l'azione lunga interrotta: was texting."
+          },
+          {
+            "mostra": [
+              "Nico was riding his bike home when a tyre burst."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Nico was riding along the river when it ___ (start) to rain.",
+            "attese": [
+              "started"
+            ],
+            "obiettivo": "Usare il past simple per l'attimo che interrompe: started."
+          },
+          {
+            "mostra": [
+              "He got off his bike, called his dad and waited."
+            ],
+            "domanda": "Qui le azioni succedono nello stesso momento, o una dopo l'altra?",
+            "obiettivo": "Capire che succedono una dopo l'altra."
+          },
+          {
+            "mostra": [
+              "He got off his bike, called his dad and waited."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "His dad arrived, ___ (fix) the tyre and drove Nico home.",
+            "attese": [
+              "fixed"
+            ],
+            "obiettivo": "Usare il past simple per le azioni in sequenza: fixed."
+          },
+          {
+            "mostra": [
+              "When his dad arrived, Nico was sitting on the wall.",
+              "When his dad arrived, Nico stood up."
+            ],
+            "domanda": "Nella seconda frase, Nico si alza prima o dopo l'arrivo del papà?",
+            "obiettivo": "Capire che si alza dopo: prima arriva il papà, poi Nico si alza."
+          },
+          {
+            "mostra": [
+              "While his dad was fixing the tyre, Nico was eating a sandwich."
+            ],
+            "domanda": "Qui un'azione interrompe l'altra, o durano tutte e due insieme?",
+            "obiettivo": "Capire che durano insieme."
+          },
+          {
+            "mostra": [
+              "While his dad was fixing the tyre, Nico was eating a sandwich."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "What was Nico doing while his dad was driving? — He ___ (listen) to music.",
+            "attese": [
+              "was listening"
+            ],
+            "obiettivo": "Usare il past continuous per la seconda azione che dura insieme alla prima: was listening."
+          }
+        ],
+        "sintesi": [
+          "azione lunga in corso → past continuous · evento che la interrompe → past simple",
+          "azioni una dopo l'altra → past simple: He got off his bike and called his dad",
+          "When his dad arrived, Nico was sitting = era già seduto · Nico stood up = si alza dopo",
+          "while + due azioni che durano insieme → past continuous per tutte e due"
+        ]
+      },
+      "points": [
+        {
+          "titolo": "Azione in corso interrotta da un evento",
+          "regola": "Se un'azione in corso viene interrotta da un evento: past continuous per l'azione lunga + when + past simple per l'evento. I was having a shower when the phone rang.",
+          "nota": "Frasi con interruzione chiara; un solo buco."
+        },
+        {
+          "titolo": "Azione già in corso quando succede l'evento",
+          "regola": "When + past simple, e il past continuous per ciò che era già in corso in quel momento: When the teacher came in, Leo was talking (stava già parlando). Con il past simple il senso cambia: When the teacher came in, Leo stopped talking (prima entra, poi Leo smette).",
+          "nota": "Il contesto deve dire chiaramente che l'azione era già cominciata prima dell'evento (When the teacher came in, Leo ___ (talk), so he didn't notice her → was talking), oppure chiaramente che viene dopo (When the teacher came in, everybody ___ (stop) talking → stopped)."
+        },
+        {
+          "titolo": "Azioni in sequenza → past simple",
+          "regola": "Per azioni completate una dopo l'altra si usa il past simple per tutte: I read a book and then fell asleep. When I arrived, she left.",
+          "nota": "Catene di azioni in fila con and / then (He got up, ___ (have) a shower and went out → had). Evita 'When I arrived, she ___ (leave)': accetta anche was leaving."
+        },
+        {
+          "titolo": "While + due azioni simultanee",
+          "regola": "While con due azioni in corso nello stesso momento: past continuous per tutte e due. While I was studying, he was cooking.",
+          "nota": "Un solo buco: l'altra azione è già data."
+        }
+      ]
+    },
+    {
+      "title": "When, while, as",
+      "tempi": "past continuous, past simple.",
+      "scoperta": {
+        "storia": "Marta racconta la sera del concerto.",
+        "passi": [
+          {
+            "mostra": [
+              "While we were waiting outside, it started to rain."
+            ],
+            "domanda": "Aspettare fuori: è durato un po', o è stato un attimo?",
+            "obiettivo": "Capire che aspettare è durato un po'."
+          },
+          {
+            "mostra": [
+              "When the doors opened, it started to rain."
+            ],
+            "domanda": "E le porte che si aprono: è durato, o è stato un attimo?",
+            "obiettivo": "Capire che è stato un attimo."
+          },
+          {
+            "mostra": [
+              "While we were waiting outside, it started to rain.",
+              "When the doors opened, it started to rain."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase con la parola giusta:",
+            "frase": "___ the singer walked on stage, everybody screamed.",
+            "attese": [
+              "When",
+              "As"
+            ],
+            "obiettivo": "Scegliere when (o as): il cantante che entra in scena è un attimo, quindi while non va."
+          },
+          {
+            "mostra": [
+              "While we were waiting outside, it started to rain.",
+              "When the doors opened, it started to rain."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase con la parola giusta:",
+            "frase": "Marta was buying a T-shirt. ___ she was paying, somebody took her bag.",
+            "attese": [
+              "While",
+              "As",
+              "When"
+            ],
+            "obiettivo": "Scegliere while (o as): pagare è un'azione che dura, durante la quale succede altro."
+          },
+          {
+            "mostra": [
+              "As the concert went on, the crowd got louder and louder."
+            ],
+            "domanda": "Il pubblico diventa rumoroso tutto in una volta, o un po' alla volta, mentre il concerto va avanti?",
+            "obiettivo": "Capire che succede un po' alla volta, insieme al concerto che va avanti. Se lo studente chiede se si può dire anche As the concert was going on, la risposta è sì."
+          },
+          {
+            "mostra": [
+              "While the band was playing, I was eating a sandwich.",
+              "As the band was playing, I was getting more and more excited."
+            ],
+            "domanda": "In quale delle due frasi quello che provo cresce man mano che la band suona?",
+            "obiettivo": "Capire che è la seconda: l'eccitazione cresce insieme alla musica. Basta che indichi la seconda frase."
+          },
+          {
+            "mostra": [
+              "As the band was playing, I was getting more and more excited."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase con la parola giusta:",
+            "frase": "___ the night went on, the music got louder and louder.",
+            "attese": [
+              "As"
+            ],
+            "obiettivo": "Scegliere as: la musica cresce man mano che la serata va avanti."
+          },
+          {
+            "mostra": [
+              "As I opened the door of the flat, the lights went out."
+            ],
+            "domanda": "Qui aprire la porta e la luce che si spegne: una dura a lungo, o succedono proprio nello stesso istante?",
+            "obiettivo": "Capire che succedono proprio nello stesso istante."
+          }
+        ],
+        "sintesi": [
+          "when + evento breve: When the doors opened, it started to rain",
+          "while + azione che dura, due cose nello stesso tempo: While the band was playing, I was eating",
+          "as = man mano che, una cosa cambia insieme all'altra: As the band was playing, I was getting more and more excited (va bene anche il past simple: As I got older…)",
+          "as = proprio mentre, nello stesso istante: As I opened the door, the lights went out",
+          "while / as + due azioni lunghe insieme → -ing per tutte e due"
+        ]
+      },
+      "points": [
+        {
+          "titolo": "When + evento breve",
+          "regola": "Per un evento breve e puntuale, che interrompe un'azione già in corso, si usa when: When the phone rang, I was having a shower (NON While the phone rang, NON As the phone rang: la doccia era già cominciata).",
+          "nota": "Costruisci frasi con un evento breve che interrompe un'azione già in corso (When the doorbell rang, I was studying): qui la risposta è SOLO when. While è escluso perché l'evento è un attimo; as è escluso perché l'altra azione era già cominciata, non succede nello stesso istante. Metti as nelle attese solo se anche l'altra azione è un attimo che avviene nello stesso istante (As I opened the door, the lights went out)."
+        },
+        {
+          "titolo": "While + azione in corso",
+          "regola": "While introduce un'azione che dura, in corso, di solito al past continuous: While Dad was cooking, Mum laid the table. L'ordine delle frasi può cambiare senza cambiare il significato.",
+          "nota": "Nelle attese metti anche as e when quando sono corretti. Se lo studente confonde while e as, fagli notare se una cosa cambia man mano che l'altra va avanti."
+        },
+        {
+          "titolo": "As = man mano che / proprio mentre",
+          "regola": "As indica un cambiamento graduale, 'man mano che', in cui una cosa cambia insieme all'altra (As the band was playing, I was getting more and more excited), oppure due cose nello stesso istante, 'proprio mentre' (As I opened the door, the lights went out). While invece indica solo un'azione che dura, durante la quale succede altro, senza questo legame. Con as 'man mano che' il verbo può essere al past simple o al past continuous: As I got older / As I was getting older sono corretti tutti e due.",
+          "nota": "Costruisci frasi in cui SOLO as funziona: un cambiamento graduale legato all'altra azione (more and more, -er and -er, got + comparativo). Attese: as. Non mettere while nelle attese per queste frasi. Se invece lo spazio è sul verbo dopo as 'man mano che', metti in attese SIA il past simple SIA il past continuous (got / was getting)."
+        },
+        {
+          "titolo": "As / while + due azioni lunghe parallele",
+          "regola": "Con due azioni lunghe che si svolgono insieme si usa il past continuous per entrambe: As I was cooking, I was listening to music.",
+          "nota": "Un solo buco, sul verbo; infinito tra parentesi. Attenzione: se as vuol dire 'man mano che' (cambiamento graduale), dopo as vanno bene sia il past simple sia il past continuous: metti in attese tutte e due le forme."
+        }
+      ]
+    },
+    {
+      "title": "Adverbs of sequence",
+      "tempi": "past simple (racconto di azioni in sequenza). Niente past continuous.",
+      "vietate": "\\b(was|were|wasn't|weren't)\\s+(not\\s+)?[a-z]+ing\\b",
+      "scoperta": {
+        "storia": "Karim racconta come ha preparato i pancake.",
+        "passi": [
+          {
+            "mostra": [
+              "First of all, I broke two eggs into a bowl.",
+              "Next, I added the milk and the flour.",
+              "Then, I heated the pan.",
+              "After that, I poured in the mixture.",
+              "Afterwards, I turned the pancake over.",
+              "Finally, I put honey on top."
+            ],
+            "domanda": "Dopo «Finally, I put honey on top», la ricetta continua o è finita?",
+            "obiettivo": "Capire che è finita: finally introduce l'ultimo passo. Basta 'è finita', 'finisce lì'."
+          },
+          {
+            "mostra": [
+              "Next, I added the milk.",
+              "Then, I added the milk.",
+              "After that, I added the milk.",
+              "Afterwards, I added the milk."
+            ],
+            "domanda": "Cambia il significato se Karim usa una parola o l'altra?",
+            "obiettivo": "Capire che il significato non cambia. Basta 'no', 'è uguale'."
+          },
+          {
+            "mostra": [
+              "First of all, I broke two eggs into a bowl.",
+              "Next, I added the milk and the flour.",
+              "Then, I heated the pan.",
+              "After that, I poured in the mixture.",
+              "Afterwards, I turned the pancake over.",
+              "Finally, I put honey on top."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "___, Karim washed his hands. Then he took the eggs out of the fridge.",
+            "attese": [
+              "First of all",
+              "First",
+              "Firstly"
+            ],
+            "obiettivo": "Usare l'espressione che apre la sequenza: First of all (va bene anche First)."
+          },
+          {
+            "mostra": [
+              "After that, I poured in the mixture."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Karim ate three pancakes. After ___, he washed the plates.",
+            "attese": [
+              "that"
+            ],
+            "obiettivo": "Usare after seguito da that."
+          },
+          {
+            "mostra": [
+              "Finally, I put honey on top.",
+              "I burnt the first pancake, but in the end they were all delicious."
+            ],
+            "domanda": "Finally e in the end: quale racconta l'ultima azione della ricetta, e quale come è andata a finire tutta la storia?",
+            "obiettivo": "Capire che finally dice l'ultima azione, in the end come è andata a finire. Basta che li abbini, con parole sue."
+          }
+        ],
+        "sintesi": [
+          "first of all → primo passo (solo first prende of all)",
+          "next / then / after that / afterwards → il passo dopo: hanno lo stesso significato",
+          "finally → ultimo passo · in the end → come è andata a finire",
+          "after + nome o frase (after breakfast, after that), mai After da solo"
+        ]
+      },
+      "points": [
+        {
+          "titolo": "First of all apre la sequenza",
+          "regola": "First of all introduce il primo passo, di solito a inizio frase seguito da virgola: First of all, I put all the ingredients on the table. Solo first può avere of all (NON then of all, next of all).",
+          "nota": "Buoni esercizi: '___ of all, …' (attese: First); correzione di 'Then of all'. Se lo spazio è all'inizio del primo passo senza 'of all' dopo, metti in attese First, First of all e Firstly."
+        },
+        {
+          "titolo": "Next / then / after that / afterwards → il passo dopo",
+          "regola": "Next e then introducono il passo successivo; after that e afterwards hanno un significato simile (in seguito, dopodiché). Then può stare senza virgola: Then I added the eggs.",
+          "nota": "Questi quattro sono spesso tutti corretti: mettili tutti nelle attese quando lo sono."
+        },
+        {
+          "titolo": "Finally e in the end",
+          "regola": "Finally introduce l'ultimo passo di una sequenza (oppure significa 'finalmente' dopo un'attesa): Finally, I added the pasta and served it. In the end indica come è andata a finire la storia: In the end, the film had a happy ending.",
+          "nota": "Distingui ultimo passo di una sequenza di azioni (Finally) da come è andata a finire una storia con problemi (In the end). Dopo un'attesa lunga (We waited for hours and ___ the bus arrived) vanno bene tutti e due: in quel caso metti in attese finally e in the end."
+        },
+        {
+          "titolo": "After è una preposizione",
+          "regola": "After vuole dopo di sé un nome o una frase: I left after breakfast. / I left after I had breakfast. Non si usa da solo con la virgola: After, I left ✗ → After that, I left ✓.",
+          "nota": "Buoni esercizi: completare 'After ___,' con that; correggere 'After, we…'."
+        },
+        {
+          "titolo": "After + past simple in un racconto al passato",
+          "regola": "In un racconto al passato, anche il verbo che viene dopo after è al past simple: I left after I had breakfast.",
+          "nota": "Verbo tra parentesi all'infinito dopo after; risposta attesa al past simple, ma metti in attese anche la forma had + participio (had had, had finished), perché è corretta. Non citare mai il present perfect."
+        }
+      ]
+    }
+  ]
+};
   const storageKey = "grammar-tutor-unit1-v6";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
@@ -105,7 +683,7 @@
     setBusy(true);$("feedback").className="feedback";
     const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
     try{
-      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),signal:controller.signal});
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
       const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
       if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
       if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
