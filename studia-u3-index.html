@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 3</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="tutorbox" id="tutorbox" role="status" aria-live="polite"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 3. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
+</main>
+<script>
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+  "titolo": "Unit 3 · Verb Patterns & Compounds",
+  "fuoriProgramma": "past perfect (had + participio), forma passiva, condizionali con if, reported speech; nelle question tags niente Let's… shall we?, niente frasi con never / hardly / nothing / everything, niente imperativi con will you?",
+  "vietate": "\\bhad\\s+(not\\s+)?(been|already|never|just|gone|done|seen|made|taken|given|written|eaten|known|left|come|become|bought|brought|thought|told|said|found|felt|kept|lost|met|paid|sent|spent|won|forgotten|begun|broken|spoken|chosen|driven|flown|grown|thrown|worn|sung|swum|drunk|fallen|forgiven|hidden|ridden|stolen|woken|understood|slept|heard|read|put|cut|hit|let|shut|set|\\w+ed)\\b|\\bif\\b",
+  "topics": [
+    {
+      "title": "Common verb patterns",
+      "tempi": "tutti i tempi già studiati (present simple e continuous, past simple e continuous, present perfect, will): conta solo il pattern dopo il primo verbo.",
+      "points": [
+        {
+          "titolo": "Dopo i modali: forma base, senza to",
+          "regola": "Dopo i modali (can, could, must, have to, should, will, would rather) si usa la forma base, senza to: I must tidy my bedroom. NON I must to tidy.",
+          "nota": "Frasi con un modale e il verbo tra parentesi: la risposta è solo la forma base (tidy). Con have to la risposta è la forma base dopo to già scritto."
+        },
+        {
+          "titolo": "Verbi + -ing",
+          "regola": "Alcuni verbi vogliono la forma in -ing: enjoy, don't mind, avoid, finish, give up, miss, dream of, look forward to (e love, like, hate, prefer quando si parla dell'attività in generale). In look forward to e dream of, to e of sono preposizioni: dopo va -ing (I'm looking forward to seeing you).",
+          "nota": "Usa soprattutto enjoy, don't mind, avoid, finish, give up, miss, dream of, look forward to, dove l'unica risposta è -ing. Con like, love, hate, prefer, se sono possibili tutte e due le forme, mettile tutte e due nelle attese."
+        },
+        {
+          "titolo": "Verbi + to + forma base",
+          "regola": "Altri verbi vogliono to + forma base: want, would like, would love, would prefer, decide, try, manage, hope, refuse, promise, afford, agree, arrange, need (We've decided to move to the country).",
+          "nota": "Frasi con uno di questi verbi già scritto e il secondo verbo tra parentesi: attese to + forma base (to move)."
+        },
+        {
+          "titolo": "Verbo + persona + to",
+          "regola": "Con want, would like, ask, tell, remind, convince, persuade, invite, help si mette la persona e poi to + forma base: I want you to come (NON I want that you come). Dopo tell e ask la persona viene subito: The teacher told the students to sit down.",
+          "nota": "La persona è già scritta nella frase e lo spazio è sul verbo (She asked her neighbour ___ (turn down) the music → to turn down). Oppure correzione dell'errore con that (I want that you come)."
+        },
+        {
+          "titolo": "start, like, love, prefer: tutte e due le forme",
+          "regola": "Con begin, start, continue le due forme sono equivalenti (I started to go = I started going). Con like, love, hate, prefer: -ing per l'attività in generale, to per una scelta in una situazione precisa (I prefer to wait here, thanks). Dopo would like / would love / would hate / would prefer sempre to (I'd love to visit Japan).",
+          "nota": "Con begin/start/continue metti tutte e due le forme nelle attese. Per il resto usa would like / would love + to, dove la risposta è una sola."
+        }
+      ],
+      "scoperta": {
+        "storia": "Giulia si è appena trasferita in un appartamento nuovo.",
+        "passi": [
+          {
+            "mostra": [
+              "I enjoy cooking, but I hate washing up."
+            ],
+            "domanda": "A Giulia piace lavare i piatti?",
+            "obiettivo": "Capire che non le piace (hate). Basta 'no'."
+          },
+          {
+            "mostra": [
+              "I enjoy cooking, but I hate washing up."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Giulia doesn't mind ___ (clean) the bathroom.",
+            "attese": [
+              "cleaning"
+            ],
+            "obiettivo": "Usare -ing dopo don't mind: cleaning."
+          },
+          {
+            "mostra": [
+              "Giulia decided to paint her bedroom blue.",
+              "She hopes to finish it by Sunday."
+            ],
+            "domanda": "Giulia ha già finito la camera?",
+            "obiettivo": "Capire che non ha ancora finito: spera di finirla entro domenica. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Giulia decided to paint her bedroom blue.",
+              "She hopes to finish it by Sunday."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Her brother promised ___ (help) her on Saturday.",
+            "attese": [
+              "to help"
+            ],
+            "obiettivo": "Usare to + forma base dopo promise: to help."
+          },
+          {
+            "mostra": [
+              "You should call your mum.",
+              "I can't carry this box."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "You must ___ (come) and see the flat!",
+            "attese": [
+              "come"
+            ],
+            "obiettivo": "Usare la forma base dopo must: come."
+          },
+          {
+            "mostra": [
+              "I'm looking forward to seeing you."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Giulia is looking forward to ___ (have) a party in the new flat.",
+            "attese": [
+              "having"
+            ],
+            "obiettivo": "Usare -ing dopo look forward to: having."
+          },
+          {
+            "mostra": [
+              "Giulia wants her friends to bring some food."
+            ],
+            "domanda": "Chi porta il cibo: Giulia o i suoi amici?",
+            "obiettivo": "Capire che il cibo lo portano gli amici. Basta 'gli amici'."
+          },
+          {
+            "mostra": [
+              "Giulia wants her friends to bring some food."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "She asked her neighbour ___ (turn down) the music.",
+            "attese": [
+              "to turn down",
+              "to turn the music down"
+            ],
+            "obiettivo": "Usare persona + to + forma base dopo ask: to turn down."
+          },
+          {
+            "mostra": [
+              "Giulia loves cooking.",
+              "Tonight she'd love to cook, but she's too tired."
+            ],
+            "domanda": "Quale frase parla di una cosa che le piace sempre, in generale?",
+            "obiettivo": "La prima. Basta 'la prima'."
+          }
+        ],
+        "sintesi": [
+          "dopo i modali (can, must, should, will…) → forma base, senza to: I must tidy",
+          "enjoy, don't mind, avoid, finish, give up, miss, dream of, look forward to → -ing",
+          "want, decide, hope, promise, manage, afford, agree, need… → to + forma base",
+          "want / ask / tell / invite + persona + to: I want you to come (niente that)",
+          "start, begin, continue → tutte e due le forme · like, love + -ing in generale, + to per una scelta di adesso · would like / would love → sempre to"
+        ]
+      }
+    },
+    {
+      "title": "Stop, remember, forget",
+      "tempi": "past simple, present simple, will e imperativo; conta la forma dopo stop, remember, forget.",
+      "points": [
+        {
+          "titolo": "stop + -ing: smettere",
+          "regola": "stop + -ing = smettere di fare quella cosa: un'abitudine che finisce o un'attività che si interrompe. We stopped buying fast food.",
+          "nota": "La situazione deve rendere possibile una sola forma (The phone rang, so I stopped ___ (study) and answered it → studying). Niente fumo, sigarette, alcol: gli studenti sono minorenni."
+        },
+        {
+          "titolo": "stop + to: fermarsi per fare altro",
+          "regola": "stop + to = fermarsi per fare un'altra cosa. I stopped to ask for directions.",
+          "nota": "Una situazione in cui ci si ferma durante un percorso o un'attività per fare qualcos'altro (On the way home, we stopped ___ (buy) some bread → to buy). Niente fumo né alcol."
+        },
+        {
+          "titolo": "remember / forget + to: un compito da fare",
+          "regola": "remember / forget + to = c'era un compito da fare, e si è fatto oppure no. Please remember to lock the door. I forgot to feed the cat.",
+          "nota": "Compiti, promemoria, imperativi (Don't forget ___ (turn off) the lights → to turn off). Una sola forma possibile."
+        },
+        {
+          "titolo": "remember / forget + -ing: il ricordo di una cosa successa",
+          "regola": "remember / forget + -ing = si parla di una cosa già successa, che si ricorda o no. He remembers visiting Paris when he was a child. I'll never forget meeting her.",
+          "nota": "Ricordi di infanzia o di esperienze passate, con un riferimento al passato (when I was five, on my first day)."
+        }
+      ],
+      "scoperta": {
+        "storia": "Marco racconta la sua settimana.",
+        "passi": [
+          {
+            "mostra": [
+              "Marco stopped playing football last year."
+            ],
+            "domanda": "Marco gioca ancora a calcio?",
+            "obiettivo": "Capire che ha smesso. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "On the way to school, Marco stopped to buy a croissant."
+            ],
+            "domanda": "Perché Marco si è fermato?",
+            "obiettivo": "Capire che si è fermato per comprare un croissant. Basta 'per comprare un croissant'."
+          },
+          {
+            "mostra": [
+              "Marco stopped eating.",
+              "Marco stopped to eat."
+            ],
+            "domanda": "In quale frase Marco, dopo essersi fermato, mangia?",
+            "obiettivo": "La seconda: si ferma per mangiare. Basta 'la seconda'."
+          },
+          {
+            "mostra": [
+              "Marco stopped playing football last year."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The phone rang, so I stopped ___ (study) and answered it.",
+            "attese": [
+              "studying"
+            ],
+            "obiettivo": "Usare stop + -ing: ha smesso di studiare. studying."
+          },
+          {
+            "mostra": [
+              "On the way to school, Marco stopped to buy a croissant."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "We were tired, so we stopped ___ (have) a rest at a café.",
+            "attese": [
+              "to have"
+            ],
+            "obiettivo": "Usare stop + to: si sono fermati per riposarsi. to have."
+          },
+          {
+            "mostra": [
+              "Marco remembered to feed the cat.",
+              "Marco forgot to feed the cat."
+            ],
+            "domanda": "In quale frase il gatto ha mangiato?",
+            "obiettivo": "Nella prima. Basta 'la prima'."
+          },
+          {
+            "mostra": [
+              "I'll never forget meeting my favourite singer."
+            ],
+            "domanda": "Marco ha incontrato davvero il cantante?",
+            "obiettivo": "Capire che è successo davvero: sì."
+          },
+          {
+            "mostra": [
+              "Marco remembered to feed the cat."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Please remember ___ (lock) the door when you go out.",
+            "attese": [
+              "to lock"
+            ],
+            "obiettivo": "Usare remember + to per un compito da fare: to lock."
+          },
+          {
+            "mostra": [
+              "I'll never forget meeting my favourite singer."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "I remember ___ (go) to the seaside with my grandparents when I was five.",
+            "attese": [
+              "going"
+            ],
+            "obiettivo": "Usare remember + -ing per un ricordo: going."
+          }
+        ],
+        "sintesi": [
+          "stop + -ing → smettere: Marco stopped playing football",
+          "stop + to → fermarsi per fare un'altra cosa: he stopped to buy a croissant",
+          "remember / forget + to → un compito da fare: remember to lock the door",
+          "remember / forget + -ing → il ricordo di una cosa successa: I'll never forget meeting her",
+          "tutte e due le forme sono corrette: decide la situazione"
+        ]
+      }
+    },
+    {
+      "title": "Compounds of some, any, every, no",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sul composto (somebody, anything, everywhere, nobody…), mai sul verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "some-: affermative e offerte",
+          "regola": "some + thing (cose), one / body (persone), where (luoghi). I composti di some si usano nelle affermative e nelle domande che sono offerte o richieste in cui ci si aspetta un sì: Would you like something to eat?",
+          "nota": "Frasi affermative o offerte con would you like / could I have. Un solo composto possibile."
+        },
+        {
+          "titolo": "any-: negative, domande e «qualsiasi»",
+          "regola": "I composti di any si usano nelle negative e nelle domande; nelle affermative vogliono dire «qualsiasi cosa, chiunque, ovunque»: You can choose anything you like.",
+          "nota": "Negative con not, domande vere (non offerte), oppure affermative con il senso di qualsiasi (you can sit anywhere)."
+        },
+        {
+          "titolo": "every-: tutti, e il verbo al singolare",
+          "regola": "I composti di every (everybody, everyone, everything, everywhere) vogliono il verbo al singolare: Everyone deserves fair pay.",
+          "nota": "Lo spazio è sul composto e il verbo al singolare è già scritto; un elemento nella frase esclude some- (all twenty of them, the whole class). Per il verbo al singolare usa esercizi di correzione dell'errore (Everybody love pizza)."
+        },
+        {
+          "titolo": "no-: significato negativo, verbo affermativo",
+          "regola": "I composti di no (nobody, no one, nothing, nowhere) hanno significato negativo, ma il verbo resta affermativo: There's no one on the beach. Nobody answered (NON Nobody didn't answer).",
+          "nota": "Lo spazio è sul composto e il verbo affermativo è già scritto (… but ___ answered the phone → nobody / no one). Correzione dell'errore per la doppia negazione."
+        },
+        {
+          "titolo": "L'aggettivo va subito dopo",
+          "regola": "L'aggettivo va subito dopo il composto, senza of: something strange, somewhere quiet, nothing new (NON something of strange).",
+          "nota": "Frasi con composto + aggettivo; lo spazio è sul composto. Correzione dell'errore con of."
+        }
+      ],
+      "scoperta": {
+        "storia": "Sofia organizza una festa a casa sua.",
+        "passi": [
+          {
+            "mostra": [
+              "Somebody is at the door.",
+              "Is anybody at the door?",
+              "Nobody is at the door."
+            ],
+            "domanda": "In quale frase alla porta non c'è proprio nessuno?",
+            "obiettivo": "La terza (nobody). Basta 'la terza'."
+          },
+          {
+            "mostra": [
+              "Somebody is at the door."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Would you like ___ to drink?",
+            "attese": [
+              "something"
+            ],
+            "obiettivo": "Usare something in un'offerta: something."
+          },
+          {
+            "mostra": [
+              "Is anybody at the door?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "I've looked ___ for my phone, but I can't find it.",
+            "attese": [
+              "everywhere"
+            ],
+            "obiettivo": "Usare everywhere per 'dappertutto': everywhere."
+          },
+          {
+            "mostra": [
+              "Nobody came to Sofia's first party."
+            ],
+            "domanda": "Quante persone sono venute alla prima festa di Sofia?",
+            "obiettivo": "Nessuna. Basta 'nessuna', 'zero'."
+          },
+          {
+            "mostra": [
+              "Nobody came to Sofia's first party."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Sofia called everyone, but ___ answered the phone.",
+            "attese": [
+              "nobody",
+              "no one",
+              "no-one"
+            ],
+            "obiettivo": "Usare nobody / no one con il verbo affermativo: nobody."
+          },
+          {
+            "mostra": [
+              "Everybody is here now."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "___ in Sofia's class loves her chocolate cake: all twenty of them!",
+            "attese": [
+              "everybody",
+              "everyone"
+            ],
+            "obiettivo": "Usare everybody / everyone per tutti: everybody."
+          },
+          {
+            "mostra": [
+              "You can sit anywhere you like."
+            ],
+            "domanda": "Gli ospiti devono sedersi in un posto preciso?",
+            "obiettivo": "Capire che possono sedersi dove vogliono. Basta 'no', 'dove vogliono'."
+          },
+          {
+            "mostra": [
+              "There's something strange in the garden."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Look out of the window: there's ___ strange in the garden!",
+            "attese": [
+              "something"
+            ],
+            "obiettivo": "Usare something + aggettivo: something."
+          }
+        ],
+        "sintesi": [
+          "some- → affermative e offerte: Would you like something to drink?",
+          "any- → negative e domande; nelle affermative vuol dire qualsiasi: sit anywhere you like",
+          "every- → tutti, con il verbo al singolare: Everybody loves her cake",
+          "no- → significato negativo, verbo affermativo: Nobody answered",
+          "l'aggettivo va subito dopo: something strange"
+        ]
+      }
+    },
+    {
+      "title": "Question tags",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sulla question tag (don't you, isn't there…), niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(|\\blet's\\b|\\bshall we\\b|\\b(never|hardly|seldom|rarely)\\b|\\b(nothing|everything)\\b",
+      "points": [
+        {
+          "titolo": "Affermativa → tag negativa, negativa → tag affermativa",
+          "regola": "Se la frase è affermativa, la tag è negativa; se la frase è negativa, la tag è affermativa. La tag ripete l'ausiliare o il modale della frase, seguito dal pronome: She can paint well, can't she? They've got a new car, haven't they? You aren't from Milan, are you?",
+          "nota": "Alterna frasi facili e difficili: be, can / can't, will / won't, have got, present perfect (Your parents have met Luca, haven't they?), 's = is o has (Tom's tired, isn't he? / Luca's been to London, hasn't he?). Il soggetto è spesso un nome: la tag usa il pronome (Your sister … , didn't she?)."
+        },
+        {
+          "titolo": "do / does / did",
+          "regola": "Se la frase è al present simple la tag usa do / does; se è al past simple usa did: You live near the station, don't you? He missed the bus, didn't he?",
+          "nota": "Present simple con he/she (doesn't she) e con I/you/we/they (don't you); past simple affermativo e negativo."
+        },
+        {
+          "titolo": "I am → aren't I",
+          "regola": "Con I am la tag negativa è aren't I: I'm late, aren't I?",
+          "nota": "Solo frasi affermative con I'm / I am."
+        },
+        {
+          "titolo": "somebody, nobody → they · there is → there",
+          "regola": "Con somebody, anybody, nobody, no one come soggetto il pronome della tag è they: Nobody heard them, did they? Con there is / there are si ripete there: There's a bath in the loft, isn't there?",
+          "nota": "Frasi con somebody / nobody / no one soggetto (anche al passato: Somebody left the door open, didn't they?) e con there is / there are / there was / there were."
+        }
+      ],
+      "scoperta": {
+        "storia": "Alla festa, Luca conosce una ragazza nuova.",
+        "passi": [
+          {
+            "mostra": [
+              "You're Sofia's cousin, aren't you?"
+            ],
+            "domanda": "Luca è quasi sicuro della risposta, o non ne ha idea?",
+            "obiettivo": "Capire che è quasi sicuro e chiede conferma. Basta 'quasi sicuro', 'chiede conferma'."
+          },
+          {
+            "mostra": [
+              "You like pizza, don't you?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "You live near the station, ___?",
+            "attese": [
+              "don't you",
+              "do not you"
+            ],
+            "obiettivo": "Tag con do per il present simple: don't you."
+          },
+          {
+            "mostra": [
+              "You aren't hungry, are you?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "You aren't from Milan, ___?",
+            "attese": [
+              "are you"
+            ],
+            "obiettivo": "Frase negativa, tag affermativa: are you."
+          },
+          {
+            "mostra": [
+              "It's hot in here, isn't it?"
+            ],
+            "domanda": "Luca vuole sapere che temperatura c'è, o vuole che lei sia d'accordo con lui?",
+            "obiettivo": "Capire che vuole che lei sia d'accordo. Basta 'che sia d'accordo'."
+          },
+          {
+            "mostra": [
+              "Your brother plays the guitar, doesn't he?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Your sister went to Spain last summer, ___?",
+            "attese": [
+              "didn't she",
+              "did not she"
+            ],
+            "obiettivo": "Past simple, soggetto nome → pronome: didn't she."
+          },
+          {
+            "mostra": [
+              "You're Sofia's cousin, aren't you?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "I'm talking too much, ___?",
+            "attese": [
+              "aren't I"
+            ],
+            "obiettivo": "Caso speciale di I am: aren't I."
+          },
+          {
+            "mostra": [
+              "You can dance, can't you?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "She'll be here soon, ___?",
+            "attese": [
+              "won't she",
+              "will not she"
+            ],
+            "obiettivo": "Tag con will: won't she."
+          },
+          {
+            "mostra": [
+              "You've got a sister, haven't you?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Luca's been to London, ___?",
+            "attese": [
+              "hasn't he",
+              "has not he"
+            ],
+            "obiettivo": "Qui 's vuol dire has: hasn't he."
+          },
+          {
+            "mostra": [
+              "Nobody called, did they?"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Somebody left the door open, ___?",
+            "attese": [
+              "didn't they",
+              "did not they"
+            ],
+            "obiettivo": "Con somebody la tag usa they: didn't they."
+          }
+        ],
+        "sintesi": [
+          "frase affermativa → tag negativa · frase negativa → tag affermativa",
+          "la tag ripete l'ausiliare o il modale + il pronome: They've got a car, haven't they?",
+          "present simple → do / does · past simple → did",
+          "I'm… → aren't I?",
+          "somebody / nobody → they · there is / there are → there"
+        ]
+      }
+    }
+  ]
+};
+  const storageKey = "grammar-tutor-unit3-v1";
+  const $ = id => document.getElementById(id);
+  let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
+  function setBusy(on){
+    busy=on;
+    $("waiting").classList.toggle("show",on);
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){
+    if(busy||current?.completed)return;
+    if(hasChoices()){const b=document.querySelector(".choice");if(b)b.focus({preventScroll:true});return}
+    (pending||!current?$("submit"):$("answer")).focus({preventScroll:true});
+  }
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 3 · Verb Patterns & Compounds");$("inputArea").hidden=true;$("choices").replaceChildren();$("submit").hidden=false;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.module?.label||"");
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${Math.round((current.progress||0)*100)}%`;
+    const bx=$("tutorbox"),f=pending?null:a.feedback;bx.className="tutorbox";bx.replaceChildren();
+    if(f&&f.testo){
+      bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
+      if(f.risposta){
+        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
+        if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
+        else r.append(f.risposta);
+        bx.append(r);
+      }
+      const d=document.createElement("div");d.textContent=f.testo;bx.append(d);
+    }
+    $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
+    $("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
+    }
+    setBusy(busy);focusActive();
+  }
+  async function call(payload){
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      savedState=null;save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
+  }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call(savedState?{action:"resume",state:savedState}:{action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
+  });
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  const toMenu=()=>call({action:"menu",state:(pending||current)?.state||savedState||{}});
+  $("restart").onclick=toMenu;$("again").onclick=toMenu;
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
+  }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
+  render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
+</script>
+</body>
+</html>
