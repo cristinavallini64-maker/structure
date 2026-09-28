@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 4</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="tutorbox" id="tutorbox" role="status" aria-live="polite"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 4. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
+</main>
+<script>
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+  "titolo": "Unit 4 · Perfect Tenses & Relative Clauses",
+  "fuoriProgramma": "condizionali (if, would), past perfect continuous (had been + -ing), forma passiva, reported speech, futuro",
+  "vietate": "\\bif\\b|\\bwould\\b|\\bhad\\s+been\\s+[a-z]+ing\\b",
+  "topics": [
+    {
+      "title": "Past perfect simple",
+      "tempi": "past perfect simple e past simple.",
+      "points": [
+        {
+          "titolo": "had + participio: quello che era già successo prima",
+          "regola": "Il past perfect (had + participio) si usa per un'azione avvenuta prima di un'altra azione o di un momento del passato. Corrisponde al trapassato prossimo: Tom's brother had left = il fratello di Tom era andato via. L'ausiliare è sempre had, anche con i verbi di movimento: She had gone to the gym (NON was gone).",
+          "nota": "Frasi con due momenti del passato: quello più recente al past simple già scritto, lo spazio sull'azione precedente. Ancore: by the time, when … already, because."
+        },
+        {
+          "titolo": "Negativa, domanda e risposte brevi",
+          "regola": "Negativa: hadn't + participio. Domanda: Had + soggetto + participio? Risposte brevi: Yes, I had. / No, I hadn't.",
+          "nota": "Negative con because (She was hungry because she ___ (not eat) all day), domande e risposte brevi con un solo spazio."
+        },
+        {
+          "titolo": "Con just, already, never, before, because",
+          "regola": "Il past perfect si usa spesso con just, already, ever, never, before e dopo because: When I got to the station, the train had already left.",
+          "nota": "L'avverbio può essere tra parentesi insieme al verbo: (already / leave) → had already left."
+        },
+        {
+          "titolo": "Due azioni: prima il past perfect, poi il past simple",
+          "regola": "L'azione precedente va al past perfect, quella più recente al past simple, spesso con by the time, when, after, before. Con when il tempo cambia il significato: When I saw them, they stopped talking (prima li ho visti, poi hanno smesso) / When I saw them, they had stopped talking (avevano già smesso).",
+          "nota": "By the time + past simple rende obbligatorio il past perfect nell'altra parte. Con when, metti un'ancora che decida (already, per esempio)."
+        },
+        {
+          "titolo": "Se l'ordine è già chiaro basta il past simple",
+          "regola": "Se i fatti sono raccontati in ordine e la sequenza è chiara, basta il past simple: He finished the chapter and turned off the lamp.",
+          "nota": "Frasi con tre azioni in fila collegate da and: lo spazio è sull'ultima, al past simple."
+        }
+      ],
+      "scoperta": {
+        "storia": "Martina arriva in ritardo alla stazione.",
+        "passi": [
+          {
+            "mostra": [
+              "When Martina got to the station, the train had left."
+            ],
+            "domanda": "Quando Martina è arrivata, il treno era ancora lì?",
+            "obiettivo": "Capire che il treno era già partito prima che arrivasse. Basta 'no', 'era già partito'."
+          },
+          {
+            "mostra": [
+              "When Martina got to the station, the train left.",
+              "When Martina got to the station, the train had left."
+            ],
+            "domanda": "In quale frase Martina vede partire il treno?",
+            "obiettivo": "Nella prima: arriva e poi il treno parte. Basta 'la prima'."
+          },
+          {
+            "mostra": [
+              "When Martina got to the station, the train had left."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "By the time Martina called her mum, her mum ___ (go) to bed.",
+            "attese": [
+              "had gone"
+            ],
+            "obiettivo": "Usare had + participio per l'azione che viene prima: had gone."
+          },
+          {
+            "mostra": [
+              "Martina was hungry because she hadn't eaten all day."
+            ],
+            "domanda": "Martina aveva mangiato qualcosa quel giorno?",
+            "obiettivo": "Capire che non aveva mangiato niente. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Martina was hungry because she hadn't eaten all day."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Martina was tired because she ___ (not sleep) well the night before.",
+            "attese": [
+              "hadn't slept",
+              "had not slept"
+            ],
+            "obiettivo": "Usare la negativa del past perfect: hadn't slept."
+          },
+          {
+            "mostra": [
+              "Had you ever been there before? — Yes, I had."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Had you ever travelled alone before? — No, I ___.",
+            "attese": [
+              "hadn't",
+              "had not"
+            ],
+            "obiettivo": "Risposta breve con had: hadn't."
+          },
+          {
+            "mostra": [
+              "Martina bought a ticket, got on the next train and fell asleep."
+            ],
+            "domanda": "Le azioni succedono una dopo l'altra, in ordine?",
+            "obiettivo": "Sì, sono in ordine: per questo basta il past simple. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "When Martina got to the station, the train had left."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "When the next train arrived, Martina ___ (already / buy) a sandwich.",
+            "attese": [
+              "had already bought"
+            ],
+            "obiettivo": "Usare il past perfect con already: had already bought."
+          }
+        ],
+        "sintesi": [
+          "had + participio → quello che era già successo prima di un altro fatto passato: the train had left",
+          "l'ausiliare è sempre had, anche con i verbi di movimento: she had gone (non was gone)",
+          "negativa hadn't · domanda Had you…? · risposte brevi Yes, I had / No, I hadn't",
+          "by the time / when / because: prima il past perfect, poi il past simple",
+          "se i fatti sono già in ordine basta il past simple: she bought a ticket, got on the train and fell asleep"
+        ]
+      }
+    },
+    {
+      "title": "Narrative tenses",
+      "tempi": "past simple, past continuous, past perfect (e used to per le abitudini).",
+      "points": [
+        {
+          "titolo": "Past simple: i fatti in ordine",
+          "regola": "Il past simple racconta i fatti conclusi, uno dopo l'altro: He went out, locked the door and smiled.",
+          "nota": "Sequenze di azioni in ordine: lo spazio su una delle azioni della catena."
+        },
+        {
+          "titolo": "Past perfect: quello che era già successo",
+          "regola": "Il past perfect racconta quello che era già successo prima di quel punto del racconto: Someone had stolen my tablet.",
+          "nota": "Un'ancora che mostri che il fatto è precedente (already, when I arrived, by then)."
+        },
+        {
+          "titolo": "Past continuous: la scena e l'azione in corso",
+          "regola": "Il past continuous descrive l'azione in corso in quel momento, la scena, lo sfondo: I was studying at university at the time. It was raining.",
+          "nota": "Descrizione della scena o azione in corso in un momento preciso."
+        },
+        {
+          "titolo": "Azione lunga interrotta da un'azione breve",
+          "regola": "Nella stessa frase l'azione lunga va al past continuous ed è interrotta da un'azione breve al past simple, con while, when, as: She was drinking her tea when the phone rang.",
+          "nota": "Un solo spazio: o sull'azione lunga (was drinking) o su quella breve (rang)."
+        },
+        {
+          "titolo": "Le abitudini non vanno al past continuous",
+          "regola": "Un'abitudine del passato si dice al past simple (o con used to), non al past continuous: Every evening he read to us (NON was reading).",
+          "nota": "Frasi con every evening, every summer, when he was a child: attese al past simple e con used to."
+        }
+      ],
+      "scoperta": {
+        "storia": "Davide racconta una gita in montagna.",
+        "passi": [
+          {
+            "mostra": [
+              "It was snowing and the wind was blowing.",
+              "Davide put on his boots and went out."
+            ],
+            "domanda": "Quale frase descrive la scena intorno, e non un'azione di Davide?",
+            "obiettivo": "La prima: descrive il tempo che faceva. Basta 'la prima'."
+          },
+          {
+            "mostra": [
+              "When Davide reached the hut, somebody had lit the fire."
+            ],
+            "domanda": "Quando Davide è arrivato, il fuoco era già acceso?",
+            "obiettivo": "Sì, qualcuno l'aveva acceso prima. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "It was snowing and the wind was blowing."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Davide ___ (walk) up the path when he heard a strange noise.",
+            "attese": [
+              "was walking"
+            ],
+            "obiettivo": "Azione lunga interrotta: was walking."
+          },
+          {
+            "mostra": [
+              "When Davide reached the hut, somebody had lit the fire."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "He turned round, but there was nothing: the animal ___ (already / run) away.",
+            "attese": [
+              "had already run"
+            ],
+            "obiettivo": "Quello che era già successo: had already run."
+          },
+          {
+            "mostra": [
+              "Davide put on his boots and went out."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "He opened his rucksack, took out his phone and ___ (call) his sister.",
+            "attese": [
+              "called"
+            ],
+            "obiettivo": "Il fatto successivo della catena: called."
+          },
+          {
+            "mostra": [
+              "Every summer, Davide's grandad took him to the mountains."
+            ],
+            "domanda": "È successo una volta sola o tutte le estati?",
+            "obiettivo": "Tutte le estati: è un'abitudine. Basta 'tutte le estati', 'ogni estate'."
+          },
+          {
+            "mostra": [
+              "Every summer, Davide's grandad took him to the mountains."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "When he was a child, Davide ___ (spend) every August in a small village.",
+            "attese": [
+              "spent",
+              "used to spend"
+            ],
+            "obiettivo": "Abitudine del passato al past simple (o con used to): spent."
+          }
+        ],
+        "sintesi": [
+          "past simple → i fatti in ordine: he opened his rucksack and called his sister",
+          "past perfect → quello che era già successo: somebody had lit the fire",
+          "past continuous → la scena e l'azione in corso: it was snowing",
+          "azione lunga (past continuous) interrotta da un'azione breve (past simple): he was walking when he heard a noise",
+          "le abitudini al past simple (o used to), non al past continuous: every summer his grandad took him"
+        ]
+      }
+    },
+    {
+      "title": "Defining vs non-defining relative clauses",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sul pronome relativo (who, which, that…), mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "Defining: identifica, senza virgole",
+          "regola": "La defining relative clause serve a identificare di chi o di che cosa si parla e sta subito dopo il nome, senza virgole. who per le persone, which per le cose; that vale per tutti e due, ma solo nelle defining.",
+          "nota": "Frasi senza virgole: attese who/that per le persone, which/that per le cose (mettile tutte)."
+        },
+        {
+          "titolo": "Pronome soggetto e pronome oggetto",
+          "regola": "Se il pronome fa da soggetto della relativa non si può togliere: The author who won the prize… Se fa da complemento oggetto si può togliere: The book (that) they love…",
+          "nota": "Esercizi di correzione dell'errore con il pronome soggetto tolto (The man lives next door is a nurse). Con il pronome oggetto lo spazio accetta which/that/who."
+        },
+        {
+          "titolo": "Non-defining: informazione in più, fra virgole",
+          "regola": "La non-defining dà un'informazione in più: si potrebbe togliere e la frase resterebbe in piedi. Va fra virgole, vuole solo who o which (mai that) e il pronome non si può omettere.",
+          "nota": "Frasi con le virgole e un nome già identificato (un nome proprio, my mother, the Eiffel Tower): attese solo who o which."
+        },
+        {
+          "titolo": "Le virgole cambiano il significato",
+          "regola": "The boy who was buying a ticket fainted → c'erano più ragazzi, è svenuto quello che comprava il biglietto. The boy, who was buying a ticket, fainted → c'era un ragazzo solo.",
+          "nota": "Soprattutto esercizi di correzione o di riscrittura in cui le virgole decidono (niente that nelle non-defining)."
+        }
+      ],
+      "scoperta": {
+        "storia": "Chiara mostra le foto della gita di classe.",
+        "passi": [
+          {
+            "mostra": [
+              "The girl who is wearing a red hat is my cousin."
+            ],
+            "domanda": "Nella foto ci sono più ragazze o una sola?",
+            "obiettivo": "Più ragazze: la relativa serve a capire quale. Basta 'più ragazze'."
+          },
+          {
+            "mostra": [
+              "My brother Luca, who studies in Turin, came with us."
+            ],
+            "domanda": "Se togli «who studies in Turin», si capisce ancora chi è Luca?",
+            "obiettivo": "Sì: è un'informazione in più. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "The girl who is wearing a red hat is my cousin."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "This is the boy ___ won the photo competition.",
+            "attese": [
+              "who",
+              "that"
+            ],
+            "obiettivo": "Pronome per una persona in una defining: who / that."
+          },
+          {
+            "mostra": [
+              "My brother Luca, who studies in Turin, came with us."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Our teacher, ___ loves photography, took all these pictures.",
+            "attese": [
+              "who"
+            ],
+            "obiettivo": "Non-defining per una persona: who (mai that)."
+          },
+          {
+            "mostra": [
+              "The students who had a ticket went into the museum.",
+              "The students, who had a ticket, went into the museum."
+            ],
+            "domanda": "In quale frase sono entrati tutti gli studenti?",
+            "obiettivo": "Nella seconda: tutti avevano il biglietto. Basta 'la seconda'."
+          },
+          {
+            "mostra": [
+              "My brother Luca, who studies in Turin, came with us."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The museum, ___ opened in 1990, is very modern.",
+            "attese": [
+              "which"
+            ],
+            "obiettivo": "Non-defining per una cosa: which (mai that)."
+          },
+          {
+            "mostra": [
+              "The girl who is wearing a red hat is my cousin."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Is this the photo ___ you took?",
+            "attese": [
+              "which",
+              "that"
+            ],
+            "obiettivo": "Pronome oggetto per una cosa in una defining: which / that."
+          }
+        ],
+        "sintesi": [
+          "defining → identifica, senza virgole: the girl who is wearing a red hat",
+          "who per le persone, which per le cose, that per tutti e due (solo nelle defining)",
+          "pronome soggetto: non si toglie · pronome oggetto: si può togliere (the photo you took)",
+          "non-defining → informazione in più, fra virgole, solo who / which, mai that",
+          "le virgole cambiano il significato: the students, who had a ticket → tutti"
+        ]
+      }
+    },
+    {
+      "title": "Relative pronouns revision",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sul pronome relativo o sulla preposizione finale, mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "who, which, that",
+          "regola": "who per le persone, which per le cose, that per tutti e due nelle defining.",
+          "nota": "Frasi miste persone/cose; nelle defining metti tutte le risposte possibili nelle attese."
+        },
+        {
+          "titolo": "whose: di chi è",
+          "regola": "whose indica possesso, appartenenza o un legame: She has a friend whose job is a pilot.",
+          "nota": "Frasi con un possesso chiaro (… whose dad / whose car / whose house)."
+        },
+        {
+          "titolo": "where e when",
+          "regola": "where per i luoghi (Turin, where FIAT has its headquarters…), when per i momenti (his first concert, when he was 12).",
+          "nota": "Luoghi e momenti; con when accetta anche that nelle defining (the day that…)."
+        },
+        {
+          "titolo": "La preposizione va in fondo",
+          "regola": "A differenza dell'italiano, la preposizione del verbo va in fondo e non davanti al pronome, e non si ripete: the boy (who) you're going out with (NON with who you're going out); the book I told you about (NON about it).",
+          "nota": "Lo spazio sulla preposizione finale (about, with, for, to…), oppure correzione dell'errore con la preposizione ripetuta."
+        }
+      ],
+      "scoperta": {
+        "storia": "Leo fa vedere la sua città a Sam, un amico inglese.",
+        "passi": [
+          {
+            "mostra": [
+              "This is my friend Sam, whose dad is a pilot."
+            ],
+            "domanda": "Chi fa il pilota: Sam o il papà di Sam?",
+            "obiettivo": "Il papà di Sam. Basta 'il papà'."
+          },
+          {
+            "mostra": [
+              "This is my friend Sam, whose dad is a pilot."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "I have a neighbour ___ dog barks all night.",
+            "attese": [
+              "whose"
+            ],
+            "obiettivo": "Possesso: whose."
+          },
+          {
+            "mostra": [
+              "That's the café where we meet after school."
+            ],
+            "domanda": "Che cosa fanno Leo e i suoi amici in quel bar?",
+            "obiettivo": "Ci si incontrano dopo la scuola. Basta 'si incontrano'."
+          },
+          {
+            "mostra": [
+              "That's the café where we meet after school."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "This is the park ___ I learnt to ride a bike.",
+            "attese": [
+              "where"
+            ],
+            "obiettivo": "Luogo: where."
+          },
+          {
+            "mostra": [
+              "That's the café where we meet after school."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "I'll never forget the day ___ I met my best friend.",
+            "attese": [
+              "when",
+              "that"
+            ],
+            "obiettivo": "Momento: when."
+          },
+          {
+            "mostra": [
+              "That's the shop assistant Leo complained about."
+            ],
+            "domanda": "Leo si è lamentato di quella commessa?",
+            "obiettivo": "Sì. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "That's the shop assistant Leo complained about."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Is this the song you were talking ___?",
+            "attese": [
+              "about"
+            ],
+            "obiettivo": "La preposizione va in fondo: about."
+          }
+        ],
+        "sintesi": [
+          "who → persone · which → cose · that → tutti e due (defining)",
+          "whose → possesso o legame: my friend Sam, whose dad is a pilot",
+          "where → luoghi · when → momenti",
+          "la preposizione va in fondo e non si ripete: the song you were talking about"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "When I got there, they had already chosen the novel.",
+    "Zoe didn't want to see the film because she had read the ending on a blog.",
+    "By the time the bookshop opened, a queue of fans had formed round the corner.",
+    "I had never heard of that novelist before my cousin lent me his autobiography.",
+    "Had the twins finished the graphic novel before the lesson? — No, they hadn't.",
+    "No: se n'era già andato prima.",
+    "Nour was furious: someone had told her the ending of the thriller.",
+    "Ivan had never been to a book club before that evening.",
+    "The author admitted that she had rewritten the beginning of the novel eleven times.",
+    "Had you read the biography? Yes, I had.",
+    "Marek hadn't opened a cookbook in his life until he moved out of his parents' flat.",
+    "Dopo had ci vuole il participio passato: had gone.",
+    "By nine o'clock Silvia had written only two lines of her review of the romantic novel, so she gave up.",
+    "Sara had already read the biography when she watched the documentary.",
+    "Perché l'aspettativa viene prima della delusione.",
+    "Callum couldn't join the discussion because he hadn't got past chapter two.",
+    "When the bell rang, the class had stopped reading.",
+    "By the time we got to the cinema, the film had started.",
+    "Elena went back to page one because she had forgotten the villain's name.",
+    "When I opened the box, someone had already taken the comic books.",
+    "Bruno recognised the evil twin at once: he had seen the film version as a child.",
+    "Ha trovato il libro.",
+    "Otis had seen the film before he read the novel.",
+    "Serena had to explain who the author was, because nobody else had heard of him.",
+    "By the time we reached the last chapter, we had already guessed who the villain was.",
+    "The library was closed, so Sasha walked home without the travel book.",
+    "Il past perfect: they had already turned off the light.",
+    "When the parcel arrived, Nadia saw that she had ordered an awful pirate edition.",
+    "Callum couldn't hand the book back because he had left it on the bus that morning.",
+    "Rita met the author at a signing in Padua last spring.",
+    "Everybody clapped: the biography had won the prize the night before.",
+    "My uncle lent me his old comic books when I was ten.",
+    "Prima della fine del film.",
+    "A dipingere la scena in cui succederà qualcosa.",
+    "While the heroine was turning the last page, somebody knocked at the door.",
+    "Silvia was reading on the sofa when the storm knocked the power out.",
+    "Every evening my grandfather read us a chapter of a history book.",
+    "Il ritrovamento del quaderno interrompe la camminata.",
+    "By the time the hero reached the tower, the dragon had flown away.",
+    "While the crew was building the set, the director rewrote the final scene.",
+    "The audience gasped when the cruel stepmother finally appeared on stage.",
+    "I due tempi: While I was reading, my brother came in.",
+    "It was snowing heavily when the coach finally reached the village.",
+    "Nobody noticed the small door behind the bookcase until Zoe pointed at it.",
+    "Somebody had hidden the key there many years before.",
+    "The bell rang twice while the guests were still arriving.",
+    "While Sasha was walking to school, she found a wallet on the pavement.",
+    "By the time the search party set off, the snow had covered every footprint.",
+    "A cold wind was blowing across the moor.",
+    "Marta closed the book, switched off the lamp and went straight to bed.",
+    "The lights went out while Rita was making her speech.",
+    "Prima ha lasciato il libro, poi il treno stava partendo e in quel momento se n'è accorta.",
+    "Nour finished the whole tragic trilogy during one very rainy week in August.",
+    "Grandad reread the same travel book every winter, always in the same armchair.",
+    "When we arrived at the theatre, the play had already started.",
+    "The illustrations were terrific, but the plot was weak and the characters average.",
+    "Marta didn't recognise the quotation because she had never opened that history book.",
+    "Non c'è nessun altro fatto passato prima: basta il past simple, was.",
+    "While the guide was talking about the castle, Otis was reading the plaque on the wall.",
+    "Rosa recognised the handwriting at once: her aunt had written the dedication herself.",
+    "Had the class finished the play before they watched it? Yes, they had.",
+    "Not one of us guessed the villain's real name until the very last chapter.",
+    "Serena was waiting at the stop when the bus finally turned the corner.",
+    "By Monday morning the poster had disappeared from the noticeboard.",
+    "Marek packed his suitcase and left without saying goodbye.",
+    "The whole class laughed while the teacher was reading the funny chapter aloud.",
+    "La chiusura del negozio.",
+    "No: who è il soggetto della relativa.",
+    "Sì: that è complemento oggetto della relativa.",
+    "The heroine who saves the village is only fifteen.",
+    "A biography which leaves out the difficult years is not very informative.",
+    "The author who won the prize writes historical novels.",
+    "Bruno recommended a graphic novel which changed my mind about comics.",
+    "The author who I met at the festival writes crime novels.",
+    "The chapter is too long that I read yesterday.",
+    "That's the blogger who reviews every new fantasy novel within a day.",
+    "The book that I told you about is a real page-turner.",
+    "The illustrations which open each chapter were drawn by the author's daughter.",
+    "Perché il soggetto della relativa è the hero, non the villain.",
+    "The short story which won the competition is only two pages long.",
+    "the author who moved to Berlin",
+    "We finally found the shop which sells second-hand comic books.",
+    "Ines is the kind of reader who never skips a single line.",
+    "That's the novelist whose autobiography sold two million copies.",
+    "This is the café where the book club meets on Thursdays.",
+    "The novel opens in 1929, when the family loses everything.",
+    "In inglese la preposizione va in fondo: the girl I share a desk with.",
+    "This is the author my sister wrote her thesis about.",
+    "The villain whose plan almost works is the most believable character in the series.",
+    "The cousin whose blog is about science fiction lives in Cork.",
+    "Perché l'albergo è il luogo in cui succede il fatto, non l'oggetto del verbo.",
+    "It all started last July, when we read the whole series aloud on the beach.",
+    "That's the novel whose ending is very confusing.",
+    "The library where we borrowed the graphic novels has closed down.",
+    "Amy is the friend I go to the book fair with every May.",
+    "Nella prima lo scaffale è il luogo dell'azione, nella seconda è l'oggetto del verbo.",
+    "The novelist we were talking about has just published a cookbook.",
+    "We stayed in the village where the historical novel is set.",
+    "The illustrator whose drawings I love has her own comic book now.",
+    "My cousin who lives in Rome is a novelist.",
+    "Dune, which came out in 1965, is still a bestseller.",
+    "Sofia's autobiography, which came out in March, is funny and surprisingly realistic.",
+    "Our English teacher, who reads a chapter aloud every Friday, is retiring in June.",
+    "Perché nelle non-defining il pronome non si omette mai.",
+    "Aggiungo le virgole: My uncle, who has read every horror story in the shop, gave me this one.",
+    "Padua, where my grandmother was born, has a wonderful old bookshop.",
+    "Ruby's blog, which has twenty thousand readers, is about horror stories.",
+    "Perché fra virgole non si può usare that: ci vuole which.",
+    "J.R.R. Tolkien, who died in 1973, also taught at Oxford University.",
+    "My best friend, who reads two novels a week, works in a bookshop.",
+    "The Colour Purple, which Alice Walker published in 1982, deals with very difficult themes.",
+    "Perché la relativa serve a distinguere quale dei due finali.",
+    "Zoe, whose father is a well-known novelist, has never read one of his books.",
+    "Aldbury, where we spent the whole summer, is a tiny village.",
+    "Mr Ali, who teaches us Italian, has written a travel book.",
+    "The comic book whose illustrations won a prize is completely sold out.",
+    "Bologna, where the festival takes place, is full of little bookshops.",
+    "That's the shop assistant I gave the wrong title to.",
+    "No: soltanto quelli che avevano finito il romanzo.",
+    "The reading room where we go every Saturday stays open until eight.",
+    "The horror story which Ines borrowed from me is still on her desk.",
+    "Serena, whose blog I follow, has just signed a contract with a publisher.",
+    "Roald Dahl, who also worked as a pilot, wrote James and the Giant Peach.",
+    "We still talk about that evening in June, when we argued for an hour about the disappointing ending.",
+    "Niente: il pronome è complemento oggetto e si può togliere.",
+    "The character who frightens everyone is not the villain but his charming younger sister.",
+    "there: lo dice già where.",
+    "Leo, e non per pigrizia: aveva perso la sua copia.",
+    "The illustrated edition which arrived yesterday costs twice as much.",
+    "Rita was annoyed because nobody had warned her that the meeting had moved.",
+    "While we were discussing the ending, Otis arrived late with the biscuits.",
+    "Sofia finished the first novel before she joined the club.",
+    "The member whose turn it is chooses the book for the next meeting.",
+    "Halfway through the meeting Bruno realised he had left his copy on the bus.",
+    "The blogger who reviewed our book club came last Thursday.",
+    "Nobody spoke for a minute: the last chapter shocked everyone.",
+    "C'è la preposizione due volte: basta The novel I told you about.",
+    "Vera, who had never opened a science fiction book before, found it thoroughly enjoyable.",
+    "We met in the back room, where the club keeps its old posters.",
+    "By the time the café closed, we had decided on the book for January.",
+    "The author who agreed to come couldn't make it in the end."
+  ]
+};
+  const storageKey = "grammar-tutor-unit4-v1";
+  const $ = id => document.getElementById(id);
+  let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
+  function setBusy(on){
+    busy=on;
+    $("waiting").classList.toggle("show",on);
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){
+    if(busy||current?.completed)return;
+    if(hasChoices()){const b=document.querySelector(".choice");if(b)b.focus({preventScroll:true});return}
+    (pending||!current?$("submit"):$("answer")).focus({preventScroll:true});
+  }
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 4 · Perfect Tenses & Relative Clauses");$("inputArea").hidden=true;$("choices").replaceChildren();$("submit").hidden=false;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.module?.label||"");
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${Math.round((current.progress||0)*100)}%`;
+    const bx=$("tutorbox"),f=pending?null:a.feedback;bx.className="tutorbox";bx.replaceChildren();
+    if(f&&f.testo){
+      bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
+      if(f.risposta){
+        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
+        if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
+        else r.append(f.risposta);
+        bx.append(r);
+      }
+      const d=document.createElement("div");d.textContent=f.testo;bx.append(d);
+    }
+    $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
+    $("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
+    }
+    setBusy(busy);focusActive();
+  }
+  async function call(payload){
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      savedState=null;save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
+  }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call(savedState?{action:"resume",state:savedState}:{action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
+  });
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  const toMenu=()=>call({action:"menu",state:(pending||current)?.state||savedState||{}});
+  $("restart").onclick=toMenu;$("again").onclick=toMenu;
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
+  }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
+  render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
+</script>
+</body>
+</html>
