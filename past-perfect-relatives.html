@@ -221,6 +221,9 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
   .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
   .res-breakdown{gap:22px;}
 }
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
+.gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
 </style>
 </head>
 <body>
@@ -294,6 +297,12 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
+const GLOSS={"novelist": "romanziere", "villain": "cattivo, antagonista", "heroine": "protagonista femminile", "biography": "biografia", "autobiography": "autobiografia", "thriller": "thriller", "chapter": "capitolo", "ending": "finale", "plot": "trama", "bookshop": "libreria", "cookbook": "libro di cucina", "documentary": "documentario", "review": "recensione", "sketchbook": "taccuino da disegno", "illustrations": "illustrazioni", "recognised": "riconoscere", "guessed": "indovinare", "knocked": "bussare", "reached": "raggiungere", "borrowed": "prendere in prestito", "shelf": "mensola", "shelves": "scaffali", "library": "biblioteca", "tower": "torre", "clearance": "sgombero", "railings": "ringhiera", "warned": "avvisare", "annoyed": "seccato", "apprenticeship": "apprendistato", "spare": "di scorta", "whose": "di chi, il cui"};
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
 const LEVELS=[
 {id:1,type:"study",title:"LIVELLO 01 — PAST PERFECT SIMPLE",desc:"quello che era già successo prima · negativa, domande, risposte brevi",
 rule:`<strong>PAST PERFECT SIMPLE &mdash; Unit 4:</strong><br>
@@ -305,13 +314,13 @@ exercises:[
 {type:"mc",q:"«Quando sono arrivata al circolo del libro, avevano già scelto il romanzo.» Quale frase inglese lo dice?",options:["When I got there, they had already chosen the novel.","When I got there, they already chose the novel.","When I got there, they have already chosen the novel.","When I got there, they were already choosing the novel."],a:"When I got there, they had already chosen the novel."},
 {type:"fill",q:"Zoe didn't want to see the film because she ___ the ending on a blog.",hint:"(read)",a:"had read",accept:["had read","had already read"]},
 {type:"fill",q:"By the time the bookshop opened, a queue of fans ___ round the corner.",hint:"(form)",a:"had formed",accept:["had formed","had already formed"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (il momento di riferimento è nel passato).",wrong:"I have never heard of that novelist before my cousin lent me his autobiography.",a:"I had never heard of that novelist before my cousin lent me his autobiography.",accept:["i had never heard of that novelist before my cousin lent me his autobiography."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I have never heard of that novelist before my cousin lent me his autobiography.",a:"I had never heard of that novelist before my cousin lent me his autobiography.",accept:["i had never heard of that novelist before my cousin lent me his autobiography."]},
 {type:"fill",q:"Had the twins finished the graphic novel before the lesson? — No, they ___.",a:"hadn't",accept:["hadn't","had not"]},
 {type:"mc",q:"«When the detective arrived, the thief had left the building.» Il ladro era ancora lì?",options:["No: se n'era già andato prima.","Sì: se n'è andato proprio mentre il detective arrivava.","Sì: se n'è andato subito dopo.","La frase non lo dice."],a:"No: se n'era già andato prima."},
 {type:"fill",q:"Nour was furious: someone ___ her the ending of the thriller.",hint:"(tell)",a:"had told",accept:["had told"]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"That evening was Ivan's first time at a book club.",key:"BEEN",q:"Ivan ___ to a book club before that evening.",a:"had never been",accept:["had never been"]},
 {type:"fill",q:"The author admitted that she ___ the beginning of the novel eleven times.",hint:"(rewrite)",a:"had rewritten",accept:["had rewritten"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (guarda la risposta breve).",wrong:"Had you read the biography? Yes, I did.",a:"Had you read the biography? Yes, I had.",accept:["had you read the biography? yes, i had."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Had you read the biography? Yes, I did.",a:"Had you read the biography? Yes, I had.",accept:["had you read the biography? yes, i had."]},
 {type:"fill",q:"Marek ___ a cookbook in his life until he moved out of his parents' flat.",hint:"(not open)",a:"hadn't opened",accept:["hadn't opened","had not opened","hadn't ever opened","had never opened"]},
 {type:"mc",q:"Un compagno scrive: «I had went to the bookshop before it closed.» Che cosa deve correggere?",options:["Dopo had ci vuole il participio passato: had gone.","Deve usare il past simple: went.","Deve scrivere had going.","Niente: la frase è corretta."],a:"Dopo had ci vuole il participio passato: had gone."},
 {type:"fill",q:"By nine o'clock Silvia ___ only two lines of her review of the romantic novel, so she gave up.",hint:"(write)",a:"had written",accept:["had written","had only written"]},
@@ -331,16 +340,16 @@ exercises:[
 {type:"mc",q:"In quale frase la classe aveva già smesso di leggere prima che suonasse la campanella?",options:["When the bell rang, the class had stopped reading.","When the bell rang, the class stopped reading.","When the bell rang, the class was stopping reading.","When the bell rang, the class has stopped reading."],a:"When the bell rang, the class had stopped reading."},
 {type:"fill",q:"By the time we got to the cinema, the film ___.",hint:"(start)",a:"had started",accept:["had started","had already started","had begun","had already begun"]},
 {type:"fill",q:"Elena went back to page one because she ___ the villain's name.",hint:"(forget)",a:"had forgotten",accept:["had forgotten"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in italiano è un trapassato).",wrong:"When I opened the box, someone already took the comic books.",a:"When I opened the box, someone had already taken the comic books.",accept:["when i opened the box, someone had already taken the comic books."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"When I opened the box, someone already took the comic books.",a:"When I opened the box, someone had already taken the comic books.",accept:["when i opened the box, someone had already taken the comic books."]},
 {type:"fill",q:"Bruno recognised the evil twin at once: he ___ the film version as a child.",hint:"(see)",a:"had seen",accept:["had seen","had watched"]},
 {type:"mc",q:"«Frankie phoned the library after he found the book under his bed.» Che cosa è successo per primo?",options:["Ha trovato il libro.","Ha telefonato alla biblioteca.","Le due cose insieme.","La frase non lo dice."],a:"Ha trovato il libro."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Otis saw the film first and read the novel afterwards.",key:"BEFORE",q:"Otis ___ he read the novel.",a:"had seen the film before",accept:["had seen the film before","had watched the film before"]},
 {type:"fill",q:"Serena had to explain who the author was, because nobody else ___ of him.",hint:"(hear)",a:"had heard",accept:["had heard","had ever heard"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (by the time chiede il trapassato).",wrong:"By the time we reached the last chapter, we guessed already who the villain was.",a:"By the time we reached the last chapter, we had already guessed who the villain was.",accept:["by the time we reached the last chapter, we had already guessed who the villain was."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"By the time we reached the last chapter, we guessed already who the villain was.",a:"By the time we reached the last chapter, we had already guessed who the villain was.",accept:["by the time we reached the last chapter, we had already guessed who the villain was."]},
 {type:"fill",q:"The library was closed, so Sasha ___ home without the travel book.",hint:"(walk)",a:"walked",accept:["walked"]},
 {type:"mc",q:"Un compagno traduce «Quando sono entrato, avevano già spento la luce» con «When I came in, they already turned off the light.» Che cosa manca?",options:["Il past perfect: they had already turned off the light.","Il present perfect: they have already turned off the light.","Il past continuous: they were already turning off the light.","Niente: la frase va bene."],a:"Il past perfect: they had already turned off the light."},
 {type:"fill",q:"When the parcel arrived, Nadia saw that she ___ an awful pirate edition.",hint:"(order)",a:"had ordered",accept:["had ordered"]},
-{type:"wordbox",instruction:"Completa con il past simple o con il past perfect dei verbi del riquadro. Chiediti sempre quale fatto viene prima.",verbs:["lend","meet","leave","win"],sentences:[
+{type:"wordbox",instruction:"Completa con il past simple o con il past perfect dei verbi del riquadro. Chiediti sempre quale fatto viene prima.",verbs:["lend","meet","leave","win","cook"],sentences:[
 {pre:"Callum couldn't hand the book back because he",post:"it on the bus that morning.",a:"had left",accept:["had left"]},
 {pre:"Rita",post:"the author at a signing in Padua last spring.",a:"met",accept:["met"]},
 {pre:"Everybody clapped: the biography",post:"the prize the night before.",a:"had won",accept:["had won"]},
@@ -360,19 +369,19 @@ exercises:[
 {type:"mc",q:"«The rain was beating on the window and the house was completely silent.» A che cosa serve il past continuous qui?",options:["A dipingere la scena in cui succederà qualcosa.","A dire che le due azioni sono finite e concluse.","A dire che una viene prima dell'altra.","A dire che succedeva ogni giorno."],a:"A dipingere la scena in cui succederà qualcosa."},
 {type:"fill",q:"While the heroine ___ the last page, somebody knocked at the door.",hint:"(turn)",a:"was turning",accept:["was turning"]},
 {type:"fill",q:"Silvia ___ on the sofa when the storm knocked the power out.",hint:"(read)",a:"was reading",accept:["was reading"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (è un'abitudine, non una scena).",wrong:"Every evening my grandfather was reading us a chapter of a history book.",a:"Every evening my grandfather read us a chapter of a history book.",accept:["every evening my grandfather read us a chapter of a history book."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Every evening my grandfather was reading us a chapter of a history book.",a:"Every evening my grandfather read us a chapter of a history book.",accept:["every evening my grandfather read us a chapter of a history book."]},
 {type:"mc",q:"«He was walking home when he found the notebook.» Quale azione interrompe l'altra?",options:["Il ritrovamento del quaderno interrompe la camminata.","La camminata interrompe il ritrovamento.","Le due azioni durano uguale.","Nessuna delle due interrompe l'altra."],a:"Il ritrovamento del quaderno interrompe la camminata."},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"The hero reached the tower, but the dragon had already flown away.",key:"BY",q:"___ the hero reached the tower, the dragon had flown away.",a:"By the time",accept:["by the time"]},
 {type:"fill",q:"While the crew ___ the set, the director rewrote the final scene.",hint:"(build)",a:"was building",accept:["was building","were building"]},
 {type:"fill",q:"The audience ___ when the cruel stepmother finally appeared on stage.",hint:"(gasp)",a:"gasped",accept:["gasped"]},
 {type:"mc",q:"Un compagno traduce «Mentre leggevo, mio fratello è entrato» con «While I read, my brother was coming in.» Che cosa ha invertito?",options:["I due tempi: While I was reading, my brother came in.","Niente: la frase è corretta.","Deve mettere il past perfect in tutte e due.","Deve togliere while."],a:"I due tempi: While I was reading, my brother came in."},
-{type:"wordbox",instruction:"Completa il racconto con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["snow","notice","hide","ring"],sentences:[
+{type:"wordbox",instruction:"Completa il racconto con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["snow","notice","hide","ring","melt"],sentences:[
 {pre:"It",post:"heavily when the coach finally reached the village.",a:"was snowing",accept:["was snowing"]},
 {pre:"Nobody",post:"the small door behind the bookcase until Zoe pointed at it.",a:"noticed",accept:["noticed"]},
 {pre:"Somebody",post:"the key there many years before.",a:"had hidden",accept:["had hidden"]},
 {pre:"The bell",post:"twice while the guests were still arriving.",a:"rang",accept:["rang"]}
 ]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'azione breve non va al past continuous).",wrong:"While Sasha was walking to school, she was finding a wallet on the pavement.",a:"While Sasha was walking to school, she found a wallet on the pavement.",accept:["while sasha was walking to school, she found a wallet on the pavement."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"While Sasha was walking to school, she was finding a wallet on the pavement.",a:"While Sasha was walking to school, she found a wallet on the pavement.",accept:["while sasha was walking to school, she found a wallet on the pavement."]},
 {type:"fill",q:"By the time the search party set off, the snow ___ every footprint.",hint:"(cover)",a:"had covered",accept:["had covered"]},
 {type:"mc",q:"Quale di queste frasi mette la scena sullo sfondo di un capitolo?",options:["A cold wind was blowing across the moor.","A cold wind blew the door shut.","A cold wind had blown the door shut.","A cold wind blows across the moor."],a:"A cold wind was blowing across the moor."},
 {type:"fill",q:"Marta closed the book, ___ off the lamp and went straight to bed.",hint:"(switch)",a:"switched",accept:["switched","turned"]},
@@ -393,14 +402,15 @@ exercises:[
 {type:"fill",q:"Rosa recognised the handwriting at once: her aunt ___ the dedication herself.",hint:"(write)",a:"had written",accept:["had written"]},
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Had the class finished the play before they watched it? Yes, they have.",a:"Had the class finished the play before they watched it? Yes, they had.",accept:["had the class finished the play before they watched it? yes, they had."]},
 {type:"fill",q:"Not one of us ___ the villain's real name until the very last chapter.",hint:"(guess)",a:"guessed",accept:["guessed"]},
-{type:"wordbox",instruction:"Completa con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["wait","disappear","pack","laugh"],sentences:[
+{type:"wordbox",instruction:"Completa con il past simple, il past continuous o il past perfect dei verbi del riquadro.",verbs:["wait","disappear","pack","laugh","borrow"],sentences:[
 {pre:"Serena",post:"at the stop when the bus finally turned the corner.",a:"was waiting",accept:["was waiting"]},
 {pre:"By Monday morning the poster",post:"from the noticeboard.",a:"had disappeared",accept:["had disappeared"]},
 {pre:"Marek",post:"his suitcase and left without saying goodbye.",a:"packed",accept:["packed"]},
 {pre:"The whole class",post:"while the teacher was reading the funny chapter aloud.",a:"laughed",accept:["laughed"]}
 ]},
 {type:"mc",q:"«As I was closing the shop, a customer came in and asked for a cookbook.» Che cosa stava già succedendo?",options:["La chiusura del negozio.","L'entrata del cliente.","La richiesta del cookbook.","Niente di tutto questo."],a:"La chiusura del negozio."}
-]},
+,
+{type:"mc",q:"« When Rita got to the shop, the biography had sold out. » Quale seguito sta in piedi?",options:["She ordered a copy and waited a week.","She paid for it and took it home.","She read the first chapter at the till.","She chose it from the pile by the door."],a:"She ordered a copy and waited a week."}]},
 
 {id:4,type:"study",title:"LIVELLO 04 — DEFINING: SOGGETTO O OGGETTO",desc:"who · which · that · quando il pronome si può togliere e quando no",
 rule:`<strong>DEFINING RELATIVE CLAUSES &mdash; Unit 4:</strong><br>
@@ -414,16 +424,16 @@ exercises:[
 {type:"mc",q:"In «The thriller that I finished last night was terrifying», si può togliere that?",options:["Sì: that è complemento oggetto della relativa.","No: that non si toglie mai.","No: bisogna prima cambiarlo in which.","Sì, ma solo quando si parla di persone."],a:"Sì: that è complemento oggetto della relativa."},
 {type:"fill",q:"The heroine ___ saves the village is only fifteen.",a:"who",accept:["who","that"]},
 {type:"fill",q:"A biography ___ leaves out the difficult years is not very informative.",a:"which",accept:["which","that"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (which non va con le persone).",wrong:"The author which won the prize writes historical novels.",a:"The author who won the prize writes historical novels.",accept:["the author who won the prize writes historical novels.","the author that won the prize writes historical novels."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The author which won the prize writes historical novels.",a:"The author who won the prize writes historical novels.",accept:["the author who won the prize writes historical novels.","the author that won the prize writes historical novels."]},
 {type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Bruno recommended a graphic novel. It changed my mind about comics.",key:"WHICH",q:"Bruno recommended a graphic novel ___ my mind about comics.",a:"which changed",accept:["which changed"]},
 {type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"I met an author at the festival. She writes crime novels.",key:"WHO",q:"The author ___ at the festival writes crime novels.",a:"who I met",accept:["who i met"]},
 {type:"mc",q:"Quale di queste frasi è sbagliata?",options:["The chapter is too long that I read yesterday.","The chapter that I read yesterday is too long.","The chapter I read yesterday is too long.","The chapter which I read yesterday is too long."],a:"The chapter is too long that I read yesterday."},
 {type:"fill",q:"That's the blogger ___ reviews every new fantasy novel within a day.",a:"who",accept:["who","that"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese la preposizione non si ripete).",wrong:"The book that I told you about it is a real page-turner.",a:"The book that I told you about is a real page-turner.",accept:["the book that i told you about is a real page-turner.","the book i told you about is a real page-turner.","the book which i told you about is a real page-turner."]},
-{type:"fill",q:"The illustrations ___ open each chapter were drawn by the author's daughter.",a:"which",accept:["which","that"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The book that I told you about it is a real page-turner.",a:"The book that I told you about is a real page-turner.",accept:["the book that i told you about is a real page-turner.","the book i told you about is a real page-turner.","the book which i told you about is a real page-turner."]},
+{type:"fill",q:"The illustrations ___ open each chapter come from her daughter's sketchbook.",a:"which",accept:["which","that"]},
 {type:"mc",q:"Perché in «The villain who the hero defeats is more interesting than the hero» si può togliere who?",options:["Perché il soggetto della relativa è the hero, non the villain.","Perché who non si usa mai con le persone.","Perché la frase è al presente.","Perché c'è un comparativo."],a:"Perché il soggetto della relativa è the hero, non the villain."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (who non va con le cose).",wrong:"The short story who won the competition is only two pages long.",a:"The short story which won the competition is only two pages long.",accept:["the short story which won the competition is only two pages long.","the short story that won the competition is only two pages long."]},
-{type:"mc",q:"In quale di questi gruppi di parole il pronome relativo NON si può togliere?",options:["the author who moved to Berlin","the author who I met in Berlin","the novel I finished yesterday","the novel that Zoe recommended"],a:"the author who moved to Berlin"},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The short story who won the competition is only two pages long.",a:"The short story which won the competition is only two pages long.",accept:["the short story which won the competition is only two pages long.","the short story that won the competition is only two pages long."]},
+{type:"mc",q:"In quale di questi gruppi di parole il pronome relativo è obbligatorio?",options:["the author who moved to Berlin","the author who I met in Berlin","the novel I finished yesterday","the novel that Zoe recommended"],a:"the author who moved to Berlin"},
 {type:"fill",q:"We finally found the shop ___ sells second-hand comic books.",a:"which",accept:["which","that"]},
 {type:"fill",q:"Ines is the kind of reader ___ never skips a single line.",a:"who",accept:["who","that"]}
 ]},
@@ -439,12 +449,12 @@ exercises:[
 {type:"fill",q:"This is the café ___ the book club meets on Thursdays.",a:"where",accept:["where"]},
 {type:"fill",q:"The novel opens in 1929, ___ the family loses everything.",a:"when",accept:["when"]},
 {type:"mc",q:"Un compagno scrive: «The girl with who I share a desk loves horror stories.» Che cosa deve correggere?",options:["In inglese la preposizione va in fondo: the girl I share a desk with.","Deve usare which al posto di who.","Deve aggiungere una virgola dopo girl.","Niente: la frase è corretta."],a:"In inglese la preposizione va in fondo: the girl I share a desk with."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dove va la preposizione?).",wrong:"This is the author about who my sister wrote her thesis.",a:"This is the author my sister wrote her thesis about.",accept:["this is the author my sister wrote her thesis about.","this is the author who my sister wrote her thesis about.","this is the author that my sister wrote her thesis about."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This is the author about who my sister wrote her thesis.",a:"This is the author my sister wrote her thesis about.",accept:["this is the author my sister wrote her thesis about.","this is the author who my sister wrote her thesis about.","this is the author that my sister wrote her thesis about."]},
 {type:"fill",q:"The villain ___ plan almost works is the most believable character in the series.",a:"whose",accept:["whose"]},
 {type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"My cousin writes a blog about science fiction. He lives in Cork.",key:"WHOSE",q:"The cousin ___ is about science fiction lives in Cork.",a:"whose blog",accept:["whose blog"]},
 {type:"mc",q:"Perché in «the hotel where the crime takes place» non va bene which?",options:["Perché l'albergo è il luogo in cui succede il fatto, non l'oggetto del verbo.","Perché which non si usa con le cose.","Perché manca una virgola.","Perché il verbo è al presente."],a:"Perché l'albergo è il luogo in cui succede il fatto, non l'oggetto del verbo."},
 {type:"fill",q:"It all started last July, ___ we read the whole series aloud on the beach.",a:"when",accept:["when"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (in inglese basta una parola sola).",wrong:"That's the novel of which the ending is very confusing.",a:"That's the novel whose ending is very confusing.",accept:["that's the novel whose ending is very confusing."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"That's the novel of which the ending is very confusing.",a:"That's the novel whose ending is very confusing.",accept:["that's the novel whose ending is very confusing."]},
 {type:"fill",q:"The library ___ we borrowed the graphic novels has closed down.",a:"where",accept:["where"]},
 {type:"fill",q:"Amy is the friend I go to the book fair ___ every May.",a:"with",accept:["with"]},
 {type:"mc",q:"«That's the shelf where I keep my comic books» e «That's the shelf which I built last summer»: perché una vuole where e l'altra which?",options:["Nella prima lo scaffale è il luogo dell'azione, nella seconda è l'oggetto del verbo.","Perché la prima frase è al presente.","Perché which non si può usare con i mobili.","Perché la seconda frase è più lunga."],a:"Nella prima lo scaffale è il luogo dell'azione, nella seconda è l'oggetto del verbo."},
@@ -463,7 +473,7 @@ rule:`<strong>NON-DEFINING RELATIVE CLAUSES &mdash; Unit 4:</strong><br>
 &#x26A0; Con <em>whose</em>, <em>where</em> e <em>when</em> vale la stessa regola: fra virgole se l'informazione &egrave; in pi&ugrave;.`,
 exercises:[
 {type:"mc",q:"In quale frase si capisce che ho più di un cugino?",options:["My cousin who lives in Rome is a novelist.","My cousin, who lives in Rome, is a novelist.","My cousin, whose home is in Rome, is a novelist.","My cousin, who is a novelist, lives in Rome."],a:"My cousin who lives in Rome is a novelist."},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (fra virgole non si usa that).",wrong:"Dune, that came out in 1965, is still a bestseller.",a:"Dune, which came out in 1965, is still a bestseller.",accept:["dune, which came out in 1965, is still a bestseller."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Dune, that came out in 1965, is still a bestseller.",a:"Dune, which came out in 1965, is still a bestseller.",accept:["dune, which came out in 1965, is still a bestseller."]},
 {type:"fill",q:"Sofia's autobiography, ___ came out in March, is funny and surprisingly realistic.",a:"which",accept:["which"]},
 {type:"fill",q:"Our English teacher, ___ reads a chapter aloud every Friday, is retiring in June.",a:"who",accept:["who"]},
 {type:"mc",q:"Perché in «The Hobbit, which Tolkien wrote in 1937, is easy-to-read» non si può togliere which?",options:["Perché nelle non-defining il pronome non si omette mai.","Perché which fa da soggetto della relativa.","Perché nella frase c'è una data.","Perché Tolkien è un nome proprio."],a:"Perché nelle non-defining il pronome non si omette mai."},
@@ -472,7 +482,7 @@ exercises:[
 {type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Ruby's blog is about horror stories. It has twenty thousand readers.",key:"WHICH",q:"Ruby's blog, ___ twenty thousand readers, is about horror stories.",a:"which has",accept:["which has"]},
 {type:"mc",q:"Perché «The novel, that won the prize, is set in Naples» è sbagliato?",options:["Perché fra virgole non si può usare that: ci vuole which.","Perché which non si usa con i libri.","Perché manca who.","Perché il verbo è al passato."],a:"Perché fra virgole non si può usare that: ci vuole which."},
 {type:"fill",q:"J.R.R. Tolkien, ___ died in 1973, also taught at Oxford University.",a:"who",accept:["who"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (manca il pronome relativo).",wrong:"My best friend, she reads two novels a week, works in a bookshop.",a:"My best friend, who reads two novels a week, works in a bookshop.",accept:["my best friend, who reads two novels a week, works in a bookshop."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My best friend, she reads two novels a week, works in a bookshop.",a:"My best friend, who reads two novels a week, works in a bookshop.",accept:["my best friend, who reads two novels a week, works in a bookshop."]},
 {type:"fill",q:"The Colour Purple, ___ Alice Walker published in 1982, deals with very difficult themes.",a:"which",accept:["which"]},
 {type:"mc",q:"«There were two possible endings. The ending which the author preferred is not in the film.» Perché qui niente virgole?",options:["Perché la relativa serve a distinguere quale dei due finali.","Perché which non vuole mai le virgole.","Perché la frase è troppo breve.","Perché author è singolare."],a:"Perché la relativa serve a distinguere quale dei due finali."},
 {type:"fill",q:"Zoe, ___ father is a well-known novelist, has never read one of his books.",a:"whose",accept:["whose"]},
@@ -485,12 +495,12 @@ exercises:[
 {type:"mc",q:"In quale di queste frasi la relativa dà un'informazione in più, che si potrebbe togliere?",options:["Mr Ali, who teaches us Italian, has written a travel book.","The man who teaches us Italian has written a travel book.","The travel book that Mr Ali wrote is out of print.","The shop where I bought it has closed down."],a:"Mr Ali, who teaches us Italian, has written a travel book."},
 {type:"fill",q:"The comic book ___ illustrations won a prize is completely sold out.",a:"whose",accept:["whose"]},
 {type:"fill",q:"Bologna, ___ the festival takes place, is full of little bookshops.",a:"where",accept:["where"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (dove va la preposizione?).",wrong:"That's the shop assistant to who I gave the wrong title.",a:"That's the shop assistant I gave the wrong title to.",accept:["that's the shop assistant i gave the wrong title to.","that's the shop assistant who i gave the wrong title to.","that's the shop assistant that i gave the wrong title to."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"That's the shop assistant to who I gave the wrong title.",a:"That's the shop assistant I gave the wrong title to.",accept:["that's the shop assistant i gave the wrong title to.","that's the shop assistant who i gave the wrong title to.","that's the shop assistant that i gave the wrong title to."]},
 {type:"mc",q:"«The students who had finished the novel wrote a review.» Tutti gli studenti hanno scritto la recensione?",options:["No: soltanto quelli che avevano finito il romanzo.","Sì, tutti quanti.","Nessuno di loro.","La frase non lo dice."],a:"No: soltanto quelli che avevano finito il romanzo."},
 {type:"fill",q:"The reading room ___ we go every Saturday stays open until eight.",a:"where",accept:["where"]},
 {type:"transform",instruction:"Unisci le due frasi in una sola usando la parola chiave.",original:"Ines borrowed a horror story from me. It is still on her desk.",key:"WHICH",q:"The horror story ___ from me is still on her desk.",a:"which Ines borrowed",accept:["which ines borrowed"]},
 {type:"fill",q:"Serena, ___ blog I follow, has just signed a contract with a publisher.",a:"whose",accept:["whose"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (fra virgole non si usa that).",wrong:"Roald Dahl, that also worked as a pilot, wrote James and the Giant Peach.",a:"Roald Dahl, who also worked as a pilot, wrote James and the Giant Peach.",accept:["roald dahl, who also worked as a pilot, wrote james and the giant peach."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Roald Dahl, that also worked as a pilot, wrote James and the Giant Peach.",a:"Roald Dahl, who also worked as a pilot, wrote James and the Giant Peach.",accept:["roald dahl, who also worked as a pilot, wrote james and the giant peach."]},
 {type:"fill",q:"We still talk about that evening in June, ___ we argued for an hour about the disappointing ending.",a:"when",accept:["when"]},
 {type:"mc",q:"In «The novel I couldn't put down was a crime story», che cosa manca fra novel e I?",options:["Niente: il pronome è complemento oggetto e si può togliere.","Manca who.","Manca whose.","Manca una virgola."],a:"Niente: il pronome è complemento oggetto e si può togliere."},
 {type:"fill",q:"The character ___ frightens everyone is not the villain but his charming younger sister.",a:"who",accept:["who","that"]},
@@ -503,12 +513,12 @@ exercises:[
 {type:"mc",q:"«By the time the club met, everybody had read the first three chapters — except Leo, who had lost his copy.» Chi non aveva letto?",options:["Leo, e non per pigrizia: aveva perso la sua copia.","Tutti tranne chi racconta.","Nessuno: avevano letto tutti.","Leo, che aveva letto solo il primo capitolo."],a:"Leo, e non per pigrizia: aveva perso la sua copia."},
 {type:"fill",q:"The illustrated edition ___ arrived yesterday costs twice as much.",a:"which",accept:["which","that"]},
 {type:"fill",q:"Rita was annoyed because nobody ___ her that the meeting had moved.",hint:"(warn)",a:"had warned",accept:["had warned","had told"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (l'azione breve non va al past continuous).",wrong:"While we were discussing the ending, Otis was arriving late with the biscuits.",a:"While we were discussing the ending, Otis arrived late with the biscuits.",accept:["while we were discussing the ending, otis arrived late with the biscuits."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"While we were discussing the ending, Otis was arriving late with the biscuits.",a:"While we were discussing the ending, Otis arrived late with the biscuits.",accept:["while we were discussing the ending, otis arrived late with the biscuits."]},
 {type:"transform",instruction:"Riscrivi la frase usando la parola chiave. Non cambiare la parola chiave.",original:"Sofia joined the club after she had finished the first novel.",key:"BEFORE",q:"Sofia finished the first novel ___ the club.",a:"before she joined",accept:["before she joined"]},
 {type:"fill",q:"The member ___ turn it is chooses the book for the next meeting.",a:"whose",accept:["whose"]},
 {type:"mc",q:"«The book, which nobody had finished, was nine hundred pages long.» Quante persone l'avevano finito?",options:["Nessuna.","Tutte quante.","Soltanto una.","La frase non lo dice."],a:"Nessuna."},
 {type:"fill",q:"Halfway through the meeting Bruno realised he ___ his copy on the bus.",hint:"(leave)",a:"had left",accept:["had left"]},
-{type:"errorcorrect",instruction:"Trova e correggi l'errore (which non va con le persone).",wrong:"The blogger which reviewed our book club came last Thursday.",a:"The blogger who reviewed our book club came last Thursday.",accept:["the blogger who reviewed our book club came last thursday.","the blogger that reviewed our book club came last thursday."]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The blogger which reviewed our book club came last Thursday.",a:"The blogger who reviewed our book club came last Thursday.",accept:["the blogger who reviewed our book club came last thursday.","the blogger that reviewed our book club came last thursday."]},
 {type:"fill",q:"Nobody spoke for a minute: the last chapter ___ everyone.",hint:"(shock)",a:"shocked",accept:["shocked"]},
 {type:"mc",q:"Un compagno traduce «Il romanzo di cui ti ho parlato» con «The novel of which I told you about.» Che cosa non va?",options:["C'è la preposizione due volte: basta The novel I told you about.","Manca who.","Ci vuole whose.","Niente: va bene così."],a:"C'è la preposizione due volte: basta The novel I told you about."},
 {type:"fill",q:"Vera, ___ had never opened a science fiction book before, found it thoroughly enjoyable.",a:"who",accept:["who"]},
@@ -516,7 +526,8 @@ exercises:[
 {type:"fill",q:"By the time the café closed, we ___ on the book for January.",hint:"(decide)",a:"had decided",accept:["had decided","had agreed"]},
 {type:"mc",q:"«The members, who arrive late, never get a biscuit.» In questa frase, chi arriva tardi?",options:["Tutti i membri.","Soltanto alcuni membri.","Nessuno.","La frase non lo dice."],a:"Tutti i membri."},
 {type:"fill",q:"The author ___ agreed to come couldn't make it in the end.",a:"who",accept:["who","that"]}
-]}
+,
+{type:"mc",q:"« Marek had never opened a cookbook before he moved out. » Quale seguito sta in piedi?",options:["That first month he lived on toast.","He had been cooking since he was ten.","His shelf was full of recipe books.","He cooked for the whole family every Sunday."],a:"That first month he lived on toast."}]}
 ];
 
 const SK='gq_u4pr_s',EK='gq_u4pr_e';
@@ -622,24 +633,24 @@ function renderExercise(){
   if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
   if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
   if(ex.type==='fill'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
-    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
     const shuffled=shuffle([...ex.words]);
     const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
-    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='cloze'){
     let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='errorcorrect'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
   document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
@@ -656,7 +667,19 @@ function addWord(idx,el){
   const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
   area.appendChild(chip);
 }
-function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,'').replace(/\s+/g,' ').trim();}
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
 function checkExercise(){
   if(exChecked)return;exChecked=true;
   const ex=exQueue[exIdx];let correct=false;
