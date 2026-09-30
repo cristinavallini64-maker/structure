@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 · Conditionals, Time Clauses &amp; Purpose — Grammar Practice (B2)</title>
+<meta name="description" content="The Structure · Esercizi interattivi Unit 5 No Planet B: first conditional con will, may, might; unless; when, as soon as, until, as long as; purpose, cause and result. Preparazione B2 First.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
+.gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 5 · Conditionals, Time Clauses &amp; Purpose</div><span class="logo-sub">grammar practice · B2</span></div>
+  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Practice</h2>
+    <h1>No Planet B</h1>
+    <p>first conditional · may e might · unless · when, as soon as, until, as long as · purpose, cause and result</p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-results" class="screen"></div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const GLOSS={"glacier": "ghiacciaio", "wildfire": "incendio boschivo", "wildfires": "incendi boschivi", "firefighters": "vigili del fuoco", "landslide": "frana", "landslides": "frane", "drought": "siccità", "hailstorm": "grandinata", "hail": "grandine", "hurricane": "uragano", "typhoon": "tifone", "tsunami": "tsunami", "tornado": "tornado", "avalanches": "valanghe", "earthquake": "terremoto", "volcanic eruption": "eruzione vulcanica", "thunderstorm": "temporale", "lightning": "fulmini, lampi", "thunder": "tuoni", "breeze": "brezza", "chilly": "freddino", "mild": "mite", "foggy": "nebbioso", "fog": "nebbia", "frost": "gelata", "arid": "arido", "heatwave": "ondata di calore", "sandstorm": "tempesta di sabbia", "ice caps": "calotte polari", "sea levels": "livello del mare", "sea ice": "banchisa", "carbon dioxide": "anidride carbonica", "greenhouse effect": "effetto serra", "ozone layer": "strato di ozono", "carbon footprint": "impronta di carbonio", "carbon offsetting": "compensazione delle emissioni", "carbon offsets": "crediti di compensazione", "fossil fuels": "combustibili fossili", "renewable energy": "energia rinnovabile", "endangered species": "specie in via di estinzione", "marine life": "vita marina", "emissions": "emissioni", "deforestation": "deforestazione", "greenwashing": "ecologismo di facciata", "monoculture": "monocoltura", "soil erosion": "erosione del suolo", "cocoa": "cacao", "permafrost": "suolo perennemente ghiacciato", "reservoir": "bacino idrico", "coral reef": "barriera corallina", "coral": "corallo", "vineyard": "vigneto", "seedlings": "piantine", "hedges": "siepi", "dumping": "scaricare", "spoil": "rovinare", "kidding themselves": "illudersi", "make up for": "compensare", "from bad to worse": "di male in peggio", "fingers crossed": "incrociamo le dita", "long-haul": "a lungo raggio", "water butt": "cisterna per l'acqua piovana", "blinds": "tapparelle", "blizzard": "bufera di neve", "fishing nets": "reti da pesca", "runway": "pista", "leftovers": "avanzi", "compost": "compost", "rainfall": "precipitazioni", "reforestation": "rimboschimento", "cellar": "cantina", "fireworks": "fuochi d'artificio", "promenade": "lungomare", "tide": "marea", "binoculars": "binocolo", "tortoise": "tartaruga", "almond": "mandorlo", "shelter": "rifugio", "dam": "diga", "overflow": "traboccare", "e-waste": "rifiuti elettronici", "food miles": "chilometri percorsi dal cibo", "mural": "murale", "drill": "esercitazione", "clean-up": "pulizia", "ash cloud": "nube di cenere", "smog": "smog"};
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
+const LEVELS=[
+{id:1,type:"study",title:"LIVELLO 01 — FIRST CONDITIONAL: WILL · WON'T",desc:"una condizione possibile e una conseguenza sicura · niente will dopo if · domande · probably e definitely",
+rule:`<strong>FIRST CONDITIONAL &mdash; Unit 5:</strong><br>
+&#x2714; <code>If + present simple, will/won't + forma base</code>: una condizione possibile nel futuro e una conseguenza che dai per sicura. &mdash; <em>If the canal freezes, the boats won't move. Se il canale gela, le barche non si muoveranno.</em><br>
+&#x2714; Dopo <strong>if</strong> il verbo resta al presente, anche quando in italiano usi il futuro: <em>If it snows tonight&hellip;</em> (non &laquo;if it will snow&raquo;).<br>
+&#x2714; Domande: <code>Will + soggetto + forma base + if + present simple?</code> &mdash; <em>Will you stay at home if the trains stop?</em><br>
+&#x2714; L'ordine delle due frasi si pu&ograve; invertire; se la frase con if viene prima, ci vuole la virgola.<br>
+&#x26A0; <em>probably, definitely, certainly</em> vanno <strong>dopo</strong> will ma <strong>prima</strong> di won't: <em>We'll probably walk. / We definitely won't drive.</em>`,
+exercises:[
+{type:"mc",q:"«Se il ghiacciaio continua a sciogliersi, il villaggio resterà senz'acqua.» Quale frase inglese lo dice?",options:["If the glacier keeps melting, the village will run out of water.","If the glacier will keep melting, the village will run out of water.","If the glacier keeps melting, the village runs out of water.","If the glacier kept melting, the village will run out of water."],a:"If the glacier keeps melting, the village will run out of water."},
+{type:"fill",q:"If the wind ___ tonight, the firefighters won't be able to control the wildfire.",hint:"(not drop)",a:"doesn't drop",accept:["doesn't drop","does not drop"]},
+{type:"fill",q:"The experts are certain: if the council plants trees along this road, the air ___ cleaner.",hint:"(be)",a:"will be",accept:["will be","will definitely be","will certainly be"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If it will be foggy tomorrow morning, the ferry to the island won't leave.",a:"If it is foggy tomorrow morning, the ferry to the island won't leave.",accept:["if it is foggy tomorrow morning, the ferry to the island won't leave.","if it's foggy tomorrow morning, the ferry to the island won't leave."]},
+{type:"fill",q:"If the bus company ___ the 7:40 service, how will you get to school?",hint:"(cancel)",a:"cancels",accept:["cancels"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You will join the tree-planting day if it doesn't rain?",a:"Will you join the tree-planting day if it doesn't rain?",accept:["will you join the tree-planting day if it doesn't rain?"]},
+{type:"mc",q:"Un compagno scrive: «We'll recycle more if the school will put bins in every corridor.» La frase regge?",options:["No: dopo if ci vuole il presente, puts.","Sì: tutte e due le parti parlano del futuro.","No: ci vuole il presente in tutte e due le parti.","No: manca la virgola prima di if."],a:"No: dopo if ci vuole il presente, puts."},
+{type:"fill",q:"Dad promised: if the city opens the new cycle lane, he ___ his car at home.",hint:"(leave)",a:"will leave",accept:["will leave","will definitely leave","will certainly leave"]},
+{type:"mc",q:"Quale frase mette l'avverbio al posto giusto?",options:["We definitely won't need the heating if the weather stays this mild.","We won't definitely need the heating if the weather stays this mild.","We definitely don't need the heating if the weather will stay this mild.","We won't need definitely the heating if the weather stays this mild."],a:"We definitely won't need the heating if the weather stays this mild."},
+{type:"fill",q:"If Aisha ___ the eight o'clock train, she'll be at the climate march before the speeches start.",hint:"(catch)",a:"catches",accept:["catches"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the hailstorm hits the vineyard, we lose all the grapes this year.",a:"If the hailstorm hits the vineyard, we will lose all the grapes this year.",accept:["if the hailstorm hits the vineyard, we will lose all the grapes this year."]},
+{type:"mc",q:"«If the ice caps keep melting, many islands will disappear.» Quale seguito sta in piedi?",options:["That's why the islanders are already planning for the future.","Luckily, the islands disappeared long ago.","That's why the ice caps melted in 1850.","Luckily, the ice caps will never melt."],a:"That's why the islanders are already planning for the future."},
+{type:"fill",q:"Nobody ___ renewable energy projects if they spoil the view, so the engineers are choosing the site carefully.",hint:"(support)",a:"will support",accept:["will support"]},
+{type:"fill",q:"The biologists have no doubt: if the factory keeps dumping waste into the bay, the marine life there ___.",hint:"(not survive)",a:"won't survive",accept:["won't survive","will not survive"]},
+{type:"fill",q:"If Owen ___ his old phone to the shop, they'll recycle it for free.",hint:"(take)",a:"takes",accept:["takes"]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro. Un verbo resta fuori.",verbs:["burn","save","rise","switch","melt"],sentences:[{pre:"If the power station",post:"less coal, it will produce less carbon dioxide.",a:"burns",accept:["burns"]},{pre:"If sea levels",post:"another metre, this beach will disappear.",a:"rise",accept:["rise"]},{pre:"If you",post:"off the printer tonight, we'll use a bit less energy.",a:"switch",accept:["switch"]},{pre:"If the snow",post:"too quickly in spring, the valley will flood.",a:"melts",accept:["melts"]}]}
+]},
+
+{id:2,type:"study",title:"LIVELLO 02 — MAY · MIGHT O WILL: QUANTO SEI SICURO?",desc:"sicuro o soltanto possibile · may e might · will be able to · will have to",
+rule:`<strong>MAY E MIGHT NEL FIRST CONDITIONAL &mdash; Unit 5:</strong><br>
+&#x2714; <strong>will/won't</strong> quando sei sicuro della conseguenza; <strong>may/might (not)</strong> quando non lo sei: vuol dire &laquo;forse&raquo;. May e might hanno lo stesso significato; might &egrave; pi&ugrave; frequente nel parlato. &mdash; <em>If the train is late, we might miss the start. Se il treno &egrave; in ritardo, forse perdiamo l'inizio.</em><br>
+&#x2714; Negativa: <em>may not / might not (mightn't)</em>. La forma &laquo;mayn't&raquo; non esiste.<br>
+&#x2714; <strong>can</strong> diventa <code>will/may/might be able to</code>; <strong>must</strong> diventa <code>will/may/might have to</code>. &mdash; <em>If we save enough, we'll be able to go.</em><br>
+&#x26A0; Dopo may e might la forma base, senza to: <em>it might snow</em> (non &laquo;might to snow&raquo;).`,
+exercises:[
+{type:"fill",q:"If the hurricane reaches the coast tonight, the ferries ___ — the company hasn't decided yet.",hint:"(not sail)",a:"may not sail",accept:["may not sail","might not sail","mightn't sail"]},
+{type:"fill",q:"The organisers are absolutely sure: if it's sunny on Saturday, the eco-fair ___ record numbers.",hint:"(attract)",a:"will attract",accept:["will attract","will definitely attract","will certainly attract"]},
+{type:"mc",q:"In quale frase il fumo forse arriverà al villaggio, ma nessuno lo sa?",options:["If the wind changes direction, the smoke might reach our village.","If the wind changes direction, the smoke will reach our village.","If the wind changes direction, the smoke will definitely reach our village.","If the wind changes direction, the smoke reaches our village."],a:"If the wind changes direction, the smoke might reach our village."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the drought continues, farmers won't can grow wheat here.",a:"If the drought continues, farmers won't be able to grow wheat here.",accept:["if the drought continues, farmers won't be able to grow wheat here.","if the drought continues, farmers will not be able to grow wheat here."]},
+{type:"fill",q:"If the river keeps rising, the families near the bridge ___ their homes — the police aren't sure yet.",hint:"(have to leave)",a:"may have to leave",accept:["may have to leave","might have to leave"]},
+{type:"fill",q:"The engineer is positive: if the school installs solar panels, it ___ most of its own electricity.",hint:"(be able to produce)",a:"will be able to produce",accept:["will be able to produce","will be able to generate"]},
+{type:"mc",q:"«If it doesn't rain soon, we mayn't have enough water for the crops.» La frase regge?",options:["No: mayn't non esiste; si dice may not oppure mightn't.","Sì: mayn't è la forma contratta normale di may not.","No: dopo if ci vuole will.","No: si dice might to have."],a:"No: mayn't non esiste; si dice may not oppure mightn't."},
+{type:"fill",q:"If Farah passes her exams, she ___ a gap year in Kenya — she keeps changing her mind.",hint:"(take)",a:"might take",accept:["might take","may take"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the weather stays mild, the almond trees might to flower in February.",a:"If the weather stays mild, the almond trees might flower in February.",accept:["if the weather stays mild, the almond trees might flower in february.","if the weather stays mild, the almond trees may flower in february."]},
+{type:"mc",q:"«Forse riusciremo a vedere la cometa se il cielo resta sereno.» Quale frase inglese lo dice?",options:["We might be able to see the comet if the sky stays clear.","We might can see the comet if the sky stays clear.","We will be able to see the comet if the sky will stay clear.","We may to see the comet if the sky stays clear."],a:"We might be able to see the comet if the sky stays clear."},
+{type:"fill",q:"The app isn't sure: if there's thick fog tomorrow morning, the flights to Dublin ___ on time.",hint:"(not leave)",a:"might not leave",accept:["might not leave","may not leave","mightn't leave"]},
+{type:"fill",q:"It's the only road, so if the landslide blocks it again, the villagers ___ to the market in town.",hint:"(not be able to get)",a:"won't be able to get",accept:["won't be able to get","will not be able to get"]},
+{type:"mc",q:"«If more passengers pay for carbon offsetting, the airline might fund a new forest.» Quale seguito sta in piedi?",options:["Nobody knows yet how many will pay, though.","Everybody knows the forest will definitely grow next year.","The airline funded the forest in 1990.","So the forest is already a hundred years old."],a:"Nobody knows yet how many will pay, though."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the council bans cars from the centre, I will must cycle to work.",a:"If the council bans cars from the centre, I will have to cycle to work.",accept:["if the council bans cars from the centre, i will have to cycle to work."]},
+{type:"fill",q:"Nobody can promise anything, but if the countries sign the agreement, deforestation in the Amazon ___ at last.",hint:"(fall)",a:"might fall",accept:["might fall","may fall"]}
+]},
+
+{id:3,type:"study",title:"LIVELLO 03 — UNLESS",desc:"unless vuol dire if not · il verbo dopo unless è positivo · avvertimenti e minacce",
+rule:`<strong>UNLESS &mdash; Unit 5:</strong><br>
+&#x2714; <strong>unless</strong> = <strong>if not</strong>, &laquo;a meno che non&raquo;: sostituisce if + verbo negativo. &mdash; <em>If you don't wear a hat, you'll get sunburnt. = Unless you wear a hat, you'll get sunburnt.</em><br>
+&#x2714; <code>Unless + present simple positivo, will/won't + forma base</code>. Le due frasi si possono invertire, come con if.<br>
+&#x2714; Si usa spesso negli avvertimenti e nelle minacce. &mdash; <em>I won't lend you my camera unless you look after it.</em><br>
+&#x26A0; In italiano diciamo &laquo;a meno che <strong>non</strong>&raquo;, ma in inglese unless &egrave; gi&agrave; negativo: <em>unless you hurry</em> (non &laquo;unless you don't hurry&raquo;).`,
+exercises:[
+{type:"mc",q:"«Il ghiacciaio scomparirà a meno che le temperature non smettano di salire.» Quale frase inglese lo dice?",options:["The glacier will vanish unless temperatures stop rising.","The glacier will vanish unless temperatures don't stop rising.","The glacier will vanish unless temperatures will stop rising.","The glacier vanishes unless temperatures stopped rising."],a:"The glacier will vanish unless temperatures stop rising."},
+{type:"fill",q:"Grandad's tomato plants won't survive the heatwave unless someone ___ them twice a day.",hint:"(water)",a:"waters",accept:["waters"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Unless you don't recharge the electric bike tonight, it won't get you to school.",a:"Unless you recharge the electric bike tonight, it won't get you to school.",accept:["unless you recharge the electric bike tonight, it won't get you to school.","if you don't recharge the electric bike tonight, it won't get you to school."]},
+{type:"fill",q:"From Monday, the café won't serve hot drinks unless a customer ___ their own cup.",hint:"(bring)",a:"brings",accept:["brings"]},
+{type:"mc",q:"«We'll go kitesurfing unless the breeze drops.» In quale caso restano a casa?",options:["Se la brezza cala.","Se la brezza resta com'è.","Se la brezza aumenta.","In ogni caso: non ci vanno mai."],a:"Se la brezza cala."},
+{type:"fill",q:"Unless the government ___ its use of fossil fuels, the country will miss its 2030 targets.",hint:"(cut)",a:"cuts",accept:["cuts"]},
+{type:"fill",q:"The organisers have been clear: unless the rain stops by five, they ___ the outdoor concert.",hint:"(cancel)",a:"will cancel",accept:["will cancel","will definitely cancel"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I won't lend you my tent unless you will promise to bring it back dry.",a:"I won't lend you my tent unless you promise to bring it back dry.",accept:["i won't lend you my tent unless you promise to bring it back dry."]},
+{type:"transform",instruction:"Completa la seconda frase in modo che dica la stessa cosa della prima. Usa la parola in maiuscolo senza cambiarla.",original:"If the town doesn't clean up the beach, the turtles won't lay their eggs there.",key:"UNLESS",q:"The turtles won't lay their eggs on the beach ___ it up.",a:"unless the town cleans",accept:["unless the town cleans"]},
+{type:"mc",q:"«Unless you switch off the tap, the bath will overflow.» e «If you don't switch off the tap, the bath will overflow.» Come sono le due frasi?",options:["Dicono la stessa cosa.","Nella prima il bagno trabocca di sicuro.","La seconda è sbagliata: con if non si usa don't.","La prima è un'offerta, la seconda una minaccia."],a:"Dicono la stessa cosa."},
+{type:"fill",q:"Scientists are sure the polar bears in this area ___ enough food unless the sea ice comes back.",hint:"(not find)",a:"won't find",accept:["won't find","will not find"]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["if","unless","don't"],sentences:[{pre:"We'll lose the coral reef",post:"the water keeps getting warmer.",a:"if",accept:["if"]},{pre:"You won't see any dolphins",post:"you go out very early in the morning.",a:"unless",accept:["unless"]},{pre:"",post:"the hailstorm damages the roof, we'll call the insurance company.",a:"if",accept:["if"]},{pre:"The park rangers will close the trail",post:"the fog clears by ten.",a:"unless",accept:["unless"]}]},
+{type:"fill",q:"Unless it ___ chilly tonight, we'll sleep outside in the garden.",hint:"(get)",a:"gets",accept:["gets","turns"]},
+{type:"mc",q:"«Unless we plant new trees, the hillside might slide into the village one day.» Quale seguito sta in piedi?",options:["So the village is starting a tree-planting project next month.","So nobody needs to plant any trees.","Luckily, planting trees makes landslides more likely.","That's why they are cutting down the last trees."],a:"So the village is starting a tree-planting project next month."},
+{type:"fill",q:"The reservoir will be empty by August unless it ___ a lot this spring.",hint:"(rain)",a:"rains",accept:["rains"]}
+]},
+
+{id:"rA",type:"review",title:"⟳ RIPASSO A — condizioni, forse e a meno che",desc:"first conditional, may e might, unless insieme · frasi nuove",
+rule:`<strong>RIPASSO A &mdash; Unit 5:</strong><br>
+&#x2714; <code>If / Unless + present simple</code>, poi <code>will &middot; won't &middot; may &middot; might + forma base</code>.<br>
+&#x2714; Sicuro &rarr; will/won't; soltanto possibile &rarr; may/might (not).<br>
+&#x2714; can &rarr; <em>be able to</em>; must &rarr; <em>have to</em>.<br>
+&#x26A0; Niente will dopo if e unless; niente not dopo unless.`,
+exercises:[
+{type:"mc",q:"«Se c'è rischio di valanghe, forse rimanderanno la gara di sci.» Quale frase inglese lo dice?",options:["If there's a risk of avalanches, they might postpone the ski race.","If there will be a risk of avalanches, they might postpone the ski race.","Unless there's no risk of avalanches, they might to postpone the ski race.","If there's a risk of avalanches, they might to postpone the ski race."],a:"If there's a risk of avalanches, they might postpone the ski race."},
+{type:"fill",q:"Mateo's parents are certain: if he ___ his Maths exam, they'll buy him an electric bike.",hint:"(pass)",a:"passes",accept:["passes"]},
+{type:"fill",q:"Don't worry about the earthquake drill — if the alarm ___, we'll all go out to the playground.",hint:"(go off)",a:"goes off",accept:["goes off","rings"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The hikers won't reach the hut before dark unless they don't leave now.",a:"The hikers won't reach the hut before dark unless they leave now.",accept:["the hikers won't reach the hut before dark unless they leave now.","the hikers won't reach the hut before dark if they don't leave now."]},
+{type:"fill",q:"If the typhoon changes direction, it ___ the island at all — but nobody can be sure.",hint:"(not hit)",a:"might not hit",accept:["might not hit","may not hit","mightn't hit"]},
+{type:"mc",q:"Quale frase va bene?",options:["Unless the lake freezes, we won't go skating.","Unless the lake doesn't freeze, we won't go skating.","Unless the lake will freeze, we won't go skating.","If the lake will freeze, we won't go skating."],a:"Unless the lake freezes, we won't go skating."},
+{type:"fill",q:"If Hana ___ her bike instead of taking the car, she'll cut her carbon footprint in half.",hint:"(ride)",a:"rides",accept:["rides"]},
+{type:"fill",q:"The coral in this bay ___ white unless the water gets cooler — the divers have no doubts.",hint:"(turn)",a:"will turn",accept:["will turn"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the council will ban plastic bags, the shops will give out paper ones.",a:"If the council bans plastic bags, the shops will give out paper ones.",accept:["if the council bans plastic bags, the shops will give out paper ones."]},
+{type:"fill",q:"If the wildfire gets any closer, the campers ___ to the town sports hall — the plan is ready.",hint:"(have to move)",a:"will have to move",accept:["will have to move","will have to go"]},
+{type:"mc",q:"«If the new cycle path opens in spring, I might sell my car.» Quale seguito sta in piedi?",options:["But I haven't made up my mind yet.","I've already sold it, of course.","The cycle path opened years ago.","I'm definitely selling it tomorrow."],a:"But I haven't made up my mind yet."},
+{type:"fill",q:"Unless Ravi ___ his dog inside during the thunderstorm, it will bark all night.",hint:"(keep)",a:"keeps",accept:["keeps"]},
+{type:"wordbox",instruction:"Completa con la forma giusta dei verbi del riquadro. Un verbo resta fuori.",verbs:["flood","freeze","recycle","plant","burn"],sentences:[{pre:"If the temperature drops below zero tonight, the roads",post:"and the buses won't run.",a:"will freeze",accept:["will freeze"]},{pre:"Unless the council",post:"more trees, the streets will get hotter in summer.",a:"plants",accept:["plants"]},{pre:"If the old dam breaks, the whole valley",post:"— the engineers are sure of it.",a:"will flood",accept:["will flood"]},{pre:"We",post:"all our glass bottles if the town puts a bottle bank in our street — I promise.",a:"will recycle",accept:["will recycle"]}]},
+{type:"fill",q:"Fingers crossed! Liv ___ a job at the wildlife centre this summer if they need volunteers, but she isn't sure yet.",hint:"(get)",a:"might get",accept:["might get","may get"]}
+]},
+
+{id:4,type:"study",title:"LIVELLO 04 — WHEN · AS SOON AS · UNTIL · AS LONG AS",desc:"quando è certo · appena · finché non · finché e purché · sempre il presente dopo la congiunzione",
+rule:`<strong>WHEN, AS SOON AS, UNTIL, AS LONG AS &mdash; Unit 5:</strong><br>
+&#x2714; <strong>when</strong> = quando: la cosa succeder&agrave; di sicuro. <strong>if</strong> = se: &egrave; soltanto possibile. &mdash; <em>When the plane lands, I'll call you.</em><br>
+&#x2714; <strong>as soon as</strong> = appena, non appena. &mdash; <em>As soon as the shop opens, we'll buy the tickets.</em><br>
+&#x2714; <strong>until (till)</strong> + verbo positivo = finch&eacute; non, fino al momento in cui. &mdash; <em>We'll wait until the rain stops.</em><br>
+&#x2714; <strong>as long as</strong> = finch&eacute; (per tutto il tempo in cui) oppure purch&eacute;, a condizione che.<br>
+&#x26A0; Dopo queste congiunzioni il presente, mai will; e dopo until niente not: <em>until the rain stops</em> (non &laquo;until the rain doesn't stop&raquo;).`,
+exercises:[
+{type:"mc",q:"Quale frase presenta l'arrivo della stagione delle piogge come una certezza?",options:["When the rainy season starts, the river will rise.","If the rainy season starts, the river will rise.","Unless the rainy season starts, the river will rise.","As long as the rainy season starts, the river will rise."],a:"When the rainy season starts, the river will rise."},
+{type:"fill",q:"Send me a message as soon as your ferry ___ at the island.",hint:"(arrive)",a:"arrives",accept:["arrives","gets"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The rangers won't open the trail until the snow doesn't melt.",a:"The rangers won't open the trail until the snow melts.",accept:["the rangers won't open the trail until the snow melts.","the rangers won't open the trail until the snow has melted."]},
+{type:"fill",q:"We'll stay inside the mountain hut until the thunderstorm ___.",hint:"(die down)",a:"dies down",accept:["dies down","has died down"]},
+{type:"fill",q:"Kemal can borrow my binoculars for the trip as long as he ___ them back on Friday.",hint:"(give)",a:"gives",accept:["gives"]},
+{type:"mc",q:"«You can stay at the eco-camp as long as you respect the rules.» Che cosa vuol dire as long as qui?",options:["purché, a condizione che","per tutto il tempo che","non appena","finché non"],a:"purché, a condizione che"},
+{type:"fill",q:"When my sister ___ eighteen, she'll volunteer to protect endangered species in Borneo.",hint:"(turn)",a:"turns",accept:["turns"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"As soon as the solar panels will arrive, the technicians will install them.",a:"As soon as the solar panels arrive, the technicians will install them.",accept:["as soon as the solar panels arrive, the technicians will install them."]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["until","as long as","as soon as","unless","in order to"],sentences:[{pre:"We'll wait in the cellar",post:"the tornado moves away.",a:"until",accept:["until"]},{pre:"Your vegetable garden will survive the dry summer",post:"you water it once a week.",a:"as long as",accept:["as long as"]},{pre:"Close all the windows",post:"you hear the storm warning — don't wait.",a:"as soon as",accept:["as soon as","when"]},{pre:"The fireworks will start at ten",post:"it rains.",a:"unless",accept:["unless"]}]},
+{type:"fill",q:"Keep the lid on the pan until the water ___ — you'll save energy.",hint:"(boil)",a:"boils",accept:["boils","is boiling"]},
+{type:"mc",q:"«I'll wait here until you will finish your shift.» La frase regge?",options:["No: dopo until ci vuole il presente, finish.","Sì: tutte e due le azioni sono future.","No: dopo until ci vuole don't finish.","No: until non si usa con il futuro nella frase principale."],a:"No: dopo until ci vuole il presente, finish."},
+{type:"fill",q:"The volunteers will start the beach clean-up as soon as the tide ___.",hint:"(go out)",a:"goes out",accept:["goes out"]},
+{type:"fill",q:"The engineers have done the maths: when the new tram line opens, traffic emissions in the city ___ by a third.",hint:"(fall)",a:"will fall",accept:["will fall","will drop","will go down"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If the sun sets, we'll light the campfire.",a:"When the sun sets, we'll light the campfire.",accept:["when the sun sets, we'll light the campfire.","as soon as the sun sets, we'll light the campfire."]},
+{type:"fill",q:"I'll look after your tortoise as long as your family ___ in Portugal.",hint:"(stay)",a:"stays",accept:["stays","is"]},
+{type:"fill",q:"My grandfather ___ his old diesel car until it finally breaks down.",hint:"(not sell)",a:"won't sell",accept:["won't sell","will not sell"]}
+]},
+
+{id:5,type:"study",title:"LIVELLO 05 — PURPOSE: TO · IN ORDER TO · SO THAT",desc:"per che cosa lo fai · to e in order to con la forma base · so that con soggetto e verbo",
+rule:`<strong>PURPOSE &mdash; Unit 5:</strong><br>
+&#x2714; Per dire lo scopo: <code>to + forma base</code> oppure <code>in order to + forma base</code>, pi&ugrave; formale. &mdash; <em>She saves water to protect the garden.</em><br>
+&#x2714; <code>so that + soggetto + verbo</code>, spesso con can, will o could. &mdash; <em>We left early so that we could see the sunrise.</em><br>
+&#x2714; Negativo: <em>in order not to + forma base</em>, oppure <em>so that + soggetto + won't/can't/doesn't</em>.<br>
+&#x26A0; Mai <strong>for</strong> davanti a un infinito: in italiano diciamo &laquo;per comprare&raquo;, in inglese <em>to buy</em> (non &laquo;for to buy&raquo;).`,
+exercises:[
+{type:"mc",q:"«Andiamo a scuola in bici per inquinare meno.» Quale frase inglese lo dice?",options:["We cycle to school to pollute less.","We cycle to school for to pollute less.","We cycle to school for polluting less.","We cycle to school so that pollute less."],a:"We cycle to school to pollute less."},
+{type:"fill",q:"Tomás takes shorter showers so that the family's water bill ___.",hint:"(go down)",a:"goes down",accept:["goes down","will go down"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Farah is saving money for to buy a second-hand electric car.",a:"Farah is saving money to buy a second-hand electric car.",accept:["farah is saving money to buy a second-hand electric car.","farah is saving money in order to buy a second-hand electric car."]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["to","so that","in order not to","because","for"],sentences:[{pre:"We're planting hedges along the field",post:"birds and insects can come back.",a:"so that",accept:["so that"]},{pre:"The company switched to electric vans",post:"cut its carbon footprint.",a:"to",accept:["to","in order to"]},{pre:"Turn the heating down one degree",post:"waste energy while nobody is home.",a:"in order not to",accept:["in order not to"]},{pre:"Priya walks to the station",post:"the bus is too expensive.",a:"because",accept:["because"]}]},
+{type:"fill",q:"Jonah takes a reusable bottle everywhere in order ___ plastic ones.",hint:"(not buy)",a:"not to buy",accept:["not to buy"]},
+{type:"mc",q:"«We use video calls so that to avoid business flights.» La frase regge?",options:["No: so that vuole soggetto e verbo; basta to avoid.","Sì: so that si usa sempre con to.","No: ci vuole for to avoid.","No: ci vuole because of avoid."],a:"No: so that vuole soggetto e verbo; basta to avoid."},
+{type:"fill",q:"The town put up signs by the lake so that nobody ___ the nesting birds.",hint:"(disturb)",a:"disturbs",accept:["disturbs","will disturb"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Our school installed water fountains so that students to refill their bottles.",a:"Our school installed water fountains so that students can refill their bottles.",accept:["our school installed water fountains so that students can refill their bottles.","our school installed water fountains so that students could refill their bottles.","our school installed water fountains so that students refill their bottles."]},
+{type:"fill",q:"The eco-club sold old clothes at the market ___ money for a reforestation project.",hint:"(raise)",a:"to raise",accept:["to raise","in order to raise","so as to raise"]},
+{type:"mc",q:"Anna è uscita presto per prendere l'ultimo autobus. Quale frase inglese lo spiega bene?",options:["Anna left early so that she could catch the last bus.","Anna left early so that catching the last bus.","Anna left early for catch the last bus.","Anna left early so that to catch the last bus."],a:"Anna left early so that she could catch the last bus."},
+{type:"fill",q:"Label the leftovers in the fridge so that nobody ___ them away by mistake.",hint:"(throw)",a:"throws",accept:["throws","will throw"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We keep the blinds closed in the afternoon for not heating up the flat.",a:"We keep the blinds closed in the afternoon in order not to heat up the flat.",accept:["we keep the blinds closed in the afternoon in order not to heat up the flat.","we keep the blinds closed in the afternoon so as not to heat up the flat.","we keep the blinds closed in the afternoon so that the flat doesn't heat up."]},
+{type:"mc",q:"«Sven bought a water butt so that he can water the garden with rainwater.» Quale seguito sta in piedi?",options:["Now his water bill is much lower.","So he never waters the garden.","That's why he uses more tap water now.","Rainwater is bad for plants, so he's happy."],a:"Now his water bill is much lower."},
+{type:"fill",q:"Every year my aunt plants a tree ___ her long-haul flights.",hint:"(make up for)",a:"to make up for",accept:["to make up for","in order to make up for"]},
+{type:"fill",q:"Some frequent flyers buy carbon offsets ___ better, but they're only kidding themselves.",hint:"(feel)",a:"to feel",accept:["to feel","in order to feel","so that they feel","so that they can feel"]},
+{type:"transform",instruction:"Completa la seconda frase in modo che dica la stessa cosa della prima. Usa la parola in maiuscolo senza cambiarla.",original:"The factory cut its working hours because it wanted to save energy.",key:"ORDER",q:"The factory cut its working hours ___ energy.",a:"in order to save",accept:["in order to save"]}
+]},
+
+{id:6,type:"study",title:"LIVELLO 06 — CAUSE AND RESULT",desc:"because of · as a result of · due to con un nome · because con una frase · il verbo cause",
+rule:`<strong>CAUSE AND RESULT &mdash; Unit 5:</strong><br>
+&#x2714; Per la causa: <code>because of / as a result of / due to + nome</code>. Possono stare all'inizio (con la virgola) o alla fine. &mdash; <em>Due to the snow, the school stayed shut. / The school stayed shut due to the snow.</em><br>
+&#x2714; Se dopo viene una frase con soggetto e verbo ci vuole <strong>because</strong>: <em>because it snowed</em> (non &laquo;because of it snowed&raquo;).<br>
+&#x2714; Per il risultato si usa il verbo <strong>cause</strong> = provocare, causare. &mdash; <em>Ice on the roads causes accidents.</em><br>
+&#x26A0; <em>due to</em>: la preposizione to non si toglie mai (non &laquo;due the rain&raquo;).`,
+exercises:[
+{type:"mc",q:"Quale frase dà in modo corretto la causa del ritardo?",options:["The flights were late because of the sandstorm.","The flights were late because the sandstorm.","The flights were late due the sandstorm.","The flights were late as a result the sandstorm."],a:"The flights were late because of the sandstorm."},
+{type:"fill",q:"The tornado ___ serious damage to three farms last night.",hint:"(cause)",a:"caused",accept:["caused","did"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Because of it was so icy, the school bus stayed in the garage.",a:"Because it was so icy, the school bus stayed in the garage.",accept:["because it was so icy, the school bus stayed in the garage.","because of the ice, the school bus stayed in the garage."]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["because","because of","caused","so that","to"],sentences:[{pre:"The beach is closed today",post:"a tsunami warning.",a:"because of",accept:["because of","due to","as a result of"]},{pre:"The fishermen stayed in the harbour",post:"the waves were too high.",a:"because",accept:["because"]},{pre:"Abandoned fishing nets",post:"the death of dozens of turtles in the ocean last spring.",a:"caused",accept:["caused"]},{pre:"The villagers built a stone wall",post:"protect their houses from floods.",a:"to",accept:["to","in order to"]}]},
+{type:"fill",q:"If carbon dioxide levels keep rising, they ___ an even stronger greenhouse effect.",hint:"(cause)",a:"will cause",accept:["will cause","might cause","may cause"]},
+{type:"mc",q:"«The river flooded because of it rained for five days.» La frase regge?",options:["No: dopo because of ci vuole un nome; qui serve because.","Sì: because of si usa sempre prima di una frase.","No: si dice due to it rained.","No: si dice as a result of it rained."],a:"No: dopo because of ci vuole un nome; qui serve because."},
+{type:"fill",q:"For decades, certain sprays ___ serious damage to the ozone layer.",hint:"(cause)",a:"have caused",accept:["have caused","caused"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Due the blizzard, the celebrities' private jets stayed on the runway.",a:"Due to the blizzard, the celebrities' private jets stayed on the runway.",accept:["due to the blizzard, the celebrities' private jets stayed on the runway.","because of the blizzard, the celebrities' private jets stayed on the runway.","as a result of the blizzard, the celebrities' private jets stayed on the runway."]},
+{type:"mc",q:"«A causa dell'ondata di calore, i fiumi sono quasi asciutti.» Quale frase inglese lo dice?",options:["Because of the heatwave, the rivers are almost dry.","Because the heatwave, the rivers are almost dry.","Due of the heatwave, the rivers are almost dry.","The heatwave is due to the rivers are almost dry."],a:"Because of the heatwave, the rivers are almost dry."},
+{type:"fill",q:"Right now the wildfires in the north ___ thick smoke over the whole region.",hint:"(cause)",a:"are causing",accept:["are causing"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"As a result of the company lied about its emissions, it lost thousands of customers.",a:"Because the company lied about its emissions, it lost thousands of customers.",accept:["because the company lied about its emissions, it lost thousands of customers.","as a result of the company's lies about its emissions, it lost thousands of customers."]},
+{type:"mc",q:"«The company lost customers due to a greenwashing scandal.» Quale seguito sta in piedi?",options:["People discovered that its green products weren't green at all.","People loved its honest labels.","Its sales went up by forty per cent.","Nobody noticed anything at all."],a:"People discovered that its green products weren't green at all."},
+{type:"fill",q:"In parts of Ghana, cocoa monoculture ___ soil erosion and less rainfall.",hint:"(cause)",a:"causes",accept:["causes","is causing"]},
+{type:"mc",q:"Quale frase dice che il traffico provoca lo smog?",options:["Traffic causes smog in the valley.","Smog causes traffic in the valley.","Traffic is due to smog in the valley.","Because of smog, there is traffic in the valley."],a:"Traffic causes smog in the valley."}
+]},
+
+{id:"rB",type:"review",title:"⟳ RIPASSO B — tempi, scopo e cause",desc:"when, as soon as, until, as long as · purpose · cause and result · frasi nuove",
+rule:`<strong>RIPASSO B &mdash; Unit 5:</strong><br>
+&#x2714; Dopo <em>when, as soon as, until, as long as</em> il presente; until con il verbo positivo.<br>
+&#x2714; Scopo: <em>to / in order to + forma base</em>; <em>so that + soggetto + verbo</em>.<br>
+&#x2714; Causa: <em>because of / as a result of / due to + nome</em>; <em>because + frase</em>; risultato: <em>cause</em>.`,
+exercises:[
+{type:"mc",q:"«Resteremo nella tenda finché non smette la grandine.» Quale frase inglese lo dice?",options:["We'll stay in the tent until the hail stops.","We'll stay in the tent until the hail doesn't stop.","We'll stay in the tent until the hail will stop.","We stay in the tent until the hail won't stop."],a:"We'll stay in the tent until the hail stops."},
+{type:"fill",q:"When the ice on the lake ___ thick enough, the villagers will go skating.",hint:"(get)",a:"gets",accept:["gets","is"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The museum is collecting old phones for to recover the metals inside them.",a:"The museum is collecting old phones to recover the metals inside them.",accept:["the museum is collecting old phones to recover the metals inside them.","the museum is collecting old phones in order to recover the metals inside them."]},
+{type:"fill",q:"Please don't open the greenhouse door until the thermometer ___ above ten degrees.",hint:"(rise)",a:"rises",accept:["rises","has risen","goes"]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["as soon as","as long as","because of","so that","until"],sentences:[{pre:"The divers will surface",post:"their air tanks get low.",a:"as soon as",accept:["as soon as","when"]},{pre:"You can camp by the river",post:"you take all your rubbish home.",a:"as long as",accept:["as long as"]},{pre:"The picnic moved indoors",post:"a sudden hailstorm.",a:"because of",accept:["because of","due to","as a result of"]},{pre:"Grandma keeps a torch by the door",post:"she can find her way during a power cut.",a:"so that",accept:["so that"]}]},
+{type:"fill",q:"Scientists say the melting permafrost ___ even more global warming in the future.",hint:"(cause)",a:"will cause",accept:["will cause","might cause","may cause"]},
+{type:"mc",q:"Quale frase dice che la telefonata arriverà subito dopo i risultati?",options:["I'll call you as soon as the results come out.","I'll call you until the results come out.","I'll call you unless the results come out.","I'll call you as long as the results come out."],a:"I'll call you as soon as the results come out."},
+{type:"fill",q:"Our teacher won't give us the marks until everyone ___ the test.",hint:"(finish)",a:"finishes",accept:["finishes","has finished"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I'll keep the laptop unplugged until the thunderstorm won't be over.",a:"I'll keep the laptop unplugged until the thunderstorm is over.",accept:["i'll keep the laptop unplugged until the thunderstorm is over.","i'll keep the laptop unplugged until the thunderstorm has passed."]},
+{type:"mc",q:"«The council bought electric buses so that the air in the centre stays cleaner.» Regge?",options:["Sì: dopo so that ci sono soggetto e verbo.","No: dopo so that ci vuole to.","No: si dice for to make.","No: so that si usa soltanto al passato."],a:"Sì: dopo so that ci sono soggetto e verbo."},
+{type:"fill",q:"The volcanic eruption ___ a huge ash cloud over the island on Christmas Eve.",hint:"(cause)",a:"caused",accept:["caused","created","produced"]},
+{type:"fill",q:"Unless the heatwave ___ soon, this arid valley will have no drinking water left.",hint:"(end)",a:"ends",accept:["ends","breaks"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The park rangers closed the forest because the high risk of wildfires.",a:"The park rangers closed the forest because of the high risk of wildfires.",accept:["the park rangers closed the forest because of the high risk of wildfires.","the park rangers closed the forest due to the high risk of wildfires.","the park rangers closed the forest as a result of the high risk of wildfires."]},
+{type:"fill",q:"Unless world leaders act now, things ___ from bad to worse.",hint:"(go)",a:"will go",accept:["will go","might go","may go"]},
+{type:"mc",q:"«I'll keep my old phone as long as it works.» Quale seguito sta in piedi?",options:["Buying a new one every year creates too much e-waste.","It stopped working years ago, so I use it every day.","I'm buying a new one tomorrow, even though it works perfectly.","I always change phones every six months."],a:"Buying a new one every year creates too much e-waste."}
+]},
+
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Green week",desc:"tutta l'unità insieme · la scelta viene dalla situazione",
+rule:`<strong>SFIDA FINALE &mdash; Unit 5:</strong><br>
+&#x2714; <em>if, unless, when, as soon as, until, as long as</em> + present simple; nella conseguenza <em>will, may, might</em>.<br>
+&#x2714; Scopo: <em>to, in order to, so that</em>. Causa e risultato: <em>because of, as a result of, due to, cause</em>.<br>
+&#x26A0; Leggi tutta la frase prima di scegliere: &egrave; la situazione a decidere.`,
+exercises:[
+{type:"mc",q:"«Se non riduciamo la plastica, forse la spiaggia chiuderà.» Quale frase inglese lo dice?",options:["If we don't reduce plastic, the beach might close.","Unless we don't reduce plastic, the beach might close.","If we won't reduce plastic, the beach might close.","If we don't reduce plastic, the beach might closing."],a:"If we don't reduce plastic, the beach might close."},
+{type:"fill",q:"The head teacher has promised: if our class ___ the most plastic, we'll win a trip to the nature reserve.",hint:"(collect)",a:"collects",accept:["collects"]},
+{type:"fill",q:"Unless the town ___ more bins on the promenade, people will keep leaving rubbish on the sand.",hint:"(put)",a:"puts",accept:["puts"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We'll plant the seeds when the frost will be over.",a:"We'll plant the seeds when the frost is over.",accept:["we'll plant the seeds when the frost is over.","we'll plant the seeds as soon as the frost is over."]},
+{type:"fill",q:"Our class made posters ___ people about the water crisis and climate change.",hint:"(warn)",a:"to warn",accept:["to warn","in order to warn"]},
+{type:"mc",q:"«I'll join the beach clean-up unless I don't feel well.» La frase regge?",options:["No: unless ha già il senso di se non; si dice if I don't feel well.","Sì: dopo unless ci vuole sempre don't.","No: si dice unless I won't feel well.","No: unless si usa soltanto nelle minacce."],a:"No: unless ha già il senso di se non; si dice if I don't feel well."},
+{type:"fill",q:"The forecast is uncertain, so the outdoor film night ___ if there's thunder and lightning.",hint:"(not happen)",a:"might not happen",accept:["might not happen","may not happen","mightn't happen"]},
+{type:"fill",q:"Fast fashion ___ huge amounts of waste, so our school is organising a clothes swap.",hint:"(cause)",a:"causes",accept:["causes","is causing","creates","produces"]},
+{type:"wordbox",instruction:"Completa con le parole del riquadro. Una parola resta fuori.",verbs:["until","when","so that","because of","unless"],sentences:[{pre:"The school garden will stay closed",post:"the new fence is ready.",a:"until",accept:["until"]},{pre:"Put the leftover food in the brown bin",post:"the council can turn it into compost.",a:"so that",accept:["so that"]},{pre:"The outdoor lessons moved inside",post:"the air pollution.",a:"because of",accept:["because of","due to","as a result of"]},{pre:"We won't finish the mural on time",post:"more volunteers join us.",a:"unless",accept:["unless"]}]},
+{type:"fill",q:"I'll help with the recycling stall until my shift at the café ___ at four.",hint:"(start)",a:"starts",accept:["starts","begins"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"If you'll come to the repair workshop, you can learn to fix your own bike.",a:"If you come to the repair workshop, you can learn to fix your own bike.",accept:["if you come to the repair workshop, you can learn to fix your own bike."]},
+{type:"mc",q:"«Unless more people use the new tram, the city might close the line.» Quale seguito sta in piedi?",options:["So the council is offering free tickets for a month.","So the council has already closed it for good.","Luckily, nobody wants to use it.","The tram line closed years ago."],a:"So the council is offering free tickets for a month."},
+{type:"fill",q:"If the canteen stops using plastic trays, the kitchen staff ___ more dishes.",hint:"(have to wash)",a:"will have to wash",accept:["will have to wash","might have to wash","may have to wash"]},
+{type:"mc",q:"Quale frase dà per scontato che il tetto solare verrà completato?",options:["When the solar roof is ready, the gym will use clean energy.","If the solar roof is ready, the gym might use clean energy.","Unless the solar roof is ready, the gym will use clean energy.","If the solar roof isn't ready, the gym may use clean energy."],a:"When the solar roof is ready, the gym will use clean energy."},
+{type:"fill",q:"The canteen switched to seasonal fruit ___ its food miles.",hint:"(reduce)",a:"to reduce",accept:["to reduce","in order to reduce","to cut","in order to cut"]},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Due to it was raining, the climate march started an hour later.",a:"Because it was raining, the climate march started an hour later.",accept:["because it was raining, the climate march started an hour later.","due to the rain, the climate march started an hour later.","because of the rain, the climate march started an hour later.","as a result of the rain, the climate march started an hour later."]}
+]}
+
+];
+
+
+const SK='gq_u5fc_s',EK='gq_u5fc_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'GQU.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato tutta la Unit 5 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[];
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none')nextExercise();
+  else if(cb&&cb.style.display!=='none')checkExercise();
+});
+loadState();renderMap();
+
+</script>
+</body>
+</html>
