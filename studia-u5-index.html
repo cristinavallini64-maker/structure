@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 5</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="tutorbox" id="tutorbox" role="status" aria-live="polite"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 5. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
+</main>
+<script>
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+  "titolo": "Unit 5 · Conditionals, Time Clauses & Purpose",
+  "fuoriProgramma": "second e third conditional (would, if + past simple o past perfect con valore ipotetico), wish e if only, forma passiva, reported speech",
+  "vietate": "\\bwould\\b|\\bwish\\b|\\bif only\\b",
+  "topics": [
+    {
+      "title": "First conditional: will, may, might",
+      "tempi": "present simple nella frase con if; will/won't oppure may/might (not) + forma base nella conseguenza.",
+      "points": [
+        {
+          "titolo": "If + present simple, will/won't + forma base",
+          "regola": "Il first conditional parla di una condizione possibile nel futuro e della sua conseguenza. Con will/won't la conseguenza è data per sicura. Condizione e conseguenza possono essere tutte e due positive, tutte e due negative o una positiva e una negativa: If you don't understand, I'll explain again.",
+          "nota": "Lo spazio sul verbo della frase con if (present simple) oppure sulla conseguenza (will/won't). Se l'attesa è will, metti un'ancora di certezza (I'm sure, she promised, definitely)."
+        },
+        {
+          "titolo": "Dopo if niente will",
+          "regola": "A differenza dell'italiano (se pioverà), dopo if si usa il present simple: If it rains tomorrow, we'll stay in (NON if it will rain).",
+          "nota": "Soprattutto frasi da correggere con will dopo if: è l'errore tipico di chi parla italiano."
+        },
+        {
+          "titolo": "may e might: la conseguenza non è sicura",
+          "regola": "Quando il risultato è incerto si usa may o might (not) al posto di will. Hanno lo stesso significato, 'forse'; might è più frequente nel parlato. Negativa: may not, might not (mightn't); la forma mayn't non esiste. Dopo may e might la forma base senza to.",
+          "nota": "Se l'attesa è may/might metti sempre un'ancora di incertezza (I'm not sure, perhaps, it depends) e accetta sia may sia might."
+        },
+        {
+          "titolo": "Domande e ordine delle frasi",
+          "regola": "Domanda: Will + soggetto + forma base + if + present simple? (Will you help me if I get stuck? What will you do if…?). Le due frasi si possono invertire; se la frase con if viene prima, ci vuole la virgola.",
+          "nota": "Domande con will; frasi con la parte con if in seconda posizione."
+        },
+        {
+          "titolo": "Avverbi, can e must",
+          "regola": "maybe e perhaps vanno all'inizio della frase con will; probably, definitely e certainly vanno dopo will ma prima di won't (we'll probably walk / we definitely won't drive). can diventa will/may/might be able to; must diventa will/may/might have to. Per iscritto niente 'll dopo un nome: Lea will come (NON Lea'll come).",
+          "nota": "Spazi con (be able to …) o (have to …) tra parentesi; correzioni sulla posizione di probably e definitely."
+        }
+      ],
+      "scoperta": {
+        "storia": "Giulia e i suoi amici organizzano una gita in bici per sabato.",
+        "passi": [
+          {
+            "mostra": [
+              "If it rains on Saturday, we'll go to the museum instead."
+            ],
+            "domanda": "Giulia sa già se sabato pioverà?",
+            "obiettivo": "No: la pioggia è soltanto una possibilità. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "If it rains on Saturday, we'll go to the museum instead."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If Tommaso ___ (bring) his speaker, we'll have music at the picnic.",
+            "attese": [
+              "brings"
+            ],
+            "obiettivo": "Present simple nella frase con if: brings (non will bring)."
+          },
+          {
+            "mostra": [
+              "If the path is muddy, we'll leave the bikes at the farm.",
+              "If the path is muddy, we might leave the bikes at the farm."
+            ],
+            "domanda": "In quale frase Giulia non ha ancora deciso che cosa fare con le bici?",
+            "obiettivo": "Nella seconda: might vuol dire forse. Basta 'la seconda'."
+          },
+          {
+            "mostra": [
+              "If the path is muddy, we might leave the bikes at the farm."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Take a jacket: if the wind gets stronger, it ___ (be) cold on the hill, but I'm not sure.",
+            "attese": [
+              "might be",
+              "may be"
+            ],
+            "obiettivo": "Conseguenza incerta: might be / may be."
+          },
+          {
+            "mostra": [
+              "If we're late, the café will close before we get there."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If we ___ (not leave) by nine, we won't see the lake before lunch.",
+            "attese": [
+              "don't leave",
+              "do not leave"
+            ],
+            "obiettivo": "Present simple negativo dopo if: don't leave (non won't leave)."
+          },
+          {
+            "mostra": [
+              "If the bike shop is open, I'll be able to fix my brakes."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If it stops raining, we ___ (be able to / have) lunch outside.",
+            "attese": [
+              "will be able to have",
+              "'ll be able to have",
+              "might be able to have",
+              "may be able to have"
+            ],
+            "obiettivo": "can nel futuro diventa be able to: will be able to have."
+          }
+        ],
+        "sintesi": [
+          "if + present simple, will/won't + forma base → condizione possibile, conseguenza sicura: if it rains, we'll go to the museum",
+          "dopo if niente will: if we don't leave (non if we won't leave)",
+          "may / might (not) → la conseguenza non è sicura: we might leave the bikes",
+          "domande: Will you…? What will you do if…? — se if viene prima, ci vuole la virgola",
+          "can → will be able to · must → will have to · probably e definitely dopo will, prima di won't"
+        ]
+      }
+    },
+    {
+      "title": "Unless",
+      "tempi": "present simple positivo dopo unless; will/won't oppure may/might nella conseguenza.",
+      "points": [
+        {
+          "titolo": "unless = if not",
+          "regola": "unless seguito dal verbo positivo sostituisce if seguito dal verbo negativo e significa 'a meno che non': If you don't hurry, you'll miss the bus = Unless you hurry, you'll miss the bus.",
+          "nota": "Frasi con unless + present simple positivo; lo spazio sul verbo dopo unless oppure sulla conseguenza."
+        },
+        {
+          "titolo": "Niente doppia negazione",
+          "regola": "In italiano diciamo 'a meno che NON', ma unless è già negativo: unless you hurry (NON unless you don't hurry).",
+          "nota": "Soprattutto correzioni di unless + don't/doesn't: è l'errore tipico di chi parla italiano."
+        },
+        {
+          "titolo": "Avvertimenti e minacce, e l'ordine delle frasi",
+          "regola": "unless si usa spesso negli avvertimenti e nelle minacce: I won't help you unless you tell me the truth. Come con if, le due frasi si possono invertire.",
+          "nota": "Frasi di avvertimento, anche con unless in seconda posizione."
+        }
+      ],
+      "scoperta": {
+        "storia": "La mamma di Pietro gli lascia un biglietto prima di partire per il fine settimana.",
+        "passi": [
+          {
+            "mostra": [
+              "The cat will scratch the sofa unless you feed her at seven."
+            ],
+            "domanda": "Se Pietro dà da mangiare alla gatta alle sette, lei graffierà il divano?",
+            "obiettivo": "No: lo graffia solo se lui non le dà da mangiare. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "The cat will scratch the sofa unless you feed her at seven.",
+              "The cat will scratch the sofa if you don't feed her at seven."
+            ],
+            "domanda": "Le due frasi dicono la stessa cosa o due cose diverse?",
+            "obiettivo": "La stessa cosa: unless vuol dire if not. Basta 'la stessa'."
+          },
+          {
+            "mostra": [
+              "The cat will scratch the sofa unless you feed her at seven."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The dog won't go out unless someone ___ (take) him to the park.",
+            "attese": [
+              "takes"
+            ],
+            "obiettivo": "Verbo positivo dopo unless: takes (non doesn't take)."
+          },
+          {
+            "mostra": [
+              "I'll switch off the Wi-Fi unless you finish your homework first."
+            ],
+            "domanda": "È un consiglio, una promessa o una minaccia?",
+            "obiettivo": "Una minaccia. Basta 'una minaccia'."
+          },
+          {
+            "mostra": [
+              "I'll switch off the Wi-Fi unless you finish your homework first."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Unless Pietro ___ (tidy) his room, he won't go to the concert on Sunday.",
+            "attese": [
+              "tidies"
+            ],
+            "obiettivo": "Verbo positivo dopo unless: tidies (non doesn't tidy)."
+          },
+          {
+            "mostra": [
+              "The cat will scratch the sofa unless you feed her at seven."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Unless the bus arrives soon, Pietro ___ (be) late for football practice.",
+            "attese": [
+              "will be",
+              "'ll be",
+              "might be",
+              "may be"
+            ],
+            "obiettivo": "La conseguenza con will: will be."
+          }
+        ],
+        "sintesi": [
+          "unless = if not → a meno che non: the cat will scratch the sofa unless you feed her",
+          "dopo unless il verbo è positivo: unless Pietro tidies (non unless he doesn't tidy)",
+          "unless negli avvertimenti e nelle minacce: I'll switch off the Wi-Fi unless you finish your homework",
+          "le due frasi si possono invertire, come con if"
+        ]
+      }
+    },
+    {
+      "title": "When, as soon as, until, as long as",
+      "tempi": "present simple dopo la congiunzione; will/won't oppure l'imperativo nell'altra frase.",
+      "points": [
+        {
+          "titolo": "when e if",
+          "regola": "when = quando: la cosa succederà di sicuro. if = se: è soltanto possibile. When the film ends, I'll call you / If the film is boring, I'll leave.",
+          "nota": "Coppie di frasi con when e if a confronto; spazio sul verbo al presente."
+        },
+        {
+          "titolo": "as soon as: appena",
+          "regola": "as soon as = appena, non appena, subito dopo: As soon as the shop opens, we'll buy the tickets.",
+          "nota": "Frasi con un'azione che segue subito un'altra."
+        },
+        {
+          "titolo": "until: finché non",
+          "regola": "until (till nel parlato) + verbo positivo = finché non, fino al momento in cui: We'll wait until the rain stops (NON until the rain doesn't stop). Si può usare anche il present perfect: until it has stopped.",
+          "nota": "Correzioni di until + don't/doesn't; spazi sul verbo dopo until (accetta anche il present perfect)."
+        },
+        {
+          "titolo": "as long as: finché oppure purché",
+          "regola": "as long as ha due significati: finché, per tutto il tempo che (I'll stay as long as you need me) oppure purché, a condizione che (You can borrow it as long as you give it back).",
+          "nota": "Domande di comprensione su quale dei due significati; spazi sul verbo al presente."
+        },
+        {
+          "titolo": "Niente will dopo queste congiunzioni",
+          "regola": "Come con if, dopo when, as soon as, until e as long as si usa il presente, anche se in italiano c'è il futuro: As soon as I arrive, I'll call you (NON as soon as I will arrive).",
+          "nota": "Correzioni con will dopo la congiunzione."
+        }
+      ],
+      "scoperta": {
+        "storia": "Sara parte per uno scambio culturale in Irlanda.",
+        "passi": [
+          {
+            "mostra": [
+              "When Sara lands in Cork, she'll call her parents.",
+              "If Sara lands in Cork, she'll call her parents."
+            ],
+            "domanda": "In quale frase è sicuro che l'aereo atterrerà a Cork?",
+            "obiettivo": "Nella prima: when vuol dire che succederà di sicuro. Basta 'la prima'."
+          },
+          {
+            "mostra": [
+              "When Sara lands in Cork, she'll call her parents."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "When Sara ___ (get) to her host family's house, she'll unpack her suitcase.",
+            "attese": [
+              "gets"
+            ],
+            "obiettivo": "Presente dopo when: gets (non will get)."
+          },
+          {
+            "mostra": [
+              "Sara will send a photo as soon as she sees the sea."
+            ],
+            "domanda": "Sara aspetterà qualche giorno prima di mandare la foto?",
+            "obiettivo": "No: la manda subito, appena vede il mare. Basta 'no' o 'subito'."
+          },
+          {
+            "mostra": [
+              "Sara won't go out until her host mum comes home."
+            ],
+            "domanda": "Sara esce prima che torni la signora che la ospita?",
+            "obiettivo": "No: resta in casa fino a quando lei torna. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Sara won't go out until her host mum comes home."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Sara won't swim in the lake until the water ___ (get) warmer.",
+            "attese": [
+              "gets"
+            ],
+            "obiettivo": "until + verbo positivo: gets (non doesn't get, non will get)."
+          },
+          {
+            "mostra": [
+              "Sara can use the bike as long as she wears a helmet."
+            ],
+            "domanda": "Qui as long as vuol dire 'per tutto il tempo che' o 'purché'?",
+            "obiettivo": "Purché: è una condizione. Basta 'purché'."
+          },
+          {
+            "mostra": [
+              "Sara will send a photo as soon as she sees the sea."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "As soon as the lesson ___ (finish), Sara will buy some postcards.",
+            "attese": [
+              "finishes",
+              "has finished",
+              "ends"
+            ],
+            "obiettivo": "Presente dopo as soon as: finishes (non will finish)."
+          }
+        ],
+        "sintesi": [
+          "when → quando, di sicuro · if → se, forse: when Sara lands, she'll call her parents",
+          "as soon as → appena: as soon as she sees the sea",
+          "until + verbo positivo → finché non: until her host mum comes home",
+          "as long as → finché oppure purché: as long as she wears a helmet",
+          "dopo queste congiunzioni il presente, mai will"
+        ]
+      }
+    },
+    {
+      "title": "Purpose, cause and result",
+      "tempi": "tutti i tempi già studiati, soprattutto present simple e past simple. Lo spazio è sull'espressione di scopo o di causa, oppure sul verbo cause.",
+      "points": [
+        {
+          "titolo": "Scopo: to e in order to",
+          "regola": "Per dire lo scopo si usa to + forma base oppure in order to + forma base, più formale: She works at weekends to pay for her driving lessons. Negativo: in order not to. Mai for davanti all'infinito: in italiano 'per pagare', in inglese to pay (NON for to pay).",
+          "nota": "Correzioni di for to e di for + -ing; spazi con il verbo tra parentesi da usare con to."
+        },
+        {
+          "titolo": "Scopo: so that",
+          "regola": "so that + soggetto + verbo, spesso con can, will o could: I'll write it down so that I don't forget.",
+          "nota": "Frasi con so that seguito dal soggetto; correzioni di so that to."
+        },
+        {
+          "titolo": "Causa: because of, as a result of, due to + nome",
+          "regola": "Per la causa, davanti a un nome si usa because of, as a result of o due to: possono stare all'inizio (con la virgola) o alla fine. Se segue una frase con soggetto e verbo ci vuole because: because it rained (NON because of it rained).",
+          "nota": "Accetta tutte e tre le espressioni quando il senso lo permette; confronto fra because e because of."
+        },
+        {
+          "titolo": "Risultato: il verbo cause",
+          "regola": "Per il risultato si usa il verbo cause, provocare: Too much sugar causes tooth decay.",
+          "nota": "Spazi sul verbo cause in tempi diversi; attenzione a chi provoca che cosa."
+        }
+      ],
+      "scoperta": {
+        "storia": "Elisa racconta la sua estate di lavoro in un campeggio.",
+        "passi": [
+          {
+            "mostra": [
+              "Elisa worked at a campsite to save money for a new laptop."
+            ],
+            "domanda": "Perché Elisa ha lavorato al campeggio?",
+            "obiettivo": "Per mettere da parte i soldi per un portatile nuovo. Basta 'per risparmiare'."
+          },
+          {
+            "mostra": [
+              "Elisa worked at a campsite to save money for a new laptop."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "She got up at six every morning ___ (clean) the showers before the guests woke up.",
+            "attese": [
+              "to clean",
+              "in order to clean"
+            ],
+            "obiettivo": "Scopo: to clean (non for to clean, non for cleaning)."
+          },
+          {
+            "mostra": [
+              "She kept a notebook so that she could remember the guests' names."
+            ],
+            "domanda": "A che cosa le serviva il quaderno?",
+            "obiettivo": "A ricordare i nomi degli ospiti. Basta 'a ricordare i nomi'."
+          },
+          {
+            "mostra": [
+              "Many guests went home early because of the rain.",
+              "Many guests went home early because it rained for a week."
+            ],
+            "domanda": "Nella seconda frase, dopo because, c'è un verbo?",
+            "obiettivo": "Sì: rained. Dopo because viene una frase con soggetto e verbo, dopo because of solo un nome. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "Many guests went home early because of the rain."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Two families left the campsite ___ the mosquitoes.",
+            "attese": [
+              "because of",
+              "due to",
+              "as a result of"
+            ],
+            "obiettivo": "Causa davanti a un nome: because of / due to / as a result of."
+          },
+          {
+            "mostra": [
+              "The heat caused problems for the older guests."
+            ],
+            "domanda": "Che cosa ha creato problemi agli ospiti più anziani?",
+            "obiettivo": "Il caldo. Basta 'il caldo'."
+          },
+          {
+            "mostra": [
+              "The heat caused problems for the older guests."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "A broken water pipe ___ (cause) a flood in the campsite kitchen in August.",
+            "attese": [
+              "caused"
+            ],
+            "obiettivo": "Risultato con il verbo cause: caused."
+          }
+        ],
+        "sintesi": [
+          "scopo: to / in order to + forma base (mai for to): to save money",
+          "so that + soggetto + verbo: so that she could remember",
+          "causa: because of / due to / as a result of + nome · because + frase",
+          "risultato: il verbo cause: the heat caused problems"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "If the glacier keeps melting, the village will run out of water.",
+    "If the wind doesn't drop tonight, the firefighters won't be able to control the wildfire.",
+    "The experts are certain: if the council plants trees along this road, the air will be cleaner.",
+    "If it is foggy tomorrow morning, the ferry to the island won't leave.",
+    "If the bus company cancels the 7:40 service, how will you get to school?",
+    "Will you join the tree-planting day if it doesn't rain?",
+    "No: dopo if ci vuole il presente, puts.",
+    "Dad promised: if the city opens the new cycle lane, he will leave his car at home.",
+    "We definitely won't need the heating if the weather stays this mild.",
+    "If Aisha catches the eight o'clock train, she'll be at the climate march before the speeches start.",
+    "If the hailstorm hits the vineyard, we will lose all the grapes this year.",
+    "That's why the islanders are already planning for the future.",
+    "Nobody will support renewable energy projects if they spoil the view, so the engineers are choosing the site carefully.",
+    "The biologists have no doubt: if the factory keeps dumping waste into the bay, the marine life there won't survive.",
+    "If Owen takes his old phone to the shop, they'll recycle it for free.",
+    "If the power station burns less coal, it will produce less carbon dioxide.",
+    "If sea levels rise another metre, this beach will disappear.",
+    "If you switch off the printer tonight, we'll use a bit less energy.",
+    "If the snow melts too quickly in spring, the valley will flood.",
+    "If the hurricane reaches the coast tonight, the ferries may not sail — the company hasn't decided yet.",
+    "The organisers are absolutely sure: if it's sunny on Saturday, the eco-fair will attract record numbers.",
+    "If the wind changes direction, the smoke might reach our village.",
+    "If the drought continues, farmers won't be able to grow wheat here.",
+    "If the river keeps rising, the families near the bridge may have to leave their homes — the police aren't sure yet.",
+    "The engineer is positive: if the school installs solar panels, it will be able to produce most of its own electricity.",
+    "No: mayn't non esiste; si dice may not oppure mightn't.",
+    "If Farah passes her exams, she might take a gap year in Kenya — she keeps changing her mind.",
+    "If the weather stays mild, the almond trees might flower in February.",
+    "We might be able to see the comet if the sky stays clear.",
+    "The app isn't sure: if there's thick fog tomorrow morning, the flights to Dublin might not leave on time.",
+    "It's the only road, so if the landslide blocks it again, the villagers won't be able to get to the market in town.",
+    "Nobody knows yet how many will pay, though.",
+    "If the council bans cars from the centre, I will have to cycle to work.",
+    "Nobody can promise anything, but if the countries sign the agreement, deforestation in the Amazon might fall at last.",
+    "The glacier will vanish unless temperatures stop rising.",
+    "Grandad's tomato plants won't survive the heatwave unless someone waters them twice a day.",
+    "Unless you recharge the electric bike tonight, it won't get you to school.",
+    "From Monday, the café won't serve hot drinks unless a customer brings their own cup.",
+    "Se la brezza cala.",
+    "Unless the government cuts its use of fossil fuels, the country will miss its 2030 targets.",
+    "The organisers have been clear: unless the rain stops by five, they will cancel the outdoor concert.",
+    "I won't lend you my tent unless you promise to bring it back dry.",
+    "If the town doesn't clean up the beach, the turtles won't lay their eggs there.",
+    "The turtles won't lay their eggs on the beach unless the town cleans it up.",
+    "Dicono la stessa cosa.",
+    "Scientists are sure the polar bears in this area won't find enough food unless the sea ice comes back.",
+    "We'll lose the coral reef if the water keeps getting warmer.",
+    "You won't see any dolphins unless you go out very early in the morning.",
+    "if the hailstorm damages the roof, we'll call the insurance company.",
+    "The park rangers will close the trail unless the fog clears by ten.",
+    "Unless it gets chilly tonight, we'll sleep outside in the garden.",
+    "So the village is starting a tree-planting project next month.",
+    "The reservoir will be empty by August unless it rains a lot this spring.",
+    "If there's a risk of avalanches, they might postpone the ski race.",
+    "Mateo's parents are certain: if he passes his Maths exam, they'll buy him an electric bike.",
+    "Don't worry about the earthquake drill — if the alarm goes off, we'll all go out to the playground.",
+    "The hikers won't reach the hut before dark unless they leave now.",
+    "If the typhoon changes direction, it might not hit the island at all — but nobody can be sure.",
+    "Unless the lake freezes, we won't go skating.",
+    "If Hana rides her bike instead of taking the car, she'll cut her carbon footprint in half.",
+    "The coral in this bay will turn white unless the water gets cooler — the divers have no doubts.",
+    "If the council bans plastic bags, the shops will give out paper ones.",
+    "If the wildfire gets any closer, the campers will have to move to the town sports hall — the plan is ready.",
+    "But I haven't made up my mind yet.",
+    "Unless Ravi keeps his dog inside during the thunderstorm, it will bark all night.",
+    "If the temperature drops below zero tonight, the roads will freeze and the buses won't run.",
+    "Unless the council plants more trees, the streets will get hotter in summer.",
+    "If the old dam breaks, the whole valley will flood — the engineers are sure of it.",
+    "We will recycle all our glass bottles if the town puts a bottle bank in our street — I promise.",
+    "Fingers crossed! Liv might get a job at the wildlife centre this summer if they need volunteers, but she isn't sure yet.",
+    "When the rainy season starts, the river will rise.",
+    "Send me a message as soon as your ferry arrives at the island.",
+    "The rangers won't open the trail until the snow melts.",
+    "We'll stay inside the mountain hut until the thunderstorm dies down.",
+    "Kemal can borrow my binoculars for the trip as long as he gives them back on Friday.",
+    "purché, a condizione che",
+    "When my sister turns eighteen, she'll volunteer to protect endangered species in Borneo.",
+    "As soon as the solar panels arrive, the technicians will install them.",
+    "We'll wait in the cellar until the tornado moves away.",
+    "Your vegetable garden will survive the dry summer as long as you water it once a week.",
+    "Close all the windows as soon as you hear the storm warning — don't wait.",
+    "The fireworks will start at ten unless it rains.",
+    "Keep the lid on the pan until the water boils — you'll save energy.",
+    "No: dopo until ci vuole il presente, finish.",
+    "The volunteers will start the beach clean-up as soon as the tide goes out.",
+    "The engineers have done the maths: when the new tram line opens, traffic emissions in the city will fall by a third.",
+    "When the sun sets, we'll light the campfire.",
+    "I'll look after your tortoise as long as your family stays in Portugal.",
+    "My grandfather won't sell his old diesel car until it finally breaks down.",
+    "We cycle to school to pollute less.",
+    "Tomás takes shorter showers so that the family's water bill goes down.",
+    "Farah is saving money to buy a second-hand electric car.",
+    "We're planting hedges along the field so that birds and insects can come back.",
+    "The company switched to electric vans to cut its carbon footprint.",
+    "Turn the heating down one degree in order not to waste energy while nobody is home.",
+    "Priya walks to the station because the bus is too expensive.",
+    "Jonah takes a reusable bottle everywhere in order not to buy plastic ones.",
+    "No: so that vuole soggetto e verbo; basta to avoid.",
+    "The town put up signs by the lake so that nobody disturbs the nesting birds.",
+    "Our school installed water fountains so that students can refill their bottles.",
+    "The eco-club sold old clothes at the market to raise money for a reforestation project.",
+    "Anna left early so that she could catch the last bus.",
+    "Label the leftovers in the fridge so that nobody throws them away by mistake.",
+    "We keep the blinds closed in the afternoon in order not to heat up the flat.",
+    "Now his water bill is much lower.",
+    "Every year my aunt plants a tree to make up for her long-haul flights.",
+    "Some frequent flyers buy carbon offsets to feel better, but they're only kidding themselves.",
+    "The factory cut its working hours because it wanted to save energy.",
+    "The factory cut its working hours in order to save energy.",
+    "The flights were late because of the sandstorm.",
+    "The tornado caused serious damage to three farms last night.",
+    "Because it was so icy, the school bus stayed in the garage.",
+    "The beach is closed today because of a tsunami warning.",
+    "The fishermen stayed in the harbour because the waves were too high.",
+    "Abandoned fishing nets caused the death of dozens of turtles in the ocean last spring.",
+    "The villagers built a stone wall to protect their houses from floods.",
+    "If carbon dioxide levels keep rising, they will cause an even stronger greenhouse effect.",
+    "No: dopo because of ci vuole un nome; qui serve because.",
+    "For decades, certain sprays have caused serious damage to the ozone layer.",
+    "Due to the blizzard, the celebrities' private jets stayed on the runway.",
+    "Because of the heatwave, the rivers are almost dry.",
+    "Right now the wildfires in the north are causing thick smoke over the whole region.",
+    "Because the company lied about its emissions, it lost thousands of customers.",
+    "People discovered that its green products weren't green at all.",
+    "In parts of Ghana, cocoa monoculture causes soil erosion and less rainfall.",
+    "Traffic causes smog in the valley.",
+    "We'll stay in the tent until the hail stops.",
+    "When the ice on the lake gets thick enough, the villagers will go skating.",
+    "The museum is collecting old phones to recover the metals inside them.",
+    "Please don't open the greenhouse door until the thermometer rises above ten degrees.",
+    "The divers will surface as soon as their air tanks get low.",
+    "You can camp by the river as long as you take all your rubbish home.",
+    "The picnic moved indoors because of a sudden hailstorm.",
+    "Grandma keeps a torch by the door so that she can find her way during a power cut.",
+    "Scientists say the melting permafrost will cause even more global warming in the future.",
+    "I'll call you as soon as the results come out.",
+    "Our teacher won't give us the marks until everyone finishes the test.",
+    "I'll keep the laptop unplugged until the thunderstorm is over.",
+    "Sì: dopo so that ci sono soggetto e verbo.",
+    "The volcanic eruption caused a huge ash cloud over the island on Christmas Eve.",
+    "Unless the heatwave ends soon, this arid valley will have no drinking water left.",
+    "The park rangers closed the forest because of the high risk of wildfires.",
+    "Unless world leaders act now, things will go from bad to worse.",
+    "Buying a new one every year creates too much e-waste.",
+    "If we don't reduce plastic, the beach might close.",
+    "The head teacher has promised: if our class collects the most plastic, we'll win a trip to the nature reserve.",
+    "Unless the town puts more bins on the promenade, people will keep leaving rubbish on the sand.",
+    "We'll plant the seeds when the frost is over.",
+    "Our class made posters to warn people about the water crisis and climate change.",
+    "No: unless ha già il senso di se non; si dice if I don't feel well.",
+    "The forecast is uncertain, so the outdoor film night might not happen if there's thunder and lightning.",
+    "Fast fashion causes huge amounts of waste, so our school is organising a clothes swap.",
+    "The school garden will stay closed until the new fence is ready.",
+    "Put the leftover food in the brown bin so that the council can turn it into compost.",
+    "The outdoor lessons moved inside because of the air pollution.",
+    "We won't finish the mural on time unless more volunteers join us.",
+    "I'll help with the recycling stall until my shift at the café starts at four.",
+    "If you come to the repair workshop, you can learn to fix your own bike.",
+    "So the council is offering free tickets for a month.",
+    "If the canteen stops using plastic trays, the kitchen staff will have to wash more dishes.",
+    "When the solar roof is ready, the gym will use clean energy.",
+    "The canteen switched to seasonal fruit to reduce its food miles.",
+    "Because it was raining, the climate march started an hour later."
+  ]
+};
+  const storageKey = "grammar-tutor-unit5-v1";
+  const $ = id => document.getElementById(id);
+  let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
+  function setBusy(on){
+    busy=on;
+    $("waiting").classList.toggle("show",on);
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){
+    if(busy||current?.completed)return;
+    if(hasChoices()){const b=document.querySelector(".choice");if(b)b.focus({preventScroll:true});return}
+    (pending||!current?$("submit"):$("answer")).focus({preventScroll:true});
+  }
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 5 · Conditionals, Time Clauses & Purpose");$("inputArea").hidden=true;$("choices").replaceChildren();$("submit").hidden=false;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.module?.label||"");
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${Math.round((current.progress||0)*100)}%`;
+    const bx=$("tutorbox"),f=pending?null:a.feedback;bx.className="tutorbox";bx.replaceChildren();
+    if(f&&f.testo){
+      bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
+      if(f.risposta){
+        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
+        if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
+        else r.append(f.risposta);
+        bx.append(r);
+      }
+      const d=document.createElement("div");d.textContent=f.testo;bx.append(d);
+    }
+    $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
+    $("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
+    }
+    setBusy(busy);focusActive();
+  }
+  async function call(payload){
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      savedState=null;save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
+  }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call(savedState?{action:"resume",state:savedState}:{action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
+  });
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  const toMenu=()=>call({action:"menu",state:(pending||current)?.state||savedState||{}});
+  $("restart").onclick=toMenu;$("again").onclick=toMenu;
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
+  }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
+  render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
+</script>
+</body>
+</html>
