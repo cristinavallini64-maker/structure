@@ -241,13 +241,13 @@ const TYPES=[
   text:`My grandfather kept every single thing he ever collected, and the loft above his workshop is still full of boxes that nobody {1} ever opened. One wet Saturday in November, {2} my parents were arguing downstairs about the roof, I climbed up there on my own, past my brother's drums and my mother's sewing machine. I {3} not looking for anything in particular; I just wanted somewhere quiet, away from the television and the crosswords my father does every Saturday. Inside the third box there were hundreds of stamps, sorted by country and stuck down with tape that was going yellow at the edges. Next to it sat a shoebox of shells, a pile of comics and the jewellery my grandmother used to make. My grandfather used {4} spend whole evenings on them, with the radio on and the candles he made himself burning on the shelf, my mother told me later, and he never let anyone help him. {5} I was turning the pages, the rain got heavier and the light in the loft went greyer and greyer, {6} I carried the album downstairs to the kitchen table. My sister put down the costume she was making for a comics convention, humming something from choir practice, and came over. My parents stopped arguing and looked at each other. I have never seen two people go so quiet so fast: for the rest of the afternoon nobody said a word about the roof, and they {7} both reading over my shoulder. {8} the light faded, my mother was still reading the names of countries that no longer exist.`,
   gaps:[
     {a:"has",accept:["has"]},
-    {a:"while",accept:["while","as"]},
+    {a:"while",accept:["while","as","when"]},
     {a:"was",accept:["was"]},
     {a:"to",accept:["to"]},
-    {a:"While",accept:["while","as"]},
-    {a:"so",accept:["so"]},
+    {a:"While",accept:["while","as","when"]},
+    {a:"so",accept:["so","and"]},
     {a:"were",accept:["were"]},
-    {a:"As",accept:["as"]},
+    {a:"As",accept:["as","when","while"]},
 ],
   gloss:{"loft":"soffitta","workshop":"laboratorio","stamps":"francobolli","sorted":"ordinare","tape":"nastro adesivo","faded":"calare","no longer":"non piu'"}
 },
@@ -261,8 +261,8 @@ const TYPES=[
     {options:["competes","used to compete","was competing","has competed"],a:"used to compete"},
     {options:["were clearing out","cleared out","used to clear out","clear out"],a:"were clearing out"},
     {options:["When","While","During","Until"],a:"When"},
-    {options:["held","was holding","used to hold","holds"],a:"held"},
-    {options:["Then","Finally","First","After"],a:"Then"},
+    {options:["held","has held","used to hold","holds"],a:"held"},
+    {options:["Then","Before","After","While"],a:"Then"},
     {options:["After","Since","From","During"],a:"After"},
     {options:["put","was putting","used to put","puts"],a:"put"},
     {options:["used","use","was using","used to"],a:"used"},
@@ -409,7 +409,20 @@ function renderSheet(){
   }
   document.getElementById('exSheet').innerHTML=html;
 }
-function norm(s){return String(s||'').toLowerCase().replace(/[—–]/g,'-').replace(/[’‘`´']/g,'').replace(/[.,!?;:"“”()\[\]]/g,' ').replace(/\s+/g,' ').trim();}
+function norm(s){
+  let t=String(s||'').toLowerCase().replace(/[\u2019\u2018`\u00b4]/g,"'").replace(/[\u2014\u2013]/g,' - ');
+  t=t.replace(/[\u201c\u201d"\u00ab\u00bb()\[\].,!?;:]/g,' ').replace(/(^|\s)-+(?=\s|$)/g,' ');
+  t=' '+t.replace(/\s+/g,' ').trim()+' ';
+  t=t.replace(/\bno-one\b|\bnoone\b/g,'no one');
+  t=t.replace(/\bcan't\b|\bcant\b|\bcan not\b/g,'cannot').replace(/\bwon't\b|\bwont\b/g,'will not').replace(/\bshan't\b/g,'shall not');
+  t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
+  t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
+  t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
+  t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
+  t=t.replace(/\b(he|she|it|there|that|what|where|who|here|how|everyone|everybody|someone|somebody|nobody|no one|anyone|anybody|something|everything|nothing|anything)'s\b/g,'$1 is');
+  t=t.replace(/\bim\b/g,'i am').replace(/\bive\b/g,'i have').replace(/\b(you|we|they)re\b/g,'$1 are').replace(/\b(you|we|they)ve\b/g,'$1 have').replace(/\b(there|that|what)s\b/g,'$1 is');
+  return t.replace(/\s+/g,' ').trim();
+}
 function grade(){
   if(graded)return;graded=true;
   const t=current;let correct=0;

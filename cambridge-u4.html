@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 4 · Cambridge — Perfect Tenses &amp; Relative Clauses</title>
-<meta name="description" content="The Structure · Unit 1 · Cambridge B2 First Use of English: Open Cloze, Multiple-choice Cloze, Key Word Transformation sul past narrative.">
+<meta name="description" content="The Structure · Unit 4 · Cambridge B2 First Use of English: Open Cloze, Multiple-choice Cloze, Key Word Transformation su past perfect e relative clauses.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -230,7 +230,7 @@ body.tr-on .gloss{border-bottom:1px dotted var(--glossc);cursor:help;color:#7a54
 </div>
 
 <script>
-/* ===================== DATI — UNIT 3 VERB PATTERNS & COMPOUNDS ===================== */
+/* ===================== DATI — UNIT 4 PERFECT TENSES & RELATIVE CLAUSES ===================== */
 const UNIT_CODE='CU4';
 const TYPES=[
 {
@@ -256,7 +256,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
   instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: tempi del racconto, past perfect, pronomi relativi, relative defining e non-defining.',
-  text:`Nadia {1} to be a novelist since she was nine. The first story {2} she ever finished was about a dog {3} owner had disappeared. She wrote it in the notebook {4} her grandmother had given her for Christmas. At school her teacher said the ending was too sad, so Nadia tore out the last page and never showed the story to anyone again. Years later, {5} she was clearing out the attic, she found the notebook at the bottom of a box. {6} then she {7} three novels with a real publisher. Even so, the old notebook, {8} she keeps in her desk, is still the thing she is proudest of.`,
+  text:`By the age of twelve, Nadia {1} to be a novelist for three years. The first story {2} she ever finished was about a dog {3} owner had disappeared. She wrote it in the notebook {4} her grandmother had given her for Christmas. At school her teacher said the ending was too sad, so Nadia tore out the last page and never showed the story to anyone again. Years later, {5} she was clearing out the attic, she found the notebook at the bottom of a box. {6} then she {7} three novels with a real publisher. Even so, the old notebook, {8} she keeps in her desk, is still the thing she is proudest of.`,
   gaps:[
     {options:["had wanted","was wanting","has wanted","wants"],a:"had wanted"},
     {options:["that","what","whose","where"],a:"that"},
@@ -409,7 +409,20 @@ function renderSheet(){
   }
   document.getElementById('exSheet').innerHTML=html;
 }
-function norm(s){return (s||'').trim().toLowerCase().replace(/[.,!?;:]+$/,'').replace(/,/g,' ').replace(/[—–]/g,'-').replace(/\s+/g,' ').trim();}
+function norm(s){
+  let t=String(s||'').toLowerCase().replace(/[\u2019\u2018`\u00b4]/g,"'").replace(/[\u2014\u2013]/g,' - ');
+  t=t.replace(/[\u201c\u201d"\u00ab\u00bb()\[\].,!?;:]/g,' ').replace(/(^|\s)-+(?=\s|$)/g,' ');
+  t=' '+t.replace(/\s+/g,' ').trim()+' ';
+  t=t.replace(/\bno-one\b|\bnoone\b/g,'no one');
+  t=t.replace(/\bcan't\b|\bcant\b|\bcan not\b/g,'cannot').replace(/\bwon't\b|\bwont\b/g,'will not').replace(/\bshan't\b/g,'shall not');
+  t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
+  t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
+  t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
+  t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
+  t=t.replace(/\b(he|she|it|there|that|what|where|who|here|how|everyone|everybody|someone|somebody|nobody|no one|anyone|anybody|something|everything|nothing|anything)'s\b/g,'$1 is');
+  t=t.replace(/\bim\b/g,'i am').replace(/\bive\b/g,'i have').replace(/\b(you|we|they)re\b/g,'$1 are').replace(/\b(you|we|they)ve\b/g,'$1 have').replace(/\b(there|that|what)s\b/g,'$1 is');
+  return t.replace(/\s+/g,' ').trim();
+}
 function grade(){
   if(graded)return;graded=true;
   const t=current;let correct=0;

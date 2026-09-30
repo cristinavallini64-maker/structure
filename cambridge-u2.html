@@ -230,7 +230,7 @@ body.tr-on .gloss{border-bottom:1px dotted var(--glossc);cursor:help;color:#7a54
 </div>
 
 <script>
-/* ===================== DATI — UNIT 1 PAST NARRATIVE ===================== */
+/* ===================== DATI — UNIT 2 PRESENT PERFECT ASPECT ===================== */
 const UNIT_CODE='CU2';
 const TYPES=[
 {
@@ -238,14 +238,14 @@ const TYPES=[
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
   instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 2: present perfect continuous, for/since, present perfect vs past simple.',
-  text:`My sister Nell {1} been working as a hairdresser's assistant since she {2} sixteen. She got the job through a family friend, and she has been doing it ever {3}. She earns a small salary for a Saturday afternoon, she has made good progress, and she hasn't spent a penny of it {4}. Last winter she did a course in colour technique, {5} she wants to apply for an apprenticeship at the same salon next year. How {6} has she been saving? Almost three years. I still haven't made {7} my mind about my own career and I keep putting off the decision, {8} her patience impresses me.`,
+  text:`My sister Nell {1} been working as a hairdresser's assistant since she {2} sixteen. She got the job through a family friend, and she has been doing it ever {3}. She only earns a little money on Saturday afternoons, but she has made good progress, and she hasn't spent a penny of it {4}. Last winter she did a course in colour technique, {5} she wants to apply for an apprenticeship at the same salon next year. {6} long has she been saving? Almost three years. I still haven't made {7} my mind about my own career and I keep putting off the decision, {8} her patience impresses me.`,
   gaps:[
     {a:"has",accept:["has"]},
     {a:"was",accept:["was"]},
     {a:"since",accept:["since"]},
     {a:"yet",accept:["yet"]},
-    {a:"because",accept:["because","as","since"]},
-    {a:"long",accept:["long"]},
+    {a:"because",accept:["because","as","since","and","so"]},
+    {a:"How",accept:["how"]},
     {a:"up",accept:["up"]},
     {a:"but",accept:["but","though","although"]},
   ],
@@ -256,7 +256,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
   instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: present perfect continuous, simple vs continuous, present perfect vs past simple, verbi di stato.',
-  text:`Harry {1} for the same company since March. He {2} the job through a friend who was already working there at the time. Since then he {3} to use three different machines, and the engineer in charge trusts him. \"I {4} how hard it would be when I started,\" he admits. \"Today I {5} components for three hours without stopping.\" He {6} a proper break since Monday, because the shift rota is still a mess and nobody has done the paperwork, but he has made an effort not to complain. How many hours {7} this month? Almost ninety. He has made an appointment with the careers adviser, but he {8} up his mind yet. He is thinking about doing a degree and becoming an accountant like his sister.`,
+  text:`Harry {1} for the same company since March. He {2} the job through a friend who was already working there at the time. Since then he {3} to use all three machines in the workshop, and the engineer in charge trusts him. \"I {4} how hard it would be when I started,\" he admits. \"Today I {5} components for three hours without stopping.\" He {6} a proper break since Monday, because the shift rota is still a mess and nobody has done the paperwork, but he has made an effort not to complain. How many hours {7} this month? Almost ninety. He has made an appointment with the careers adviser, but he {8} up his mind yet. He is thinking about doing a degree and becoming an accountant like his sister.`,
   gaps:[
     {options:["has been working","is working","works","was working"],a:"has been working"},
     {options:["got","has got","has been getting","gets"],a:"got"},
@@ -277,12 +277,12 @@ const TYPES=[
   items:[
     {prompt:"Kofi applied for a job at the call centre in September and he hasn't stopped working there.",key:"BEEN",pre:"Kofi",post:"at the call centre since September.",a:"has been working",accept:["has been working"]},
     {prompt:"Dylan qualified as a paramedic two years ago and nobody has called him for an interview since.",key:"HAD",pre:"Dylan",post:"an interview for two years.",a:"hasn't had",accept:["hasn't had","has not had"]},
-    {prompt:"Zara began doing research at eight this morning and she is still working on it.",key:"SINCE",pre:"Zara has been doing research",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
+    {prompt:"Zara began revising for her exam at eight this morning and she is still at it.",key:"SINCE",pre:"Zara has been revising for her exam",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
     {prompt:"Priya has never worked in a team before.",key:"FIRST",pre:"This is the",post:"Priya has worked in a team.",a:"first time",accept:["first time"]},
     {prompt:"Elsa got a job as a personal trainer five years ago and she is still there.",key:"WORKED",pre:"Elsa",post:"as a personal trainer for five years.",a:"has worked",accept:["has worked"]},
-    {prompt:"How long is it since Noah got the qualification he needed to work as an engineer?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had"]},
+    {prompt:"How long is it since Noah got the qualification he needed to work as an engineer?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had","has he had"]},
   ],
-  gloss:{"call centre":"call center","research":"ricerca","qualification":"titolo di studio","personal trainer":"personal trainer"}
+  gloss:{"call centre":"call center","revising":"ripassare","qualification":"titolo di studio","personal trainer":"personal trainer"}
 },
 ];
 
@@ -410,17 +410,18 @@ function renderSheet(){
   document.getElementById('exSheet').innerHTML=html;
 }
 function norm(s){
-  s=String(s||'').toLowerCase()
-    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
-    .replace(/[\u201c\u201d"]/g,'')
-    .replace(/[\u2014\u2013]/g,'-')
-    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
-    .replace(/n't\b/g,' not')
-    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
-    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
-  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
-  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
-  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+  let t=String(s||'').toLowerCase().replace(/[\u2019\u2018`\u00b4]/g,"'").replace(/[\u2014\u2013]/g,' - ');
+  t=t.replace(/[\u201c\u201d"\u00ab\u00bb()\[\].,!?;:]/g,' ').replace(/(^|\s)-+(?=\s|$)/g,' ');
+  t=' '+t.replace(/\s+/g,' ').trim()+' ';
+  t=t.replace(/\bno-one\b|\bnoone\b/g,'no one');
+  t=t.replace(/\bcan't\b|\bcant\b|\bcan not\b/g,'cannot').replace(/\bwon't\b|\bwont\b/g,'will not').replace(/\bshan't\b/g,'shall not');
+  t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
+  t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
+  t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
+  t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
+  t=t.replace(/\b(he|she|it|there|that|what|where|who|here|how|everyone|everybody|someone|somebody|nobody|no one|anyone|anybody|something|everything|nothing|anything)'s\b/g,'$1 is');
+  t=t.replace(/\bim\b/g,'i am').replace(/\bive\b/g,'i have').replace(/\b(you|we|they)re\b/g,'$1 are').replace(/\b(you|we|they)ve\b/g,'$1 have').replace(/\b(there|that|what)s\b/g,'$1 is');
+  return t.replace(/\s+/g,' ').trim();
 }
 function grade(){
   if(graded)return;graded=true;
