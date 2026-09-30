@@ -278,11 +278,11 @@ const TYPES=[
     {prompt:"Kofi applied for a job at the call centre in September and he hasn't stopped working there.",key:"BEEN",pre:"Kofi",post:"at the call centre since September.",a:"has been working",accept:["has been working"]},
     {prompt:"Dylan qualified as a paramedic two years ago and nobody has called him for an interview since.",key:"HAD",pre:"Dylan",post:"an interview for two years.",a:"hasn't had",accept:["hasn't had","has not had"]},
     {prompt:"Zara began revising for her exam at eight this morning and she is still at it.",key:"SINCE",pre:"Zara has been revising for her exam",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
-    {prompt:"Priya has never worked in a team before.",key:"FIRST",pre:"This is the",post:"Priya has worked in a team.",a:"first time",accept:["first time"]},
+    {prompt:"When did Tariq start learning the cello?",key:"LONG",pre:"How",post:"the cello?",a:"long has Tariq been learning",accept:["long has Tariq been learning","long has he been learning"]},
     {prompt:"Elsa got a job as a personal trainer five years ago and she is still there.",key:"WORKED",pre:"Elsa",post:"as a personal trainer for five years.",a:"has worked",accept:["has worked"]},
     {prompt:"How long is it since Noah got the qualification he needed to work as an engineer?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had","has he had"]},
   ],
-  gloss:{"call centre":"call center","revising":"ripassare","qualification":"titolo di studio","personal trainer":"personal trainer"}
+  gloss:{"call centre":"call center","revising":"ripassare","qualification":"titolo di studio","personal trainer":"personal trainer","cello":"violoncello"}
 },
 ];
 
@@ -418,7 +418,7 @@ function norm(s){
   t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
   t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
   t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
-  t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
+  t=t.replace(/\b(\w+)'s (got|been|had)\b/g,'$1 has $2');
   t=t.replace(/\b(he|she|it|there|that|what|where|who|here|how|everyone|everybody|someone|somebody|nobody|no one|anyone|anybody|something|everything|nothing|anything)'s\b/g,'$1 is');
   t=t.replace(/\bim\b/g,'i am').replace(/\bive\b/g,'i have').replace(/\b(you|we|they)re\b/g,'$1 are').replace(/\b(you|we|they)ve\b/g,'$1 have').replace(/\b(there|that|what)s\b/g,'$1 is');
   return t.replace(/\s+/g,' ').trim();
