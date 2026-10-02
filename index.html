@@ -3,173 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Final Inspection</title>
+<title>The Structure</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0d0d0d; font-family: 'Nunito', sans-serif; }
 
-  .hero { background: #FF2BD6; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
+  /* Intestazione: Giallo Neon Fluorescente */
+  .hero { background: #FFFF00; padding: 46px 40px 36px; display: flex; align-items: center; gap: 28px; }
   .hero-letter { font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: #000; line-height: 1; flex-shrink: 0; }
   .hero-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: #000; }
   .hero-text p { font-size: 1.05rem; color: #000; margin-top: 4px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  .main { max-width: 980px; margin: 0 auto; padding: 36px 16px 60px; }
+  .main { max-width: 980px; margin: 0 auto; padding: 36px 24px 60px; }
 
-  .back { display: inline-block; margin-bottom: 28px; color: #000; font-weight: 900; text-decoration: none; font-size: 0.95rem; background: #FF2BD6; padding: 8px 20px; border-radius: 20px; text-transform: uppercase; }
+  .back { display: inline-block; margin-bottom: 28px; color: #000; font-weight: 900; text-decoration: none; font-size: 0.95rem; background: #FFFF00; padding: 8px 20px; border-radius: 20px; text-transform: uppercase; }
 
   .year-block { margin-bottom: 48px; }
-  .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; padding: 12px 24px; border-radius: 8px; margin-bottom: 28px; display: inline-block; color: #000; }
-  .year-title.t-b1 { background: #FF0000; }
-  .year-title.t-b2 { background: #00E5FF; }
-  .year-title.t-inv { background: #FFFF00; }
+  .year-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; padding: 12px 24px; border-radius: 8px; margin-bottom: 28px; display: inline-block; color: #000; font-weight: 900; }
+  
+  .year-title.b2-level1 { background: #00E5FF; }
+  .year-title.b2-level2 { background: #00FF66; }
 
   .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
 
   .topic-card { border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 25px rgba(0,0,0,0.6); }
   .topic-card:hover { transform: translateY(-5px); }
-  .card-b1 { background: #FF0000; }
-  .card-b2 { background: #00E5FF; }
-  .card-inv { background: #FFFF00; }
-  .topic-card.soon { opacity: 0.5; }
-  .topic-card.soon:hover { transform: none; }
+
+  .card-cyan { background: #00E5FF; }
+  .card-cyan:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
+
+  .card-lime { background: #00FF66; }
+  .card-lime:hover { box-shadow: 0 0 25px rgba(0, 255, 102, 0.4); }
 
   .topic-name { font-weight: 900; font-size: 1.15rem; color: #000; line-height: 1.3; text-transform: uppercase; }
   .topic-args { display: flex; flex-wrap: wrap; gap: 6px; }
   .topic-args span { display: inline-block; background: rgba(0,0,0,0.15); border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 800; color: #000; }
 
   .topic-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .tag { border-radius: 20px; padding: 7px 18px; font-size: 0.85rem; font-weight: 900; text-decoration: none; transition: all 0.2s; border: none; background: rgba(0,0,0,0.22); color: #000; display: inline-block; text-transform: uppercase; }
+  .tag { border-radius: 20px; padding: 7px 18px; font-size: 0.85rem; font-weight: 900; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; background: rgba(0,0,0,0.22); color: #000; display: inline-block; text-transform: uppercase; }
   .tag:hover { background: #000; color: #fff; }
-  .tag.off { cursor: not-allowed; }
-  .tag.off:hover { background: rgba(0,0,0,0.22); color: #000; }
 
-  .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FF0000, #FF2BD6, #00E5FF, #FFFF00); }
+  .tag.tag-cambridge { background: #000; color: #fff; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.25); }
+  .tag.tag-cambridge:hover { background: #fff; color: #000; box-shadow: 0 0 14px rgba(0,0,0,0.45); }
+
+  .tag.tag-studia { background: rgba(0,0,0,0.22); color: #000; }
+  .tag.tag-studia:hover { background: #000; color: #fff; }
+
+  .final-revision-box { grid-column: 1 / -1; margin-top: 15px; padding: 22px 26px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+  
+  .final-revision-box.box-lvl1 { background: rgba(0, 229, 255, 0.04); border: 2.5px dashed #00E5FF; box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.05); }
+  .final-revision-box.box-lvl1 .final-revision-text { color: #00E5FF; font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; }
+  .final-revision-box.box-lvl1 .tag-final { background: #00E5FF; color: #000; }
+  .final-revision-box.box-lvl1 .tag-final:hover { background: #fff; box-shadow: 0 0 20px #00E5FF; }
+
+  .final-revision-box.box-lvl2 { background: rgba(0, 255, 102, 0.04); border: 2.5px dashed #00FF66; box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.05); }
+  .final-revision-box.box-lvl2 .final-revision-text { color: #00FF66; font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; }
+  .final-revision-box.box-lvl2 .tag-final { background: #00FF66; color: #000; }
+  .final-revision-box.box-lvl2 .tag-final:hover { background: #fff; box-shadow: 0 0 20px #00FF66; }
+
+  .final-revision-box .tag-final { font-weight: 900; border-radius: 20px; padding: 10px 32px; font-size: 1rem; text-decoration: none; transition: all 0.2s; text-transform: uppercase; border: none; cursor: pointer; letter-spacing: 1px; }
 
   @media (max-width: 650px) {
-    .hero { padding: 28px 16px; gap: 16px; }
-    .hero-letter { font-size: 5rem; }
-    .hero-text h1 { font-size: 2.2rem; }
+    .final-revision-box { flex-direction: column; text-align: center; gap: 18px; padding: 20px; }
   }
-  /* FIX GRAFICO PER IL WRITING TUTOR */
-  .writing-tutor-container {
-    background: #151515;
-    border: 2px solid #00E5FF;
-    border-radius: 14px;
-    padding: 30px;
-    margin-top: 20px;
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
-  }
-  .writing-tutor-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
-    color: #00E5FF;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
-  .writing-tutor-desc {
-    color: #ccc;
-    font-size: 0.95rem;
-    margin-bottom: 22px;
-    font-weight: 700;
-  }
-  .wt-form-group {
-    margin-bottom: 18px;
-    width: 100%;
-  }
-  .wt-form-group label {
-    display: block;
-    color: #00E5FF;
-    font-weight: 900;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .wt-select, .wt-textarea, .wt-textarea-prompt {
-    width: 100% !important;
-    display: block !important;
-    padding: 14px 16px !important;
-    border-radius: 10px !important;
-    border: 1px solid #333 !important;
-    background: #000 !important;
-    color: #fff !important;
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-  }
-  .wt-select:focus, .wt-textarea:focus, .wt-textarea-prompt:focus {
-    outline: none !important;
-    border-color: #00E5FF !important;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3) !important;
-  }
-  .wt-textarea-prompt { min-height: 90px !important; resize: vertical !important; }
-  .wt-textarea { min-height: 220px !important; resize: vertical !important; }
-  .wt-textarea::placeholder, .wt-textarea-prompt::placeholder { color: #666 !important; }
-  .wt-meta {
-    display: flex;
-    justify-content: space-between;
-    color: #888;
-    font-size: 0.85rem;
-    font-weight: 800;
-    margin-top: 6px;
-  }
-  .wt-btn {
-    background: #00E5FF;
-    color: #000;
-    font-weight: 900;
-    font-size: 1.1rem;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s ease;
-    width: 100%;
-    margin-top: 10px;
-  }
-  .wt-btn:hover {
-    background: #fff;
-    box-shadow: 0 0 20px #00E5FF;
-  }
-  .wt-btn:disabled {
-    background: #444;
-    color: #888;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-  .wt-result {
-    display: none;
-    margin-top: 25px;
-    padding: 22px;
-    background: #000;
-    border-left: 4px solid #00E5FF;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    font-family: 'Nunito', sans-serif;
-  }
-  .wt-error {
-    display: none;
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(255, 0, 0, 0.15);
-    border: 1px solid #ff4444;
-    border-radius: 8px;
-    color: #ff6666;
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
+
+  .divider { height: 4px; border-radius: 4px; margin: 15px 0 45px; background: linear-gradient(90deg, #FFFF00, #00E5FF, #00FF66); }
+
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <div class="hero-letter">I</div>
+  <div class="hero-letter">S</div>
   <div class="hero-text">
-    <h1>Final Inspection</h1>
-    <p>Certificazioni · INVALSI · Reading · Listening · Use of English · Writing</p>
+    <h1>The Structure</h1>
+    <p>Moving Up · Livello B1 → B2 per il Triennio</p>
   </div>
 </div>
 
@@ -177,17 +86,82 @@
   <a href="javascript:window.close()" class="back">✕ Chiudi questa scheda</a>
 
   <div class="year-block">
-    <div class="year-title t-b1">🎓 B1 Preliminary (PET)</div>
+    <div class="year-title b2-level1">🚀 B2 · Level 1 (Consolidation & Core Structures)</div>
     <div class="topics">
 
-      <div class="topic-card card-b1">
-        <div class="topic-name">Reading & Listening</div>
+      <!-- UNIT 1 -->
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 1 · Past Narrative</div>
         <div class="topic-args">
-          <span>Reading · Parts 1–6</span><span>Listening · Parts 1–4</span><span>Correzione automatica</span><span>Audio: 2 ascolti</span>
+          <span>Used to</span><span>Past continuous</span><span>Past continuous vs Past simple</span><span>when, while, as</span><span>Adverbs of sequence</span>
         </div>
         <div class="topic-links">
-          <a href="b1-preliminary.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u1-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u1-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/past-narrative.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u1.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
+      </div>
+
+      <!-- UNIT 2 -->
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 2 · Present Perfect Aspect</div>
+        <div class="topic-args">
+          <span>Present perfect continuous</span><span>Present perfect simple vs continuous</span><span>Present perfect simple vs Past simple</span>
+        </div>
+        <div class="topic-links">
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u2-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u2-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/present-perfect-advanced.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u2.html" class="tag tag-cambridge">🎓 Cambridge</a>
+        </div>
+      </div>
+
+      <!-- UNIT 3 -->
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 3 · Verb Patterns & Compounds</div>
+        <div class="topic-args">
+          <span>Common verb patterns (verb + -ing / to)</span><span>Structures with stop, remember, forget</span><span>Compounds of some, any, every, no</span><span>Question tags</span>
+        </div>
+        <div class="topic-links">
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u3-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u3-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/verb-patterns.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u3.html" class="tag tag-cambridge">🎓 Cambridge</a>
+        </div>
+      </div>
+
+      <!-- UNIT 4 -->
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 4 · Perfect Tenses & Relative Clauses</div>
+        <div class="topic-args">
+          <span>Past perfect simple</span><span>Narrative tenses review</span><span>Defining vs Non-defining relative clauses</span><span>Relative pronouns revision</span>
+        </div>
+        <div class="topic-links">
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u4-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u4-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/past-perfect-relatives.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u4.html" class="tag tag-cambridge">🎓 Cambridge</a>
+        </div>
+      </div>
+
+      <!-- UNIT 5 -->
+      <div class="topic-card card-cyan">
+        <div class="topic-name">Unit 5 · First Conditional & Connectors</div>
+        <div class="topic-args">
+          <span>First conditional (will / may / might)</span><span>unless</span><span>when, as soon as, until, as long as</span><span>Purpose, cause and result</span>
+        </div>
+        <div class="topic-links">
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u5-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u5-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/first-conditional.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u5.html" class="tag tag-cambridge">🎓 Cambridge</a>
+        </div>
+      </div>
+
+      <div class="final-revision-box box-lvl1">
+        <div class="final-revision-text">🎙️ SPEAKING LAB B2 · LIVELLO 1</div>
+        <a href="https://cristinavallini64-maker.github.io/structure/speaking-b2-l1.html" class="tag-final">AVVIA</a>
       </div>
 
     </div>
@@ -196,184 +170,88 @@
   <div class="divider"></div>
 
   <div class="year-block">
-    <div class="year-title t-b2">🎓 B2 First (FCE)</div>
+    <div class="year-title b2-level2">🎯 B2 · Level 2 (Advanced Syntax & Speculation)</div>
     <div class="topics">
 
-      <div class="topic-card card-b2 soon">
-        <div class="topic-name">Reading & Listening</div>
+      <!-- UNIT 6 -->
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 6 · Conditionals, Wishes & Adverbs</div>
         <div class="topic-args">
-          <span>Reading · Parts 5–7</span><span>Listening · Parts 1–4</span>
+          <span>Second conditional</span><span>Third conditional</span><span>I wish / If only</span><span>Adverbs of manner</span><span>Comparative adverbs</span>
         </div>
         <div class="topic-links">
-          <span class="tag off">⏳ In preparazione</span>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u6-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u6-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/second-conditional.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u6.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
       </div>
 
-      <div class="topic-card card-b2">
-        <div class="topic-name">Use of English · Word Formation</div>
+      <!-- UNIT 7 -->
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 7 · Advice, Perception & Pronouns</div>
         <div class="topic-args">
-          <span>Prefissi negativi (un-, in-, im-, il-, ir-)</span><span>self- · re- · de-</span><span>Suffissi (→ nome / aggettivo / avverbio / verbo)</span><span>Regole ortografiche</span><span>Famiglie di parole irregolari</span>
+          <span>should / ought to / need to / had better</span><span>Verbs of perception</span><span>Reflexive pronouns</span><span>Reciprocal pronouns</span>
         </div>
         <div class="topic-links">
-          <a href="https://cristinavallini64-maker.github.io/structure/word-formation-explanation.html" class="tag">📖 Spiegazione</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/studia-wf-index.html" class="tag">🧠 Studia</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/word-formation-list.html" class="tag">📋 Famiglie di parole</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/word-formation-tutor.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u7-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u7-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/modals-advice.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u7.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
       </div>
 
-      <div class="topic-card card-b2">
-        <div class="topic-name">Use of English · Sentence Transformation</div>
+      <!-- UNIT 8 -->
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 8 · Modals of Deduction & Quantifiers</div>
         <div class="topic-args">
-          <span>Passivo · Far fare (have / get something done)</span><span>Discorso indiretto e verbi di riporto</span><span>Condizionali · wish / if only</span><span>Comparativi · so / such · too / enough</span><span>Schemi verbali · Modali di deduzione</span><span>used to · Tempo e denaro · Connettivi</span>
+          <span>Modals of deduction (present)</span><span>Modals of deduction (past)</span><span>both / either / neither · all / no / none</span><span>so / such</span>
         </div>
         <div class="topic-links">
-          <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-explanation.html" class="tag">📖 Spiegazione</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/studia-st-index.html" class="tag">🧠 Studia</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-list.html" class="tag">📋 Famiglie di strutture</a>
-          <a href="https://cristinavallini64-maker.github.io/structure/sentence-transformation-tutor.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u8-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u8-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/modal-deduction.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u8.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
       </div>
 
-    </div>
-
-  <!-- WRITING TUTOR INTEGRATO -->
-  <div class="writing-tutor-container">
-    <div class="writing-tutor-title">✍️ CAMBRIDGE B2 FIRST — WRITING TUTOR IA</div>
-    <p class="writing-tutor-desc">Inserisci la traccia dell'esercizio, seleziona la tipologia di testo, incolla la tua produzione e ricevi un feedback dettagliato secondo i criteri Cambridge.</p>
-
-    <div class="wt-form-group">
-      <label for="wtTaskType">Tipologia di Testo (Task Type)</label>
-      <select id="wtTaskType" class="wt-select">
-        <option value="Essay">Essay (Saggio)</option>
-        <option value="Article">Article (Articolo)</option>
-        <option value="Email / Letter">Email / Letter (Email / Lettera)</option>
-        <option value="Report">Report (Relazione)</option>
-        <option value="Review">Review (Recensione)</option>
-      </select>
-    </div>
-
-    <div class="wt-form-group">
-      <label for="wtTaskPrompt">Traccia / Consegna dell'esercizio (Task Prompt)</label>
-      <textarea id="wtTaskPrompt" class="wt-textarea-prompt" placeholder="Incolla o scrivi qui la traccia fornita dal docente o dal libro (opzionale ma consigliato)..."></textarea>
-    </div>
-
-    <div class="wt-form-group">
-      <label for="wtText">Il tuo testo (Incolla qui)</label>
-      <textarea id="wtText" class="wt-textarea" placeholder="Write your essay or text here... (140-190 words)"></textarea>
-      <div class="wt-meta">
-        <span id="wtWordCount">Parole: 0</span>
-        <span>Target: 140 - 190 parole</span>
-      </div>
-    </div>
-
-    <button id="wtSubmitBtn" class="wt-btn" onclick="runWritingTutor()">Valuta il mio Writing</button>
-
-    <div id="wtError" class="wt-error"></div>
-    <div id="wtResult" class="wt-result"></div>
-  </div>
-
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="year-block">
-    <div class="year-title t-inv">📝 INVALSI · Quinto anno</div>
-    <div class="topics">
-
-      <div class="topic-card card-inv soon">
-        <div class="topic-name">Reading B1 · B2</div>
+      <!-- UNIT 9 -->
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 9 · Passive Voice & Phrasal Verbs</div>
         <div class="topic-args">
-          <span>Multiple choice</span><span>Short answer</span><span>True / False</span>
+          <span>Present simple passive</span><span>Passive: other tenses and forms</span><span>Adjective order</span><span>Phrasal verbs</span>
         </div>
         <div class="topic-links">
-          <span class="tag off">⏳ In preparazione</span>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u9-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u9-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/passive-voice.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u9.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
       </div>
 
-      <div class="topic-card card-inv soon">
-        <div class="topic-name">Listening B1 · B2</div>
+      <!-- UNIT 10 -->
+      <div class="topic-card card-lime">
+        <div class="topic-name">Unit 10 · Reported Speech</div>
         <div class="topic-args">
-          <span>Multiple choice</span><span>Matching</span><span>Short answer</span>
+          <span>Statements</span><span>say vs tell</span><span>Questions</span><span>Requests, instructions & advice</span><span>Time & place changes</span>
         </div>
         <div class="topic-links">
-          <span class="tag off">⏳ In preparazione</span>
+          <a href="https://cristinavallini64-maker.github.io/structure/structure-u10-index.html" class="tag">📖 Ripassa</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/studia-u10-index.html" class="tag tag-studia">🧠 Studia</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/reported-speech.html" class="tag">✏️ Esercitati</a>
+          <a href="https://cristinavallini64-maker.github.io/structure/cambridge-u10.html" class="tag tag-cambridge">🎓 Cambridge</a>
         </div>
+      </div>
+
+      <div class="final-revision-box box-lvl2">
+        <div class="final-revision-text">🎙️ SPEAKING LAB B2 · LIVELLO 2</div>
+        <a href="https://cristinavallini64-maker.github.io/structure/speaking-b2-l2.html" class="tag-final">AVVIA</a>
       </div>
 
     </div>
   </div>
 
 </div>
-<script>
-  // --- SCRIPTS PER IL WRITING TUTOR ---
-  const wtTextarea = document.getElementById('wtText');
-  const wtWordCountSpan = document.getElementById('wtWordCount');
-
-  wtTextarea.addEventListener('input', () => {
-    const text = wtTextarea.value.trim();
-    const words = text ? text.split(/\s+/).length : 0;
-    wtWordCountSpan.textContent = `Parole: ${words}`;
-  });
-
-  async function runWritingTutor() {
-    const text = wtTextarea.value.trim();
-    const taskPrompt = document.getElementById('wtTaskPrompt').value.trim();
-    const taskType = document.getElementById('wtTaskType').value;
-    
-    const workerUrl = 'https://writingtutor.cristinavallini64.workers.dev/';
-    const submitBtn = document.getElementById('wtSubmitBtn');
-    const errorBox = document.getElementById('wtError');
-    const resultBox = document.getElementById('wtResult');
-
-    errorBox.style.display = 'none';
-    resultBox.style.display = 'none';
-
-    if (!text) {
-      errorBox.textContent = "Per favore, inserisci un testo prima di richiedere la valutazione.";
-      errorBox.style.display = 'block';
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "ANALISI IN CORSO CON GEMINI IA...";
-
-    const prompt = `Sei un esaminatore ufficiale Cambridge B2 First (FCE).
-Valuta il seguente testo fornendo una risposta in lingua italiana ma citando le frasi originali in inglese per le correzioni.
-
-Tipologia di task: ${taskType}
-Traccia dell'esercizio (Task Prompt): ${taskPrompt ? taskPrompt : "Nessuna traccia fornita specificamente. Valuta in base alla tipologia selezionata."}
-
-Testo dello studente:
-"""
-${text}
-"""`;
-
-    try {
-      const response = await fetch(workerUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: prompt })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || data.error) {
-        throw new Error(data.error || `Errore del server (${response.status})`);
-      }
-
-      resultBox.innerHTML = data.result;
-      resultBox.style.display = 'block';
-
-    } catch (err) {
-      errorBox.textContent = "Si è verificato un errore durante la richiesta: " + err.message;
-      errorBox.style.display = 'block';
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "VALUTA IL MIO WRITING";
-    }
-  }
-</script>
 
 </body>
 </html>
