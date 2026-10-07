@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 7</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="tutorbox" id="tutorbox" role="status" aria-live="polite"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 7. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
+</main>
+<script>
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+    "titolo": "Unit 7 · Advice Modals, Perception, Reflexives",
+    "fuoriProgramma": "modali di deduzione (must be, can't be, must have, might have, can't have), should have e ought to have per il passato, forma passiva, reported speech, wish",
+    "vietate": "\\bmust have\\b|\\bcan't have\\b|\\bcouldn't have\\b|\\bmight have\\b|\\bmay have\\b|\\bshould have\\b|\\bought to have\\b|\\bwish\\b",
+    "topics": [
+      {
+        "title": "Should, ought to, need to, had better",
+        "tempi": "presente e futuro: should, ought to, need to, had better + forma base; need to nelle domande e nelle negazioni con do/does/don't.",
+        "points": [
+          {
+            "titolo": "should: dare un consiglio",
+            "regola": "should è un modale (forma condizionale di 'dovere'): si usa per chiedere e dare consigli e suggerimenti nel presente e nel futuro. Uguale per tutte le persone, seguito dalla forma base senza to: You should stretch after training. Negativa: shouldn't. Domanda e risposta breve: Should I…? — Yes, you should. / No, you shouldn't.",
+            "nota": "Spazi con should/shouldn't + forma base; correzioni di should to e di shoulds."
+          },
+          {
+            "titolo": "ought to",
+            "regola": "ought to ha lo stesso significato di should ma è più formale; ricorda a qualcuno il suo dovere. Si usa soprattutto nella forma affermativa: You ought to apologise to the referee. Nelle negazioni e nelle domande è raro e formale (oughtn't to): meglio should.",
+            "nota": "Solo frasi affermative con ought to; accetta should dove regge."
+          },
+          {
+            "titolo": "need to · don't need to",
+            "regola": "need to dà indicazioni e consigli; è un verbo regolare: he needs to, Do you need to…?, She doesn't need to… In forma negativa cambia significato: don't need to = non è necessario (non è un consiglio di non fare): You don't need to bring a racket, we've got plenty.",
+            "nota": "Domande con Do/Does … need to; frasi in cui don't need to vuol dire 'non è necessario'."
+          },
+          {
+            "titolo": "had better ('d better)",
+            "regola": "had better + forma base, senza to, dà un consiglio sentito o un avvertimento: se non lo fai, succede qualcosa di spiacevole. You'd better take a jacket, it's freezing. Negativa: had better not. Non si usa nelle domande.",
+            "nota": "Correzioni di had better to e di had better + -ing; frasi con una conseguenza spiacevole."
+          },
+          {
+            "titolo": "Quale scegliere?",
+            "regola": "should/ought to = consiglio · had better = consiglio urgente, avvertimento · need to = è necessario · don't need to = non è necessario. Dopo should e had better niente to; dopo ought e need sì.",
+            "nota": "Situazioni in cui il senso decide fra consiglio, avvertimento e 'non è necessario'."
+          }
+        ],
+        "scoperta": {
+          "storia": "Alice si prepara per la sua prima gara di nuoto.",
+          "passi": [
+            {
+              "mostra": [
+                "You should drink more water before the race."
+              ],
+              "domanda": "Il coach sta dando un ordine o un consiglio?",
+              "obiettivo": "Un consiglio. Basta 'un consiglio'."
+            },
+            {
+              "mostra": [
+                "You should drink more water before the race."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Alice's goggles are broken. She ___ (buy) a new pair before Saturday.",
+              "attese": [
+                "should buy",
+                "ought to buy",
+                "needs to buy",
+                "'d better buy",
+                "had better buy"
+              ],
+              "obiettivo": "Consiglio: should buy (senza to dopo should)."
+            },
+            {
+              "mostra": [
+                "You'd better leave now, or you'll miss the bus to the pool."
+              ],
+              "domanda": "Che cosa succede se Alice non parte subito?",
+              "obiettivo": "Perde l'autobus: had better è un avvertimento. Basta 'perde l'autobus'."
+            },
+            {
+              "mostra": [
+                "You'd better leave now, or you'll miss the bus to the pool."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "The race starts at nine. Alice had better ___ (not eat) a huge pizza the night before.",
+              "attese": [
+                "not eat"
+              ],
+              "obiettivo": "had better not + forma base, senza to: not eat."
+            },
+            {
+              "mostra": [
+                "You don't need to bring a towel: the pool gives you one."
+              ],
+              "domanda": "Alice deve portare l'asciugamano?",
+              "obiettivo": "No, non è necessario. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "You don't need to bring a towel: the pool gives you one."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "« ___ (Alice · need) to show her membership card at the entrance? » — Yes, she does.",
+              "attese": [
+                "Does Alice need"
+              ],
+              "obiettivo": "need to è un verbo regolare: Does Alice need…?"
+            },
+            {
+              "mostra": [
+                "You should drink more water before the race."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Alice's teammate is very nervous. Alice tells her: « You ___ (worry) so much — you've trained really hard. »",
+              "attese": [
+                "shouldn't worry",
+                "should not worry",
+                "don't need to worry",
+                "do not need to worry"
+              ],
+              "obiettivo": "Consiglio negativo: shouldn't worry."
+            }
+          ],
+          "sintesi": [
+            "should / shouldn't + forma base → consiglio: you should drink more water",
+            "ought to → come should, più formale, quasi sempre affermativo",
+            "had better ('d better) + forma base, senza to → avvertimento: you'd better leave now",
+            "need to → è necessario (Does she need to…?) · don't need to → non è necessario"
+          ]
+        }
+      },
+      {
+        "title": "Verbs of perception",
+        "tempi": "tutti i tempi già studiati, soprattutto present simple e past simple. Lo spazio è sul verbo di percezione, sull'aggettivo o su like.",
+        "points": [
+          {
+            "titolo": "Verbo di percezione + aggettivo",
+            "regola": "look, sound, smell, taste, feel e seem seguiti da un aggettivo servono a parlare di sensazioni e impressioni: You look worried. / The soup smells strange. Dopo questi verbi ci vuole l'aggettivo, non l'avverbio: it tastes good (NON it tastes well), she looks sad (NON sadly).",
+            "nota": "Correzioni di avverbio al posto dell'aggettivo; tra parentesi a volte c'è l'avverbio da trasformare."
+          },
+          {
+            "titolo": "Quale senso?",
+            "regola": "look = da come appare (vista) · sound = da come si sente (udito, anche al telefono) · smell = odore · taste = sapore · feel = al tatto oppure come ci si sente · seem = impressione generale.",
+            "nota": "Lo spazio sul verbo, deciso dal senso coinvolto nella situazione."
+          },
+          {
+            "titolo": "+ like + nome: assomigliare",
+            "regola": "Gli stessi verbi + like + nome (o pronome) esprimono la somiglianza: You look like your grandmother. / This tea tastes like medicine. / It sounds like a good plan.",
+            "nota": "Frasi in cui dopo il verbo c'è un nome: serve like."
+          },
+          {
+            "titolo": "feel like",
+            "regola": "feel like ha anche altri significati: sentirsi come (I feel like a tourist in my own town) e avere voglia di (I feel like a pizza / I feel like going out).",
+            "nota": "Domande di comprensione su feel like = avere voglia di."
+          }
+        ],
+        "scoperta": {
+          "storia": "Federica entra in una pasticceria che ha appena aperto.",
+          "passi": [
+            {
+              "mostra": [
+                "These croissants smell delicious."
+              ],
+              "domanda": "Federica li ha già assaggiati?",
+              "obiettivo": "No: sente solo il profumo. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "These croissants smell delicious."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "« You ___ tired. Did you sleep badly? » said the baker when she saw Federica's face.",
+              "attese": [
+                "look",
+                "seem"
+              ],
+              "obiettivo": "Lo vede dalla faccia: look + aggettivo."
+            },
+            {
+              "mostra": [
+                "The baker sounds French on the phone, but she comes from Naples."
+              ],
+              "domanda": "Da che cosa Federica pensava che la pasticcera fosse francese?",
+              "obiettivo": "Dalla voce, al telefono: sound. Basta 'dalla voce'."
+            },
+            {
+              "mostra": [
+                "These croissants smell delicious."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "The new cream puffs taste ___ (perfectly).",
+              "attese": [
+                "perfect"
+              ],
+              "obiettivo": "Dopo taste l'aggettivo: perfect (non perfectly)."
+            },
+            {
+              "mostra": [
+                "This cheesecake tastes like chocolate!",
+                "This cheesecake tastes strange."
+              ],
+              "domanda": "Nella prima frase, che cosa viene dopo tastes like: un aggettivo o un nome?",
+              "obiettivo": "Un nome, chocolate: like + nome per dire a che cosa assomiglia. Basta 'un nome'."
+            },
+            {
+              "mostra": [
+                "This cheesecake tastes like chocolate!"
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "The new shop assistant looks ___ a famous actor: everybody stares at him.",
+              "attese": [
+                "like"
+              ],
+              "obiettivo": "look like + nome = assomigliare."
+            },
+            {
+              "mostra": [
+                "The baker sounds French on the phone, but she comes from Naples."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Federica phoned her mum from the shop. Her mum said: « You ___ really excited! »",
+              "attese": [
+                "sound",
+                "seem"
+              ],
+              "obiettivo": "Al telefono: sound + aggettivo."
+            },
+            {
+              "mostra": [
+                "It's cold outside. I feel like a hot chocolate."
+              ],
+              "domanda": "Federica dice di assomigliare a una cioccolata calda?",
+              "obiettivo": "No: ne ha voglia. Basta 'ne ha voglia'."
+            }
+          ],
+          "sintesi": [
+            "look, sound, smell, taste, feel, seem + aggettivo: these croissants smell delicious (non deliciously)",
+            "look = vista · sound = udito · smell = odore · taste = sapore · feel = tatto o sensazione",
+            "+ like + nome → assomigliare: he looks like a famous actor",
+            "feel like = avere voglia di: I feel like a hot chocolate"
+          ]
+        }
+      },
+      {
+        "title": "Reflexive pronouns",
+        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sul pronome (o sul possessivo), mai su un verbo: niente verbo tra parentesi.",
+        "vietate": "___\\s*\\(",
+        "points": [
+          {
+            "titolo": "La forma: -self, -selves",
+            "regola": "myself, yourself, himself, herself, itself, ourselves, yourselves, themselves. Singolare in -self, plurale in -selves. theirselves e hisself non esistono.",
+            "nota": "Spazi sul pronome; correzioni di theirselves e hisself."
+          },
+          {
+            "titolo": "Quando si usano",
+            "regola": "Quando soggetto e oggetto sono la stessa persona: She hurt herself. Per dare enfasi: proprio io, proprio lui (I painted it myself); by + riflessivo o all by + riflessivo = da solo, senza aiuto (He built the shed all by himself). oneself è impersonale e formale: di solito si preferisce yourself.",
+            "nota": "Frasi con by myself / all by herself; frasi in cui soggetto e oggetto coincidono."
+          },
+          {
+            "titolo": "Parti del corpo e vestiti: il possessivo",
+            "regola": "Con le parti del corpo e i capi di vestiario si usa l'aggettivo possessivo, non il riflessivo: She washed her hair (NON she washed herself the hair).",
+            "nota": "Spazi sul possessivo (my, his, her, their) con parti del corpo e vestiti."
+          },
+          {
+            "titolo": "Riflessivi italiani che in inglese non lo sono",
+            "regola": "Molti verbi riflessivi in italiano in inglese non vogliono il pronome: relax, worry, wake up, get up, feel, sit down, stand up, e get + aggettivo o participio (get angry, get dressed, get married, get ready = arrabbiarsi, vestirsi, sposarsi, prepararsi). Al contrario enjoy vuole un complemento: we enjoyed ourselves (divertirsi). Espressioni fisse: Help yourself, Behave yourself, Make yourself at home, Enjoy yourself.",
+            "nota": "Correzioni di relax yourself, worry yourself; frasi con enjoy + riflessivo."
+          }
+        ],
+        "scoperta": {
+          "storia": "Pietro passa il primo fine settimana da solo a casa.",
+          "passi": [
+            {
+              "mostra": [
+                "Pietro cut himself while he was making a sandwich."
+              ],
+              "domanda": "Chi si è fatto male?",
+              "obiettivo": "Pietro stesso. Basta 'Pietro'."
+            },
+            {
+              "mostra": [
+                "Pietro cut himself while he was making a sandwich."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Pietro's sister came to visit and burnt ___ on the oven door.",
+              "attese": [
+                "herself"
+              ],
+              "obiettivo": "Soggetto e oggetto sono la stessa persona: herself."
+            },
+            {
+              "mostra": [
+                "Pietro cooked dinner all by himself."
+              ],
+              "domanda": "Qualcuno lo ha aiutato a cucinare?",
+              "obiettivo": "No: ha fatto tutto da solo. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "Pietro cooked dinner all by himself."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "On Sunday his friends repainted the garage door ___ , without any help.",
+              "attese": [
+                "themselves",
+                "by themselves",
+                "all by themselves"
+              ],
+              "obiettivo": "themselves (non theirselves)."
+            },
+            {
+              "mostra": [
+                "In the morning Pietro got dressed and brushed his teeth."
+              ],
+              "domanda": "In italiano diciamo 'si è lavato i denti'. Che parola c'è in inglese davanti a teeth?",
+              "obiettivo": "his: con le parti del corpo si usa il possessivo. Basta 'his'."
+            },
+            {
+              "mostra": [
+                "In the morning Pietro got dressed and brushed his teeth."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Before going out, Pietro combed ___ hair in front of the mirror.",
+              "attese": [
+                "his"
+              ],
+              "obiettivo": "Parti del corpo e vestiti: his."
+            },
+            {
+              "mostra": [
+                "Relax, Pietro! Don't worry, everything's fine."
+              ],
+              "domanda": "In italiano diremmo 'Rilassati, non ti preoccupare'. Nella frase inglese c'è un pronome dopo relax e worry?",
+              "obiettivo": "No: relax e worry non vogliono il riflessivo. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "Pietro cut himself while he was making a sandwich."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "On Saturday night Pietro had a party and his friends really enjoyed ___ .",
+              "attese": [
+                "themselves"
+              ],
+              "obiettivo": "enjoy vuole un complemento: enjoyed themselves (= si sono divertiti)."
+            }
+          ],
+          "sintesi": [
+            "myself, yourself, himself, herself, itself, ourselves, yourselves, themselves",
+            "soggetto = oggetto: Pietro cut himself",
+            "all by himself = da solo, senza aiuto",
+            "parti del corpo e vestiti → possessivo: brushed his teeth",
+            "relax, worry, get dressed senza riflessivo · enjoy + riflessivo: they enjoyed themselves"
+          ]
+        }
+      },
+      {
+        "title": "Reciprocal pronouns",
+        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sul pronome reciproco o riflessivo, mai su un verbo: niente verbo tra parentesi.",
+        "vietate": "___\\s*\\(",
+        "points": [
+          {
+            "titolo": "each other · one another",
+            "regola": "each other e one another esprimono la reciprocità: due o più persone fanno la stessa cosa l'una verso l'altra (si aiutano a vicenda, l'un l'altro). Di solito each other si usa fra due persone e one another fra tre o più, ma nell'uso di oggi la differenza è quasi sparita.",
+            "nota": "Spazi sul pronome reciproco; accetta sempre sia each other sia one another."
+          },
+          {
+            "titolo": "Il possessivo: each other's",
+            "regola": "La forma possessiva è each other's / one another's: They borrow each other's clothes (l'una i vestiti dell'altra).",
+            "nota": "Frasi con oggetti scambiati fra due persone."
+          },
+          {
+            "titolo": "Reciproco o riflessivo?",
+            "regola": "Non confonderli: il significato cambia. They hurt themselves = ognuno si è fatto male da solo. They hurt each other = si sono fatti male a vicenda.",
+            "nota": "Coppie reciproco/riflessivo decise dalla situazione."
+          }
+        ],
+        "scoperta": {
+          "storia": "Ada e Lin sono le nuove compagne di banco.",
+          "passi": [
+            {
+              "mostra": [
+                "Ada and Lin help each other with their Maths homework."
+              ],
+              "domanda": "Chi aiuta chi?",
+              "obiettivo": "Si aiutano a vicenda: Ada aiuta Lin e Lin aiuta Ada. Basta 'a vicenda'."
+            },
+            {
+              "mostra": [
+                "Ada and Lin help each other with their Maths homework."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Ada and Lin live in the same street, so they meet ___ every morning at the bus stop.",
+              "attese": [
+                "each other",
+                "one another"
+              ],
+              "obiettivo": "Reciproco: each other (o one another)."
+            },
+            {
+              "mostra": [
+                "Ada and Lin took photos of themselves.",
+                "Ada and Lin took photos of each other."
+              ],
+              "domanda": "In quale frase Ada fotografa Lin?",
+              "obiettivo": "Nella seconda: each other = l'una l'altra; themselves = ognuna sé stessa. Basta 'la seconda'."
+            },
+            {
+              "mostra": [
+                "Ada and Lin help each other with their Maths homework."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Ada and Lin are the same size, so they often wear ___ jackets.",
+              "attese": [
+                "each other's",
+                "one another's"
+              ],
+              "obiettivo": "Possessivo: each other's."
+            },
+            {
+              "mostra": [
+                "The players on our volleyball team always encourage one another."
+              ],
+              "domanda": "Qui si parla di due persone o di tutta la squadra?",
+              "obiettivo": "Di tutta la squadra. Basta 'la squadra'."
+            },
+            {
+              "mostra": [
+                "Ada and Lin help each other with their Maths homework."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Ada and Lin had a big argument and didn't speak to ___ for a week.",
+              "attese": [
+                "each other",
+                "one another"
+              ],
+              "obiettivo": "Reciproco: each other."
+            },
+            {
+              "mostra": [
+                "Ada and Lin took photos of themselves."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "After the match the two goalkeepers were so tired that they just threw ___ on the bench.",
+              "attese": [
+                "themselves"
+              ],
+              "obiettivo": "Ognuno si butta sulla panchina: riflessivo, themselves."
+            }
+          ],
+          "sintesi": [
+            "each other / one another → a vicenda: they help each other",
+            "possessivo: each other's jackets",
+            "themselves = ognuno sé stesso · each other = l'uno l'altro"
+          ]
+        }
+      }
+    ],
+    "frasiEsercizi": [
+      "You should get fit before running a marathon.",
+      "He shouldn't stay out late at night.",
+      "Should I go to the gym more often? Yes, you should.",
+      "He ought to listen to his coach if he wants to play the game.",
+      "He oughtn't to ignore his advice.",
+      "They told him he needs to give up smoking.",
+      "You really need to follow a more balanced diet.",
+      "Do I need to see a doctor? Yes, you do.",
+      "She had better tell the truth.",
+      "You'd better study more.",
+      "You'd better not spend so much time online.",
+      "They'd better leave early to avoid the traffic.",
+      "You should go to bed earlier.",
+      "You shouldn't stay up late at night!",
+      "Should Martha break up with Liam? Yes, she should.",
+      "We ought to reconsider the situation.",
+      "You oughtn't to run the risk.",
+      "She needs to change her attitude.",
+      "Do we need to buy the tickets online? Yes, we do.",
+      "You'd better follow my advice.",
+      "The children had better not watch this film. It's too scary!",
+      "You should train harder.",
+      "You ought to do your homework.",
+      "She looks miserable.",
+      "This cheese smells terrible.",
+      "The biscuits taste delicious.",
+      "You sound happy.",
+      "Your jumper feels really soft.",
+      "I feel good.",
+      "She seems distressed. Has anything happened?",
+      "He looks like your dad.",
+      "It smells like lavender.",
+      "I don't know what it is, but it tastes like fish.",
+      "Did you hear that? It sounded like a scream.",
+      "It seemed like a hopeless situation.",
+      "I feel like home here.",
+      "Do you feel like going to the cinema?",
+      "I'll buy myself a car.",
+      "I fixed the broken chair myself.",
+      "He fixed the computer all by himself.",
+      "It's important to be honest with oneself.",
+      "Brush your teeth.",
+      "That dress doesn't suit her.",
+      "We didn't enjoy ourselves at the campsite.",
+      "I enjoyed the concert a lot.",
+      "Help yourself.",
+      "Look after yourself.",
+      "Behave yourself.",
+      "Make yourself at home.",
+      "Enjoy yourself.",
+      "Relax and take it easy.",
+      "Don't worry.",
+      "He stood up and left.",
+      "It's getting dark. We'd better leave now.",
+      "Matt and Lia love each other.",
+      "In small villages, people know one another.",
+      "Jules and I enjoy each other's company.",
+      "They looked at each other but didn't say a word.",
+      "They looked at themselves in the mirror and started to laugh.",
+      "I got a bad mark in the English test. You should tell your parents.",
+      "You shouldn't eat so many sweets.",
+      "You should avoid eating too much sugar.",
+      "You should/ought to use a security lock when you leave your laptop on a study desk at the library.",
+      "We need to reduce our carbon footprint to stop climate change.",
+      "You ought to use a phone strap to carry your phone around your neck.",
+      "If I were you, I would block it.",
+      "I'd better follow the rules.",
+      "He needs to work out more often.",
+      "She shouldn't answer so rudely.",
+      "You ought to study more if you want to go to university.",
+      "You need to wear proper equipment to go climbing.",
+      "'Do I sound angry?' she asked abruptly.",
+      "This problem seems easy enough to solve.",
+      "Lars looks terrible. What's the matter with him?",
+      "This yoghurt doesn't smell nice.",
+      "What happened to your voice? It sounds terrible!",
+      "This food tastes strange. What did you put in it?",
+      "You feel confused. What's wrong?",
+      "Mum looks great in her red dress.",
+      "Liam argued with Dad and now he feels ashamed.",
+      "My hands feel really smooth with this new cream.",
+      "My brother's bought a small flat himself.",
+      "Some people are very vain. They often look at themselves in the mirror.",
+      "Rob and Isabel rarely argue with each other.",
+      "Why don't you help yourself to more cake?",
+      "We always buy one another something special on our birthdays.",
+      "Students should help themselves or one another more.",
+      "When I come home late at night, my dad gets angry.",
+      "We took each other's keys by mistake!"
+    ]
+  };
+  const storageKey = "grammar-tutor-unit7-v1";
+  const $ = id => document.getElementById(id);
+  let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
+  function setBusy(on){
+    busy=on;
+    $("waiting").classList.toggle("show",on);
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){
+    if(busy||current?.completed)return;
+    if(hasChoices()){const b=document.querySelector(".choice");if(b)b.focus({preventScroll:true});return}
+    (pending||!current?$("submit"):$("answer")).focus({preventScroll:true});
+  }
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 7 · Advice Modals, Perception, Reflexives");$("inputArea").hidden=true;$("choices").replaceChildren();$("submit").hidden=false;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.module?.label||"");
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${Math.round((current.progress||0)*100)}%`;
+    const bx=$("tutorbox"),f=pending?null:a.feedback;bx.className="tutorbox";bx.replaceChildren();
+    if(f&&f.testo){
+      bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
+      if(f.risposta){
+        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
+        if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
+        else r.append(f.risposta);
+        bx.append(r);
+      }
+      const d=document.createElement("div");d.textContent=f.testo;bx.append(d);
+    }
+    $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
+    $("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
+    }
+    setBusy(busy);focusActive();
+  }
+  async function call(payload){
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      savedState=null;save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
+  }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call(savedState?{action:"resume",state:savedState}:{action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
+  });
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  const toMenu=()=>call({action:"menu",state:(pending||current)?.state||savedState||{}});
+  $("restart").onclick=toMenu;$("again").onclick=toMenu;
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
+  }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
+  render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
+</script>
+</body>
+</html>
