@@ -134,7 +134,7 @@ function creaMotore(UNIT) {
   Il programma ti dice se la risposta coincide con una delle attese e a quale tentativo è lo studente su questa domanda.
   - GIUSTA (coincide; oppure non coincide ma è un'alternativa corretta che non avevi previsto, anche senza una parola facoltativa come ever o really, o con was al posto di were dopo I/he/she/it, per esempio past simple o past continuous per descrivere una scena: accettala sempre, e scrivila in "aggiunte"): classe "giusta". Conferma in pochissime parole, senza spiegazioni. In "domanda" metti una domanda NUOVA sullo stesso punto.
   - MAIUSCOLE, PUNTEGGIATURA, FORME CONTRATTE (doesn't / does not) e anymore / any more NON sono mai errori: non segnalarli e non parlarne. Il programma ti dice parola per parola che cosa è diverso dalla risposta attesa: il tuo indizio riguarda SOLO quelle parole. Se la differenza è solo una parola in più presa dalla frase di partenza e la frase dello studente è corretta, è giusta: classe "giusta" con la sua risposta in "aggiunte".
-  - SBAGLIATA: classe "sbagliata". NON dai MAI la risposta giusta, a nessun tentativo: lo studente la deve scrivere da solo (se dopo 3 tentativi la chiede, gliela dà il programma, non tu). In "domanda" rimetti sempre la STESSA domanda.
+  - SBAGLIATA: classe "sbagliata". Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene», «il verbo è corretto»): se la frase dello studente è sbagliata, indica solo dove guardare. NON dai MAI la risposta giusta, a nessun tentativo: lo studente la deve scrivere da solo (se dopo 3 tentativi la chiede, gliela dà il programma, non tu). In "domanda" rimetti sempre la STESSA domanda.
     - In "errore" copia ESATTAMENTE, lettera per lettera, la parte sbagliata della risposta dello studente (una parola o poche parole), così il programma la evidenzia. Se manca qualcosa, copia la parola vicino al punto in cui manca.
     - Non enunciare la regola. Gli aiuti si stringono a ogni tentativo (il programma ti dice il livello):
       - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
@@ -178,7 +178,7 @@ function creaMotore(UNIT) {
   Le tue domande riguardano SEMPRE la situazione delle frasi (chi fa che cosa, quando, quante volte, se è finita o è ancora in corso, se dura o è un attimo). Non chiedere MAI allo studente di spiegare, formulare o descrivere la regola, né "perché secondo te si usa…": lo studente deve capire le frasi e saper usare la struttura, non spiegarla.
 
   ## SE NON CI ARRIVA
-  Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. A ogni tentativo l'aiuto si stringe:
+  Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). A ogni tentativo l'aiuto si stringe:
   - tentativi 1-2: fagli guardare un dettaglio preciso delle frasi;
   - dal tentativo 3: fai una domanda ancora più stretta su un dettaglio concreto delle frasi (es. "Leggi solo la seconda frase: che cosa fa il nonno adesso?"), senza mai dire tu la risposta. Nei passi in cui completa una frase puoi anche dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio"), ma mai la forma da scrivere né come si forma.
 
@@ -581,6 +581,14 @@ function creaMotore(UNIT) {
     if (attese.some(a => uguali(a, risposta))) return "";
     const verbo = verboDaParentesi(frase);
     if (verbo && !verbo.trim().includes(" ") && !usaIlVerboDato(risposta, verbo, attese)) {
+      // il verbo dato c'è, ma accanto ce n'è un altro ("comes used"): segnalo quello, non il verbo dato
+      const forme = formeDi(verbo);
+      const parole = r.split(" ");
+      const haIlVerbo = parole.some(x => forme.includes(x) || /e?d$/.test(x) && forme.includes(x.replace(/e?d$/, "")) || forme.includes(x.replace(/d$/, "")));
+      const v0 = norm(verbo).split(" ")[0];
+      const base = x => verboDellaParola(x) || verboDellaParola(x.replace(/s$/, "")) || verboDellaParola(x.replace(/es$/, "")) || verboDellaParola(x.replace(/ing$/, "")) || verboDellaParola(x.replace(/ing$/, "e"));
+      const altro = parole.find(x => !forme.includes(x) && !AUSILIARI.has(x) && (PASSATI_NOTI.has(x) || (base(x) && base(x) !== v0)));
+      if (haIlVerbo && altro) return `Il verbo tra parentesi c'è, ma «${altro}» è un altro verbo: in inglese ci va? Riprova.`;
       return `Attenzione: non hai usato ${eVerbo(verbo) ? "il verbo" : "la parola"} tra parentesi, «${verbo.trim()}». Riprova.`;
     }
     const att = attese.map(a => norm(a));
@@ -664,8 +672,48 @@ function creaMotore(UNIT) {
     return pezzi.some(n => n.length >= 3 && t.includes(` ${n} `));
   }
 
-  function messaggioGuida(testo, q, forte) {
-    return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "");
+  // Parole della risposta giusta che il tutor cita (fra virgolette o dopo "diventa") e che lo studente
+  // non ha ancora davanti: né nella frase né nella sua risposta. «"I" diventa "he"» → svela.
+  function svelaParole(testo, attese, frase, risposta) {
+    const visti = new Set(norm(`${frase || ""} ${risposta || ""}`).split(" "));
+    const att = new Set(attese.map(a => norm(a).split(" ")).flat().filter(x => x && !visti.has(x)));
+    if (!att.size) return false;
+    const citati = [];
+    String(testo).replace(/[«"“]([^«»"“”]{1,40})[»"”]/g, (_, x) => { citati.push(x); return _; });
+    String(testo).replace(/(?<![A-Za-zÀ-ÿ])['‘]([^'‘’]{1,30})['’](?![A-Za-zÀ-ÿ])/g, (_, x) => { citati.push(x); return _; });
+    String(testo).replace(/\bdiventa(?:no)?\s+([A-Za-z' ]{1,30})/gi, (_, x) => { citati.push(x.split(/\s+e\s+|[,.;:]/)[0]); return _; });
+    return citati.some(c => norm(c).split(" ").some(w => att.has(w)));
+  }
+
+  // «"Said" è corretto» davanti a una risposta sbagliata
+  const LODA_PEZZO = /[«"“'‘][^«»"“”]{1,30}[»"”'’]\s*(è|e'|sono|va|vanno|era)\s*(proprio\s+)?(corrett|giust|bene|ok\b|perfett|esatt)/i;
+
+  // la risposta differisce dall'attesa solo per was ↔ were
+  function soloWasWere(risposta, attese) {
+    const r = norm(risposta).split(" ");
+    return attese.some(a => {
+      const x = norm(a).split(" ");
+      if (x.length !== r.length) return false;
+      let diverse = 0;
+      for (let i = 0; i < x.length; i++) if (x[i] !== r[i]) { if (!/^(was|were)$/.test(x[i]) || !/^(was|were)$/.test(r[i])) return false; diverse++; }
+      return diverse > 0;
+    });
+  }
+  const RISERVA_SOGGETTO = "Guarda bene il soggetto del verbo: chi è? Poi riprova.";
+
+  function messaggioGuida(testo, q, forte, risposta) {
+    return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
+      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo);
+  }
+
+  function motivoGuida(testo, q, forte, risposta) {
+    if (!testo) return "vuoto";
+    if (testo.length > 400) return "troppo lungo";
+    if (enunciaRegola(testo, forte)) return "enuncia la regola";
+    if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")) return "contiene la soluzione";
+    if (svelaParole(testo, q.attese, q.frase, risposta)) return "cita parole della soluzione";
+    if (LODA_PEZZO.test(testo)) return "loda un pezzo di risposta sbagliata";
+    return "altro";
   }
 
   // ============================================================
@@ -680,9 +728,15 @@ function creaMotore(UNIT) {
     };
   }
 
+  // la frase a volte finisce anche nella consegna e lo studente la vede due volte
+  function senzaFrase(consegna, frase) {
+    if (!frase || frase.length < 10 || !consegna.includes(frase)) return consegna;
+    return consegna.replace(frase, " ").replace(/\s*[:«»"“”]\s*$/, "").replace(/\s+/g, " ").trim().replace(/[^:.!?]$/, m => m + ":") || "Completa la frase:";
+  }
+
   function pulisciDomanda(q) {
     return q && typeof q === "object" && ["completa", "riscrivi"].includes(q.tipo) && Array.isArray(q.attese) && q.attese.length
-      ? { tipo: q.tipo, consegna: String(q.consegna || "").slice(0, 200), frase: String(q.frase || "").slice(0, 300), attese: q.attese.slice(0, 12).map(a => String(a).slice(0, 300)) }
+      ? { tipo: q.tipo, consegna: senzaFrase(String(q.consegna || ""), String(q.frase || "")).slice(0, 200), frase: String(q.frase || "").slice(0, 300), attese: q.attese.slice(0, 12).map(a => String(a).slice(0, 300)) }
       : null;
   }
 
@@ -827,6 +881,11 @@ function creaMotore(UNIT) {
   // CHIAMATA AL MODELLO (Gemini, con nuovi tentativi e modello di riserva)
   // ============================================================
   let ultimoErrore = "";
+  let diag = [];
+  let inizioRichiesta = 0;
+  const scarta = (m, motivo) => { diag.push({ scartato: String(m || "").slice(0, 300), motivo }); return true; };
+  // l'ultimo passo di SCOPRI chiama il modello due volte: per la seconda chiamata allungo la scadenza (la pagina aspetta 45 s)
+  const allunga = () => { scadenza = Math.max(scadenza, Math.min(inizioRichiesta + 42000, Date.now() + 20000)); };
   let sovraccarico = false;
   let scadenza = 0;
   let senzaThinking = false;
@@ -865,6 +924,7 @@ function creaMotore(UNIT) {
       for (const chiave of giro) {
         if (restante() < 1500) { ultimoErrore = `tempo scaduto (${TEMPO_MASSIMO / 1000} s)`; sovraccarico = true; break; }
         provate++;
+        const t0 = Date.now();
         try {
           const generationConfig = { temperature: 0.5, maxOutputTokens: 4096 };
           if (!senzaThinking) generationConfig.thinkingConfig = { thinkingLevel: "minimal" };
@@ -887,12 +947,14 @@ function creaMotore(UNIT) {
             try { m = JSON.parse(t).error.message || t; } catch (e) {}
             const limite = (t.match(/quotaId"?\s*:\s*"([^"]+)"/) || [])[1] || (String(m).match(/limit:\s*\d+/) || [])[0] || "";
             ultimoErrore = `Gemini ${res.status}${limite ? " (" + limite + ")" : ""}: ${String(m).split(". ")[0].slice(0, 120)}`;
+            diag.push({ modello, ms: Date.now() - t0, errore: ultimoErrore });
             if (res.status === 429) { sovraccarico = true; continue; }
             if (res.status >= 500) { sovraccarico = true; await pausa(400); continue; }
             if (res.status === 400 || res.status === 403) continue;
             return null;
           }
           sovraccarico = false;
+          diag.push({ modello, ms: Date.now() - t0 });
           const d = await res.json();
           const parti = (d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts) || [];
           const fc = parti.map(x => x.functionCall).find(f => f && f.name === tool.name);
@@ -904,6 +966,7 @@ function creaMotore(UNIT) {
           return fc.args;
         } catch (e) {
           ultimoErrore = `collegamento a Gemini fallito: ${String(e && e.message || e).slice(0, 150)}`;
+          diag.push({ modello, ms: Date.now() - t0, errore: ultimoErrore });
           sovraccarico = true;
           await pausa(400);
         }
@@ -1038,13 +1101,14 @@ function creaMotore(UNIT) {
         if (!domandaOk) continue;
         return candidato;
       }
-      if (r.classe === "guida" && !/(frase|verbo|scrivi|completa|forma|riprova)/i.test(r.messaggio || "")) continue;
-      if (tempoFalso(r.messaggio, risposta, q.attese)) continue;
+      if (r.classe === "guida" && !/(frase|verbo|scrivi|completa|forma|riprova)/i.test(r.messaggio || "") && scarta(r.messaggio, "guida senza invito a scrivere")) continue;
+      if (tempoFalso(r.messaggio, risposta, q.attese) && scarta(r.messaggio, "tempo verbale nominato a sproposito")) continue;
       if (r.classe === "domanda" || r.classe === "guida" || r.classe === "fuori_tema") {
-        if (r.messaggio && r.messaggio.length <= 400 && !regolaInRisposta(r.messaggio) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "")) return candidato;
+        if (r.messaggio && r.messaggio.length <= 400 && !regolaInRisposta(r.messaggio) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta)) return candidato;
+        scarta(r.messaggio, "domanda: regola o soluzione nella risposta");
         continue;
       }
-      if (!messaggioGuida(r.messaggio, q, tentativo >= 3)) continue;
+      if (!messaggioGuida(r.messaggio, q, tentativo >= 3, risposta) && scarta(r.messaggio, motivoGuida(r.messaggio, q, tentativo >= 3, risposta))) continue;
       return candidato;
     }
     if (!candidato) return null;
@@ -1052,8 +1116,9 @@ function creaMotore(UNIT) {
     if (c.classe === "giusta") c.messaggio = "Esatto!";
     else if (c.classe === "guida" && !/(frase|verbo|scrivi|completa|forma|riprova)/i.test(c.messaggio || "")) c.messaggio = RISERVA_PRATICA.guida;
     else if (c.classe === "domanda" || c.classe === "guida" || c.classe === "fuori_tema") {
-      if (!c.messaggio || c.messaggio.length > 400 || regolaInRisposta(c.messaggio) || contieneSoluzione(c.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "")) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, chiede ? risposta : "");
-    } else if (!messaggioGuida(c.messaggio, q, tentativo >= 3) || tempoFalso(c.messaggio, risposta, q.attese)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo);
+      if (!c.messaggio || c.messaggio.length > 400 || regolaInRisposta(c.messaggio) || contieneSoluzione(c.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") || svelaParole(c.messaggio, q.attese, q.frase, risposta)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, chiede ? risposta : "", risposta);
+    } else if (!messaggioGuida(c.messaggio, q, tentativo >= 3, risposta) || tempoFalso(c.messaggio, risposta, q.attese)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, "", risposta);
+    if (c.messaggio === RISERVA_PRATICA.sbagliata || c.messaggio === RISERVA_PRATICA.non_so) diag.push({ riserva: c.messaggio });
     return c;
   }
 
@@ -1102,7 +1167,8 @@ function creaMotore(UNIT) {
     return !!tp && /^(used to|past continuous|past simple|present perfect|past perfect|narrative tenses|when, while)/i.test(tp.title);
   }
 
-  function rispostaDiRiserva(classe, q, t, tentativo, domandaStudente) {
+  function rispostaDiRiserva(classe, q, t, tentativo, domandaStudente, risposta) {
+    if (risposta && q && q.tipo === "completa" && classe === "sbagliata" && soloWasWere(risposta, q.attese)) return RISERVA_SOGGETTO;
     if (classe === "domanda" && domandaStudente) {
       const d = String(domandaStudente).toLowerCase();
       if (/^(posso|si pu[oò]|va bene|[eè] giusto|potrei|pu[oò] andare|ci sta)\b/.test(d)) return "Provala: scrivila nella frase e te lo dico io.";
@@ -1151,6 +1217,25 @@ function creaMotore(UNIT) {
     arrivato: "Esatto!"
   };
 
+  function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
+    const arrivato = a.classe === "arrivato";
+    if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
+    if (ps.attese && contieneSoluzione(m, ps.attese)) return "contiene la soluzione";
+    if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
+    if (!arrivato && LODA_PEZZO.test(m)) return "loda un pezzo di risposta sbagliata";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“])/i.test(m)) return "cita frasi che lo studente non vede";
+    const nome = (m.match(/\bfrase (?:di|del|della)\s+([A-Z][a-zà-ÿ]+)/) || [])[1];
+    if (nome && !String(ps.frase || "").includes(nome)) return "cita la frase di una persona che lo studente non vede";
+    if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
+    if (!arrivato && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
+    if (!m || m.length > 350) return "vuoto o troppo lungo";
+    if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3)) return "enuncia la regola";
+    if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
+    if (a.classe === "domanda" && regolaInRisposta(m)) return "domanda: regola nella risposta";
+    if (arrivato && (m.includes("?") || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
+    return "";
+  }
+
   async function valutaScoperta(env, s, topic, passo, risposta, tentativo, chiede) {
     const sc = UNIT.topics[topic].scoperta;
     const ps = sc.passi[passo];
@@ -1178,21 +1263,15 @@ function creaMotore(UNIT) {
       if (chiede) a.classe = "domanda";
       classe = a.classe;
       const m = a.messaggio.trim();
-      if (ps.attese && a.classe === "arrivato") continue;
-      if (ps.attese && contieneSoluzione(m, ps.attese)) continue;
-      if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“])/i.test(m)) continue;
-      if (a.classe !== "arrivato" && ps.attese && tempoFalso(m, risposta, ps.attese)) continue;
-      if (a.classe !== "arrivato" && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) continue;
-      const arrivato = a.classe === "arrivato";
-      if (!m || m.length > 350) continue;
-      if (!arrivato && a.classe !== "domanda" && (enunciaRegola(m, !!ps.frase && tentativo >= 3) || !m.includes("?"))) continue;
-      if (a.classe === "domanda" && regolaInRisposta(m)) continue;
-      if (arrivato && (m.includes("?") || ENUNCIA_REGOLA.test(m))) continue;
+      const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo);
+      if (motivo) { scarta(m, motivo); continue; }
       return { classe: a.classe, messaggio: m };
     }
     if (!classe) return null;
     if (ps.attese && classe === "arrivato") classe = "non_ancora";
     if (ps.frase) {
+      diag.push({ riserva: "scoperta" });
+      if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
       const ind = suTempi(topic) ? indizioDallaFrase(ps.frase) : "";
       return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova.` : "Rileggi bene la frase da completare: che cosa succede, e come? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
     }
@@ -1478,7 +1557,7 @@ function creaMotore(UNIT) {
     if (vuoleEsercizi(risposta)) {
       const scop = s.scop.includes(t) ? s.scop : s.scop.concat(t);
       const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
-      const r2 = await apri(env, base, base.tappe[0], "learn");
+      const r2 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
       if (!r2) return ERRORE();
       const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Va bene, facciamo gli esercizi. Qui sopra trovi la regola, se ti serve.", riprova: false });
       return vista({ ...n, sint: true });
@@ -1494,7 +1573,7 @@ function creaMotore(UNIT) {
       if (s.passo + 1 < sc.passi.length) return vista({ ...s, passo: s.passo + 1, tent: 0, hist: [], fb: null, vediEsempi: false }, { outcome: "correct", message: "Esatto!" });
       const scop = scop0.includes(t) ? scop0 : scop0.concat(t);
       const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
-      const r2 = await apri(env, base, base.tappe[0], "learn");
+      const r2 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
       if (!r2) return ERRORE();
       const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica.", riprova: false });
       return vista({ ...n, sint: true }, { outcome: "correct", message: "Esatto!\n\nBravo, hai finito questa parte. Nella prossima pagina trovi la regola riassunta." });
@@ -1516,7 +1595,7 @@ function creaMotore(UNIT) {
       }
       const scop = s.scop.includes(t) ? s.scop : s.scop.concat(t);
       const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
-      const r3 = await apri(env, base, base.tappe[0], "learn");
+      const r3 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
       if (!r3) return ERRORE();
       const n3 = conDomanda(base, r3, { tipo: "info", risposta: "", evidenzia: "", testo: `${spiega}\nEcco la regola, qui sopra. Adesso mettila in pratica.`, riprova: false });
       return vista({ ...n3, sint: true });
@@ -1551,7 +1630,7 @@ function creaMotore(UNIT) {
 
     const scop = s.scop.includes(t) ? s.scop : s.scop.concat(t);
     const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
-    const r2 = await apri(env, base, base.tappe[0], "learn");
+    const r2 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
     if (!r2) return ERRORE();
     const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica.", riprova: false });
     return vista({ ...n, sint: true }, { outcome: esito, message: `${r.messaggio}\n\nBravo, hai finito questa parte. Nella prossima pagina trovi la regola riassunta.` });
@@ -1569,6 +1648,8 @@ function creaMotore(UNIT) {
   // ------------------------------------------------------------
   async function gestisci(body, env) {
     ultimoErrore = "";
+    diag = [];
+    inizioRichiesta = Date.now();
     scadenza = Date.now() + TEMPO_MASSIMO;
     const azione = body && body.action;
     const s = pulisciStato(body && body.state);
@@ -1583,7 +1664,7 @@ function creaMotore(UNIT) {
     return { error: "Azione sconosciuta.", codice: 400 };
   }
 
-  return { gestisci };
+  return { gestisci, diagnosi: () => diag };
 }
 
 // ============================================================
@@ -1603,8 +1684,11 @@ export default {
     try { body = JSON.parse(grezzo); } catch (e) { return json({ error: "Richiesta non valida." }, 400); }
     const unita = normalizzaUnita(body && body.unita);
     if (!unita) return json({ error: "Contenuti dell'unità mancanti o non validi: controlla la pagina studia." }, 400);
-    const out = await creaMotore(unita).gestisci(body, env);
-    if (out.error) return json({ error: out.error }, out.codice || 502);
+    const motore = creaMotore(unita);
+    const out = await motore.gestisci(body, env);
+    // solo per le prove: la pagina non manda mai debug
+    if (body && body.debug === true) out._diag = motore.diagnosi();
+    if (out.error) return json(body && body.debug === true ? { error: out.error, _diag: out._diag } : { error: out.error }, out.codice || 502);
     return json(out);
   }
 };
