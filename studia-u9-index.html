@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grammar Tutor · Unit 9</title>
+  <style>
+    :root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+    *{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%} body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+    html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+    html.leggibile body{line-height:1.85} html.leggibile h1{letter-spacing:.01em;line-height:1.35} html.leggibile .example{font-weight:600}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+    .tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+    .tool:focus-visible{outline:3px solid #6f3a8255;outline-offset:2px}
+    main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+    header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+    .progress{height:7px;background:#e5dfd1}.progress>span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+    article{padding:clamp(24px,5vw,44px)} .phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+    h1{font-size:clamp(1.45rem,4vw,2.05rem);line-height:1.2;margin:.45rem 0 1.25rem}.examples{display:grid;gap:10px;margin:20px 0}.example{padding:16px 18px;background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;font-weight:650}
+    .question{font-size:1.06rem;margin:22px 0 14px;white-space:pre-line}.feedback{display:none;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);margin-bottom:14px}.feedback.show{display:block}.feedback.success{background:#e5f5ea;color:#176b3a;border:1px solid #9fd3ae}.feedback.error{background:#fdeaea;color:#922}.feedback.reveal{background:#fff4dc;color:#6b4a00;border:1px solid #f0cf87}.feedback{white-space:pre-line}
+    textarea{width:100%;min-height:100px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+    .choices{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer}.tutorbox{display:none;margin:20px 0 4px;padding:14px 16px;border-radius:10px;border-left:5px solid}.tutorbox.show{display:block}.tutorbox.err{background:#fdeceb;border-color:#c0392b;color:#5c1a14}.tutorbox.ok{background:#e5f5ea;border-color:#26734a;color:#176b3a}.tutorbox.info{background:#efe7f3;border-color:var(--accent);color:var(--accent2)}.tb-ans{font-weight:700;margin-bottom:6px}.tutorbox mark{background:#f7c948;color:#3a2600;padding:1px 4px;border-radius:4px}.choice.picked{background:var(--accent);color:white}.choice:disabled{cursor:wait}.waiting{display:none;margin:12px 0;padding:12px 14px;border-radius:8px;background:#efe7f3;color:var(--accent2);font-weight:650}.waiting.show{display:block}
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}button{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:var(--accent2)}.primary:disabled{opacity:.55;cursor:wait}.link{background:transparent;color:var(--muted);padding-left:0}
+    .status{font-size:.84rem;color:var(--muted)}.complete{text-align:center;padding:55px 25px}.complete .mark{font-size:3rem;color:var(--ok)}.error{background:#fdeaea;color:#922;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+    @media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="unitTitle">Caricamento…</div></div><div class="status" id="status"></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <div class="progress"><span id="progress"></span></div>
+  <article id="lesson" hidden>
+    <div class="phase" id="phase"></div><h1 id="prompt"></h1><div class="unit" id="moduleTitle"></div><div class="examples" id="examples"></div>
+    <div class="tutorbox" id="tutorbox" role="status" aria-live="polite"></div><div class="question" id="question"></div><div class="choices" id="choices"></div>
+    <form id="answerForm"><div id="inputArea"><label for="answer" class="unit">La tua risposta</label><textarea id="answer" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea></div>
+    <p id="submitted" hidden></p><div class="waiting" id="waiting" role="status" aria-live="polite">Il tutor sta preparando la risposta… (può volerci qualche secondo)</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="actions"><button type="button" class="link" id="restart">Argomenti</button><button type="submit" class="primary" id="submit">Invia risposta</button></div></form>
+  </article>
+  <section class="complete" id="complete" hidden><div class="mark">✓</div><h1>Sintesi completata</h1><p>Hai messo insieme tutti gli argomenti della Unit 9. Puoi sempre tornare su un percorso per ripassarlo.</p><button class="primary" id="again">Torna agli argomenti</button></section>
+</main>
+<script>
+  const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
+  const UNITA = {
+    "titolo": "Unit 9 · The Passive, Adjective Order, Phrasal Verbs",
+    "fuoriProgramma": "reported speech (discorso indiretto: said that, told me that, asked if), passivo con i verbi di opinione (it is said that), causative have/get something done",
+    "vietate": "\\b(?:told|asked)\\s+\\w+\\s+(?:that|whether|if)\\b|\\bsaid that\\b|\\bit is (?:said|believed|thought) that\\b|\\b(?:have|has|had|get|got)\\s+(?:my|his|her|their|our|your|the)\\s+\\w+\\s+(?:\\w+ed|cut|done|fixed)\\b",
+    "topics": [
+      {
+        "title": "Present simple passive",
+        "tempi": "present simple passivo: am/is/are (not) + participio passato; domande con Am/Is/Are + soggetto + participio.",
+        "points": [
+          {
+            "titolo": "Quando si usa",
+            "regola": "Il passivo si usa quando non sappiamo chi compie l'azione o ci interessa di più l'azione di chi la fa: Coffee is grown in Brazil. Si usa per i fatti oggettivi, per descrivere i passaggi di un processo e nei testi formali (avvisi, regolamenti). In italiano corrisponde spesso al 'si' passivante: Italian is spoken here = qui si parla italiano.",
+            "nota": "Testi che descrivono un processo o un regolamento."
+          },
+          {
+            "titolo": "La forma: am/is/are + participio",
+            "regola": "Positiva: am/is/are + participio passato (The rooms are cleaned every day). Negativa: am/is/are + not + participio (Dogs aren't allowed). Domanda: Am/Is/Are + soggetto + participio? Risposta breve: Yes, it is / No, they aren't. Serve il participio passato (cleaned), non la forma base.",
+            "nota": "Spazi con il verbo tra parentesi; domande e risposte brevi."
+          },
+          {
+            "titolo": "by + chi fa l'azione",
+            "regola": "Se vogliamo dire chi compie l'azione, lo introduciamo con by: The bread is baked by my uncle. Spesso si omette, perché non importa o è ovvio. Nelle domande sull'autore by va in fondo: Who is the school website run by?",
+            "nota": "Trasformazioni da attivo a passivo, con o senza by."
+          },
+          {
+            "titolo": "Niente 'venire'",
+            "regola": "In italiano si può dire 'viene consegnato', ma in inglese il passivo si fa solo con be: The post is delivered at ten (NON comes delivered).",
+            "nota": "Correzioni di come + participio."
+          },
+          {
+            "titolo": "made of · made from · made by",
+            "regola": "made of + materiale che si vede ancora (a bag made of leather); made from + materia prima trasformata (glass is made from sand); made by + chi l'ha fatto (made by hand, made by a robot).",
+            "nota": "Qualche frase con made of / from / by."
+          }
+        ],
+        "scoperta": {
+          "storia": "La classe di Giulio visita la fabbrica di cioccolato del paese.",
+          "passi": [
+            {
+              "mostra": [
+                "The cocoa beans are roasted for about twenty minutes."
+              ],
+              "domanda": "La frase dice chi tosta i semi di cacao?",
+              "obiettivo": "No: interessa l'azione, non chi la fa. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "The cocoa beans are roasted for about twenty minutes."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Then the beans ___ (crush) into a thick brown paste.",
+              "attese": [
+                "are crushed"
+              ],
+              "obiettivo": "be + participio: are crushed."
+            },
+            {
+              "mostra": [
+                "The bars are wrapped by machines, but the gift boxes are decorated by hand."
+              ],
+              "domanda": "Chi decora le scatole regalo?",
+              "obiettivo": "Delle persone, a mano: by dice chi fa l'azione. Basta 'a mano'."
+            },
+            {
+              "mostra": [
+                "The cocoa beans are roasted for about twenty minutes."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Visitors can watch, but photos ___ (allow) inside the factory.",
+              "attese": [
+                "aren't allowed",
+                "are not allowed"
+              ],
+              "obiettivo": "Negativa: aren't allowed."
+            },
+            {
+              "mostra": [
+                "The cocoa beans are roasted for about twenty minutes."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "« ___ (milk · add) to the dark chocolate? » — No, it isn't.",
+              "attese": [
+                "Is milk added"
+              ],
+              "obiettivo": "Domanda: Is + soggetto + participio: Is milk added?"
+            },
+            {
+              "mostra": [
+                "The bars are wrapped by machines, but the gift boxes are decorated by hand."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Machines don't check the bars: every single bar ___ (check) by the workers.",
+              "attese": [
+                "is checked"
+              ],
+              "obiettivo": "Passivo con by: is checked by the workers."
+            },
+            {
+              "mostra": [
+                "The cocoa beans are roasted for about twenty minutes."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "In Italian you'd say 'viene usato'. In English: brown sugar ___ (use) in every recipe.",
+              "attese": [
+                "is used"
+              ],
+              "obiettivo": "is used (non comes used): il passivo si fa solo con be."
+            }
+          ],
+          "sintesi": [
+            "am / is / are + participio passato: the beans are roasted",
+            "negativa: aren't allowed · domanda: Is milk added? — No, it isn't.",
+            "by + chi fa l'azione: decorated by hand, checked by the workers",
+            "niente 'venire': is used (non comes used)"
+          ]
+        }
+      },
+      {
+        "title": "Passive: other tenses and forms",
+        "tempi": "il passivo in tutti i tempi: be coniugato (was/were, has/have been, is/are being, was/were being, had been, will be, is going to be, modale + be) + participio passato.",
+        "points": [
+          {
+            "titolo": "Il passivo nei tempi passati",
+            "regola": "Si mette be al tempo giusto + participio passato. Past simple: was/were + participio (The bridge was opened in 1990). Present perfect: has/have been + participio (Prices have been raised). Past perfect: had been + participio (The tickets had been sold before we arrived).",
+            "nota": "Ancore temporali chiare (in 1990, already, by the time)."
+          },
+          {
+            "titolo": "I tempi continui: being",
+            "regola": "Present continuous: am/is/are being + participio (The road is being repaired). Past continuous: was/were being + participio (The match was being filmed). Per un'azione in corso serve being.",
+            "nota": "Frasi con at the moment, right now, when…; correzioni di being dimenticato."
+          },
+          {
+            "titolo": "Futuro e modali",
+            "regola": "Futuro: will be / won't be + participio, oppure am/is/are going to be + participio (The results will be published tomorrow). Modali: can, should, must, might… + be + participio (This box must be kept dry).",
+            "nota": "Spazi con il modale tra parentesi."
+          },
+          {
+            "titolo": "by e la trasformazione dall'attivo",
+            "regola": "L'oggetto della frase attiva diventa il soggetto della passiva, e il verbo be prende il tempo del verbo attivo: Someone has stolen my bike → My bike has been stolen. Chi fa l'azione si introduce con by, solo se serve.",
+            "nota": "Frasi da trasformare, con la prima parte già data."
+          }
+        ],
+        "scoperta": {
+          "storia": "Il vecchio cinema del quartiere viene rimesso a nuovo.",
+          "passi": [
+            {
+              "mostra": [
+                "The cinema was built in 1952."
+              ],
+              "domanda": "Si parla di adesso o del passato?",
+              "obiettivo": "Del passato. Basta 'del passato'."
+            },
+            {
+              "mostra": [
+                "The cinema was built in 1952."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "It ___ (close) in 2015 because hardly anybody went there.",
+              "attese": [
+                "was closed"
+              ],
+              "obiettivo": "Passato: was closed."
+            },
+            {
+              "mostra": [
+                "Right now the old seats are being removed."
+              ],
+              "domanda": "Hanno già finito di togliere le poltrone?",
+              "obiettivo": "No: le stanno togliendo adesso, being indica un'azione in corso. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "Right now the old seats are being removed."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "At the moment the walls of the entrance ___ (paint) dark blue.",
+              "attese": [
+                "are being painted"
+              ],
+              "obiettivo": "Azione in corso: are being painted."
+            },
+            {
+              "mostra": [
+                "A huge new screen has been bought."
+              ],
+              "domanda": "Lo schermo nuovo c'è già?",
+              "obiettivo": "Sì: è già stato comprato. Basta 'sì'."
+            },
+            {
+              "mostra": [
+                "The cinema was built in 1952."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "By the time the new owners bought it, the roof ___ (damage) by years of rain.",
+              "attese": [
+                "had been damaged",
+                "had been badly damaged"
+              ],
+              "obiettivo": "Prima di un altro fatto passato: had been damaged."
+            },
+            {
+              "mostra": [
+                "A huge new screen has been bought."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "The cinema ___ (open) again next spring, with a big party.",
+              "attese": [
+                "will be opened",
+                "is going to be opened",
+                "will be reopened",
+                "is going to be reopened"
+              ],
+              "obiettivo": "Futuro: will be opened."
+            },
+            {
+              "mostra": [
+                "A huge new screen has been bought."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Popcorn ___ (can't · eat) in the new screening room.",
+              "attese": [
+                "can't be eaten",
+                "cannot be eaten"
+              ],
+              "obiettivo": "Modale + be + participio: can't be eaten."
+            }
+          ],
+          "sintesi": [
+            "past simple: was built · present perfect: has been bought · past perfect: had been damaged",
+            "tempi continui con being: are being removed, was being filmed",
+            "futuro: will be opened / is going to be opened",
+            "modali: can't be eaten, must be kept"
+          ]
+        }
+      },
+      {
+        "title": "Adjective order",
+        "tempi": "tutti i tempi già studiati. Lo spazio è sul gruppo di aggettivi: tra parentesi ci sono gli aggettivi in disordine, da mettere nell'ordine giusto.",
+        "points": [
+          {
+            "titolo": "L'ordine fisso",
+            "regola": "Quando più aggettivi precedono lo stesso nome, seguono quest'ordine: opinione → dimensione → forma → età → colore → fantasia (pattern) → origine → materiale. a lovely small round old blue striped Greek cotton… (ma nella realtà se ne usano al massimo tre).",
+            "nota": "Gruppi di due o tre aggettivi tra parentesi da riordinare."
+          },
+          {
+            "titolo": "Prima l'opinione, per ultimo il materiale",
+            "regola": "L'opinione (nice, ugly, amazing) viene sempre per prima; il materiale (wooden, silk, plastic) sta per ultimo, attaccato al nome; l'origine (Italian, Japanese) subito prima del materiale.",
+            "nota": "Spazi con un'opinione e un materiale nello stesso gruppo."
+          },
+          {
+            "titolo": "In inglese l'aggettivo va prima del nome",
+            "regola": "In italiano diciamo 'una giacca nera di pelle'; in inglese tutti gli aggettivi stanno prima del nome: a black leather jacket. Gli aggettivi non prendono mai la -s del plurale: two black leather jackets.",
+            "nota": "Correzioni di aggettivi dopo il nome o al plurale."
+          }
+        ],
+        "scoperta": {
+          "storia": "Irene vende vecchi oggetti al mercatino dell'usato.",
+          "passi": [
+            {
+              "mostra": [
+                "Irene is selling a lovely old wooden chair."
+              ],
+              "domanda": "Quale parola dice che cosa pensa Irene della sedia?",
+              "obiettivo": "lovely: è l'opinione, e viene per prima. Basta 'lovely'."
+            },
+            {
+              "mostra": [
+                "Irene is selling a lovely old wooden chair."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "She's also got a ___ (red · silk · beautiful) scarf.",
+              "attese": [
+                "beautiful red silk"
+              ],
+              "obiettivo": "opinione → colore → materiale: beautiful red silk."
+            },
+            {
+              "mostra": [
+                "a small round mirror",
+                "a big square table"
+              ],
+              "domanda": "Che cosa viene prima: la grandezza o la forma?",
+              "obiettivo": "La grandezza (small, big), poi la forma (round, square). Basta 'la grandezza'."
+            },
+            {
+              "mostra": [
+                "a small round mirror"
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "There's a ___ (Japanese · tiny · china) cup on the table, too.",
+              "attese": [
+                "tiny Japanese china"
+              ],
+              "obiettivo": "dimensione → origine → materiale: tiny Japanese china."
+            },
+            {
+              "mostra": [
+                "a striped cotton T-shirt"
+              ],
+              "domanda": "Che cosa ci dice cotton?",
+              "obiettivo": "Il materiale: sta per ultimo, attaccato al nome. Basta 'il materiale'."
+            },
+            {
+              "mostra": [
+                "Irene is selling a lovely old wooden chair."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "Her best item is the ___ (leather · brown · old) jacket.",
+              "attese": [
+                "old brown leather"
+              ],
+              "obiettivo": "età → colore → materiale: old brown leather."
+            },
+            {
+              "mostra": [
+                "a small round mirror"
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "A customer is interested in the ___ (round · silver · strange) clock.",
+              "attese": [
+                "strange round silver"
+              ],
+              "obiettivo": "opinione → forma → materiale: strange round silver."
+            }
+          ],
+          "sintesi": [
+            "opinione → dimensione → forma → età → colore → fantasia → origine → materiale",
+            "l'opinione per prima: a lovely old wooden chair",
+            "il materiale per ultimo, attaccato al nome: an old brown leather jacket",
+            "gli aggettivi stanno prima del nome e non prendono la -s"
+          ]
+        }
+      },
+      {
+        "title": "Phrasal verbs",
+        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sulla particella (up, off, after…) o sul pronome con la particella, mai su un verbo: niente verbo tra parentesi.",
+        "vietate": "___\\s*\\(",
+        "points": [
+          {
+            "titolo": "Verbo + particella: un significato nuovo",
+            "regola": "I phrasal verbs sono formati da un verbo e da un avverbio o una preposizione, e spesso hanno un significato diverso dal verbo di partenza: give = dare, give up = smettere, arrendersi; look = guardare, look after = prendersi cura di. Lo stesso verbo può avere significati diversi: She went to Rome (andare) / She went over her notes (ripassare).",
+            "nota": "Domande di comprensione sul significato; spazi sulla particella."
+          },
+          {
+            "titolo": "Senza complemento",
+            "regola": "Alcuni phrasal verbs non hanno un complemento: wake up, get up, take off (decollare), break down (guastarsi), go out.",
+            "nota": "Frasi con phrasal verbs intransitivi."
+          },
+          {
+            "titolo": "Separabili e inseparabili",
+            "regola": "Con un complemento, alcuni phrasal verbs si separano: il complemento può stare prima o dopo la particella (switch on the heater / switch the heater on). Altri sono inseparabili: look after the baby, deal with a problem, run into an old friend.",
+            "nota": "Frasi con un nome come complemento."
+          },
+          {
+            "titolo": "Il pronome in mezzo",
+            "regola": "Nei phrasal verbs separabili il pronome (it, them, him…) va sempre fra il verbo e la particella: switch it on (NON switch on it), pick them up.",
+            "nota": "Spazi su pronome + particella; correzioni di switch on it."
+          },
+          {
+            "titolo": "Tre parole: sempre insieme",
+            "regola": "I phrasal verbs di tre parole non si separano mai: look forward to, get on with, put up with, run out of, go out with. I'm looking forward to the trip.",
+            "nota": "Spazi sull'ultima preposizione."
+          }
+        ],
+        "scoperta": {
+          "storia": "Mattia passa l'estate a lavorare in un campeggio.",
+          "passi": [
+            {
+              "mostra": [
+                "On his first day the manager asked Mattia to look after the swimming pool."
+              ],
+              "domanda": "Che cosa deve fare Mattia con la piscina?",
+              "obiettivo": "Occuparsene, sorvegliarla. Basta 'occuparsene'."
+            },
+            {
+              "mostra": [
+                "The radio in the bar was too loud, so Mattia turned it down."
+              ],
+              "domanda": "Che cosa ha fatto Mattia con la radio?",
+              "obiettivo": "Ha abbassato il volume. Basta 'l'ha abbassata'."
+            },
+            {
+              "mostra": [
+                "The radio in the bar was too loud, so Mattia turned it down."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "A guest dropped her keys by the pool, so Mattia picked ___ and gave them back to her.",
+              "attese": [
+                "them up"
+              ],
+              "obiettivo": "Pronome in mezzo: picked them up (non picked up them)."
+            },
+            {
+              "mostra": [
+                "Mattia gets on with all the other staff at the campsite."
+              ],
+              "domanda": "Mattia ha problemi con i colleghi?",
+              "obiettivo": "No: va d'accordo con tutti. Basta 'no'."
+            },
+            {
+              "mostra": [
+                "Mattia gets on with all the other staff at the campsite."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "The manager can't put up ___ the noise from the disco any longer.",
+              "attese": [
+                "with"
+              ],
+              "obiettivo": "Tre parole sempre insieme: put up with."
+            },
+            {
+              "mostra": [
+                "The radio in the bar was too loud, so Mattia turned it down."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "A storm was coming, so the manager called ___ the beach party.",
+              "attese": [
+                "off"
+              ],
+              "obiettivo": "call off = annullare."
+            },
+            {
+              "mostra": [
+                "The radio in the bar was too loud, so Mattia turned it down."
+              ],
+              "domanda": "Adesso usala tu. Completa la frase:",
+              "frase": "It got cold in the evening, so Mattia found the heater in the office and switched ___ .",
+              "attese": [
+                "it on"
+              ],
+              "obiettivo": "Pronome in mezzo: switched it on."
+            }
+          ],
+          "sintesi": [
+            "verbo + particella = significato nuovo: look after = prendersi cura di, call off = annullare",
+            "separabili: switch on the heater / switch the heater on",
+            "con il pronome sempre in mezzo: turned it down, picked them up",
+            "di tre parole, mai separati: get on with, put up with, look forward to"
+          ]
+        }
+      }
+    ],
+    "frasiEsercizi": [
+      "We serve breakfast from 7 to 10.",
+      "Breakfast is served from 7 to 10.",
+      "Elections are held every four years.",
+      "Butter is melted and then added to the mixture.",
+      "The Oscars are awarded for artistic and technical merit.",
+      "English is spoken here.",
+      "Visitors are required to leave their bags in the lockers.",
+      "This cheese is made in Sardinia.",
+      "Children under 11 aren't admitted.",
+      "Is the air conditioning turned off at night? Yes, it is.",
+      "Plumbers repair washing machines.",
+      "Washing machines are repaired by plumbers.",
+      "Fresh milk is delivered daily.",
+      "Who is this song sung by?",
+      "This skirt is made of silk.",
+      "Wine is made from grapes.",
+      "Passports are checked by customs officials.",
+      "She wore an unusual white straw hat.",
+      "Lucy has got long straight black hair.",
+      "I bought a small Indian silver ring.",
+      "This is a terrific black and white photo.",
+      "She's a beautiful tall blonde-haired woman.",
+      "Dante wrote the Divine Comedy.",
+      "The Divine Comedy was written by Dante.",
+      "They have stolen the Mona Lisa.",
+      "The Mona Lisa has been stolen.",
+      "The World Wide Web was invented by Tim Berners-Lee.",
+      "Prices have been increased by 10%.",
+      "Your bike is being repaired now.",
+      "The essay was being written by a group of researchers.",
+      "The cake had been eaten by the time I arrived.",
+      "A new president will be elected in November.",
+      "The new house isn't going to be finished this year.",
+      "This door shouldn't be opened.",
+      "This game can be played by everyone.",
+      "Imagine was sung by John Lennon.",
+      "Thousands of videos are posted every day.",
+      "Credit cards aren't accepted here.",
+      "Is Mozart considered to be one of the greatest composers? Yes, he is.",
+      "The Handmaid's Tale was written by Margaret Atwood.",
+      "A famous lawyer has been consulted.",
+      "My house is being renovated.",
+      "The murder was being investigated.",
+      "The meeting had been cancelled.",
+      "A new supermarket will be built here.",
+      "The surveillance system is going to be upgraded soon.",
+      "Your proposal can't be discussed in today's meeting.",
+      "She hung up abruptly.",
+      "I'll pay you back next month.",
+      "He came down with the flu.",
+      "She went to the USA.",
+      "She went over his words.",
+      "Turn to page 51 of the Student's Book.",
+      "I always turn to my sister for advice.",
+      "She woke up in the middle of the night.",
+      "The plane took off on schedule.",
+      "Go after the dog.",
+      "Stand by your family.",
+      "Deal with a problem.",
+      "Turn up the volume.",
+      "Turn the volume up.",
+      "Let in the dog.",
+      "Pick up the children.",
+      "Turn it up.",
+      "Let it in.",
+      "Pick them up.",
+      "I don't often go out with my parents.",
+      "Stand up for your rights!",
+      "Lots of Indian dishes are made with rice.",
+      "Time Magazine is published in New York.",
+      "Some medicines are sold in supermarkets.",
+      "The Mona Lisa is seen by about 30,000 people every day.",
+      "Spanish is spoken by millions of people in the USA.",
+      "Google is used by hundreds of millions of people every day.",
+      "Hundreds of millions of people use Google every day.",
+      "Lots of accidents are caused by careless driving.",
+      "Air pollution is caused by vehicle emissions.",
+      "Pizza is eaten all over the world.",
+      "Where are FIAT vehicles produced?",
+      "Cars are often stolen in this neighbourhood.",
+      "In this factory, they recycle glass.",
+      "It's a round red metal box.",
+      "A long white French lace dress.",
+      "Their house was built at the start of the 20th century.",
+      "While we were on holiday, our flat was burgled.",
+      "Where was the car stolen?",
+      "The police were called just before midnight.",
+      "Fingerprints were not left by the thieves.",
+      "Many things we take for granted today were developed by the Sumerians.",
+      "Two men have been attacked by a lion.",
+      "The room is being cleaned at the moment.",
+      "This TV series was filmed in Oxford in 2024.",
+      "The city was hit by a severe thunderstorm.",
+      "Two cakes have been made for Finn's birthday today.",
+      "She decided to give up smoking and get fit.",
+      "Why don't you take off your shoes? They're dirty.",
+      "Turn off the light and go to sleep!",
+      "I look forward to the holiday next week.",
+      "I looked for my keys everywhere, but I can't find them.",
+      "We didn't use to get on with each other, but now we're best friends.",
+      "Who picked up my scarf? I did. I picked it up.",
+      "The scientists carried out a lot of tests.",
+      "Isla, can you put away your clothes?",
+      "Didn't you try the shirt on before buying it?"
+    ]
+  };
+  const storageKey = "grammar-tutor-unit9-v1";
+  const $ = id => document.getElementById(id);
+  let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
+  const text=(id,value)=>{$(id).textContent=value||""};
+  function save(){try{localStorage.setItem(storageKey,JSON.stringify({current,pending,submitted,draft}))}catch{}}
+  const hasChoices=()=>Boolean(!pending&&current&&!current.completed&&(current.activity.choices||[]).length);
+  function setBusy(on){
+    busy=on;
+    $("waiting").classList.toggle("show",on);
+    ["submit","answer","restart","again"].forEach(id=>{$(id).disabled=on});
+    document.querySelectorAll(".choice").forEach(b=>{b.disabled=on});
+    text("submit",on?"Un momento…":pending?"Prosegui · Invio":current?"Invia risposta":"Riprova");
+  }
+  function focusActive(){
+    if(busy||current?.completed)return;
+    if(hasChoices()){const b=document.querySelector(".choice");if(b)b.focus({preventScroll:true});return}
+    (pending||!current?$("submit"):$("answer")).focus({preventScroll:true});
+  }
+  function render(){
+    $("lesson").hidden=Boolean(current?.completed);$("complete").hidden=!current?.completed;
+    const fb=$("feedback");fb.className="feedback";text("feedback","");
+    if(current?.completed){$("progress").style.width="100%";text("status","Completato");$("again").focus();return}
+    if(!current){text("prompt","Apriamo il tutor");text("unitTitle","Unit 9 · The Passive, Adjective Order, Phrasal Verbs");$("inputArea").hidden=true;$("choices").replaceChildren();$("submit").hidden=false;setBusy(busy);return}
+    const a=current.activity;
+    text("unitTitle",current.unit.title);text("phase",a.phase);text("prompt",a.prompt);text("question",a.question);
+    text("moduleTitle",current.module?.label||"");
+    text("status",pending?"Leggi il feedback":"");
+    $("progress").style.width=`${Math.round((current.progress||0)*100)}%`;
+    const bx=$("tutorbox"),f=pending?null:a.feedback;bx.className="tutorbox";bx.replaceChildren();
+    if(f&&f.testo){
+      bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
+      if(f.risposta){
+        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
+        if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
+        else r.append(f.risposta);
+        bx.append(r);
+      }
+      const d=document.createElement("div");d.textContent=f.testo;bx.append(d);
+    }
+    $("examples").replaceChildren(...(a.examples||[]).map(t=>{const d=document.createElement("div");d.className="example";d.textContent=t;return d}));
+    $("choices").replaceChildren(...(pending?[]:a.choices||[]).map(t=>{
+      const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=t;
+      b.onclick=()=>{if(busy)return;b.classList.add("picked");draft=t;$("answer").value=t;save();proceed()};return b;
+    }));
+    $("inputArea").hidden=Boolean(pending)||hasChoices();$("submit").hidden=hasChoices();
+    $("submitted").hidden=!pending;$("answer").value=draft;
+    if(pending){
+      text("submitted","La tua risposta: "+submitted);
+      text("feedback",pending.message||"Risposta esaminata.");fb.classList.add("show");
+      if(pending.outcome==="correct")fb.classList.add("success");else if(pending.outcome==="reveal")fb.classList.add("reveal");
+    }
+    setBusy(busy);focusActive();
+  }
+  async function call(payload){
+    if(busy)return;
+    setBusy(true);$("feedback").className="feedback";
+    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+    try{
+      const res=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,unita:UNITA}),signal:controller.signal});
+      const data=await res.json().catch(()=>({error:"Risposta non valida dal server."}));
+      if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
+      if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
+      if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      savedState=null;save();render();
+    }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
+    finally{clearTimeout(timer);setBusy(false);focusActive()}
+  }
+  function proceed(){
+    if(busy)return;
+    if(pending){current=pending;pending=null;submitted="";draft="";save();render();window.scrollTo(0,0);return}
+    if(!current){call(savedState?{action:"resume",state:savedState}:{action:"start"});return}
+    const answer=$("answer").value.trim();if(!answer){$("answer").focus();return}
+    draft=answer;save();call({action:"answer",answer,state:current.state});
+  }
+  $("answerForm").addEventListener("submit",e=>{e.preventDefault();proceed()});
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||e.shiftKey||e.isComposing)return;
+    if(e.repeat||busy){e.preventDefault();return}
+    if(e.target.tagName==="BUTTON")return;
+    if(pending||e.target===$("answer")){e.preventDefault();proceed()}
+  });
+  $("answer").addEventListener("input",()=>{draft=$("answer").value;save()});
+  const toMenu=()=>call({action:"menu",state:(pending||current)?.state||savedState||{}});
+  $("restart").onclick=toMenu;$("again").onclick=toMenu;
+  try{
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"null");
+    if(saved?.current?.state)savedState=(saved.pending||saved.current).state;
+  }catch{}
+  const prefKey="studia-lettura";
+  let pref={grande:false,leggibile:false};
+  try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch{}
+  function applicaPref(){
+    document.documentElement.classList.toggle("grande",!!pref.grande);
+    document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+    $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+    $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+  }
+  function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch{}}
+  $("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+  $("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+  applicaPref();
+
+  const voce=window.speechSynthesis;
+  const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|riscrivi|scegli|guarda|questa|questo|sono|hai|adesso|allora|oppure|oggi|prima|volta|forma|verbo|parola|risposta|tua|ancora|esatto|giusto|bravo|tutte|tutti|secondo|te|qui|nella|nelle|dopo|anche|errore|riprova)\b|[àèéìòù]/i;
+  function lingua(t){return ITA.test(t)?"it":"en"}
+  function pulisci(t){return String(t||"").replace(/___/g," … ").replace(/[✓]/g," giusto. ").replace(/[✗]/g," sbagliato. ").replace(/[«»"]/g,"").replace(/\s+/g," ").trim()}
+  function scegliVoce(l){
+    const vs=voce?voce.getVoices():[];
+    const pref=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];
+    for(const p of pref){const v=vs.find(x=>x.lang&&x.lang.replace("_","-").toLowerCase().startsWith(p.toLowerCase()));if(v)return v}
+    return null;
+  }
+  function pezziDaLeggere(){
+    const out=[];
+    const aggiungi=(t,l)=>{t=pulisci(t);if(t)out.push({t,l:l||lingua(t)})};
+    if(!$("complete").hidden){aggiungi($("complete").innerText,"it");return out}
+    aggiungi($("prompt").textContent);
+    const box=$("tutorbox");if(box.classList.contains("show"))box.innerText.split("\n").forEach(r=>aggiungi(r));
+    const fb=$("feedback");if(fb.classList.contains("show"))fb.innerText.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#examples .example").forEach(e=>{
+      const [en,it]=e.textContent.split(" — ");aggiungi(en,lingua(en)==="it"?"it":"en");if(it)aggiungi(it,"it");
+    });
+    $("question").textContent.split("\n").forEach(r=>aggiungi(r));
+    document.querySelectorAll("#choices .choice").forEach(b=>aggiungi(b.textContent));
+    if(!$("submitted").hidden)aggiungi($("submitted").textContent,"it");
+    return out;
+  }
+  function senzaInglese(){const vs=voce?voce.getVoices():[];return vs.length>0&&!vs.some(x=>x.lang&&x.lang.toLowerCase().startsWith("en"))}
+  function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+  function leggi(){
+    if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+    if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+    voce.cancel();
+    let pezzi=pezziDaLeggere();
+    if(senzaInglese()){
+      pezzi=pezzi.filter(p=>p.l!=="en");
+      pezzi.unshift({t:"Voce inglese non disponibile su questo dispositivo: leggo solo le parti in italiano.",l:"it"});
+      const fb=$("feedback");if(!fb.classList.contains("show")){fb.className="feedback show";fb.textContent="Voce inglese non disponibile su questo dispositivo: le frasi in inglese non vengono lette."}
+    }
+    if(!pezzi.length)return;
+    $("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+    pezzi.forEach((p,i)=>{
+      const u=new SpeechSynthesisUtterance(p.t);
+      u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;
+      u.rate=p.l==="en"?0.85:0.95;
+      if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}
+      voce.speak(u);
+    });
+  }
+  $("ascolta").onclick=leggi;
+  if(voce&&voce.onvoiceschanged!==undefined)voce.onvoiceschanged=()=>{};
+  const renderOriginale=render;
+  render=function(){fermaLettura();renderOriginale()};
+
+  render();call(savedState?{action:"resume",state:savedState}:{action:"start"});
+</script>
+</body>
+</html>
