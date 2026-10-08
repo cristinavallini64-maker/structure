@@ -210,7 +210,8 @@ function creaMotore(UNIT) {
       tipo: { type: "string", enum: ["completa", "riscrivi"] },
       consegna: { type: "string" },
       frase: { type: "string" },
-      attese: { type: "array", items: { type: "string" } }
+      attese: { type: "array", items: { type: "string" } },
+      conferma: { type: "string", description: "in italiano, una frase che il tutor dice DOPO la risposta giusta: che cosa vuol dire la frase in quella situazione, e quindi perché quella forma, con parole semplici e senza nomi di tempi" }
     },
     required: ["tipo", "consegna", "frase", "attese"]
   };
@@ -917,9 +918,17 @@ function creaMotore(UNIT) {
     return consegna.replace(frase, " ").replace(/\s*[:«»"“”]\s*$/, "").replace(/\s+/g, " ").trim().replace(/[^:.!?]$/, m => m + ":") || "Completa la frase:";
   }
 
+  // la conferma dopo la risposta giusta: niente nomi di tempi, niente regole, al massimo 250 caratteri
+  function confermaPulita(c) {
+    const t = String(c || "").trim();
+    if (!t || t.length > 250) return "";
+    if (/\b(past|present|perfect|continuous|simple|participio|forma base|infinito|ausiliare|si usa|si usano|usiamo|la regola)\b/i.test(t)) return "";
+    return t;
+  }
+
   function pulisciDomanda(q) {
     return q && typeof q === "object" && ["completa", "riscrivi"].includes(q.tipo) && Array.isArray(q.attese) && q.attese.length
-      ? { tipo: q.tipo, consegna: senzaFrase(String(q.consegna || ""), String(q.frase || "")).slice(0, 200), frase: String(q.frase || "").slice(0, 300), attese: q.attese.slice(0, 12).map(a => String(a).slice(0, 300)) }
+      ? { tipo: q.tipo, consegna: senzaFrase(String(q.consegna || ""), String(q.frase || "")).slice(0, 200), frase: String(q.frase || "").slice(0, 300), attese: q.attese.slice(0, 12).map(a => String(a).slice(0, 300)), conferma: confermaPulita(q.conferma) }
       : null;
   }
 
@@ -1248,6 +1257,7 @@ function creaMotore(UNIT) {
   1. SITUAZIONE: "frase" è TUTTA IN INGLESE (solo la consegna è in italiano). Scrivi prima una o due frasi brevi in inglese che raccontano la situazione (chi, dove, che cosa succede), poi la frase con lo spazio. Niente frasi isolate che cominciano con un segnale di tempo ("At 9 last night I ___…", "Yesterday at 7 p.m. …"): è la situazione a far capire la risposta.
   2. COMPRENSIONE, NON SOLO APPLICAZIONE: la "domanda" ha come risposta la forma di questo punto; la "riserva" invece deve SEMPRE avere come risposta L'ALTRA forma, quella con cui questa si confonde più spesso tra quelle ammesse per l'argomento (per esempio past simple invece di past continuous, past simple invece di present perfect, might invece di will, which invece di who). Il racconto della riserva deve rendere giusta solo quella.
   3. CONSEGNA: per tutte e due la consegna è "Leggi e scegli tu la forma giusta: non è sempre la stessa."
+  4. CONFERMA: per la domanda e per la riserva scrivi in "conferma" la frase che dirai DOPO la risposta giusta, per fissare che cosa ha capito: che cosa vuol dire la frase in quella situazione e perché quindi quella forma, in italiano semplice, senza nomi di tempi e senza "si usa" (per esempio: "Sì: quando è saltata la luce stava già asciugando i capelli, per questo non ha sentito il telefono." / "Sì: prima è saltata la luce, poi lei ha acceso una candela: una cosa dopo l'altra.").
   Se la struttura del punto non ha una forma alternativa (per esempio question tags, ordine degli aggettivi), ignora il punto 2 e usa la consegna normale.`;
     // fino a 3 domande: se i controlli ne scartano due, la terza di solito passa
     let ripiego = null;
@@ -1740,14 +1750,16 @@ function creaMotore(UNIT) {
     const coincide = attC.some(a => uguali(a, rc)) && !(s.q.tipo === "completa" && formaBaseSbagliata(s.q.frase, rc));
     const obiettivo = s.mode === "learn" ? 2 : 1;
     if (coincide) {
-      const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: "Esatto!" }).slice(-6);
+      // dopo la risposta giusta il tutor fissa che cosa ha capito: che cosa vuol dire la frase in quella situazione
+      const esatto = s.q.conferma ? `Esatto! ${s.q.conferma}` : "Esatto!";
+      const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: esatto }).slice(-6);
       const streak = s.streak + 1;
       if (streak < obiettivo) {
         const rn = s.ris ? { domanda: s.ris, riserva: null, messaggio: "" } : await apri(env, s, tappa, s.mode);
         if (!rn) return ERRORE();
-        return vista(conDomanda({ ...s, hist, streak }, { ...rn, messaggio: "" }, null), { outcome: "correct", message: "Esatto!" });
+        return vista(conDomanda({ ...s, hist, streak }, { ...rn, messaggio: "" }, null), { outcome: "correct", message: esatto });
       }
-      return puntoFatto(env, { ...s, hist }, tappa, "Esatto!");
+      return puntoFatto(env, { ...s, hist }, tappa, esatto);
     }
 
     if (!coincide && vuoleEsercizi(risposta)) {
