@@ -134,6 +134,7 @@ function creaMotore(UNIT) {
   Il programma ti dice se la risposta coincide con una delle attese e a quale tentativo è lo studente su questa domanda.
   - GIUSTA (coincide; oppure non coincide ma è un'alternativa corretta che non avevi previsto, anche senza una parola facoltativa come ever o really, o con was al posto di were dopo I/he/she/it, per esempio past simple o past continuous per descrivere una scena: accettala sempre, e scrivila in "aggiunte"): classe "giusta". Conferma in pochissime parole, senza spiegazioni. In "domanda" metti una domanda NUOVA sullo stesso punto.
   - MAIUSCOLE, PUNTEGGIATURA, FORME CONTRATTE (doesn't / does not) e anymore / any more NON sono mai errori: non segnalarli e non parlarne. Il programma ti dice parola per parola che cosa è diverso dalla risposta attesa: il tuo indizio riguarda SOLO quelle parole. Se la differenza è solo una parola in più presa dalla frase di partenza e la frase dello studente è corretta, è giusta: classe "giusta" con la sua risposta in "aggiunte".
+  - Chiama i tempi con il loro nome inglese (past perfect, present perfect, past simple…), mai con nomi italiani inventati ("passato remoto composto"). Sul significato delle parole sii preciso (striped = a righe, è una fantasia, non un colore): se non sei sicuro, non spiegarlo.
   - SBAGLIATA: classe "sbagliata". Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene», «il verbo è corretto»): se la frase dello studente è sbagliata, indica solo dove guardare. NON dai MAI la risposta giusta, a nessun tentativo: lo studente la deve scrivere da solo (se dopo 3 tentativi la chiede, gliela dà il programma, non tu). In "domanda" rimetti sempre la STESSA domanda.
     - In "errore" copia ESATTAMENTE, lettera per lettera, la parte sbagliata della risposta dello studente (una parola o poche parole), così il programma la evidenzia. Se manca qualcosa, copia la parola vicino al punto in cui manca.
     - Non enunciare la regola. Gli aiuti si stringono a ogni tentativo (il programma ti dice il livello):
@@ -178,7 +179,7 @@ function creaMotore(UNIT) {
   Le tue domande riguardano SEMPRE la situazione delle frasi (chi fa che cosa, quando, quante volte, se è finita o è ancora in corso, se dura o è un attimo). Non chiedere MAI allo studente di spiegare, formulare o descrivere la regola, né "perché secondo te si usa…": lo studente deve capire le frasi e saper usare la struttura, non spiegarla.
 
   ## SE NON CI ARRIVA
-  Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). A ogni tentativo l'aiuto si stringe:
+  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). A ogni tentativo l'aiuto si stringe:
   - tentativi 1-2: fagli guardare un dettaglio preciso delle frasi;
   - dal tentativo 3: fai una domanda ancora più stretta su un dettaglio concreto delle frasi (es. "Leggi solo la seconda frase: che cosa fa il nonno adesso?"), senza mai dire tu la risposta. Nei passi in cui completa una frase puoi anche dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio"), ma mai la forma da scrivere né come si forma.
 
@@ -364,7 +365,9 @@ function creaMotore(UNIT) {
   const STRUTTURA = new Set("will would can could may might must should shall had has have having been being was were am is are do does did used going to not".split(" "));
   function tempoFalso(testo, risposta, attese) {
     if (!/\b(il )?tempo (va bene|è giusto|e giusto|è corretto|è quello giusto)\b|tempo corretto/i.test(String(testo || ""))) return false;
-    const st = x => norm(x).split(" ").filter(w => STRUTTURA.has(w)).sort().join(" ");
+    // is/are/am e was/were, has/have, do/does contano come la stessa struttura: l'accordo col soggetto non è il tempo
+    const uguale = { is: "be", are: "be", am: "be", was: "be-p", were: "be-p", has: "have", have: "have", does: "do", do: "do" };
+    const st = x => norm(x).split(" ").filter(w => STRUTTURA.has(w)).map(w => uguale[w] || w).sort().join(" ");
     const r = st(risposta);
     return !(attese || []).some(a => st(a) === r);
   }
@@ -377,11 +380,29 @@ function creaMotore(UNIT) {
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
   const TIPO_STRUTTURA = /\b(serve|servono|ci vuole|ci vogliono|ci va|va usat[oa]|devi usare)\b[^?.!]{0,25}\b(tempo|avverbio|aggettivo|forma|comparativo|participio|past|present|passato|presente|modale|pronome)\b/i;
-  function enunciaRegola(testo, forte) {
-    if (forte) return ENUNCIA_REGOLA.test(testo) || COME_SI_FORMA.test(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo);
-    if (ENUNCIA_REGOLA.test(testo) || direttivaRegola(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
-    const frasi = testo.split(/(?<=[.!?])\s+/);
-    return frasi.some(f => !f.trim().endsWith("?") && AFFERMA_REGOLA.test(f) && !/\b(vuol dire|significa)\b[^.]*"[^"]+"/i.test(f));
+  // Una frase che spiega la parola SBAGLIATA scritta dallo studente («"Wooden" descrive il materiale»,
+  // «"Say the truth" non si usa») è un commento al suo errore, non la regola da trovare.
+  function sullErroreDelloStudente(f, ctx) {
+    if (!ctx || !ctx.risposta) return false;
+    const m = f.match(/^\s*(?:Hai (?:scritto|usato|messo)\s+)?[«"“]([^«»"“”]{1,40})[»"”]/i);
+    if (!m) return false;
+    const q = norm(m[1]).split(" ").filter(Boolean);
+    if (!q.length) return false;
+    const rw = norm(ctx.risposta).split(" ");
+    const att = new Set((ctx.attese || []).map(a => norm(a).split(" ")).flat());
+    const stessa = (a, b) => a === b || (verboBase(a) && verboBase(a) === verboBase(b));
+    const dallaRisposta = q.some(w => w.length >= 2 && rw.some(x => stessa(w, x)));
+    return dallaRisposta && q.some(w => !att.has(w));
+  }
+
+  function enunciaRegola(testo, forte, ctx) {
+    // le regole si cercano solo nelle frasi affermative che non commentano l'errore dello studente;
+    // le domande-guida ("Quale verbo si usa con the truth?") vanno bene
+    const frasi = String(testo || "").split(/(?<=[.!?])\s+/);
+    const aff = frasi.filter(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx)).join(" ");
+    if (forte) return ENUNCIA_REGOLA.test(aff) || COME_SI_FORMA.test(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff);
+    if (ENUNCIA_REGOLA.test(aff) || direttivaRegola(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
+    return frasi.some(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx) && AFFERMA_REGOLA.test(f) && !/\b(vuol dire|significa)\b[^.]*"[^"]+"/i.test(f));
   }
 
   function vuoleEsempi(testo) {
@@ -539,6 +560,11 @@ function creaMotore(UNIT) {
     return !!IRREGOLARI[b] || VERBI_COMUNI.includes(b) || !/(ful|less|ous|ive|able|ible|al|ic|ish|y|ly|er|est)$/.test(b) && !["good", "bad", "fast", "hard", "late", "early", "quick", "slow", "loud", "quiet", "high", "low", "near", "far", "well", "safe", "clear", "polite", "rude", "calm", "neat", "patient"].includes(b);
   }
 
+  // anche con -s / -es / -ing: feels → feel, comes → come, making → make
+  function verboBase(x) {
+    return verboDellaParola(x) || verboDellaParola(x.replace(/s$/, "")) || verboDellaParola(x.replace(/es$/, "")) || verboDellaParola(x.replace(/ing$/, "")) || verboDellaParola(x.replace(/ing$/, "e"));
+  }
+
   function verboDellaParola(x) {
     for (const [b, f] of Object.entries(IRREGOLARI)) if (b === x || f.includes(x)) return b;
     for (const b of VERBI_COMUNI) if (formeDi(b).includes(x)) return b;
@@ -586,7 +612,7 @@ function creaMotore(UNIT) {
       const parole = r.split(" ");
       const haIlVerbo = parole.some(x => forme.includes(x) || /e?d$/.test(x) && forme.includes(x.replace(/e?d$/, "")) || forme.includes(x.replace(/d$/, "")));
       const v0 = norm(verbo).split(" ")[0];
-      const base = x => verboDellaParola(x) || verboDellaParola(x.replace(/s$/, "")) || verboDellaParola(x.replace(/es$/, "")) || verboDellaParola(x.replace(/ing$/, "")) || verboDellaParola(x.replace(/ing$/, "e"));
+      const base = verboBase;
       const altro = parole.find(x => !forme.includes(x) && !AUSILIARI.has(x) && (PASSATI_NOTI.has(x) || (base(x) && base(x) !== v0)));
       if (haIlVerbo && altro) return `Il verbo tra parentesi c'è, ma «${altro}» è un altro verbo: in inglese ci va? Riprova.`;
       return `Attenzione: non hai usato ${eVerbo(verbo) ? "il verbo" : "la parola"} tra parentesi, «${verbo.trim()}». Riprova.`;
@@ -611,7 +637,7 @@ function creaMotore(UNIT) {
     if (verbo && (r === norm(verbo) || r.split(" ").every(x => AUSILIARI.has(x) || formeDi(verbo).includes(x)))) return "";
     // "ci sei quasi" solo per un errore di battitura: se la parola diversa esiste
     // davvero (anybody al posto di nobody, isn't al posto di hasn't) è un errore vero
-    const noto = x => AUSILIARI.has(x) || PAROLE_NOTE.has(x) || PASSATI_NOTI.has(x) || !!verboDellaParola(x);
+    const noto = x => AUSILIARI.has(x) || PAROLE_NOTE.has(x) || PASSATI_NOTI.has(x) || !!verboBase(x);
     const vicina = att.some(a => {
       if (a.length < 4 || a === r || distanza(a, r) > 2) return false;
       const aw = a.split(" "), rw = r.split(" ");
@@ -702,14 +728,14 @@ function creaMotore(UNIT) {
   const RISERVA_SOGGETTO = "Guarda bene il soggetto del verbo: chi è? Poi riprova.";
 
   function messaggioGuida(testo, q, forte, risposta) {
-    return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
+    return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
       && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo);
   }
 
   function motivoGuida(testo, q, forte, risposta) {
     if (!testo) return "vuoto";
     if (testo.length > 400) return "troppo lungo";
-    if (enunciaRegola(testo, forte)) return "enuncia la regola";
+    if (enunciaRegola(testo, forte, { risposta, attese: q.attese })) return "enuncia la regola";
     if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")) return "contiene la soluzione";
     if (svelaParole(testo, q.attese, q.frase, risposta)) return "cita parole della soluzione";
     if (LODA_PEZZO.test(testo)) return "loda un pezzo di risposta sbagliata";
@@ -1032,12 +1058,14 @@ function creaMotore(UNIT) {
     const user = `${contesto(s, tappa, modo)}
 
   COMPITO: fai la prima domanda su questo punto. Niente spiegazioni e niente esempi: nel messaggio al massimo due parole di invito ("Proviamo.") oppure niente. Usa classe "apertura".`;
-    for (let i = 0; i < 2; i++) {
+    // fino a 3 domande: se i controlli ne scartano due, la terza di solito passa
+    for (let i = 0; i < 3; i++) {
       if (i > 0 && restante() < 5000) break;
       const r = await chiama(env, user);
       if (!r) { if (sovraccarico) break; continue; }
       if (r.messaggio.length > 80 || ENUNCIA_REGOLA.test(r.messaggio)) r.messaggio = "";
       if (controllaDomanda(r.domanda, s.chiesti, r.messaggio, [], UNIT.topics[tappa[0]].vietate)) return r;
+      diag.push({ domandaScartata: r.domanda && (r.domanda.frase || r.domanda.consegna) });
     }
     return null;
   }
@@ -1223,13 +1251,13 @@ function creaMotore(UNIT) {
     if (ps.attese && contieneSoluzione(m, ps.attese)) return "contiene la soluzione";
     if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
     if (!arrivato && LODA_PEZZO.test(m)) return "loda un pezzo di risposta sbagliata";
-    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“])/i.test(m)) return "cita frasi che lo studente non vede";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto))/i.test(m)) return "cita frasi che lo studente non vede";
     const nome = (m.match(/\bfrase (?:di|del|della)\s+([A-Z][a-zà-ÿ]+)/) || [])[1];
-    if (nome && !String(ps.frase || "").includes(nome)) return "cita la frase di una persona che lo studente non vede";
+    if (nome && ps.frase && !s.vediEsempi && !ps.frase.includes(nome)) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
     if (!arrivato && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
     if (!m || m.length > 350) return "vuoto o troppo lungo";
-    if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3)) return "enuncia la regola";
+    if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
     if (a.classe === "domanda" && regolaInRisposta(m)) return "domanda: regola nella risposta";
     if (arrivato && (m.includes("?") || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
