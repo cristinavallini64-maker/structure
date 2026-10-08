@@ -141,7 +141,7 @@ function creaMotore(UNIT) {
       - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
       - livello 1: fai notare l'indizio nella frase ("Guarda last Friday.", "Guarda since Monday: la cosa è finita o continua ancora?", "Hai riscritto solo un pezzo: riprova con tutta la frase.");
       - livello 2: una domanda più mirata sul significato ("È successo una volta sola o era un'abitudine?", "In quel momento l'azione era in corso o era finita?");
-      - livello 3 e oltre: puoi dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio, non un aggettivo", "qui serve la forma di un'azione in corso"), ma MAI la forma da scrivere né come si forma (niente "aggiungi -ly", niente desinenze); poi una domanda ancora più stretta sul pezzo preciso che non va, SENZA MAI scrivere la forma giusta, nemmeno dentro una scelta fra due forme ("Guarda la fine del verbo che hai scritto: che cosa manca?", "Alle 10 il cane stava facendo questa cosa in quel momento: come si dice un'azione in corso?", "Hai messo was: e il verbo dopo, in che forma deve essere?"). Cambia domanda a ogni tentativo.
+      - livello 3 e oltre: puoi dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio, non un aggettivo", "qui serve la forma di un'azione in corso"), e puoi indicare quale parola deve cambiare con una domanda ("come diventa 'add' quando qualcosa viene fatto?"), ma MAI la forma da scrivere né come si forma (niente "aggiungi -ly", niente desinenze); poi una domanda ancora più stretta sul pezzo preciso che non va, SENZA MAI scrivere la forma giusta, nemmeno dentro una scelta fra due forme ("Guarda la fine del verbo che hai scritto: che cosa manca?", "Alle 10 il cane stava facendo questa cosa in quel momento: come si dice un'azione in corso?", "Hai messo was: e il verbo dopo, in che forma deve essere?"). Cambia domanda a ogni tentativo.
   - NON SA (dice che non sa, risponde a caso): classe "non_so". Stessi livelli di aiuto, senza soluzione e senza regola. STESSA domanda.
   - FA UNA DOMANDA LUI: classe "domanda". Una domanda NON è una risposta sbagliata: rispondigli davvero, in modo concreto.
     - Chiede il significato di una parola: diglielo.
@@ -358,7 +358,7 @@ function creaMotore(UNIT) {
   function regolaInRisposta(testo) {
     const affermazioni = String(testo || "").split(/(?<=[.!?])\s+/).filter(f => !f.trim().endsWith("?"));
     return ENUNCIA_REGOLA.test(testo) || direttivaRegola(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo)
-      || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo) || affermazioni.some(f => INDICA.test(f));
+      || COME_SI_FORMA.test(testo) || GUIDA_FORMA.test(testo) || TIPO_DOMANDA.test(testo) || affermazioni.some(f => INDICA.test(f));
   }
 
   // "Il tempo va bene" detto a una risposta che usa ausiliari/modali diversi da tutte le attese
@@ -375,7 +375,11 @@ function creaMotore(UNIT) {
   // dal terzo tentativo il tutor può dire che TIPO di struttura serve ("qui serve un
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|come diventa|al participio|ricorda(ti)? (di (aggiungere|mettere|togliere)|come)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|\bricorda(ti)? che\b/i;
+  // sempre vietato: dice che cosa aggiungere, togliere o spostare
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*/i;
+  // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
+  // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
+  const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b/i;
   // prima del terzo tentativo: nemmeno la domanda "che modale/composto useresti?"
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
@@ -401,7 +405,7 @@ function creaMotore(UNIT) {
     const frasi = String(testo || "").split(/(?<=[.!?])\s+/);
     const aff = frasi.filter(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx)).join(" ");
     if (forte) return ENUNCIA_REGOLA.test(aff) || COME_SI_FORMA.test(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff);
-    if (ENUNCIA_REGOLA.test(aff) || direttivaRegola(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
+    if (ENUNCIA_REGOLA.test(aff) || direttivaRegola(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || GUIDA_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
     return frasi.some(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx) && AFFERMA_REGOLA.test(f) && !/\b(vuol dire|significa)\b[^.]*"[^"]+"/i.test(f));
   }
 
