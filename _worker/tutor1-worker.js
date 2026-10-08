@@ -138,7 +138,7 @@ function creaMotore(UNIT) {
   - SBAGLIATA: classe "sbagliata". Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene», «il verbo è corretto»): se la frase dello studente è sbagliata, indica solo dove guardare. NON dai MAI la risposta giusta, a nessun tentativo: lo studente la deve scrivere da solo (se dopo 3 tentativi la chiede, gliela dà il programma, non tu). In "domanda" rimetti sempre la STESSA domanda.
     - In "errore" copia ESATTAMENTE, lettera per lettera, la parte sbagliata della risposta dello studente (una parola o poche parole), così il programma la evidenzia. Se manca qualcosa, copia la parola vicino al punto in cui manca.
     - Non enunciare la regola. Gli aiuti si stringono a ogni tentativo (il programma ti dice il livello):
-      - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
+      - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. Se ha messo l'ausiliare sbagliato (was, did, have… al posto di quello che serve) o il verbo nella forma sbagliata dopo l'ausiliare, l'errore è di COSTRUZIONE: fagli guardare l'ausiliare e la forma del verbo che ha scritto ("Con was non ottieni il tempo che serve qui: quale ausiliare ci vuole, e il verbo dopo?"), NON l'indizio di tempo della frase, che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
       - livello 1: fai notare l'indizio nella frase ("Guarda last Friday.", "Guarda since Monday: la cosa è finita o continua ancora?", "Hai riscritto solo un pezzo: riprova con tutta la frase.");
       - livello 2: una domanda più mirata sul significato ("È successo una volta sola o era un'abitudine?", "In quel momento l'azione era in corso o era finita?");
       - livello 3 e oltre: puoi dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio, non un aggettivo", "qui serve la forma di un'azione in corso"), e puoi indicare quale parola deve cambiare con una domanda ("come diventa 'add' quando qualcosa viene fatto?"), ma MAI la forma da scrivere né come si forma (niente "aggiungi -ly", niente desinenze); poi una domanda ancora più stretta sul pezzo preciso che non va, SENZA MAI scrivere la forma giusta, nemmeno dentro una scelta fra due forme ("Guarda la fine del verbo che hai scritto: che cosa manca?", "Alle 10 il cane stava facendo questa cosa in quel momento: come si dice un'azione in corso?", "Hai messo was: e il verbo dopo, in che forma deve essere?"). Cambia domanda a ogni tentativo.
@@ -170,7 +170,7 @@ function creaMotore(UNIT) {
   ## COME RISPONDI (campo "messaggio")
   - arrivato: conferma breve riprendendo le SUE parole (1 frase, al massimo 2). Non aggiungere spiegazioni e non anticipare il passo successivo. Nessuna domanda.
   - vicino: riconosci la parte giusta con le sue parole, poi fai UNA domanda che lo porti al pezzo mancante, appoggiandoti alle frasi mostrate.
-  - non_ancora: non dire "sbagliato" o "no". Nei passi in cui completa una frase, capisci prima che tipo di errore è: se ha scelto bene il tempo ma ha sbagliato la forma (verbo irregolare, ortografia), diglielo ("Il tempo va bene, guarda la forma del verbo") invece di richiedergli quello che ha già capito. Il participio da solo (flown, gone, eaten…) NON è il tempo giusto: si usa solo dopo have/had; non dire mai "tempo corretto" in quel caso. Altrimenti riportalo a un dettaglio preciso delle frasi (una parola, un'espressione di tempo, chi parla) con UNA domanda.
+  - non_ancora: non dire "sbagliato" o "no". Nei passi in cui completa una frase, capisci prima che tipo di errore è: se ha scelto bene il tempo ma ha sbagliato la forma (verbo irregolare, ortografia), diglielo ("Il tempo va bene, guarda la forma del verbo") invece di richiedergli quello che ha già capito. Se ha messo l'ausiliare sbagliato (was, did, have… al posto di quello che serve) o il verbo nella forma sbagliata dopo l'ausiliare, l'errore è di COSTRUZIONE: fagli guardare l'ausiliare e la forma del verbo che ha scritto ("Con was non ottieni il tempo che serve qui: quale ausiliare ci vuole, e il verbo dopo?"), NON l'indizio di tempo della frase, che ha già capito. Il participio da solo (flown, gone, eaten…) NON è il tempo giusto: si usa solo dopo have/had; non dire mai "tempo corretto" in quel caso. Altrimenti riportalo a un dettaglio preciso delle frasi (una parola, un'espressione di tempo, chi parla) con UNA domanda.
   - non_so: rassicuralo in poche parole e fai una domanda più facile su un dettaglio delle frasi.
   - domanda: una domanda non è una risposta sbagliata, rispondigli davvero. Se chiede il significato di una parola, diglielo; se chiede quale parola guardare, indicagliela; se chiede la regola, non dargliela: riportalo alle frasi con una domanda. Se chiede che cosa vuol dire una parola grammaticale delle frasi (might, should, unless, each other…), non dirlo: è proprio quello che deve scoprire; riportalo alla situazione con una domanda.
   - fuori_tema: riportalo alla domanda del passo.
@@ -605,6 +605,27 @@ function creaMotore(UNIT) {
     return v || undefined;
   }
 
+  const FAMIGLIA_AUS = { had: "had", have: "have", has: "have", was: "was", were: "was", did: "did", do: "do", does: "do", am: "be", is: "be", are: "be" };
+  function costruzioneSbagliata(r, att, risposta) {
+    const rw = r.split(" ");
+    const auxR = rw.find(x => FAMIGLIA_AUS[x]);
+    if (!auxR) return "";                       // niente ausiliare: è la scelta del tempo, decide il modello
+    // si cita la parola come l'ha scritta lo studente (didn't, non did)
+    const scritta = String(risposta || "").split(/\s+/).find(w => norm(w).split(" ")[0] === auxR) || auxR;
+    const aw = att.map(a => a.split(" ")).find(w => w.some(x => FAMIGLIA_AUS[x]));
+    if (!aw) return "";                         // la risposta attesa non ha ausiliare (past simple…)
+    const auxA = aw.find(x => FAMIGLIA_AUS[x]);
+    const verbiA = aw.filter(x => !AUSILIARI.has(x));
+    const verbiR = rw.filter(x => !AUSILIARI.has(x));
+    if (FAMIGLIA_AUS[auxR] !== FAMIGLIA_AUS[auxA]) {
+      return verbiA.length
+        ? `Guarda come hai costruito il verbo: con «${scritta}» non ottieni il tempo che serve qui. Quale ausiliare ci vuole, e in che forma va il verbo dopo? Riprova.`
+        : `Con «${scritta}» non ottieni il tempo che serve qui: quale ausiliare ci vuole? Riprova.`;
+    }
+    if (verbiA.length && verbiR.join(" ") !== verbiA.join(" ")) return `Hai messo «${scritta}»: e il verbo dopo, in che forma deve essere? Riprova.`;
+    return "";
+  }
+
   function diagnosiForma(risposta, attese, frase) {
     const r = norm(risposta);
     if (!r || r.split(" ").length > 4) return "";
@@ -638,6 +659,10 @@ function creaMotore(UNIT) {
     if (verbo && !r.includes(" ") && formeDi(verbo).includes(r) && !att.includes(r)) {
       return `Hai scelto ${eVerbo(verbo) ? "il verbo giusto" : "la parola giusta"}, ma la forma non lo è. Riprova.`;
     }
+    // ausiliare sbagliato («was not sleep» per «hadn't slept») o verbo sbagliato dopo l'ausiliare giusto
+    // («had sleep»): è un errore di costruzione, e l'indizio di tempo (before, last week…) non aiuta
+    const cs = costruzioneSbagliata(r, att, risposta);
+    if (cs) return cs;
     if (verbo && (r === norm(verbo) || r.split(" ").every(x => AUSILIARI.has(x) || formeDi(verbo).includes(x)))) return "";
     // "ci sei quasi" solo per un errore di battitura: se la parola diversa esiste
     // davvero (anybody al posto di nobody, isn't al posto di hasn't) è un errore vero
