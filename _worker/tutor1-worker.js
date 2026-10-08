@@ -121,6 +121,8 @@ function creaMotore(UNIT) {
   - rileggi la frase completata con la risposta attesa: deve essere logica e naturale (una persona con una giacca pesante non "must be cold");
   - per il tipo completa "attese" contiene SOLO le parole che vanno nello spazio, mai quelle già scritte nella frase prima o dopo lo spazio (frase "They were still ___ (do) their homework" → attese "doing", non "were still doing"); per il tipo riscrivi la frase intera;
   - frasi naturali, situazioni quotidiane adatte a ragazzi di 16-18 anni, nomi e ambienti sempre diversi;
+  - IN CONTESTO, non frasi isolate: di solito una o due frasi brevi che raccontano la situazione (chi, dove, quando, che cosa è successo) e poi la frase con lo spazio, al massimo 300 caratteri in tutto. È la situazione a far capire la risposta: non mettere segnali che la rendono automatica (already → had, every day → present simple), a meno che le indicazioni del punto non li chiedano;
+  - varia i formati, salvo che le indicazioni del punto ne chiedano uno preciso: più o meno una domanda su tre è di tipo riscrivi (correggere un errore, oppure unire due frasi in una con la parola indicata in maiuscolo nella consegna), con tutte le forme corrette nelle attese;
   - mai una frase già usata in questa sessione e mai la stessa struttura con solo il nome cambiato;
   - niente domande in forma negativa, niente traduzioni dall'italiano;
   - usa SOLO i tempi ammessi per l'argomento (te li indico ogni volta), né nelle frasi né nelle risposte attese;
