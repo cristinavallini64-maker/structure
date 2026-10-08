@@ -179,7 +179,7 @@ function creaMotore(UNIT) {
   Le tue domande riguardano SEMPRE la situazione delle frasi (chi fa che cosa, quando, quante volte, se è finita o è ancora in corso, se dura o è un attimo). Non chiedere MAI allo studente di spiegare, formulare o descrivere la regola, né "perché secondo te si usa…": lo studente deve capire le frasi e saper usare la struttura, non spiegarla.
 
   ## SE NON CI ARRIVA
-  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). Non rispondere al posto dello studente: se sbaglia, NON dirgli che cosa succede nella frase ("la mamma è nel bel mezzo della preparazione" è già la risposta), fagli solo una domanda più stretta. A ogni tentativo l'aiuto si stringe:
+  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). Non rispondere al posto dello studente: se sbaglia, NON dirgli che cosa succede nella frase ("la mamma è nel bel mezzo della preparazione" è già la risposta), fagli solo una domanda più stretta. Quando la domanda chiede di notare una parola nelle frasi ("che cosa c'è al posto di I'll?", "che cosa c'è dopo told?"), NON scrivere tu quella parola: indica solo dove guardare ("guarda subito dopo she"). A ogni tentativo l'aiuto si stringe:
   - tentativi 1-2: fagli guardare un dettaglio preciso delle frasi;
   - dal tentativo 3: fai una domanda ancora più stretta su un dettaglio concreto delle frasi (es. "Leggi solo la seconda frase: che cosa fa il nonno adesso?"), senza mai dire tu la risposta. Nei passi in cui completa una frase puoi anche dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio"), ma mai la forma da scrivere né come si forma.
 
@@ -376,7 +376,7 @@ function creaMotore(UNIT) {
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
   // sempre vietato: dice che cosa aggiungere, togliere o spostare
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+["'«“]?(to|did|does|do)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
   // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
   // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
   const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
@@ -404,8 +404,10 @@ function creaMotore(UNIT) {
     // le domande-guida ("Quale verbo si usa con the truth?") vanno bene
     const frasi = String(testo || "").split(/(?<=[.!?])\s+/);
     const aff = frasi.filter(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx)).join(" ");
-    if (forte) return ENUNCIA_REGOLA.test(aff) || COME_SI_FORMA.test(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff);
-    if (ENUNCIA_REGOLA.test(aff) || direttivaRegola(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || GUIDA_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
+    // «"That" si usa quando…» resta una regola anche se parte dalla parola dello studente
+    const tutteAff = frasi.filter(f => !f.trim().endsWith("?")).join(" ");
+    if (forte) return ENUNCIA_REGOLA.test(tutteAff) || COME_SI_FORMA.test(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff);
+    if (ENUNCIA_REGOLA.test(tutteAff) || direttivaRegola(testo) || SPIEGA_PAROLA.test(aff) || TEMPO_SPIEGATO.test(aff) || TIPO_STRUTTURA.test(testo) || COME_SI_FORMA.test(testo) || GUIDA_FORMA.test(testo) || TIPO_DOMANDA.test(testo)) return true;
     return frasi.some(f => !f.trim().endsWith("?") && !sullErroreDelloStudente(f, ctx) && AFFERMA_REGOLA.test(f) && !/\b(vuol dire|significa)\b[^.]*"[^"]+"/i.test(f));
   }
 
@@ -433,7 +435,10 @@ function creaMotore(UNIT) {
   // «spiega», «non ho capito», «aiuto»: lo studente chiede la spiegazione del punto
   function vuoleSpiegazione(testo) {
     const t = String(testo || "").toLowerCase().trim().replace(/[?!.]+$/, "");
-    return t.split(/\s+/).length <= 5 && /^(spiega(mi)?( (meglio|ancora|di nuovo|la regola))?|spiegazione|la spiegazione|aiuto|aiutami|help|non (ho )?capito|non capisco|la regola|regola)$/.test(t);
+    if (t.split(/\s+/).length > 9) return false;
+    return /^(spiega(mi)?( (meglio|ancora|di nuovo|la regola))?|spiegazione|la spiegazione|aiuto|aiutami|help|non (ho )?capito|non capisco|la regola|regola)$/.test(t)
+      || /^(non (ho )?capito|non capisco|non so)\s+(cosa|che cosa|che) (devo|bisogna|si deve) (fare|scrivere)\b/.test(t)
+      || /^(cosa|che cosa|che) (devo|bisogna) (fare|scrivere)\b/.test(t);
   }
 
   function vuoleEsercizi(testo) {
@@ -615,7 +620,15 @@ function creaMotore(UNIT) {
   function costruzioneSbagliata(r, att, risposta) {
     const rw = r.split(" ");
     const auxR = rw.find(x => FAMIGLIA_AUS[x]);
-    if (!auxR) return "";                       // niente ausiliare: è la scelta del tempo, decide il modello
+    if (!auxR) return "";
+    // un modale in più («would have arrived» per «had arrived»): la parola sbagliata è il modale
+    const MODALI = ["would", "will", "could", "can", "should", "might", "may", "must"];
+    const attTutte = att.join(" ").split(" ");
+    const modaleInPiu = rw.find(x => MODALI.includes(x) && !attTutte.includes(x));
+    if (modaleInPiu) {
+      const scrittaM = String(risposta || "").split(/\s+/).find(w => norm(w).split(" ")[0] === modaleInPiu) || modaleInPiu;
+      return `Guarda come hai costruito il verbo: con «${scrittaM}» non ottieni il tempo che serve qui. Riprova.`;
+    }                       // niente ausiliare: è la scelta del tempo, decide il modello
     // si cita la parola come l'ha scritta lo studente (didn't, non did)
     const scritta = String(risposta || "").split(/\s+/).find(w => norm(w).split(" ")[0] === auxR) || auxR;
     const aw = att.map(a => a.split(" ")).find(w => w.some(x => FAMIGLIA_AUS[x]));
@@ -746,6 +759,19 @@ function creaMotore(UNIT) {
     return citati.some(c => norm(c).split(" ").some(w => att.has(w)));
   }
 
+  // «"He" vuole "was" o "were"?», «base o con "to"?»: una scelta fra due forme dà la risposta
+  function sceltaFraForme(testo, attese) {
+    const t = String(testo || "");
+    if (/\b(forma )?base o (con|la forma)\b|\bcon o senza\b/i.test(t)) return true;
+    const att = new Set((attese || []).map(a => norm(a).split(" ")).flat());
+    const re = /["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s+(?:o|oppure)\s+["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s*\?/g;
+    let m;
+    while ((m = re.exec(t))) {
+      if ([m[1], m[2]].some(x => norm(x).split(" ").some(w => att.has(w)))) return true;
+    }
+    return false;
+  }
+
   // «"Said" è corretto» davanti a una risposta sbagliata
   const LODA_PEZZO = /[«"“'‘][^«»"“”]{1,30}[»"”'’]\s*(è|e'|sono|va|vanno|era)\s*(proprio\s+)?(corrett|giust|bene|ok\b|perfett|esatt)/i;
 
@@ -781,6 +807,19 @@ function creaMotore(UNIT) {
     return TRADUZIONI.some(([en, it]) => en.test(a) && it.test(String(testo || "")));
   }
 
+  // Nei passi di osservazione la risposta è una parola delle frasi mostrate («che cosa c'è al posto di I'll?» → would):
+  // se il tutor la scrive prima dello studente, ha risposto al posto suo.
+  const NON_CHIAVE = new Set("i a e o in no se non la le il lo gli di da per come me con su tra fra un una che ma the and of to is it".split(" "));
+  function svelaOsservazione(testo, ps, risposta) {
+    const ob = String(ps.obiettivo || "").split(/\s+(?=Basta\b|Se\s|Chiedi\b|Non è arrivato)/)[0];
+    const visibili = new Set(norm((ps.mostra || []).join(" ")).split(" "));
+    const giaDetto = new Set(norm(`${ps.domanda || ""} ${risposta || ""}`).split(" "));
+    const chiave = norm(ob).split(" ").filter(w => w.length >= 2 && visibili.has(w) && !giaDetto.has(w) && !NON_CHIAVE.has(w));
+    if (!chiave.length) return false;
+    const t = ` ${norm(testo)} `;
+    return chiave.some(w => t.includes(` ${w} `));
+  }
+
   // la risposta differisce dall'attesa solo per was ↔ were
   function soloWasWere(risposta, attese) {
     const r = norm(risposta).split(" ");
@@ -796,7 +835,7 @@ function creaMotore(UNIT) {
 
   function messaggioGuida(testo, q, forte, risposta) {
     return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
-      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese);
+      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese);
   }
 
   function motivoGuida(testo, q, forte, risposta) {
@@ -806,6 +845,7 @@ function creaMotore(UNIT) {
     if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "") || traduceSoluzione(testo, q.attese)) return "contiene la soluzione";
     if (svelaParole(testo, q.attese, q.frase, risposta)) return "cita parole della soluzione";
     if (LODA_PEZZO.test(testo) || lodaVerboSbagliato(testo, risposta, q.attese)) return "loda un pezzo di risposta sbagliata";
+    if (sceltaFraForme(testo, q.attese)) return "scelta fra due forme";
     return "altro";
   }
 
@@ -1263,6 +1303,12 @@ function creaMotore(UNIT) {
   }
 
   function rispostaDiRiserva(classe, q, t, tentativo, domandaStudente, risposta) {
+    // dal 3° tentativo il controllo fisso non parte più: se l'errore è di costruzione, lo dico qui
+    if (risposta && q && q.tipo === "completa" && classe === "sbagliata") {
+      const rc = togliContesto(risposta, q.frase);
+      const cs = costruzioneSbagliata(norm(rc), q.attese.map(a => norm(togliContesto(a, q.frase))), rc);
+      if (cs) return cs;
+    }
     if (risposta && q && q.tipo === "completa" && classe === "sbagliata" && soloWasWere(risposta, q.attese)) return RISERVA_SOGGETTO;
     if (classe === "domanda" && domandaStudente) {
       const d = String(domandaStudente).toLowerCase();
@@ -1292,7 +1338,7 @@ function creaMotore(UNIT) {
     guida: "Il ragionamento va bene. Adesso scrivi nella frase la forma inglese del verbo.",
     sbagliata: "Non ancora. Rileggi tutta la frase: chi fa che cosa, e quando? Poi riprova. Se non ricordi la regola, scrivi «spiega».",
     non_so: "Nessun problema. Scrivi «spiega» e ti rimetto la spiegazione di questo punto, poi riprova.",
-    domanda: "Non riesco a risponderti bene: prova a farmi la domanda in un altro modo, oppure rileggi la frase e riprova.",
+    domanda: "Non riesco a risponderti bene. Se non ricordi la regola, scrivi «spiega»; altrimenti rileggi la frase e riprova.",
     fuori_tema: "Torniamo alla frase qui sotto: prova a completarla."
   };
 
@@ -1304,11 +1350,11 @@ function creaMotore(UNIT) {
   }
 
   const RISERVA_SCOPERTA = {
-    vicino: "Ci sei quasi. Rileggi le frasi qui sopra: che cosa manca alla tua risposta?",
-    non_ancora: "Rileggi con calma le frasi qui sopra: che cosa ti fanno capire?",
+    vicino: "Ci sei quasi. Rileggi le frasi qui sopra: che cosa manca alla tua risposta? Dopo 3 tentativi puoi chiedermi la soluzione.",
+    non_ancora: "Non ancora. Rileggi con calma le frasi qui sopra, una parola alla volta, e riprova. Dopo 3 tentativi puoi chiedermi la soluzione.",
     non_so: "Nessun problema. Rileggi la frase qui sopra, una parola alla volta: che cosa noti? Se ti serve, riguarda la spiegazione dell'unità.",
-    domanda: "Torniamo alle frasi qui sopra: che cosa ti fanno capire?",
-    fuori_tema: "Torniamo alle frasi qui sopra: che cosa ti fanno capire?",
+    domanda: "Non riesco a risponderti bene. Rileggi le frasi qui sopra e rispondi alla domanda con parole tue; dopo 3 tentativi puoi chiedermi la soluzione.",
+    fuori_tema: "Torniamo alle frasi qui sopra: rileggile e rispondi alla domanda con parole tue.",
     arrivato: "Esatto!"
   };
 
@@ -1317,6 +1363,8 @@ function creaMotore(UNIT) {
     if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
     if (ps.attese && (contieneSoluzione(m, ps.attese) || traduceSoluzione(m, ps.attese))) return "contiene la soluzione";
     if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
+    if (ps.attese && !arrivato && sceltaFraForme(m, ps.attese)) return "scelta fra due forme";
+    if (!ps.frase && !arrivato && svelaOsservazione(m, ps, risposta)) return "risponde al posto dello studente";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
     if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
@@ -1368,6 +1416,11 @@ function creaMotore(UNIT) {
     if (ps.frase) {
       diag.push({ riserva: "scoperta" });
       if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
+      if (ps.attese) {
+        const rc = togliContesto(risposta, ps.frase);
+        const cs = costruzioneSbagliata(norm(rc), ps.attese.map(x => norm(togliContesto(x, ps.frase))), rc);
+        if (cs) return { classe, messaggio: cs };
+      }
       const ind = suTempi(topic) ? indizioDallaFrase(ps.frase) : "";
       return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova.` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e quando? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
     }
@@ -1670,6 +1723,9 @@ function creaMotore(UNIT) {
         ? "In questa parte la regola la scopri tu: ecco di nuovo le frasi di prima, qui sopra. Guardale e poi completa la frase. Dopo 3 tentativi puoi chiedermi la soluzione."
         : "In questa parte la regola la scopri tu: rileggi le frasi qui sopra e rispondi con parole tue, anche con una parola sola. Dopo 3 tentativi puoi chiedermi la soluzione.";
       return vista({ ...s, vediEsempi: !!pu.frase || s.vediEsempi, fb: { tipo: "info", risposta: "", evidenzia: "", testo, riprova: false } });
+    }
+    if (!pu.frase && vuoleEsempi(risposta)) {
+      return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo: "Le frasi sono qui sopra: rileggile e rispondi alla domanda con parole tue, anche con una parola sola.", riprova: false } });
     }
     if (pu.frase && !s.vediEsempi && vuoleEsempi(risposta)) {
       return vista({ ...s, vediEsempi: true, fb: { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco di nuovo gli esempi, qui sopra. Adesso completa la frase.", riprova: false } });
