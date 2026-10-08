@@ -138,7 +138,7 @@ function creaMotore(UNIT) {
   - SBAGLIATA: classe "sbagliata". Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene», «il verbo è corretto»): se la frase dello studente è sbagliata, indica solo dove guardare. NON dai MAI la risposta giusta, a nessun tentativo: lo studente la deve scrivere da solo (se dopo 3 tentativi la chiede, gliela dà il programma, non tu). In "domanda" rimetti sempre la STESSA domanda.
     - In "errore" copia ESATTAMENTE, lettera per lettera, la parte sbagliata della risposta dello studente (una parola o poche parole), così il programma la evidenzia. Se manca qualcosa, copia la parola vicino al punto in cui manca.
     - Non enunciare la regola. Gli aiuti si stringono a ogni tentativo (il programma ti dice il livello):
-      - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. Se ha messo l'ausiliare sbagliato (was, did, have… al posto di quello che serve) o il verbo nella forma sbagliata dopo l'ausiliare, l'errore è di COSTRUZIONE: fagli guardare l'ausiliare e la forma del verbo che ha scritto ("Con was non ottieni il tempo che serve qui: quale ausiliare ci vuole, e il verbo dopo?"), NON l'indizio di tempo della frase, che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
+      - PRIMA di tutto capisci che tipo di errore è: tempo sbagliato (ha scelto la struttura sbagliata) oppure tempo giusto ma forma sbagliata (verbo irregolare, ortografia, -s mancante, was/were). Se il tempo è giusto e sbaglia solo la forma, DILLO ("Il tempo va bene, guarda la forma del verbo") e non richiedergli quello che ha già capito. ATTENZIONE: il participio da solo (flown, gone, eaten, written…) NON è il tempo giusto: si usa solo dopo have/had. Non dire mai "tempo corretto" se lo studente non ha usato proprio la struttura richiesta.
       - livello 1: fai notare l'indizio nella frase ("Guarda last Friday.", "Guarda since Monday: la cosa è finita o continua ancora?", "Hai riscritto solo un pezzo: riprova con tutta la frase.");
       - livello 2: una domanda più mirata sul significato ("È successo una volta sola o era un'abitudine?", "In quel momento l'azione era in corso o era finita?");
       - livello 3 e oltre: puoi dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio, non un aggettivo", "qui serve la forma di un'azione in corso"), e puoi indicare quale parola deve cambiare con una domanda ("come diventa 'add' quando qualcosa viene fatto?"), ma MAI la forma da scrivere né come si forma (niente "aggiungi -ly", niente desinenze); poi una domanda ancora più stretta sul pezzo preciso che non va, SENZA MAI scrivere la forma giusta, nemmeno dentro una scelta fra due forme ("Guarda la fine del verbo che hai scritto: che cosa manca?", "Alle 10 il cane stava facendo questa cosa in quel momento: come si dice un'azione in corso?", "Hai messo was: e il verbo dopo, in che forma deve essere?"). Cambia domanda a ogni tentativo.
@@ -170,7 +170,7 @@ function creaMotore(UNIT) {
   ## COME RISPONDI (campo "messaggio")
   - arrivato: conferma breve riprendendo le SUE parole (1 frase, al massimo 2). Non aggiungere spiegazioni e non anticipare il passo successivo. Nessuna domanda.
   - vicino: riconosci la parte giusta con le sue parole, poi fai UNA domanda che lo porti al pezzo mancante, appoggiandoti alle frasi mostrate.
-  - non_ancora: non dire "sbagliato" o "no". Nei passi in cui completa una frase, capisci prima che tipo di errore è: se ha scelto bene il tempo ma ha sbagliato la forma (verbo irregolare, ortografia), diglielo ("Il tempo va bene, guarda la forma del verbo") invece di richiedergli quello che ha già capito. Se ha messo l'ausiliare sbagliato (was, did, have… al posto di quello che serve) o il verbo nella forma sbagliata dopo l'ausiliare, l'errore è di COSTRUZIONE: fagli guardare l'ausiliare e la forma del verbo che ha scritto ("Con was non ottieni il tempo che serve qui: quale ausiliare ci vuole, e il verbo dopo?"), NON l'indizio di tempo della frase, che ha già capito. Il participio da solo (flown, gone, eaten…) NON è il tempo giusto: si usa solo dopo have/had; non dire mai "tempo corretto" in quel caso. Altrimenti riportalo a un dettaglio preciso delle frasi (una parola, un'espressione di tempo, chi parla) con UNA domanda.
+  - non_ancora: non dire "sbagliato" o "no". Nei passi in cui completa una frase, capisci prima che tipo di errore è: se ha scelto bene il tempo ma ha sbagliato la forma (verbo irregolare, ortografia), diglielo ("Il tempo va bene, guarda la forma del verbo") invece di richiedergli quello che ha già capito. Il participio da solo (flown, gone, eaten…) NON è il tempo giusto: si usa solo dopo have/had; non dire mai "tempo corretto" in quel caso. Altrimenti riportalo a un dettaglio preciso delle frasi (una parola, un'espressione di tempo, chi parla) con UNA domanda.
   - non_so: rassicuralo in poche parole e fai una domanda più facile su un dettaglio delle frasi.
   - domanda: una domanda non è una risposta sbagliata, rispondigli davvero. Se chiede il significato di una parola, diglielo; se chiede quale parola guardare, indicagliela; se chiede la regola, non dargliela: riportalo alle frasi con una domanda. Se chiede che cosa vuol dire una parola grammaticale delle frasi (might, should, unless, each other…), non dirlo: è proprio quello che deve scoprire; riportalo alla situazione con una domanda.
   - fuori_tema: riportalo alla domanda del passo.
@@ -179,7 +179,7 @@ function creaMotore(UNIT) {
   Le tue domande riguardano SEMPRE la situazione delle frasi (chi fa che cosa, quando, quante volte, se è finita o è ancora in corso, se dura o è un attimo). Non chiedere MAI allo studente di spiegare, formulare o descrivere la regola, né "perché secondo te si usa…": lo studente deve capire le frasi e saper usare la struttura, non spiegarla.
 
   ## SE NON CI ARRIVA
-  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). A ogni tentativo l'aiuto si stringe:
+  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). Non rispondere al posto dello studente: se sbaglia, NON dirgli che cosa succede nella frase ("la mamma è nel bel mezzo della preparazione" è già la risposta), fagli solo una domanda più stretta. A ogni tentativo l'aiuto si stringe:
   - tentativi 1-2: fagli guardare un dettaglio preciso delle frasi;
   - dal tentativo 3: fai una domanda ancora più stretta su un dettaglio concreto delle frasi (es. "Leggi solo la seconda frase: che cosa fa il nonno adesso?"), senza mai dire tu la risposta. Nei passi in cui completa una frase puoi anche dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio"), ma mai la forma da scrivere né come si forma.
 
@@ -376,10 +376,10 @@ function creaMotore(UNIT) {
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
   // sempre vietato: dice che cosa aggiungere, togliere o spostare
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*/i;
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+["'«“]?(to|did|does|do)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
   // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
   // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
-  const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b/i;
+  const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
   // prima del terzo tentativo: nemmeno la domanda "che modale/composto useresti?"
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
@@ -428,6 +428,12 @@ function creaMotore(UNIT) {
   function testoSoluzione(frase, sol) {
     const intera = String(frase || "").replace(/\s*\([^)]*\)/, "").replace("___", sol).replace(/\s+/g, " ").trim();
     return `La risposta giusta è «${sol}»: ${intera.charAt(0).toUpperCase() + intera.slice(1)}`;
+  }
+
+  // «spiega», «non ho capito», «aiuto»: lo studente chiede la spiegazione del punto
+  function vuoleSpiegazione(testo) {
+    const t = String(testo || "").toLowerCase().trim().replace(/[?!.]+$/, "");
+    return t.split(/\s+/).length <= 5 && /^(spiega(mi)?( (meglio|ancora|di nuovo|la regola))?|spiegazione|la spiegazione|aiuto|aiutami|help|non (ho )?capito|non capisco|la regola|regola)$/.test(t);
   }
 
   function vuoleEsercizi(testo) {
@@ -605,27 +611,6 @@ function creaMotore(UNIT) {
     return v || undefined;
   }
 
-  const FAMIGLIA_AUS = { had: "had", have: "have", has: "have", was: "was", were: "was", did: "did", do: "do", does: "do", am: "be", is: "be", are: "be" };
-  function costruzioneSbagliata(r, att, risposta) {
-    const rw = r.split(" ");
-    const auxR = rw.find(x => FAMIGLIA_AUS[x]);
-    if (!auxR) return "";                       // niente ausiliare: è la scelta del tempo, decide il modello
-    // si cita la parola come l'ha scritta lo studente (didn't, non did)
-    const scritta = String(risposta || "").split(/\s+/).find(w => norm(w).split(" ")[0] === auxR) || auxR;
-    const aw = att.map(a => a.split(" ")).find(w => w.some(x => FAMIGLIA_AUS[x]));
-    if (!aw) return "";                         // la risposta attesa non ha ausiliare (past simple…)
-    const auxA = aw.find(x => FAMIGLIA_AUS[x]);
-    const verbiA = aw.filter(x => !AUSILIARI.has(x));
-    const verbiR = rw.filter(x => !AUSILIARI.has(x));
-    if (FAMIGLIA_AUS[auxR] !== FAMIGLIA_AUS[auxA]) {
-      return verbiA.length
-        ? `Guarda come hai costruito il verbo: con «${scritta}» non ottieni il tempo che serve qui. Quale ausiliare ci vuole, e in che forma va il verbo dopo? Riprova.`
-        : `Con «${scritta}» non ottieni il tempo che serve qui: quale ausiliare ci vuole? Riprova.`;
-    }
-    if (verbiA.length && verbiR.join(" ") !== verbiA.join(" ")) return `Hai messo «${scritta}»: e il verbo dopo, in che forma deve essere? Riprova.`;
-    return "";
-  }
-
   function diagnosiForma(risposta, attese, frase) {
     const r = norm(risposta);
     if (!r || r.split(" ").length > 4) return "";
@@ -659,10 +644,6 @@ function creaMotore(UNIT) {
     if (verbo && !r.includes(" ") && formeDi(verbo).includes(r) && !att.includes(r)) {
       return `Hai scelto ${eVerbo(verbo) ? "il verbo giusto" : "la parola giusta"}, ma la forma non lo è. Riprova.`;
     }
-    // ausiliare sbagliato («was not sleep» per «hadn't slept») o verbo sbagliato dopo l'ausiliare giusto
-    // («had sleep»): è un errore di costruzione, e l'indizio di tempo (before, last week…) non aiuta
-    const cs = costruzioneSbagliata(r, att, risposta);
-    if (cs) return cs;
     if (verbo && (r === norm(verbo) || r.split(" ").every(x => AUSILIARI.has(x) || formeDi(verbo).includes(x)))) return "";
     // "ci sei quasi" solo per un errore di battitura: se la parola diversa esiste
     // davvero (anybody al posto di nobody, isn't al posto di hasn't) è un errore vero
@@ -757,7 +738,7 @@ function creaMotore(UNIT) {
     if (!coppie.length) return false;
     const t = String(testo || "").toLowerCase();
     if (!/(→|->|divent|cambia|trasform|passa a)/.test(t)) return false;
-    const parola = w => new RegExp(`(^|[^a-z'])${w.replace(/'/g, "'")}([^a-z']|$)`).test(t);
+    const parola = w => new RegExp(`(^|[^a-z'])${w.replace(/'/g, "'")}(?=[^a-z']|'[a-z]|$)`).test(t);
     return coppie.some(([a, b]) => parola(a) && parola(b));
   }
 
@@ -1284,8 +1265,8 @@ function creaMotore(UNIT) {
 
   const RISERVA_PRATICA = {
     guida: "Il ragionamento va bene. Adesso scrivi nella frase la forma inglese del verbo.",
-    sbagliata: "Non ancora. Rileggi tutta la frase e chiediti che cosa succede, poi riprova. Se ti serve, riguarda la spiegazione dell'unità.",
-    non_so: "Nessun problema. Rileggi la frase: chi fa che cosa, e in che situazione? Se ti serve, riguarda la spiegazione dell'unità.",
+    sbagliata: "Non ancora. Rileggi tutta la frase: chi fa che cosa, e quando? Poi riprova. Se non ricordi la regola, scrivi «spiega».",
+    non_so: "Nessun problema. Scrivi «spiega» e ti rimetto la spiegazione di questo punto, poi riprova.",
     domanda: "Non riesco a risponderti bene: prova a farmi la domanda in un altro modo, oppure rileggi la frase e riprova.",
     fuori_tema: "Torniamo alla frase qui sotto: prova a completarla."
   };
@@ -1313,7 +1294,7 @@ function creaMotore(UNIT) {
     if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
-    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
     const rif = m.match(/\bfrase (?:di|del|della|dello|dei|delle|sul|sulla|con)\s+(?:l')?([A-Za-zà-ÿ]+)/i);
     if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
@@ -1363,7 +1344,7 @@ function creaMotore(UNIT) {
       diag.push({ riserva: "scoperta" });
       if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
       const ind = suTempi(topic) ? indizioDallaFrase(ps.frase) : "";
-      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova.` : "Rileggi bene la frase da completare: che cosa succede, e come? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
+      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova.` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e quando? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
     }
     return { classe, messaggio: RISERVA_SCOPERTA[classe] };
   }
@@ -1548,6 +1529,11 @@ function creaMotore(UNIT) {
       if (!nuova) return ERRORE();
       return vista(conDomanda({ ...s, tent: 0, streak: s.streak }, nuova, { tipo: "info", risposta: "", evidenzia: "", testo: "Questa frase non era scritta bene: eccone un'altra.", riprova: false }));
     }
+    if (s.q && vuoleSpiegazione(risposta)) {
+      const punto = UNIT.topics[tappa[0]] && UNIT.topics[tappa[0]].points[tappa[1]];
+      const testo = punto ? `Ecco la spiegazione di questo punto (${punto.titolo}):\n${punto.regola}\nAdesso riprova la frase.` : "Riguarda la spiegazione qui sopra, poi riprova la frase.";
+      return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo, riprova: false } });
+    }
     if (chiedeSoluzione(risposta)) {
       if (s.tent < TENTATIVI_PER_SOLUZIONE) {
         const mancano = TENTATIVI_PER_SOLUZIONE - s.tent;
@@ -1653,6 +1639,13 @@ function creaMotore(UNIT) {
       return vista({ ...n, sint: true });
     }
     const pu = sc.passi[s.passo];
+    if (vuoleSpiegazione(risposta)) {
+      // in SCOPRI la regola la trova lo studente: niente spiegazione, ma di nuovo le frasi
+      const testo = pu.frase
+        ? "In questa parte la regola la scopri tu: ecco di nuovo le frasi di prima, qui sopra. Guardale e poi completa la frase. Dopo 3 tentativi puoi chiedermi la soluzione."
+        : "In questa parte la regola la scopri tu: rileggi le frasi qui sopra e rispondi con parole tue, anche con una parola sola. Dopo 3 tentativi puoi chiedermi la soluzione.";
+      return vista({ ...s, vediEsempi: !!pu.frase || s.vediEsempi, fb: { tipo: "info", risposta: "", evidenzia: "", testo, riprova: false } });
+    }
     if (pu.frase && !s.vediEsempi && vuoleEsempi(risposta)) {
       return vista({ ...s, vediEsempi: true, fb: { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco di nuovo gli esempi, qui sopra. Adesso completa la frase.", riprova: false } });
     }
@@ -1665,7 +1658,7 @@ function creaMotore(UNIT) {
       const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
       const r2 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
       if (!r2) return ERRORE();
-      const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica.", riprova: false });
+      const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica. Se ti blocchi, scrivi «spiega».", riprova: false });
       return vista({ ...n, sint: true }, { outcome: "correct", message: "Esatto!\n\nBravo, hai finito questa parte. Nella prossima pagina trovi la regola riassunta." });
     }
     if (chiedeSoluzione(risposta)) {
@@ -1722,7 +1715,7 @@ function creaMotore(UNIT) {
     const base = { ...s, scop, fase: "pratica", passo: 0, ti: 0, streak: 0, tent: 0, hist: [] };
     const r2 = (allunga(), await apri(env, base, base.tappe[0], "learn"));
     if (!r2) return ERRORE();
-    const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica.", riprova: false });
+    const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica. Se ti blocchi, scrivi «spiega».", riprova: false });
     return vista({ ...n, sint: true }, { outcome: esito, message: `${r.messaggio}\n\nBravo, hai finito questa parte. Nella prossima pagina trovi la regola riassunta.` });
   }
 
