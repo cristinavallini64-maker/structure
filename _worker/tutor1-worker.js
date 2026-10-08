@@ -320,6 +320,9 @@ function creaMotore(UNIT) {
     if (typeof d.frase !== "string" || typeof d.consegna !== "string") return false;
     if (!Array.isArray(d.attese) || !d.attese.length || d.attese.some(a => typeof a !== "string" || !a.trim())) return false;
     if (d.frase.length > 300 || d.consegna.length > 200) return false;
+    // la frase dell'esercizio è in inglese: se contiene parole italiane frequenti, la scarto
+    const parIt = (` ${d.frase.toLowerCase().replace(/\([^)]*\)/g, " ")} `.match(/\s(il|lo|la|gli|che|per|ma|non|era|sono|suo|sua|suoi|ieri|quando|mentre|stava|ha|ho|con|della|del|alla|al|nel|nella|è)\s/g) || []).length;
+    if (parIt >= 2) return false;
     const buchi = (d.frase.match(/___/g) || []).length;
     if (d.tipo === "completa" && buchi !== 1) return false;
     if (d.tipo === "completa" && senzaSoggetto(d.frase)) return false;
@@ -1242,8 +1245,8 @@ function creaMotore(UNIT) {
 
   COMPITO: fai la prima domanda su questo punto. Niente spiegazioni e niente esempi: nel messaggio al massimo due parole di invito ("Proviamo.") oppure niente. Usa classe "apertura".
   OBBLIGATORIO, vale più delle indicazioni del punto:
-  1. SITUAZIONE: in "frase" scrivi prima una o due frasi brevi che raccontano la situazione (chi, dove, che cosa succede), poi la frase con lo spazio. Niente frasi isolate che cominciano con un segnale di tempo ("At 9 last night I ___…", "Yesterday at 7 p.m. …"): è la situazione a far capire la risposta.
-  2. COMPRENSIONE, NON SOLO APPLICAZIONE: la "domanda" ha come risposta la forma di questo punto; la "riserva" invece deve avere come risposta L'ALTRA forma, quella con cui questa si confonde più spesso tra quelle ammesse per l'argomento (per esempio past simple invece di past continuous, past simple invece di present perfect, might invece di will, which invece di who). Il racconto della riserva deve rendere giusta solo quella.
+  1. SITUAZIONE: "frase" è TUTTA IN INGLESE (solo la consegna è in italiano). Scrivi prima una o due frasi brevi in inglese che raccontano la situazione (chi, dove, che cosa succede), poi la frase con lo spazio. Niente frasi isolate che cominciano con un segnale di tempo ("At 9 last night I ___…", "Yesterday at 7 p.m. …"): è la situazione a far capire la risposta.
+  2. COMPRENSIONE, NON SOLO APPLICAZIONE: la "domanda" ha come risposta la forma di questo punto; la "riserva" invece deve SEMPRE avere come risposta L'ALTRA forma, quella con cui questa si confonde più spesso tra quelle ammesse per l'argomento (per esempio past simple invece di past continuous, past simple invece di present perfect, might invece di will, which invece di who). Il racconto della riserva deve rendere giusta solo quella.
   3. CONSEGNA: per tutte e due la consegna è "Leggi e scegli tu la forma giusta: non è sempre la stessa."
   Se la struttura del punto non ha una forma alternativa (per esempio question tags, ordine degli aggettivi), ignora il punto 2 e usa la consegna normale.`;
     // fino a 3 domande: se i controlli ne scartano due, la terza di solito passa
