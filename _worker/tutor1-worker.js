@@ -1228,10 +1228,24 @@ function creaMotore(UNIT) {
   </verbi_gia_usati_NON_usarli>`;
   }
 
+  // almeno una frase prima di quella con lo spazio, oppure un dialogo
+  function haSituazione(d) {
+    if (!d || d.tipo !== "completa") return true;
+    const f = String(d.frase || "");
+    if (/[—–]|\?\s*[-—–]/.test(f)) return true;
+    const prima = f.split("___")[0];
+    return /[.!?:]\s+\S/.test(prima) || /[.!?]\s*$/.test(prima.trim()) && prima.trim().length > 0;
+  }
+
   async function apri(env, s, tappa, modo) {
     const user = `${contesto(s, tappa, modo)}
 
-  COMPITO: fai la prima domanda su questo punto. Niente spiegazioni e niente esempi: nel messaggio al massimo due parole di invito ("Proviamo.") oppure niente. Usa classe "apertura".`;
+  COMPITO: fai la prima domanda su questo punto. Niente spiegazioni e niente esempi: nel messaggio al massimo due parole di invito ("Proviamo.") oppure niente. Usa classe "apertura".
+  OBBLIGATORIO, vale più delle indicazioni del punto:
+  1. SITUAZIONE: in "frase" scrivi prima una o due frasi brevi che raccontano la situazione (chi, dove, che cosa succede), poi la frase con lo spazio. Niente frasi isolate che cominciano con un segnale di tempo ("At 9 last night I ___…", "Yesterday at 7 p.m. …"): è la situazione a far capire la risposta.
+  2. COMPRENSIONE, NON SOLO APPLICAZIONE: la "domanda" ha come risposta la forma di questo punto; la "riserva" invece deve avere come risposta L'ALTRA forma, quella con cui questa si confonde più spesso tra quelle ammesse per l'argomento (per esempio past simple invece di past continuous, past simple invece di present perfect, might invece di will, which invece di who). Il racconto della riserva deve rendere giusta solo quella.
+  3. CONSEGNA: per tutte e due la consegna è "Leggi e scegli tu la forma giusta: non è sempre la stessa."
+  Se la struttura del punto non ha una forma alternativa (per esempio question tags, ordine degli aggettivi), ignora il punto 2 e usa la consegna normale.`;
     // fino a 3 domande: se i controlli ne scartano due, la terza di solito passa
     let ripiego = null;
     for (let i = 0; i < 3; i++) {
@@ -1239,7 +1253,13 @@ function creaMotore(UNIT) {
       const r = await chiama(env, user);
       if (!r) { if (sovraccarico) break; continue; }
       if (r.messaggio.length > 80 || ENUNCIA_REGOLA.test(r.messaggio)) r.messaggio = "";
-      if (controllaDomanda(r.domanda, s.chiesti, r.messaggio, [], UNIT.topics[tappa[0]].vietate)) return r;
+      if (controllaDomanda(r.domanda, s.chiesti, r.messaggio, [], UNIT.topics[tappa[0]].vietate)) {
+        // preferisco le domande con la situazione prima della frase: se manca, riprovo (e tengo questa di riserva)
+        if (haSituazione(r.domanda) || i === 2 || restante() < 8000) return r;
+        if (!ripiego) ripiego = r;
+        diag.push({ domandaScartata: r.domanda.frase, motivo: "senza situazione" });
+        continue;
+      }
       // scartata solo perché il verbo è già stato usato: la tengo di riserva, meglio di nessuna domanda
       if (!ripiego && controllaDomanda(r.domanda, s.chiesti.filter(x => !String(x).startsWith("verbo:")), r.messaggio, [], UNIT.topics[tappa[0]].vietate)) ripiego = r;
       diag.push({ domandaScartata: r.domanda && (r.domanda.frase || r.domanda.consegna) });
