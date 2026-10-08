@@ -179,7 +179,7 @@ function creaMotore(UNIT) {
   Le tue domande riguardano SEMPRE la situazione delle frasi (chi fa che cosa, quando, quante volte, se è finita o è ancora in corso, se dura o è un attimo). Non chiedere MAI allo studente di spiegare, formulare o descrivere la regola, né "perché secondo te si usa…": lo studente deve capire le frasi e saper usare la struttura, non spiegarla.
 
   ## SE NON CI ARRIVA
-  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). Non rispondere al posto dello studente: se sbaglia, NON dirgli che cosa succede nella frase ("la mamma è nel bel mezzo della preparazione" è già la risposta), fagli solo una domanda più stretta. Quando la domanda chiede di notare una parola nelle frasi ("che cosa c'è al posto di I'll?", "che cosa c'è dopo told?"), NON scrivere tu quella parola: indica solo dove guardare ("guarda subito dopo she"). A ogni tentativo l'aiuto si stringe:
+  Chiama i tempi con il loro nome inglese (past perfect, present perfect…), mai con nomi italiani inventati. Sul significato delle parole sii preciso (striped = a righe, non un colore). Non dai MAI la risposta del passo: lo studente ci deve arrivare da solo. Non dire mai che un pezzo di una risposta sbagliata è giusto («"said" va bene»): indica solo dove guardare. Non nominare frasi o persone che lo studente non vede più ("nella frase di Irene"). Non rispondere al posto dello studente: il tuo indizio deve sempre far guardare UNA PAROLA delle frasi mostrate ("guarda «that place»: perché non this?"), mai raccontare la situazione ("Elisa parla lunedì da casa: è ancora al bar?" è già la risposta). Se sbaglia, NON dirgli che cosa succede nella frase ("la mamma è nel bel mezzo della preparazione" è già la risposta), fagli solo una domanda più stretta. Quando la domanda chiede di notare una parola nelle frasi ("che cosa c'è al posto di I'll?", "che cosa c'è dopo told?"), NON scrivere tu quella parola: indica solo dove guardare ("guarda subito dopo she"). A ogni tentativo l'aiuto si stringe:
   - tentativi 1-2: fagli guardare un dettaglio preciso delle frasi;
   - dal tentativo 3: fai una domanda ancora più stretta su un dettaglio concreto delle frasi (es. "Leggi solo la seconda frase: che cosa fa il nonno adesso?"), senza mai dire tu la risposta. Nei passi in cui completa una frase puoi anche dire che TIPO di struttura serve, con parole generiche ("qui serve un tempo passato", "qui ci vuole un avverbio"), ma mai la forma da scrivere né come si forma.
 
@@ -379,7 +379,7 @@ function creaMotore(UNIT) {
   const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\bprima o dopo\b|\b(chi|cosa|che cosa) viene prima\b|l'ordine (tra|fra|di|delle parole tra)\b|\bquale\b[^.?!]{0,30}\bviene prima\b|come si dice ["'«“]?[^"'»”?]{1,25}["'»”]? in inglese|usare\s+["'«“]|\bnon serve\s+["'«“]?\w+|\bdopo [^.?!]{1,25} dovresti\b|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
   // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
   // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
-  const GUIDA_FORMA = /come diventa|come (lo|la|li|le|l')\s*(scriveresti|metteresti|cambieresti|trasformeresti|riscriveresti)\b|\bcome (cambia|cambiano|cambi|trasformi|scrivi|metti)\b|\bdove (va|vanno) mess[oaie]\b|\bdove (si mette|metti|mettiamo|mettere)\b|\b(rendere|rendi|rendo)\b[^.?!]{0,25}(negativ|interrogativ)|\btrasform\w*[^.?!]{0,25}\bin una domanda|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
+  const GUIDA_FORMA = /come diventa|come (lo|la|li|le|l')\s*(scriveresti|metteresti|cambieresti|trasformeresti|riscriveresti)\b|\bcome (cambia|cambiano|cambi|trasformi|scrivi|metti)\b|\bdove (va|vanno) mess[oaie]\b|\bdove (si mette|metti|mettiamo|mettere)\b|\b(rendere|rendi|rendo)\b[^.?!]{0,25}(negativ|interrogativ)|\btrasform\w*[^.?!]{0,25}\bin una domanda|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare|serve davvero|ci vuole davvero|ti serve (davvero )?(quel|quella|il|la|lo)\b/i;
   // prima del terzo tentativo: nemmeno la domanda "che modale/composto useresti?"
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
@@ -1403,6 +1403,17 @@ function creaMotore(UNIT) {
     arrivato: "Esatto!"
   };
 
+  // Nelle domande di Scopri l'indizio deve far guardare una parola delle frasi mostrate
+  // («guarda "that place"…»), non raccontare la situazione: «Elisa parla lunedì da casa:
+  // è ancora al bar?» dice già la risposta.
+  const PAROLE_ANCHE_ITALIANE = new Set("a i in no so me come se e o era sono dove".split(" "));
+  function indicaDoveGuardare(m, ps) {
+    const vis = new Set();
+    (ps.mostra || []).join(" ").replace(/[A-Za-z']+/g, w => { if (w === w.toLowerCase() && w.length >= 2) vis.add(w); return w; });
+    const parole = String(m || "").match(/[A-Za-z']+/g) || [];
+    return parole.some(w => w === w.toLowerCase() && vis.has(w) && !PAROLE_ANCHE_ITALIANE.has(w));
+  }
+
   function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
     const arrivato = a.classe === "arrivato";
     if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
@@ -1410,6 +1421,7 @@ function creaMotore(UNIT) {
     if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
     if (ps.attese && !arrivato && sceltaFraForme(m, ps.attese)) return "scelta fra due forme";
     if (!ps.frase && !arrivato && svelaOsservazione(m, ps, risposta)) return "risponde al posto dello studente";
+    if (!ps.frase && !arrivato && a.classe !== "domanda" && !indicaDoveGuardare(m, ps)) return "racconta la situazione invece di indicare una parola delle frasi";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
     if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|hai (appena )?letto|frase che hai letto|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
