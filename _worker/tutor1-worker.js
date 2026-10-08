@@ -376,10 +376,10 @@ function creaMotore(UNIT) {
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
   // sempre vietato: dice che cosa aggiungere, togliere o spostare
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\bprima o dopo\b|\b(chi|cosa|che cosa) viene prima\b|l'ordine (tra|fra)\b|come si dice ["'«“]?[^"'»”?]{1,25}["'»”]? in inglese|usare\s+["'«“]|\bnon serve\s+["'«“]?\w+|\bdopo [^.?!]{1,25} dovresti\b|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\bprima o dopo\b|\b(chi|cosa|che cosa) viene prima\b|l'ordine (tra|fra|di|delle parole tra)\b|\bquale\b[^.?!]{0,30}\bviene prima\b|come si dice ["'«“]?[^"'»”?]{1,25}["'»”]? in inglese|usare\s+["'«“]|\bnon serve\s+["'«“]?\w+|\bdopo [^.?!]{1,25} dovresti\b|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
   // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
   // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
-  const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
+  const GUIDA_FORMA = /come diventa|come (lo|la|li|le|l')\s*(scriveresti|metteresti|cambieresti|trasformeresti|riscriveresti)\b|\bcome (cambia|cambiano|cambi|trasformi|scrivi|metti)\b|\bdove (va|vanno) mess[oaie]\b|\bdove (si mette|metti|mettiamo|mettere)\b|\b(rendere|rendi|rendo)\b[^.?!]{0,25}(negativ|interrogativ)|\btrasform\w*[^.?!]{0,25}\bin una domanda|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
   // prima del terzo tentativo: nemmeno la domanda "che modale/composto useresti?"
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
@@ -819,7 +819,12 @@ function creaMotore(UNIT) {
     const giaDetto = new Set(norm(`${ps.domanda || ""} ${risposta || ""}`).split(" "));
     const parole = x => norm(x || "").split(" ").filter(w => w.length >= 2 && visibili.has(w) && !giaDetto.has(w) && !NON_CHIAVE.has(w));
     // la risposta breve dopo «Basta» se è fatta di parole delle frasi, altrimenti la prima parte dell'obiettivo
-    const chiave = parole(basta).length ? parole(basta) : parole(primo);
+    // le parole delle frasi contano solo se la domanda chiede proprio una parola («che cosa c'è al posto di I'll?»);
+    // per le domande di significato («lo dice adesso o ieri?») indicare la parola da guardare va bene
+    const chiedeParola = /\b(che cosa|cosa|quale parola|che parola|quali|di quali|al posto di|davanti a)\b/i.test(ps.domanda || "");
+    const chiave = parole(basta).length ? parole(basta) : (chiedeParola ? parole(primo) : []);
+    // la risposta breve in italiano («i pronomi», «la prima», «sabato») non va scritta nemmeno lei
+    norm(basta || "").split(" ").filter(w => w.length >= 4 && !NON_CHIAVE.has(w) && !giaDetto.has(w)).forEach(w => chiave.push(w));
     if (!chiave.length) return false;
     const t = ` ${norm(testo)} `;
     return chiave.some(w => t.includes(` ${w} `));
@@ -836,11 +841,25 @@ function creaMotore(UNIT) {
       return diverse > 0;
     });
   }
-  const RISERVA_SOGGETTO = "Guarda bene il soggetto del verbo: chi è? Poi riprova.";
+  const RISERVA_SOGGETTO = "Guarda bene il soggetto del verbo: chi è? Poi riprova. Se ti blocchi, scrivi «spiega».";
 
+
+  // «Nella frase "You'd better leave"…»: cita fra virgolette un pezzo di frase inglese che lo studente non ha davanti
+  const RIF_PRECEDENTE = /(frase che hai (appena )?letto|hai appena letto|(frase|esempio|frasi|esempi) precedent|frase di prima|esempi(o)? di prima|esempio iniziale|abbiamo (visto|scritto|trasformato|usato|messo)|visto prima|la frase con\b)/i;
+  function citaFraseInvisibile(testo, visibile) {
+    if (RIF_PRECEDENTE.test(String(testo || ""))) return true;
+    const vis = new Set(norm(visibile || "").split(" "));
+    const pezzi = [];
+    String(testo || "").replace(/[«"“]([^«»"“”]{5,80})[»"”]/g, (_, x) => { pezzi.push(x); return _; });
+    return pezzi.some(x => {
+      const w = x.trim().split(/\s+/);
+      if (w.length < 3 || !w.every(p => /^[A-Za-z',.!?-]+$/.test(p))) return false;
+      return norm(x).split(" ").filter(Boolean).some(p => !vis.has(p));
+    });
+  }
   function messaggioGuida(testo, q, forte, risposta) {
     return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
-      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese);
+      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese) && !citaFraseInvisibile(testo, `${q.frase} ${risposta || ""}`);
   }
 
   function motivoGuida(testo, q, forte, risposta) {
@@ -851,6 +870,7 @@ function creaMotore(UNIT) {
     if (svelaParole(testo, q.attese, q.frase, risposta)) return "cita parole della soluzione";
     if (LODA_PEZZO.test(testo) || lodaVerboSbagliato(testo, risposta, q.attese)) return "loda un pezzo di risposta sbagliata";
     if (sceltaFraForme(testo, q.attese)) return "scelta fra due forme";
+    if (citaFraseInvisibile(testo, `${q.frase} ${risposta || ""}`)) return "cita frasi che lo studente non vede";
     return "altro";
   }
 
@@ -1022,6 +1042,24 @@ function creaMotore(UNIT) {
   let diag = [];
   let inizioRichiesta = 0;
   const scarta = (m, motivo) => { diag.push({ scartato: String(m || "").slice(0, 300), motivo }); return true; };
+  // Quando un messaggio di Gemini viene scartato, al tentativo successivo gli si dice perché:
+  // così riscrive l'indizio invece di ripetere lo stesso errore e finire nel messaggio di riserva.
+  const PERCHE_SCARTO = [
+    [/regola|osservazione: regola|desinenz/, "enuncia la regola, oppure dice che cosa scrivere, aggiungere, togliere, spostare o invertire"],
+    [/frasi che lo studente non vede|persona che lo studente non vede/, "cita frasi o esempi che lo studente non vede più"],
+    [/soluzione|trasformazione|scelta fra due forme/, "scrive la risposta, anche solo in parte, tradotta in italiano o dentro una scelta fra due forme"],
+    [/risponde al posto/, "scrive la parola o la risposta che lo studente deve trovare da solo"],
+    [/loda/, "dice che un pezzo della risposta sbagliata è giusto"],
+    [/tempo verbale/, "dice che il tempo va bene, e non è vero"],
+    [/senza domanda/, "non finisce con una domanda"]
+  ];
+  function notaRifiuto(m, motivo, tentativo) {
+    const perche = (PERCHE_SCARTO.find(([re]) => re.test(motivo)) || [null, "non rispetta il metodo"])[1];
+    return `<messaggio_scartato>
+  Il tuo messaggio precedente («${String(m || "").slice(0, 200)}») è stato scartato dal programma perché ${perche}.
+  Scrivi un messaggio NUOVO e diverso. Va bene: commentare la parola sbagliata scritta dallo studente ("«wooden» descrive il materiale"), oppure fare UNA domanda sulla situazione della frase (chi fa che cosa, quando, se è finita o è in corso, quante persone, se è permesso o vietato). Non scrivere la risposta, nemmeno in parte o tradotta, non offrire scelte fra due forme, non enunciare la regola, non dire che cosa aggiungere, togliere o spostare, non citare frasi che lo studente non vede.${(tentativo || 0) < 3 ? " Non dire nemmeno quale parola deve cambiare." : ""} Chiudi con una domanda.
+  </messaggio_scartato>`;
+  }
   // l'ultimo passo di SCOPRI chiama il modello due volte: per la seconda chiamata allungo la scadenza (la pagina aspetta 45 s)
   const allunga = () => { scadenza = Math.max(scadenza, Math.min(inizioRichiesta + 42000, Date.now() + 20000)); };
   let sovraccarico = false;
@@ -1213,9 +1251,11 @@ function creaMotore(UNIT) {
   COMPITO: reagisci alla risposta come indicato nel metodo.`;
 
     let candidato = null;
-    for (let i = 0; i < 2; i++) {
-      if (i > 0 && restante() < 5000) break;
-      const r = await chiama(env, user);
+    let rifiuto = "";
+    const scarta = (m, motivo) => { diag.push({ scartato: String(m || "").slice(0, 300), motivo }); rifiuto = notaRifiuto(m, motivo, tentativo); return true; };
+    for (let i = 0; i < 3; i++) {
+      if (i > 0 && restante() < (i > 1 ? 8000 : 5000)) break;
+      const r = await chiama(env, rifiuto ? `${user}\n\n${rifiuto}` : user);
       if (!r) { if (sovraccarico) break; continue; }
       if (r.classe === "apertura") continue;
       if (chiede) r.classe = "domanda";
@@ -1328,7 +1368,7 @@ function creaMotore(UNIT) {
     const ind = q && q.tipo === "completa" && suTempi(t) ? indizioDallaFrase(q.frase) : "";
     if (ind && (classe === "domanda" || classe === "non_so" || classe === "sbagliata")) {
       const inizio = classe === "domanda" ? "L'indizio è" : "Guarda";
-      return `${inizio} «${ind}». Che cosa ti dice su quello che succede nella frase? Poi riprova.`;
+      return `${inizio} «${ind}». Che cosa ti dice su quello che succede nella frase? Poi riprova. Se non ricordi la regola, scrivi «spiega».`;
     }
     if (q && q.tipo === "riscrivi" && /\b[A-Z]{3,}\b/.test(q.consegna) && (classe === "sbagliata" || classe === "non_so")) {
       const chiave = q.consegna.match(/\b[A-Z]{3,}\b/)[0];
@@ -1344,7 +1384,7 @@ function creaMotore(UNIT) {
     sbagliata: "Non ancora. Rileggi tutta la frase: chi fa che cosa, e quando? Poi riprova. Se non ricordi la regola, scrivi «spiega».",
     non_so: "Nessun problema. Scrivi «spiega» e ti rimetto la spiegazione di questo punto, poi riprova.",
     domanda: "Non riesco a risponderti bene. Se non ricordi la regola, scrivi «spiega»; altrimenti rileggi la frase e riprova.",
-    fuori_tema: "Torniamo alla frase qui sotto: prova a completarla."
+    fuori_tema: "Torniamo alla frase qui sotto: prova a completarla. Se non ricordi la regola, scrivi «spiega»."
   };
 
   async function domandaNuova(env, s, tappa, r) {
@@ -1357,9 +1397,9 @@ function creaMotore(UNIT) {
   const RISERVA_SCOPERTA = {
     vicino: "Ci sei quasi. Rileggi le frasi qui sopra: che cosa manca alla tua risposta? Dopo 3 tentativi puoi chiedermi la soluzione.",
     non_ancora: "Non ancora. Rileggi con calma le frasi qui sopra, una parola alla volta, e riprova. Dopo 3 tentativi puoi chiedermi la soluzione.",
-    non_so: "Nessun problema. Rileggi la frase qui sopra, una parola alla volta: che cosa noti? Se ti serve, riguarda la spiegazione dell'unità.",
+    non_so: "Nessun problema. Rileggi le frasi qui sopra, una parola alla volta, e rispondi con parole tue. Dopo 3 tentativi puoi chiedermi la soluzione.",
     domanda: "Non riesco a risponderti bene. Rileggi le frasi qui sopra e rispondi alla domanda con parole tue; dopo 3 tentativi puoi chiedermi la soluzione.",
-    fuori_tema: "Torniamo alle frasi qui sopra: rileggile e rispondi alla domanda con parole tue.",
+    fuori_tema: "Torniamo alle frasi qui sopra: rileggile e rispondi alla domanda con parole tue. Dopo 3 tentativi puoi chiedermi la soluzione.",
     arrivato: "Esatto!"
   };
 
@@ -1372,7 +1412,8 @@ function creaMotore(UNIT) {
     if (!ps.frase && !arrivato && svelaOsservazione(m, ps, risposta)) return "risponde al posto dello studente";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
-    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|hai (appena )?letto|frase che hai letto|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
+    if (ps.frase && !s.vediEsempi && citaFraseInvisibile(m, `${ps.frase} ${risposta || ""}`)) return "cita frasi che lo studente non vede";
     const rif = m.match(/\bfrase (?:di|del|della|dello|dei|delle|sul|sulla|con)\s+(?:l')?([A-Za-zà-ÿ]+)/i);
     if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
@@ -1404,16 +1445,17 @@ function creaMotore(UNIT) {
   </risposta_dello_studente>
   ${chiede ? "Lo studente NON ha risposto: ti ha fatto una DOMANDA. Rispondigli davvero (classe domanda): se chiede quale parola guardare, indicagliela; se chiede il significato di una parola, diglielo; non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
-    for (let i = 0; i < 2; i++) {
-      if (i > 0 && restante() < 5000) break;
-      const a = await chiamaRaw(env, METODO_SCOPERTA, user, TOOL_SCOPERTA);
+    let rifiuto = "";
+    for (let i = 0; i < 3; i++) {
+      if (i > 0 && restante() < (i > 1 ? 8000 : 5000)) break;
+      const a = await chiamaRaw(env, METODO_SCOPERTA, rifiuto ? `${user}\n\n${rifiuto}` : user, TOOL_SCOPERTA);
       if (!a) { if (sovraccarico) break; continue; }
       if (!CLASSI_SCOPERTA.includes(a.classe) || typeof a.messaggio !== "string") continue;
       if (chiede) a.classe = "domanda";
       classe = a.classe;
       const m = a.messaggio.trim();
       const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo);
-      if (motivo) { scarta(m, motivo); continue; }
+      if (motivo) { scarta(m, motivo); rifiuto = notaRifiuto(m, motivo, tentativo); continue; }
       return { classe: a.classe, messaggio: m };
     }
     if (!classe) return null;
@@ -1427,7 +1469,7 @@ function creaMotore(UNIT) {
         if (cs) return { classe, messaggio: cs };
       }
       const ind = suTempi(topic) ? indizioDallaFrase(ps.frase) : "";
-      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova.` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e quando? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
+      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova. Se ti servono, scrivi «esempi».` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e quando? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
     }
     return { classe, messaggio: RISERVA_SCOPERTA[classe] };
   }
@@ -1652,7 +1694,7 @@ function creaMotore(UNIT) {
       const ind = indizioDallaFrase(s.q.frase);
       if (ind) {
         const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }).slice(-6);
-        return vista({ ...s, hist, fb: { tipo: "info", risposta: "", evidenzia: "", testo: `L'indizio è «${ind}». Che cosa ti dice su quello che succede nella frase? Poi riprova.`, riprova: false } });
+        return vista({ ...s, hist, fb: { tipo: "info", risposta: "", evidenzia: "", testo: `L'indizio è «${ind}». Che cosa ti dice su quello che succede nella frase? Poi riprova. Se non ricordi la regola, scrivi «spiega».`, riprova: false } });
       }
     }
     const nonSa = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non ne ho idea)\b/i.test(risposta.trim());
