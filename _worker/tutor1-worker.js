@@ -700,6 +700,12 @@ function creaMotore(UNIT) {
     // («had sleep»): è un errore di costruzione, e l'indizio di tempo (before, last week…) non aiuta
     const cs = costruzioneSbagliata(r, att, risposta);
     if (cs) return cs;
+    // modale + to («should to see»): risposta subito, senza aspettare Gemini
+    const modTo = r.match(/\b(should|must|can|could|might|may|will|would|better)\s+to\b/);
+    if (modTo && !att.some(a => a.includes(`${modTo[1]} to`))) {
+      const scritto = String(risposta || "").split(/\s+/).find(w => norm(w) === modTo[1]) || modTo[1];
+      return `Hai messo «${scritto}»: e subito dopo, che cosa ci va? Riprova.`;
+    }
     if (verbo && (r === norm(verbo) || r.split(" ").every(x => AUSILIARI.has(x) || formeDi(verbo).includes(x)))) return "";
     // "ci sei quasi" solo per un errore di battitura: se la parola diversa esiste
     // davvero (anybody al posto di nobody, isn't al posto di hasn't) è un errore vero
@@ -1492,7 +1498,8 @@ function creaMotore(UNIT) {
       if (motivo) { scarta(m, motivo); rifiuto = notaRifiuto(m, motivo, tentativo); continue; }
       return { classe: a.classe, messaggio: m };
     }
-    if (!classe) return null;
+    // Gemini lento o senza risposta: niente "il tutor non risponde", uso la riserva
+    if (!classe) { classe = chiede ? "domanda" : "non_ancora"; diag.push({ riserva: "gemini non ha risposto" }); }
     if (ps.attese && classe === "arrivato") classe = "non_ancora";
     if (ps.frase) {
       diag.push({ riserva: "scoperta" });
@@ -1743,8 +1750,13 @@ function creaMotore(UNIT) {
         return vista({ ...s, hist, streak: 0, tent: Math.min(tentativo, 19), fb: { tipo: "errore", risposta, evidenzia: nelTestoOriginale(diff.evidenzia, risposta) || risposta.trim(), testo: dia + (tentativo >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: true } });
       }
     }
-    const r = await valuta(env, s, tappa, s.mode, chiede || guida ? risposta : rc, coincide, Math.max(tentativo, 1), chiede, guida);
-    if (!r) return ERRORE();
+    let r = await valuta(env, s, tappa, s.mode, chiede || guida ? risposta : rc, coincide, Math.max(tentativo, 1), chiede, guida);
+    // Gemini lento o senza risposta: invece di "il tutor non risponde" do la riserva (con il comando «spiega»)
+    if (!r) {
+      diag.push({ riserva: "gemini non ha risposto" });
+      const classe = chiede ? "domanda" : guida ? "guida" : "sbagliata";
+      r = { classe, messaggio: guida ? RISERVA_PRATICA.guida : rispostaDiRiserva(classe, s.q, tappa[0], Math.max(tentativo, 1), chiede ? risposta : "", risposta), errore: "", aggiunte: [] };
+    }
     if (nonSa && r.classe === "sbagliata") r.classe = "non_so";
 
     const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: r.messaggio.slice(0, 600) }).slice(-6);
