@@ -328,6 +328,8 @@ function creaMotore(UNIT) {
     if (VIETATE.test(d.frase) || complete.some(c => VIETATE.test(c))) return false;
     if (extra && (extra.test(d.frase) || complete.some(c => extra.test(c)))) return false;
     if (chiesti.includes(norm(d.frase))) return false;
+    const vd = verboDiDomanda(d);
+    if (vd && verbiUsati(chiesti).slice(-8).includes(vd)) return false;
     if (complete.some(c => tropoSimileAgliEsercizi(c))) return false;
     const soluzione = d.tipo === "completa" ? norm(d.frase.replace(/\([^)]*\)/g, "").replace("___", d.attese[0])) : norm(d.attese[0]);
     const testo = norm([messaggio].concat(esempi).join(" "));
@@ -609,6 +611,18 @@ function creaMotore(UNIT) {
 
   // Il verbo tra parentesi, anche quando c'è il soggetto o una negazione:
   // "(watch)" → watch · "(you / wait)" → wait · "(not answer)" → answer · "(never / be)" → be
+  // Il verbo di una domanda: quello tra parentesi, altrimenti il primo verbo della risposta attesa.
+  // Serve a non far ripetere sempre gli stessi verbi (eat, finish, leave…).
+  const VERBI_SEMPRE_AMMESSI = new Set(["be", "have", "do"]);
+  function verboDiDomanda(d) {
+    if (!d || typeof d !== "object") return "";
+    const vp = verboDaParentesi(d.frase);
+    const cand = vp ? [norm(vp).split(" ")[0]] : norm(String((d.attese || [])[0] || "")).split(" ").filter(w => !AUSILIARI.has(w));
+    for (const w of cand) { const b = verboBase(w) || (vp ? w : ""); if (b && !VERBI_SEMPRE_AMMESSI.has(b)) return b; }
+    return "";
+  }
+  const verbiUsati = chiesti => (chiesti || []).filter(x => String(x).startsWith("verbo:")).map(x => String(x).slice(6));
+
   function verboDaParentesi(frase) {
     const m = String(frase || "").match(/___\s*\(([^)]+)\)/);
     if (!m) return undefined;
@@ -939,7 +953,7 @@ function creaMotore(UNIT) {
     n.last = okT(s.last) ? s.last : null;
     n.finalDone = s.finalDone === true;
     n.scop = Array.isArray(s.scop) ? [...new Set(s.scop.filter(okT))] : [];
-    n.chiesti = Array.isArray(s.chiesti) ? s.chiesti.slice(-40).map(x => String(x).slice(0, 300)) : [];
+    n.chiesti = Array.isArray(s.chiesti) ? s.chiesti.slice(-60).map(x => String(x).slice(0, 300)) : [];
     n.ctx = ["resume", "finished", "reviewed"].includes(s.ctx) ? s.ctx : null;
     n.mode = ["menu", "bivio", "complete", "argomento"].includes(s.mode) ? s.mode : "menu";
     n.ta = Number.isInteger(s.ta) && s.ta >= 0 && s.ta < T() ? s.ta : null;
@@ -1200,8 +1214,11 @@ function creaMotore(UNIT) {
   </indicazioni_per_le_domande>
   <fase>${cosa}</fase>
   <frasi_gia_usate_da_non_ripetere>
-  ${s.chiesti.slice(-25).join("\n") || "(nessuna)"}
-  </frasi_gia_usate_da_non_ripetere>`;
+  ${s.chiesti.filter(x => !String(x).startsWith("verbo:")).slice(-25).join("\n") || "(nessuna)"}
+  </frasi_gia_usate_da_non_ripetere>
+  <verbi_gia_usati_NON_usarli>
+  ${verbiUsati(s.chiesti).slice(-8).join(", ") || "(nessuno)"}
+  </verbi_gia_usati_NON_usarli>`;
   }
 
   async function apri(env, s, tappa, modo) {
@@ -1209,15 +1226,18 @@ function creaMotore(UNIT) {
 
   COMPITO: fai la prima domanda su questo punto. Niente spiegazioni e niente esempi: nel messaggio al massimo due parole di invito ("Proviamo.") oppure niente. Usa classe "apertura".`;
     // fino a 3 domande: se i controlli ne scartano due, la terza di solito passa
+    let ripiego = null;
     for (let i = 0; i < 3; i++) {
       if (i > 0 && restante() < 5000) break;
       const r = await chiama(env, user);
       if (!r) { if (sovraccarico) break; continue; }
       if (r.messaggio.length > 80 || ENUNCIA_REGOLA.test(r.messaggio)) r.messaggio = "";
       if (controllaDomanda(r.domanda, s.chiesti, r.messaggio, [], UNIT.topics[tappa[0]].vietate)) return r;
+      // scartata solo perché il verbo è già stato usato: la tengo di riserva, meglio di nessuna domanda
+      if (!ripiego && controllaDomanda(r.domanda, s.chiesti.filter(x => !String(x).startsWith("verbo:")), r.messaggio, [], UNIT.topics[tappa[0]].vietate)) ripiego = r;
       diag.push({ domandaScartata: r.domanda && (r.domanda.frase || r.domanda.consegna) });
     }
-    return null;
+    return ripiego;
   }
 
   async function valuta(env, s, tappa, modo, risposta, coincide, tentativo, chiede, guida) {
@@ -1607,12 +1627,13 @@ function creaMotore(UNIT) {
   const ERRORE = () => ({ error: `Il tutor non risponde. Riprova fra poco: la tua risposta è conservata. [${ultimoErrore || "domanda scartata dai controlli"}]` });
 
   function conDomanda(s, r, fb) {
-    let chiesti = s.chiesti.concat(norm(r.domanda.frase));
+    const vD = verboDiDomanda(r.domanda);
+    let chiesti = s.chiesti.concat(norm(r.domanda.frase), vD ? ["verbo:" + vD] : []);
     const tp = s.tappe && s.tappe.length ? s.tappe[Math.min(s.ti || 0, s.tappe.length - 1)][0] : null;
     const extra = tp === null ? null : UNIT.topics[tp].vietate;
     const ris = r.riserva && controllaDomanda(r.riserva, chiesti, r.messaggio || "", [], extra) ? pulisciDomanda(r.riserva) : null;
-    if (ris) chiesti = chiesti.concat(norm(ris.frase));
-    return { ...s, q: pulisciDomanda(r.domanda), ris, fb, tent: 0, sint: false, chiesti: chiesti.slice(-40) };
+    if (ris) { const vR = verboDiDomanda(ris); chiesti = chiesti.concat(norm(ris.frase), vR ? ["verbo:" + vR] : []); }
+    return { ...s, q: pulisciDomanda(r.domanda), ris, fb, tent: 0, sint: false, chiesti: chiesti.slice(-60) };
   }
 
   // ============================================================
@@ -1761,7 +1782,10 @@ function creaMotore(UNIT) {
     const r2 = await apri(env, { ...s2, ti }, s.tappe[ti], s.mode);
     if (!r2) return ERRORE();
     const testo = `${messaggio}${s.mode === "learn" ? " Punto acquisito: passiamo al prossimo." : ""}`;
-    return vista(conDomanda({ ...s2, ti }, r2, null), { outcome: "correct", message: testo });
+    // nel percorso, quando cambia il punto, lo studente vede subito la spiegazione del punto nuovo
+    const nuovo = s.mode === "learn" ? UNIT.topics[s.tappe[ti][0]].points[s.tappe[ti][1]] : null;
+    const fbNuovo = nuovo ? { tipo: "info", risposta: "", evidenzia: "", testo: `Punto nuovo: ${nuovo.titolo}.\n${nuovo.regola}`, riprova: false } : null;
+    return vista(conDomanda({ ...s2, ti }, r2, fbNuovo), { outcome: "correct", message: testo });
   }
 
   async function rispondiScoperta(env, s, risposta) {
