@@ -1062,6 +1062,7 @@ function creaMotore(UNIT) {
   // ============================================================
   let ultimoErrore = "";
   let diag = [];
+  let prova = false;
   let inizioRichiesta = 0;
   const scarta = (m, motivo) => { diag.push({ scartato: String(m || "").slice(0, 300), motivo }); return true; };
   // Quando un messaggio di Gemini viene scartato, al tentativo successivo gli si dice perché:
@@ -1095,8 +1096,9 @@ function creaMotore(UNIT) {
     const nomi = ["GEMINI_API_KEY", "gemini_api_key", "Gemini_API_Key", "GOOGLE_API_KEY", "GEMINI_KEY", "API_KEY",
       "GEMINI_API_KEY_2", "GEMINI_API_KEY_3", "GEMINI_API_KEY_4", "GEMINI_API_KEY_5",
       "GEMINI_API_KEY_6", "GEMINI_API_KEY_7", "GEMINI_API_KEY_8", "GEMINI_API_KEY_9", "GEMINI_API_KEY_10"];
-    const lista = nomi.map(n => env[n]).filter(k => typeof k === "string" && k.trim()).map(k => k.trim());
-    return [...new Set(lista)];
+    const lista = [...new Set(nomi.map(n => env[n]).filter(k => typeof k === "string" && k.trim()).map(k => k.trim()))];
+    // le richieste di prova (debug) usano solo l'ultima chiave: i test non possono esaurire la quota degli studenti
+    return prova && lista.length > 1 ? lista.slice(-1) : lista;
   }
 
   async function chiama(env, user) {
@@ -1171,7 +1173,7 @@ function creaMotore(UNIT) {
       }
     }
     ultimoErrore += ` · chiavi nel Worker: ${tutte.length}, tentativi: ${provate}`;
-    const cf = restante() > 3000 ? await chiamaCloudflare(env, system, user, tool) : null;
+    const cf = !prova && restante() > 3000 ? await chiamaCloudflare(env, system, user, tool) : null;
     if (cf) return cf;
     return null;
   }
@@ -1910,6 +1912,7 @@ function creaMotore(UNIT) {
   async function gestisci(body, env) {
     ultimoErrore = "";
     diag = [];
+    prova = !!(body && body.debug === true);
     inizioRichiesta = Date.now();
     scadenza = Date.now() + TEMPO_MASSIMO;
     const azione = body && body.action;
