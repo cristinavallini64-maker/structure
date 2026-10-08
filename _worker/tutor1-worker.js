@@ -703,8 +703,7 @@ function creaMotore(UNIT) {
     // modale + to («should to see»): risposta subito, senza aspettare Gemini
     const modTo = r.match(/\b(should|must|can|could|might|may|will|would|better)\s+to\b/);
     if (modTo && !att.some(a => a.includes(`${modTo[1]} to`))) {
-      const scritto = String(risposta || "").split(/\s+/).find(w => norm(w) === modTo[1]) || modTo[1];
-      return `Hai messo «${scritto}»: e subito dopo, che cosa ci va? Riprova.`;
+      return "Non ancora: c'è un errore nel modo in cui hai costruito il verbo. Rileggi la tua risposta; se non ricordi la regola, scrivi «spiega».";
     }
     if (verbo && (r === norm(verbo) || r.split(" ").every(x => AUSILIARI.has(x) || formeDi(verbo).includes(x)))) return "";
     // "ci sei quasi" solo per un errore di battitura: se la parola diversa esiste
