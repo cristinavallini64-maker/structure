@@ -376,7 +376,7 @@ function creaMotore(UNIT) {
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
   // sempre vietato: dice che cosa aggiungere, togliere o spostare
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|al participio|ricorda(ti)? di (aggiungere|mettere|togliere)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|prova a (mettere|scrivere|togliere|spostare)|\bsenza\s+(usare\s+|mettere\s+|il\s+|lo\s+)?["'«“]?(to|did|does|do|-?s)\b["'»”]?|\bnon cambia (forma)?|\bprima o dopo\b|\b(chi|cosa|che cosa) viene prima\b|l'ordine (tra|fra)\b|come si dice ["'«“]?[^"'»”?]{1,25}["'»”]? in inglese|usare\s+["'«“]|\bnon serve\s+["'«“]?\w+|\bdopo [^.?!]{1,25} dovresti\b|\b(resta|rimane) (alla forma base|uguale|com'è)|\b(viene|vengono|va|vanno) (prima|dopo) (del|della|dello|dell'|dei|delle|di)\b|forma base senza|forma in ["'«“]?-|-ing\b|-ed\b|come (deve )?finir\w*|come finisce|\bhai messo [^.?!:]{1,30} (prima|dopo) (del|della|dello|dell'|dei|delle|di|il|la|lo|l')|\b(va|vanno|viene) prima o dopo\b|quale (deve venire|viene|va) prima/i;
   // indirizza verso la forma senza darla («come diventa "add" quando…?», «cosa manca prima di…?»):
   // ammesso solo dal terzo tentativo, se lo studente da solo non ci arriva
   const GUIDA_FORMA = /come diventa|ricorda(ti)? come|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|\bricorda(ti)? che\b|\b(che )?cosa diventa\b|come (puoi|potresti) scrivere|(cosa|che cosa) useresti al posto|al posto di ["'«“]|deve cambiare/i;
@@ -619,6 +619,8 @@ function creaMotore(UNIT) {
   const FAMIGLIA_AUS = { had: "had", have: "have", has: "have", was: "was", were: "was", did: "did", do: "do", does: "do", am: "be", is: "be", are: "be" };
   function costruzioneSbagliata(r, att, risposta) {
     const rw = r.split(" ");
+    // have to / has to / had to: qui have non è un ausiliare
+    if (/\b(have|has|had) to\b/.test(r) || att.some(a => /\b(have|has|had) to\b/.test(a))) return "";
     const auxR = rw.find(x => FAMIGLIA_AUS[x]);
     if (!auxR) return "";
     // un modale in più («would have arrived» per «had arrived»): la parola sbagliata è il modale
@@ -764,7 +766,7 @@ function creaMotore(UNIT) {
     const t = String(testo || "");
     if (/\b(forma )?base o (con|la forma)\b|\bcon o senza\b/i.test(t)) return true;
     const att = new Set((attese || []).map(a => norm(a).split(" ")).flat());
-    const re = /["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s+(?:o|oppure)\s+["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s*\?/g;
+    const re = /["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s+(?:o|oppure)\s+(?:solo\s+)?["'«“]?([A-Za-z']+(?: [A-Za-z']+)?)["'»”]?\s*\?/g;
     let m;
     while ((m = re.exec(t))) {
       if ([m[1], m[2]].some(x => norm(x).split(" ").some(w => att.has(w)))) return true;
@@ -811,10 +813,13 @@ function creaMotore(UNIT) {
   // se il tutor la scrive prima dello studente, ha risposto al posto suo.
   const NON_CHIAVE = new Set("i a e o in no se non la le il lo gli di da per come me con su tra fra un una che ma the and of to is it".split(" "));
   function svelaOsservazione(testo, ps, risposta) {
-    const ob = String(ps.obiettivo || "").split(/\s+(?=Basta\b|Se\s|Chiedi\b|Non è arrivato)/)[0];
+    const basta = (String(ps.obiettivo || "").match(/Basta\s+['"«“]([^'"»”]+)['"»”]/) || [])[1];
+    const primo = String(ps.obiettivo || "").split(/\s+(?=Basta\b|Se\s|Chiedi\b|Non è arrivato)/)[0];
     const visibili = new Set(norm((ps.mostra || []).join(" ")).split(" "));
     const giaDetto = new Set(norm(`${ps.domanda || ""} ${risposta || ""}`).split(" "));
-    const chiave = norm(ob).split(" ").filter(w => w.length >= 2 && visibili.has(w) && !giaDetto.has(w) && !NON_CHIAVE.has(w));
+    const parole = x => norm(x || "").split(" ").filter(w => w.length >= 2 && visibili.has(w) && !giaDetto.has(w) && !NON_CHIAVE.has(w));
+    // la risposta breve dopo «Basta» se è fatta di parole delle frasi, altrimenti la prima parte dell'obiettivo
+    const chiave = parole(basta).length ? parole(basta) : parole(primo);
     if (!chiave.length) return false;
     const t = ` ${norm(testo)} `;
     return chiave.some(w => t.includes(` ${w} `));
