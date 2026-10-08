@@ -375,7 +375,7 @@ function creaMotore(UNIT) {
   // dal terzo tentativo il tutor può dire che TIPO di struttura serve ("qui serve un
   // tempo passato"), ma resta vietato dire come si forma o che cosa aggiungere
   // vale sempre, anche nelle domande e dal terzo tentativo: dice come si forma la risposta
-  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|come diventa|al participio|ricorda(ti)? (di (aggiungere|mettere|togliere)|come)|togli\w*|\bmetti (la|una|il) -|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]/i;
+  const COME_SI_FORMA = /aggiung\w*|desinenz|si forma|si costruisce|si scrive il|come costruisci|come diventa|al participio|ricorda(ti)? (di (aggiungere|mettere|togliere)|come)|\btogli(lo|la|li|le)?\b|\bmetti (la|una|il) -|ti manca (una|la|il|un) (lettera|parola|parolina|pezzo)|composta da \w+ parol|\w+ paroline?\b|usando\s+["'«“]|usa\s+["'«“]|prova a (usare|completare)[^.?!]*["'«“]|invert\w*|scambia\w*|\bcome (metteresti|scriveresti|cambieresti|trasformeresti|riscriveresti|puoi mettere|puoi cambiare)\b|(che )?cosa manca\b|\bmanca (qualcosa|una|un|uno|la|il|lo|l')\b|\bricorda(ti)? che\b/i;
   // prima del terzo tentativo: nemmeno la domanda "che modale/composto useresti?"
   const TIPO_DOMANDA = /\b(quale|che)\s+(composto|modale|verbo modale|tempo|forma|pronome|congiunzione|avverbio|aggettivo|struttura)\b[^?]{0,40}\b(useresti|potresti|usare|usi|serve|servirebbe|ci vuole|metteresti|scegli)\b[^?]*\?/i;
   // prima del terzo tentativo non si dice nemmeno che tipo di struttura serve
@@ -714,6 +714,38 @@ function creaMotore(UNIT) {
   // «"Said" è corretto» davanti a una risposta sbagliata
   const LODA_PEZZO = /[«"“'‘][^«»"“”]{1,30}[»"”'’]\s*(è|e'|sono|va|vanno|era)\s*(proprio\s+)?(corrett|giust|bene|ok\b|perfett|esatt)/i;
 
+  // «Hai usato il verbo giusto» quando il verbo dello studente non è quello della soluzione (said / told)
+  function lodaVerboSbagliato(testo, risposta, attese) {
+    if (!/\b(verbo|parola|tempo)\s+(giust[oa]|corrett[oa])|\bhai azzeccato\b/i.test(String(testo || ""))) return false;
+    const basiAttese = new Set((attese || []).map(a => norm(a).split(" ")).flat().map(w => verboBase(w) || w));
+    return norm(risposta || "").split(" ").some(w => verboBase(w) && !AUSILIARI.has(w) && !basiAttese.has(verboBase(w)));
+  }
+
+  // Coppie della scoperta («I → he», «am diventa was»): se il tutor le scrive insieme, ha dato la risposta del passo.
+  function svelaCoppia(testo, obiettivo) {
+    const coppie = [];
+    String(obiettivo || "").replace(/([A-Za-z']+)\s*(?:→|->|diventa(?:no)?)\s*([A-Za-z']+)/g, (_, a, b) => { coppie.push([a.toLowerCase(), b.toLowerCase()]); return _; });
+    if (!coppie.length) return false;
+    const t = String(testo || "").toLowerCase();
+    if (!/(→|->|divent|cambia|trasform|passa a)/.test(t)) return false;
+    const parola = w => new RegExp(`(^|[^a-z'])${w.replace(/'/g, "'")}([^a-z']|$)`).test(t);
+    return coppie.some(([a, b]) => parola(a) && parola(b));
+  }
+
+  // la soluzione detta in italiano («"Yesterday" indica il giorno prima» → the day before)
+  const TRADUZIONI = [
+    [/\b(the day before|the previous day)\b/, /giorno (prima|precedente)/i],
+    [/\b(the next day|the following day|the day after)\b/, /giorno (dopo|seguente|successivo)/i],
+    [/\b(the following|the next) (week|month|year)\b|\b(week|month|year) after\b/, /(settimana|mese|anno) (dopo|seguente|successiv)/i],
+    [/\b(the previous|the) (week|month|year) before\b/, /(settimana|mese|anno) (prima|precedente)/i],
+    [/\bthat (night|evening)\b/, /quella (sera|notte)/i],
+    [/\bthat day\b/, /quel giorno/i]
+  ];
+  function traduceSoluzione(testo, attese) {
+    const a = (attese || []).join(" | ").toLowerCase();
+    return TRADUZIONI.some(([en, it]) => en.test(a) && it.test(String(testo || "")));
+  }
+
   // la risposta differisce dall'attesa solo per was ↔ were
   function soloWasWere(risposta, attese) {
     const r = norm(risposta).split(" ");
@@ -729,16 +761,16 @@ function creaMotore(UNIT) {
 
   function messaggioGuida(testo, q, forte, risposta) {
     return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
-      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo);
+      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese);
   }
 
   function motivoGuida(testo, q, forte, risposta) {
     if (!testo) return "vuoto";
     if (testo.length > 400) return "troppo lungo";
     if (enunciaRegola(testo, forte, { risposta, attese: q.attese })) return "enuncia la regola";
-    if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")) return "contiene la soluzione";
+    if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "") || traduceSoluzione(testo, q.attese)) return "contiene la soluzione";
     if (svelaParole(testo, q.attese, q.frase, risposta)) return "cita parole della soluzione";
-    if (LODA_PEZZO.test(testo)) return "loda un pezzo di risposta sbagliata";
+    if (LODA_PEZZO.test(testo) || lodaVerboSbagliato(testo, risposta, q.attese)) return "loda un pezzo di risposta sbagliata";
     return "altro";
   }
 
@@ -1248,12 +1280,13 @@ function creaMotore(UNIT) {
   function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
     const arrivato = a.classe === "arrivato";
     if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
-    if (ps.attese && contieneSoluzione(m, ps.attese)) return "contiene la soluzione";
+    if (ps.attese && (contieneSoluzione(m, ps.attese) || traduceSoluzione(m, ps.attese))) return "contiene la soluzione";
     if (ps.attese && !arrivato && svelaParole(m, ps.attese, ps.frase, risposta)) return "cita parole della soluzione";
-    if (!arrivato && LODA_PEZZO.test(m)) return "loda un pezzo di risposta sbagliata";
-    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto))/i.test(m)) return "cita frasi che lo studente non vede";
-    const nome = (m.match(/\bfrase (?:di|del|della)\s+([A-Z][a-zà-ÿ]+)/) || [])[1];
-    if (nome && ps.frase && !s.vediEsempi && !ps.frase.includes(nome)) return "cita la frase di una persona che lo studente non vede";
+    if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
+    if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
+    const rif = m.match(/\bfrase (?:di|del|della|dello|dei|delle|sul|sulla|con)\s+(?:l')?([A-Za-zà-ÿ]+)/i);
+    if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
     if (!arrivato && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
     if (!m || m.length > 350) return "vuoto o troppo lungo";
