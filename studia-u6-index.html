@@ -47,714 +47,642 @@
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
   const UNITA = {
-    "titolo": "Unit 6 · Second & Third Conditional, Wish, Adverbs",
-    "fuoriProgramma": "forma passiva, reported speech, modali di deduzione (must have, can't have), should have e ought to have, past perfect continuous, wish + would",
-    "vietate": "\\bmust have\\b|\\bcan't have\\b|\\bshould have\\b|\\bought to\\b|\\bhad been\\s+[a-z]+ing\\b",
-    "topics": [
-      {
-        "title": "Second conditional",
-        "tempi": "past simple nella frase con if; would/wouldn't (oppure could, might) + forma base nella conseguenza.",
-        "points": [
+  "titolo": "Unit 6 · Second & Third Conditional, Wish, Adverbs",
+  "fuoriProgramma": "forma passiva, reported speech, modali di deduzione (must have, can't have), should have e ought to have, past perfect continuous, wish + would",
+  "vietate": "\\bmust have\\b|\\bcan't have\\b|\\bshould have\\b|\\bought to\\b|\\bhad been\\s+[a-z]+ing\\b",
+  "topics": [
+    {
+      "title": "Second conditional",
+      "tempi": "past simple nella frase con if; would/wouldn't (oppure could, might) + forma base nella conseguenza.",
+      "points": [
+        {
+          "titolo": "If + past simple, would + forma base",
+          "regola": "Il second conditional parla di una situazione irreale o improbabile nel presente o nel futuro e della sua conseguenza. In italiano corrisponde a congiuntivo + condizionale (se avessi…, farei…): If I had a car, I'd drive to school. Condizione e conseguenza possono essere positive o negative. La forma contratta 'd = would è più usata nella lingua parlata.",
+          "nota": "Lo spazio sul verbo della frase con if (past simple) oppure sulla conseguenza (would/wouldn't). Le situazioni devono essere chiaramente irreali o improbabili."
+        },
+        {
+          "titolo": "Dopo if niente would",
+          "regola": "A differenza dell'italiano, dove nella frase con se c'è il congiuntivo, in inglese dopo if si usa il past simple: If I knew the answer, I'd tell you (NON if I would know).",
+          "nota": "Soprattutto frasi da correggere con would dopo if: è l'errore tipico di chi parla italiano."
+        },
+        {
+          "titolo": "was o were · If I were you",
+          "regola": "Con il verbo be, dopo I/he/she/it si può usare was oppure were; were è più formale. Per dare un consiglio si usa sempre l'espressione fissa If I were you, …: If I were you, I'd charge your phone before you leave.",
+          "nota": "Accetta was e were, tranne in If I were you, che è fisso. Qualche frase di consiglio."
+        },
+        {
+          "titolo": "could e might · gli avverbi",
+          "regola": "Al posto di would si possono usare could (= sarei in grado, potrei) e might (= forse): If I had a bike, I could ride to school. Con would e wouldn't valgono le regole del futuro: probably, definitely e certainly vanno dopo would ma prima di wouldn't; maybe e perhaps all'inizio della frase.",
+          "nota": "Spazi con could tra parentesi o con (can …); accetta might e could quando il senso lo permette."
+        },
+        {
+          "titolo": "Domande · first o second?",
+          "regola": "Domanda: Would + soggetto + forma base + if + past simple? (Would you mind if I opened the window? What would you say if…?). Se la frase con if viene prima, ci vuole la virgola. First conditional = cosa possibile (if it rains tomorrow, we'll stay in); second conditional = cosa irreale o improbabile (if it rained in the desert, people would dance).",
+          "nota": "Domande con would; coppie di frasi first/second da confrontare per il significato."
+        }
+      ],
+      "scoperta": {
+        "storia": "Durante la lezione di geografia Tommaso sogna a occhi aperti.",
+        "passi": [
           {
-            "titolo": "If + past simple, would + forma base",
-            "regola": "Il second conditional parla di una situazione irreale o improbabile nel presente o nel futuro e della sua conseguenza. In italiano corrisponde a congiuntivo + condizionale (se avessi…, farei…): If I had a car, I'd drive to school. Condizione e conseguenza possono essere positive o negative. La forma contratta 'd = would è più usata nella lingua parlata.",
-            "nota": "Lo spazio sul verbo della frase con if (past simple) oppure sulla conseguenza (would/wouldn't). Le situazioni devono essere chiaramente irreali o improbabili."
+            "mostra": [
+              "If I lived by the sea, I'd go surfing every morning."
+            ],
+            "domanda": "Tommaso vive al mare?",
+            "obiettivo": "No: è un'ipotesi irreale, lui non vive al mare. Basta 'no'."
           },
           {
-            "titolo": "Dopo if niente would",
-            "regola": "A differenza dell'italiano, dove nella frase con se c'è il congiuntivo, in inglese dopo if si usa il past simple: If I knew the answer, I'd tell you (NON if I would know).",
-            "nota": "Soprattutto frasi da correggere con would dopo if: è l'errore tipico di chi parla italiano."
+            "mostra": [
+              "If I lived by the sea, I'd go surfing every morning."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If Tommaso ___ (have) a boat, he would sail to Corsica in the summer.",
+            "attese": [
+              "had"
+            ],
+            "obiettivo": "Past simple nella frase con if: had (non would have, non has)."
           },
           {
-            "titolo": "was o were · If I were you",
-            "regola": "Con il verbo be, dopo I/he/she/it si può usare was oppure were; were è più formale. Per dare un consiglio si usa sempre l'espressione fissa If I were you, …: If I were you, I'd charge your phone before you leave.",
-            "nota": "Accetta was e were, tranne in If I were you, che è fisso. Qualche frase di consiglio."
+            "mostra": [
+              "If it snows tomorrow, we'll build a snowman.",
+              "If it snowed in July, we'd build a snowman."
+            ],
+            "domanda": "Quale delle due cose può succedere davvero?",
+            "obiettivo": "La prima: la neve domani è possibile, a luglio è quasi impossibile. Basta 'la prima'."
           },
           {
-            "titolo": "could e might · gli avverbi",
-            "regola": "Al posto di would si possono usare could (= sarei in grado, potrei) e might (= forse): If I had a bike, I could ride to school. Con would e wouldn't valgono le regole del futuro: probably, definitely e certainly vanno dopo would ma prima di wouldn't; maybe e perhaps all'inizio della frase.",
-            "nota": "Spazi con could tra parentesi o con (can …); accetta might e could quando il senso lo permette."
+            "mostra": [
+              "If I lived by the sea, I'd go surfing every morning."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If his sister ___ (not borrow) his headphones all the time, Tommaso wouldn't be so annoyed.",
+            "attese": [
+              "didn't borrow",
+              "did not borrow"
+            ],
+            "obiettivo": "Past simple negativo dopo if: didn't borrow (non wouldn't borrow)."
           },
           {
-            "titolo": "Domande · first o second?",
-            "regola": "Domanda: Would + soggetto + forma base + if + past simple? (Would you mind if I opened the window? What would you say if…?). Se la frase con if viene prima, ci vuole la virgola. First conditional = cosa possibile (if it rains tomorrow, we'll stay in); second conditional = cosa irreale o improbabile (if it rained in the desert, people would dance).",
-            "nota": "Domande con would; coppie di frasi first/second da confrontare per il significato."
+            "mostra": [
+              "If I were you, I'd start the project today."
+            ],
+            "domanda": "Chi parla sta dando un consiglio o sta raccontando un fatto?",
+            "obiettivo": "Un consiglio: If I were you vuol dire 'se fossi in te'. Basta 'un consiglio'."
+          },
+          {
+            "mostra": [
+              "If I lived by the sea, I'd go surfing every morning."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If Tommaso found a cheap ticket for the concert, he ___ (go) with his cousin.",
+            "attese": [
+              "would go",
+              "'d go",
+              "might go",
+              "could go"
+            ],
+            "obiettivo": "Conseguenza: would + forma base, would go."
+          },
+          {
+            "mostra": [
+              "If I had more free time, I could learn the drums."
+            ],
+            "domanda": "Tommaso ha abbastanza tempo libero per imparare la batteria?",
+            "obiettivo": "No: è un'ipotesi irreale. could vuol dire 'potrei'. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "If I had more free time, I could learn the drums."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Which band ___ (you · see) if you had a free ticket for any concert?",
+            "attese": [
+              "would you see",
+              "would you go and see",
+              "would you go to see"
+            ],
+            "obiettivo": "Domanda: would + soggetto + forma base, would you see."
           }
         ],
-        "scoperta": {
-          "storia": "Durante la lezione di geografia Tommaso sogna a occhi aperti.",
-          "passi": [
-            {
-              "mostra": [
-                "If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "Tommaso vive al mare?",
-              "obiettivo": "No: è un'ipotesi irreale, lui non vive al mare. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Se vivessi al mare, andrei a fare surf ogni mattina. → If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "In italiano 'vivessi' e 'andrei'. In inglese, would (I'd) sta nella parte con if o nell'altra?",
-              "obiettivo": "Notare che would sta solo nell'altra parte (I'd go): dopo if non c'è would. Basta 'nell'altra'."
-            },
-            {
-              "mostra": [
-                "If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "Tommaso parla di adesso. Nella parte con if c'è live o lived?",
-              "obiettivo": "lived, anche se parla di adesso. Basta 'lived'."
-            },
-            {
-              "mostra": [
-                "If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "If Tommaso ___ (have) a boat, he would sail to Corsica in the summer.",
-              "attese": [
-                "had"
-              ],
-              "obiettivo": "Past simple nella frase con if: had (non would have, non has)."
-            },
-            {
-              "mostra": [
-                "If it snows tomorrow, we'll build a snowman.",
-                "If it snowed in July, we'd build a snowman."
-              ],
-              "domanda": "Quale delle due cose può succedere davvero?",
-              "obiettivo": "La prima: la neve domani è possibile, a luglio è quasi impossibile. Basta 'la prima'."
-            },
-            {
-              "mostra": [
-                "If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "If his sister ___ (not borrow) his headphones all the time, Tommaso wouldn't be so annoyed.",
-              "attese": [
-                "didn't borrow",
-                "did not borrow"
-              ],
-              "obiettivo": "Past simple negativo dopo if: didn't borrow (non wouldn't borrow)."
-            },
-            {
-              "mostra": [
-                "If I were you, I'd start the project today."
-              ],
-              "domanda": "Chi parla sta dando un consiglio o sta raccontando un fatto?",
-              "obiettivo": "Un consiglio: If I were you vuol dire 'se fossi in te'. Basta 'un consiglio'."
-            },
-            {
-              "mostra": [
-                "If I lived by the sea, I'd go surfing every morning."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "If Tommaso found a cheap ticket for the concert, he ___ (go) with his cousin.",
-              "attese": [
-                "would go",
-                "'d go",
-                "might go",
-                "could go"
-              ],
-              "obiettivo": "Conseguenza: would + forma base, would go."
-            },
-            {
-              "mostra": [
-                "If I had more free time, I could learn the drums."
-              ],
-              "domanda": "Tommaso ha abbastanza tempo libero per imparare la batteria?",
-              "obiettivo": "No: è un'ipotesi irreale. could vuol dire 'potrei'. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "If I had more free time, I could learn the drums."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Which band ___ (you · see) if you had a free ticket for any concert?",
-              "attese": [
-                "would you see",
-                "would you go and see",
-                "would you go to see"
-              ],
-              "obiettivo": "Domanda: would + soggetto + forma base, would you see."
-            }
-          ],
-          "sintesi": [
-            "if + past simple, would + forma base → situazione irreale o improbabile: if I lived by the sea, I'd go surfing",
-            "dopo if niente would: if his sister didn't borrow (non if she wouldn't borrow)",
-            "If I were you, I'd… → per dare un consiglio",
-            "could = potrei, might = forse: if I had more free time, I could learn the drums",
-            "domande: Which band would you see if…? — first = possibile, second = irreale"
-          ]
-        }
-      },
-      {
-        "title": "Third conditional",
-        "tempi": "past perfect nella frase con if; would have (oppure could have, might have) + participio passato nella conseguenza.",
-        "points": [
-          {
-            "titolo": "If + past perfect, would have + participio",
-            "regola": "Il third conditional parla di un'ipotesi nel passato: come sarebbero andate le cose se fossero andate diversamente. Non si può più cambiare niente, e spesso esprime un rimpianto. In italiano: se avessi…, avrei…: If we had left earlier, we wouldn't have got stuck in traffic.",
-            "nota": "Lo spazio sul verbo della frase con if (past perfect) oppure sulla conseguenza (would have + participio)."
-          },
-          {
-            "titolo": "Dopo if niente would have",
-            "regola": "Dopo if ci va il past perfect (had + participio), mai would have: If you had told me (NON if you would have told me). Attenzione a 'd: nella frase con if vuol dire had (If I'd known), nella conseguenza vuol dire would (I'd have helped).",
-            "nota": "Soprattutto frasi da correggere con would have dopo if."
-          },
-          {
-            "titolo": "could have e might have",
-            "regola": "Al posto di would have si possono usare could have (= avrei potuto) e might have (= forse avrei): If I'd learnt German, I could have worked in Berlin.",
-            "nota": "Accetta might have e could have quando il senso lo permette."
-          },
-          {
-            "titolo": "Second o third?",
-            "regola": "La differenza è il tempo: il second conditional parla del presente o del futuro irreale (if I had money, I'd buy it: adesso non ce li ho), il third del passato irreale (if I'd had money, I'd have bought it: allora non li avevo).",
-            "nota": "Coppie di frasi second/third da confrontare; l'ancora temporale (yesterday, last year, adesso) deve essere chiara."
-          },
-          {
-            "titolo": "Domande e ordine delle frasi",
-            "regola": "Domanda: Would + soggetto + have + participio + if + past perfect? (What would you have done if…?). Le due frasi si possono invertire; se la frase con if viene prima, ci vuole la virgola.",
-            "nota": "Domande con would … have; frasi con la parte con if in seconda posizione."
-          }
-        ],
-        "scoperta": {
-          "storia": "Lorenzo racconta una giornata in cui è andato tutto storto.",
-          "passi": [
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Lorenzo ha preso l'autobus?",
-              "obiettivo": "No: non ha messo la sveglia e l'ha perso. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Se Lorenzo avesse messo la sveglia, avrebbe preso l'autobus. → If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "In italiano 'avesse messo' e 'avrebbe preso'. In inglese, nella parte con if, c'è would?",
-              "obiettivo": "Notare che no: dopo if c'è had + participio (had set); would have sta nell'altra parte. Basta 'no', 'had set'."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Guarda would have caught: di quali pezzi è fatto?",
-              "obiettivo": "Notare would + have + participio (caught). Accetta 'would, have e participio', 'would have e terza colonna'."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "If Lorenzo ___ (leave) home earlier, he wouldn't have missed the start of the test.",
-              "attese": [
-                "had left",
-                "'d left"
-              ],
-              "obiettivo": "Past perfect dopo if: had left (non would have left)."
-            },
-            {
-              "mostra": [
-                "If it snowed, Lorenzo would stay at home.",
-                "If it had snowed, Lorenzo would have stayed at home."
-              ],
-              "domanda": "Quale frase parla di quella giornata, cioè del passato?",
-              "obiettivo": "La seconda: had snowed + would have stayed. Basta 'la seconda'."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Lorenzo forgot his lunch. If he ___ (remember) it, he wouldn't have been hungry all afternoon.",
-              "attese": [
-                "had remembered",
-                "'d remembered"
-              ],
-              "obiettivo": "Past perfect dopo if: had remembered."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had asked me, I could have lent him my notes."
-              ],
-              "domanda": "Alla fine gli ha prestato gli appunti?",
-              "obiettivo": "No: lui non li ha chiesti. could have vuol dire 'avrei potuto'. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "If Lorenzo had checked the weather forecast, he ___ (take) an umbrella.",
-              "attese": [
-                "would have taken",
-                "'d have taken",
-                "might have taken",
-                "could have taken"
-              ],
-              "obiettivo": "Conseguenza: would have + participio, would have taken."
-            },
-            {
-              "mostra": [
-                "If Lorenzo had set his alarm, he would have caught the bus."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "How ___ (you · get) home last night if Lorenzo's dad hadn't given you a lift?",
-              "attese": [
-                "would you have got",
-                "would you have gotten",
-                "would you have gone"
-              ],
-              "obiettivo": "Domanda: would + soggetto + have + participio, would you have got."
-            }
-          ],
-          "sintesi": [
-            "if + past perfect, would have + participio → ipotesi irreale nel passato: if Lorenzo had set his alarm, he would have caught the bus",
-            "dopo if niente would have: if he had left (non if he would have left)",
-            "could have = avrei potuto, might have = forse avrei",
-            "second = presente irreale (if it rained) · third = passato irreale (if it had rained)",
-            "domande: How would you have got home if…?"
-          ]
-        }
-      },
-      {
-        "title": "I wish · If only",
-        "tempi": "past simple dopo wish/if only per il presente; past perfect per il passato.",
-        "vietate": "\\b(wish|wishes|wished|if only)\\b[^.!?]*\\bwould\\b",
-        "points": [
-          {
-            "titolo": "Desiderio sul presente: wish + past simple",
-            "regola": "Per dire che vorremmo cambiare una situazione presente si usa wish + past simple: I wish I knew how to swim (vorrei saper nuotare: adesso non so). Con il verbo be si usa were per tutte le persone (nel parlato anche was): I wish it were summer already.",
-            "nota": "Lo spazio sul verbo dopo wish; la situazione presente deve essere chiara (adesso, ogni giorno, oggi)."
-          },
-          {
-            "titolo": "Rimpianto sul passato: wish + past perfect",
-            "regola": "Per un rimpianto su qualcosa che è già successo (o non è successo) si usa wish + past perfect: I wish I had bought the blue jacket (vorrei averla comprata: non l'ho fatto).",
-            "nota": "Lo spazio sul verbo dopo wish; ancora temporale passata chiara (yesterday, last summer)."
-          },
-          {
-            "titolo": "If only",
-            "regola": "If only funziona come wish ma è più enfatico, e si usa spesso nelle esclamazioni: If only the shops opened on Sundays! / If only I hadn't lost my keys!",
-            "nota": "Qualche frase con If only, sul presente e sul passato."
-          },
-          {
-            "titolo": "Niente presente e niente would have",
-            "regola": "Dopo wish non si usa il presente (I wish I had, NON I wish I have) e per il passato non si usa would have (I wish I had gone, NON I wish I would have gone).",
-            "nota": "Soprattutto correzioni di wish + presente e di wish + would have."
-          }
-        ],
-        "scoperta": {
-          "storia": "Bianca ha cambiato città e frequenta una scuola nuova, lontano dai suoi vecchi amici.",
-          "passi": [
-            {
-              "mostra": [
-                "I wish I lived closer to my old friends."
-              ],
-              "domanda": "Bianca abita vicino ai suoi vecchi amici?",
-              "obiettivo": "No: le piacerebbe, ma abita lontano. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "I wish I lived closer to my old friends."
-              ],
-              "domanda": "Bianca parla di adesso. Dopo I wish c'è live o lived?",
-              "obiettivo": "lived, anche se parla di adesso. Basta 'lived'."
-            },
-            {
-              "mostra": [
-                "I wish I lived closer to my old friends."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Bianca's new classmates speak very fast. She wishes she ___ (understand) all their jokes.",
-              "attese": [
-                "understood"
-              ],
-              "obiettivo": "Desiderio sul presente: past simple, understood (non understands)."
-            },
-            {
-              "mostra": [
-                "I wish I had joined the drama club in September."
-              ],
-              "domanda": "Questo rimpianto riguarda una cosa di adesso o una cosa già passata?",
-              "obiettivo": "Una cosa già passata: a settembre non si è iscritta. Basta 'passata'."
-            },
-            {
-              "mostra": [
-                "I wish I had joined the drama club in September."
-              ],
-              "domanda": "Qui il rimpianto è su una cosa passata: com'è fatto had joined?",
-              "obiettivo": "Notare had + participio (joined). Accetta 'had e participio', 'past perfect', 'had e terza colonna'."
-            },
-            {
-              "mostra": [
-                "I wish I had joined the drama club in September."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Bianca didn't go to the welcome party on the first Friday. Now she wishes she ___ (go).",
-              "attese": [
-                "had gone",
-                "'d gone"
-              ],
-              "obiettivo": "Rimpianto sul passato: past perfect, had gone (non would have gone)."
-            },
-            {
-              "mostra": [
-                "If only Marta were here!"
-              ],
-              "domanda": "Marta è lì con Bianca in questo momento?",
-              "obiettivo": "No: Bianca vorrebbe che ci fosse. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "I wish I lived closer to my old friends."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Bianca's school bag weighs a ton. If only she ___ (not have) six books today!",
-              "attese": [
-                "didn't have",
-                "did not have",
-                "hadn't got",
-                "had not got"
-              ],
-              "obiettivo": "Desiderio sul presente: past simple negativo, didn't have."
-            },
-            {
-              "mostra": [
-                "I wish I had joined the drama club in September."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Bianca said something unkind to her brother yesterday. She wishes she ___ (not say) it.",
-              "attese": [
-                "hadn't said",
-                "had not said"
-              ],
-              "obiettivo": "Rimpianto sul passato: hadn't said."
-            }
-          ],
-          "sintesi": [
-            "wish / if only + past simple → vorrei che adesso fosse diverso: I wish I lived closer",
-            "con be: were per tutte le persone: If only Marta were here",
-            "wish / if only + past perfect → rimpianto sul passato: I wish I had joined the drama club",
-            "mai il presente dopo wish, mai would have per il passato"
-          ]
-        }
-      },
-      {
-        "title": "Adverbs of manner",
-        "tempi": "tutti i tempi già studiati. Lo spazio è sull'avverbio; tra parentesi c'è l'aggettivo da cui si forma.",
-        "points": [
-          {
-            "titolo": "Aggettivo + -ly",
-            "regola": "Gli avverbi di modo dicono come si fa qualcosa e di solito si formano aggiungendo -ly all'aggettivo: slow → slowly, careful → carefully. Vanno dopo il verbo o dopo il complemento oggetto, mai fra verbo e oggetto: She closed the door quietly (NON she closed quietly the door).",
-            "nota": "Spazi sull'avverbio con l'aggettivo tra parentesi; qualche correzione di aggettivo usato al posto dell'avverbio. La consegna non dice mai che cosa trasformare (niente 'trasforma l'aggettivo in avverbio', niente 'con l'aggettivo corretto')."
-          },
-          {
-            "titolo": "Le regole ortografiche",
-            "regola": "Aggettivo in -y → -ily (easy → easily, happy → happily); in -l → -lly (hopeful → hopefully); in -ic → -ally (automatic → automatically); in -e la -e resta (brave → bravely), ma con -le si toglie la -e e si aggiunge -y (gentle → gently).",
-            "nota": "Aggettivi che mettono alla prova l'ortografia: -y, -l, -le, -ic."
-          },
-          {
-            "titolo": "Avverbi irregolari",
-            "regola": "Alcuni avverbi hanno la stessa forma dell'aggettivo: hard, fast, early, late, straight, wrong. Il caso a parte è good → well. Attenzione: hardly vuol dire 'a malapena' e lately vuol dire 'di recente', non sono gli avverbi di hard e late. fastly non esiste.",
-            "nota": "Spazi con good, fast, hard; domande di comprensione su hardly e lately."
-          },
-          {
-            "titolo": "Avverbi con gli aggettivi e avverbi di opinione",
-            "regola": "Gli avverbi possono modificare un aggettivo o un altro avverbio (really, very, quite, so, extremely, too: an extremely difficult test, too slowly) oppure dare l'opinione di chi parla, di solito all'inizio della frase (Luckily, Unfortunately, Surprisingly).",
-            "nota": "Qualche spazio sull'avverbio di opinione a inizio frase."
-          }
-        ],
-        "scoperta": {
-          "storia": "Federico prende lezioni di guida.",
-          "passi": [
-            {
-              "mostra": [
-                "Federico drives carefully.",
-                "Federico is a careful driver."
-              ],
-              "domanda": "In quale frase la parola descrive il modo in cui Federico guida?",
-              "obiettivo": "Nella prima: carefully dice come guida, è un avverbio. Basta 'la prima'."
-            },
-            {
-              "mostra": [
-                "Federico drives carefully.",
-                "Federico is a careful driver."
-              ],
-              "domanda": "Confronta careful e carefully: che cosa c'è in più in carefully?",
-              "obiettivo": "Notare -ly alla fine. Basta 'ly'."
-            },
-            {
-              "mostra": [
-                "Federico drives carefully."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The instructor explains every manoeuvre very ___ (clear).",
-              "attese": [
-                "clearly"
-              ],
-              "obiettivo": "Aggettivo + -ly: clearly."
-            },
-            {
-              "mostra": [
-                "Federico drives well, but he brakes too hard."
-              ],
-              "domanda": "Federico guida bene o male?",
-              "obiettivo": "Bene: well è l'avverbio di good. Basta 'bene'."
-            },
-            {
-              "mostra": [
-                "Federico drives well, but he brakes too hard."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Federico's sister is a good driver too: she drives really ___ (good).",
-              "attese": [
-                "well"
-              ],
-              "obiettivo": "good → well (non good, non goodly)."
-            },
-            {
-              "mostra": [
-                "After the night drive, Federico was so tired that he could hardly keep his eyes open."
-              ],
-              "domanda": "Federico riusciva a tenere gli occhi aperti senza fatica?",
-              "obiettivo": "No: ci riusciva a malapena. hardly vuol dire 'a malapena'. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Federico drives carefully."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "On the day of the test Federico parked ___ (easy) at the first attempt.",
-              "attese": [
-                "easily"
-              ],
-              "obiettivo": "-y → -ily: easily."
-            },
-            {
-              "mostra": [
-                "Federico drives carefully."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "___ (lucky), nobody saw him reverse into the bin outside the driving school.",
-              "attese": [
-                "Luckily"
-              ],
-              "obiettivo": "Avverbio di opinione a inizio frase: Luckily."
-            }
-          ],
-          "sintesi": [
-            "aggettivo + -ly → come si fa una cosa: carefully, clearly; dopo il verbo o dopo il complemento",
-            "-y → -ily (easily) · -le → -ly (gently) · -ic → -ally (automatically)",
-            "good → well · hard, fast, early, late restano uguali",
-            "hardly = a malapena · lately = di recente",
-            "luckily, unfortunately → opinione di chi parla, a inizio frase"
-          ]
-        }
-      },
-      {
-        "title": "Comparative adverbs",
-        "tempi": "tutti i tempi già studiati. Lo spazio è sul comparativo dell'avverbio; tra parentesi c'è l'avverbio.",
-        "points": [
-          {
-            "titolo": "more + avverbio + than",
-            "regola": "Per dire che qualcuno fa una cosa in modo 'più …' di un altro si usa more + avverbio + than con gli avverbi in -ly: Leda speaks more confidently than her brother.",
-            "nota": "Spazi con l'avverbio in -ly tra parentesi. Nello spazio va solo il comparativo (more slowly): than resta scritto nella frase, fuori dallo spazio."
-          },
-          {
-            "titolo": "I comparativi irregolari",
-            "regola": "Alcuni avverbi non vogliono more: well → better, badly → worse, far → further/farther, fast → faster, hard → harder, early → earlier, late → later, soon → sooner. Mai more well o more fast.",
-            "nota": "Spazi con well, badly, fast, early; correzioni di more well. than sempre fuori dallo spazio."
-          },
-          {
-            "titolo": "as … as · not as … as",
-            "regola": "Per l'uguaglianza si usa as + avverbio + as: She sings as sweetly as her mum. In negativo not as … as vuol dire 'meno di': I don't swim as fast as you (nuoto meno veloce di te).",
-            "nota": "Domande di comprensione su not as … as (chi fa di più?)."
-          },
-          {
-            "titolo": "Dopo than e as",
-            "regola": "Dopo than e as si usa il pronome complemento (than me, as him) oppure il pronome soggetto + ausiliare o modale, per non ripetere il verbo: He paints better than I do / than I can.",
-            "nota": "Accetta than me e than I do; qualche frase con l'ausiliare in fondo."
-          }
-        ],
-        "scoperta": {
-          "storia": "I gemelli Nico e Leda si allenano per la corsa campestre della scuola.",
-          "passi": [
-            {
-              "mostra": [
-                "Leda runs more smoothly than Nico."
-              ],
-              "domanda": "Chi dei due corre in modo più fluido?",
-              "obiettivo": "Leda. Basta 'Leda'."
-            },
-            {
-              "mostra": [
-                "Leda runs more smoothly than Nico."
-              ],
-              "domanda": "Prima di smoothly e dopo smoothly ci sono due parole che servono al confronto: quali?",
-              "obiettivo": "Notare more prima dell'avverbio e than prima della persona. Basta 'more e than'."
-            },
-            {
-              "mostra": [
-                "Leda runs more smoothly than Nico."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "On the hills Nico breathes ___ (heavily) than Leda.",
-              "attese": [
-                "more heavily"
-              ],
-              "obiettivo": "Avverbio in -ly: more heavily."
-            },
-            {
-              "mostra": [
-                "Leda trains harder than Nico, but Nico sleeps better than her."
-              ],
-              "domanda": "Chi dorme meglio?",
-              "obiettivo": "Nico: better è il comparativo di well. Basta 'Nico'."
-            },
-            {
-              "mostra": [
-                "Leda trains harder than Nico, but Nico sleeps better than her."
-              ],
-              "domanda": "Guarda harder e better: c'è more davanti?",
-              "obiettivo": "Notare che no: harder ha -er perché hard è corto; better è la forma irregolare di well. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Leda trains harder than Nico, but Nico sleeps better than her."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "On Saturday Nico had a cold, so he ran ___ (badly) than usual.",
-              "attese": [
-                "worse"
-              ],
-              "obiettivo": "badly → worse (non more badly)."
-            },
-            {
-              "mostra": [
-                "Nico doesn't climb the hills as quickly as Leda."
-              ],
-              "domanda": "Chi va più veloce in salita?",
-              "obiettivo": "Leda: not as … as vuol dire 'meno di'. Basta 'Leda'."
-            },
-            {
-              "mostra": [
-                "Leda trains harder than Nico, but Nico sleeps better than her."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Leda got to the finish line ___ (early) than everyone else in her group.",
-              "attese": [
-                "earlier"
-              ],
-              "obiettivo": "early → earlier."
-            },
-            {
-              "mostra": [
-                "Leda trains harder than Nico, but Nico sleeps better than her."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Leda jumps further than Nico, but he swims ___ (well) than she does.",
-              "attese": [
-                "better"
-              ],
-              "obiettivo": "well → better (non more well)."
-            }
-          ],
-          "sintesi": [
-            "more + avverbio in -ly + than: more smoothly than Nico",
-            "well → better · badly → worse · far → further · fast, hard, early → faster, harder, earlier",
-            "as … as = uguale · not as … as = meno di",
-            "dopo than: than her oppure than she does"
-          ]
-        }
+        "sintesi": [
+          "if + past simple, would + forma base → situazione irreale o improbabile: if I lived by the sea, I'd go surfing",
+          "dopo if niente would: if his sister didn't borrow (non if she wouldn't borrow)",
+          "If I were you, I'd… → per dare un consiglio",
+          "could = potrei, might = forse: if I had more free time, I could learn the drums",
+          "domande: Which band would you see if…? — first = possibile, second = irreale"
+        ]
       }
-    ],
-    "frasiEsercizi": [
-      "If you left me alone, I'd finish the project.",
-      "If I won the lottery, I'd buy a big house.",
-      "If she studied harder, she'd get good marks.",
-      "If you didn't waste your time, you wouldn't be always late.",
-      "Would they agree if I asked them nicely?",
-      "If you helped at home, I'd give you pocket money.",
-      "If it wasn't your fault, I wouldn't be angry.",
-      "If she was a friend, she wouldn't talk about you.",
-      "If Mia wasn't so upset, I would go home.",
-      "If you walked quickly, we'd catch the bus.",
-      "If I were you, I'd vote against the referendum.",
-      "If I was fitter, I could run a marathon.",
-      "We might visit the museum if it's open.",
-      "Maybe Mum would say yes if you asked her.",
-      "Josh would invite me if he had a party.",
-      "If I'd listened to you, I would have gone by train.",
-      "If I hadn't been sick, I wouldn't have missed school.",
-      "Who would you have called if you had been in trouble?",
-      "If I had had time, I would have helped you.",
-      "If I'd gone to university, I could have been a lawyer.",
-      "She definitely wouldn't have been angry if she hadn't heard.",
-      "If Laura had driven more carefully, she wouldn't have had an accident.",
-      "If only she hadn't moved to York.",
-      "If I weren't afraid of heights, I would go paragliding.",
-      "If you could swim, we could go snorkelling.",
-      "If so many politicians weren't corrupt, people would trust politics more.",
-      "I might buy a house if the bank gave me a loan.",
-      "I wouldn't believe his promises if I were you.",
-      "We could visit them more often if they lived closer.",
-      "I wouldn't ask for help if I were able to do it on my own.",
-      "If these trousers weren't in the sale, I wouldn't buy them.",
-      "If you used public transport, you wouldn't need to buy a car.",
-      "If I were fitter, I could run 10 km.",
-      "If the public found out about the scandal, they would be shocked.",
-      "If I were you, I wouldn't tell Matt.",
-      "If it had rained, the parade wouldn't have taken place.",
-      "Hazel wouldn't have been so nice with Megan if she had known Megan had gossiped about her.",
-      "My parents wouldn't have been worried if I hadn't got home late.",
-      "If you had read the questions carefully, you'd have understood them.",
-      "Don't play your music so loud or the neighbours will complain.",
-      "You can contact her more quickly by WhatsApp.",
-      "I wish I had taken the bus instead of driving.",
-      "I wish I hadn't fallen asleep and missed my favourite TV series.",
-      "Lisa wishes she had set her alarm clock.",
-      "If I'd followed the directions, I would have got there on time.",
-      "If my flight hadn't been cancelled, I wouldn't have slept at the airport.",
-      "Where would you have lived if you hadn't moved?",
-      "If I lived by the sea, I'd go surfing every morning.",
-      "If Tommaso had a boat, he would sail to Corsica in the summer.",
-      "If it snows tomorrow, we'll build a snowman.",
-      "If it snowed in July, we'd build a snowman.",
-      "If his sister didn't borrow his headphones all the time, Tommaso wouldn't be so annoyed.",
-      "If I were you, I'd start the project today.",
-      "If Tommaso found a cheap ticket for the concert, he would go with his cousin.",
-      "If I had more free time, I could learn the drums.",
-      "Which band would you see if you had a free ticket for any concert?",
-      "If Lorenzo had set his alarm, he would have caught the bus.",
-      "If Lorenzo had left home earlier, he wouldn't have missed the start of the test.",
-      "If it snowed, Lorenzo would stay at home.",
-      "Lorenzo forgot his lunch. If he had remembered it, he wouldn't have been hungry all afternoon.",
-      "If Lorenzo had asked me, I could have lent him my notes.",
-      "If Lorenzo had checked the weather forecast, he would have taken an umbrella.",
-      "How would you have got home last night if Lorenzo's dad hadn't given you a lift?",
-      "I wish I lived closer to my old friends.",
-      "Bianca's new classmates speak very fast. She wishes she understood all their jokes.",
-      "I wish I had joined the drama club in September.",
-      "Bianca didn't go to the welcome party on the first Friday. Now she wishes she had gone.",
-      "Bianca's school bag weighs a ton. If only she didn't have six books today!",
-      "Bianca said something unkind to her brother yesterday. She wishes she hadn't said it.",
-      "The instructor explains every manoeuvre very clearly.",
-      "Federico drives well, but he brakes too hard.",
-      "Federico's sister is a good driver too: she drives really well.",
-      "After the night drive, Federico was so tired that he could hardly keep his eyes open.",
-      "On the day of the test Federico parked easily at the first attempt.",
-      "Luckily, nobody saw him reverse into the bin outside the driving school.",
-      "On the hills Nico breathes more heavily than Leda.",
-      "Leda trains harder than Nico, but Nico sleeps better than her.",
-      "On Saturday Nico had a cold, so he ran worse than usual.",
-      "Nico doesn't climb the hills as quickly as Leda.",
-      "Leda got to the finish line earlier than everyone else in her group.",
-      "Leda jumps further than Nico, but he swims better than she does.",
-      "Federico drives carefully.",
-      "Federico is a careful driver.",
-      "Leda runs more smoothly than Nico."
-    ]
-  };
+    },
+    {
+      "title": "Third conditional",
+      "tempi": "past perfect nella frase con if; would have (oppure could have, might have) + participio passato nella conseguenza.",
+      "points": [
+        {
+          "titolo": "If + past perfect, would have + participio",
+          "regola": "Il third conditional parla di un'ipotesi nel passato: come sarebbero andate le cose se fossero andate diversamente. Non si può più cambiare niente, e spesso esprime un rimpianto. In italiano: se avessi…, avrei…: If we had left earlier, we wouldn't have got stuck in traffic.",
+          "nota": "Lo spazio sul verbo della frase con if (past perfect) oppure sulla conseguenza (would have + participio)."
+        },
+        {
+          "titolo": "Dopo if niente would have",
+          "regola": "Dopo if ci va il past perfect (had + participio), mai would have: If you had told me (NON if you would have told me). Attenzione a 'd: nella frase con if vuol dire had (If I'd known), nella conseguenza vuol dire would (I'd have helped).",
+          "nota": "Soprattutto frasi da correggere con would have dopo if."
+        },
+        {
+          "titolo": "could have e might have",
+          "regola": "Al posto di would have si possono usare could have (= avrei potuto) e might have (= forse avrei): If I'd learnt German, I could have worked in Berlin.",
+          "nota": "Accetta might have e could have quando il senso lo permette."
+        },
+        {
+          "titolo": "Second o third?",
+          "regola": "La differenza è il tempo: il second conditional parla del presente o del futuro irreale (if I had money, I'd buy it: adesso non ce li ho), il third del passato irreale (if I'd had money, I'd have bought it: allora non li avevo).",
+          "nota": "Coppie di frasi second/third da confrontare; l'ancora temporale (yesterday, last year, adesso) deve essere chiara."
+        },
+        {
+          "titolo": "Domande e ordine delle frasi",
+          "regola": "Domanda: Would + soggetto + have + participio + if + past perfect? (What would you have done if…?). Le due frasi si possono invertire; se la frase con if viene prima, ci vuole la virgola.",
+          "nota": "Domande con would … have; frasi con la parte con if in seconda posizione."
+        }
+      ],
+      "scoperta": {
+        "storia": "Lorenzo racconta una giornata in cui è andato tutto storto.",
+        "passi": [
+          {
+            "mostra": [
+              "If Lorenzo had set his alarm, he would have caught the bus."
+            ],
+            "domanda": "Lorenzo ha preso l'autobus?",
+            "obiettivo": "No: non ha messo la sveglia e l'ha perso. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "If Lorenzo had set his alarm, he would have caught the bus."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If Lorenzo ___ (leave) home earlier, he wouldn't have missed the start of the test.",
+            "attese": [
+              "had left",
+              "'d left"
+            ],
+            "obiettivo": "Past perfect dopo if: had left (non would have left)."
+          },
+          {
+            "mostra": [
+              "If it snowed, Lorenzo would stay at home.",
+              "If it had snowed, Lorenzo would have stayed at home."
+            ],
+            "domanda": "Quale frase parla di quella giornata, cioè del passato?",
+            "obiettivo": "La seconda: had snowed + would have stayed. Basta 'la seconda'."
+          },
+          {
+            "mostra": [
+              "If Lorenzo had set his alarm, he would have caught the bus."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Lorenzo forgot his lunch. If he ___ (remember) it, he wouldn't have been hungry all afternoon.",
+            "attese": [
+              "had remembered",
+              "'d remembered"
+            ],
+            "obiettivo": "Past perfect dopo if: had remembered."
+          },
+          {
+            "mostra": [
+              "If Lorenzo had asked me, I could have lent him my notes."
+            ],
+            "domanda": "Alla fine gli ha prestato gli appunti?",
+            "obiettivo": "No: lui non li ha chiesti. could have vuol dire 'avrei potuto'. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "If Lorenzo had set his alarm, he would have caught the bus."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "If Lorenzo had checked the weather forecast, he ___ (take) an umbrella.",
+            "attese": [
+              "would have taken",
+              "'d have taken",
+              "might have taken",
+              "could have taken"
+            ],
+            "obiettivo": "Conseguenza: would have + participio, would have taken."
+          },
+          {
+            "mostra": [
+              "If Lorenzo had set his alarm, he would have caught the bus."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "How ___ (you · get) home last night if Lorenzo's dad hadn't given you a lift?",
+            "attese": [
+              "would you have got",
+              "would you have gotten",
+              "would you have gone"
+            ],
+            "obiettivo": "Domanda: would + soggetto + have + participio, would you have got."
+          }
+        ],
+        "sintesi": [
+          "if + past perfect, would have + participio → ipotesi irreale nel passato: if Lorenzo had set his alarm, he would have caught the bus",
+          "dopo if niente would have: if he had left (non if he would have left)",
+          "could have = avrei potuto, might have = forse avrei",
+          "second = presente irreale (if it rained) · third = passato irreale (if it had rained)",
+          "domande: How would you have got home if…?"
+        ]
+      }
+    },
+    {
+      "title": "I wish · If only",
+      "tempi": "past simple dopo wish/if only per il presente; past perfect per il passato.",
+      "vietate": "\\b(wish|wishes|wished|if only)\\b[^.!?]*\\bwould\\b",
+      "points": [
+        {
+          "titolo": "Desiderio sul presente: wish + past simple",
+          "regola": "Per dire che vorremmo cambiare una situazione presente si usa wish + past simple: I wish I knew how to swim (vorrei saper nuotare: adesso non so). Con il verbo be si usa were per tutte le persone (nel parlato anche was): I wish it were summer already.",
+          "nota": "Lo spazio sul verbo dopo wish; la situazione presente deve essere chiara (adesso, ogni giorno, oggi)."
+        },
+        {
+          "titolo": "Rimpianto sul passato: wish + past perfect",
+          "regola": "Per un rimpianto su qualcosa che è già successo (o non è successo) si usa wish + past perfect: I wish I had bought the blue jacket (vorrei averla comprata: non l'ho fatto).",
+          "nota": "Lo spazio sul verbo dopo wish; ancora temporale passata chiara (yesterday, last summer)."
+        },
+        {
+          "titolo": "If only",
+          "regola": "If only funziona come wish ma è più enfatico, e si usa spesso nelle esclamazioni: If only the shops opened on Sundays! / If only I hadn't lost my keys!",
+          "nota": "Qualche frase con If only, sul presente e sul passato."
+        },
+        {
+          "titolo": "Niente presente e niente would have",
+          "regola": "Dopo wish non si usa il presente (I wish I had, NON I wish I have) e per il passato non si usa would have (I wish I had gone, NON I wish I would have gone).",
+          "nota": "Soprattutto correzioni di wish + presente e di wish + would have."
+        }
+      ],
+      "scoperta": {
+        "storia": "Bianca ha cambiato città e frequenta una scuola nuova, lontano dai suoi vecchi amici.",
+        "passi": [
+          {
+            "mostra": [
+              "I wish I lived closer to my old friends."
+            ],
+            "domanda": "Bianca abita vicino ai suoi vecchi amici?",
+            "obiettivo": "No: le piacerebbe, ma abita lontano. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "I wish I lived closer to my old friends."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Bianca's new classmates speak very fast. She wishes she ___ (understand) all their jokes.",
+            "attese": [
+              "understood"
+            ],
+            "obiettivo": "Desiderio sul presente: past simple, understood (non understands)."
+          },
+          {
+            "mostra": [
+              "I wish I had joined the drama club in September."
+            ],
+            "domanda": "Questo rimpianto riguarda una cosa di adesso o una cosa già passata?",
+            "obiettivo": "Una cosa già passata: a settembre non si è iscritta. Basta 'passata'."
+          },
+          {
+            "mostra": [
+              "I wish I had joined the drama club in September."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Bianca didn't go to the welcome party on the first Friday. Now she wishes she ___ (go).",
+            "attese": [
+              "had gone",
+              "'d gone"
+            ],
+            "obiettivo": "Rimpianto sul passato: past perfect, had gone (non would have gone)."
+          },
+          {
+            "mostra": [
+              "If only Marta were here!"
+            ],
+            "domanda": "Marta è lì con Bianca in questo momento?",
+            "obiettivo": "No: Bianca vorrebbe che ci fosse. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "I wish I lived closer to my old friends."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Bianca's school bag weighs a ton. If only she ___ (not have) six books today!",
+            "attese": [
+              "didn't have",
+              "did not have",
+              "hadn't got",
+              "had not got"
+            ],
+            "obiettivo": "Desiderio sul presente: past simple negativo, didn't have."
+          },
+          {
+            "mostra": [
+              "I wish I had joined the drama club in September."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Bianca said something unkind to her brother yesterday. She wishes she ___ (not say) it.",
+            "attese": [
+              "hadn't said",
+              "had not said"
+            ],
+            "obiettivo": "Rimpianto sul passato: hadn't said."
+          }
+        ],
+        "sintesi": [
+          "wish / if only + past simple → vorrei che adesso fosse diverso: I wish I lived closer",
+          "con be: were per tutte le persone: If only Marta were here",
+          "wish / if only + past perfect → rimpianto sul passato: I wish I had joined the drama club",
+          "mai il presente dopo wish, mai would have per il passato"
+        ]
+      }
+    },
+    {
+      "title": "Adverbs of manner",
+      "tempi": "tutti i tempi già studiati. Lo spazio è sull'avverbio; tra parentesi c'è l'aggettivo da cui si forma.",
+      "points": [
+        {
+          "titolo": "Aggettivo + -ly",
+          "regola": "Gli avverbi di modo dicono come si fa qualcosa e di solito si formano aggiungendo -ly all'aggettivo: slow → slowly, careful → carefully. Vanno dopo il verbo o dopo il complemento oggetto, mai fra verbo e oggetto: She closed the door quietly (NON she closed quietly the door).",
+          "nota": "Spazi sull'avverbio con l'aggettivo tra parentesi; qualche correzione di aggettivo usato al posto dell'avverbio. La consegna non dice mai che cosa trasformare (niente 'trasforma l'aggettivo in avverbio', niente 'con l'aggettivo corretto')."
+        },
+        {
+          "titolo": "Le regole ortografiche",
+          "regola": "Aggettivo in -y → -ily (easy → easily, happy → happily); in -l → -lly (hopeful → hopefully); in -ic → -ally (automatic → automatically); in -e la -e resta (brave → bravely), ma con -le si toglie la -e e si aggiunge -y (gentle → gently).",
+          "nota": "Aggettivi che mettono alla prova l'ortografia: -y, -l, -le, -ic."
+        },
+        {
+          "titolo": "Avverbi irregolari",
+          "regola": "Alcuni avverbi hanno la stessa forma dell'aggettivo: hard, fast, early, late, straight, wrong. Il caso a parte è good → well. Attenzione: hardly vuol dire 'a malapena' e lately vuol dire 'di recente', non sono gli avverbi di hard e late. fastly non esiste.",
+          "nota": "Spazi con good, fast, hard; domande di comprensione su hardly e lately."
+        },
+        {
+          "titolo": "Avverbi con gli aggettivi e avverbi di opinione",
+          "regola": "Gli avverbi possono modificare un aggettivo o un altro avverbio (really, very, quite, so, extremely, too: an extremely difficult test, too slowly) oppure dare l'opinione di chi parla, di solito all'inizio della frase (Luckily, Unfortunately, Surprisingly).",
+          "nota": "Qualche spazio sull'avverbio di opinione a inizio frase."
+        }
+      ],
+      "scoperta": {
+        "storia": "Federico prende lezioni di guida.",
+        "passi": [
+          {
+            "mostra": [
+              "Federico drives carefully."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The instructor explains every manoeuvre very ___ (clear).",
+            "attese": [
+              "clearly"
+            ],
+            "obiettivo": "Aggettivo + -ly: clearly."
+          },
+          {
+            "mostra": [
+              "Federico drives well, but he brakes too hard."
+            ],
+            "domanda": "Federico guida bene o male?",
+            "obiettivo": "Bene: well è l'avverbio di good. Basta 'bene'."
+          },
+          {
+            "mostra": [
+              "Federico drives well, but he brakes too hard."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Federico's sister is a good driver too: she drives really ___ (good).",
+            "attese": [
+              "well"
+            ],
+            "obiettivo": "good → well (non good, non goodly)."
+          },
+          {
+            "mostra": [
+              "After the night drive, Federico was so tired that he could hardly keep his eyes open."
+            ],
+            "domanda": "Federico riusciva a tenere gli occhi aperti senza fatica?",
+            "obiettivo": "No: ci riusciva a malapena. hardly vuol dire 'a malapena'. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Federico drives carefully."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "On the day of the test Federico parked ___ (easy) at the first attempt.",
+            "attese": [
+              "easily"
+            ],
+            "obiettivo": "-y → -ily: easily."
+          },
+          {
+            "mostra": [
+              "Federico drives carefully."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "___ (lucky), nobody saw him reverse into the bin outside the driving school.",
+            "attese": [
+              "Luckily"
+            ],
+            "obiettivo": "Avverbio di opinione a inizio frase: Luckily."
+          }
+        ],
+        "sintesi": [
+          "aggettivo + -ly → come si fa una cosa: carefully, clearly; dopo il verbo o dopo il complemento",
+          "-y → -ily (easily) · -le → -ly (gently) · -ic → -ally (automatically)",
+          "good → well · hard, fast, early, late restano uguali",
+          "hardly = a malapena · lately = di recente",
+          "luckily, unfortunately → opinione di chi parla, a inizio frase"
+        ]
+      }
+    },
+    {
+      "title": "Comparative adverbs",
+      "tempi": "tutti i tempi già studiati. Lo spazio è sul comparativo dell'avverbio; tra parentesi c'è l'avverbio.",
+      "points": [
+        {
+          "titolo": "more + avverbio + than",
+          "regola": "Per dire che qualcuno fa una cosa in modo 'più …' di un altro si usa more + avverbio + than con gli avverbi in -ly: Leda speaks more confidently than her brother.",
+          "nota": "Spazi con l'avverbio in -ly tra parentesi. Nello spazio va solo il comparativo (more slowly): than resta scritto nella frase, fuori dallo spazio."
+        },
+        {
+          "titolo": "I comparativi irregolari",
+          "regola": "Alcuni avverbi non vogliono more: well → better, badly → worse, far → further/farther, fast → faster, hard → harder, early → earlier, late → later, soon → sooner. Mai more well o more fast.",
+          "nota": "Spazi con well, badly, fast, early; correzioni di more well. than sempre fuori dallo spazio."
+        },
+        {
+          "titolo": "as … as · not as … as",
+          "regola": "Per l'uguaglianza si usa as + avverbio + as: She sings as sweetly as her mum. In negativo not as … as vuol dire 'meno di': I don't swim as fast as you (nuoto meno veloce di te).",
+          "nota": "Domande di comprensione su not as … as (chi fa di più?)."
+        },
+        {
+          "titolo": "Dopo than e as",
+          "regola": "Dopo than e as si usa il pronome complemento (than me, as him) oppure il pronome soggetto + ausiliare o modale, per non ripetere il verbo: He paints better than I do / than I can.",
+          "nota": "Accetta than me e than I do; qualche frase con l'ausiliare in fondo."
+        }
+      ],
+      "scoperta": {
+        "storia": "I gemelli Nico e Leda si allenano per la corsa campestre della scuola.",
+        "passi": [
+          {
+            "mostra": [
+              "Leda runs more smoothly than Nico."
+            ],
+            "domanda": "Chi dei due corre in modo più fluido?",
+            "obiettivo": "Leda. Basta 'Leda'."
+          },
+          {
+            "mostra": [
+              "Leda runs more smoothly than Nico."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "On the hills Nico breathes ___ (heavily) than Leda.",
+            "attese": [
+              "more heavily"
+            ],
+            "obiettivo": "Avverbio in -ly: more heavily."
+          },
+          {
+            "mostra": [
+              "Leda trains harder than Nico, but Nico sleeps better than her."
+            ],
+            "domanda": "Chi dorme meglio?",
+            "obiettivo": "Nico: better è il comparativo di well. Basta 'Nico'."
+          },
+          {
+            "mostra": [
+              "Leda trains harder than Nico, but Nico sleeps better than her."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "On Saturday Nico had a cold, so he ran ___ (badly) than usual.",
+            "attese": [
+              "worse"
+            ],
+            "obiettivo": "badly → worse (non more badly)."
+          },
+          {
+            "mostra": [
+              "Nico doesn't climb the hills as quickly as Leda."
+            ],
+            "domanda": "Chi va più veloce in salita?",
+            "obiettivo": "Leda: not as … as vuol dire 'meno di'. Basta 'Leda'."
+          },
+          {
+            "mostra": [
+              "Leda trains harder than Nico, but Nico sleeps better than her."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Leda got to the finish line ___ (early) than everyone else in her group.",
+            "attese": [
+              "earlier"
+            ],
+            "obiettivo": "early → earlier."
+          },
+          {
+            "mostra": [
+              "Leda trains harder than Nico, but Nico sleeps better than her."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Leda jumps further than Nico, but he swims ___ (well) than she does.",
+            "attese": [
+              "better"
+            ],
+            "obiettivo": "well → better (non more well)."
+          }
+        ],
+        "sintesi": [
+          "more + avverbio in -ly + than: more smoothly than Nico",
+          "well → better · badly → worse · far → further · fast, hard, early → faster, harder, earlier",
+          "as … as = uguale · not as … as = meno di",
+          "dopo than: than her oppure than she does"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "If you left me alone, I'd finish the project.",
+    "If I won the lottery, I'd buy a big house.",
+    "If she studied harder, she'd get good marks.",
+    "If you didn't waste your time, you wouldn't be always late.",
+    "Would they agree if I asked them nicely?",
+    "If you helped at home, I'd give you pocket money.",
+    "If it wasn't your fault, I wouldn't be angry.",
+    "If she was a friend, she wouldn't talk about you.",
+    "If Mia wasn't so upset, I would go home.",
+    "If you walked quickly, we'd catch the bus.",
+    "If I were you, I'd vote against the referendum.",
+    "If I was fitter, I could run a marathon.",
+    "We might visit the museum if it's open.",
+    "Maybe Mum would say yes if you asked her.",
+    "Josh would invite me if he had a party.",
+    "If I'd listened to you, I would have gone by train.",
+    "If I hadn't been sick, I wouldn't have missed school.",
+    "Who would you have called if you had been in trouble?",
+    "If I had had time, I would have helped you.",
+    "If I'd gone to university, I could have been a lawyer.",
+    "She definitely wouldn't have been angry if she hadn't heard.",
+    "If Laura had driven more carefully, she wouldn't have had an accident.",
+    "If only she hadn't moved to York.",
+    "If I weren't afraid of heights, I would go paragliding.",
+    "If you could swim, we could go snorkelling.",
+    "If so many politicians weren't corrupt, people would trust politics more.",
+    "I might buy a house if the bank gave me a loan.",
+    "I wouldn't believe his promises if I were you.",
+    "We could visit them more often if they lived closer.",
+    "I wouldn't ask for help if I were able to do it on my own.",
+    "If these trousers weren't in the sale, I wouldn't buy them.",
+    "If you used public transport, you wouldn't need to buy a car.",
+    "If I were fitter, I could run 10 km.",
+    "If the public found out about the scandal, they would be shocked.",
+    "If I were you, I wouldn't tell Matt.",
+    "If it had rained, the parade wouldn't have taken place.",
+    "Hazel wouldn't have been so nice with Megan if she had known Megan had gossiped about her.",
+    "My parents wouldn't have been worried if I hadn't got home late.",
+    "If you had read the questions carefully, you'd have understood them.",
+    "Don't play your music so loud or the neighbours will complain.",
+    "You can contact her more quickly by WhatsApp.",
+    "I wish I had taken the bus instead of driving.",
+    "I wish I hadn't fallen asleep and missed my favourite TV series.",
+    "Lisa wishes she had set her alarm clock.",
+    "If I'd followed the directions, I would have got there on time.",
+    "If my flight hadn't been cancelled, I wouldn't have slept at the airport.",
+    "Where would you have lived if you hadn't moved?",
+    "If I lived by the sea, I'd go surfing every morning.",
+    "If Tommaso had a boat, he would sail to Corsica in the summer.",
+    "If it snows tomorrow, we'll build a snowman.",
+    "If it snowed in July, we'd build a snowman.",
+    "If his sister didn't borrow his headphones all the time, Tommaso wouldn't be so annoyed.",
+    "If I were you, I'd start the project today.",
+    "If Tommaso found a cheap ticket for the concert, he would go with his cousin.",
+    "If I had more free time, I could learn the drums.",
+    "Which band would you see if you had a free ticket for any concert?",
+    "If Lorenzo had set his alarm, he would have caught the bus.",
+    "If Lorenzo had left home earlier, he wouldn't have missed the start of the test.",
+    "If it snowed, Lorenzo would stay at home.",
+    "Lorenzo forgot his lunch. If he had remembered it, he wouldn't have been hungry all afternoon.",
+    "If Lorenzo had asked me, I could have lent him my notes.",
+    "If Lorenzo had checked the weather forecast, he would have taken an umbrella.",
+    "How would you have got home last night if Lorenzo's dad hadn't given you a lift?",
+    "I wish I lived closer to my old friends.",
+    "Bianca's new classmates speak very fast. She wishes she understood all their jokes.",
+    "I wish I had joined the drama club in September.",
+    "Bianca didn't go to the welcome party on the first Friday. Now she wishes she had gone.",
+    "Bianca's school bag weighs a ton. If only she didn't have six books today!",
+    "Bianca said something unkind to her brother yesterday. She wishes she hadn't said it.",
+    "The instructor explains every manoeuvre very clearly.",
+    "Federico drives well, but he brakes too hard.",
+    "Federico's sister is a good driver too: she drives really well.",
+    "After the night drive, Federico was so tired that he could hardly keep his eyes open.",
+    "On the day of the test Federico parked easily at the first attempt.",
+    "Luckily, nobody saw him reverse into the bin outside the driving school.",
+    "On the hills Nico breathes more heavily than Leda.",
+    "Leda trains harder than Nico, but Nico sleeps better than her.",
+    "On Saturday Nico had a cold, so he ran worse than usual.",
+    "Nico doesn't climb the hills as quickly as Leda.",
+    "Leda got to the finish line earlier than everyone else in her group.",
+    "Leda jumps further than Nico, but he swims better than she does.",
+    "Federico drives carefully.",
+    "Federico is a careful driver.",
+    "Leda runs more smoothly than Nico."
+  ]
+};
   const storageKey = "grammar-tutor-unit6-v1";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;

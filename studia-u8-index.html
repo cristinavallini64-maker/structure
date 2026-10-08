@@ -47,588 +47,552 @@
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
   const UNITA = {
-    "titolo": "Unit 8 · Deduction, Both/Either/Neither, So/Such",
-    "fuoriProgramma": "forma passiva (be + participio), reported speech, past perfect continuous, should have / ought to have per il passato",
-    "vietate": "\\b(?:is|are|was|were|been|being)\\s+\\w+ed\\s+by\\b|\\b(?:told|asked)\\s+\\w+\\s+(?:that|whether|if)\\b|\\bsaid that\\b|\\bhad\\s+been\\s+[a-z]+ing\\b|\\bshould have\\b|\\bought to have\\b",
-    "topics": [
-      {
-        "title": "Modal verbs of deduction: present",
-        "tempi": "presente: must, can't, may, might, could + forma base; + be + -ing per un'azione in corso.",
-        "points": [
+  "titolo": "Unit 8 · Deduction, Both/Either/Neither, So/Such",
+  "fuoriProgramma": "forma passiva (be + participio), reported speech, past perfect continuous, should have / ought to have per il passato",
+  "vietate": "\\b(?:is|are|was|were|been|being)\\s+\\w+ed\\s+by\\b|\\b(?:told|asked)\\s+\\w+\\s+(?:that|whether|if)\\b|\\bsaid that\\b|\\bhad\\s+been\\s+[a-z]+ing\\b|\\bshould have\\b|\\bought to have\\b",
+  "topics": [
+    {
+      "title": "Modal verbs of deduction: present",
+      "tempi": "presente: must, can't, may, might, could + forma base; + be + -ing per un'azione in corso.",
+      "points": [
+        {
+          "titolo": "must: sono sicuro che sì",
+          "regola": "must + forma base esprime la certezza che qualcosa sia vero, dedotta da un indizio: The car isn't here, so Dad must be at work. In questo senso must non è un obbligo ma una deduzione.",
+          "nota": "Situazioni con un indizio chiaro che porta a una certezza."
+        },
+        {
+          "titolo": "can't: sono sicuro che no",
+          "regola": "can't + forma base esprime la certezza che qualcosa non sia vero o sia impossibile: That can't be Lucy, she's in Spain. In questo senso la negativa di must è can't, non mustn't (mustn't vuol dire 'non si deve').",
+          "nota": "Correzioni di mustn't usato al posto di can't."
+        },
+        {
+          "titolo": "may, might, could: forse",
+          "regola": "may, might e could + forma base esprimono la possibilità: può darsi che, è possibile che. Hanno lo stesso significato: She might be at the dentist's. Negativa: may not / might not (mightn't) = forse no. couldn't non esprime 'forse no' ma l'impossibilità; mayn't non esiste.",
+          "nota": "Accetta may, might e could quando il senso è 'forse'; correzioni di couldn't usato per 'forse no'."
+        },
+        {
+          "titolo": "+ be + -ing: un'azione in corso",
+          "regola": "Per una deduzione su un'azione in corso adesso: modale + be + -ing: Grandpa might still be gardening. / They must be having dinner.",
+          "nota": "Spazi con il verbo tra parentesi in un contesto di azione in corso."
+        },
+        {
+          "titolo": "can o could?",
+          "regola": "can esprime una possibilità generale, che vale sempre (Winters here can be really cold). Per una situazione specifica si usa could, might o may, non can: It could snow tonight (NON it can snow tonight).",
+          "nota": "Qualche confronto fra possibilità generale e situazione specifica."
+        }
+      ],
+      "scoperta": {
+        "storia": "Zeno si annoia e fa il detective osservando i vicini dalla finestra.",
+        "passi": [
           {
-            "titolo": "must: sono sicuro che sì",
-            "regola": "must + forma base esprime la certezza che qualcosa sia vero, dedotta da un indizio: The car isn't here, so Dad must be at work. In questo senso must non è un obbligo ma una deduzione.",
-            "nota": "Situazioni con un indizio chiaro che porta a una certezza."
+            "mostra": [
+              "The lights in flat 4 are on and there's loud music. The Bianchis must be at home."
+            ],
+            "domanda": "Zeno è quasi sicuro o ha solo un'idea vaga?",
+            "obiettivo": "È quasi sicuro: lo deduce dalle luci e dalla musica. Basta 'sicuro'."
           },
           {
-            "titolo": "can't: sono sicuro che no",
-            "regola": "can't + forma base esprime la certezza che qualcosa non sia vero o sia impossibile: That can't be Lucy, she's in Spain. In questo senso la negativa di must è can't, non mustn't (mustn't vuol dire 'non si deve').",
-            "nota": "Correzioni di mustn't usato al posto di can't."
+            "mostra": [
+              "The lights in flat 4 are on and there's loud music. The Bianchis must be at home."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Three parcels and a week of newspapers are piled up outside flat 2. The owners ___ (be) away.",
+            "attese": [
+              "must be"
+            ],
+            "obiettivo": "Indizio forte, certezza: must be."
           },
           {
-            "titolo": "may, might, could: forse",
-            "regola": "may, might e could + forma base esprimono la possibilità: può darsi che, è possibile che. Hanno lo stesso significato: She might be at the dentist's. Negativa: may not / might not (mightn't) = forse no. couldn't non esprime 'forse no' ma l'impossibilità; mayn't non esiste.",
-            "nota": "Accetta may, might e could quando il senso è 'forse'; correzioni di couldn't usato per 'forse no'."
+            "mostra": [
+              "That can't be Mr Ricci's car. He sold it last month."
+            ],
+            "domanda": "Zeno pensa che possa essere l'auto del signor Ricci?",
+            "obiettivo": "No: è impossibile, l'ha venduta. Basta 'no'."
           },
           {
-            "titolo": "+ be + -ing: un'azione in corso",
-            "regola": "Per una deduzione su un'azione in corso adesso: modale + be + -ing: Grandpa might still be gardening. / They must be having dinner.",
-            "nota": "Spazi con il verbo tra parentesi in un contesto di azione in corso."
+            "mostra": [
+              "That can't be Mr Ricci's car. He sold it last month."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The woman in the garden ___ (be) Mrs Ricci: Mrs Ricci is in hospital this week.",
+            "attese": [
+              "can't be",
+              "cannot be"
+            ],
+            "obiettivo": "Impossibile: can't be (non mustn't be)."
           },
           {
-            "titolo": "can o could?",
-            "regola": "can esprime una possibilità generale, che vale sempre (Winters here can be really cold). Per una situazione specifica si usa could, might o may, non can: It could snow tonight (NON it can snow tonight).",
-            "nota": "Qualche confronto fra possibilità generale e situazione specifica."
+            "mostra": [
+              "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
+            ],
+            "domanda": "Zeno sa chi sta bussando?",
+            "obiettivo": "No: sono solo possibilità. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Nobody in flat 3 is answering the phone. It's six in the morning, so they ___ (sleep).",
+            "attese": [
+              "must be sleeping",
+              "might be sleeping",
+              "may be sleeping",
+              "could be sleeping",
+              "must still be sleeping",
+              "might still be sleeping"
+            ],
+            "obiettivo": "Azione in corso: modale + be + -ing, must be sleeping."
+          },
+          {
+            "mostra": [
+              "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Mrs Conti's car isn't outside, but she ___ (be) out: she sometimes parks round the corner.",
+            "attese": [
+              "might not be",
+              "may not be",
+              "mightn't be"
+            ],
+            "obiettivo": "Forse no: might not be (non couldn't be, non mustn't be)."
           }
         ],
-        "scoperta": {
-          "storia": "Zeno si annoia e fa il detective osservando i vicini dalla finestra.",
-          "passi": [
-            {
-              "mostra": [
-                "The lights in flat 4 are on and there's loud music. The Bianchis must be at home."
-              ],
-              "domanda": "Zeno è quasi sicuro o ha solo un'idea vaga?",
-              "obiettivo": "È quasi sicuro: lo deduce dalle luci e dalla musica. Basta 'sicuro'."
-            },
-            {
-              "mostra": [
-                "The lights in flat 4 are on and there's loud music. The Bianchis must be at home."
-              ],
-              "domanda": "Dopo must, c'è to davanti a be?",
-              "obiettivo": "No: must be. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "The lights in flat 4 are on and there's loud music. The Bianchis must be at home."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Three parcels and a week of newspapers are piled up outside flat 2. The owners ___ (be) away.",
-              "attese": [
-                "must be"
-              ],
-              "obiettivo": "Indizio forte, certezza: must be."
-            },
-            {
-              "mostra": [
-                "That can't be Mr Ricci's car. He sold it last month."
-              ],
-              "domanda": "Zeno pensa che possa essere l'auto del signor Ricci?",
-              "obiettivo": "No: è impossibile, l'ha venduta. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "That can't be Mr Ricci's car. He sold it last month."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The woman in the garden ___ (be) Mrs Ricci: Mrs Ricci is in hospital this week.",
-              "attese": [
-                "can't be",
-                "cannot be"
-              ],
-              "obiettivo": "Impossibile: can't be (non mustn't be)."
-            },
-            {
-              "mostra": [
-                "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
-              ],
-              "domanda": "Zeno sa chi sta bussando?",
-              "obiettivo": "No: sono solo possibilità. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Listen! Somebody must be playing the piano upstairs."
-              ],
-              "domanda": "Guarda must be playing: di quali pezzi è fatto il verbo?",
-              "obiettivo": "Notare must + be + verbo con -ing, per una cosa in corso adesso. Accetta 'must, be e -ing', 'must be e ing'."
-            },
-            {
-              "mostra": [
-                "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Nobody in flat 3 is answering the phone. It's six in the morning, so they ___ (sleep).",
-              "attese": [
-                "must be sleeping",
-                "might be sleeping",
-                "may be sleeping",
-                "could be sleeping",
-                "must still be sleeping",
-                "might still be sleeping"
-              ],
-              "obiettivo": "Azione in corso: modale + be + -ing, must be sleeping."
-            },
-            {
-              "mostra": [
-                "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Mrs Conti's car isn't outside, but she ___ (be) out: she sometimes parks round the corner.",
-              "attese": [
-                "might not be",
-                "may not be",
-                "mightn't be"
-              ],
-              "obiettivo": "Forse no: might not be (non couldn't be, non mustn't be)."
-            }
-          ],
-          "sintesi": [
-            "must + forma base → sono sicuro che sì: the Bianchis must be at home",
-            "can't + forma base → sono sicuro che no: that can't be Mr Ricci's car (non mustn't)",
-            "may / might / could → forse · may not / might not → forse no",
-            "azione in corso: must be sleeping, might be working"
-          ]
-        }
-      },
-      {
-        "title": "Modal verbs of deduction: past",
-        "tempi": "passato: must, can't, couldn't, may, might, could + have + participio passato.",
-        "points": [
-          {
-            "titolo": "must have + participio",
-            "regola": "must have + participio passato esprime la quasi certezza che qualcosa sia successo: The windows are steamed up. Someone must have cooked pasta.",
-            "nota": "Indizi che portano a una certezza sul passato."
-          },
-          {
-            "titolo": "can't have / couldn't have",
-            "regola": "can't have (o couldn't have) + participio esprime la quasi certezza che qualcosa non sia successo: She can't have seen you, she wasn't wearing her glasses. La negativa di must have è can't have, non mustn't have.",
-            "nota": "Correzioni di mustn't have."
-          },
-          {
-            "titolo": "may have, might have, could have",
-            "regola": "may/might/could have + participio esprimono la possibilità che qualcosa sia successo: He might have overslept. Negativa: may not have / might not have (mightn't have) = forse non è successo; couldn't have vuol dire invece che è impossibile.",
-            "nota": "Accetta may, might e could have quando il senso è 'forse'."
-          },
-          {
-            "titolo": "could have / might have: poteva succedere",
-            "regola": "could have e might have si usano anche per un fatto possibile che non è successo, spesso in un rimprovero: You could have broken your leg! (ma per fortuna no).",
-            "nota": "Domande di comprensione: è successo o no?"
-          },
-          {
-            "titolo": "Il participio, non il past simple",
-            "regola": "Dopo have ci vuole il participio passato: must have gone, can't have seen, might have taken (NON must have went, can't have saw).",
-            "nota": "Verbi irregolari tra parentesi."
-          }
-        ],
-        "scoperta": {
-          "storia": "Elena torna dalla gita e trova la cucina di casa in disordine.",
-          "passi": [
-            {
-              "mostra": [
-                "There are crumbs everywhere. Someone must have eaten the cake."
-              ],
-              "domanda": "Elena ha visto qualcuno mangiare la torta?",
-              "obiettivo": "No: lo deduce dalle briciole. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Qualcuno deve aver mangiato la torta. → Someone must have eaten the cake."
-              ],
-              "domanda": "In italiano 'deve aver mangiato'. In inglese, che cosa c'è dopo must al posto di 'aver mangiato'?",
-              "obiettivo": "Notare have + participio (have eaten), non had e non ate. Accetta 'have eaten', 'have e participio'."
-            },
-            {
-              "mostra": [
-                "There are crumbs everywhere. Someone must have eaten the cake."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The back door is wide open. Her brother ___ (forget) to lock it again.",
-              "attese": [
-                "must have forgotten",
-                "might have forgotten",
-                "may have forgotten",
-                "could have forgotten"
-              ],
-              "obiettivo": "Deduzione sul passato: must have forgotten (participio, non forgot)."
-            },
-            {
-              "mostra": [
-                "It can't have been the cat. The cake was on the top shelf."
-              ],
-              "domanda": "Elena pensa che sia stato il gatto?",
-              "obiettivo": "No: è impossibile, la torta era troppo in alto. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "It can't have been the cat. The cake was on the top shelf."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Her parents' car isn't in the drive, so they ___ (come) home yet.",
-              "attese": [
-                "can't have come",
-                "cannot have come",
-                "couldn't have come",
-                "can't have got",
-                "couldn't have got"
-              ],
-              "obiettivo": "Sicuramente no: can't have come (non mustn't have come)."
-            },
-            {
-              "mostra": [
-                "Her brother might have taken the dog to the park."
-              ],
-              "domanda": "Elena è sicura che il fratello sia al parco con il cane?",
-              "obiettivo": "No: è solo una possibilità. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Her brother might have taken the dog to the park."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Elena can't find her headphones. She ___ (leave) them on the coach, but she isn't sure.",
-              "attese": [
-                "might have left",
-                "may have left",
-                "could have left"
-              ],
-              "obiettivo": "Forse è successo: might have left."
-            },
-            {
-              "mostra": [
-                "You left a knife on the floor! The dog could have hurt himself."
-              ],
-              "domanda": "Il cane si è fatto male?",
-              "obiettivo": "No: poteva succedere, ma non è successo. Basta 'no'."
-            }
-          ],
-          "sintesi": [
-            "must have + participio → quasi sicuro che è successo: someone must have eaten the cake",
-            "can't have / couldn't have → quasi sicuro che non è successo (non mustn't have)",
-            "may / might / could have → forse è successo · might not have → forse no",
-            "could have = poteva succedere, ma non è successo",
-            "dopo have il participio: forgotten, left (non forgot, leaved)"
-          ]
-        }
-      },
-      {
-        "title": "Both, either, neither · all, no, none",
-        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su both, either, neither, all, no, none (o su of, or, nor, and), mai su un verbo: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "both, either, neither + nome: due cose o persone",
-            "regola": "both = tutti e due, + nome plurale (both teams); either = l'uno o l'altro, uno qualsiasi dei due; neither = né l'uno né l'altro, nessuno dei due. either e neither vogliono il nome e il verbo al singolare: Neither answer is correct.",
-            "nota": "Spazi su both/either/neither; correzioni di neither + plurale."
-          },
-          {
-            "titolo": "both of, either of, neither of",
-            "regola": "Davanti a the, these, my, Sam's… o a un pronome si usa of: both of my cousins, either of them, neither of us. In inglese c'è una sola negazione: I don't like either of them = I like neither of them (NON I don't like neither).",
-            "nota": "Frasi con of + pronome; correzioni di doppia negazione."
-          },
-          {
-            "titolo": "both … and · either … or · neither … nor",
-            "regola": "Collegano due elementi: Both Ivo and Rita play the drums (sia… sia) · You can either walk or take the bus (o… o) · Neither the coach nor the players knew (né… né).",
-            "nota": "Spazi su and, or, nor o sulla prima parola della coppia."
-          },
-          {
-            "titolo": "all, no, none",
-            "regola": "all = tutto un gruppo: all students, all (of) the students. no + nome = nessuno, nessuna (= not any): There's no milk. none, senza nome, o none of + the/my + nome = nessuno: There were none left / None of my friends came. Niente doppia negazione: I have no idea (NON I don't have no idea).",
-            "nota": "Confronto fra no + nome e none senza nome; correzioni di doppia negazione."
-          },
-          {
-            "titolo": "La posizione di both e all",
-            "regola": "Con i verbi, both e all vanno prima del verbo principale ma dopo be: We both play the piano / They are both nervous.",
-            "nota": "Qualche frase con both e all accanto al verbo."
-          }
-        ],
-        "scoperta": {
-          "storia": "I fratelli Bruno e Teo devono scegliere dove andare in vacanza.",
-          "passi": [
-            {
-              "mostra": [
-                "Both brothers love the mountains."
-              ],
-              "domanda": "A quanti dei due fratelli piace la montagna?",
-              "obiettivo": "A tutti e due. Basta 'a tutti e due'."
-            },
-            {
-              "mostra": [
-                "Neither of them likes camping."
-              ],
-              "domanda": "Neither è già negativo. Il verbo likes è negativo o affermativo?",
-              "obiettivo": "Notare che il verbo resta affermativo (likes, non doesn't like): basta una negazione. Basta 'affermativo'."
-            },
-            {
-              "mostra": [
-                "Both brothers love the mountains."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Bruno hates camping, and so does Teo: ___ of them wants to sleep in a tent.",
-              "attese": [
-                "neither",
-                "Neither"
-              ],
-              "obiettivo": "Nessuno dei due: neither of them, con il verbo al singolare."
-            },
-            {
-              "mostra": [
-                "You can choose either hotel: they're both near the lake."
-              ],
-              "domanda": "Devono prendere tutti e due gli hotel?",
-              "obiettivo": "No: uno o l'altro, va bene uno qualsiasi. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "You can choose either hotel: they're both near the lake."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Their parents say: « You can go ___ to Lake Garda or to the Dolomites, not both. »",
-              "attese": [
-                "either"
-              ],
-              "obiettivo": "O… o: either … or."
-            },
-            {
-              "mostra": [
-                "All the hotels in the village were full. There were no rooms left."
-              ],
-              "domanda": "Hanno trovato almeno una camera?",
-              "obiettivo": "No: nessuna. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "All the hotels in the village were full. There were no rooms left."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "They phoned five campsites, but ___ of them had a free pitch.",
-              "attese": [
-                "none"
-              ],
-              "obiettivo": "Nessuno del gruppo: none of them (niente doppia negazione)."
-            },
-            {
-              "mostra": [
-                "Both brothers love the mountains."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "In the end ___ Bruno and Teo agreed on the same plan: a week by the sea!",
-              "attese": [
-                "both"
-              ],
-              "obiettivo": "Sia l'uno sia l'altro: both … and."
-            }
-          ],
-          "sintesi": [
-            "both = tutti e due · either = l'uno o l'altro · neither = nessuno dei due (verbo al singolare)",
-            "both of / either of / neither of + the, my, them…",
-            "both … and · either … or · neither … nor",
-            "all = tutto il gruppo · no + nome = nessuno · none (of) senza nome",
-            "una sola negazione: I don't like either of them / I have no idea"
-          ]
-        }
-      },
-      {
-        "title": "So and such",
-        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su so, such, such a/an, so much/many o that, mai su un verbo: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "so + aggettivo o avverbio",
-            "regola": "so rafforza un aggettivo o un avverbio (così, talmente): The film was so boring! / She speaks so quickly.",
-            "nota": "Spazi davanti a un aggettivo o a un avverbio senza nome."
-          },
-          {
-            "titolo": "such (a/an) + nome",
-            "regola": "such rafforza un nome, spesso accompagnato da un aggettivo. Con un nome singolare numerabile ci vuole a/an: such a kind teacher, such an old car. Con i nomi plurali e non numerabili niente a: such long queues, such awful weather.",
-            "nota": "Correzioni di so davanti a un nome e di such a davanti a un plurale."
-          },
-          {
-            "titolo": "so … that · such … that",
-            "regola": "Con that si esprime una conseguenza: It was so cold that the lake froze. / It was such a good book that I read it in a day.",
-            "nota": "Domande di comprensione sulla conseguenza."
-          },
-          {
-            "titolo": "so much, so many, such a lot of",
-            "regola": "so much + nome non numerabile, so many + nome plurale, such a lot of + qualsiasi nome: so much homework, so many messages, such a lot of noise.",
-            "nota": "Spazi su so much / so many."
-          },
-          {
-            "titolo": "such o such as?",
-            "regola": "Non confondere such con such as, che vuol dire 'come, per esempio': sports such as tennis and golf.",
-            "nota": "Qualche frase con such as."
-          }
-        ],
-        "scoperta": {
-          "storia": "Nora racconta il suo primo concerto dal vivo.",
-          "passi": [
-            {
-              "mostra": [
-                "The singer was so good that Nora cried."
-              ],
-              "domanda": "Perché Nora ha pianto?",
-              "obiettivo": "Perché il cantante era bravissimo: è la conseguenza. Basta 'perché era bravissimo'."
-            },
-            {
-              "mostra": [
-                "The singer was so good that Nora cried."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The tickets were ___ expensive that Nora saved her pocket money for three months.",
-              "attese": [
-                "so"
-              ],
-              "obiettivo": "Davanti all'aggettivo: so."
-            },
-            {
-              "mostra": [
-                "It was such a long queue!",
-                "The queue was so long!"
-              ],
-              "domanda": "Le due frasi dicono la stessa cosa?",
-              "obiettivo": "Sì: cambia solo la costruzione. Basta 'sì'."
-            },
-            {
-              "mostra": [
-                "It was such a long queue!",
-                "The queue was so long!"
-              ],
-              "domanda": "Dopo such ci sono a long queue. Dopo so, che cosa c'è?",
-              "obiettivo": "Notare che dopo so c'è solo l'aggettivo (long); dopo such c'è a + aggettivo + nome. Basta 'solo long', 'solo l'aggettivo'."
-            },
-            {
-              "mostra": [
-                "It was such a long queue!"
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Nora had ___ great time that she wants to go again next year.",
-              "attese": [
-                "such a"
-              ],
-              "obiettivo": "Davanti al nome singolare: such a great time."
-            },
-            {
-              "mostra": [
-                "The singer was so good that Nora cried."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "There were ___ many people that Nora couldn't see the stage.",
-              "attese": [
-                "so"
-              ],
-              "obiettivo": "Davanti a many: so many."
-            },
-            {
-              "mostra": [
-                "The fans made such a lot of noise that Nora's ears were still ringing the next day."
-              ],
-              "domanda": "Perché a Nora fischiavano le orecchie il giorno dopo?",
-              "obiettivo": "Per il rumore fortissimo dei fan. Basta 'per il rumore'."
-            },
-            {
-              "mostra": [
-                "It was such a long queue!"
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The band played ___ amazing songs that nobody wanted to go home.",
-              "attese": [
-                "such"
-              ],
-              "obiettivo": "Nome plurale: such amazing songs, senza a."
-            }
-          ],
-          "sintesi": [
-            "so + aggettivo o avverbio: so expensive, so quickly",
-            "such a/an + nome singolare · such + nome plurale o non numerabile",
-            "so … that / such … that → conseguenza",
-            "so much, so many, such a lot of + nome"
-          ]
-        }
+        "sintesi": [
+          "must + forma base → sono sicuro che sì: the Bianchis must be at home",
+          "can't + forma base → sono sicuro che no: that can't be Mr Ricci's car (non mustn't)",
+          "may / might / could → forse · may not / might not → forse no",
+          "azione in corso: must be sleeping, might be working"
+        ]
       }
-    ],
-    "frasiEsercizi": [
-      "Zoe must be away. All the windows are closed.",
-      "It can't be Josh. He left for the USA yesterday.",
-      "Willow hasn't arrived yet. She may be late.",
-      "When are they coming back? They could come back tomorrow.",
-      "It can't be the same person; they're too different.",
-      "This sports car must go really fast!",
-      "They can't be home; the lights are off.",
-      "He might be sentenced to community service.",
-      "You can't have believed her. She's a liar!",
-      "She mightn't have heard the instructions clearly.",
-      "Why did you say that? You could have offended them.",
-      "He can't have missed the bus. He was coming by car.",
-      "She may not have read your email.",
-      "She can't have arrived already; she missed the bus.",
-      "She might not have left the country.",
-      "The ground is wet. It must have rained.",
-      "You can have either sandwich - they're vegetarian.",
-      "Both of my dogs come from an animal rescue centre.",
-      "To be honest, I don't like either of them.",
-      "Both Lia and Mel sing in the choir.",
-      "This is your last chance. You either stay or leave.",
-      "Neither my dad nor my mum have a bike.",
-      "All of the boys must wear a tie.",
-      "They've sold all the tickets. There are none left.",
-      "None of my schoolmates passed the test.",
-      "He was so disappointed that he didn't say anything.",
-      "It is such a good musical that I've seen it four times.",
-      "There are such a lot of people at the demonstration.",
-      "It was such a brilliant film with a great cast such as Tanner Buchanan and Joey King.",
-      "The lights are off, so they must have gone out.",
-      "Pete is very punctual. He must be here soon.",
-      "I saw Jude walking past my house. He can't live near here.",
-      "The shop can't be closed. It's only 4 pm.",
-      "You can't be bored already. You've only been here five minutes.",
-      "You must be tired after such a busy day.",
-      "It can't be Finn's jacket, it's too small.",
-      "She always get good grades. She must study hard.",
-      "He can't be our teacher. He looks too young.",
-      "This can't be Mabel's house. I can see her car in the garage.",
-      "Logan must live near here because he always walks to school.",
-      "Mum is not answering. She could still be at work.",
-      "It can't be far now. We've been walking for hours.",
-      "It must be hard for her looking after three kids without any help.",
-      "What an amazing trip! You must have some incredible pictures.",
-      "I'm not sure if you need your passport, but they might ask you for ID.",
-      "Look at that bird! Maybe it's an eagle or it could be a vulture.",
-      "Her car is in the garage. She can't have driven there.",
-      "Isla is not answering the phone. She might have left it at home.",
-      "She might have put it in silent mode.",
-      "Leon felt sick last night. It must have been the fish. He ate a lot.",
-      "Someone could have taken it to their desk.",
-      "Both Ivy and Rosie have got a cat.",
-      "All you need to study is more.",
-      "Either I'm going to Paris or Berlin.",
-      "Why do you always put so much salt in the pasta? It's awful!",
-      "Nadia is so impatient with her little brother.",
-      "There were such a lot of people at the beach.",
-      "The waiter was so rude. He ruined the meal.",
-      "Someone's stolen my phone! I'm so furious!",
-      "I can't stand her. She's such a spoiled little girl.",
-      "Emily is such an amazing artist. Her paintings are beautiful.",
-      "Three parcels and a week of newspapers are piled up outside flat 2. The owners must be away.",
-      "That can't be Mr Ricci's car. He sold it last month.",
-      "The woman in the garden can't be Mrs Ricci: Mrs Ricci is in hospital this week.",
-      "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour.",
-      "Nobody in flat 3 is answering the phone. It's six in the morning, so they must be sleeping.",
-      "Mrs Conti's car isn't outside, but she might not be out: she sometimes parks round the corner.",
-      "There are crumbs everywhere. Someone must have eaten the cake.",
-      "The back door is wide open. Her brother must have forgotten to lock it again.",
-      "It can't have been the cat. The cake was on the top shelf.",
-      "Her parents' car isn't in the drive, so they can't have come home yet.",
-      "Her brother might have taken the dog to the park.",
-      "Elena can't find her headphones. She might have left them on the coach, but she isn't sure.",
-      "You left a knife on the floor! The dog could have hurt himself.",
-      "Bruno hates camping, and so does Teo: neither of them wants to sleep in a tent.",
-      "You can choose either hotel: they're both near the lake.",
-      "All the hotels in the village were full. There were no rooms left.",
-      "They phoned five campsites, but none of them had a free pitch.",
-      "In the end both Bruno and Teo agreed on the same plan: a week by the sea!",
-      "The singer was so good that Nora cried.",
-      "The tickets were so expensive that Nora saved her pocket money for three months.",
-      "Nora had such a great time that she wants to go again next year.",
-      "There were so many people that Nora couldn't see the stage.",
-      "The fans made such a lot of noise that Nora's ears were still ringing the next day.",
-      "The band played such amazing songs that nobody wanted to go home.",
-      "The lights in flat 4 are on and there's loud music. The Bianchis must be at home.",
-      "Listen! Somebody must be playing the piano upstairs.",
-      "Someone must have eaten the cake.",
-      "Neither of them likes camping.",
-      "It was such a long queue!",
-      "The queue was so long!"
-    ]
-  };
+    },
+    {
+      "title": "Modal verbs of deduction: past",
+      "tempi": "passato: must, can't, couldn't, may, might, could + have + participio passato.",
+      "points": [
+        {
+          "titolo": "must have + participio",
+          "regola": "must have + participio passato esprime la quasi certezza che qualcosa sia successo: The windows are steamed up. Someone must have cooked pasta.",
+          "nota": "Indizi che portano a una certezza sul passato."
+        },
+        {
+          "titolo": "can't have / couldn't have",
+          "regola": "can't have (o couldn't have) + participio esprime la quasi certezza che qualcosa non sia successo: She can't have seen you, she wasn't wearing her glasses. La negativa di must have è can't have, non mustn't have.",
+          "nota": "Correzioni di mustn't have."
+        },
+        {
+          "titolo": "may have, might have, could have",
+          "regola": "may/might/could have + participio esprimono la possibilità che qualcosa sia successo: He might have overslept. Negativa: may not have / might not have (mightn't have) = forse non è successo; couldn't have vuol dire invece che è impossibile.",
+          "nota": "Accetta may, might e could have quando il senso è 'forse'."
+        },
+        {
+          "titolo": "could have / might have: poteva succedere",
+          "regola": "could have e might have si usano anche per un fatto possibile che non è successo, spesso in un rimprovero: You could have broken your leg! (ma per fortuna no).",
+          "nota": "Domande di comprensione: è successo o no?"
+        },
+        {
+          "titolo": "Il participio, non il past simple",
+          "regola": "Dopo have ci vuole il participio passato: must have gone, can't have seen, might have taken (NON must have went, can't have saw).",
+          "nota": "Verbi irregolari tra parentesi."
+        }
+      ],
+      "scoperta": {
+        "storia": "Elena torna dalla gita e trova la cucina di casa in disordine.",
+        "passi": [
+          {
+            "mostra": [
+              "There are crumbs everywhere. Someone must have eaten the cake."
+            ],
+            "domanda": "Elena ha visto qualcuno mangiare la torta?",
+            "obiettivo": "No: lo deduce dalle briciole. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "There are crumbs everywhere. Someone must have eaten the cake."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The back door is wide open. Her brother ___ (forget) to lock it again.",
+            "attese": [
+              "must have forgotten",
+              "might have forgotten",
+              "may have forgotten",
+              "could have forgotten"
+            ],
+            "obiettivo": "Deduzione sul passato: must have forgotten (participio, non forgot)."
+          },
+          {
+            "mostra": [
+              "It can't have been the cat. The cake was on the top shelf."
+            ],
+            "domanda": "Elena pensa che sia stato il gatto?",
+            "obiettivo": "No: è impossibile, la torta era troppo in alto. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "It can't have been the cat. The cake was on the top shelf."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Her parents' car isn't in the drive, so they ___ (come) home yet.",
+            "attese": [
+              "can't have come",
+              "cannot have come",
+              "couldn't have come",
+              "can't have got",
+              "couldn't have got"
+            ],
+            "obiettivo": "Sicuramente no: can't have come (non mustn't have come)."
+          },
+          {
+            "mostra": [
+              "Her brother might have taken the dog to the park."
+            ],
+            "domanda": "Elena è sicura che il fratello sia al parco con il cane?",
+            "obiettivo": "No: è solo una possibilità. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Her brother might have taken the dog to the park."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Elena can't find her headphones. She ___ (leave) them on the coach, but she isn't sure.",
+            "attese": [
+              "might have left",
+              "may have left",
+              "could have left"
+            ],
+            "obiettivo": "Forse è successo: might have left."
+          },
+          {
+            "mostra": [
+              "You left a knife on the floor! The dog could have hurt himself."
+            ],
+            "domanda": "Il cane si è fatto male?",
+            "obiettivo": "No: poteva succedere, ma non è successo. Basta 'no'."
+          }
+        ],
+        "sintesi": [
+          "must have + participio → quasi sicuro che è successo: someone must have eaten the cake",
+          "can't have / couldn't have → quasi sicuro che non è successo (non mustn't have)",
+          "may / might / could have → forse è successo · might not have → forse no",
+          "could have = poteva succedere, ma non è successo",
+          "dopo have il participio: forgotten, left (non forgot, leaved)"
+        ]
+      }
+    },
+    {
+      "title": "Both, either, neither · all, no, none",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su both, either, neither, all, no, none (o su of, or, nor, and), mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "both, either, neither + nome: due cose o persone",
+          "regola": "both = tutti e due, + nome plurale (both teams); either = l'uno o l'altro, uno qualsiasi dei due; neither = né l'uno né l'altro, nessuno dei due. either e neither vogliono il nome e il verbo al singolare: Neither answer is correct.",
+          "nota": "Spazi su both/either/neither; correzioni di neither + plurale."
+        },
+        {
+          "titolo": "both of, either of, neither of",
+          "regola": "Davanti a the, these, my, Sam's… o a un pronome si usa of: both of my cousins, either of them, neither of us. In inglese c'è una sola negazione: I don't like either of them = I like neither of them (NON I don't like neither).",
+          "nota": "Frasi con of + pronome; correzioni di doppia negazione."
+        },
+        {
+          "titolo": "both … and · either … or · neither … nor",
+          "regola": "Collegano due elementi: Both Ivo and Rita play the drums (sia… sia) · You can either walk or take the bus (o… o) · Neither the coach nor the players knew (né… né).",
+          "nota": "Spazi su and, or, nor o sulla prima parola della coppia."
+        },
+        {
+          "titolo": "all, no, none",
+          "regola": "all = tutto un gruppo: all students, all (of) the students. no + nome = nessuno, nessuna (= not any): There's no milk. none, senza nome, o none of + the/my + nome = nessuno: There were none left / None of my friends came. Niente doppia negazione: I have no idea (NON I don't have no idea).",
+          "nota": "Confronto fra no + nome e none senza nome; correzioni di doppia negazione."
+        },
+        {
+          "titolo": "La posizione di both e all",
+          "regola": "Con i verbi, both e all vanno prima del verbo principale ma dopo be: We both play the piano / They are both nervous.",
+          "nota": "Qualche frase con both e all accanto al verbo."
+        }
+      ],
+      "scoperta": {
+        "storia": "I fratelli Bruno e Teo devono scegliere dove andare in vacanza.",
+        "passi": [
+          {
+            "mostra": [
+              "Both brothers love the mountains."
+            ],
+            "domanda": "A quanti dei due fratelli piace la montagna?",
+            "obiettivo": "A tutti e due. Basta 'a tutti e due'."
+          },
+          {
+            "mostra": [
+              "Both brothers love the mountains."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Bruno hates camping, and so does Teo: ___ of them wants to sleep in a tent.",
+            "attese": [
+              "neither",
+              "Neither"
+            ],
+            "obiettivo": "Nessuno dei due: neither of them, con il verbo al singolare."
+          },
+          {
+            "mostra": [
+              "You can choose either hotel: they're both near the lake."
+            ],
+            "domanda": "Devono prendere tutti e due gli hotel?",
+            "obiettivo": "No: uno o l'altro, va bene uno qualsiasi. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "You can choose either hotel: they're both near the lake."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Their parents say: « You can go ___ to Lake Garda or to the Dolomites, not both. »",
+            "attese": [
+              "either"
+            ],
+            "obiettivo": "O… o: either … or."
+          },
+          {
+            "mostra": [
+              "All the hotels in the village were full. There were no rooms left."
+            ],
+            "domanda": "Hanno trovato almeno una camera?",
+            "obiettivo": "No: nessuna. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "All the hotels in the village were full. There were no rooms left."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "They phoned five campsites, but ___ of them had a free pitch.",
+            "attese": [
+              "none"
+            ],
+            "obiettivo": "Nessuno del gruppo: none of them (niente doppia negazione)."
+          },
+          {
+            "mostra": [
+              "Both brothers love the mountains."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "In the end ___ Bruno and Teo agreed on the same plan: a week by the sea!",
+            "attese": [
+              "both"
+            ],
+            "obiettivo": "Sia l'uno sia l'altro: both … and."
+          }
+        ],
+        "sintesi": [
+          "both = tutti e due · either = l'uno o l'altro · neither = nessuno dei due (verbo al singolare)",
+          "both of / either of / neither of + the, my, them…",
+          "both … and · either … or · neither … nor",
+          "all = tutto il gruppo · no + nome = nessuno · none (of) senza nome",
+          "una sola negazione: I don't like either of them / I have no idea"
+        ]
+      }
+    },
+    {
+      "title": "So and such",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su so, such, such a/an, so much/many o that, mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "so + aggettivo o avverbio",
+          "regola": "so rafforza un aggettivo o un avverbio (così, talmente): The film was so boring! / She speaks so quickly.",
+          "nota": "Spazi davanti a un aggettivo o a un avverbio senza nome."
+        },
+        {
+          "titolo": "such (a/an) + nome",
+          "regola": "such rafforza un nome, spesso accompagnato da un aggettivo. Con un nome singolare numerabile ci vuole a/an: such a kind teacher, such an old car. Con i nomi plurali e non numerabili niente a: such long queues, such awful weather.",
+          "nota": "Correzioni di so davanti a un nome e di such a davanti a un plurale."
+        },
+        {
+          "titolo": "so … that · such … that",
+          "regola": "Con that si esprime una conseguenza: It was so cold that the lake froze. / It was such a good book that I read it in a day.",
+          "nota": "Domande di comprensione sulla conseguenza."
+        },
+        {
+          "titolo": "so much, so many, such a lot of",
+          "regola": "so much + nome non numerabile, so many + nome plurale, such a lot of + qualsiasi nome: so much homework, so many messages, such a lot of noise.",
+          "nota": "Spazi su so much / so many."
+        },
+        {
+          "titolo": "such o such as?",
+          "regola": "Non confondere such con such as, che vuol dire 'come, per esempio': sports such as tennis and golf.",
+          "nota": "Qualche frase con such as."
+        }
+      ],
+      "scoperta": {
+        "storia": "Nora racconta il suo primo concerto dal vivo.",
+        "passi": [
+          {
+            "mostra": [
+              "The singer was so good that Nora cried."
+            ],
+            "domanda": "Perché Nora ha pianto?",
+            "obiettivo": "Perché il cantante era bravissimo: è la conseguenza. Basta 'perché era bravissimo'."
+          },
+          {
+            "mostra": [
+              "The singer was so good that Nora cried."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The tickets were ___ expensive that Nora saved her pocket money for three months.",
+            "attese": [
+              "so"
+            ],
+            "obiettivo": "Davanti all'aggettivo: so."
+          },
+          {
+            "mostra": [
+              "It was such a long queue!",
+              "The queue was so long!"
+            ],
+            "domanda": "Le due frasi dicono la stessa cosa?",
+            "obiettivo": "Sì: cambia solo la costruzione. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "It was such a long queue!"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Nora had ___ great time that she wants to go again next year.",
+            "attese": [
+              "such a"
+            ],
+            "obiettivo": "Davanti al nome singolare: such a great time."
+          },
+          {
+            "mostra": [
+              "The singer was so good that Nora cried."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "There were ___ many people that Nora couldn't see the stage.",
+            "attese": [
+              "so"
+            ],
+            "obiettivo": "Davanti a many: so many."
+          },
+          {
+            "mostra": [
+              "The fans made such a lot of noise that Nora's ears were still ringing the next day."
+            ],
+            "domanda": "Perché a Nora fischiavano le orecchie il giorno dopo?",
+            "obiettivo": "Per il rumore fortissimo dei fan. Basta 'per il rumore'."
+          },
+          {
+            "mostra": [
+              "It was such a long queue!"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The band played ___ amazing songs that nobody wanted to go home.",
+            "attese": [
+              "such"
+            ],
+            "obiettivo": "Nome plurale: such amazing songs, senza a."
+          }
+        ],
+        "sintesi": [
+          "so + aggettivo o avverbio: so expensive, so quickly",
+          "such a/an + nome singolare · such + nome plurale o non numerabile",
+          "so … that / such … that → conseguenza",
+          "so much, so many, such a lot of + nome"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "Zoe must be away. All the windows are closed.",
+    "It can't be Josh. He left for the USA yesterday.",
+    "Willow hasn't arrived yet. She may be late.",
+    "When are they coming back? They could come back tomorrow.",
+    "It can't be the same person; they're too different.",
+    "This sports car must go really fast!",
+    "They can't be home; the lights are off.",
+    "He might be sentenced to community service.",
+    "You can't have believed her. She's a liar!",
+    "She mightn't have heard the instructions clearly.",
+    "Why did you say that? You could have offended them.",
+    "He can't have missed the bus. He was coming by car.",
+    "She may not have read your email.",
+    "She can't have arrived already; she missed the bus.",
+    "She might not have left the country.",
+    "The ground is wet. It must have rained.",
+    "You can have either sandwich - they're vegetarian.",
+    "Both of my dogs come from an animal rescue centre.",
+    "To be honest, I don't like either of them.",
+    "Both Lia and Mel sing in the choir.",
+    "This is your last chance. You either stay or leave.",
+    "Neither my dad nor my mum have a bike.",
+    "All of the boys must wear a tie.",
+    "They've sold all the tickets. There are none left.",
+    "None of my schoolmates passed the test.",
+    "He was so disappointed that he didn't say anything.",
+    "It is such a good musical that I've seen it four times.",
+    "There are such a lot of people at the demonstration.",
+    "It was such a brilliant film with a great cast such as Tanner Buchanan and Joey King.",
+    "The lights are off, so they must have gone out.",
+    "Pete is very punctual. He must be here soon.",
+    "I saw Jude walking past my house. He can't live near here.",
+    "The shop can't be closed. It's only 4 pm.",
+    "You can't be bored already. You've only been here five minutes.",
+    "You must be tired after such a busy day.",
+    "It can't be Finn's jacket, it's too small.",
+    "She always get good grades. She must study hard.",
+    "He can't be our teacher. He looks too young.",
+    "This can't be Mabel's house. I can see her car in the garage.",
+    "Logan must live near here because he always walks to school.",
+    "Mum is not answering. She could still be at work.",
+    "It can't be far now. We've been walking for hours.",
+    "It must be hard for her looking after three kids without any help.",
+    "What an amazing trip! You must have some incredible pictures.",
+    "I'm not sure if you need your passport, but they might ask you for ID.",
+    "Look at that bird! Maybe it's an eagle or it could be a vulture.",
+    "Her car is in the garage. She can't have driven there.",
+    "Isla is not answering the phone. She might have left it at home.",
+    "She might have put it in silent mode.",
+    "Leon felt sick last night. It must have been the fish. He ate a lot.",
+    "Someone could have taken it to their desk.",
+    "Both Ivy and Rosie have got a cat.",
+    "All you need to study is more.",
+    "Either I'm going to Paris or Berlin.",
+    "Why do you always put so much salt in the pasta? It's awful!",
+    "Nadia is so impatient with her little brother.",
+    "There were such a lot of people at the beach.",
+    "The waiter was so rude. He ruined the meal.",
+    "Someone's stolen my phone! I'm so furious!",
+    "I can't stand her. She's such a spoiled little girl.",
+    "Emily is such an amazing artist. Her paintings are beautiful.",
+    "Three parcels and a week of newspapers are piled up outside flat 2. The owners must be away.",
+    "That can't be Mr Ricci's car. He sold it last month.",
+    "The woman in the garden can't be Mrs Ricci: Mrs Ricci is in hospital this week.",
+    "Someone is knocking downstairs. It might be the plumber, or it could be the new neighbour.",
+    "Nobody in flat 3 is answering the phone. It's six in the morning, so they must be sleeping.",
+    "Mrs Conti's car isn't outside, but she might not be out: she sometimes parks round the corner.",
+    "There are crumbs everywhere. Someone must have eaten the cake.",
+    "The back door is wide open. Her brother must have forgotten to lock it again.",
+    "It can't have been the cat. The cake was on the top shelf.",
+    "Her parents' car isn't in the drive, so they can't have come home yet.",
+    "Her brother might have taken the dog to the park.",
+    "Elena can't find her headphones. She might have left them on the coach, but she isn't sure.",
+    "You left a knife on the floor! The dog could have hurt himself.",
+    "Bruno hates camping, and so does Teo: neither of them wants to sleep in a tent.",
+    "You can choose either hotel: they're both near the lake.",
+    "All the hotels in the village were full. There were no rooms left.",
+    "They phoned five campsites, but none of them had a free pitch.",
+    "In the end both Bruno and Teo agreed on the same plan: a week by the sea!",
+    "The singer was so good that Nora cried.",
+    "The tickets were so expensive that Nora saved her pocket money for three months.",
+    "Nora had such a great time that she wants to go again next year.",
+    "There were so many people that Nora couldn't see the stage.",
+    "The fans made such a lot of noise that Nora's ears were still ringing the next day.",
+    "The band played such amazing songs that nobody wanted to go home.",
+    "The lights in flat 4 are on and there's loud music. The Bianchis must be at home.",
+    "Listen! Somebody must be playing the piano upstairs.",
+    "Someone must have eaten the cake.",
+    "Neither of them likes camping.",
+    "It was such a long queue!",
+    "The queue was so long!"
+  ]
+};
   const storageKey = "grammar-tutor-unit8-v1";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;

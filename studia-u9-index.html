@@ -47,558 +47,516 @@
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
   const UNITA = {
-    "titolo": "Unit 9 · The Passive, Adjective Order, Phrasal Verbs",
-    "fuoriProgramma": "reported speech (discorso indiretto: said that, told me that, asked if), passivo con i verbi di opinione (it is said that), causative have/get something done",
-    "vietate": "\\b(?:told|asked)\\s+\\w+\\s+(?:that|whether|if)\\b|\\bsaid that\\b|\\bit is (?:said|believed|thought) that\\b|\\b(?:have|has|had|get|got)\\s+(?:my|his|her|their|our|your|the)\\s+\\w+\\s+(?:\\w+ed|cut|done|fixed)\\b",
-    "topics": [
-      {
-        "title": "Present simple passive",
-        "tempi": "present simple passivo: am/is/are (not) + participio passato; domande con Am/Is/Are + soggetto + participio.",
-        "points": [
+  "titolo": "Unit 9 · The Passive, Adjective Order, Phrasal Verbs",
+  "fuoriProgramma": "reported speech (discorso indiretto: said that, told me that, asked if), passivo con i verbi di opinione (it is said that), causative have/get something done",
+  "vietate": "\\b(?:told|asked)\\s+\\w+\\s+(?:that|whether|if)\\b|\\bsaid that\\b|\\bit is (?:said|believed|thought) that\\b|\\b(?:have|has|had|get|got)\\s+(?:my|his|her|their|our|your|the)\\s+\\w+\\s+(?:\\w+ed|cut|done|fixed)\\b",
+  "topics": [
+    {
+      "title": "Present simple passive",
+      "tempi": "present simple passivo: am/is/are (not) + participio passato; domande con Am/Is/Are + soggetto + participio.",
+      "points": [
+        {
+          "titolo": "Quando si usa",
+          "regola": "Il passivo si usa quando non sappiamo chi compie l'azione o ci interessa di più l'azione di chi la fa: Coffee is grown in Brazil. Si usa per i fatti oggettivi, per descrivere i passaggi di un processo e nei testi formali (avvisi, regolamenti). In italiano corrisponde spesso al 'si' passivante: Italian is spoken here = qui si parla italiano.",
+          "nota": "Testi che descrivono un processo o un regolamento."
+        },
+        {
+          "titolo": "La forma: am/is/are + participio",
+          "regola": "Positiva: am/is/are + participio passato (The rooms are cleaned every day). Negativa: am/is/are + not + participio (Dogs aren't allowed). Domanda: Am/Is/Are + soggetto + participio? Risposta breve: Yes, it is / No, they aren't. Serve il participio passato (cleaned), non la forma base.",
+          "nota": "Spazi con il verbo tra parentesi; domande e risposte brevi."
+        },
+        {
+          "titolo": "by + chi fa l'azione",
+          "regola": "Se vogliamo dire chi compie l'azione, lo introduciamo con by: The bread is baked by my uncle. Spesso si omette, perché non importa o è ovvio. Nelle domande sull'autore by va in fondo: Who is the school website run by?",
+          "nota": "Trasformazioni da attivo a passivo, con o senza by."
+        },
+        {
+          "titolo": "Niente 'venire'",
+          "regola": "In italiano si può dire 'viene consegnato', ma in inglese il passivo si fa solo con be: The post is delivered at ten (NON comes delivered).",
+          "nota": "Correzioni di come + participio."
+        },
+        {
+          "titolo": "made of · made from · made by",
+          "regola": "made of + materiale che si vede ancora (a bag made of leather); made from + materia prima trasformata (glass is made from sand); made by + chi l'ha fatto (made by hand, made by a robot).",
+          "nota": "Qualche frase con made of / from / by."
+        }
+      ],
+      "scoperta": {
+        "storia": "La classe di Giulio visita la fabbrica di cioccolato del paese.",
+        "passi": [
           {
-            "titolo": "Quando si usa",
-            "regola": "Il passivo si usa quando non sappiamo chi compie l'azione o ci interessa di più l'azione di chi la fa: Coffee is grown in Brazil. Si usa per i fatti oggettivi, per descrivere i passaggi di un processo e nei testi formali (avvisi, regolamenti). In italiano corrisponde spesso al 'si' passivante: Italian is spoken here = qui si parla italiano.",
-            "nota": "Testi che descrivono un processo o un regolamento."
+            "mostra": [
+              "The cocoa beans are roasted for about twenty minutes."
+            ],
+            "domanda": "La frase dice chi tosta i semi di cacao?",
+            "obiettivo": "No: interessa l'azione, non chi la fa. Basta 'no'."
           },
           {
-            "titolo": "La forma: am/is/are + participio",
-            "regola": "Positiva: am/is/are + participio passato (The rooms are cleaned every day). Negativa: am/is/are + not + participio (Dogs aren't allowed). Domanda: Am/Is/Are + soggetto + participio? Risposta breve: Yes, it is / No, they aren't. Serve il participio passato (cleaned), non la forma base.",
-            "nota": "Spazi con il verbo tra parentesi; domande e risposte brevi."
+            "mostra": [
+              "The cocoa beans are roasted for about twenty minutes."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Then the beans ___ (crush) into a thick brown paste.",
+            "attese": [
+              "are crushed"
+            ],
+            "obiettivo": "be + participio: are crushed."
           },
           {
-            "titolo": "by + chi fa l'azione",
-            "regola": "Se vogliamo dire chi compie l'azione, lo introduciamo con by: The bread is baked by my uncle. Spesso si omette, perché non importa o è ovvio. Nelle domande sull'autore by va in fondo: Who is the school website run by?",
-            "nota": "Trasformazioni da attivo a passivo, con o senza by."
+            "mostra": [
+              "The cocoa beans are roasted for about twenty minutes."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Visitors can watch, but photos ___ (allow) inside the factory.",
+            "attese": [
+              "aren't allowed",
+              "are not allowed"
+            ],
+            "obiettivo": "Negativa: aren't allowed."
           },
           {
-            "titolo": "Niente 'venire'",
-            "regola": "In italiano si può dire 'viene consegnato', ma in inglese il passivo si fa solo con be: The post is delivered at ten (NON comes delivered).",
-            "nota": "Correzioni di come + participio."
+            "mostra": [
+              "The cocoa beans are roasted for about twenty minutes."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« ___ (milk · add) to the dark chocolate? » — No, it isn't.",
+            "attese": [
+              "Is milk added"
+            ],
+            "obiettivo": "Domanda: Is + soggetto + participio: Is milk added?"
           },
           {
-            "titolo": "made of · made from · made by",
-            "regola": "made of + materiale che si vede ancora (a bag made of leather); made from + materia prima trasformata (glass is made from sand); made by + chi l'ha fatto (made by hand, made by a robot).",
-            "nota": "Qualche frase con made of / from / by."
+            "mostra": [
+              "The bars are wrapped by machines, but the gift boxes are decorated by hand."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Machines don't check the bars: every single bar ___ (check) by the workers.",
+            "attese": [
+              "is checked"
+            ],
+            "obiettivo": "Passivo con by: is checked by the workers."
+          },
+          {
+            "mostra": [
+              "The cocoa beans are roasted for about twenty minutes."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "In Italian you'd say 'viene usato'. In English: brown sugar ___ (use) in every recipe.",
+            "attese": [
+              "is used"
+            ],
+            "obiettivo": "is used (non comes used): il passivo si fa solo con be."
           }
         ],
-        "scoperta": {
-          "storia": "La classe di Giulio visita la fabbrica di cioccolato del paese.",
-          "passi": [
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "La frase dice chi tosta i semi di cacao?",
-              "obiettivo": "No: interessa l'azione, non chi la fa. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "Guarda are roasted: di quali due pezzi è fatto il verbo?",
-              "obiettivo": "Notare be (are) + participio (roasted). Accetta 'are e participio', 'be e terza colonna'."
-            },
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Then the beans ___ (crush) into a thick brown paste.",
-              "attese": [
-                "are crushed"
-              ],
-              "obiettivo": "be + participio: are crushed."
-            },
-            {
-              "mostra": [
-                "The bars are wrapped by machines, but the gift boxes are decorated by hand."
-              ],
-              "domanda": "Chi decora le scatole regalo?",
-              "obiettivo": "Delle persone, a mano: by dice chi fa l'azione. Basta 'a mano'."
-            },
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Visitors can watch, but photos ___ (allow) inside the factory.",
-              "attese": [
-                "aren't allowed",
-                "are not allowed"
-              ],
-              "obiettivo": "Negativa: aren't allowed."
-            },
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« ___ (milk · add) to the dark chocolate? » — No, it isn't.",
-              "attese": [
-                "Is milk added"
-              ],
-              "obiettivo": "Domanda: Is + soggetto + participio: Is milk added?"
-            },
-            {
-              "mostra": [
-                "The bars are wrapped by machines, but the gift boxes are decorated by hand."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Machines don't check the bars: every single bar ___ (check) by the workers.",
-              "attese": [
-                "is checked"
-              ],
-              "obiettivo": "Passivo con by: is checked by the workers."
-            },
-            {
-              "mostra": [
-                "The cocoa beans are roasted for about twenty minutes."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "In Italian you'd say 'viene usato'. In English: brown sugar ___ (use) in every recipe.",
-              "attese": [
-                "is used"
-              ],
-              "obiettivo": "is used (non comes used): il passivo si fa solo con be."
-            }
-          ],
-          "sintesi": [
-            "am / is / are + participio passato: the beans are roasted",
-            "negativa: aren't allowed · domanda: Is milk added? — No, it isn't.",
-            "by + chi fa l'azione: decorated by hand, checked by the workers",
-            "niente 'venire': is used (non comes used)"
-          ]
-        }
-      },
-      {
-        "title": "Passive: other tenses and forms",
-        "tempi": "il passivo in tutti i tempi: be coniugato (was/were, has/have been, is/are being, was/were being, had been, will be, is going to be, modale + be) + participio passato.",
-        "points": [
-          {
-            "titolo": "Il passivo nei tempi passati",
-            "regola": "Si mette be al tempo giusto + participio passato. Past simple: was/were + participio (The bridge was opened in 1990). Present perfect: has/have been + participio (Prices have been raised). Past perfect: had been + participio (The tickets had been sold before we arrived).",
-            "nota": "Ancore temporali chiare (in 1990, already, by the time)."
-          },
-          {
-            "titolo": "I tempi continui: being",
-            "regola": "Present continuous: am/is/are being + participio (The road is being repaired). Past continuous: was/were being + participio (The match was being filmed). Per un'azione in corso serve being.",
-            "nota": "Frasi con at the moment, right now, when…; correzioni di being dimenticato."
-          },
-          {
-            "titolo": "Futuro e modali",
-            "regola": "Futuro: will be / won't be + participio, oppure am/is/are going to be + participio (The results will be published tomorrow). Modali: can, should, must, might… + be + participio (This box must be kept dry).",
-            "nota": "Spazi con il modale tra parentesi."
-          },
-          {
-            "titolo": "by e la trasformazione dall'attivo",
-            "regola": "L'oggetto della frase attiva diventa il soggetto della passiva, e il verbo be prende il tempo del verbo attivo: Someone has stolen my bike → My bike has been stolen. Chi fa l'azione si introduce con by, solo se serve.",
-            "nota": "Frasi da trasformare, con la prima parte già data."
-          }
-        ],
-        "scoperta": {
-          "storia": "Il vecchio cinema del quartiere viene rimesso a nuovo.",
-          "passi": [
-            {
-              "mostra": [
-                "The cinema was built in 1952."
-              ],
-              "domanda": "Si parla di adesso o del passato?",
-              "obiettivo": "Del passato. Basta 'del passato'."
-            },
-            {
-              "mostra": [
-                "The cinema was built in 1952."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "It ___ (close) by the town council in 2015 because hardly anybody went there.",
-              "attese": [
-                "was closed"
-              ],
-              "obiettivo": "Passato: was closed."
-            },
-            {
-              "mostra": [
-                "Right now the old seats are being removed."
-              ],
-              "domanda": "Hanno già finito di togliere le poltrone?",
-              "obiettivo": "No: le stanno togliendo adesso, being indica un'azione in corso. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Right now the old seats are being removed."
-              ],
-              "domanda": "Guarda are being removed: di quali pezzi è fatto il verbo?",
-              "obiettivo": "Notare are + being + participio (removed). Accetta 'are, being e participio'."
-            },
-            {
-              "mostra": [
-                "Right now the old seats are being removed."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "At the moment the walls of the entrance ___ (paint) dark blue.",
-              "attese": [
-                "are being painted"
-              ],
-              "obiettivo": "Azione in corso: are being painted."
-            },
-            {
-              "mostra": [
-                "A huge new screen has been bought."
-              ],
-              "domanda": "Lo schermo nuovo c'è già?",
-              "obiettivo": "Sì: è già stato comprato. Basta 'sì'."
-            },
-            {
-              "mostra": [
-                "A huge new screen has been bought."
-              ],
-              "domanda": "Guarda has been bought: bought è la stessa parola che usi in «I have bought»?",
-              "obiettivo": "Sì: dopo been c'è la stessa forma che si usa dopo have. Basta 'sì'."
-            },
-            {
-              "mostra": [
-                "The cinema was built in 1952."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "By the time the new owners bought it, the roof ___ (damage) by years of rain.",
-              "attese": [
-                "had been damaged",
-                "had been badly damaged"
-              ],
-              "obiettivo": "Prima di un altro fatto passato: had been damaged."
-            },
-            {
-              "mostra": [
-                "A huge new screen has been bought."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The cinema ___ (open) by the mayor next spring, with a big party.",
-              "attese": [
-                "will be opened",
-                "is going to be opened",
-                "will be reopened",
-                "is going to be reopened"
-              ],
-              "obiettivo": "Futuro: will be opened."
-            },
-            {
-              "mostra": [
-                "A huge new screen has been bought."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Popcorn ___ (can't · eat) in the new screening room.",
-              "attese": [
-                "can't be eaten",
-                "cannot be eaten"
-              ],
-              "obiettivo": "Modale + be + participio: can't be eaten."
-            }
-          ],
-          "sintesi": [
-            "past simple: was built · present perfect: has been bought · past perfect: had been damaged",
-            "tempi continui con being: are being removed, was being filmed",
-            "futuro: will be opened / is going to be opened",
-            "modali: can't be eaten, must be kept"
-          ]
-        }
-      },
-      {
-        "title": "Adjective order",
-        "tempi": "tutti i tempi già studiati. Lo spazio è sul gruppo di aggettivi: tra parentesi ci sono gli aggettivi in disordine, da mettere nell'ordine giusto.",
-        "points": [
-          {
-            "titolo": "L'ordine fisso",
-            "regola": "Quando più aggettivi precedono lo stesso nome, seguono quest'ordine: opinione → dimensione → forma → età → colore → fantasia (pattern) → origine → materiale. a lovely small round old blue striped Greek cotton… (ma nella realtà se ne usano al massimo tre).",
-            "nota": "Gruppi di due o tre aggettivi tra parentesi da riordinare."
-          },
-          {
-            "titolo": "Prima l'opinione, per ultimo il materiale",
-            "regola": "L'opinione (nice, ugly, amazing) viene sempre per prima; il materiale (wooden, silk, plastic) sta per ultimo, attaccato al nome; l'origine (Italian, Japanese) subito prima del materiale.",
-            "nota": "Spazi con un'opinione e un materiale nello stesso gruppo."
-          },
-          {
-            "titolo": "In inglese l'aggettivo va prima del nome",
-            "regola": "In italiano diciamo 'una giacca nera di pelle'; in inglese tutti gli aggettivi stanno prima del nome: a black leather jacket. Gli aggettivi non prendono mai la -s del plurale: two black leather jackets.",
-            "nota": "Correzioni di aggettivi dopo il nome o al plurale."
-          }
-        ],
-        "scoperta": {
-          "storia": "Irene vende vecchi oggetti al mercatino dell'usato.",
-          "passi": [
-            {
-              "mostra": [
-                "Irene is selling a lovely old wooden chair."
-              ],
-              "domanda": "Quale parola dice che cosa pensa Irene della sedia?",
-              "obiettivo": "lovely: è l'opinione, e viene per prima. Basta 'lovely'."
-            },
-            {
-              "mostra": [
-                "Irene is selling a lovely old wooden chair."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "She's also got a ___ (red · silk · beautiful) scarf.",
-              "attese": [
-                "beautiful red silk"
-              ],
-              "obiettivo": "opinione → colore → materiale: beautiful red silk."
-            },
-            {
-              "mostra": [
-                "a small round mirror",
-                "a big square table"
-              ],
-              "domanda": "Che cosa viene prima: la grandezza o la forma?",
-              "obiettivo": "La grandezza (small, big), poi la forma (round, square). Basta 'la grandezza'."
-            },
-            {
-              "mostra": [
-                "a small round mirror"
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "There's a ___ (Japanese · tiny · china) cup on the table, too.",
-              "attese": [
-                "tiny Japanese china"
-              ],
-              "obiettivo": "dimensione → origine → materiale: tiny Japanese china."
-            },
-            {
-              "mostra": [
-                "a striped cotton T-shirt"
-              ],
-              "domanda": "Che cosa ci dice cotton?",
-              "obiettivo": "Il materiale: sta per ultimo, attaccato al nome. Basta 'il materiale'."
-            },
-            {
-              "mostra": [
-                "Irene is selling a lovely old wooden chair."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Her best item is the ___ (leather · brown · old) jacket.",
-              "attese": [
-                "old brown leather"
-              ],
-              "obiettivo": "età → colore → materiale: old brown leather."
-            },
-            {
-              "mostra": [
-                "a small round mirror"
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "A customer is interested in the ___ (round · silver · strange) clock.",
-              "attese": [
-                "strange round silver"
-              ],
-              "obiettivo": "opinione → forma → materiale: strange round silver."
-            }
-          ],
-          "sintesi": [
-            "opinione → dimensione → forma → età → colore → fantasia → origine → materiale",
-            "l'opinione per prima: a lovely old wooden chair",
-            "il materiale per ultimo, attaccato al nome: an old brown leather jacket",
-            "gli aggettivi stanno prima del nome e non prendono la -s"
-          ]
-        }
-      },
-      {
-        "title": "Phrasal verbs",
-        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sulla particella (up, off, after…) o sul pronome con la particella, mai su un verbo: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "Verbo + particella: un significato nuovo",
-            "regola": "I phrasal verbs sono formati da un verbo e da un avverbio o una preposizione, e spesso hanno un significato diverso dal verbo di partenza: give = dare, give up = smettere, arrendersi; look = guardare, look after = prendersi cura di. Lo stesso verbo può avere significati diversi: She went to Rome (andare) / She went over her notes (ripassare).",
-            "nota": "Domande di comprensione sul significato; spazi sulla particella."
-          },
-          {
-            "titolo": "Senza complemento",
-            "regola": "Alcuni phrasal verbs non hanno un complemento: wake up, get up, take off (decollare), break down (guastarsi), go out.",
-            "nota": "Frasi con phrasal verbs intransitivi."
-          },
-          {
-            "titolo": "Separabili e inseparabili",
-            "regola": "Con un complemento, alcuni phrasal verbs si separano: il complemento può stare prima o dopo la particella (switch on the heater / switch the heater on). Altri sono inseparabili: look after the baby, deal with a problem, run into an old friend.",
-            "nota": "Frasi con un nome come complemento."
-          },
-          {
-            "titolo": "Il pronome in mezzo",
-            "regola": "Nei phrasal verbs separabili il pronome (it, them, him…) va sempre fra il verbo e la particella: switch it on (NON switch on it), pick them up.",
-            "nota": "Spazi su pronome + particella; correzioni di switch on it."
-          },
-          {
-            "titolo": "Tre parole: sempre insieme",
-            "regola": "I phrasal verbs di tre parole non si separano mai: look forward to, get on with, put up with, run out of, go out with. I'm looking forward to the trip.",
-            "nota": "Spazi sull'ultima preposizione."
-          }
-        ],
-        "scoperta": {
-          "storia": "Mattia passa l'estate a lavorare in un campeggio.",
-          "passi": [
-            {
-              "mostra": [
-                "On his first day the manager asked Mattia to look after the swimming pool."
-              ],
-              "domanda": "Che cosa deve fare Mattia con la piscina?",
-              "obiettivo": "Occuparsene, sorvegliarla. Basta 'occuparsene'."
-            },
-            {
-              "mostra": [
-                "The radio in the bar was too loud, so Mattia turned it down."
-              ],
-              "domanda": "Che cosa ha fatto Mattia con la radio?",
-              "obiettivo": "Ha abbassato il volume. Basta 'l'ha abbassata'."
-            },
-            {
-              "mostra": [
-                "The radio in the bar was too loud, so Mattia turned it down."
-              ],
-              "domanda": "Dove sta it: fra turned e down, o dopo down?",
-              "obiettivo": "Notare che il pronome (it, them) sta in mezzo: turned it down. Basta 'in mezzo', 'fra turned e down'."
-            },
-            {
-              "mostra": [
-                "The radio in the bar was too loud, so Mattia turned it down."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "A guest dropped her keys by the pool, so Mattia picked ___ and gave them back to her.",
-              "attese": [
-                "them up"
-              ],
-              "obiettivo": "Pronome in mezzo: picked them up (non picked up them)."
-            },
-            {
-              "mostra": [
-                "Mattia gets on with all the other staff at the campsite."
-              ],
-              "domanda": "Mattia ha problemi con i colleghi?",
-              "obiettivo": "No: va d'accordo con tutti. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Mattia gets on with all the other staff at the campsite."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The manager can't put up ___ the noise from the disco any longer.",
-              "attese": [
-                "with"
-              ],
-              "obiettivo": "Tre parole sempre insieme: put up with."
-            },
-            {
-              "mostra": [
-                "The radio in the bar was too loud, so Mattia turned it down."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "A storm was coming, so the manager called ___ the beach party.",
-              "attese": [
-                "off"
-              ],
-              "obiettivo": "call off = annullare."
-            },
-            {
-              "mostra": [
-                "The radio in the bar was too loud, so Mattia turned it down."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "It got cold in the evening, so Mattia found the heater in the office and switched ___ .",
-              "attese": [
-                "it on"
-              ],
-              "obiettivo": "Pronome in mezzo: switched it on."
-            }
-          ],
-          "sintesi": [
-            "verbo + particella = significato nuovo: look after = prendersi cura di, call off = annullare",
-            "separabili: switch on the heater / switch the heater on",
-            "con il pronome sempre in mezzo: turned it down, picked them up",
-            "di tre parole, mai separati: get on with, put up with, look forward to"
-          ]
-        }
+        "sintesi": [
+          "am / is / are + participio passato: the beans are roasted",
+          "negativa: aren't allowed · domanda: Is milk added? — No, it isn't.",
+          "by + chi fa l'azione: decorated by hand, checked by the workers",
+          "niente 'venire': is used (non comes used)"
+        ]
       }
-    ],
-    "frasiEsercizi": [
-      "Butter is melted and then added to the mixture.",
-      "The Oscars are awarded for artistic and technical merit.",
-      "Visitors are required to leave their bags in the lockers.",
-      "Is the air conditioning turned off at night? Yes, it is.",
-      "She wore an unusual white straw hat.",
-      "Lucy has got long straight black hair.",
-      "I bought a small Indian silver ring.",
-      "This is a terrific black and white photo.",
-      "She's a beautiful tall blonde-haired woman.",
-      "The Divine Comedy was written by Dante.",
-      "The World Wide Web was invented by Tim Berners-Lee.",
-      "The essay was being written by a group of researchers.",
-      "The cake had been eaten by the time I arrived.",
-      "A new president will be elected in November.",
-      "The new house isn't going to be finished this year.",
-      "This game can be played by everyone.",
-      "Thousands of videos are posted every day.",
-      "Is Mozart considered to be one of the greatest composers? Yes, he is.",
-      "The Handmaid's Tale was written by Margaret Atwood.",
-      "A new supermarket will be built here.",
-      "The surveillance system is going to be upgraded soon.",
-      "Your proposal can't be discussed in today's meeting.",
-      "Turn to page 51 of the Student's Book.",
-      "I always turn to my sister for advice.",
-      "She woke up in the middle of the night.",
-      "I don't often go out with my parents.",
-      "Lots of Indian dishes are made with rice.",
-      "Time Magazine is published in New York.",
-      "The Mona Lisa is seen by about 30,000 people every day.",
-      "Spanish is spoken by millions of people in the USA.",
-      "Google is used by hundreds of millions of people every day.",
-      "Hundreds of millions of people use Google every day.",
-      "Lots of accidents are caused by careless driving.",
-      "Air pollution is caused by vehicle emissions.",
-      "Pizza is eaten all over the world.",
-      "Cars are often stolen in this neighbourhood.",
-      "Their house was built at the start of the 20th century.",
-      "While we were on holiday, our flat was burgled.",
-      "The police were called just before midnight.",
-      "Fingerprints were not left by the thieves.",
-      "Many things we take for granted today were developed by the Sumerians.",
-      "Two men have been attacked by a lion.",
-      "This TV series was filmed in Oxford in 2024.",
-      "The city was hit by a severe thunderstorm.",
-      "Two cakes have been made for Finn's birthday today.",
-      "She decided to give up smoking and get fit.",
-      "Why don't you take off your shoes? They're dirty.",
-      "Turn off the light and go to sleep!",
-      "I look forward to the holiday next week.",
-      "I looked for my keys everywhere, but I can't find them.",
-      "We didn't use to get on with each other, but now we're best friends.",
-      "Who picked up my scarf? I did. I picked it up.",
-      "The scientists carried out a lot of tests.",
-      "Isla, can you put away your clothes?",
-      "Didn't you try the shirt on before buying it?",
-      "The cocoa beans are roasted for about twenty minutes.",
-      "Then the beans are crushed into a thick brown paste.",
-      "The bars are wrapped by machines, but the gift boxes are decorated by hand.",
-      "Visitors can watch, but photos aren't allowed inside the factory.",
-      "Machines don't check the bars: every single bar is checked by the workers.",
-      "In Italian you'd say 'viene usato'. In English: brown sugar is used in every recipe.",
-      "It was closed by the town council in 2015 because hardly anybody went there.",
-      "Right now the old seats are being removed.",
-      "At the moment the walls of the entrance are being painted dark blue.",
-      "A huge new screen has been bought.",
-      "By the time the new owners bought it, the roof had been damaged by years of rain.",
-      "The cinema will be opened by the mayor next spring, with a big party.",
-      "Popcorn can't be eaten in the new screening room.",
-      "Irene is selling a lovely old wooden chair.",
-      "She's also got a beautiful red silk scarf.",
-      "There's a tiny Japanese china cup on the table, too.",
-      "Her best item is the old brown leather jacket.",
-      "A customer is interested in the strange round silver clock.",
-      "On his first day the manager asked Mattia to look after the swimming pool.",
-      "The radio in the bar was too loud, so Mattia turned it down.",
-      "A guest dropped her keys by the pool, so Mattia picked them up and gave them back to her.",
-      "Mattia gets on with all the other staff at the campsite.",
-      "The manager can't put up with the noise from the disco any longer.",
-      "A storm was coming, so the manager called off the beach party.",
-      "It got cold in the evening, so Mattia found the heater in the office and switched it on ."
-    ]
-  };
+    },
+    {
+      "title": "Passive: other tenses and forms",
+      "tempi": "il passivo in tutti i tempi: be coniugato (was/were, has/have been, is/are being, was/were being, had been, will be, is going to be, modale + be) + participio passato.",
+      "points": [
+        {
+          "titolo": "Il passivo nei tempi passati",
+          "regola": "Si mette be al tempo giusto + participio passato. Past simple: was/were + participio (The bridge was opened in 1990). Present perfect: has/have been + participio (Prices have been raised). Past perfect: had been + participio (The tickets had been sold before we arrived).",
+          "nota": "Ancore temporali chiare (in 1990, already, by the time)."
+        },
+        {
+          "titolo": "I tempi continui: being",
+          "regola": "Present continuous: am/is/are being + participio (The road is being repaired). Past continuous: was/were being + participio (The match was being filmed). Per un'azione in corso serve being.",
+          "nota": "Frasi con at the moment, right now, when…; correzioni di being dimenticato."
+        },
+        {
+          "titolo": "Futuro e modali",
+          "regola": "Futuro: will be / won't be + participio, oppure am/is/are going to be + participio (The results will be published tomorrow). Modali: can, should, must, might… + be + participio (This box must be kept dry).",
+          "nota": "Spazi con il modale tra parentesi."
+        },
+        {
+          "titolo": "by e la trasformazione dall'attivo",
+          "regola": "L'oggetto della frase attiva diventa il soggetto della passiva, e il verbo be prende il tempo del verbo attivo: Someone has stolen my bike → My bike has been stolen. Chi fa l'azione si introduce con by, solo se serve.",
+          "nota": "Frasi da trasformare, con la prima parte già data."
+        }
+      ],
+      "scoperta": {
+        "storia": "Il vecchio cinema del quartiere viene rimesso a nuovo.",
+        "passi": [
+          {
+            "mostra": [
+              "The cinema was built in 1952."
+            ],
+            "domanda": "Si parla di adesso o del passato?",
+            "obiettivo": "Del passato. Basta 'del passato'."
+          },
+          {
+            "mostra": [
+              "The cinema was built in 1952."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "It ___ (close) by the town council in 2015 because hardly anybody went there.",
+            "attese": [
+              "was closed"
+            ],
+            "obiettivo": "Passato: was closed."
+          },
+          {
+            "mostra": [
+              "Right now the old seats are being removed."
+            ],
+            "domanda": "Hanno già finito di togliere le poltrone?",
+            "obiettivo": "No: le stanno togliendo adesso, being indica un'azione in corso. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Right now the old seats are being removed."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "At the moment the walls of the entrance ___ (paint) dark blue.",
+            "attese": [
+              "are being painted"
+            ],
+            "obiettivo": "Azione in corso: are being painted."
+          },
+          {
+            "mostra": [
+              "A huge new screen has been bought."
+            ],
+            "domanda": "Lo schermo nuovo c'è già?",
+            "obiettivo": "Sì: è già stato comprato. Basta 'sì'."
+          },
+          {
+            "mostra": [
+              "The cinema was built in 1952."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "By the time the new owners bought it, the roof ___ (damage) by years of rain.",
+            "attese": [
+              "had been damaged",
+              "had been badly damaged"
+            ],
+            "obiettivo": "Prima di un altro fatto passato: had been damaged."
+          },
+          {
+            "mostra": [
+              "A huge new screen has been bought."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The cinema ___ (open) by the mayor next spring, with a big party.",
+            "attese": [
+              "will be opened",
+              "is going to be opened",
+              "will be reopened",
+              "is going to be reopened"
+            ],
+            "obiettivo": "Futuro: will be opened."
+          },
+          {
+            "mostra": [
+              "A huge new screen has been bought."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Popcorn ___ (can't · eat) in the new screening room.",
+            "attese": [
+              "can't be eaten",
+              "cannot be eaten"
+            ],
+            "obiettivo": "Modale + be + participio: can't be eaten."
+          }
+        ],
+        "sintesi": [
+          "past simple: was built · present perfect: has been bought · past perfect: had been damaged",
+          "tempi continui con being: are being removed, was being filmed",
+          "futuro: will be opened / is going to be opened",
+          "modali: can't be eaten, must be kept"
+        ]
+      }
+    },
+    {
+      "title": "Adjective order",
+      "tempi": "tutti i tempi già studiati. Lo spazio è sul gruppo di aggettivi: tra parentesi ci sono gli aggettivi in disordine, da mettere nell'ordine giusto.",
+      "points": [
+        {
+          "titolo": "L'ordine fisso",
+          "regola": "Quando più aggettivi precedono lo stesso nome, seguono quest'ordine: opinione → dimensione → forma → età → colore → fantasia (pattern) → origine → materiale. a lovely small round old blue striped Greek cotton… (ma nella realtà se ne usano al massimo tre).",
+          "nota": "Gruppi di due o tre aggettivi tra parentesi da riordinare."
+        },
+        {
+          "titolo": "Prima l'opinione, per ultimo il materiale",
+          "regola": "L'opinione (nice, ugly, amazing) viene sempre per prima; il materiale (wooden, silk, plastic) sta per ultimo, attaccato al nome; l'origine (Italian, Japanese) subito prima del materiale.",
+          "nota": "Spazi con un'opinione e un materiale nello stesso gruppo."
+        },
+        {
+          "titolo": "In inglese l'aggettivo va prima del nome",
+          "regola": "In italiano diciamo 'una giacca nera di pelle'; in inglese tutti gli aggettivi stanno prima del nome: a black leather jacket. Gli aggettivi non prendono mai la -s del plurale: two black leather jackets.",
+          "nota": "Correzioni di aggettivi dopo il nome o al plurale."
+        }
+      ],
+      "scoperta": {
+        "storia": "Irene vende vecchi oggetti al mercatino dell'usato.",
+        "passi": [
+          {
+            "mostra": [
+              "Irene is selling a lovely old wooden chair."
+            ],
+            "domanda": "Quale parola dice che cosa pensa Irene della sedia?",
+            "obiettivo": "lovely: è l'opinione, e viene per prima. Basta 'lovely'."
+          },
+          {
+            "mostra": [
+              "Irene is selling a lovely old wooden chair."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "She's also got a ___ (red · silk · beautiful) scarf.",
+            "attese": [
+              "beautiful red silk"
+            ],
+            "obiettivo": "opinione → colore → materiale: beautiful red silk."
+          },
+          {
+            "mostra": [
+              "a small round mirror",
+              "a big square table"
+            ],
+            "domanda": "Che cosa viene prima: la grandezza o la forma?",
+            "obiettivo": "La grandezza (small, big), poi la forma (round, square). Basta 'la grandezza'."
+          },
+          {
+            "mostra": [
+              "a small round mirror"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "There's a ___ (Japanese · tiny · china) cup on the table, too.",
+            "attese": [
+              "tiny Japanese china"
+            ],
+            "obiettivo": "dimensione → origine → materiale: tiny Japanese china."
+          },
+          {
+            "mostra": [
+              "Irene is selling a lovely old wooden chair."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Her best item is the ___ (leather · brown · old) jacket.",
+            "attese": [
+              "old brown leather"
+            ],
+            "obiettivo": "età → colore → materiale: old brown leather."
+          },
+          {
+            "mostra": [
+              "a small round mirror"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "A customer is interested in the ___ (round · silver · strange) clock.",
+            "attese": [
+              "strange round silver"
+            ],
+            "obiettivo": "opinione → forma → materiale: strange round silver."
+          }
+        ],
+        "sintesi": [
+          "opinione → dimensione → forma → età → colore → fantasia → origine → materiale",
+          "l'opinione per prima: a lovely old wooden chair",
+          "il materiale per ultimo, attaccato al nome: an old brown leather jacket",
+          "gli aggettivi stanno prima del nome e non prendono la -s"
+        ]
+      }
+    },
+    {
+      "title": "Phrasal verbs",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE sulla particella (up, off, after…) o sul pronome con la particella, mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "Verbo + particella: un significato nuovo",
+          "regola": "I phrasal verbs sono formati da un verbo e da un avverbio o una preposizione, e spesso hanno un significato diverso dal verbo di partenza: give = dare, give up = smettere, arrendersi; look = guardare, look after = prendersi cura di. Lo stesso verbo può avere significati diversi: She went to Rome (andare) / She went over her notes (ripassare).",
+          "nota": "Domande di comprensione sul significato; spazi sulla particella."
+        },
+        {
+          "titolo": "Senza complemento",
+          "regola": "Alcuni phrasal verbs non hanno un complemento: wake up, get up, take off (decollare), break down (guastarsi), go out.",
+          "nota": "Frasi con phrasal verbs intransitivi."
+        },
+        {
+          "titolo": "Separabili e inseparabili",
+          "regola": "Con un complemento, alcuni phrasal verbs si separano: il complemento può stare prima o dopo la particella (switch on the heater / switch the heater on). Altri sono inseparabili: look after the baby, deal with a problem, run into an old friend.",
+          "nota": "Frasi con un nome come complemento."
+        },
+        {
+          "titolo": "Il pronome in mezzo",
+          "regola": "Nei phrasal verbs separabili il pronome (it, them, him…) va sempre fra il verbo e la particella: switch it on (NON switch on it), pick them up.",
+          "nota": "Spazi su pronome + particella; correzioni di switch on it."
+        },
+        {
+          "titolo": "Tre parole: sempre insieme",
+          "regola": "I phrasal verbs di tre parole non si separano mai: look forward to, get on with, put up with, run out of, go out with. I'm looking forward to the trip.",
+          "nota": "Spazi sull'ultima preposizione."
+        }
+      ],
+      "scoperta": {
+        "storia": "Mattia passa l'estate a lavorare in un campeggio.",
+        "passi": [
+          {
+            "mostra": [
+              "On his first day the manager asked Mattia to look after the swimming pool."
+            ],
+            "domanda": "Che cosa deve fare Mattia con la piscina?",
+            "obiettivo": "Occuparsene, sorvegliarla. Basta 'occuparsene'."
+          },
+          {
+            "mostra": [
+              "The radio in the bar was too loud, so Mattia turned it down."
+            ],
+            "domanda": "Che cosa ha fatto Mattia con la radio?",
+            "obiettivo": "Ha abbassato il volume. Basta 'l'ha abbassata'."
+          },
+          {
+            "mostra": [
+              "The radio in the bar was too loud, so Mattia turned it down."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "A guest dropped her keys by the pool, so Mattia picked ___ and gave them back to her.",
+            "attese": [
+              "them up"
+            ],
+            "obiettivo": "Pronome in mezzo: picked them up (non picked up them)."
+          },
+          {
+            "mostra": [
+              "Mattia gets on with all the other staff at the campsite."
+            ],
+            "domanda": "Mattia ha problemi con i colleghi?",
+            "obiettivo": "No: va d'accordo con tutti. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Mattia gets on with all the other staff at the campsite."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The manager can't put up ___ the noise from the disco any longer.",
+            "attese": [
+              "with"
+            ],
+            "obiettivo": "Tre parole sempre insieme: put up with."
+          },
+          {
+            "mostra": [
+              "The radio in the bar was too loud, so Mattia turned it down."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "A storm was coming, so the manager called ___ the beach party.",
+            "attese": [
+              "off"
+            ],
+            "obiettivo": "call off = annullare."
+          },
+          {
+            "mostra": [
+              "The radio in the bar was too loud, so Mattia turned it down."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "It got cold in the evening, so Mattia found the heater in the office and switched ___ .",
+            "attese": [
+              "it on"
+            ],
+            "obiettivo": "Pronome in mezzo: switched it on."
+          }
+        ],
+        "sintesi": [
+          "verbo + particella = significato nuovo: look after = prendersi cura di, call off = annullare",
+          "separabili: switch on the heater / switch the heater on",
+          "con il pronome sempre in mezzo: turned it down, picked them up",
+          "di tre parole, mai separati: get on with, put up with, look forward to"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "Butter is melted and then added to the mixture.",
+    "The Oscars are awarded for artistic and technical merit.",
+    "Visitors are required to leave their bags in the lockers.",
+    "Is the air conditioning turned off at night? Yes, it is.",
+    "She wore an unusual white straw hat.",
+    "Lucy has got long straight black hair.",
+    "I bought a small Indian silver ring.",
+    "This is a terrific black and white photo.",
+    "She's a beautiful tall blonde-haired woman.",
+    "The Divine Comedy was written by Dante.",
+    "The World Wide Web was invented by Tim Berners-Lee.",
+    "The essay was being written by a group of researchers.",
+    "The cake had been eaten by the time I arrived.",
+    "A new president will be elected in November.",
+    "The new house isn't going to be finished this year.",
+    "This game can be played by everyone.",
+    "Thousands of videos are posted every day.",
+    "Is Mozart considered to be one of the greatest composers? Yes, he is.",
+    "The Handmaid's Tale was written by Margaret Atwood.",
+    "A new supermarket will be built here.",
+    "The surveillance system is going to be upgraded soon.",
+    "Your proposal can't be discussed in today's meeting.",
+    "Turn to page 51 of the Student's Book.",
+    "I always turn to my sister for advice.",
+    "She woke up in the middle of the night.",
+    "I don't often go out with my parents.",
+    "Lots of Indian dishes are made with rice.",
+    "Time Magazine is published in New York.",
+    "The Mona Lisa is seen by about 30,000 people every day.",
+    "Spanish is spoken by millions of people in the USA.",
+    "Google is used by hundreds of millions of people every day.",
+    "Hundreds of millions of people use Google every day.",
+    "Lots of accidents are caused by careless driving.",
+    "Air pollution is caused by vehicle emissions.",
+    "Pizza is eaten all over the world.",
+    "Cars are often stolen in this neighbourhood.",
+    "Their house was built at the start of the 20th century.",
+    "While we were on holiday, our flat was burgled.",
+    "The police were called just before midnight.",
+    "Fingerprints were not left by the thieves.",
+    "Many things we take for granted today were developed by the Sumerians.",
+    "Two men have been attacked by a lion.",
+    "This TV series was filmed in Oxford in 2024.",
+    "The city was hit by a severe thunderstorm.",
+    "Two cakes have been made for Finn's birthday today.",
+    "She decided to give up smoking and get fit.",
+    "Why don't you take off your shoes? They're dirty.",
+    "Turn off the light and go to sleep!",
+    "I look forward to the holiday next week.",
+    "I looked for my keys everywhere, but I can't find them.",
+    "We didn't use to get on with each other, but now we're best friends.",
+    "Who picked up my scarf? I did. I picked it up.",
+    "The scientists carried out a lot of tests.",
+    "Isla, can you put away your clothes?",
+    "Didn't you try the shirt on before buying it?",
+    "The cocoa beans are roasted for about twenty minutes.",
+    "Then the beans are crushed into a thick brown paste.",
+    "The bars are wrapped by machines, but the gift boxes are decorated by hand.",
+    "Visitors can watch, but photos aren't allowed inside the factory.",
+    "Machines don't check the bars: every single bar is checked by the workers.",
+    "In Italian you'd say 'viene usato'. In English: brown sugar is used in every recipe.",
+    "It was closed by the town council in 2015 because hardly anybody went there.",
+    "Right now the old seats are being removed.",
+    "At the moment the walls of the entrance are being painted dark blue.",
+    "A huge new screen has been bought.",
+    "By the time the new owners bought it, the roof had been damaged by years of rain.",
+    "The cinema will be opened by the mayor next spring, with a big party.",
+    "Popcorn can't be eaten in the new screening room.",
+    "Irene is selling a lovely old wooden chair.",
+    "She's also got a beautiful red silk scarf.",
+    "There's a tiny Japanese china cup on the table, too.",
+    "Her best item is the old brown leather jacket.",
+    "A customer is interested in the strange round silver clock.",
+    "On his first day the manager asked Mattia to look after the swimming pool.",
+    "The radio in the bar was too loud, so Mattia turned it down.",
+    "A guest dropped her keys by the pool, so Mattia picked them up and gave them back to her.",
+    "Mattia gets on with all the other staff at the campsite.",
+    "The manager can't put up with the noise from the disco any longer.",
+    "A storm was coming, so the manager called off the beach party.",
+    "It got cold in the evening, so Mattia found the heater in the office and switched it on ."
+  ]
+};
   const storageKey = "grammar-tutor-unit9-v1";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;

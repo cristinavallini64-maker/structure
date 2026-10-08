@@ -47,712 +47,661 @@
 <script>
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
   const UNITA = {
-    "titolo": "Unit 10 · Reported Speech",
-    "fuoriProgramma": "past perfect continuous (had been + -ing), verbi introduttivi diversi da say, tell, ask (suggest, recommend, insist…), reported speech con i verbi in -ing",
-    "vietate": "\\bhad\\s+been\\s+[a-z]+ing\\b|\\b(?:suggested|recommended|insisted|admitted|denied)\\b",
-    "topics": [
-      {
-        "title": "Reported speech: statements",
-        "tempi": "i tempi del discorso diretto vanno indietro di un passo se il verbo che introduce è al passato (said, told). Lo spazio è sul verbo riferito, ricavato dalla frase diretta: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
+  "titolo": "Unit 10 · Reported Speech",
+  "fuoriProgramma": "past perfect continuous (had been + -ing), verbi introduttivi diversi da say, tell, ask (suggest, recommend, insist…), reported speech con i verbi in -ing",
+  "vietate": "\\bhad\\s+been\\s+[a-z]+ing\\b|\\b(?:suggested|recommended|insisted|admitted|denied)\\b",
+  "topics": [
+    {
+      "title": "Reported speech: statements",
+      "tempi": "i tempi del discorso diretto vanno indietro di un passo se il verbo che introduce è al passato (said, told). Lo spazio è sul verbo riferito, ricavato dalla frase diretta: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "say e tell al presente: niente cambia",
+          "regola": "Il discorso indiretto riferisce che cosa ha detto qualcuno. Se il verbo che introduce è al presente (says, tells), i tempi non cambiano: Anna says she hates reality shows. that si può sempre omettere.",
+          "nota": "Qualche frase con says per far vedere che i tempi restano."
+        },
+        {
+          "titolo": "Il backshift: i tempi vanno indietro",
+          "regola": "Se il verbo che introduce è al passato, ogni tempo arretra di un passo: present simple → past simple ('I work' → he said he worked); present continuous → past continuous; past simple → past perfect ('I lost it' → she said she had lost it); present perfect → past perfect; am/is/are going to → was/were going to; have got → had.",
+          "nota": "Spazi sul verbo riferito; la frase diretta è data fra virgolette."
+        },
+        {
+          "titolo": "I modali",
+          "regola": "will → would, can → could, must → had to (oppure resta must). would, should, might e could restano uguali: 'I should eat more vegetables' → she said she should eat more vegetables.",
+          "nota": "Spazi con will, can, must nella frase diretta."
+        },
+        {
+          "titolo": "Pronomi e possessivi",
+          "regola": "Cambiano anche i pronomi e i possessivi, secondo chi riferisce: 'I've left my umbrella on the train' → Tom said he had left his umbrella on the train.",
+          "nota": "Frasi in cui I/my diventano he/his o she/her."
+        }
+      ],
+      "scoperta": {
+        "storia": "Il giorno dopo la festa di compleanno, Carlotta racconta alla mamma che cosa le hanno detto gli amici.",
+        "passi": [
           {
-            "titolo": "say e tell al presente: niente cambia",
-            "regola": "Il discorso indiretto riferisce che cosa ha detto qualcuno. Se il verbo che introduce è al presente (says, tells), i tempi non cambiano: Anna says she hates reality shows. that si può sempre omettere.",
-            "nota": "Qualche frase con says per far vedere che i tempi restano."
+            "mostra": [
+              "« I'm exhausted. » → Luca said that he was exhausted."
+            ],
+            "domanda": "Luca ha detto « I'm exhausted. ». Quale parola è diversa nella frase che racconta Carlotta?",
+            "obiettivo": "am è diventato was (e I è diventato he): Carlotta riferisce il giorno dopo. Basta 'was' o 'am → was'."
           },
           {
-            "titolo": "Il backshift: i tempi vanno indietro",
-            "regola": "Se il verbo che introduce è al passato, ogni tempo arretra di un passo: present simple → past simple ('I work' → he said he worked); present continuous → past continuous; past simple → past perfect ('I lost it' → she said she had lost it); present perfect → past perfect; am/is/are going to → was/were going to; have got → had.",
-            "nota": "Spazi sul verbo riferito; la frase diretta è data fra virgolette."
+            "mostra": [
+              "« I'm exhausted. » → Luca said that he was exhausted."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« I feel sick. » → Sofia said that she ___ sick.",
+            "attese": [
+              "felt"
+            ],
+            "obiettivo": "present simple → past simple: felt."
           },
           {
-            "titolo": "I modali",
-            "regola": "will → would, can → could, must → had to (oppure resta must). would, should, might e could restano uguali: 'I should eat more vegetables' → she said she should eat more vegetables.",
-            "nota": "Spazi con will, can, must nella frase diretta."
+            "mostra": [
+              "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
+            ],
+            "domanda": "Oltre al tempo verbale, che cosa è cambiato?",
+            "obiettivo": "I pronomi: I → he, my → his. Basta 'i pronomi'."
           },
           {
-            "titolo": "Pronomi e possessivi",
-            "regola": "Cambiano anche i pronomi e i possessivi, secondo chi riferisce: 'I've left my umbrella on the train' → Tom said he had left his umbrella on the train.",
-            "nota": "Frasi in cui I/my diventano he/his o she/her."
+            "mostra": [
+              "« I'm exhausted. » → Luca said that he was exhausted."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« We're moving to Turin in June. » → The twins said that they ___ to Turin in June.",
+            "attese": [
+              "were moving"
+            ],
+            "obiettivo": "present continuous → past continuous: were moving."
+          },
+          {
+            "mostra": [
+              "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« I'll text you. » → Pietro said that he ___ me.",
+            "attese": [
+              "would text",
+              "'d text"
+            ],
+            "obiettivo": "will → would: would text."
+          },
+          {
+            "mostra": [
+              "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« I can't dance at all. » → Ada said that she ___ dance at all.",
+            "attese": [
+              "couldn't",
+              "could not"
+            ],
+            "obiettivo": "can't → couldn't."
+          },
+          {
+            "mostra": [
+              "« I love this song! » → Carlotta says she loves this song."
+            ],
+            "domanda": "Carlotta lo dice adesso o lo ha detto ieri?",
+            "obiettivo": "Adesso: says è al presente, quindi loves resta loves. Basta 'adesso'."
+          },
+          {
+            "mostra": [
+              "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« I must catch the last bus. » → Bea said that she ___ catch the last bus.",
+            "attese": [
+              "had to",
+              "must"
+            ],
+            "obiettivo": "must → had to."
           }
         ],
-        "scoperta": {
-          "storia": "Il giorno dopo la festa di compleanno, Carlotta racconta alla mamma che cosa le hanno detto gli amici.",
-          "passi": [
-            {
-              "mostra": [
-                "« I'm exhausted. » → Luca said that he was exhausted."
-              ],
-              "domanda": "Luca ha detto « I'm exhausted. ». Quale parola è diversa nella frase che racconta Carlotta?",
-              "obiettivo": "am è diventato was (e I è diventato he): Carlotta riferisce il giorno dopo. Basta 'was' o 'am → was'."
-            },
-            {
-              "mostra": [
-                "« I'm exhausted. » → Luca said that he was exhausted."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« I feel sick. » → Sofia said that she ___ sick.",
-              "attese": [
-                "felt"
-              ],
-              "obiettivo": "present simple → past simple: felt."
-            },
-            {
-              "mostra": [
-                "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
-              ],
-              "domanda": "Oltre al tempo verbale, che cosa è cambiato?",
-              "obiettivo": "I pronomi: I → he, my → his. Basta 'i pronomi'."
-            },
-            {
-              "mostra": [
-                "« I'm exhausted. » → Luca said that he was exhausted."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« We're moving to Turin in June. » → The twins said that they ___ to Turin in June.",
-              "attese": [
-                "were moving"
-              ],
-              "obiettivo": "present continuous → past continuous: were moving."
-            },
-            {
-              "mostra": [
-                "« I'll call you tonight. » → Gaia said that she would call me that night."
-              ],
-              "domanda": "Nella frase di Carlotta, che cosa c'è al posto di I'll (I will)?",
-              "obiettivo": "Notare she would: will diventa would. Basta 'would'."
-            },
-            {
-              "mostra": [
-                "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« I'll text you. » → Pietro said that he ___ me.",
-              "attese": [
-                "would text",
-                "'d text"
-              ],
-              "obiettivo": "will → would: would text."
-            },
-            {
-              "mostra": [
-                "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« I can't dance at all. » → Ada said that she ___ dance at all.",
-              "attese": [
-                "couldn't",
-                "could not"
-              ],
-              "obiettivo": "can't → couldn't."
-            },
-            {
-              "mostra": [
-                "« I love this song! » → Carlotta says she loves this song."
-              ],
-              "domanda": "Carlotta lo dice adesso o lo ha detto ieri?",
-              "obiettivo": "Adesso: says è al presente, quindi loves resta loves. Basta 'adesso'."
-            },
-            {
-              "mostra": [
-                "« I've forgotten my wallet. » → Marco said that he had forgotten his wallet."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« I must catch the last bus. » → Bea said that she ___ catch the last bus.",
-              "attese": [
-                "had to",
-                "must"
-              ],
-              "obiettivo": "must → had to."
-            }
-          ],
-          "sintesi": [
-            "says (presente) → i tempi non cambiano",
-            "said (passato) → backshift: am → was, live → lived, have forgotten → had forgotten",
-            "will → would · can → could · must → had to",
-            "cambiano pronomi e possessivi: I → he, my → his (my wallet → his wallet)"
-          ]
-        }
-      },
-      {
-        "title": "Reported speech: say vs tell",
-        "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su say, said, tell, told (o su to), mai su un altro verbo: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "say: senza la persona",
-            "regola": "Con say non si dice a chi si parla: She said (that) she was cold. Se si vuole indicare la persona, si usa say to + persona: She said to me that she was nervous.",
-            "nota": "Spazi su said senza persona e su said to."
-          },
-          {
-            "titolo": "tell: + la persona, senza to",
-            "regola": "tell è seguito direttamente dalla persona, senza to: She told me she was cold (NON she told to me, NON she said me).",
-            "nota": "Correzioni di said me e told to me."
-          },
-          {
-            "titolo": "Espressioni fisse con tell",
-            "regola": "Si usa tell, anche senza la persona, in alcune espressioni fisse: tell a story (raccontare una storia), tell a joke (una barzelletta), tell the truth (dire la verità), tell a lie (una bugia), tell the time (dire l'ora).",
-            "nota": "Frasi con le espressioni fisse."
-          }
-        ],
-        "scoperta": {
-          "storia": "In mensa Nicolò racconta le novità della settimana.",
-          "passi": [
-            {
-              "mostra": [
-                "Nicolò said that the test was easy.",
-                "Nicolò told us that the test was easy."
-              ],
-              "domanda": "In quale frase sappiamo a chi lo ha detto?",
-              "obiettivo": "Nella seconda: told us, tell + la persona. Basta 'la seconda'."
-            },
-            {
-              "mostra": [
-                "Nicolò said that the test was easy.",
-                "Nicolò told us that the test was easy."
-              ],
-              "domanda": "Che cosa c'è subito dopo told, che dopo said non c'è?",
-              "obiettivo": "Notare la persona (us): dopo tell c'è sempre a chi lo si dice, dopo say no. Basta 'la persona', 'us'."
-            },
-            {
-              "mostra": [
-                "Nicolò told us that the test was easy."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Nicolò ___ me that the canteen was closed on Friday.",
-              "attese": [
-                "told"
-              ],
-              "obiettivo": "Con la persona (me): told."
-            },
-            {
-              "mostra": [
-                "Nicolò said that the test was easy."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "The head teacher ___ that the school trip was cancelled.",
-              "attese": [
-                "said",
-                "announced"
-              ],
-              "obiettivo": "Senza la persona: said."
-            },
-            {
-              "mostra": [
-                "Grandad loves telling jokes at dinner."
-              ],
-              "domanda": "Che cosa fa il nonno a cena?",
-              "obiettivo": "Racconta barzellette: tell a joke. Basta 'racconta barzellette'."
-            },
-            {
-              "mostra": [
-                "Grandad loves telling jokes at dinner."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Be honest and ___ the truth: did you eat my sandwich?",
-              "attese": [
-                "tell"
-              ],
-              "obiettivo": "Espressione fissa: tell the truth."
-            },
-            {
-              "mostra": [
-                "Bea ha detto a Nicolò che aveva fame. → Bea told Nicolò she was hungry.",
-                "Bea ha detto a Nicolò che aveva fame. → Bea said to Nicolò she was hungry."
-              ],
-              "domanda": "In italiano 'ha detto a Nicolò'. Con said, che parola c'è prima di Nicolò? E con told?",
-              "obiettivo": "Notare said to Nicolò (con to) ma told Nicolò (senza to). Accetta 'to con said, niente con told', 'to'."
-            },
-            {
-              "mostra": [
-                "Nicolò said that the test was easy."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Ivo ___ to his mum that he had missed the bus again.",
-              "attese": [
-                "said"
-              ],
-              "obiettivo": "say to + persona: said to his mum."
-            },
-            {
-              "mostra": [
-                "Grandad loves telling jokes at dinner."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Excuse me, can you ___ me the time, please?",
-              "attese": [
-                "tell"
-              ],
-              "obiettivo": "Espressione fissa: tell the time."
-            }
-          ],
-          "sintesi": [
-            "say senza la persona: Nicolò said that… · say to + persona",
-            "tell + persona, senza to: Nicolò told me… (non said me, non told to me)",
-            "tell a story, a joke, the truth, a lie, the time"
-          ]
-        }
-      },
-      {
-        "title": "Reported speech: questions",
-        "tempi": "backshift come nelle affermazioni; nella domanda riferita l'ordine è quello di una frase affermativa. Lo spazio è sulla parte che segue ask (if/whether o la wh-word, soggetto, verbo): niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "ask e l'ordine affermativo",
-            "regola": "Per riferire una domanda si usa ask (asked me, asked if…); il complemento (me, him) si può omettere se il contesto è chiaro. Nella domanda riferita l'ordine è quello di una frase affermativa: niente do/does/did, niente inversione, niente punto di domanda. 'Where do you work?' → She asked me where I worked (NON where did I work).",
-            "nota": "Correzioni di inversione e di did nella domanda riferita."
-          },
-          {
-            "titolo": "Domande sì/no: if o whether",
-            "regola": "Se alla domanda si risponde sì o no, la domanda riferita è introdotta da if o whether: 'Are you hungry?' → He asked if/whether I was hungry.",
-            "nota": "Accetta sempre sia if sia whether."
-          },
-          {
-            "titolo": "Domande con what, where, why, who, how…",
-            "regola": "La parola interrogativa resta: 'Why are you late?' → She asked why I was late.",
-            "nota": "Domande wh- con soggetto e verbo nell'ordine affermativo."
-          },
-          {
-            "titolo": "want to know · answer · reply",
-            "regola": "Al posto di ask si usa spesso want to know: Mum wanted to know when the bus left. Per riferire le risposte si usano answer o reply: I replied that I had.",
-            "nota": "Qualche frase con wanted to know."
-          }
-        ],
-        "scoperta": {
-          "storia": "Giorgio fa il primo giorno di stage in un'officina.",
-          "passi": [
-            {
-              "mostra": [
-                "« Where do you live? » → The mechanic asked Giorgio where he lived."
-              ],
-              "domanda": "Nella domanda riferita c'è ancora do?",
-              "obiettivo": "No: niente do/does/did, e l'ordine è quello di una frase affermativa. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "« Where do you live? » → The mechanic asked Giorgio where he lived."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« What time do you finish school? » → She asked him what time ___ school.",
-              "attese": [
-                "he finished"
-              ],
-              "obiettivo": "Ordine affermativo, senza do: he finished."
-            },
-            {
-              "mostra": [
-                "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
-              ],
-              "domanda": "Che cosa voleva sapere il capo?",
-              "obiettivo": "Se Giorgio sapeva cambiare una gomma. Basta 'se sapeva cambiare una gomma'."
-            },
-            {
-              "mostra": [
-                "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Have you ever driven a van? » → She asked him ___ ever driven a van.",
-              "attese": [
-                "if he had",
-                "whether he had",
-                "if he'd",
-                "whether he'd"
-              ],
-              "obiettivo": "Domanda sì/no: if he had."
-            },
-            {
-              "mostra": [
-                "« Where do you live? » → The mechanic asked Giorgio where he lived."
-              ],
-              "domanda": "Nella domanda riferita, he viene prima o dopo lived?",
-              "obiettivo": "Notare che he viene prima del verbo, come in una frase normale (where he lived), non come in una domanda. Basta 'prima'."
-            },
-            {
-              "mostra": [
-                "« Where do you live? » → The mechanic asked Giorgio where he lived."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Why are you laughing? » → The boss wanted to know why Giorgio ___ .",
-              "attese": [
-                "was laughing"
-              ],
-              "obiettivo": "Backshift e ordine affermativo: was laughing."
-            },
-            {
-              "mostra": [
-                "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Do you like engines? » → She asked ___ engines.",
-              "attese": [
-                "if he liked",
-                "whether he liked",
-                "him if he liked",
-                "him whether he liked"
-              ],
-              "obiettivo": "Domanda sì/no senza do: if he liked."
-            },
-            {
-              "mostra": [
-                "« Where do you live? » → The mechanic asked Giorgio where he lived."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Where's the toolbox? » → Giorgio asked where the toolbox ___ .",
-              "attese": [
-                "was"
-              ],
-              "obiettivo": "Ordine affermativo: where the toolbox was (non where was the toolbox)."
-            }
-          ],
-          "sintesi": [
-            "ask + ordine affermativo, niente do/does/did: she asked where he lived",
-            "domande sì/no: if / whether — asked if he could change a tyre",
-            "domande wh-: la parola interrogativa resta — why Giorgio was laughing",
-            "wanted to know = asked"
-          ]
-        }
-      },
-      {
-        "title": "Reported speech: requests, instructions and advice",
-        "tempi": "ask/tell + persona + (not) to + forma base. Lo spazio è sulla parte con to (o sulla persona + to): niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "Richieste: ask + persona + to",
-            "regola": "Le richieste (Can you…?, Could you…?, Please…) si riportano con ask + persona + to + forma base: 'Can you help me?' → She asked me to help her.",
-            "nota": "Spazi su to + verbo dopo asked."
-          },
-          {
-            "titolo": "Ordini, istruzioni e consigli: tell + persona + to",
-            "regola": "Ordini, istruzioni e consigli si riportano con tell + persona + to + forma base: 'Warm up!' → The coach told us to warm up. / 'You should rest' → The doctor told me to rest.",
-            "nota": "Spazi su to + verbo dopo told."
-          },
-          {
-            "titolo": "Negativo: not to",
-            "regola": "La forma negativa è not to + forma base, mai don't: 'Don't shout!' → She told them not to shout (NON told them don't shout).",
-            "nota": "Correzioni di don't e di to not."
-          },
-          {
-            "titolo": "La persona è obbligatoria",
-            "regola": "Dopo tell e (in questo uso) dopo ask ci vuole la persona: told him to wait (NON told to wait him). Per ordini e richieste non si usa that: told us to leave (NON told us that leave).",
-            "nota": "Correzioni di that al posto di to."
-          }
-        ],
-        "scoperta": {
-          "storia": "Prima della gita a Firenze, la professoressa dà istruzioni alla classe.",
-          "passi": [
-            {
-              "mostra": [
-                "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
-              ],
-              "domanda": "Che cosa deve portare la classe?",
-              "obiettivo": "Il pranzo al sacco. Basta 'il pranzo'."
-            },
-            {
-              "mostra": [
-                "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
-              ],
-              "domanda": "Dopo asked us, che cosa c'è davanti a bring?",
-              "obiettivo": "Notare to: asked + persona + to + verbo. Basta 'to'."
-            },
-            {
-              "mostra": [
-                "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Can you carry the first aid kit? » → She asked Tommy ___ the first aid kit.",
-              "attese": [
-                "to carry"
-              ],
-              "obiettivo": "Richiesta: asked Tommy to carry."
-            },
-            {
-              "mostra": [
-                "« Don't leave the group! » → She told us not to leave the group."
-              ],
-              "domanda": "Gli studenti possono allontanarsi dal gruppo?",
-              "obiettivo": "No: not to = di non. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "« Don't leave the group! » → She told us not to leave the group."
-              ],
-              "domanda": "Guarda not to leave: not sta prima o dopo to?",
-              "obiettivo": "Notare not prima di to (not to leave), senza don't. Basta 'prima'."
-            },
-            {
-              "mostra": [
-                "« Don't leave the group! » → She told us not to leave the group."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Don't touch the statues. » → The guide told the students ___ the statues.",
-              "attese": [
-                "not to touch"
-              ],
-              "obiettivo": "Ordine negativo: not to touch (non don't touch)."
-            },
-            {
-              "mostra": [
-                "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« Switch off your phones in the museum. » → The guide told ___ off our phones in the museum.",
-              "attese": [
-                "us to switch",
-                "us to turn"
-              ],
-              "obiettivo": "tell + persona + to: told us to switch."
-            },
-            {
-              "mostra": [
-                "« Don't leave the group! » → She told us not to leave the group."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "« You should buy a map of the city. » → Our teacher told me ___ a map of the city.",
-              "attese": [
-                "to buy",
-                "to get"
-              ],
-              "obiettivo": "Consiglio: told me to buy."
-            }
-          ],
-          "sintesi": [
-            "richieste: ask + persona + to: she asked Tommy to carry the kit",
-            "ordini e consigli: tell + persona + to: the guide told us to switch off our phones",
-            "negativo: not to (non don't): told us not to leave the group"
-          ]
-        }
-      },
-      {
-        "title": "Reported speech: time and place changes",
-        "tempi": "backshift come nelle affermazioni. Lo spazio è SEMPRE sull'espressione di tempo o di luogo (o sul dimostrativo), mai su un verbo: niente verbo tra parentesi.",
-        "vietate": "___\\s*\\(",
-        "points": [
-          {
-            "titolo": "Il tempo: riferimenti al presente e al futuro",
-            "regola": "Se si riferisce in un altro momento, cambiano anche i riferimenti di tempo: now → then; today → that day; tonight → that night; tomorrow → the next day / the following day; next week (month, year…) → the following week / the week after / the next week.",
-            "nota": "Spazi sull'espressione di tempo; la frase diretta e il giorno in cui si riferisce sono dati."
-          },
-          {
-            "titolo": "Il tempo: riferimenti al passato",
-            "regola": "yesterday → the day before / the previous day; last week (night, year…) → the week before / the previous week; two days ago → two days before / earlier.",
-            "nota": "Accetta tutte le alternative corrette."
-          },
-          {
-            "titolo": "Il luogo e i dimostrativi",
-            "regola": "here → there; this, these → that, those, se chi riferisce non è più in quel luogo: 'I like this place' → She said she liked that place.",
-            "nota": "Frasi in cui chi riferisce non è più nel posto."
-          },
-          {
-            "titolo": "Dipende da quando riferisci",
-            "regola": "I cambiamenti dipendono dal momento in cui si riferisce: se è ancora lo stesso giorno, today resta today; il tomorrow di ieri è oggi.",
-            "nota": "Qualche domanda di comprensione su quando si riferisce."
-          }
-        ],
-        "scoperta": {
-          "storia": "Lunedì Elisa riferisce i messaggi vocali che ha ricevuto venerdì.",
-          "passi": [
-            {
-              "mostra": [
-                "Friday, Marta: « I'm busy tomorrow. »",
-                "Monday, Elisa: Marta said she was busy the next day."
-              ],
-              "domanda": "Di quale giorno parla Marta?",
-              "obiettivo": "Di sabato: riferito di lunedì, tomorrow diventa the next day. Basta 'sabato'."
-            },
-            {
-              "mostra": [
-                "Friday, Marta: « I'm busy tomorrow. »",
-                "Monday, Elisa: Marta said she was busy the next day."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Friday, Leo: « I played tennis yesterday. » → Leo said he had played tennis ___ .",
-              "attese": [
-                "the day before",
-                "the previous day"
-              ],
-              "obiettivo": "yesterday → the day before."
-            },
-            {
-              "mostra": [
-                "Friday, Marta: « I'm busy tomorrow. »",
-                "Monday, Elisa: Marta said she was busy the next day."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Friday, Nina: « I'm going to the gym tonight. » → Nina said she was going to the gym ___ .",
-              "attese": [
-                "that night",
-                "that evening"
-              ],
-              "obiettivo": "tonight → that night."
-            },
-            {
-              "mostra": [
-                "Friday, Sam (at the café): « I love this place. »",
-                "Monday, Elisa (at home): Sam said he loved that place."
-              ],
-              "domanda": "Quando riferisce, Elisa è ancora nel bar?",
-              "obiettivo": "No: per questo this place diventa that place. Basta 'no'."
-            },
-            {
-              "mostra": [
-                "Friday, Marta: « I'm busy tomorrow. »",
-                "Monday, Elisa: Marta said she was busy the next day."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Friday, Ivo: « My driving test is next week. » → Ivo said his driving test was ___ .",
-              "attese": [
-                "the following week",
-                "the week after",
-                "the next week"
-              ],
-              "obiettivo": "next week → the following week."
-            },
-            {
-              "mostra": [
-                "Friday, Marta: « I'm busy tomorrow. »",
-                "Monday, Elisa: Marta said she was busy the next day."
-              ],
-              "domanda": "Adesso usala tu. Completa la frase:",
-              "frase": "Friday, Teo: « I bought these trainers two days ago. » → Teo said he had bought ___ trainers two days before.",
-              "attese": [
-                "those"
-              ],
-              "obiettivo": "these → those."
-            },
-            {
-              "mostra": [
-                "Friday morning, Gaia: « I'll finish it today. »",
-                "Friday evening, Elisa: Gaia said she would finish it today."
-              ],
-              "domanda": "Qui today non è cambiato. Elisa riferisce lo stesso giorno o un altro giorno?",
-              "obiettivo": "Lo stesso giorno: today è ancora oggi. Basta 'lo stesso giorno'."
-            }
-          ],
-          "sintesi": [
-            "tomorrow → the next day · tonight → that night · next week → the following week",
-            "yesterday → the day before · last week → the week before · two days ago → two days before",
-            "here → there · this / these → that / those",
-            "i cambiamenti dipendono da quando e da dove riferisci"
-          ]
-        }
+        "sintesi": [
+          "says (presente) → i tempi non cambiano",
+          "said (passato) → backshift: am → was, live → lived, have forgotten → had forgotten",
+          "will → would · can → could · must → had to",
+          "cambiano pronomi e possessivi: I → he, my → his (my wallet → his wallet)"
+        ]
       }
-    ],
-    "frasiEsercizi": [
-      "Leo says: 'I like music shows.'",
-      "Zara said: 'I always have breakfast.'",
-      "Zara said that she always had breakfast.",
-      "Ezra said: 'I'm having a break.'",
-      "Ezra said that he was having a break.",
-      "Finn said: 'I ate lunch with grandma.'",
-      "Finn said that he had eaten lunch with grandma.",
-      "He said: 'I've lost my phone!'",
-      "Orla said: 'I'm going to give up judo.'",
-      "Orla said that she was going to give up judo.",
-      "Kai said: 'I have got a cold.'",
-      "Rory said: 'I won't tell you.'",
-      "Rory said that he wouldn't tell me.",
-      "She said: 'I can't come with you.'",
-      "She said that she couldn't come with me.",
-      "Fiona said: 'I must water the plants.'",
-      "Fiona said she had to water the plants.",
-      "They said that they'd like to visit Rome.",
-      "Ruby said to Milo: 'I hate you!'",
-      "They said that they didn't have the time.",
-      "He said to Thea that he was angry.",
-      "He told me that he didn't like my hairstyle.",
-      "Thea told Isla she was getting married.",
-      "I'm sure you told me a lie the other day.",
-      "Sara asked me if I liked cartoons.",
-      "Ivy: 'Have you read Mia's post?'",
-      "Ivy asked me if I had read Mia's post.",
-      "Luna: 'Why are you so annoyed?'",
-      "Luna asked me why I was so annoyed.",
-      "Eva called me and asked: 'Are you OK?'",
-      "Eva called me and asked if I was OK.",
-      "Dad wanted to know where I was.",
-      "'Have you ever been abroad?' 'Yes, I have.'",
-      "I asked if he had ever been abroad and he replied that he had.",
-      "Mum to me: 'Can you lay the table, please?'",
-      "Mum asked me to lay the table.",
-      "The teacher told the students to be quiet.",
-      "He said he had seen that episode the night before.",
-      "She said: 'We always have dinner at 7.30.'",
-      "She said that they always had dinner at 7.30.",
-      "Luke said: 'I'm playing the guitar.'",
-      "Luke said that he was playing the guitar.",
-      "Lia said that Mum had gone shopping.",
-      "I said: 'I've caught the flu!'",
-      "She said that she had caught the flu.",
-      "Maya said: 'I'm going to do karate.'",
-      "Maya said that she was going to do karate.",
-      "Jaxon said: 'I haven't got any money on me.'",
-      "Jaxon said he didn't have any money on him.",
-      "Iris said: 'I won't say anything.'",
-      "Iris said that she wouldn't say anything.",
-      "She said: 'You can stay with me.'",
-      "She said that I could stay with her.",
-      "He said: 'I must exercise more.'",
-      "He said that he had to exercise more.",
-      "Zack to me: 'Can I borrow your bike?'",
-      "Zack asked me if he could borrow my bike.",
-      "Mum to daughter: 'Don't wear my clothes!'",
-      "Liam: 'I haven't posted a photo since last year.'",
-      "Liam said he hadn't posted a photo since the year before.",
-      "Chloe said she wanted to organise a surprise party for Sam's birthday.",
-      "Bianca said that they were going to Malta on holiday.",
-      "Ivy said that I couldn't go with her.",
-      "Dad said he had finished the housework and that he was going to relax.",
-      "Caleb said he had felt sleepy, so he had gone to bed early.",
-      "The teacher told the students to do their homework.",
-      "Levi told me he hadn't understood the exercise.",
-      "Fran told the teacher that she didn't feel well.",
-      "Mia told me she'd heard the news.",
-      "Sienna told me she had had a nightmare.",
-      "Dad told me to take out the rubbish.",
-      "Owen said he was happy that Dylan had won the match.",
-      "Isla told Evie she couldn't be late again.",
-      "Finn said he was sorry he hadn't walked the dog.",
-      "Gracie told me she was going to the shops.",
-      "The teacher told Jack he mustn't cheat.",
-      "Emma said they had air conditioning in their flat.",
-      "Emily said that she couldn't hear her.",
-      "Ben asked me if I could help him.",
-      "Mr Brenton asked us if we had finished our homework.",
-      "Josh asked Camilla how old she was.",
-      "Samir wanted to know if Amelia would forgive him.",
-      "Mum wanted to know why Arthur hadn't done the shopping.",
-      "Leo asked Adele if she believed in ghosts.",
-      "Maya asked what my plans for the summer were.",
-      "Dan asked his mum if there was a bus strike.",
-      "The neighbours asked the students not to play loud music after 11 pm.",
-      "The librarian told me to return the book immediately.",
-      "Stan said they couldn't organise the party for the following Saturday unless they all helped them.",
-      "Adam said that it was very humid there that summer.",
-      "Isaac, you must climb to the top of Giotto's Tower.",
-      "Noah said that he liked walking the dog.",
-      "Mum asked me where I had been.",
-      "Wyatt asked Lyla to turn down the music.",
-      "Nicolò said that the test was easy.",
-      "Nicolò told us that the test was easy.",
-      "Nicolò told me that the canteen was closed on Friday.",
-      "The head teacher said that the school trip was cancelled.",
-      "Be honest and tell the truth: did you eat my sandwich?",
-      "Ivo said to his mum that he had missed the bus again.",
-      "Excuse me, can you tell me the time, please?",
-      "Monday, Elisa: Marta said she was busy the next day.",
-      "Monday, Elisa (at home): Sam said he loved that place.",
-      "Friday evening, Elisa: Gaia said she would finish it today.",
-      "Gaia said that she would call me that night.",
-      "Bea told Nicolò she was hungry.",
-      "Bea said to Nicolò she was hungry.",
-      "The mechanic asked Giorgio where he lived.",
-      "The teacher asked us to bring a packed lunch.",
-      "She told us not to leave the group."
-    ]
-  };
+    },
+    {
+      "title": "Reported speech: say vs tell",
+      "tempi": "tutti i tempi già studiati. Lo spazio è SEMPRE su say, said, tell, told (o su to), mai su un altro verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "say: senza la persona",
+          "regola": "Con say non si dice a chi si parla: She said (that) she was cold. Se si vuole indicare la persona, si usa say to + persona: She said to me that she was nervous.",
+          "nota": "Spazi su said senza persona e su said to."
+        },
+        {
+          "titolo": "tell: + la persona, senza to",
+          "regola": "tell è seguito direttamente dalla persona, senza to: She told me she was cold (NON she told to me, NON she said me).",
+          "nota": "Correzioni di said me e told to me."
+        },
+        {
+          "titolo": "Espressioni fisse con tell",
+          "regola": "Si usa tell, anche senza la persona, in alcune espressioni fisse: tell a story (raccontare una storia), tell a joke (una barzelletta), tell the truth (dire la verità), tell a lie (una bugia), tell the time (dire l'ora).",
+          "nota": "Frasi con le espressioni fisse."
+        }
+      ],
+      "scoperta": {
+        "storia": "In mensa Nicolò racconta le novità della settimana.",
+        "passi": [
+          {
+            "mostra": [
+              "Nicolò said that the test was easy.",
+              "Nicolò told us that the test was easy."
+            ],
+            "domanda": "In quale frase sappiamo a chi lo ha detto?",
+            "obiettivo": "Nella seconda: told us, tell + la persona. Basta 'la seconda'."
+          },
+          {
+            "mostra": [
+              "Nicolò told us that the test was easy."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Nicolò ___ me that the canteen was closed on Friday.",
+            "attese": [
+              "told"
+            ],
+            "obiettivo": "Con la persona (me): told."
+          },
+          {
+            "mostra": [
+              "Nicolò said that the test was easy."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "The head teacher ___ that the school trip was cancelled.",
+            "attese": [
+              "said",
+              "announced"
+            ],
+            "obiettivo": "Senza la persona: said."
+          },
+          {
+            "mostra": [
+              "Grandad loves telling jokes at dinner."
+            ],
+            "domanda": "Che cosa fa il nonno a cena?",
+            "obiettivo": "Racconta barzellette: tell a joke. Basta 'racconta barzellette'."
+          },
+          {
+            "mostra": [
+              "Grandad loves telling jokes at dinner."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Be honest and ___ the truth: did you eat my sandwich?",
+            "attese": [
+              "tell"
+            ],
+            "obiettivo": "Espressione fissa: tell the truth."
+          },
+          {
+            "mostra": [
+              "Nicolò said that the test was easy."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Ivo ___ to his mum that he had missed the bus again.",
+            "attese": [
+              "said"
+            ],
+            "obiettivo": "say to + persona: said to his mum."
+          },
+          {
+            "mostra": [
+              "Grandad loves telling jokes at dinner."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Excuse me, can you ___ me the time, please?",
+            "attese": [
+              "tell"
+            ],
+            "obiettivo": "Espressione fissa: tell the time."
+          }
+        ],
+        "sintesi": [
+          "say senza la persona: Nicolò said that… · say to + persona",
+          "tell + persona, senza to: Nicolò told me… (non said me, non told to me)",
+          "tell a story, a joke, the truth, a lie, the time"
+        ]
+      }
+    },
+    {
+      "title": "Reported speech: questions",
+      "tempi": "backshift come nelle affermazioni; nella domanda riferita l'ordine è quello di una frase affermativa. Lo spazio è sulla parte che segue ask (if/whether o la wh-word, soggetto, verbo): niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "ask e l'ordine affermativo",
+          "regola": "Per riferire una domanda si usa ask (asked me, asked if…); il complemento (me, him) si può omettere se il contesto è chiaro. Nella domanda riferita l'ordine è quello di una frase affermativa: niente do/does/did, niente inversione, niente punto di domanda. 'Where do you work?' → She asked me where I worked (NON where did I work).",
+          "nota": "Correzioni di inversione e di did nella domanda riferita."
+        },
+        {
+          "titolo": "Domande sì/no: if o whether",
+          "regola": "Se alla domanda si risponde sì o no, la domanda riferita è introdotta da if o whether: 'Are you hungry?' → He asked if/whether I was hungry.",
+          "nota": "Accetta sempre sia if sia whether."
+        },
+        {
+          "titolo": "Domande con what, where, why, who, how…",
+          "regola": "La parola interrogativa resta: 'Why are you late?' → She asked why I was late.",
+          "nota": "Domande wh- con soggetto e verbo nell'ordine affermativo."
+        },
+        {
+          "titolo": "want to know · answer · reply",
+          "regola": "Al posto di ask si usa spesso want to know: Mum wanted to know when the bus left. Per riferire le risposte si usano answer o reply: I replied that I had.",
+          "nota": "Qualche frase con wanted to know."
+        }
+      ],
+      "scoperta": {
+        "storia": "Giorgio fa il primo giorno di stage in un'officina.",
+        "passi": [
+          {
+            "mostra": [
+              "« Where do you live? » → The mechanic asked Giorgio where he lived."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« What time do you finish school? » → She asked him what time ___ school.",
+            "attese": [
+              "he finished"
+            ],
+            "obiettivo": "Ordine affermativo, senza do: he finished."
+          },
+          {
+            "mostra": [
+              "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
+            ],
+            "domanda": "Che cosa voleva sapere il capo?",
+            "obiettivo": "Se Giorgio sapeva cambiare una gomma. Basta 'se sapeva cambiare una gomma'."
+          },
+          {
+            "mostra": [
+              "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Have you ever driven a van? » → She asked him ___ ever driven a van.",
+            "attese": [
+              "if he had",
+              "whether he had",
+              "if he'd",
+              "whether he'd"
+            ],
+            "obiettivo": "Domanda sì/no: if he had."
+          },
+          {
+            "mostra": [
+              "« Where do you live? » → The mechanic asked Giorgio where he lived."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Why are you laughing? » → The boss wanted to know why Giorgio ___ .",
+            "attese": [
+              "was laughing"
+            ],
+            "obiettivo": "Backshift e ordine affermativo: was laughing."
+          },
+          {
+            "mostra": [
+              "« Can you change a tyre? » → The boss asked Giorgio if he could change a tyre."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Do you like engines? » → She asked ___ engines.",
+            "attese": [
+              "if he liked",
+              "whether he liked",
+              "him if he liked",
+              "him whether he liked"
+            ],
+            "obiettivo": "Domanda sì/no senza do: if he liked."
+          },
+          {
+            "mostra": [
+              "« Where do you live? » → The mechanic asked Giorgio where he lived."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Where's the toolbox? » → Giorgio asked where the toolbox ___ .",
+            "attese": [
+              "was"
+            ],
+            "obiettivo": "Ordine affermativo: where the toolbox was (non where was the toolbox)."
+          }
+        ],
+        "sintesi": [
+          "ask + ordine affermativo, niente do/does/did: she asked where he lived",
+          "domande sì/no: if / whether — asked if he could change a tyre",
+          "domande wh-: la parola interrogativa resta — why Giorgio was laughing",
+          "wanted to know = asked"
+        ]
+      }
+    },
+    {
+      "title": "Reported speech: requests, instructions and advice",
+      "tempi": "ask/tell + persona + (not) to + forma base. Lo spazio è sulla parte con to (o sulla persona + to): niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "Richieste: ask + persona + to",
+          "regola": "Le richieste (Can you…?, Could you…?, Please…) si riportano con ask + persona + to + forma base: 'Can you help me?' → She asked me to help her.",
+          "nota": "Spazi su to + verbo dopo asked."
+        },
+        {
+          "titolo": "Ordini, istruzioni e consigli: tell + persona + to",
+          "regola": "Ordini, istruzioni e consigli si riportano con tell + persona + to + forma base: 'Warm up!' → The coach told us to warm up. / 'You should rest' → The doctor told me to rest.",
+          "nota": "Spazi su to + verbo dopo told."
+        },
+        {
+          "titolo": "Negativo: not to",
+          "regola": "La forma negativa è not to + forma base, mai don't: 'Don't shout!' → She told them not to shout (NON told them don't shout).",
+          "nota": "Correzioni di don't e di to not."
+        },
+        {
+          "titolo": "La persona è obbligatoria",
+          "regola": "Dopo tell e (in questo uso) dopo ask ci vuole la persona: told him to wait (NON told to wait him). Per ordini e richieste non si usa that: told us to leave (NON told us that leave).",
+          "nota": "Correzioni di that al posto di to."
+        }
+      ],
+      "scoperta": {
+        "storia": "Prima della gita a Firenze, la professoressa dà istruzioni alla classe.",
+        "passi": [
+          {
+            "mostra": [
+              "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
+            ],
+            "domanda": "Che cosa deve portare la classe?",
+            "obiettivo": "Il pranzo al sacco. Basta 'il pranzo'."
+          },
+          {
+            "mostra": [
+              "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Can you carry the first aid kit? » → She asked Tommy ___ the first aid kit.",
+            "attese": [
+              "to carry"
+            ],
+            "obiettivo": "Richiesta: asked Tommy to carry."
+          },
+          {
+            "mostra": [
+              "« Don't leave the group! » → She told us not to leave the group."
+            ],
+            "domanda": "Gli studenti possono allontanarsi dal gruppo?",
+            "obiettivo": "No: not to = di non. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "« Don't leave the group! » → She told us not to leave the group."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Don't touch the statues. » → The guide told the students ___ the statues.",
+            "attese": [
+              "not to touch"
+            ],
+            "obiettivo": "Ordine negativo: not to touch (non don't touch)."
+          },
+          {
+            "mostra": [
+              "« Please bring a packed lunch. » → The teacher asked us to bring a packed lunch."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« Switch off your phones in the museum. » → The guide told ___ off our phones in the museum.",
+            "attese": [
+              "us to switch",
+              "us to turn"
+            ],
+            "obiettivo": "tell + persona + to: told us to switch."
+          },
+          {
+            "mostra": [
+              "« Don't leave the group! » → She told us not to leave the group."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "« You should buy a map of the city. » → Our teacher told me ___ a map of the city.",
+            "attese": [
+              "to buy",
+              "to get"
+            ],
+            "obiettivo": "Consiglio: told me to buy."
+          }
+        ],
+        "sintesi": [
+          "richieste: ask + persona + to: she asked Tommy to carry the kit",
+          "ordini e consigli: tell + persona + to: the guide told us to switch off our phones",
+          "negativo: not to (non don't): told us not to leave the group"
+        ]
+      }
+    },
+    {
+      "title": "Reported speech: time and place changes",
+      "tempi": "backshift come nelle affermazioni. Lo spazio è SEMPRE sull'espressione di tempo o di luogo (o sul dimostrativo), mai su un verbo: niente verbo tra parentesi.",
+      "vietate": "___\\s*\\(",
+      "points": [
+        {
+          "titolo": "Il tempo: riferimenti al presente e al futuro",
+          "regola": "Se si riferisce in un altro momento, cambiano anche i riferimenti di tempo: now → then; today → that day; tonight → that night; tomorrow → the next day / the following day; next week (month, year…) → the following week / the week after / the next week.",
+          "nota": "Spazi sull'espressione di tempo; la frase diretta e il giorno in cui si riferisce sono dati."
+        },
+        {
+          "titolo": "Il tempo: riferimenti al passato",
+          "regola": "yesterday → the day before / the previous day; last week (night, year…) → the week before / the previous week; two days ago → two days before / earlier.",
+          "nota": "Accetta tutte le alternative corrette."
+        },
+        {
+          "titolo": "Il luogo e i dimostrativi",
+          "regola": "here → there; this, these → that, those, se chi riferisce non è più in quel luogo: 'I like this place' → She said she liked that place.",
+          "nota": "Frasi in cui chi riferisce non è più nel posto."
+        },
+        {
+          "titolo": "Dipende da quando riferisci",
+          "regola": "I cambiamenti dipendono dal momento in cui si riferisce: se è ancora lo stesso giorno, today resta today; il tomorrow di ieri è oggi.",
+          "nota": "Qualche domanda di comprensione su quando si riferisce."
+        }
+      ],
+      "scoperta": {
+        "storia": "Lunedì Elisa riferisce i messaggi vocali che ha ricevuto venerdì.",
+        "passi": [
+          {
+            "mostra": [
+              "Friday, Marta: « I'm busy tomorrow. »",
+              "Monday, Elisa: Marta said she was busy the next day."
+            ],
+            "domanda": "Di quale giorno parla Marta?",
+            "obiettivo": "Di sabato: riferito di lunedì, tomorrow diventa the next day. Basta 'sabato'."
+          },
+          {
+            "mostra": [
+              "Friday, Marta: « I'm busy tomorrow. »",
+              "Monday, Elisa: Marta said she was busy the next day."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Friday, Leo: « I played tennis yesterday. » → Leo said he had played tennis ___ .",
+            "attese": [
+              "the day before",
+              "the previous day"
+            ],
+            "obiettivo": "yesterday → the day before."
+          },
+          {
+            "mostra": [
+              "Friday, Marta: « I'm busy tomorrow. »",
+              "Monday, Elisa: Marta said she was busy the next day."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Friday, Nina: « I'm going to the gym tonight. » → Nina said she was going to the gym ___ .",
+            "attese": [
+              "that night",
+              "that evening"
+            ],
+            "obiettivo": "tonight → that night."
+          },
+          {
+            "mostra": [
+              "Friday, Sam (at the café): « I love this place. »",
+              "Monday, Elisa (at home): Sam said he loved that place."
+            ],
+            "domanda": "Quando riferisce, Elisa è ancora nel bar?",
+            "obiettivo": "No: per questo this place diventa that place. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Friday, Marta: « I'm busy tomorrow. »",
+              "Monday, Elisa: Marta said she was busy the next day."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Friday, Ivo: « My driving test is next week. » → Ivo said his driving test was ___ .",
+            "attese": [
+              "the following week",
+              "the week after",
+              "the next week"
+            ],
+            "obiettivo": "next week → the following week."
+          },
+          {
+            "mostra": [
+              "Friday, Marta: « I'm busy tomorrow. »",
+              "Monday, Elisa: Marta said she was busy the next day."
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Friday, Teo: « I bought these trainers two days ago. » → Teo said he had bought ___ trainers two days before.",
+            "attese": [
+              "those"
+            ],
+            "obiettivo": "these → those."
+          },
+          {
+            "mostra": [
+              "Friday morning, Gaia: « I'll finish it today. »",
+              "Friday evening, Elisa: Gaia said she would finish it today."
+            ],
+            "domanda": "Qui today non è cambiato. Elisa riferisce lo stesso giorno o un altro giorno?",
+            "obiettivo": "Lo stesso giorno: today è ancora oggi. Basta 'lo stesso giorno'."
+          }
+        ],
+        "sintesi": [
+          "tomorrow → the next day · tonight → that night · next week → the following week",
+          "yesterday → the day before · last week → the week before · two days ago → two days before",
+          "here → there · this / these → that / those",
+          "i cambiamenti dipendono da quando e da dove riferisci"
+        ]
+      }
+    }
+  ],
+  "frasiEsercizi": [
+    "Leo says: 'I like music shows.'",
+    "Zara said: 'I always have breakfast.'",
+    "Zara said that she always had breakfast.",
+    "Ezra said: 'I'm having a break.'",
+    "Ezra said that he was having a break.",
+    "Finn said: 'I ate lunch with grandma.'",
+    "Finn said that he had eaten lunch with grandma.",
+    "He said: 'I've lost my phone!'",
+    "Orla said: 'I'm going to give up judo.'",
+    "Orla said that she was going to give up judo.",
+    "Kai said: 'I have got a cold.'",
+    "Rory said: 'I won't tell you.'",
+    "Rory said that he wouldn't tell me.",
+    "She said: 'I can't come with you.'",
+    "She said that she couldn't come with me.",
+    "Fiona said: 'I must water the plants.'",
+    "Fiona said she had to water the plants.",
+    "They said that they'd like to visit Rome.",
+    "Ruby said to Milo: 'I hate you!'",
+    "They said that they didn't have the time.",
+    "He said to Thea that he was angry.",
+    "He told me that he didn't like my hairstyle.",
+    "Thea told Isla she was getting married.",
+    "I'm sure you told me a lie the other day.",
+    "Sara asked me if I liked cartoons.",
+    "Ivy: 'Have you read Mia's post?'",
+    "Ivy asked me if I had read Mia's post.",
+    "Luna: 'Why are you so annoyed?'",
+    "Luna asked me why I was so annoyed.",
+    "Eva called me and asked: 'Are you OK?'",
+    "Eva called me and asked if I was OK.",
+    "Dad wanted to know where I was.",
+    "'Have you ever been abroad?' 'Yes, I have.'",
+    "I asked if he had ever been abroad and he replied that he had.",
+    "Mum to me: 'Can you lay the table, please?'",
+    "Mum asked me to lay the table.",
+    "The teacher told the students to be quiet.",
+    "He said he had seen that episode the night before.",
+    "She said: 'We always have dinner at 7.30.'",
+    "She said that they always had dinner at 7.30.",
+    "Luke said: 'I'm playing the guitar.'",
+    "Luke said that he was playing the guitar.",
+    "Lia said that Mum had gone shopping.",
+    "I said: 'I've caught the flu!'",
+    "She said that she had caught the flu.",
+    "Maya said: 'I'm going to do karate.'",
+    "Maya said that she was going to do karate.",
+    "Jaxon said: 'I haven't got any money on me.'",
+    "Jaxon said he didn't have any money on him.",
+    "Iris said: 'I won't say anything.'",
+    "Iris said that she wouldn't say anything.",
+    "She said: 'You can stay with me.'",
+    "She said that I could stay with her.",
+    "He said: 'I must exercise more.'",
+    "He said that he had to exercise more.",
+    "Zack to me: 'Can I borrow your bike?'",
+    "Zack asked me if he could borrow my bike.",
+    "Mum to daughter: 'Don't wear my clothes!'",
+    "Liam: 'I haven't posted a photo since last year.'",
+    "Liam said he hadn't posted a photo since the year before.",
+    "Chloe said she wanted to organise a surprise party for Sam's birthday.",
+    "Bianca said that they were going to Malta on holiday.",
+    "Ivy said that I couldn't go with her.",
+    "Dad said he had finished the housework and that he was going to relax.",
+    "Caleb said he had felt sleepy, so he had gone to bed early.",
+    "The teacher told the students to do their homework.",
+    "Levi told me he hadn't understood the exercise.",
+    "Fran told the teacher that she didn't feel well.",
+    "Mia told me she'd heard the news.",
+    "Sienna told me she had had a nightmare.",
+    "Dad told me to take out the rubbish.",
+    "Owen said he was happy that Dylan had won the match.",
+    "Isla told Evie she couldn't be late again.",
+    "Finn said he was sorry he hadn't walked the dog.",
+    "Gracie told me she was going to the shops.",
+    "The teacher told Jack he mustn't cheat.",
+    "Emma said they had air conditioning in their flat.",
+    "Emily said that she couldn't hear her.",
+    "Ben asked me if I could help him.",
+    "Mr Brenton asked us if we had finished our homework.",
+    "Josh asked Camilla how old she was.",
+    "Samir wanted to know if Amelia would forgive him.",
+    "Mum wanted to know why Arthur hadn't done the shopping.",
+    "Leo asked Adele if she believed in ghosts.",
+    "Maya asked what my plans for the summer were.",
+    "Dan asked his mum if there was a bus strike.",
+    "The neighbours asked the students not to play loud music after 11 pm.",
+    "The librarian told me to return the book immediately.",
+    "Stan said they couldn't organise the party for the following Saturday unless they all helped them.",
+    "Adam said that it was very humid there that summer.",
+    "Isaac, you must climb to the top of Giotto's Tower.",
+    "Noah said that he liked walking the dog.",
+    "Mum asked me where I had been.",
+    "Wyatt asked Lyla to turn down the music.",
+    "Nicolò said that the test was easy.",
+    "Nicolò told us that the test was easy.",
+    "Nicolò told me that the canteen was closed on Friday.",
+    "The head teacher said that the school trip was cancelled.",
+    "Be honest and tell the truth: did you eat my sandwich?",
+    "Ivo said to his mum that he had missed the bus again.",
+    "Excuse me, can you tell me the time, please?",
+    "Monday, Elisa: Marta said she was busy the next day.",
+    "Monday, Elisa (at home): Sam said he loved that place.",
+    "Friday evening, Elisa: Gaia said she would finish it today.",
+    "Gaia said that she would call me that night.",
+    "Bea told Nicolò she was hungry.",
+    "Bea said to Nicolò she was hungry.",
+    "The mechanic asked Giorgio where he lived.",
+    "The teacher asked us to bring a packed lunch.",
+    "She told us not to leave the group."
+  ]
+};
   const storageKey = "grammar-tutor-unit10-v1";
   const $ = id => document.getElementById(id);
   let current=null, pending=null, submitted="", draft="", busy=false, savedState=null;
