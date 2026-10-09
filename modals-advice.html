@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"knee": "ginocchio", "marathon": "maratona", "coach": "allenatore", "training plan": "programma di allenamento", "swimming cap": "cuffia", "helmet": "casco", "volcano boarding": "discesa in slitta da un vulcano", "gloves": "guanti", "exhausted": "sfinito", "stay up": "stare alzato", "football boots": "scarpe da calcio", "pitch": "campo", "warned": "avvertito", "enter the race": "iscriversi alla gara", "running shoes": "scarpe da corsa", "race": "gara", "stretch": "fare stretching", "junk food": "cibo spazzatura", "penalty": "rigore", "rackets": "racchette", "beginners": "principianti", "storm": "temporale", "warm up": "fare riscaldamento", "ankle": "caviglia", "swollen": "gonfia", "goggles": "occhialini", "final": "finale", "training": "allenamento", "gym": "palestra", "work out": "allenarsi", "get fit": "rimettersi in forma", "lifeguards": "bagnini", "towel": "asciugamano", "teammate": "compagno di squadra", "teammates": "compagne di squadra", "goalkeeper": "portiere", "injured": "si è infortunato", "warm-up": "riscaldamento", "track": "pista", "kick-off": "calcio d'inizio", "tennis court": "campo da tennis", "turn up": "presentarsi", "soaked": "fradici", "stadium": "stadio"};
+const GLOSS={"knee": "ginocchio", "marathon": "maratona", "coach": "allenatore", "training plan": "programma di allenamento", "swimming cap": "cuffia", "helmet": "casco", "volcano boarding": "discesa in slitta da un vulcano", "gloves": "guanti", "exhausted": "sfinito", "stay up": "stare alzato", "football boots": "scarpe da calcio", "pitch": "campo", "warned": "avvertito", "enter the race": "iscriversi alla gara", "running shoes": "scarpe da corsa", "race": "gara", "stretch": "fare stretching", "junk food": "cibo spazzatura", "penalty": "rigore", "rackets": "racchette", "beginners": "principianti", "storm": "temporale", "warm up": "fare riscaldamento", "ankle": "caviglia", "swollen": "gonfia", "goggles": "occhialini", "final": "finale", "training": "allenamento", "gym": "palestra", "work out": "allenarsi", "get fit": "rimettersi in forma", "lifeguards": "bagnini", "towel": "asciugamano", "teammate": "compagno di squadra", "teammates": "compagne di squadra", "goalkeeper": "portiere", "injured": "si è infortunato", "warm-up": "riscaldamento", "track": "pista", "kick-off": "calcio d'inizio", "tennis court": "campo da tennis", "turn up": "presentarsi", "soaked": "fradici", "stadium": "stadio", "speakers": "casse", "kit": "divisa", "energy drink": "bevanda energetica", "lasagne": "lasagne", "burnt": "bruciate", "dived": "mi sono tuffato", "treadmill": "tapis roulant", "knife": "coltello", "ski camp": "campo sciistico", "skateboard": "skateboard", "juggle": "fare giocoleria", "fair play": "correttezza sportiva", "opponents": "avversari", "shook hands": "si sono stretti la mano", "trainers": "scarpe da ginnastica", "goalkeepers": "portieri", "art project": "progetto di arte"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -373,6 +373,78 @@ exercises:[
 {type:"fill",q:"« Do we need to book the tennis court? » — No, ___. You can just turn up.",a:"you don't",accept:["you don't","we don't","you do not","we do not"],instruction:"Completa la risposta."},
 {type:"mc",q:"« We should have brought an umbrella. » Quale seguito sta in piedi?",options:["We got soaked on the way to the stadium.","Luckily, we had two in the car.","It was sunny all day, so it was perfect.","We're going to buy one tomorrow, just in case."],a:"We got soaked on the way to the stadium."},
 {type:"fill",q:"« Dovrebbe allenarsi con le sue compagne di squadra. » → She ___ with her teammates.",hint:"(train)",a:"should train",accept:["should train","ought to train"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:3,type:"study",title:"LIVELLO 03 — VERBS OF PERCEPTION",desc:"look, sound, smell, taste, feel, seem · + aggettivo · + like + nome · feel like",
+rule:`<strong>VERBS OF PERCEPTION &mdash; Unit 7:</strong><br>
+&#x2714; <code>look / sound / smell / taste / feel / seem + aggettivo</code> (non avverbio): <em>You look <strong>tired</strong></em> (non &laquo;tiredly&raquo;).<br>
+&#x2714; Quale senso: <strong>look</strong> = da come appare &middot; <strong>sound</strong> = da come si sente (anche al telefono) &middot; <strong>smell</strong> = dall'odore &middot; <strong>taste</strong> = dal sapore &middot; <strong>feel</strong> = al tatto, o come ci si sente &middot; <strong>seem</strong> = impressione generale.<br>
+&#x2714; Davanti a un <strong>nome</strong> ci vuole <code>like</code> = assomigliare, sembrare: <em>It <strong>sounds like</strong> a great plan.</em> &middot; <em>You <strong>look like</strong> your mum.</em><br>
+&#x2714; <code>feel like + -ing / nome</code> = avere voglia di: <em>I <strong>feel like going</strong> out.</em><br>
+&#x26A0; <em>That sounds great</em> (aggettivo) ma <em>That sounds <strong>like</strong> a great idea</em> (nome).`,
+exercises:[
+{type:"fill",q:"Can you turn the music down? Your speakers ___: I think one of them doesn't work properly.",hint:"(terrible)",a:"sound terrible",accept:["sound terrible"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"fill",q:"I've just opened the milk and it ___. Don't drink it!",hint:"(strange)",a:"smells strange",accept:["smells strange"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You look tiredly. Did you sleep badly?",a:"You look tired. Did you sleep badly?",accept:["You look tired. Did you sleep badly?"]},
+{type:"fill",q:"These new gloves ___ on my hands, even at minus five.",hint:"(warm)",a:"feel warm",accept:["feel warm"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"fill",q:"You ___ in that new kit!",hint:"(a professional player)",a:"look like a professional player",accept:["look like a professional player"],instruction:"Completa con un verbo di percezione e le parole tra parentesi."},
+{type:"fill",q:"Leo hasn't slept for two days. He ___.",hint:"(exhausted)",a:"looks exhausted",accept:["looks exhausted","seems exhausted"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"That sounds a great plan!",a:"That sounds like a great plan!",accept:["That sounds like a great plan!","That sounds great!"]},
+{type:"fill",q:"This energy drink ___. Yuck!",hint:"(medicine)",a:"tastes like medicine",accept:["tastes like medicine"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"wordbox",instruction:"Completa con i verbi del riquadro nella forma adatta. Un verbo non serve.",verbs:["look","sound","smell","feel","taste"],sentences:[{pre:"The lasagne",post:"burnt: the whole kitchen is full of smoke.",a:"smells",accept:["smells"]},{pre:"Your voice",post:"so different on the radio!",a:"sounds",accept:["sounds"]},{pre:"The water in the pool",post:"freezing when I dived in.",a:"felt",accept:["felt"]},{pre:"You",post:"worried. Is everything OK?",a:"look",accept:["look","seem"]}]},
+{type:"fill",q:"The coach ___ on the phone this morning. What happened?",hint:"(angry)",a:"sounded angry",accept:["sounded angry","seemed angry"],instruction:"Completa con un verbo di percezione e la parola tra parentesi."},
+{type:"mc",q:"« The new gym looks amazing. » Quale seguito sta in piedi?",options:["But when we went inside, it was dirty and the treadmill didn't work.","I've never seen it, so I don't know what it's like.","It smells of fresh paint, so I can't see it.","It sounds amazing because of the loud music."],a:"But when we went inside, it was dirty and the treadmill didn't work."},
+{type:"mc",q:"« Do you feel like a swim? » Che cosa ti chiedono?",options:["Se hai voglia di fare una nuotata.","Se ti senti un nuotatore.","Se ti piace nuotare in generale.","Se ti senti bene dopo la nuotata."],a:"Se hai voglia di fare una nuotata."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This soup smells deliciously.",a:"This soup smells delicious.",accept:["This soup smells delicious."]},
+{type:"fill",q:"It's such a sunny day: I ___ for a run.",hint:"(feel like · go)",a:"feel like going",accept:["feel like going"],instruction:"Completa."},
+{type:"fill",q:"« Assomigli moltissimo a tuo padre. » → You really ___ your dad.",a:"look like",accept:["look like"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:4,type:"study",title:"LIVELLO 04 — REFLEXIVE PRONOUNS",desc:"-self, -selves · by myself · quando l'italiano inganna · le parti del corpo",
+rule:`<strong>REFLEXIVE PRONOUNS &mdash; Unit 7:</strong><br>
+&#x2714; <em>myself, yourself, himself, herself, itself, ourselves, yourselves, themselves</em>. Non esistono &laquo;theirselves&raquo; e &laquo;hisself&raquo;.<br>
+&#x2714; Quando soggetto e oggetto sono la stessa persona: <em>He hurt <strong>himself</strong>.</em><br>
+&#x2714; Per dire &laquo;proprio io, da solo&raquo;: <em>I made it <strong>myself</strong>.</em> &middot; <em>She did it <strong>by herself</strong></em> (da sola, senza aiuto).<br>
+&#x2714; Espressioni fisse: <em>enjoy yourself</em> (divertiti), <em>help yourself</em> (serviti), <em>behave yourself</em> (comportati bene).<br>
+&#x26A0; Molti verbi riflessivi in italiano in inglese <strong>non</strong> vogliono il pronome: <em>relax, get up, wake up, feel, worry, sit down, get dressed, get tired</em>.<br>
+&#x26A0; Parti del corpo e vestiti: il possessivo, non il riflessivo. <em>She washed <strong>her</strong> hair</em> (non &laquo;washed herself the hair&raquo;).`,
+exercises:[
+{type:"fill",q:"Be careful with that knife or you'll cut ___.",a:"yourself",accept:["yourself"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I got myself up at six to go running.",a:"I got up at six to go running.",accept:["I got up at six to go running."]},
+{type:"fill",q:"Nobody helped Mia: she built the club website all by ___.",a:"herself",accept:["herself"],instruction:"Completa."},
+{type:"fill",q:"We really enjoyed ___ at the ski camp.",a:"ourselves",accept:["ourselves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Grandad feels himself much better now that he walks every day.",a:"Grandad feels much better now that he walks every day.",accept:["Grandad feels much better now that he walks every day."]},
+{type:"fill",q:"Jake hurt ___ when he fell off his skateboard.",a:"himself",accept:["himself"],instruction:"Completa."},
+{type:"mc",q:"« She taught herself to swim » e « Her mum taught her to swim »: in quale ha imparato da sola?",options:["Nella prima.","Nella seconda.","In tutte e due.","In nessuna delle due."],a:"Nella prima."},
+{type:"fill",q:"The twins taught ___ to juggle by watching videos online.",a:"themselves",accept:["themselves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She washed herself the hair after training.",a:"She washed her hair after training.",accept:["She washed her hair after training."]},
+{type:"mc",q:"« Leo painted the bedroom himself » e « Leo painted the bedroom for himself »: quale dice che nessuno lo ha aiutato?",options:["La prima.","La seconda.","Tutte e due.","Nessuna delle due."],a:"La prima."},
+{type:"fill",q:"I didn't buy this cake: I made it ___!",a:"myself",accept:["myself"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Did you enjoy at the match last night?",a:"Did you enjoy yourself at the match last night?",accept:["Did you enjoy yourself at the match last night?","Did you enjoy yourselves at the match last night?","Did you enjoy the match last night?"]},
+{type:"fill",q:"Help ___ to some sandwiches! There are plenty for everyone.",a:"yourself",accept:["yourself","yourselves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"They fixed the broken bike theirselves.",a:"They fixed the broken bike themselves.",accept:["They fixed the broken bike themselves.","They fixed the broken bike by themselves."]},
+{type:"fill",q:"« Comportati bene! » → ___!",hint:"(behave)",a:"Behave yourself",accept:["Behave yourself","Behave yourselves"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:5,type:"study",title:"LIVELLO 05 — RECIPROCAL PRONOUNS",desc:"each other · one another · each other's · reciproco o riflessivo",
+rule:`<strong>RECIPROCAL PRONOUNS &mdash; Unit 7:</strong><br>
+&#x2714; <code>each other / one another</code> = l'un l'altro, a vicenda: due o pi&ugrave; persone fanno la stessa cosa l'una verso l'altra. Di solito <em>each other</em> per due persone, <em>one another</em> per pi&ugrave; di due, ma oggi si usano tutti e due. &mdash; <em>They help <strong>each other</strong>.</em><br>
+&#x2714; Possessivo: <code>each other's</code> &mdash; <em>They borrow <strong>each other's</strong> bikes</em> (l'uno la bici dell'altro).<br>
+&#x26A0; Reciproco o riflessivo? <em>They hurt <strong>themselves</strong></em> = ognuno si &egrave; fatto male da solo. <em>They hurt <strong>each other</strong></em> = si sono fatti male a vicenda.<br>
+&#x26A0; Niente &laquo;each others&raquo;: <em>each other</em> non ha il plurale.`,
+exercises:[
+{type:"fill",q:"Tom and Dan are best friends: they've known ___ since primary school.",a:"each other",accept:["each other","one another"],instruction:"Completa."},
+{type:"fill",q:"After the match the players were angry with ___: each of them knew he had played badly.",a:"themselves",accept:["themselves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My brother and I help each others with our homework.",a:"My brother and I help each other with our homework.",accept:["My brother and I help each other with our homework.","My brother and I help one another with our homework."]},
+{type:"fill",q:"At the end of the final, the players from both teams shook hands and thanked ___.",a:"each other",accept:["each other","one another"],instruction:"Completa."},
+{type:"mc",q:"« They hurt themselves » e « They hurt each other »: in quale si sono fatti male a vicenda?",options:["Nella seconda.","Nella prima.","In tutte e due.","In nessuna delle due."],a:"Nella seconda."},
+{type:"fill",q:"The twins always borrow ___ trainers.",a:"each other's",accept:["each other's","one another's"],instruction:"Completa."},
+{type:"fill",q:"For the art project the kids drew pictures of ___: each child drew their own face.",a:"themselves",accept:["themselves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Lucy and Ben never speak to themselves any more.",a:"Lucy and Ben never speak to each other any more.",accept:["Lucy and Ben never speak to each other any more.","Lucy and Ben never speak to one another any more.","Lucy and Ben never speak to each other anymore."]},
+{type:"fill",q:"The two goalkeepers practise together and always give ___ advice.",a:"each other",accept:["each other","one another"],instruction:"Completa."},
+{type:"mc",q:"« In fair play, opponents respect each other. » Quale seguito sta in piedi?",options:["They shake hands at the end, win or lose.","Each player thinks only about himself.","They never speak to the other team.","They try to win at all costs."],a:"They shake hands at the end, win or lose."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The twins often wear each other clothes.",a:"The twins often wear each other's clothes.",accept:["The twins often wear each other's clothes.","The twins often wear one another's clothes."]},
+{type:"fill",q:"« Si aiutano sempre a vicenda. » → They always ___.",hint:"(help)",a:"help each other",accept:["help each other","help one another"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
 
 ];
