@@ -1,0 +1,545 @@
+
+=== Unit 5 · topic 1 (Unless) ===
+
+TUTOR: Ciao! Oggi impariamo a usare "unless". Immagina che la mamma di Pietro gli lasci questo biglietto prima di partire: "The cat will scratch the sofa unless you feed her at seven."
+
+"Unless" significa "a meno che non". È come dire "if... not". La cosa importante è che "unless" è già negativo, quindi il verbo dopo deve essere positivo: diciamo "unless you feed her" (a meno che tu non la nutra), mai "unless you don't feed her".
+
+Prova tu: completa la frase per avvertire Pietro.
+
+The cat will scratch the sofa ___ (you / feed) her at seven.
+[risposte: ["unless you feed","if you don't feed"] · 6418 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":126,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":109,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":175,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: unless you feed
+
+TUTOR: Esatto! "Unless" racchiude già il "non", quindi il verbo rimane positivo.
+
+Ora proviamo con una minaccia. Completa questa frase:
+
+I'll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: ["unless you finish","unless you have finished"] · 2919 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":104,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: you finish
+
+TUTOR: Attenzione: nella frase manca la parola che stiamo studiando! Ricorda che "unless" significa "a meno che non" e serve a legare le due parti della frase.
+
+Riprova a completare la frase:
+
+I'll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: ["unless you finish","unless you have finished"] · 8488 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: unless you to
+
+TUTOR: Non proprio. "To" non serve qui: dopo "unless" mettiamo subito il soggetto e poi il verbo al presente.
+
+Riprova a completare la frase:
+
+I'll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: ["unless you finish","unless you have finished"] · 37558 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-3.1-flash-lite","ms":12001,"errore":"collegamento a Gemini fallito: The operation was aborted due to timeout"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Nessun problema, capita! *Unless* è la parola che unisce le due parti della frase e significa "a meno che non". Dopo *unless*, metti subito il soggetto e il verbo al presente.
+
+Esempio: *I will go out unless it rains* (Uscirò a meno che non piova).
+
+Proviamo di nuovo con la stessa frase:
+
+I'll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: [] · 4584 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":118,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":98,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":99,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico you finish?
+
+TUTOR: "You finish" da solo non basta, perché manca la parola che unisce le due parti della frase, ovvero "unless". 
+
+Ricorda: "unless" significa "a meno che non" e serve a creare la condizione. Senza quella parola, la frase non ha il significato di avvertimento che vogliamo.
+
+Prova a inserire tutto insieme:
+
+I'll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: ["unless you finish","if you don't finish"] · 19960 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":102,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":103,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: unless you finish
+
+TUTOR: Esatto! Hai capito come usarlo. Ricorda che, proprio come con "if", puoi invertire l'ordine delle frasi. Se metti "unless" all'inizio, devi solo ricordarti di mettere la virgola dopo la condizione.
+
+Esempio: Unless it rains, we'll go for a walk.
+
+Prova tu con questa:
+
+___ (we / leave) now, we'll be late.
+[risposte: ["Unless we leave","If we don't leave"] · 4245 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":115,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":82,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":97,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: Ti aiuto io! "Unless" serve a dire "a meno che non". In questa frase, stiamo dicendo: "A meno che non partiamo adesso, faremo tardi".
+
+Quindi, devi mettere "unless" seguito dal soggetto e dal verbo positivo. Prova a scriverlo tu:
+
+___ (we / leave) now, we'll be late.
+[risposte: ["Unless we leave","If we don't leave"] · 3362 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":74,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":99,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":100,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: Unless we leave
+
+TUTOR: Esatto! Hai costruito perfettamente la frase: "Unless we leave now, we'll be late".
+
+Ricorda: quando "unless" è all'inizio, separiamo le due parti con una virgola.
+
+Ora proviamo a vedere se ti è chiaro il legame con "if". Ricorda che "unless" significa "if... not".
+
+Completa questa frase usando "unless":
+
+The concert will be cancelled ___ (the band / arrive) on time.
+[risposte: ["unless the band arrives","unless the band arrive"] · 2536 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":80,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":75,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+
+=== Unit 7 · topic 2 (Reflexive pronouns) ===
+
+TUTOR: Ciao! Oggi impariamo i pronomi riflessivi. Guarda queste frasi:
+«Pietro cut himself while he was making a sandwich.»
+«Pietro cooked dinner all by himself.»
+
+Quando il soggetto e l'oggetto sono la stessa persona, usiamo il riflessivo (come *himself*). Il singolare finisce in *-self*, il plurale in *-selves*. «All by himself» significa «da solo, senza aiuto».
+
+Prova tu:
+Sarah burned ___ while she was cooking.
+[risposte: ["herself"] · 4073 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":57,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: herself
+
+TUTOR: Esatto!
+
+Attenzione però: quando parliamo di parti del corpo o di vestiti, non usiamo il riflessivo, ma l'aggettivo possessivo (my, your, his, her...). Diciamo *He washed his hands*, non *himself*.
+
+Prova tu:
+She brushed ___ hair before going out.
+[risposte: ["her"] · 3397 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":71,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: the
+
+TUTOR: Non va bene. Ricorda: con le parti del corpo usiamo l'aggettivo possessivo (my, your, his, her...), non l'articolo. Riprova con la stessa frase:
+
+She brushed ___ hair before going out.
+[risposte: [] · 2696 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":97,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":54,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: a
+
+TUTOR: Non è corretto. Quando parliamo di parti del corpo, dobbiamo dire *di chi* sono usando l'aggettivo possessivo (my, your, his, her, etc.). Ad esempio: *He washed his face*.
+
+Riprova con la stessa frase:
+
+She brushed ___ hair before going out.
+[risposte: [] · 3915 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Non preoccuparti, è normale avere dubbi. Quando parliamo di parti del corpo, non usiamo il riflessivo (come *herself*), ma l'aggettivo possessivo (come *her*).
+
+La frase corretta è: «She brushed **her** hair before going out». Usiamo *her* perché i capelli sono i suoi (di lei).
+
+Proviamo con un altro esempio, sempre con le parti del corpo:
+He hurt ___ leg while playing football.
+[risposte: [] · 7882 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":80,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":97,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":60,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":69,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico the?
+
+TUTOR: In inglese, se usi *the*, non si capisce di chi sono i capelli o la gamba. Usiamo l'aggettivo possessivo (my, your, his, her...) proprio per specificare a chi appartiene quella parte del corpo. In italiano spesso è sottinteso, in inglese dobbiamo essere precisi.
+
+Riprova con la stessa frase:
+He hurt ___ leg while playing football.
+[risposte: ["his"] · 4733 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":154,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":77,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":75,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: his
+
+TUTOR: Esatto!
+
+Ora ricorda una cosa importante: alcuni verbi che in italiano sono riflessivi (come "vestirsi" o "rilassarsi"), in inglese non vogliono il pronome. Ad esempio, diciamo "He got dressed" (si è vestito), senza aggiungere altro.
+
+Prova a completare questa frase:
+Yesterday after work, I just wanted to relax and ___ down on the sofa.
+[risposte: ["sit","lie"] · 2717 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":68,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":82,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":68,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: In inglese, verbi come *sit down* (sedersi) non vogliono il pronome riflessivo. Si dice semplicemente *sit down*, non *sit myself down*. La frase corretta è: «Yesterday after work, I just wanted to relax and **sit** down on the sofa».
+
+Ora prova con un altro verbo che non vuole il riflessivo:
+Every morning, I usually wake up and ___ dressed quickly.
+[risposte: ["get"] · 14684 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":63,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: get
+
+TUTOR: Esatto!
+
+Ora però c'è un'eccezione importante: il verbo *enjoy* (divertirsi) vuole sempre il pronome riflessivo. Non possiamo dire "I enjoyed", dobbiamo dire "I enjoyed myself".
+
+Prova tu:
+They went to the party and really enjoyed ___ .
+[risposte: ["themselves"] · 3884 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":148,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":62,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":82,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+
+=== Unit 2 · topic 1 (Present perfect simple vs continuous) ===
+
+TUTOR: Ciao! Oggi vediamo quando usare il present perfect simple e quando quello continuous. Guarda queste frasi: "Sara has painted her bedroom" (il lavoro è finito, la stanza è dipinta) rispetto a "Sara has been painting her bedroom" (l'attività è in corso, non sappiamo se è finita). Il simple guarda al risultato, il continuous all'attività.
+
+Prova tu: Sara is tired because she ___ (clean) the house all morning.
+[risposte: ["has been cleaning"] · 2452 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":137,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":62,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: has been cleaning
+
+TUTOR: Esatto! Ci concentriamo sull'attività che è durata tutta la mattina. Ricorda però: se diciamo *quante* cose abbiamo fatto, usiamo solo il present perfect simple, perché guardiamo al risultato (come "Sara has painted three walls").
+
+My brother ___ (write) five emails today.
+[risposte: ["has written"] · 3588 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":110,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":114,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":55,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: written
+
+TUTOR: Attenzione, manca l'ausiliare! Il present perfect simple si forma con "have" o "has" + il participio passato. Il soggetto è "my brother" (lui), quindi ci vuole "has".
+
+Riprova: My brother ___ (write) five emails today.
+[risposte: ["has written"] · 3007 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: has to
+
+TUTOR: Non ci siamo ancora. Ricorda: il present perfect simple si forma con *have* o *has* + il participio passato del verbo (in questo caso *written*).
+
+Riprova: My brother ___ (write) five emails today.
+[risposte: ["has written"] · 13049 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":105,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":70,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":59,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Nessun problema! Il *present perfect simple* si costruisce con **has** (per lui/lei) o **have** (per gli altri) + il participio passato del verbo. 
+
+Il participio di *write* è *written*. Quindi, come diventa la frase?
+
+My brother ___ (write) five emails today.
+[risposte: [] · 3493 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":65,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":108,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico written?
+
+TUTOR: "Written" da solo è solo il participio passato. Per formare il *present perfect*, devi sempre aggiungere l'ausiliare "have" o "has" prima. Senza l'ausiliare, la forma verbale non è completa.
+
+Quindi, unendo l'ausiliare "has" e il participio "written", come scriveresti la frase?
+
+My brother ___ (write) five emails today.
+[risposte: [] · 3795 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: has written
+
+TUTOR: Esatto! Ricorda sempre: quando specifichi il numero o la quantità di qualcosa, il present perfect simple è la scelta giusta.
+
+Ora un'altra regola importante: i verbi di stato (come *know*, *like*, *love*, *want*) non si usano mai al continuous. Si usa sempre il simple.
+
+Marta ___ (know) her best friend since primary school.
+[risposte: ["has known"] · 3128 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":67,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: Te lo dico volentieri! La risposta corretta è *has known*.
+
+Si usa il *simple* perché *know* è un verbo di stato (come *like*, *love*, *want*), e i verbi di stato non vogliono mai la forma in *-ing*.
+
+Ora prova tu con questa: la situazione è temporanea (solo per l'estate), quindi usiamo il *continuous*.
+
+My cousin ___ (work) at the café for two weeks, just for the summer.
+[risposte: [] · 3414 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":103,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: has known
+
+TUTOR: Non è corretto. "Has known" significa "conosce", ma qui stiamo parlando di lavorare al bar. Inoltre, "know" è un verbo di stato, mentre "work" è un'attività. 
+
+Poiché la situazione è temporanea (solo per l'estate), dobbiamo usare il *present perfect continuous*, che si forma con *has/have been* + il verbo in *-ing*.
+
+Riprova con la stessa frase: My cousin ___ (work) at the café for two weeks, just for the summer.
+[risposte: ["has been working","has worked"] · 4293 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":108,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+
+=== Unit 4 · topic 1 (Narrative tenses) ===
+
+TUTOR: Ciao! Oggi impariamo a raccontare storie al passato. 
+
+Quando descriviamo azioni finite, una dopo l'altra, usiamo il *past simple*: "He opened his rucksack and called his sister". È come una lista di fatti in ordine cronologico.
+
+When I got home, I ___ (open the door and switch on the light).
+[risposte: ["opened the door and switched on the light","opened the door and switched on the lights"] · 4844 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":69,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: opened the door and switched on the light
+
+TUTOR: Esatto! A volte, però, non vogliamo solo elencare fatti, ma descrivere la scena, cioè cosa stava succedendo intorno a noi. Per questo usiamo il *past continuous* (was/were + -ing). Ad esempio: "It was raining" (stava piovendo).
+
+When I looked out of the window, the children ___ (play in the garden).
+[risposte: ["were playing","had been playing"] · 4865 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":58,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":79,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":106,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":66,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: playing
+
+TUTOR: Attenzione, manca una piccola parte del verbo! Quando descriviamo un'azione in corso nel passato, il *past continuous* ha bisogno di due pezzi: il verbo essere al passato (was/were) e la forma in -ing.
+
+Riprova con la stessa frase: When I looked out of the window, the children ___ (play in the garden).
+[risposte: ["were playing","had been playing"] · 15561 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":114,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":100,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-3.1-flash-lite","ms":12000,"errore":"collegamento a Gemini fallito: The operation was aborted due to timeout"}]]
+
+STUDENTE: were to
+
+TUTOR: Non proprio. Ricorda che per descrivere un'azione in corso nel passato ci servono due parti: il verbo essere al passato (was/were) e il verbo principale con la desinenza -ing.
+
+Riprova: When I looked out of the window, the children ___ (play in the garden).
+[risposte: ["were playing","had been playing"] · 2764 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":107,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":102,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":104,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":109,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Nessun problema, vediamo meglio. Per descrivere un'azione in corso usiamo *was* (o *were*) + il verbo con la desinenza *-ing*. Pensa a "They were eating", che significa "Stavano mangiando".
+
+Riprova con la stessa frase: When I looked out of the window, the children ___ (play in the garden).
+[risposte: ["were playing","had been playing"] · 11964 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":110,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":103,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico playing?
+
+TUTOR: "Playing" da solo non basta per fare il *past continuous*. Per descrivere un'azione in corso nel passato, dobbiamo sempre mettere insieme due pezzi: il verbo essere al passato (*was* o *were*) e la forma in *-ing*. Senza il verbo essere, la frase non è completa.
+
+Riprova: When I looked out of the window, the children ___ (play in the garden).
+[risposte: ["were playing","had been playing"] · 2104 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":95,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":62,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":99,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":94,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: were playing
+
+TUTOR: Esatto! Ora vediamo cosa succede quando un'azione lunga viene interrotta da una breve. Usiamo il *past continuous* per l'azione lunga (quella che era in corso) e il *past simple* per quella breve che interrompe.
+
+Esempio: "She was drinking her tea when the phone rang."
+
+I ___ (study) when the lights went out.
+[risposte: ["was studying"] · 30937 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":113,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":80,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-3.1-flash-lite","ms":28000,"errore":"collegamento a Gemini fallito: The operation was aborted due to timeout"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: Ti spiego volentieri: in questo caso la risposta è "I was studying". 
+
+Usiamo "was studying" perché l'azione di studiare era in corso (azione lunga), ed è stata interrotta da un evento improvviso, cioè le luci che si sono spente ("went out", azione breve).
+
+Ora provane un'altra tu:
+While I ___ (walk) in the park, I found a wallet.
+[risposte: ["was walking","walked"] · 12242 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":60,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: was walking
+
+TUTOR: Esatto! 
+
+A volte, però, dobbiamo raccontare qualcosa che era *già* successo prima di un altro momento del passato. Per questo usiamo il *past perfect* (had + participio passato).
+
+Esempio: "When Davide reached the hut, somebody had lit the fire." (Prima qualcuno ha acceso il fuoco, poi Davide è arrivato).
+
+By the time we arrived at the cinema, the film ___ (already / start).
+[risposte: ["had already started"] · 2212 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":70,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":64,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+
+=== Unit 8 · topic 0 (Modal verbs of deduction: present) ===
+
+TUTOR: Ciao! Oggi impariamo a fare delle deduzioni, cioè a capire cosa succede basandoci sugli indizi.
+
+Immagina Zeno, che osserva i vicini dalla finestra. Se sei sicuro che qualcosa sia vero, usa *must* (+ forma base); se sei sicuro che sia impossibile, usa *can't* (+ forma base).
+
+The neighbour is running to the bus stop. He ___ (be) very late for work.
+[risposte: ["must be","might be","may be","could be"] · 14629 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":80,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":77,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":79,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: must be
+
+TUTOR: Esatto! Se invece non sei sicuro, ma pensi che una cosa sia possibile, usa *may*, *might* o *could* (+ forma base). Significa "potrebbe".
+
+Zeno vede una scatola davanti alla porta del vicino.
+It ___ (be) a package from Amazon.
+[risposte: ["may be","might be","could be","might be","could be","must be"] · 5571 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":60,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: be
+
+TUTOR: Non proprio. Ricorda che per esprimere una possibilità, come "potrebbe essere", dobbiamo aggiungere il verbo modale (may, might o potrebbe essere could) prima di "be".
+
+Riprova: Zeno vede una scatola davanti alla porta del vicino.
+It ___ (be) a package from Amazon.
+[risposte: ["may be","might be","could be","might be","could be","must be"] · 2154 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":75,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":70,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: may to
+
+TUTOR: Quasi! Ricorda che dopo i verbi modali come *may*, *might* o *could* non si mette mai "to". Si usa direttamente la forma base del verbo.
+
+Riprova: Zeno vede una scatola davanti alla porta del vicino.
+It ___ (be) a package from Amazon.
+[risposte: ["may be","might be","could be","might be","could be","must be"] · 19115 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":66,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":83,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":72,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Nessun problema, capita! Guarda: i modali come *may*, *might* o *could* si mettono subito prima del verbo. Non serve "to", basta il verbo così com'è.
+
+Se dico "It might be", significa "Potrebbe essere".
+
+Riprova: Zeno vede una scatola davanti alla porta del vicino.
+It ___ (be) a package from Amazon.
+[risposte: ["may be","might be","could be","might be","could be","must be"] · 3546 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":101,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":60,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico be?
+
+TUTOR: Se dici solo "It be a package", la frase non è corretta perché manca l'elemento che indica la deduzione. In inglese, per dire "potrebbe essere", dobbiamo sempre mettere il modale (may, might o could) prima del verbo.
+
+Quindi, per completare la frase:
+It ___ (be) a package from Amazon.
+[risposte: ["may be","might be","could be","might be","could be","must be"] · 2929 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":84,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":77,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":105,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: may be
+
+TUTOR: Esatto! Hai capito perfettamente.
+
+Ora, se l'azione sta succedendo proprio in questo momento, aggiungiamo *be* + *-ing* al verbo. Per esempio: "They must be having dinner" (devono stare cenando).
+
+Zeno vede il vicino in giardino con la vanga.
+He ___ (work) in the garden.
+[risposte: ["must be working","might be working","may be working","could be working","might be working","may be working","could be working"] · 6901 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":75,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: Non posso dartela subito, perché voglio che sia tu a trovarla! Pensa alla situazione: Zeno vede il vicino con la vanga in mano in questo momento.
+
+Dobbiamo dire che "deve stare lavorando" oppure "potrebbe stare lavorando". Ricorda: per un'azione in corso si usa il modale + be + -ing.
+
+Riprova: Zeno vede il vicino in giardino con la vanga.
+He ___ (work) in the garden.
+[risposte: ["must be working","might be working","may be working","could be working","might be working","may be working","could be working"] · 15472 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":97,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":87,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":79,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":76,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: must be working
+
+TUTOR: Esatto! Hai usato la forma corretta per un'azione che sta avvenendo ora.
+
+Ora vediamo la certezza negativa: quando sei sicuro che qualcosa NON sia vero, usa *can't* + forma base. Esempio: Zeno sa che il vicino è in vacanza, quindi *He can't be the neighbour* (non può essere il vicino).
+
+Zeno sa che il vicino è in vacanza.
+The man in the garden ___ (be) the neighbour.
+[risposte: ["can't be","must be","might be","may be","could be"] · 4197 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":93,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":107,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":100,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":109,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":124,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+
+=== Unit 9 · topic 0 (Present simple passive) ===
+
+TUTOR: Ciao! Oggi impariamo a descrivere processi, come la produzione del cioccolato. In inglese, quando l'azione è più importante di chi la fa, usiamo il passivo: *The cocoa beans are roasted* (i semi di cacao sono tostati). Si costruisce con *am/is/are* + participio passato (non si usa mai "venire").
+
+Completa questa frase:
+The chocolate bars ___ (wrap) by machines.
+[risposte: ["are wrapped","get wrapped"] · 5233 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":100,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":99,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":108,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":85,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":96,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: are wrapped
+
+[ERRORE 502: Il tutor non risponde. Riprova fra poco. [tempo scaduto (30 s) · chiavi nel Worker: 5, tentativi: 7] · 44935 ms]
+
+STUDENTE: wrapped
+
+TUTOR: Esatto! Hai usato correttamente la forma passiva: *are* + participio passato (*wrapped*).
+
+Ora proviamo una frase al negativo, per descrivere cosa non si fa in quella fabbrica.
+
+The machines ___ (not / use) on Sundays.
+[risposte: ["aren't used","are not used","are not used"] · 9678 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":138,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":115,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":118,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":123,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":166,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: are to
+
+TUTOR: Non proprio. Ricorda la regola per la forma negativa: dobbiamo usare il verbo *be* (am/is/are) + *not* + il participio passato del verbo. 
+
+Prova di nuovo a completare la frase:
+The machines ___ (not / use) on Sundays.
+[risposte: ["aren't used","are not used","are not used"] · 4964 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":134,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":112,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":102,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":125,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":110,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: non ho capito
+
+TUTOR: Nessun problema! Per la forma negativa, prendiamo *am/is/are* e aggiungiamo *not* subito dopo, seguito dal participio passato.
+Esempio: *The door is closed* diventa *The door is not closed* (o *aren't*).
+
+Prova di nuovo con questa frase:
+The machines ___ (not / use) on Sundays.
+[risposte: ["are not used","aren't used","aren't used"] · 6134 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":123,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":109,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":98,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":107,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":154,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: ma se dico wrapped?
+
+TUTOR: "Wrapped" da solo non basta. Per formare il passivo ti servono sempre due pezzi: il verbo *be* (am/is/are) + il participio passato.
+
+Se dici solo "The machines wrapped", la frase non è completa. Serve *are* (o *aren't* per la negativa) per dire "sono" o "non sono".
+
+Riprova con la frase di prima:
+The machines ___ (not / use) on Sundays.
+[risposte: ["are not used","aren't used","aren't used"] · 4493 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":102,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":81,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":88,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: are not used
+
+TUTOR: Esatto! *Are not used* (oppure *aren't used*) è corretto.
+
+Ora vediamo come fare le domande: basta mettere *Am/Is/Are* all'inizio, prima del soggetto.
+Esempio: *Is the chocolate tested?*
+
+Prova tu a completare questa domanda:
+___ (the cocoa beans / roast) in the oven?
+[risposte: ["Are the cocoa beans roasted"] · 3546 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":74,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":73,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":97,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":125,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: dimmelo
+
+TUTOR: Ti spiego volentieri come si fa. Per fare una domanda al passivo, dobbiamo spostare il verbo *be* (am/is/are) all'inizio, prima del soggetto, proprio come facciamo con il verbo essere normale.
+
+Quindi, se la frase affermativa è "The cocoa beans are roasted", per la domanda invertiamo: "Are the cocoa beans roasted?".
+
+Provane un'altra, così ti eserciti ancora:
+___ (the milk / add) to the mixture?
+[risposte: ["Is the milk added"] · 2853 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":199,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":98,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":91,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":89,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":82,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
+STUDENTE: Is the milk added
+
+TUTOR: Esatto! Hai capito perfettamente come fare la domanda: *Is* all'inizio, poi il soggetto e infine il participio.
+
+Ora passiamo a un altro dettaglio: se vogliamo dire chi compie l'azione, usiamo *by*. Ad esempio: *The boxes are decorated by hand* (sono decorate a mano).
+
+Completa questa frase:
+The chocolate is made ___ a robot.
+[risposte: ["by"] · 2340 ms]
+[diag: [{"modello":"gemini-flash-latest","ms":90,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":78,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":92,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":82,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"},{"modello":"gemini-flash-latest","ms":86,"errore":"Gemini 429 (GenerateRequestsPerDayPerProjectPerModel-FreeTier): You exceeded your current quota, please check your plan and billing details"}]]
+
