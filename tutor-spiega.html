@@ -2,43 +2,62 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tutor di spiegazione</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grammar Tutor</title>
 <style>
-:root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--line:#d8d2c4;--studente:#efe7f3}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:1.5rem;margin:.2em 0 .1em}
-.sotto{color:var(--muted);margin:0 0 18px}
-.argomenti{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
-.argomenti button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--ink)}
-.argomenti button.attivo{background:var(--accent);border-color:var(--accent);color:#fff}
-#chat{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
-.msg{padding:12px 16px;border-radius:14px;max-width:92%;white-space:normal;word-wrap:break-word}
+:root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--ok:#26734a;--line:#d8d2c4}
+*{box-sizing:border-box} html{font-size:100%} html.grande{font-size:125%}
+body{margin:0;min-height:100vh;background:#111712;color:var(--ink);font-size:1rem;line-height:1.55;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:20px}
+html.leggibile body,html.leggibile button,html.leggibile textarea{font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif;letter-spacing:.04em;word-spacing:.14em}
+html.leggibile body{line-height:1.85}
+main{width:min(760px,100%);background:var(--paper);border-radius:20px;box-shadow:0 24px 70px #0008;overflow:hidden}
+header{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}
+.brand{font-weight:800;letter-spacing:.02em}.unit{font-size:.84rem;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:10px 28px;border-bottom:1px solid var(--line);background:var(--soft)}
+.tool{background:white;color:var(--accent2);border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-size:.9rem;font-weight:700;cursor:pointer}
+.tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:white}
+article{padding:clamp(20px,4vw,36px)}
+.phase{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:var(--accent)}
+.sotto{color:var(--muted);margin:.4rem 0 1rem}
+.argomenti{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 22px}
+.argomenti button{background:white;color:var(--accent2);border:1.5px solid var(--accent);padding:8px 13px;border-radius:999px;cursor:pointer;font:inherit;font-weight:650}
+.argomenti button.attivo{background:var(--accent);color:white}
+#chat{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+.msg{padding:12px 16px;border-radius:12px;max-width:92%;word-wrap:break-word}
 .tutor{background:var(--soft);border-left:4px solid var(--accent);align-self:flex-start}
-.studente{background:var(--studente);align-self:flex-end}
+.studente{background:#efe7f3;color:var(--accent2);align-self:flex-end}
 .attesa{color:var(--muted);font-style:italic}
-.errore{color:#9b1c1c}
-form{display:flex;gap:8px;align-items:flex-end;position:sticky;bottom:0;background:var(--paper);padding:10px 0}
-textarea{flex:1;min-height:52px;max-height:180px;resize:vertical;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
-form button{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer}
-form button:disabled{opacity:.5;cursor:default}
+.errore{background:#fdeaea;color:#922;border-left-color:#c0392b}
+textarea{width:100%;min-height:90px;resize:vertical;padding:14px;border:1.5px solid var(--line);border-radius:10px;background:white;font:inherit;color:inherit}
+textarea:focus{outline:3px solid #6f3a8222;border-color:var(--accent)}
+.actions{display:flex;justify-content:flex-end;margin-top:12px}
+button.primary{font:inherit;font-weight:750;border:0;border-radius:9px;padding:11px 18px;cursor:pointer;background:var(--accent);color:white}
+button.primary:hover{background:var(--accent2)} button.primary:disabled{opacity:.55;cursor:wait}
 .nota{color:var(--muted);font-size:.9rem}
+@media(max-width:520px){body{padding:0}main{min-height:100vh;border-radius:0}header,.tools{padding-left:16px;padding-right:16px}button.primary{width:100%}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1 id="titolo">Tutor di spiegazione</h1>
-  <p class="sotto">Scegli l'argomento: l'insegnante ti spiega e ti fa provare. Puoi scriverle qualsiasi cosa: una risposta, una domanda, «non ho capito».</p>
-  <div class="argomenti" id="argomenti"></div>
-  <div id="chat"></div>
-  <form id="form" hidden>
-    <textarea id="testo" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea>
-    <button id="invia" type="submit">Invia</button>
-  </form>
-  <p class="nota" id="nota"></p>
-</div>
+<main>
+  <header><div><div class="brand">Grammar Tutor</div><div class="unit" id="titolo">Caricamento…</div></div></header>
+  <div class="tools" role="toolbar" aria-label="Strumenti di lettura">
+    <button type="button" class="tool" id="ascolta" aria-pressed="false">🔊 Ascolta</button>
+    <button type="button" class="tool" id="grande" aria-pressed="false">A+ Testo grande</button>
+    <button type="button" class="tool" id="leggibile" aria-pressed="false">Aa Leggibile</button>
+  </div>
+  <article>
+    <div class="phase">Studia con l'insegnante</div>
+    <p class="sotto">Scegli l'argomento: l'insegnante ti spiega e ti fa provare. Puoi scriverle qualsiasi cosa: una risposta, una domanda, «non ho capito», «dimmelo».</p>
+    <div class="argomenti" id="argomenti"></div>
+    <div id="chat" aria-live="polite"></div>
+    <form id="form" hidden>
+      <label for="testo" class="unit">La tua risposta</label>
+      <textarea id="testo" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea>
+      <div class="actions"><button id="invia" class="primary" type="submit">Invia</button></div>
+    </form>
+    <p class="nota" id="nota"></p>
+  </article>
+</main>
 <script>
 const WORKER = "https://tutor1.cristinavallini64.workers.dev/";
 const u = Math.max(1, Math.min(10, parseInt(new URLSearchParams(location.search).get("u"), 10) || 1));
@@ -56,7 +75,7 @@ async function carica(){
     for(; i < h.length; i++){ if(h[i]==="{") d++; if(h[i]==="}"){ d--; if(!d) break; } }
     UNITA = JSON.parse(h.slice(s, i + 1));
   }catch(e){ $("nota").textContent = "Non riesco a caricare i contenuti dell'unità."; return; }
-  $("titolo").textContent = `Tutor di spiegazione · Unit ${u}`;
+  $("titolo").textContent = `Unit ${u}`; document.title = `Grammar Tutor · Unit ${u}`;
   UNITA.topics.forEach((t, k) => {
     const b = document.createElement("button"); b.type = "button"; b.textContent = t.title;
     b.onclick = () => inizia(k, b); $("argomenti").appendChild(b);
@@ -94,6 +113,38 @@ $("form").addEventListener("submit", async e => {
   await chiedi();
 });
 $("testo").addEventListener("keydown", e => { if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("form").requestSubmit(); } });
+
+// strumenti di lettura, come nelle pagine Studia
+const prefKey="studia-lettura";
+let pref={grande:false,leggibile:false};
+try{pref={...pref,...JSON.parse(localStorage.getItem(prefKey)||"{}")}}catch(e){}
+function applicaPref(){
+  document.documentElement.classList.toggle("grande",!!pref.grande);
+  document.documentElement.classList.toggle("leggibile",!!pref.leggibile);
+  $("grande").setAttribute("aria-pressed",String(!!pref.grande));
+  $("leggibile").setAttribute("aria-pressed",String(!!pref.leggibile));
+}
+function salvaPref(){try{localStorage.setItem(prefKey,JSON.stringify(pref))}catch(e){}}
+$("grande").onclick=()=>{pref.grande=!pref.grande;salvaPref();applicaPref()};
+$("leggibile").onclick=()=>{pref.leggibile=!pref.leggibile;salvaPref();applicaPref()};
+applicaPref();
+const voce=window.speechSynthesis;
+const ITA=/\b(il|lo|la|gli|le|di|del|della|che|non|una|uno|per|con|cosa|come|quale|quando|perché|perche|frase|completa|guarda|questa|questo|sono|hai|adesso|allora|oppure|prima|volta|forma|verbo|parola|risposta|ancora|esatto|giusto|tutte|tutti|qui|nella|dopo|anche|prova|ricorda|significa|vuol|dire)\b|[àèéìòù]/i;
+function scegliVoce(l){const vs=voce?voce.getVoices():[];const p=l==="en"?["en-GB","en-US","en"]:["it-IT","it"];for(const x of p){const v=vs.find(y=>y.lang&&y.lang.replace("_","-").toLowerCase().startsWith(x.toLowerCase()));if(v)return v}return null}
+function fermaLettura(){if(voce)voce.cancel();$("ascolta").setAttribute("aria-pressed","false");$("ascolta").textContent="🔊 Ascolta"}
+$("ascolta").onclick=()=>{
+  if(!voce){$("ascolta").textContent="🔊 Non disponibile";return}
+  if($("ascolta").getAttribute("aria-pressed")==="true"){fermaLettura();return}
+  const ult=[...messaggi].reverse().find(m=>m.chi==="tutor");
+  if(!ult)return;
+  // pezzi: le frasi italiane con la voce italiana, le parti inglesi (fra virgolette, corsivo o frasi intere) con quella inglese
+  const pezzi=[];
+  String(ult.testo).replace(/\*\*|\*/g,"").replace(/___/g," … ").split(/\n+/).forEach(riga=>{
+    riga.split(/[«»"“”]/).forEach((p,i)=>{p=p.trim();if(!p)return;pezzi.push({t:p,l:ITA.test(p)?"it":"en"})});
+  });
+  voce.cancel();$("ascolta").setAttribute("aria-pressed","true");$("ascolta").textContent="⏹ Ferma";
+  pezzi.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l==="en"?"en-GB":"it-IT";const v=scegliVoce(p.l);if(v)u.voice=v;u.rate=p.l==="en"?0.85:0.95;if(i===pezzi.length-1){u.onend=fermaLettura;u.onerror=fermaLettura}voce.speak(u)});
+};
 carica();
 </script>
 </body>
