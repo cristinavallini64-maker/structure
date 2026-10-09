@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"drive": "vialetto", "burglar": "ladro d'appartamento", "safe": "cassaforte", "judge": "giudice", "bank robber": "rapinatore di banche", "jeweller's": "gioielleria", "guilty": "colpevole", "suspect": "sospettato", "CCTV video": "video delle telecamere", "thief": "ladro", "witnesses": "testimoni", "jury": "giuria", "the accused": "l'imputato", "lawyer": "avvocato", "documents": "documenti", "fraudster": "truffatore", "passport": "passaporto", "investigating": "indagando", "mud": "fango", "carpet": "tappeto", "shop window": "vetrina", "headphones": "cuffie", "wallet": "portafoglio", "thieves": "ladri", "alarm code": "codice dell'allarme", "crowded": "affollata", "vandals": "vandali", "security camera": "telecamera di sorveglianza", "in their fifties": "sulla cinquantina", "set fire to": "dare fuoco a", "bins": "bidoni", "on purpose": "apposta", "witness": "testimone", "found the accused guilty": "hanno giudicato colpevole l'imputato", "appointment": "appuntamento", "engine": "motore", "won the case": "vinto la causa", "parking space": "posto auto", "pickpocket": "borseggiatore", "pavement": "marciapiede", "lying": "mentendo", "guards": "guardie", "shift": "turno"};
+const GLOSS={"drive": "vialetto", "burglar": "ladro d'appartamento", "safe": "cassaforte", "judge": "giudice", "bank robber": "rapinatore di banche", "jeweller's": "gioielleria", "guilty": "colpevole", "suspect": "sospettato", "CCTV video": "video delle telecamere", "thief": "ladro", "witnesses": "testimoni", "jury": "giuria", "the accused": "l'imputato", "lawyer": "avvocato", "documents": "documenti", "fraudster": "truffatore", "passport": "passaporto", "investigating": "indagando", "mud": "fango", "carpet": "tappeto", "shop window": "vetrina", "headphones": "cuffie", "wallet": "portafoglio", "thieves": "ladri", "alarm code": "codice dell'allarme", "crowded": "affollata", "vandals": "vandali", "security camera": "telecamera di sorveglianza", "in their fifties": "sulla cinquantina", "set fire to": "dare fuoco a", "bins": "bidoni", "on purpose": "apposta", "witness": "testimone", "found the accused guilty": "hanno giudicato colpevole l'imputato", "appointment": "appuntamento", "engine": "motore", "won the case": "vinto la causa", "parking space": "posto auto", "pickpocket": "borseggiatore", "pavement": "marciapiede", "lying": "mentendo", "guards": "guardie", "shift": "turno", "suspects": "sospettati", "alibi": "alibi", "criminal record": "fedina penale", "story": "versione dei fatti", "arrogant": "arroganti", "accident": "incidente", "fingerprints": "impronte digitali", "gloves": "guanti", "court": "tribunale", "fair trial": "processo equo", "evidence": "prove", "stolen paintings": "quadri rubati", "courtroom": "aula del tribunale", "case": "caso", "solve": "risolvere", "stingy": "tirchio", "escape room": "escape room", "warm welcome": "accoglienza calorosa", "trial": "processo", "motive": "movente", "clue": "indizio"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -371,6 +371,75 @@ exercises:[
 {type:"mc",q:"« Someone might be following us » e « Someone might have followed us »: quale parla di adesso?",options:["La prima.","La seconda.","Tutte e due.","Nessuna delle due."],a:"La prima."},
 {type:"fill",q:"The museum guards ___ anything: the painting disappeared during their shift and nobody said a word.",hint:"(notice)",a:"can't have noticed",accept:["can't have noticed","cannot have noticed","couldn't have noticed"],instruction:"Completa."},
 {type:"fill",q:"« Forse ha ragione lui. » → He ___ right.",hint:"(be)",a:"might be",accept:["might be","may be","could be"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:3,type:"study",title:"LIVELLO 03 — BOTH · EITHER · NEITHER",desc:"tutti e due · l'uno o l'altro · nessuno dei due · both … and · either … or · neither … nor",
+rule:`<strong>BOTH &middot; EITHER &middot; NEITHER &mdash; Unit 8:</strong><br>
+&#x2714; Si usano per parlare di <strong>due</strong> cose o persone. <code>both</code> = tutti e due (verbo plurale) &middot; <code>either</code> = l'uno o l'altro &middot; <code>neither</code> = nessuno dei due.<br>
+&#x2714; Con <em>of</em>: <code>both / either / neither of + the/my/these&hellip; + nome plurale</code>. &mdash; <em><strong>Neither of</strong> the witnesses saw his face.</em><br>
+&#x2714; <code>both &hellip; and</code> &middot; <code>either &hellip; or</code> &middot; <code>neither &hellip; nor</code>. &mdash; <em><strong>Neither</strong> the thief <strong>nor</strong> the car was found.</em><br>
+&#x26A0; <strong>neither</strong> &egrave; gi&agrave; negativo: il verbo resta affermativo (<em>Neither of them <strong>has</strong> a car</em>, non &laquo;doesn't have&raquo;). Dopo un verbo negativo si usa <strong>either</strong>: <em>I don't like <strong>either</strong> of them.</em>`,
+exercises:[
+{type:"fill",q:"___ of the suspects had an alibi, so the police let them both go.",a:"Both",accept:["Both"],instruction:"Completa."},
+{type:"fill",q:"The two witnesses saw nothing: ___ of them was looking at the road.",a:"neither",accept:["neither"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Neither of the brothers don't have a criminal record.",a:"Neither of the brothers has a criminal record.",accept:["Neither of the brothers has a criminal record.","Neither of the brothers have a criminal record."]},
+{type:"fill",q:"You can pay ___ in cash or by card.",a:"either",accept:["either"],instruction:"Completa."},
+{type:"fill",q:"___ the judge nor the jury believed his story.",a:"Neither",accept:["Neither"],instruction:"Completa."},
+{type:"mc",q:"« Either Tom or Sam stole the bike » e « Both Tom and Sam stole the bike »: in quale i ladri sono due?",options:["Nella seconda.","Nella prima.","In tutte e due.","In nessuna delle due."],a:"Nella seconda."},
+{type:"fill",q:"The thief took ___ my phone and my laptop.",a:"both",accept:["both"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Both of the suspect has a motive.",a:"Both of the suspects have a motive.",accept:["Both of the suspects have a motive.","Both suspects have a motive.","Both the suspects have a motive."]},
+{type:"fill",q:"I don't trust ___ of these lawyers: they're both arrogant.",a:"either",accept:["either"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The suspect speaks neither English or Italian.",a:"The suspect speaks neither English nor Italian.",accept:["The suspect speaks neither English nor Italian.","The suspect doesn't speak either English or Italian."]},
+{type:"fill",q:"« Which of the two jackets is yours? » — ___. I've never seen them before.",a:"Neither",accept:["Neither","Neither of them"],instruction:"Completa la risposta."},
+{type:"mc",q:"« Neither of the twins saw the accident. » Quale seguito sta in piedi?",options:["They were both at school at the time.","They both described it to the police.","One of them filmed it on her phone.","They both saw it from the window."],a:"They were both at school at the time."},
+{type:"fill",q:"« Nessuno dei due testimoni ha visto il ladro. » → ___ saw the thief.",a:"Neither of the witnesses",accept:["Neither of the witnesses","Neither witness","Neither of the two witnesses"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:4,type:"study",title:"LIVELLO 04 — ALL · NO · NONE",desc:"tutti · nessun + nome · nessuno, da solo o con of",
+rule:`<strong>ALL &middot; NO &middot; NONE &mdash; Unit 8:</strong><br>
+&#x2714; <code>all</code> = tutti, per un gruppo di pi&ugrave; di due. <code>all + nome</code> oppure <code>all (of) + the/my/these&hellip; + nome</code>. &mdash; <em><strong>All</strong> the windows were open.</em><br>
+&#x2714; <code>no + nome</code> = nessun, nessuna: il verbo resta affermativo. &mdash; <em>We have <strong>no</strong> idea.</em> (= We don't have any idea.)<br>
+&#x2714; <code>none</code> = nessuno, <strong>da solo</strong> (senza nome dopo) oppure <code>none of + the/my&hellip; + nome</code>. &mdash; <em>&laquo;How many came?&raquo; &laquo;<strong>None</strong>.&raquo;</em> &middot; <em><strong>None of</strong> the guests heard anything.</em><br>
+&#x26A0; <em>no</em> e <em>none</em> sono gi&agrave; negativi: niente doppia negazione (<em>There was no evidence</em>, non &laquo;there wasn't no evidence&raquo;).<br>
+&#x26A0; <em>no</em> vuole il nome subito dopo; <em>none</em> no.`,
+exercises:[
+{type:"fill",q:"___ the members of the jury agreed: the accused was guilty.",a:"All",accept:["All","All of"],instruction:"Completa."},
+{type:"fill",q:"There were ___ witnesses: the street was completely empty.",a:"no",accept:["no"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"None of the students didn't cheat in the exam.",a:"None of the students cheated in the exam.",accept:["None of the students cheated in the exam."]},
+{type:"fill",q:"The police checked ten houses in the street, but ___ of them had a security camera.",a:"none",accept:["none"],instruction:"Completa."},
+{type:"fill",q:"« How many fingerprints did they find? » — ___. The thief wore gloves.",a:"None",accept:["None"],instruction:"Completa la risposta."},
+{type:"mc",q:"« None of my friends has ever been to court. » Che cosa vuol dire?",options:["Nessuno dei miei amici è mai stato in tribunale.","Alcuni miei amici sono stati in tribunale.","Tutti i miei amici sono stati in tribunale.","Non ho amici che conoscono il tribunale."],a:"Nessuno dei miei amici è mai stato in tribunale."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"All people has the right to a fair trial.",a:"All people have the right to a fair trial.",accept:["All people have the right to a fair trial."]},
+{type:"fill",q:"___ the shops in our street have alarms now.",a:"All",accept:["All","All of"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"There wasn't no evidence against him.",a:"There was no evidence against him.",accept:["There was no evidence against him.","There wasn't any evidence against him."]},
+{type:"fill",q:"The police have ___ clue where the money went.",a:"no",accept:["no"],instruction:"Completa."},
+{type:"mc",q:"« The police found all the stolen paintings in an old garage. » Quale seguito sta in piedi?",options:["The museum director was so happy that she cried.","So the museum is still missing three of them.","Nobody ever saw them again.","The museum lost all of them for ever."],a:"The museum director was so happy that she cried."},
+{type:"fill",q:"« Non abbiamo prove. » → We have ___ evidence.",a:"no",accept:["no"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:5,type:"study",title:"LIVELLO 05 — SO · SUCH",desc:"so + aggettivo o avverbio · such (a) + nome · so … that",
+rule:`<strong>SO &middot; SUCH &mdash; Unit 8:</strong><br>
+&#x2714; <code>so + aggettivo / avverbio</code> = cos&igrave;. &mdash; <em>The judge was <strong>so</strong> angry.</em> &middot; <em>He spoke <strong>so</strong> quietly.</em><br>
+&#x2714; <code>such a/an (+ aggettivo) + nome singolare</code>. &mdash; <em>It was <strong>such a</strong> strange case.</em><br>
+&#x2714; <code>such (+ aggettivo) + nome plurale o non numerabile</code>, senza <em>a</em>. &mdash; <em>They were <strong>such</strong> bad lawyers.</em><br>
+&#x2714; <code>so much / so many</code> + nome &middot; <code>such a lot of</code> + nome.<br>
+&#x2714; Per dire la conseguenza: <code>so / such &hellip; that</code>. &mdash; <em>It was <strong>so</strong> dark <strong>that</strong> nobody saw him.</em><br>
+&#x26A0; L'ordine: <em><strong>such a</strong> funny film</em> (non &laquo;a so funny film&raquo;).`,
+exercises:[
+{type:"fill",q:"The judge was ___ angry that she sent the man out of the courtroom.",a:"so",accept:["so"],instruction:"Completa."},
+{type:"fill",q:"It was ___ a strange case that the detectives couldn't solve it.",a:"such",accept:["such"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"It was a so funny film that we watched it twice.",a:"It was such a funny film that we watched it twice.",accept:["It was such a funny film that we watched it twice.","The film was so funny that we watched it twice."]},
+{type:"fill",q:"The fraudster spoke ___ politely that everybody trusted him.",a:"so",accept:["so"],instruction:"Completa."},
+{type:"fill",q:"They had ___ bad lawyers that they lost the case.",a:"such",accept:["such"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"He's such stingy that he never pays for a coffee.",a:"He's so stingy that he never pays for a coffee.",accept:["He's so stingy that he never pays for a coffee.","He is so stingy that he never pays for a coffee."]},
+{type:"fill",q:"There was ___ much traffic that the police arrived late.",a:"so",accept:["so"],instruction:"Completa."},
+{type:"mc",q:"« It was such a good book » e « The book was so good ». Vanno bene tutte e due?",options:["Sì: such a + aggettivo + nome, so + aggettivo.","No: solo la prima.","No: solo la seconda.","No: tutte e due sono sbagliate."],a:"Sì: such a + aggettivo + nome, so + aggettivo."},
+{type:"fill",q:"We had ___ a lot of fun at the escape room!",a:"such",accept:["such"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"They gave us so a warm welcome.",a:"They gave us such a warm welcome.",accept:["They gave us such a warm welcome."]},
+{type:"fill",q:"Don't be ___ stingy! Lend him a pound.",a:"so",accept:["so"],instruction:"Completa."},
+{type:"mc",q:"« The burglar was so quiet that… » Quale seguito sta in piedi?",options:["…nobody in the house woke up.","…everybody in the house woke up.","…the dog started barking at once.","…the neighbours called the police."],a:"…nobody in the house woke up."},
+{type:"fill",q:"« È una ragazza così coraggiosa! » → She's ___ brave girl!",a:"such a",accept:["such a"],instruction:"Scrivi in inglese la parte che manca."},
+{type:"fill",q:"« Il processo è stato così lungo che metà della giuria si è addormentata. » → The trial was ___ long that half the jury fell asleep.",a:"so",accept:["so"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
 
 ];
