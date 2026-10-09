@@ -67,7 +67,7 @@ async function chiedi(){
   occupato = true; $("invia").disabled = true;
   const att = aggiungi("tutor", "L'insegnante sta scrivendo…", "tutor attesa");
   try{
-    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 50000);
+    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 60000);
     const r = await fetch(WORKER, {method:"POST", headers:{"Content-Type":"application/json"}, signal: ctrl.signal,
       body: JSON.stringify({action:"spiega", unita: UNITA, topic, messages: messaggi})});
     clearTimeout(timer);

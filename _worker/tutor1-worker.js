@@ -1296,7 +1296,7 @@ function creaMotore(UNIT) {
           const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modello}:generateContent`, {
             method: "POST",
             headers: { "x-goog-api-key": chiave, "content-type": "application/json" },
-            signal: AbortSignal.timeout(Math.max(1000, Math.min(12000, restante() - 500))),
+            signal: AbortSignal.timeout(Math.max(1000, Math.min(modelloPrima ? 28000 : 12000, restante() - 500))),
             body: JSON.stringify({
               systemInstruction: { parts: [{ text: system }] },
               contents: [{ role: "user", parts: [{ text: user }] }],
@@ -2267,7 +2267,7 @@ function creaMotore(UNIT) {
 
   COMPITO: ${msgs.length ? "scrivi il tuo prossimo messaggio: rispondi a quello che lo studente ha appena scritto, e vai avanti con la lezione." : "comincia la lezione: saluta in una riga, poi parti dal racconto o dalle frasi in inglese e spiega il significato delle parole e delle forme."}`;
     modelloPrima = env.MODEL_SPIEGA || MODEL_RISERVA;
-    scadenza = Date.now() + 40000;
+    scadenza = Date.now() + 45000;
     const a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
     modelloPrima = null;
     if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
