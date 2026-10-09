@@ -2330,6 +2330,7 @@ function creaMotore(UNIT) {
   </lezione_fin_qui>
 
   ${notaRisposta}
+  ${ultimo && ultimo.chi === "Studente" && chiedeSoluzione(ultimo.testo) ? "NOTA DEL PROGRAMMA: lo studente ti ha chiesto la risposta. Dagliela ADESSO, chiaramente, con il perché in una frase, poi proponi una frase nuova. Non rifiutare e non fare altre domande-guida." : ""}
   COMPITO: ${msgs.length ? "scrivi il tuo prossimo messaggio: rispondi a quello che lo studente ha appena scritto, e vai avanti con la lezione." : "comincia la lezione: saluta in una riga, poi parti dal racconto o dalle frasi in inglese e spiega il significato delle parole e delle forme."}`;
     modelloPrima = env.MODEL_SPIEGA || MODEL_RISERVA;
     scadenza = Date.now() + 45000;
@@ -2356,8 +2357,6 @@ function creaMotore(UNIT) {
           diag.push({ esercizio_scartato: fr, problema: v.problema || "" });
           const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${fr}», risposte: ${a.risposte.join(" / ")}) non va bene: ${String(v.problema || "non ha senso o la risposta è sbagliata").slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta.`, TOOL_SPIEGA);
           if (a3 && typeof a3.messaggio === "string" && a3.messaggio.trim()) a = a3;
-        } else if (v && Array.isArray(v.altre_giuste)) {
-          a.risposte = a.risposte.concat(v.altre_giuste.filter(x => typeof x === "string" && x.trim()).slice(0, 6));
         }
       }
     }
