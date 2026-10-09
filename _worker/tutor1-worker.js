@@ -1252,6 +1252,7 @@ function creaMotore(UNIT) {
   // l'ultimo passo di SCOPRI chiama il modello due volte: per la seconda chiamata allungo la scadenza (la pagina aspetta 45 s)
   const allunga = () => { scadenza = Math.max(scadenza, Math.min(inizioRichiesta + 42000, Date.now() + 20000)); };
   let sovraccarico = false;
+  let modelloPrima = null;
   let scadenza = 0;
   let senzaThinking = false;
   const TEMPO_MASSIMO = 30000;
@@ -1281,7 +1282,7 @@ function creaMotore(UNIT) {
     }
     const inizio = Math.floor(Math.random() * tutte.length);
     const giro = tutte.slice(inizio).concat(tutte.slice(0, inizio));
-    const modelli = [env.MODEL || MODEL_DEFAULT, MODEL_RISERVA].filter((m, i, a) => a.indexOf(m) === i);
+    const modelli = (modelloPrima ? [modelloPrima, env.MODEL || MODEL_DEFAULT] : [env.MODEL || MODEL_DEFAULT, MODEL_RISERVA]).filter((m, i, a) => a.indexOf(m) === i);
     sovraccarico = false;
     let provate = 0;
     for (const modello of modelli) {
@@ -2201,12 +2202,76 @@ function creaMotore(UNIT) {
     if (azione === "restart") return vista(nuovoStato());
     if (azione === "start" || azione === "resume") return vista(riprendi(s));
     if (azione === "menu") return vista({ ...s, mode: "menu", paused: null, ctx: null });
+    if (azione === "spiega") return spiega(env, body);
     if (azione === "answer") {
       const risposta = String(body.answer || "").trim().slice(0, 600);
       if (!risposta) return { error: "Scrivi una risposta.", codice: 400 };
       return rispondi(env, s, risposta);
     }
     return { error: "Azione sconosciuta.", codice: 400 };
+  }
+
+  // ============================================================
+  // TUTOR DI SPIEGAZIONE: una conversazione libera con un'insegnante.
+  // Niente percorso fisso e niente filtri: solo poche istruzioni sul metodo.
+  // ============================================================
+  const METODO_SPIEGA = `Sei un'insegnante di inglese italiana, esperta e paziente. Fai lezione a uno studente di un istituto tecnico (triennio, livello B1-B2), che studia da solo, su UN argomento di grammatica. Parli in italiano semplice, dai del tu, con calore.
+
+  COME INSEGNI
+  - Spieghi in modo chiaro e diretto, come in classe. Parti da un breve racconto o da poche frasi in inglese in una situazione concreta (puoi usare quelle che ti do), e dici subito che cosa vogliono dire le parole e le forme, in italiano, con la forma da usare: per esempio «when = quando», «while = mentre, e vuole il continuous», «as = mentre, proprio nel momento in cui, man mano che». Una cosa alla volta, con esempi.
+  - Poi fai USARE la struttura: una frase alla volta da completare, dentro una piccola situazione, in cui è il SIGNIFICATO a decidere la risposta. Alterna le forme che si confondono, così lo studente deve capire quale serve.
+  - Allo studente non chiedi MAI di spiegare la regola, di dire perché, di riassumere o di inventare frasi sue: deve solo capire e usare.
+  - Lo studente può scrivere qualsiasi cosa: una risposta, una domanda, un dubbio, «non ho capito», un commento, una protesta. Tu rispondi a quello che ha scritto, come farebbe un'insegnante in classe.
+  - Se sbaglia, digli con gentilezza che cosa non va, riportandolo al significato della frase, e fagli riprovare. Se non ci arriva, dagli un esempio simile o spiegagli di nuovo. Non dargli la risposta di un esercizio prima che ci abbia provato; se te la chiede, o ha già provato, dagliela e digli perché.
+  - Se chiede come si fa, che cosa vuol dire, che differenza c'è: rispondi davvero, con un esempio. Non rimandare mai.
+  - Quando ha fatto bene alcune frasi di seguito, diglielo e chiedigli se vuole provarne altre o se ha dubbi.
+  - Resta sull'argomento della lezione; non usare strutture fuori programma: ${UNIT.fuoriProgramma}.
+  - Messaggi brevi: al massimo 6-7 righe, e chiudi sempre con una cosa da fare per lo studente (leggere, rispondere, completare una frase). Le frasi inglesi da completare hanno uno spazio ___.
+  - Sii precisa: se non sei sicura di qualcosa, non inventarla.`;
+
+  function materialeArgomento(t) {
+    const tp = UNIT.topics[t];
+    const punti = tp.points.map(p => `- ${p.titolo}: ${p.regola}`).join("\n");
+    const esempi = [...new Set(tp.scoperta.passi.map(p => p.mostra).flat())].slice(0, 12).join("\n");
+    return `<argomento>${tp.title}</argomento>
+  <tempi_e_forme_ammessi>${tp.tempi}</tempi_e_forme_ammessi>
+  <la_regola>
+  ${punti}
+  </la_regola>
+  <in_breve>
+  ${tp.scoperta.sintesi.join("\n")}
+  </in_breve>
+  <frasi_di_esempio_che_puoi_usare>
+  ${tp.scoperta.storia}
+  ${esempi}
+  </frasi_di_esempio_che_puoi_usare>`;
+  }
+
+  const TOOL_SPIEGA = {
+    name: "lezione",
+    description: "Il prossimo messaggio dell'insegnante allo studente.",
+    input_schema: { type: "object", properties: { messaggio: { type: "string", description: "quello che dici allo studente" } }, required: ["messaggio"] }
+  };
+
+  async function spiega(env, body) {
+    const t = Math.max(0, Math.min(UNIT.topics.length - 1, parseInt(body.topic, 10) || 0));
+    const msgs = (Array.isArray(body.messages) ? body.messages : []).slice(-30)
+      .map(m => ({ chi: m && m.chi === "tutor" ? "Insegnante" : "Studente", testo: String(m && m.testo || "").replace(/[<>]/g, " ").slice(0, 1500) }))
+      .filter(m => m.testo.trim());
+    const dialogo = msgs.length ? msgs.map(m => `${m.chi}: ${m.testo}`).join("\n\n") : "(la lezione non è ancora cominciata)";
+    const user = `${materialeArgomento(t)}
+
+  <lezione_fin_qui>
+  ${dialogo}
+  </lezione_fin_qui>
+
+  COMPITO: ${msgs.length ? "scrivi il tuo prossimo messaggio: rispondi a quello che lo studente ha appena scritto, e vai avanti con la lezione." : "comincia la lezione: saluta in una riga, poi parti dal racconto o dalle frasi in inglese e spiega il significato delle parole e delle forme."}`;
+    modelloPrima = env.MODEL_SPIEGA || MODEL_RISERVA;
+    scadenza = Date.now() + 40000;
+    const a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
+    modelloPrima = null;
+    if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
+    return { messaggio: a.messaggio.trim().slice(0, 3000) };
   }
 
   return { gestisci, diagnosi: () => diag };

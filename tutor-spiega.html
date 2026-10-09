@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutor di spiegazione</title>
+<style>
+:root{--ink:#182019;--muted:#5d675e;--paper:#fffdf7;--soft:#f2eddf;--accent:#6f3a82;--accent2:#4d255b;--line:#d8d2c4;--studente:#efe7f3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:.2em 0 .1em}
+.sotto{color:var(--muted);margin:0 0 18px}
+.argomenti{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.argomenti button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:.95rem;cursor:pointer;color:var(--ink)}
+.argomenti button.attivo{background:var(--accent);border-color:var(--accent);color:#fff}
+#chat{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.msg{padding:12px 16px;border-radius:14px;max-width:92%;white-space:normal;word-wrap:break-word}
+.tutor{background:var(--soft);border-left:4px solid var(--accent);align-self:flex-start}
+.studente{background:var(--studente);align-self:flex-end}
+.attesa{color:var(--muted);font-style:italic}
+.errore{color:#9b1c1c}
+form{display:flex;gap:8px;align-items:flex-end;position:sticky;bottom:0;background:var(--paper);padding:10px 0}
+textarea{flex:1;min-height:52px;max-height:180px;resize:vertical;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+form button{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer}
+form button:disabled{opacity:.5;cursor:default}
+.nota{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="titolo">Tutor di spiegazione</h1>
+  <p class="sotto">Scegli l'argomento: l'insegnante ti spiega e ti fa provare. Puoi scriverle qualsiasi cosa: una risposta, una domanda, «non ho capito».</p>
+  <div class="argomenti" id="argomenti"></div>
+  <div id="chat"></div>
+  <form id="form" hidden>
+    <textarea id="testo" placeholder="Scrivi qui. Invio per inviare; Maiusc + Invio per andare a capo."></textarea>
+    <button id="invia" type="submit">Invia</button>
+  </form>
+  <p class="nota" id="nota"></p>
+</div>
+<script>
+const WORKER = "https://tutor1.cristinavallini64.workers.dev/";
+const u = Math.max(1, Math.min(10, parseInt(new URLSearchParams(location.search).get("u"), 10) || 1));
+let UNITA = null, topic = null, messaggi = [], occupato = false;
+const $ = id => document.getElementById(id);
+
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function formatta(t){return esc(t).replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").replace(/\n/g,"<br>");}
+function aggiungi(chi, testo, classe){const d=document.createElement("div");d.className="msg "+(classe||chi);d.innerHTML=formatta(testo);$("chat").appendChild(d);d.scrollIntoView({behavior:"smooth",block:"end"});return d;}
+
+async function carica(){
+  try{
+    const h = await (await fetch(`studia-u${u}-index.html`,{cache:"no-store"})).text();
+    const s = h.indexOf("const UNITA =") + 13; let d = 0, i = s;
+    for(; i < h.length; i++){ if(h[i]==="{") d++; if(h[i]==="}"){ d--; if(!d) break; } }
+    UNITA = JSON.parse(h.slice(s, i + 1));
+  }catch(e){ $("nota").textContent = "Non riesco a caricare i contenuti dell'unità."; return; }
+  $("titolo").textContent = `Tutor di spiegazione · Unit ${u}`;
+  UNITA.topics.forEach((t, k) => {
+    const b = document.createElement("button"); b.type = "button"; b.textContent = t.title;
+    b.onclick = () => inizia(k, b); $("argomenti").appendChild(b);
+  });
+}
+
+async function chiedi(){
+  occupato = true; $("invia").disabled = true;
+  const att = aggiungi("tutor", "L'insegnante sta scrivendo…", "tutor attesa");
+  try{
+    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 50000);
+    const r = await fetch(WORKER, {method:"POST", headers:{"Content-Type":"application/json"}, signal: ctrl.signal,
+      body: JSON.stringify({action:"spiega", unita: UNITA, topic, messages: messaggi})});
+    clearTimeout(timer);
+    const j = await r.json(); att.remove();
+    if(j.error){ aggiungi("tutor", j.error + " Premi Invia per riprovare.", "tutor errore"); return false; }
+    messaggi.push({chi:"tutor", testo:j.messaggio}); aggiungi("tutor", j.messaggio); return true;
+  }catch(e){ att.remove(); aggiungi("tutor", "Il tutor non risponde. Premi Invia per riprovare.", "tutor errore"); return false; }
+  finally{ occupato = false; $("invia").disabled = false; $("testo").focus(); }
+}
+
+function inizia(k, bottone){
+  if(occupato) return;
+  topic = k; messaggi = []; $("chat").innerHTML = "";
+  document.querySelectorAll(".argomenti button").forEach(b => b.classList.toggle("attivo", b === bottone));
+  $("form").hidden = false; chiedi();
+}
+
+$("form").addEventListener("submit", async e => {
+  e.preventDefault(); if(occupato) return;
+  const t = $("testo").value.trim();
+  const ultimo = messaggi[messaggi.length - 1];
+  if(!t){ if(topic !== null && (!ultimo || ultimo.chi === "studente")) chiedi(); return; }
+  messaggi.push({chi:"studente", testo:t}); aggiungi("studente", t); $("testo").value = "";
+  await chiedi();
+});
+$("testo").addEventListener("keydown", e => { if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("form").requestSubmit(); } });
+carica();
+</script>
+</body>
+</html>
