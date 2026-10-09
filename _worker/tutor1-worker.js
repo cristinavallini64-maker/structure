@@ -1509,7 +1509,7 @@ function creaMotore(UNIT) {
     const t = String(risposta || "").trim().toLowerCase();
     return /\?\s*$/.test(t) && (t.split(/\s+/).length <= 3 || /^(uso|metto|va|vanno|posso|si usa|ci va|ci vuole|devo usare|devo mettere|è giusto|e giusto|va bene|scrivo)\b/.test(t));
   }
-  const CONFERMA_SI = /^\s*(s[iì]|esatto|giusto|certo|proprio|corretto|perfetto|ok|bravo|brava)\b/i;
+  const CONFERMA_SI = /^\s*(s[iì]|esatto|giusto|certo|proprio|corretto|perfetto|ok|bravo|brava)(?=[\s,.!:;]|$)/i;
 
   function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
     const arrivato = a.classe === "arrivato";
