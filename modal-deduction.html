@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"drive": "vialetto", "burglar": "ladro d'appartamento", "safe": "cassaforte", "judge": "giudice", "bank robber": "rapinatore di banche", "jeweller's": "gioielleria", "guilty": "colpevole", "suspect": "sospettato", "CCTV video": "video delle telecamere", "thief": "ladro", "witnesses": "testimoni", "jury": "giuria", "the accused": "l'imputato", "lawyer": "avvocato", "documents": "documenti", "fraudster": "truffatore", "passport": "passaporto", "investigating": "indagando"};
+const GLOSS={"drive": "vialetto", "burglar": "ladro d'appartamento", "safe": "cassaforte", "judge": "giudice", "bank robber": "rapinatore di banche", "jeweller's": "gioielleria", "guilty": "colpevole", "suspect": "sospettato", "CCTV video": "video delle telecamere", "thief": "ladro", "witnesses": "testimoni", "jury": "giuria", "the accused": "l'imputato", "lawyer": "avvocato", "documents": "documenti", "fraudster": "truffatore", "passport": "passaporto", "investigating": "indagando", "mud": "fango", "carpet": "tappeto", "shop window": "vetrina", "headphones": "cuffie", "wallet": "portafoglio", "thieves": "ladri", "alarm code": "codice dell'allarme", "crowded": "affollata", "vandals": "vandali", "security camera": "telecamera di sorveglianza", "in their fifties": "sulla cinquantina", "set fire to": "dare fuoco a", "bins": "bidoni", "on purpose": "apposta", "witness": "testimone", "found the accused guilty": "hanno giudicato colpevole l'imputato", "appointment": "appuntamento", "engine": "motore", "won the case": "vinto la causa", "parking space": "posto auto", "pickpocket": "borseggiatore", "pavement": "marciapiede", "lying": "mentendo", "guards": "guardie", "shift": "turno"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -329,6 +329,50 @@ exercises:[
 {type:"fill",q:"« Non può essere lui il ladro: era con me. » → He ___ the thief: he was with me.",hint:"(be)",a:"can't be",accept:["can't be","cannot be","couldn't be"],instruction:"Scrivi in inglese la parte che manca."},
 {type:"fill",q:"« Forse la polizia sta ancora indagando. » → The police ___.",hint:"(still · investigate)",a:"might still be investigating",accept:["might still be investigating","may still be investigating","could still be investigating"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
+,
+{id:2,type:"study",title:"LIVELLO 02 — DEDUZIONI AL PASSATO",desc:"must have · can't have · might, may, could have · might not have",
+rule:`<strong>MODAL VERBS OF DEDUCTION: PAST &mdash; Unit 8:</strong><br>
+&#x2714; <code>must have + participio passato</code> = sei <strong>quasi sicuro</strong> che sia successo (deve aver&hellip;). &mdash; <em>She <strong>must have left</strong>: her coat isn't here.</em><br>
+&#x2714; <code>can't have + participio passato</code> = sei sicuro che <strong>non</strong> sia successo (non pu&ograve; aver&hellip;). &mdash; <em>He <strong>can't have seen</strong> us: it was too dark.</em><br>
+&#x2714; <code>may / might / could have + participio passato</code> = <strong>forse</strong> &egrave; successo (pu&ograve; darsi che abbia&hellip;). Negativo: <code>may not / might not have</code> = forse non.<br>
+&#x26A0; Il contrario di <em>must have</em> &egrave; <strong>can't have</strong>, non &laquo;mustn't have&raquo;.<br>
+&#x26A0; Dopo il modale: <em>have</em> (mai <em>has</em>) + participio passato: <em>she must <strong>have taken</strong></em>.`,
+exercises:[
+{type:"fill",q:"It's obvious: there's a hole in the window and mud on the carpet. The burglar ___ in through the window.",hint:"(climb)",a:"must have climbed",accept:["must have climbed","must have got","must have come"],instruction:"Completa."},
+{type:"fill",q:"Sam ___ the shop window: he was in hospital all week.",hint:"(break)",a:"can't have broken",accept:["can't have broken","cannot have broken","couldn't have broken"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"He mustn't have heard you: he had his headphones on.",a:"He can't have heard you: he had his headphones on.",accept:["He can't have heard you: he had his headphones on.","He cannot have heard you: he had his headphones on.","He couldn't have heard you: he had his headphones on."]},
+{type:"fill",q:"I can't find my wallet, and I'm not sure where it is: I ___ it on the bus, or maybe at the café.",hint:"(leave)",a:"might have left",accept:["might have left","may have left","could have left"],instruction:"Completa."},
+{type:"fill",q:"The thieves knew the alarm code. Someone who works in the shop ___ them.",hint:"(help)",a:"must have helped",accept:["must have helped"],instruction:"Completa."},
+{type:"mc",q:"« She can't have read it » e « She might not have read it »: in quale chi parla ne è sicuro?",options:["Nella prima.","Nella seconda.","In tutte e due.","In nessuna delle due."],a:"Nella prima."},
+{type:"fill",q:"Lucy didn't say hello at the station. She ___ me: it was very crowded.",hint:"(not · see)",a:"might not have seen",accept:["might not have seen","may not have seen","mightn't have seen"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She must has left early: her bag isn't on the chair.",a:"She must have left early: her bag isn't on the chair.",accept:["She must have left early: her bag isn't on the chair."]},
+{type:"fill",q:"The vandals ___ teenagers: the security camera shows two men in their fifties.",hint:"(be)",a:"can't have been",accept:["can't have been","cannot have been","couldn't have been"],instruction:"Completa."},
+{type:"fill",q:"Nobody knows how the fire started. Someone ___ fire to the bins on purpose, but it could also be an accident.",hint:"(set)",a:"might have set",accept:["might have set","may have set","could have set"],instruction:"Completa."},
+{type:"mc",q:"« The jury must have believed the witness. » Quale seguito sta in piedi?",options:["They found the accused guilty in less than an hour.","They decided that she was lying.","They didn't listen to her at all.","They let the accused go free at once."],a:"They found the accused guilty in less than an hour."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The guards might have forgot to lock the back door.",a:"The guards might have forgotten to lock the back door.",accept:["The guards might have forgotten to lock the back door.","The guards may have forgotten to lock the back door.","The guards could have forgotten to lock the back door."]},
+{type:"fill",q:"Ella answered every question in the test perfectly. She ___ really hard.",hint:"(study)",a:"must have studied",accept:["must have studied","must have revised"],instruction:"Completa."},
+{type:"fill",q:"« Deve aver dimenticato l'appuntamento. » → He ___ the appointment.",hint:"(forget)",a:"must have forgotten",accept:["must have forgotten"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"rA",type:"review",title:"⟳ RIPASSO A — adesso o prima? sicuro o forse?",desc:"deduzioni al presente e al passato insieme · frasi nuove",
+rule:`<strong>RIPASSO A &mdash; Unit 8:</strong><br>
+&#x2714; Adesso: <em>must / can't / might + forma base</em> (o + <em>be -ing</em>). Prima: <em>must have / can't have / might have + participio</em>.<br>
+&#x2714; Prove sicure &rarr; <em>must</em>; impossibile &rarr; <em>can't</em>; non lo sai &rarr; <em>may / might / could</em>.`,
+exercises:[
+{type:"fill",q:"The suspect's car engine is still warm. He ___ a few minutes ago.",hint:"(arrive)",a:"must have arrived",accept:["must have arrived","must have got back","must have come back"],instruction:"Completa."},
+{type:"fill",q:"You ___ tired: you've slept for eleven hours!",hint:"(be)",a:"can't be",accept:["can't be","cannot be","couldn't be"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Look at his face: he must be won the case!",a:"Look at his face: he must have won the case!",accept:["Look at his face: he must have won the case!"]},
+{type:"fill",q:"Mia isn't answering her phone. She ___, or maybe she's just busy.",hint:"(sleep)",a:"might be sleeping",accept:["might be sleeping","may be sleeping","could be sleeping"],instruction:"Completa."},
+{type:"fill",q:"That ___ the lawyer's car: her name is on the parking space.",hint:"(be)",a:"must be",accept:["must be"],instruction:"Completa."},
+{type:"mc",q:"« The pickpocket might have been a tourist. » Va bene così?",options:["Sì: might have + participio passato, una possibilità nel passato.","No: ci vuole « might has been ».","No: ci vuole « might have be ».","No: ci vuole « might been »."],a:"Sì: might have + participio passato, una possibilità nel passato."},
+{type:"fill",q:"I don't know where Leo is. He ___ to the gym: he sometimes goes on Fridays.",hint:"(go)",a:"might have gone",accept:["might have gone","may have gone","could have gone"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"It can't be rain last night: the streets are completely dry.",a:"It can't have rained last night: the streets are completely dry.",accept:["It can't have rained last night: the streets are completely dry.","It cannot have rained last night: the streets are completely dry.","It couldn't have rained last night: the streets are completely dry."]},
+{type:"fill",q:"There's glass all over the pavement outside the shop. Someone ___ the window during the night.",hint:"(break)",a:"must have broken",accept:["must have broken","must have smashed"],instruction:"Completa."},
+{type:"mc",q:"« Someone might be following us » e « Someone might have followed us »: quale parla di adesso?",options:["La prima.","La seconda.","Tutte e due.","Nessuna delle due."],a:"La prima."},
+{type:"fill",q:"The museum guards ___ anything: the painting disappeared during their shift and nobody said a word.",hint:"(notice)",a:"can't have noticed",accept:["can't have noticed","cannot have noticed","couldn't have noticed"],instruction:"Completa."},
+{type:"fill",q:"« Forse ha ragione lui. » → He ___ right.",hint:"(be)",a:"might be",accept:["might be","may be","could be"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+
 ];
 
 
