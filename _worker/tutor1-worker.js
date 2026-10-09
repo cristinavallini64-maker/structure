@@ -1540,12 +1540,13 @@ function creaMotore(UNIT) {
     if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui|il|lo|la|le|i|gli|un|una|uno|quel|quella|questo|questa|tua|tuo)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
     if (!arrivato && (m.length > (spiega ? 650 : 200) || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
-    if (!m || m.length > 350) return "vuoto o troppo lungo";
+    if (!m || m.length > (spiega ? 650 : 350)) return "vuoto o troppo lungo";
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
     if (a.classe === "domanda" && regolaInRispostaScopri(m, { risposta, attese: ps.attese || [] })) return "domanda: regola nella risposta";
     if (a.classe === "domanda" && ps.attese && chiedeConferma(risposta) && CONFERMA_SI.test(m)) return "conferma la risposta che lo studente chiede";
-    if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
+    if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || (ENUNCIA_REGOLA.test(m) && !eDomanda(risposta, true)))) return "arrivato con domanda o regola";
+    if (eDomanda(risposta, true) && /(ci arriv(iamo|eremo|i)|lo vedremo|vedremo (meglio )?(tra|fra|dopo|più avanti)|tra poco|fra poco|più avanti)/i.test(m)) return "rimanda la risposta alla domanda dello studente";
     return "";
   }
 
@@ -1567,7 +1568,7 @@ function creaMotore(UNIT) {
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
   ${spiega ? `Lo studente NON HA CAPITO e ti chiede di spiegargli: classe domanda. Spiegagli davvero, come farebbe un'insegnante in classe, con parole semplici e in 3-5 frasi: 1) che cosa gli chiede la domanda del passo, detta in un altro modo; 2) che cosa succede nelle frasi in inglese${ps.frase ? " (in questo passo vede solo la frase da completare: parla solo di quella)" : " mostrate"}: traduci o descrivi la scena (chi fa che cosa, quando, per quanto tempo), così che capisca la situazione; 3) su che cosa deve fare attenzione per rispondere. Non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda in modo più semplice.` : ""}
-  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se CONTESTA o propone un'altra parola («però va bene anche when»): se la sua proposta va davvero bene, dagli ragione (classe arrivato solo se l'ha scritta come risposta nella frase, altrimenti digli di scriverla); se non va bene, spiegagli perché NON va in questa situazione, partendo dalla sua parola e dalla situazione («the whole time» dice che dorme per tutta la durata…), senza dire quale parola va. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
+  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e poi RISPONDI DAVVERO alla sua domanda, in 1-3 frasi semplici, partendo da questa situazione (che cosa vuol dire la parola qui, perché si usa in questa scena). Non rimandare mai la risposta («ci arriviamo dopo», «lo vedremo tra poco»): lo studente ha chiesto adesso e merita una risposta adesso. Se CONTESTA o propone un'altra parola («però va bene anche when»): se la sua proposta va davvero bene, dagli ragione (classe arrivato solo se l'ha scritta come risposta nella frase, altrimenti digli di scriverla); se non va bene, spiegagli perché NON va in questa situazione, partendo dalla sua parola e dalla situazione («the whole time» dice che dorme per tutta la durata…), senza dire quale parola va. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
@@ -1985,7 +1986,9 @@ function creaMotore(UNIT) {
     if (!r) return ERRORE();
     if (breviOk && r.classe !== "arrivato") {
       r.classe = "arrivato";
-      r.messaggio = chiede ? "Esatto! E alla tua domanda arriviamo subito, con la prossima." : "Esatto!";
+      // se ha fatto anche una domanda, tengo la risposta di Gemini alla domanda (non la rimando a dopo)
+      const m0 = chiede && r.messaggio && !/(ci arriv|lo vedremo|vedremo (meglio )?(tra|fra|dopo|più avanti)|tra poco|fra poco|più avanti)/i.test(r.messaggio) ? r.messaggio.replace(/^\s*(esatto|giusto|bravo|brava|sì|si)[!.,]?\s*/i, "") : "";
+      r.messaggio = m0 ? `Esatto! ${m0}` : "Esatto!";
     }
     if (nonSaS && (r.classe === "non_ancora" || r.classe === "vicino")) r.classe = "non_so";
     const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: r.messaggio.slice(0, 600) }).slice(-6);
