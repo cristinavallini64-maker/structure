@@ -466,7 +466,7 @@ function creaMotore(UNIT) {
     if (/\?\s*$/.test(t)) return true;
     if (/(non capisco|non ho capito|non capito|cosa vuol dire|che vuol dire|cosa vuole dire|cosa significa|che significa|significato di|tradu[cz]|come si dice|cosa devo|che cosa devo|cosa bisogna|quale parola|che parola|aiutami|^aiuto\b|mi spieghi|spiegami)/.test(t)) return true;
     // «se dura un attimo perche as»: un perché in mezzo alla frase è una domanda anche senza punto interrogativo
-    if (/\b(perch[eéè]|perke|xk[eè]|come mai)\b/.test(t)) return true;
+    if (/(^|[^a-zàèéìòù])(perch[eéè]|perke|xk[eè]|come mai)(?=[^a-zàèéìòù]|$)/.test(t)) return true;
     if (scoperta) return false;
     if (/^(non so|non lo so|boh|nn so|non saprei|nessuna idea)\b/.test(t)) return false;
     if (/^(che cosa|cosa|cos'|quale|quali|qual|perch[eé]|come mai|come|dove|chi|in che senso|cioè|cioe|puoi|potresti|ma |devo|posso|bisogna|serve|va bene|è giusto|e giusto)/.test(t)) return true;
@@ -485,7 +485,7 @@ function creaMotore(UNIT) {
     return migliore.join(" ");
   }
 
-  const PAROLE_ITA = new Set(["il","lo","la","gli","le","del","della","dei","di","da","un","una","uno","che","non","è","e","sì","si","cosa","perché","perche","tempo","attimo","volta","volte","sola","solo","durata","durato","dura","corso","prima","dopo","adesso","oggi","sempre","mai","abitudine","azione","passato","presente","finita","finito","ancora","tanto","poco","lunga","lungo","breve","insieme","stesso","momento","ripetuta","ripetuto","azioni","forma","verbo","perchè","quando","mentre","anni","giorno","sera","lui","lei","loro","era","erano","stava","stavano"]);
+  const PAROLE_ITA = new Set(["il","lo","la","gli","le","del","della","dei","di","da","un","una","uno","che","non","è","e","sì","si","cosa","perché","perche","tempo","attimo","volta","volte","sola","solo","durata","durato","dura","corso","prima","dopo","adesso","oggi","sempre","mai","abitudine","azione","passato","presente","finita","finito","ancora","tanto","poco","lunga","lungo","breve","insieme","stesso","momento","ripetuta","ripetuto","azioni","forma","verbo","perchè","quando","mentre","anni","giorno","sera","lui","lei","loro","era","erano","stava","stavano","secondo","vanno","va","bene","tutti","tutte","due","tutto","giusto","giusta","sbagliato","uguale","diverso","differenza","capito","capisco","penso","credo","sembra","anche","però","quindi","allora","ma","qui","questo","questa","quello","quella","diciamo","dice","vuol","dire","significa","italiano","inglese","frase","parola","perché","come","dove","mi","ti","ci","ho","hai","ha","sono","sei","siamo"]);
 
   function rispostaItaliana(testo) {
     const t = String(testo || "").toLowerCase().replace(/[’`]/g, "'");
@@ -1485,10 +1485,14 @@ function creaMotore(UNIT) {
   // è ancora al bar?» dice già la risposta.
   const PAROLE_ANCHE_ITALIANE = new Set("a i in no so me come se e o era sono dove".split(" "));
   function indicaDoveGuardare(m, ps) {
+    // parole inglesi delle frasi mostrate, senza i nomi propri (maiuscola in mezzo alla frase)
     const vis = new Set();
-    (ps.mostra || []).join(" ").replace(/[A-Za-z']+/g, w => { if (w === w.toLowerCase() && w.length >= 2) vis.add(w); return w; });
-    const parole = String(m || "").match(/[A-Za-z']+/g) || [];
-    return parole.some(w => w === w.toLowerCase() && vis.has(w) && !PAROLE_ANCHE_ITALIANE.has(w));
+    (ps.mostra || []).forEach(f => f.split(/(?<=[.!?»])\s+/).forEach(fr => fr.split(/\s+/).forEach((w, i) => {
+      const x = w.replace(/[^A-Za-z']/g, "");
+      if (x.length >= 2 && (i === 0 || x === x.toLowerCase())) vis.add(x.toLowerCase());
+    })));
+    const parole = (String(m || "").match(/[A-Za-z']+/g) || []).map(w => w.toLowerCase());
+    return parole.some(w => vis.has(w) && !PAROLE_ANCHE_ITALIANE.has(w));
   }
 
   function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
@@ -1543,6 +1547,8 @@ function creaMotore(UNIT) {
       // una domanda insieme alla risposta giusta («se dura un attimo, perché as?»): vale come arrivato
       // se c'è il punto interrogativo è una domanda; senza (per esempio «perché era in corso»), decide Gemini se è una risposta o una domanda
       if (chiede && a.classe !== "arrivato" && /\?\s*$/.test(String(risposta).trim())) a.classe = "domanda";
+      // su una frase da completare, un commento in italiano non fa avanzare: è uno scambio (domanda), poi lo studente scrive la frase
+      if (ps.attese && a.classe === "arrivato" && rispostaItaliana(risposta)) a.classe = "domanda";
       classe = a.classe;
       const m = a.messaggio.trim();
       const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo);
