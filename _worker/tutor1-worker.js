@@ -2228,7 +2228,9 @@ function creaMotore(UNIT) {
   - Se scrive solo «ok» o «sì», non lodarlo: vai avanti.
   - Una sola frase da completare per messaggio, con UN solo spazio ___, e nello spazio deve poter andare TUTTA la parte da scrivere, di seguito. Se la forma è spezzata dal soggetto (domande: Is the chocolate tested…?, Have you been waiting…?), metti nello spazio sia il verbo sia il soggetto, con il soggetto tra parentesi insieme al verbo: «___ (the cocoa beans / roast) in the oven?» → risposta «Are the cocoa beans roasted». Mai uno spazio prima del soggetto e il verbo tra parentesi dopo il soggetto.
   - Fai domande (frasi interrogative) solo ogni tanto, se l'argomento lo prevede; di solito frasi affermative o negative. La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
-  - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo». Gli esempi che mostri sono frasi intere, senza spazi vuoti.
+  - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo».
+  - Prima di proporre una frase, rileggila con la risposta dentro: deve avere senso nella situazione (non «sarò arrabbiato a meno che tu non perda le mie chiavi»), e le parole tra parentesi non devono contraddire la risposta (niente «not» tra parentesi se la risposta è positiva). Se qualcosa non torna, cambia la frase.
+  - Se la nota del programma dice che la risposta dello studente è GIUSTA, è giusta: comincia con «Esatto!». Gli esempi che mostri sono frasi intere, senza spazi vuoti.
   - Sii onesta e precisa sulle risposte: «esatto» solo se la risposta è giusta. Una domanda non è una risposta: rispondi alla domanda senza dire «bravo» o «giusto». Non attribuire allo studente cose che non ha fatto o detto.
   - Non sai se lo studente è un ragazzo o una ragazza: usa forme neutre («Esatto!», «Ottimo!», «Ben fatto!», «Fai attenzione»), mai «bravo/brava», «attento/attenta».
   - Se chiede come si fa, che cosa vuol dire, che differenza c'è: rispondi davvero, con un esempio. Non rimandare mai.
@@ -2278,12 +2280,23 @@ function creaMotore(UNIT) {
     // la risposta dello studente la controlla il programma, sulle risposte previste dall'insegnante quando ha proposto la frase:
     // così una risposta giusta non viene mai detta sbagliata
     let notaRisposta = "";
+    let giusta = false;
+    const rigaFrase = t => (String(t || "").split("\n").reverse().find(r => r.includes("___")) || "").replace(/[*`]/g, "").trim();
+    // se l'insegnante ha riproposto la stessa frase senza risposte, uso quelle date la prima volta
+    msgs.forEach((m, i) => {
+      if (m.chi !== "Insegnante" || m.risposte.length) return;
+      const f = rigaFrase(m.testo);
+      if (!f) return;
+      const pre = msgs.slice(0, i).reverse().find(x => x.chi === "Insegnante" && x.risposte.length && rigaFrase(x.testo) === f);
+      if (pre) m.risposte = pre.risposte;
+    });
     const ultimo = msgs[msgs.length - 1], prima = msgs[msgs.length - 2];
     if (ultimo && ultimo.chi === "Studente" && prima && prima.chi === "Insegnante" && prima.risposte.length) {
-      const fr = (prima.testo.split("\n").reverse().find(r => r.includes("___")) || "");
+      const fr = rigaFrase(prima.testo);
       const r0 = ultimo.testo.trim();
       const rc = fr ? togliContesto(r0, fr) : r0;
       const ok = prima.risposte.some(a => uguali(a, r0) || uguali(a, rc) || (fr && uguali(togliContesto(a, fr), rc)));
+      giusta = ok;
       notaRisposta = ok
         ? "NOTA DEL PROGRAMMA: la risposta dello studente è GIUSTA (coincide con una delle risposte giuste che avevi previsto). Confermalo con chiarezza («Esatto»), senza dire che è sbagliata."
         : `NOTA DEL PROGRAMMA: il messaggio dello studente non coincide con le risposte che avevi previsto (${prima.risposte.join(" / ")}). Se è un tentativo di risposta, controlla con attenzione se è comunque corretta in questa frase prima di dire che è sbagliata: se è corretta, diglielo.`;
@@ -2299,7 +2312,14 @@ function creaMotore(UNIT) {
   COMPITO: ${msgs.length ? "scrivi il tuo prossimo messaggio: rispondi a quello che lo studente ha appena scritto, e vai avanti con la lezione." : "comincia la lezione: saluta in una riga, poi parti dal racconto o dalle frasi in inglese e spiega il significato delle parole e delle forme."}`;
     modelloPrima = env.MODEL_SPIEGA || MODEL_RISERVA;
     scadenza = Date.now() + 45000;
-    const a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
+    let a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
+    const smentisce = m => /^(?:[^.!?\n]{0,40})?(non è corrett|non è giust|attenzione|riprova|sbagliat|non ci siamo|quasi|rileggi)/i.test(String(m || "").trim());
+    if (giusta && a && smentisce(a.messaggio) && restante() > 12000) {
+      diag.push({ smentita: String(a.messaggio).slice(0, 200) });
+      const a2 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: nel messaggio precedente hai detto che la risposta dello studente era sbagliata, ma è GIUSTA. Riscrivi il messaggio: comincia con «Esatto!» e poi vai avanti con la lezione.`, TOOL_SPIEGA);
+      if (a2 && !smentisce(a2.messaggio)) a = a2;
+      else if (a) a = { messaggio: "Esatto! La tua risposta è giusta. Scrivi «ok» e andiamo avanti.", risposte: [] };
+    }
     modelloPrima = null;
     if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
     const risposte = Array.isArray(a.risposte) ? a.risposte.filter(x => typeof x === "string" && x.trim()).slice(0, 12) : [];
