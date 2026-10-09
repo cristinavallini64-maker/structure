@@ -2271,6 +2271,25 @@ function creaMotore(UNIT) {
     }, required: ["messaggio"] }
   };
 
+  // Controllo gratuito di ogni frase proposta: un secondo modello (veloce) verifica che la frase con la risposta
+  // abbia senso e che le risposte siano giuste. Se no, l'insegnante riscrive l'esercizio.
+  const TOOL_VERIFICA = {
+    name: "verifica",
+    description: "Verifica un esercizio di grammatica inglese.",
+    input_schema: { type: "object", properties: {
+      corretto: { type: "boolean", description: "true se la frase completata con la prima risposta è corretta, naturale e sensata nella situazione, e le parole tra parentesi non contraddicono la risposta" },
+      altre_giuste: { type: "array", items: { type: "string" }, description: "altre risposte corrette per lo spazio, se ce ne sono" },
+      problema: { type: "string", description: "se non è corretto: il problema in una frase" }
+    }, required: ["corretto"] }
+  };
+  async function verificaEsercizio(env, frase, risposte, argomento) {
+    const prima = modelloPrima; modelloPrima = null;
+    const v = await chiamaRaw(env, "Sei un madrelingua inglese esperto di grammatica. Controlli esercizi per studenti italiani. Sii rigoroso ma non pignolo: segnala solo errori veri.",
+      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Ci sono altre risposte corrette per lo spazio?`, TOOL_VERIFICA);
+    modelloPrima = prima;
+    return v;
+  }
+
   async function spiega(env, body) {
     const t = Math.max(0, Math.min(UNIT.topics.length - 1, parseInt(body.topic, 10) || 0));
     const msgs = (Array.isArray(body.messages) ? body.messages : []).slice(-30)
@@ -2319,6 +2338,20 @@ function creaMotore(UNIT) {
       const a2 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: nel messaggio precedente hai detto che la risposta dello studente era sbagliata, ma è GIUSTA. Riscrivi il messaggio: comincia con «Esatto!» e poi vai avanti con la lezione.`, TOOL_SPIEGA);
       if (a2 && !smentisce(a2.messaggio)) a = a2;
       else if (a) a = { messaggio: "Esatto! La tua risposta è giusta. Scrivi «ok» e andiamo avanti.", risposte: [] };
+    }
+    // l'esercizio nuovo viene controllato; se è sbagliato, l'insegnante lo riscrive (una volta)
+    if (a && Array.isArray(a.risposte) && a.risposte.length && restante() > 12000) {
+      const fr = rigaFrase(a.messaggio);
+      if (fr) {
+        const v = await verificaEsercizio(env, fr, a.risposte, UNIT.topics[t].title);
+        if (v && v.corretto === false && restante() > 12000) {
+          diag.push({ esercizio_scartato: fr, problema: v.problema || "" });
+          const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${fr}», risposte: ${a.risposte.join(" / ")}) non va bene: ${String(v.problema || "non ha senso o la risposta è sbagliata").slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta.`, TOOL_SPIEGA);
+          if (a3 && typeof a3.messaggio === "string" && a3.messaggio.trim()) a = a3;
+        } else if (v && Array.isArray(v.altre_giuste)) {
+          a.risposte = a.risposte.concat(v.altre_giuste.filter(x => typeof x === "string" && x.trim()).slice(0, 6));
+        }
+      }
     }
     modelloPrima = null;
     if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
