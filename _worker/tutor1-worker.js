@@ -174,7 +174,8 @@ function creaMotore(UNIT) {
   Il tuo messaggio risponde a quello che ha scritto LUI: riprendi le sue parole. Niente frasi generiche che andrebbero bene per chiunque: «Rileggi la frase e riprova» da solo non basta mai.
   - risposta: come indicato per le classi.
   - domanda: rispondi davvero e con precisione, con parole semplici. Non rimandare mai («ci arriviamo dopo», «lo vedremo tra poco»): ha chiesto adesso.
-  - bloccato: spiega come un'insegnante, fino a 5 frasi: dì in un altro modo che cosa gli chiede la domanda, racconta che cosa succede nella situazione (chi fa che cosa, quando, per quanto tempo), digli a che cosa fare attenzione, e chiudi con una domanda più semplice. Mai la risposta.
+  - se ti chiede COME si fa («come si trasforma will?», «come diventa?», «qual è la regola?», «fammi un esempio»): diglielo chiaramente, la regola in una frase e UN esempio nuovo completo, con un verbo e una situazione diversi da quelli dell'esercizio. Non rispondere con un'altra domanda. Questo vale più delle altre regole del metodo.
+  - bloccato: spiega come un'insegnante, fino a 5 frasi: dì in un altro modo che cosa gli chiede la domanda, racconta che cosa succede nella situazione (chi fa che cosa, quando, per quanto tempo), digli a che cosa fare attenzione, e chiudi con una domanda più semplice. Mai la risposta. Se ha già provato e non ci arriva, niente più domande-guida: dagli la regola in una frase e un esempio nuovo completo, poi invitalo a provare.
   - consegna: spiegagli in una o due frasi che cosa deve fare e come scrivere la risposta.
   - contesta: prendi sul serio la sua proposta. Se in questa situazione è davvero corretta, diglielo onestamente (e, se deve ancora scriverla, digli di scriverla come risposta); se non va bene, spiegagli PERCHÉ non va, partendo dalla sua parola e dalla situazione, senza dire quale parola va.
   - soluzione: quando dargliela lo decide il programma, non tu: aiutalo come se fosse bloccato.
@@ -230,7 +231,8 @@ function creaMotore(UNIT) {
   Il tuo messaggio risponde a quello che ha scritto LUI: riprendi le sue parole. Niente frasi generiche che andrebbero bene per chiunque: «Rileggi la frase e riprova» da solo non basta mai.
   - risposta: come indicato per le classi.
   - domanda: rispondi davvero e con precisione, con parole semplici. Non rimandare mai («ci arriviamo dopo», «lo vedremo tra poco»): ha chiesto adesso.
-  - bloccato: spiega come un'insegnante, fino a 5 frasi: dì in un altro modo che cosa gli chiede la domanda, racconta che cosa succede nella situazione (chi fa che cosa, quando, per quanto tempo), digli a che cosa fare attenzione, e chiudi con una domanda più semplice. Mai la risposta.
+  - se ti chiede COME si fa («come si trasforma will?», «come diventa?», «qual è la regola?», «fammi un esempio»): diglielo chiaramente, la regola in una frase e UN esempio nuovo completo, con un verbo e una situazione diversi da quelli dell'esercizio. Non rispondere con un'altra domanda. Questo vale più delle altre regole del metodo.
+  - bloccato: spiega come un'insegnante, fino a 5 frasi: dì in un altro modo che cosa gli chiede la domanda, racconta che cosa succede nella situazione (chi fa che cosa, quando, per quanto tempo), digli a che cosa fare attenzione, e chiudi con una domanda più semplice. Mai la risposta. Se ha già provato e non ci arriva, niente più domande-guida: dagli la regola in una frase e un esempio nuovo completo, poi invitalo a provare.
   - consegna: spiegagli in una o due frasi che cosa deve fare e come scrivere la risposta.
   - contesta: prendi sul serio la sua proposta. Se in questa situazione è davvero corretta, diglielo onestamente (e, se deve ancora scriverla, digli di scriverla come risposta); se non va bene, spiegagli PERCHÉ non va, partendo dalla sua parola e dalla situazione, senza dire quale parola va.
   - soluzione: quando dargliela lo decide il programma, non tu: aiutalo come se fosse bloccato.
@@ -587,6 +589,12 @@ function creaMotore(UNIT) {
     for (const w of parole) t = t.replace(new RegExp(`\\b${w.replace(/'/g, "['’]")}\\b`, "gi"), "…");
     return t;
   }
+  // Lo studente chiede COME si fa («non so come trasformare will», «come diventa?», «qual è la regola?»):
+  // il tutor glielo dice, con la regola e un esempio nuovo. Allora la parola della regola (would) si può dire;
+  // resta vietata solo la risposta intera di questa frase (would text).
+  const CHIEDE_COME = /\b(come|cosa|che cosa|in cosa|in che cosa)\s+(si\s+)?(trasform\w*|diventa\w*|cambia\w*|forma|scrive|mette|fa|faccio|usa)\b|\bnon so come\b|\bqual(e|'| è| e)?\s*(è\s+)?la regola\b|\bdimmi la regola\b|\bcome si fa\b|\bcome funziona\b|\bfammi (un )?esempio\b|\bun esempio\b/i;
+  const spiegaAperta = (risposta, intento, tentativo) => CHIEDE_COME.test(String(risposta || "")) || intento === "soluzione" || (intento === "bloccato" && (tentativo || 0) >= 2);
+  const NOTA_ESEMPIO = "Lo studente non ci arriva da solo o ti chiede come si fa: NON fargli altre domande-guida. Dagli la regola in una frase e UN esempio nuovo completo, con un verbo e una situazione diversi da quelli dell'esercizio (per esempio: will diventa would, «I'll call you» → She said she would call me). Non scrivere la risposta di QUESTA frase. Poi invitalo a provare.";
   const classeDaIntento = (intento, scoperta) => intento === "bloccato" || intento === "soluzione" ? "non_so" : intento === "fuori_tema" ? "fuori_tema" : "domanda";
 
   function pezzoNuovo(frase, attesa) {
@@ -1434,7 +1442,7 @@ function creaMotore(UNIT) {
     return ripiego;
   }
 
-  async function valuta(env, s, tappa, modo, risposta, rc, tentativo) {
+  async function valuta(env, s, tappa, modo, risposta, rc, tentativo, nota) {
     const q = s.q;
     const storia = s.hist.length ? s.hist.map(m => `${m.chi === "tutor" ? "Tutor" : "Studente"}: ${m.testo}`).join("\n") : "(inizio)";
     const d = differenzaMigliore(rc, q.attese);
@@ -1461,7 +1469,7 @@ function creaMotore(UNIT) {
   Tentativi di risposta già fatti su questa domanda: ${Math.max(tentativo - 1, 0)}. Se è un tentativo sbagliato, livello di aiuto ${Math.min(tentativo, 3)}.
   </confronto_del_programma>
 
-  COMPITO: prima capisci che cosa sta facendo lo studente (intento), poi rispondi proprio a quello, come indicato nel metodo. In "domanda" rimetti la STESSA domanda, salvo che la risposta sia giusta.`;
+  COMPITO: prima capisci che cosa sta facendo lo studente (intento), poi rispondi proprio a quello, come indicato nel metodo. In "domanda" rimetti la STESSA domanda, salvo che la risposta sia giusta.${nota ? `\n  ${nota}` : ""}`;
 
     let candidato = null;
     let rifiuto = "";
@@ -1497,8 +1505,11 @@ function creaMotore(UNIT) {
       // lo studente chiede, è bloccato, contesta, commenta: il tutor risponde davvero (anche spiegando la regola);
       // si controlla solo che non dia la soluzione di questa frase
       if (r.intento !== "risposta" || r.classe === "domanda" || r.classe === "fuori_tema") {
-        const aiutoForma = (r.intento === "bloccato" || r.intento === "soluzione") && FORMA_SVELATA.test(m);
+        const aperta = spiegaAperta(risposta, r.intento, tentativo) || !!nota;
+        const aiutoForma = !aperta && (r.intento === "bloccato" || r.intento === "soluzione") && FORMA_SVELATA.test(m);
         const conferma = chiedeConferma(risposta) && CONFERMA_SI.test(m);
+        // spiegazione aperta: vietata solo la risposta intera di questa frase
+        if (aperta && m && m.length <= 800 && !contieneSoluzione(m, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !INDIZIO_LETTERE.test(m) && !conferma) return candidato;
         if (m && m.length <= 700 && nessunaSoluzione(m) && !aiutoForma && !conferma) return candidato;
         // una spiegazione buona che nomina la risposta: tolgo la risposta e la tengo
         if (m && m.length <= 700 && !aiutoForma && !conferma && ["domanda", "contesta", "commento", "consegna"].includes(r.intento)) {
@@ -1658,8 +1669,15 @@ function creaMotore(UNIT) {
   }
   const CONFERMA_SI = /^\s*(s[iì]|esatto|giusto|certo|proprio|corretto|perfetto|ok|bravo|brava)(?=[\s,.!:;]|$)/i;
 
-  function motivoScartoScoperta(a, m, ps, s, risposta, tentativo, intento) {
+  function motivoScartoScoperta(a, m, ps, s, risposta, tentativo, intento, conNota) {
     const arrivato = a.classe === "arrivato";
+    // lo studente chiede come si fa, o non ci arriva: regola + esempio nuovo; vietata solo la risposta intera di questa frase
+    if (!arrivato && ps.attese && (conNota || spiegaAperta(risposta, intento, tentativo))) {
+      if (contieneSoluzione(m, ps.attese) || INDIZIO_LETTERE.test(m)) return "contiene la soluzione";
+      if (!m || m.length > 800) return "vuoto o troppo lungo";
+      if (ps.frase && !s.vediEsempi && citaFraseInvisibile(m, `${ps.frase} ${risposta || ""}`)) return "cita frasi che lo studente non vede";
+      return "";
+    }
     // spiegazione: lo studente ha chiesto, è bloccato, contesta, commenta… (non è un tentativo da correggere)
     const spiega = intento !== "risposta" || a.classe === "domanda";
     // controlli che valgono sempre: niente soluzione, niente indovinelli, niente rinvii, niente frasi che non vede
@@ -1693,7 +1711,7 @@ function creaMotore(UNIT) {
     return "";
   }
 
-  async function valutaScoperta(env, s, topic, passo, risposta, tentativo) {
+  async function valutaScoperta(env, s, topic, passo, risposta, tentativo, nota) {
     const sc = UNIT.topics[topic].scoperta;
     const ps = sc.passi[passo];
     const storia = s.hist.length ? s.hist.map(m => `${m.chi === "tutor" ? "Tutor" : "Studente"}: ${m.testo}`).join("\n") : "(inizio del passo)";
@@ -1712,7 +1730,7 @@ function creaMotore(UNIT) {
   </messaggio_dello_studente>
   Tentativi di risposta già fatti su questo passo: ${Math.max(tentativo - 1, 0)}.${ps.frase ? "" : `
   ATTENZIONE: in questo passo la risposta è proprio quello che si capisce dalle frasi. Se lo studente è bloccato, non capisce la domanda o commenta, NON raccontargli la scena e non dire che cosa succede (prima, dopo, se è finita, se è sicuro…): sarebbe la risposta. Ridigli la domanda con parole più semplici, spiegagli una parola che forse non conosce, e indicagli UNA parola delle frasi da guardare.`}
-  COMPITO: prima capisci che cosa sta facendo lo studente (intento), poi rispondi proprio a quello, come indicato nel metodo.`;
+  COMPITO: prima capisci che cosa sta facendo lo studente (intento), poi rispondi proprio a quello, come indicato nel metodo.${nota ? `\n  ${nota}` : ""}`;
     let ultimo = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
@@ -1728,7 +1746,7 @@ function creaMotore(UNIT) {
       a.classe = classe;
       ultimo = { intento, classe };
       const m = a.messaggio.trim();
-      const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo, intento);
+      const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo, intento, !!nota);
       if (motivo && ps.attese && /soluzione/.test(motivo) && ["domanda", "contesta", "commento", "consegna"].includes(intento)) {
         // una spiegazione buona che nomina la risposta: tolgo la risposta e la tengo
         const mm = mascheraSoluzione(m, ps.attese.concat(ps.attese.map(x => togliContesto(x, ps.frase))), ps.frase);
@@ -1999,7 +2017,8 @@ function creaMotore(UNIT) {
         return vista({ ...s, hist, streak: 0, tent: Math.min(tentativo, 19), fb: { tipo: "errore", risposta, evidenzia: nelTestoOriginale(diff.evidenzia, risposta) || risposta.trim(), testo: dia, riprova: true } });
       }
     }
-    let r = await valuta(env, s, tappa, s.mode, risposta, rc, tentativo);
+    const presto = chiedeSoluzione(risposta);
+    let r = await valuta(env, s, tappa, s.mode, risposta, rc, tentativo, presto || spiegaAperta(risposta, stima, tentativo) ? NOTA_ESEMPIO : "");
     // Gemini lento o senza risposta: riserva scelta su che cosa sta facendo lo studente
     if (!r) {
       const intento = stima === "risposta" && rispostaItaliana(risposta) ? "risposta" : stima;
@@ -2027,14 +2046,17 @@ function creaMotore(UNIT) {
     const aiuto = r.intento === "bloccato" || r.intento === "soluzione" || r.classe === "non_so";
     const sbagliata = r.intento === "risposta" && r.classe === "sbagliata";
     // «non so», «non mi ricordo», «dimmelo» contano; «spiega», «non ho capito» no
-    const conta = (aiuto && contaComeTentativo(risposta, r.intento)) || sbagliata ? tentativo : s.tent;
+    let conta = (aiuto && contaComeTentativo(risposta, r.intento)) || sbagliata ? tentativo : s.tent;
+    // ha chiesto la soluzione: adesso ha regola ed esempio; se la richiede, gliela do
+    if (presto) conta = Math.max(conta, TENTATIVI_PER_SOLUZIONE);
     if (sbagliata) {
       const diff = differenzaMigliore(rc, attC);
       const evid = nelTestoOriginale(diff.evidenzia, risposta);
       return vista({ ...s1, streak: 0, tent: Math.min(conta, 19), fb: { tipo: "errore", risposta, evidenzia: evid, testo: r.messaggio + (conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: true } });
     }
     let coda = "";
-    if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
+    if (presto) coda = " Se ancora non ti viene, scrivi «soluzione» e te la dico.";
+    else if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
     return vista({ ...s1, streak: aiuto ? 0 : s.streak, tent: Math.min(conta, 19), fb: { tipo: "info", risposta, evidenzia: "", testo: r.messaggio + coda, riprova: false } });
   }
 
@@ -2112,7 +2134,8 @@ function creaMotore(UNIT) {
     }
     // se è bloccato, nella frase da completare gli rimetto davanti le frasi di prima (come in classe)
     const s0 = aiutoStimato && pu.frase ? { ...s, vediEsempi: true } : s;
-    const r = await valutaScoperta(env, s0, t, s.passo, risposta, tentativo);
+    const presto = chiedeSoluzione(risposta);
+    const r = await valutaScoperta(env, s0, t, s.passo, risposta, tentativo, pu.frase && (presto || spiegaAperta(risposta, stima, tentativo)) ? NOTA_ESEMPIO : "");
     // domanda di osservazione: se il messaggio contiene la risposta breve prevista («Basta 'un attimo'»), è arrivato,
     // anche se dentro c'è altro (per esempio una domanda); se ha chiesto qualcosa, tengo la risposta di Gemini
     if (!pu.frase && rispostaBreve(pu.obiettivo, risposta) && r.classe !== "arrivato") {
@@ -2133,12 +2156,14 @@ function creaMotore(UNIT) {
     const aiuto = r.intento === "bloccato" || r.intento === "soluzione" || r.classe === "non_so";
     const tentato = r.intento === "risposta" && (r.classe === "non_ancora" || r.classe === "vicino");
     // «non so», «non mi ricordo», «dimmelo» contano; «spiegami», «non ho capito» no
-    const conta = (aiuto && contaComeTentativo(risposta, r.intento)) || tentato ? tentativo : s.tent;
+    let conta = (aiuto && contaComeTentativo(risposta, r.intento)) || tentato ? tentativo : s.tent;
+    if (presto) conta = Math.max(conta, TENTATIVI_PER_SOLUZIONE);
     const tipo = tentato && r.classe === "non_ancora" ? "errore" : "info";
     const vedi = (aiuto && !!pu.frase) || s.vediEsempi;
     const intro = vedi && !s.vediEsempi ? "Ecco di nuovo le frasi di prima, qui sopra. " : "";
     let coda = "";
-    if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
+    if (presto) coda = " Se ancora non ti viene, scrivi «soluzione» e te la dico.";
+    else if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
     else if (tipo === "errore" && conta >= TENTATIVI_PER_SOLUZIONE) coda = INVITO_SOLUZIONE;
     const evid = tipo === "errore" && pu.frase ? nelTestoOriginale(differenzaMigliore(rcS, attS).evidenzia, risposta) : "";
     return vista({ ...s, vediEsempi: vedi, hist, tent: Math.min(conta, 19), fb: { tipo, risposta, evidenzia: evid, testo: intro + r.messaggio + coda, riprova: tipo === "errore" && !!pu.frase } });
