@@ -1292,7 +1292,7 @@ function creaMotore(UNIT) {
         const t0 = Date.now();
         try {
           const generationConfig = { temperature: 0.5, maxOutputTokens: 4096 };
-          if (!senzaThinking) generationConfig.thinkingConfig = { thinkingLevel: "minimal" };
+          if (!senzaThinking) generationConfig.thinkingConfig = { thinkingLevel: modelloPrima ? "low" : "minimal" };
           const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modello}:generateContent`, {
             method: "POST",
             headers: { "x-goog-api-key": chiave, "content-type": "application/json" },
@@ -2233,10 +2233,12 @@ function creaMotore(UNIT) {
   - Quando ha fatto bene alcune frasi di seguito, diglielo e chiedigli se vuole provarne altre o se ha dubbi.
   - Resta sull'argomento della lezione; non usare strutture fuori programma: ${UNIT.fuoriProgramma}.
   - Messaggi brevi: al massimo 6-7 righe, e chiudi sempre con una cosa da fare per lo studente (leggere, rispondere, completare una frase). Le frasi inglesi da completare hanno uno spazio ___.
-  - Sii precisa: se non sei sicura di qualcosa, non inventarla.`;
+  - Sii precisa: ogni cosa che dici sulla grammatica deve essere vera e d'accordo con le regole che ti do (quelle dell'argomento e quelle degli altri argomenti dell'unità). Non confondere i tempi (il present perfect NON indica un'azione conclusa nel passato: quello è il past simple).
+  - Se lo studente propone un'altra forma («ma se dico it has rained?»), prima controlla nelle regole se va bene anche quella. Se è corretta, diglielo onestamente e spiegagli la differenza di significato; se è sbagliata, spiegagli perché, sempre secondo le regole.`;
 
   function materialeArgomento(t) {
     const tp = UNIT.topics[t];
+    const altri = UNIT.topics.map((x, i) => i === t ? "" : `${x.title}:\n${x.points.map(p => `- ${p.titolo}: ${p.regola}`).join("\n")}`).filter(Boolean).join("\n\n");
     const punti = tp.points.map(p => `- ${p.titolo}: ${p.regola}`).join("\n");
     const esempi = [...new Set(tp.scoperta.passi.map(p => p.mostra).flat())].slice(0, 12).join("\n");
     return `<argomento>${tp.title}</argomento>
@@ -2250,7 +2252,10 @@ function creaMotore(UNIT) {
   <frasi_di_esempio_che_puoi_usare>
   ${tp.scoperta.storia}
   ${esempi}
-  </frasi_di_esempio_che_puoi_usare>`;
+  </frasi_di_esempio_che_puoi_usare>
+  <regole_degli_altri_argomenti_della_unita (servono per rispondere bene ai dubbi; la lezione resta sull'argomento)>
+  ${altri}
+  </regole_degli_altri_argomenti_della_unita>`;
   }
 
   const TOOL_SPIEGA = {
