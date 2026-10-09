@@ -1524,7 +1524,7 @@ function creaMotore(UNIT) {
   }
   const CONFERMA_SI = /^\s*(s[iì]|esatto|giusto|certo|proprio|corretto|perfetto|ok|bravo|brava)(?=[\s,.!:;]|$)/i;
 
-  function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
+  function motivoScartoScoperta(a, m, ps, s, risposta, tentativo, spiega) {
     const arrivato = a.classe === "arrivato";
     if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
     if (ps.attese && (contieneSoluzione(m, ps.attese) || traduceSoluzione(m, ps.attese))) return "contiene la soluzione";
@@ -1539,7 +1539,7 @@ function creaMotore(UNIT) {
     const rif = m.match(/\bfrase (?:di|del|della|dello|dei|delle|sul|sulla|con)\s+(?:l')?([A-Za-zà-ÿ]+)/i);
     if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui|il|lo|la|le|i|gli|un|una|uno|quel|quella|questo|questa|tua|tuo)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
-    if (!arrivato && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
+    if (!arrivato && (m.length > (spiega ? 650 : 200) || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
     if (!m || m.length > 350) return "vuoto o troppo lungo";
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
@@ -1549,7 +1549,7 @@ function creaMotore(UNIT) {
     return "";
   }
 
-  async function valutaScoperta(env, s, topic, passo, risposta, tentativo, chiede) {
+  async function valutaScoperta(env, s, topic, passo, risposta, tentativo, chiede, spiega) {
     const sc = UNIT.topics[topic].scoperta;
     const ps = sc.passi[passo];
     const storia = s.hist.length ? s.hist.map(m => `${m.chi === "tutor" ? "Tutor" : "Studente"}: ${m.testo}`).join("\n") : "(inizio del passo)";
@@ -1566,6 +1566,7 @@ function creaMotore(UNIT) {
   <risposta_dello_studente>
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
+  ${spiega ? `Lo studente NON HA CAPITO e ti chiede di spiegargli: classe domanda. Spiegagli davvero, come farebbe un'insegnante in classe, con parole semplici e in 3-5 frasi: 1) che cosa gli chiede la domanda del passo, detta in un altro modo; 2) che cosa succede nelle frasi in inglese${ps.frase ? " (in questo passo vede solo la frase da completare: parla solo di quella)" : " mostrate"}: traduci o descrivi la scena (chi fa che cosa, quando, per quanto tempo), così che capisca la situazione; 3) su che cosa deve fare attenzione per rispondere. Non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda in modo più semplice.` : ""}
   ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se CONTESTA o propone un'altra parola («però va bene anche when»): se la sua proposta va davvero bene, dagli ragione (classe arrivato solo se l'ha scritta come risposta nella frase, altrimenti digli di scriverla); se non va bene, spiegagli perché NON va in questa situazione, partendo dalla sua parola e dalla situazione («the whole time» dice che dorme per tutta la durata…), senza dire quale parola va. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
@@ -1581,12 +1582,18 @@ function creaMotore(UNIT) {
       if (ps.attese && a.classe === "arrivato" && rispostaItaliana(risposta)) a.classe = "domanda";
       classe = a.classe;
       const m = a.messaggio.trim();
-      const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo);
+      const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo, spiega);
       if (motivo) { scarta(m, motivo); rifiuto = notaRifiuto(m, motivo, tentativo); continue; }
       return { classe: a.classe, messaggio: m };
     }
     // Gemini lento o senza risposta: niente "il tutor non risponde", uso la riserva
     if (!classe) { classe = chiede ? "domanda" : "non_ancora"; diag.push({ riserva: "gemini non ha risposto" }); }
+    if (spiega) {
+      diag.push({ riserva: "spiegazione scoperta" });
+      return { classe: "domanda", messaggio: ps.frase
+        ? `Te lo dico in un altro modo: leggi la frase da completare e chiediti che cosa succede, quando, e per quanto tempo. Poi scrivi nella frase la parola o la forma che secondo te racconta quella situazione. Se ti servono, scrivi «esempi» per rivedere le frasi di prima.`
+        : `Te lo dico in un altro modo. La domanda è: ${ps.domanda} Rileggi le frasi qui sopra una alla volta e immagina la scena: che cosa succede, e quando? Poi rispondi con parole tue, anche con una parola sola.` };
+    }
     if (ps.attese && classe === "arrivato") classe = "non_ancora";
     if (ps.frase) {
       diag.push({ riserva: "scoperta" });
@@ -1916,11 +1923,12 @@ function creaMotore(UNIT) {
     // anche se dentro c'è altro (per esempio una domanda)
     const breviOk = !pu.frase ? rispostaBreve(pu.obiettivo, risposta) : false;
     if (vuoleSpiegazione(risposta)) {
-      // in SCOPRI la regola la trova lo studente: niente spiegazione, ma di nuovo le frasi
-      const testo = pu.frase
-        ? "In questa parte la regola la scopri tu: ecco di nuovo le frasi di prima, qui sopra. Guardale e poi completa la frase. Dopo 3 tentativi puoi chiedermi la soluzione."
-        : "In questa parte la regola la scopri tu: rileggi le frasi qui sopra e rispondi con parole tue, anche con una parola sola. Dopo 3 tentativi puoi chiedermi la soluzione.";
-      return vista({ ...s, vediEsempi: !!pu.frase || s.vediEsempi, fb: { tipo: "info", risposta: "", evidenzia: "", testo, riprova: false } });
+      // «spiegami», «non ho capito»: il tutor spiega davvero (la domanda, la situazione delle frasi), senza dare la risposta del passo;
+      // non conta come tentativo
+      const r = await valutaScoperta(env, s, t, s.passo, risposta, s.tent, true, true);
+      const msg = r ? r.messaggio : "";
+      const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: msg.slice(0, 600) }).slice(-6);
+      return vista({ ...s, hist, fb: { tipo: "info", risposta, evidenzia: "", testo: msg, riprova: false } });
     }
     if (!pu.frase && vuoleEsempi(risposta)) {
       return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo: "Le frasi sono qui sopra: rileggile e rispondi alla domanda con parole tue, anche con una parola sola.", riprova: false } });
