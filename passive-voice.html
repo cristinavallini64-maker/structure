@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"bricks": "mattoni", "factory": "fabbrica", "smartphones": "smartphone", "velvet": "velluto", "trainers": "scarpe da ginnastica", "silk": "seta", "silkworms": "bachi da seta", "customers": "clienti", "for free": "gratis", "eco-friendly leather": "ecopelle", "leather": "pelle", "diamonds": "diamanti", "skyscraper": "grattacielo", "uniforms": "divise", "gold coins": "monete d'oro", "safe": "cassaforte", "ferry": "traghetto", "invent": "inventare", "stole": "rubare", "form": "modulo", "resurfaced": "riasfaltata", "votes": "voti", "culprit": "colpevole", "bridge": "ponte", "sand": "sabbia", "cancelled": "cancellato", "boarding": "imbarcarsi", "bench": "panchina", "ballpoint pen": "penna a sfera", "journalist": "giornalista", "exam room": "aula d'esame", "flat upstairs": "appartamento di sopra", "engineers": "ingegneri", "firefighters": "vigili del fuoco", "glasses": "occhiali", "castle": "castello", "thieves": "ladri", "biscuits": "biscotti", "wooden": "di legno", "denim": "jeans", "striped": "a righe", "cotton": "cotone", "antique": "antico", "vase": "vaso", "pendant": "ciondolo", "heart-shaped": "a forma di cuore", "curtains": "tende", "woollen": "di lana", "carpet": "tappeto", "cottage": "casetta", "muddy": "infangate", "motorway": "autostrada", "picnic": "picnic", "lift doors": "porte dell'ascensore", "dictionary": "dizionario", "code": "codice"};
+const GLOSS={"bricks": "mattoncini", "factory": "fabbrica", "smartphones": "smartphone", "velvet": "velluto", "trainers": "scarpe da ginnastica", "silk": "seta", "silkworms": "bachi da seta", "customers": "clienti", "for free": "gratis", "eco-friendly leather": "ecopelle", "leather": "pelle", "diamonds": "diamanti", "skyscraper": "grattacielo", "uniforms": "divise", "gold coins": "monete d'oro", "safe": "cassaforte", "ferry": "traghetto", "invent": "inventare", "stole": "rubare", "form": "modulo", "resurfaced": "riasfaltata", "votes": "voti", "culprit": "colpevole", "bridge": "ponte", "sand": "sabbia", "cancelled": "cancellato", "boarding": "imbarcarsi", "bench": "panchina", "ballpoint pen": "penna a sfera", "journalist": "giornalista", "exam room": "aula d'esame", "flat upstairs": "appartamento di sopra", "engineers": "ingegneri", "firefighters": "vigili del fuoco", "glasses": "occhiali", "castle": "castello", "thieves": "ladri", "biscuits": "biscotti", "wooden": "di legno", "denim": "jeans", "striped": "a righe", "cotton": "cotone", "antique": "antico", "vase": "vaso", "pendant": "ciondolo", "heart-shaped": "a forma di cuore", "curtains": "tende", "woollen": "di lana", "carpet": "tappeto", "cottage": "casetta", "muddy": "infangate", "motorway": "autostrada", "picnic": "picnic", "lift doors": "porte dell'ascensore", "dictionary": "dizionario", "code": "codice", "sore throat": "mal di gola", "bad cold": "brutto raffreddore", "stadium": "stadio", "mayor": "sindaco", "scarf": "sciarpa", "physicist": "fisico", "smart fabric": "tessuto intelligente", "lab": "laboratorio", "kimono": "kimono", "inventor": "inventore", "notes": "appunti", "prototype": "prototipo", "goes on sale": "viene messo in vendita", "released": "uscito", "demonstration": "dimostrazione", "robot": "robot"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -423,6 +423,46 @@ exercises:[
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This is the new code. Please write down it.",a:"This is the new code. Please write it down.",accept:["This is the new code. Please write it down."]},
 {type:"fill",q:"Yesterday our teacher ___ a brilliant idea for the end-of-year party.",hint:"(come up with)",a:"came up with",accept:["came up with","thought up","thought of"],instruction:"Completa."},
 {type:"fill",q:"« Mia sorella si alza alle sette. » → My sister ___ at seven.",hint:"(get up)",a:"gets up",accept:["gets up"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"rB",type:"review",title:"⟳ RIPASSO B — tutta la unit",desc:"passivo, ordine degli aggettivi e phrasal verbs insieme · frasi nuove",
+rule:`<strong>RIPASSO B &mdash; Unit 9:</strong><br>
+&#x2714; Passivo: <em>be</em> nel tempo giusto + participio passato.<br>
+&#x2714; Aggettivi: opinione &rarr; dimensione &rarr; forma &rarr; et&agrave; &rarr; colore &rarr; motivo &rarr; origine &rarr; materiale.<br>
+&#x2714; Phrasal verbs separabili: il pronome va in mezzo (<em>give them away</em>).`,
+exercises:[
+{type:"fill",q:"The concert ___ because the singer had a sore throat.",hint:"(call off)",a:"was called off",accept:["was called off","was cancelled"],instruction:"Completa."},
+{type:"fill",q:"Look at this ___ jacket!",hint:"(leather · brown · lovely)",a:"lovely brown leather",accept:["lovely brown leather"],instruction:"Completa: gli aggettivi vanno nell'ordine giusto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This book was wrote by a fifteen-year-old girl.",a:"This book was written by a fifteen-year-old girl.",accept:["This book was written by a fifteen-year-old girl."]},
+{type:"fill",q:"Millions of Lego bricks ___ all over the world: you can buy them in almost any country.",hint:"(sell)",a:"are sold",accept:["are sold"],instruction:"Completa."},
+{type:"fill",q:"My little brother ___ a bad cold, so he's in bed today.",hint:"(come down with)",a:"has come down with",accept:["has come down with","came down with","'s come down with"],instruction:"Completa."},
+{type:"mc",q:"« The lights are switched off automatically at midnight. » Va bene così?",options:["Sì: present simple passive con un phrasal verb.","No: ci vuole « are switch off ».","No: ci vuole « are switched automatically off off ».","No: ci vuole « switch off themselves »."],a:"Sì: present simple passive con un phrasal verb."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I need to pay back him the money before Friday.",a:"I need to pay him back the money before Friday.",accept:["I need to pay him back the money before Friday.","I need to pay him back before Friday.","I need to pay the money back to him before Friday.","I need to pay back the money to him before Friday."]},
+{type:"fill",q:"The new stadium ___ by the mayor next week.",hint:"(open)",a:"will be opened",accept:["will be opened","is going to be opened","'ll be opened"],instruction:"Completa."},
+{type:"fill",q:"These boxes are full of old toys. Shall we ___?",hint:"(give away · them)",a:"give them away",accept:["give them away"],instruction:"Completa."},
+{type:"mc",q:"« The meeting has been put off until Friday. » Quale seguito sta in piedi?",options:["So we have two more days to prepare.","So it's starting in five minutes.","So we're meeting this morning instead.","So it's finished already."],a:"So we have two more days to prepare."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She bought a cotton blue beautiful scarf.",a:"She bought a beautiful blue cotton scarf.",accept:["She bought a beautiful blue cotton scarf."]},
+{type:"fill",q:"« Lo stadio è stato costruito in soli due anni. » → The stadium ___ in just two years.",hint:"(build)",a:"was built",accept:["was built"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Inventions",desc:"tutta la unit insieme · la scelta viene dalla situazione",
+rule:`<strong>SFIDA FINALE &mdash; Unit 9:</strong><br>
+&#x26A0; Nessun aiuto per argomento: per ogni frase chiediti chi fa l'azione, quando succede, in che ordine vanno gli aggettivi e dove va il pronome.`,
+exercises:[
+{type:"fill",q:"The first email ___ in 1971.",hint:"(send)",a:"was sent",accept:["was sent"],instruction:"Completa."},
+{type:"fill",q:"Nowadays more than 300 billion emails ___ each day.",hint:"(send)",a:"are sent",accept:["are sent"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The first video game was designed from a physicist.",a:"The first video game was designed by a physicist.",accept:["The first video game was designed by a physicist."]},
+{type:"fill",q:"A new smart fabric ___ in our lab at the moment.",hint:"(test)",a:"is being tested",accept:["is being tested"],instruction:"Completa."},
+{type:"fill",q:"Scientists ___ a material that repairs itself.",hint:"(just · come up with)",a:"have just come up with",accept:["have just come up with","'ve just come up with","have just invented"],instruction:"Completa."},
+{type:"mc",q:"« The robot was built » e « The robot was being built »: in quale i lavori erano ancora in corso?",options:["Nella seconda.","Nella prima.","In tutte e due.","In nessuna delle due."],a:"Nella seconda."},
+{type:"fill",q:"She wore a ___ kimono to the party.",hint:"(silk · Japanese · beautiful)",a:"beautiful Japanese silk",accept:["beautiful Japanese silk"],instruction:"Completa: gli aggettivi vanno nell'ordine giusto."},
+{type:"fill",q:"When the inventor arrived at the lab, his notes ___.",hint:"(steal)",a:"had been stolen",accept:["had been stolen"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Can you switch off it? It's making a terrible noise.",a:"Can you switch it off? It's making a terrible noise.",accept:["Can you switch it off? It's making a terrible noise.","Can you turn it off? It's making a terrible noise."]},
+{type:"fill",q:"The instructions are on the website: ___.",hint:"(look up · them)",a:"look them up",accept:["look them up"],instruction:"Completa."},
+{type:"fill",q:"The prototype ___ before it goes on sale.",hint:"(must · test)",a:"must be tested",accept:["must be tested"],instruction:"Completa."},
+{type:"mc",q:"« The new phone hasn't been released yet. » Quale seguito sta in piedi?",options:["You'll have to wait until next month.","Everybody has bought one already.","It's been in the shops for a year.","I bought mine last week."],a:"You'll have to wait until next month."},
+{type:"fill",q:"The robot ___ during its first public demonstration, and the audience laughed.",hint:"(break down)",a:"broke down",accept:["broke down"],instruction:"Completa."},
+{type:"fill",q:"« Il prototipo verrà presentato domani. » → The prototype ___ tomorrow.",hint:"(present)",a:"will be presented",accept:["will be presented","is going to be presented","'ll be presented"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
 
 ];
