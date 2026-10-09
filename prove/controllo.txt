@@ -1,0 +1,457 @@
+########## 1) APERTURE: primo messaggio di ogni argomento ##########
+
+=== U1 T0 (Used to) · 3391 ms ===
+Ciao! Oggi impariamo a parlare di cose che facevamo nel passato ma che ora non facciamo più.
+
+Guarda questa frase: "My grandad used to play football every Sunday."
+"Used to" significa "ero solito fare", "facevo abitualmente". Indica un'abitudine che si ripeteva spesso nel passato, ma che oggi è finita.
+
+Prova a completare questa frase, pensando a qualcosa che facevi da piccolo:
+When I was a child, I ___ (play) with my old toys every day.
+[risposte: ["used to play"]]
+
+=== U1 T1 (Past continuous) · 4711 ms ===
+Ciao! Oggi impariamo a descrivere cosa stava succedendo in un momento preciso del passato.
+
+Ieri sera alle 7, nel palazzo di Sara, è saltata la luce. Sara dice: "At 7 o'clock I was having a shower".
+
+Il *past continuous* si forma con *was/were* + verbo in *-ing* e descrive un'azione in corso in quel momento.
+
+At 8 o'clock, my brother ___ (play) a video game.
+[risposte: ["was playing"]]
+
+=== U1 T2 (Past continuous vs past simple) · 4089 ms ===
+Ciao! Oggi impariamo a usare insieme il past continuous e il past simple.
+
+Guarda qui: "Nico was riding his bike home when a tyre burst." 
+"Was riding" è l'azione lunga in corso, mentre "burst" è l'evento breve che la interrompe. "When" introduce l'evento che interrompe l'azione.
+
+Prova tu: I ___ (watch) TV when the lights went out.
+[risposte: []]
+
+=== U1 T3 (When, while, as) · 2756 ms ===
+Ciao! Oggi impariamo a usare tre parole che servono per collegare le azioni nel passato: *when*, *while* e *as*.
+
+Immagina questa scena: "When the concert finished, we went for a pizza. While the band was playing, I was eating a sandwich."
+
+*When* significa "quando" o "dopo che" e indica il momento in cui succede qualcosa (spesso un fatto breve). *While* significa "mentre" e si usa per un'azione che dura nel tempo (di solito al *past continuous*).
+
+Prova a completare questa frase:
+___ (the teacher / arrive), we were already studying.
+[risposte: ["When the teacher arrived","When the teacher was arriving"]]
+
+=== U1 T4 (Adverbs of sequence) · 3575 ms ===
+Ciao! Oggi impariamo a ordinare le azioni in un racconto usando gli "avverbi di sequenza", utili per spiegare procedure o ricette.
+
+Guarda queste frasi:
+"First of all, I broke the eggs. Next, I added the milk. Finally, I cooked the pancakes."
+
+- First of all apre il primo passo.
+- Next, then, after that, afterwards indicano il passo successivo.
+- Finally è l'ultimo passo della sequenza.
+
+___, I washed the vegetables.
+[risposte: ["First of all"]]
+
+=== U2 T0 (Present perfect continuous) · 4513 ms ===
+Ciao! Oggi impariamo a descrivere azioni iniziate nel passato che continuano ancora adesso. 
+
+Immagina: in casa c'è un buon profumo. La mamma è in cucina e diciamo: *Mum has been baking since two o'clock* (La mamma cucina dalle due). Usiamo *have/has been* + verbo con *-ing* per dire che l'azione è iniziata prima e non è ancora finita. 
+
+Ora prova tu:
+I am tired because I ___ (wait) for the bus for an hour.
+[risposte: ["have been waiting"]]
+
+=== U2 T1 (Present perfect simple vs continuous) · 4775 ms ===
+Ciao! Iniziamo a vedere la differenza tra *present perfect simple* e *continuous*.
+
+"Sara has painted her bedroom" significa che ha finito, la stanza è pronta (risultato).
+"Sara has been painting her bedroom" significa che si è dedicata all'attività, ma non dice se ha finito.
+
+Completa questa frase pensando al risultato:
+"The car is clean now! I ___ (wash) it."
+[risposte: ["have washed"]]
+
+=== U2 T2 (Present perfect simple vs past simple) · 4508 ms ===
+Ciao! Oggi vediamo insieme quando usare il *Present Perfect* e quando il *Past Simple*.
+
+Se dico "Have you ever eaten sushi?", non dico quando: uso il *Present Perfect*. Se invece aggiungo un momento preciso, come "I ate it in May", uso il *Past Simple*.
+
+Ora prova tu:
+I ___ (visit) Paris in 2019.
+[risposte: []]
+
+=== U3 T0 (Common verb patterns) · 5858 ms ===
+Ciao! Oggi impariamo come collegare due verbi. Guarda queste frasi: "I can swim" (So nuotare) e "You must study" (Devi studiare). Dopo i modali come *can, must, should* o *will*, il secondo verbo va sempre alla forma base, senza aggiungere *to*.
+
+It's late, so you must ___ (go) to sleep.
+[risposte: ["go"]]
+
+=== U3 T1 (Stop, remember, forget) · 5126 ms ===
+Ciao! Oggi impariamo a usare *stop*, *remember* e *forget*. Iniziamo da *stop*.
+
+Guarda qui: *Marco stopped playing football* (ha smesso, ha finito l'attività) contro *Marco stopped to buy a croissant* (si è fermato, ha interrotto quello che stava facendo, per comprare un cornetto).
+
+Quindi: *stop* + *-ing* è smettere, *stop* + *to* è fermarsi per fare altro.
+
+Ora prova tu: I was running, but I stopped ___ (rest) for a few minutes.
+[risposte: ["to rest"]]
+
+=== U3 T2 (Compounds of some, any, every, no) · 4555 ms ===
+Ciao! Oggi vediamo come usare parole come *something*, *anybody*, *everywhere* e *nobody*.
+*Some-* (something, somebody, somewhere) si usa nelle frasi affermative e nelle offerte: "I have *something* for you" o "Would you like *something* to drink?".
+*Any-* (anything, anybody, anywhere) si usa nelle domande e nelle frasi negative: "Is there *anybody* in the room?".
+
+Completa questa frase:
+I'm thirsty, I would like ___ to drink.
+[risposte: ["something"]]
+
+=== U3 T3 (Question tags) · 10031 ms ===
+Ciao! A volte, quando parliamo, aggiungiamo una piccola domanda alla fine per chiedere conferma: «Ti piace la pizza, vero?». In inglese si chiamano *question tags*.
+
+La regola è semplice: se la frase è affermativa, la tag è negativa. Se la frase è negativa, la tag è affermativa. La tag ripete sempre l'ausiliare della frase (come *is, can, do*).
+
+Esempio: *You're tired, aren't you?* (Sei stanco, vero?).
+
+Ora prova tu:
+It is very hot today, ___?
+[risposte: ["isn't it"]]
+
+=== U4 T0 (Past perfect simple) · 13968 ms ===
+Ciao! Oggi vediamo come raccontare azioni che sono avvenute prima di altre nel passato. 
+
+Guarda: *When Martina got to the party, Leo had opened his presents.* 
+"Had opened" (aveva aperto) è il *past perfect*: si usa per un'azione già conclusa prima di un altro momento passato ("got"). Si forma sempre con *had* + participio.
+
+Ora prova tu:
+By the time I arrived at the cinema, the film ___ (already / start).
+[risposte: ["had already started"]]
+
+=== U4 T1 (Narrative tenses) · 4989 ms ===
+Ciao! Iniziamo a vedere come raccontare una storia in inglese. Quando descriviamo fatti successi uno dopo l'altro, usiamo il **Past Simple**. Guarda: *Davide put on his boots and went out.* (Davide si è messo gli stivali ed è uscito). Sono azioni concluse, in ordine cronologico.
+
+Yesterday, Mark ___ (finish) his work and left the office.
+[risposte: ["finished"]]
+
+=== U4 T2 (Defining vs non-defining relative clauses) · 9314 ms ===
+Ciao! Iniziamo dalle frasi *defining*: servono a identificare esattamente chi o cosa stiamo descrivendo e non vogliono virgole. 
+Esempio: *The girl who is wearing a red hat is my cousin.*
+Usa *who* per le persone, *which* per le cose, e *that* per entrambi (sempre senza virgole).
+
+Prova a completare: I have a friend ___ lives in London.
+[risposte: ["who","that"]]
+
+=== U4 T3 (Relative pronouns revision) · 11484 ms ===
+Ciao! Ripassiamo insieme i pronomi relativi. Usiamo *who* per le persone, *which* per le cose e *that* per entrambi. *Where* si usa per i luoghi e *when* per i momenti. Ricorda che la preposizione va sempre in fondo alla frase.
+
+Prova a completare questa frase:
+That is the girl ___ lives next door.
+[risposte: ["who","that"]]
+
+=== U5 T0 (First conditional: will, may, might) · 4274 ms ===
+Ciao! Oggi impariamo a parlare di situazioni future possibili. Immagina che Giulia e i suoi amici stiano organizzando una gita in bici: "If it rains on Saturday, we'll go to the museum".
+
+Usa `if` (se) seguito dal presente (anche se in italiano pensiamo al futuro) e `will` per la conseguenza sicura.
+
+If the path is muddy, we ___ (leave) the bikes at the farm.
+[risposte: ["will leave"]]
+
+=== U5 T1 (Unless) · 6639 ms ===
+Ciao! Oggi impariamo a usare *unless*. Immagina questo avviso: "The cat will scratch the sofa unless you feed her at seven."
+
+*Unless* significa "a meno che non" (è come dire *if not*). Ricorda: dopo *unless* il verbo è sempre positivo, perché *unless* contiene già la negazione.
+
+Completa questa frase:
+I’ll switch off the Wi-Fi ___ (you / finish) your homework first.
+[risposte: ["unless you finish"]]
+
+=== U5 T2 (When, as soon as, until, as long as) · 7432 ms ===
+Ciao! Oggi impariamo a collegare le azioni future. Sara parte per l'Irlanda: "When Sara lands in Cork, she'll call her parents" (quando atterra, chiamerà i genitori) e "As soon as she sees the sea, she'll send a photo" (appena vede il mare, manderà una foto).
+
+Ricorda: dopo *when* e *as soon as* si usa il presente, mai *will*!
+
+___ (When / the bus / arrive), we will leave for the station.
+[risposte: ["When the bus arrives"]]
+
+=== U5 T3 (Purpose, cause and result) · 4330 ms ===
+Ciao! Oggi impariamo a collegare le frasi per spiegare il motivo delle nostre azioni. Guarda qui:
+"Elisa worked at a campsite **to** save money." (per risparmiare)
+"She kept a notebook **so that** she could remember the names." (così che potesse ricordare)
+
+Usa **to** + forma base per dire "per", mentre **so that** + frase serve per dire "così che". Prova tu:
+
+I am going to the shop ___ (buy) some milk.
+[risposte: ["to buy"]]
+
+=== U6 T0 (Second conditional) · 2995 ms ===
+Ciao! Oggi impariamo a parlare di situazioni immaginarie. Immagina di essere a scuola e di sognare a occhi aperti: "If I lived by the sea, I'd go surfing every morning".
+
+"If" significa "se", e in inglese dopo "if" usiamo il passato (lived = vivevo/vivessi). "I'd" è la forma contratta di "I would" (andrei). Quindi: se vivessi al mare, andrei a fare surf. È una situazione irreale, non è vero che vivi al mare!
+
+Prova tu: completa la frase per dire che, se avessi più tempo libero, potresti imparare a suonare la batteria.
+
+If I ___ (have) more free time, I could learn the drums.
+[risposte: ["had"]]
+
+=== U6 T1 (Third conditional) · 6603 ms ===
+Ciao! Oggi vediamo come parlare di rimpianti o situazioni passate che non si possono più cambiare.
+
+Pensa a Lorenzo: ha perso l'autobus perché non ha messo la sveglia. Possiamo dire: *If Lorenzo had set his alarm, he would have caught the bus.*
+
+Significa: "Se avesse messo la sveglia (ma non l'ha fatto), avrebbe preso l'autobus". Usiamo *had* + participio dopo *if*, e *would have* + participio per la conseguenza.
+
+Prova tu:
+If I ___ (leave) earlier, I would have arrived on time.
+[risposte: ["had left"]]
+
+=== U6 T2 (I wish · If only) · 4996 ms ===
+Ciao! Oggi vediamo come esprimere desideri. Bianca ha cambiato città e ora si sente sola: dice "I wish I lived closer to my old friends". Usiamo *I wish* + *past simple* (come *lived*) per dire che vorremmo che una situazione presente fosse diversa: vorremmo che fosse diverso da com'è adesso.
+
+I'm so tired of studying for this test. I wish I ___ (know) the answer.
+[risposte: ["knew"]]
+
+=== U6 T3 (Adverbs of manner) · 4409 ms ===
+Ciao! Oggi impariamo a descrivere come facciamo le azioni. Guarda: "Federico drives carefully" (Federico guida con attenzione). "Carefully" è un avverbio di modo e ci dice *come* guida. Di solito si forma aggiungendo "-ly" all'aggettivo (careful + ly = carefully). L'avverbio va sempre dopo il verbo o dopo l'oggetto.
+
+Prova tu: The teacher spoke ___ (slow) so we could understand.
+[risposte: ["slowly"]]
+
+=== U6 T4 (Comparative adverbs) · 3759 ms ===
+Ciao! Oggi impariamo a confrontare come le persone fanno le cose. Pensa ai gemelli Nico e Leda che si allenano per la corsa: "Leda runs more smoothly than Nico" (Leda corre in modo più fluido di Nico).
+
+Per dire che qualcuno fa qualcosa "più..." di un altro, usiamo "more" + l'avverbio + "than".
+
+Prova a completare questa frase:
+Leda speaks ___ (confidently) than her brother.
+[risposte: ["more confidently"]]
+
+=== U7 T0 (Should, ought to, need to, had better) · 4470 ms ===
+Ciao! Oggi impariamo a dare consigli. Pensa ad Alice che si prepara per una gara di nuoto: il suo allenatore le dice "You should drink more water before the race". 
+
+*Should* significa "dovresti" (o dovrei, dovrebbe, ecc.). È un consiglio, si usa sempre uguale per tutte le persone e dopo si mette il verbo base, senza *to*.
+
+Prova tu:
+You ___ (rest) a bit if you are so tired.
+[risposte: ["should rest"]]
+
+=== U7 T1 (Verbs of perception) · 5077 ms ===
+Ciao! Oggi vediamo come descrivere le impressioni che riceviamo dal mondo.
+
+Immagina di entrare in una pasticceria: "These croissants smell delicious" (Questi croissant hanno un buon odore). Usa *look, sound, smell, taste, feel, seem* seguiti da un aggettivo per descrivere come qualcosa ti appare. Ricorda: in inglese si usa sempre l'aggettivo, non l'avverbio (si dice "sembra buono", non "sembra bene").
+
+Prova tu:
+The new song is beautiful. It ___ (sound) amazing.
+[risposte: ["sounds"]]
+
+=== U7 T2 (Reflexive pronouns) · 4984 ms ===
+Ciao! Oggi vediamo come usare i pronomi riflessivi in inglese.
+
+Pensa a Pietro: mentre preparava un panino, si è tagliato. In inglese diciamo: "Pietro cut himself".
+Usiamo *himself* (se stesso) perché il soggetto (Pietro) e l'oggetto (chi si è tagliato) sono la stessa persona. La forma finisce sempre in *-self* al singolare o *-selves* al plurale.
+
+Completa questa frase:
+Sarah looked at ___ in the mirror.
+[risposte: ["herself"]]
+
+=== U7 T3 (Reciprocal pronouns) · 4750 ms ===
+Ciao! Oggi impariamo a dire che due persone fanno qualcosa "a vicenda".
+
+Guarda qui: *Ada and Lin took photos of themselves* (ognuna ha fotografato sé stessa) vs *Ada and Lin took photos of each other* (Ada ha fotografato Lin e Lin ha fotografato Ada). *Each other* significa appunto "l'un l'altro" o "a vicenda".
+
+Ora prova tu: The two students are always helping ___ with their homework.
+[risposte: ["each other","one another"]]
+
+=== U8 T0 (Modal verbs of deduction: present) · 5033 ms ===
+Ciao! Oggi impariamo a fare delle deduzioni, cioè a indovinare cosa succede basandoci su quello che vediamo. 
+
+Immagina di osservare i vicini: vedi le luci accese nell'appartamento 4 e senti musica ad alto volume. Dici: "The Bianchis **must be** at home" (I Bianchi **devono essere** a casa). Usiamo *must* + forma base quando siamo sicuri che qualcosa sia vero perché abbiamo un indizio.
+
+Il tuo amico ha l'ombrello bagnato e fuori piove a dirotto, quindi lui ___ (be) in giro sotto la pioggia.
+[risposte: ["must be"]]
+
+=== U8 T1 (Modal verbs of deduction: past) · 2409 ms ===
+Ciao! Oggi impariamo a fare deduzioni sul passato, cioè a immaginare cosa è successo prima di adesso. 
+
+Guarda qui: "The windows are steamed up. Someone must have cooked pasta." 
+"Must have cooked" significa "deve aver cucinato". Usiamo "must have" + il participio passato quando siamo quasi sicuri che qualcosa sia successo.
+
+Completa questa frase:
+The ground is wet. It ___ (rain) during the night.
+[risposte: ["must have rained"]]
+
+=== U8 T2 (Both, either, neither · all, no, none) · 5037 ms ===
+Ciao! Oggi impariamo a parlare di due cose insieme. *Both* significa "tutti e due", *either* significa "l'uno o l'altro" (a scelta), e *neither* significa "nessuno dei due". Ricorda: *either* e *neither* vogliono il nome al singolare.
+
+There are two roads to the station. You can take ___ road, they both go there.
+[risposte: ["either"]]
+
+=== U8 T3 (So and such) · 5687 ms ===
+Ciao! Oggi impariamo a usare *so* e *such* per dare enfasi. 
+
+Iniziamo con *so*: si usa prima di un aggettivo o di un avverbio per dire "così" o "talmente" (es. *so hot* = così caldo).
+
+The coffee was ___ hot that I couldn't drink it.
+[risposte: ["so"]]
+
+=== U9 T0 (Present simple passive) · 5131 ms ===
+Ciao! Oggi vediamo come descrivere i passaggi di un processo, come in una fabbrica. Guarda questa frase: "The cocoa beans are roasted for about twenty minutes." Non diciamo *chi* le tosta, ci interessa solo che *vengono tostate*. In inglese si usa il verbo *be* (am/is/are) + il participio passato del verbo. Ricorda: niente "venire", usiamo sempre *be*.
+
+Completa la frase:
+The chocolate bars ___ (pack) by machines.
+[risposte: ["are packed"]]
+
+=== U9 T1 (Passive: other tenses and forms) · 5669 ms ===
+Ciao! Oggi vediamo come usare il passivo con tempi diversi dal presente. Guarda questa frase: "Right now the old seats are being removed" (Proprio ora i vecchi sedili vengono rimossi). Usiamo *are being* + participio quando l'azione sta succedendo *proprio adesso*.
+
+Prova tu:
+The walls ___ (paint) right now.
+[risposte: ["are being painted"]]
+
+=== U9 T2 (Adjective order) · 12232 ms ===
+Ciao! Oggi vediamo come mettere in ordine gli aggettivi. In inglese, quando ne usiamo più di uno, seguiamo un ordine preciso: prima l'opinione, poi dimensione, forma, età, colore, fantasia, origine e infine il materiale.
+
+Guarda: *Irene is selling a lovely old wooden chair.*
+
+Prova tu: I bought a ___ (round / small) mirror.
+[risposte: ["small round"]]
+
+=== U9 T3 (Phrasal verbs) · 5220 ms ===
+Ciao! Oggi iniziamo a scoprire i "phrasal verbs". In inglese, se uniamo un verbo a una piccola particella, il significato cambia: ad esempio, "look" è guardare, ma "look after" significa prendersi cura di.
+
+Completa la frase con la particella corretta:
+The nurse had to look ___ the sick patient in the hospital.
+[risposte: ["after"]]
+
+=== U10 T0 (Reported speech: statements) · 5065 ms ===
+Ciao! Oggi impariamo a riferire quello che dicono gli altri. Guarda:
+«I am tired,» says Tom. → Tom says that he is tired. (Il tempo non cambia).
+«I am tired,» said Tom. → Tom said that he was tired. (Il tempo va indietro: *am* diventa *was*).
+
+Quando il verbo che introduce è al passato (said), il tempo del verbo nella frase deve tornare indietro di un passo. 
+Prova tu: «I am hungry,» said my brother. → My brother said that he ___ hungry.
+[risposte: ["was"]]
+
+=== U10 T1 (Reported speech: say vs tell) · 10625 ms ===
+Ciao! Oggi vediamo come usare "say" e "tell". Con "say" non mettiamo mai la persona subito dopo: "Nicolò said that the test was easy". Se serve indicare la persona, aggiungiamo "to": "Nicolò said to me...".
+Con "tell" invece la persona va subito dopo, senza "to": "Nicolò told me that the test was easy" (mai "told to me").
+
+Maria ___ me that the exam was difficult.
+[risposte: ["told"]]
+
+=== U10 T2 (Reported speech: questions) · 15803 ms ===
+Ciao! Oggi vediamo come riferire le domande. Usiamo *ask* e l'ordine delle parole diventa quello di una frase normale (niente *do/did*).
+"Where do you live?" → *She asked me where I lived*.
+Se la domanda è sì/no, usiamo *if* (se).
+The boss asked: "Do you have the tools?" → The boss asked ___ (you / have the tools).
+[risposte: ["if I had the tools","whether I had the tools"]]
+
+=== U10 T3 (Reported speech: requests, instructions and advice) · 14419 ms ===
+Ciao! Quando riferiamo una richiesta o un ordine, usiamo *ask* (per chiedere) o *tell* (per dire/ordinare). Dopo il verbo mettiamo la persona a cui ci si rivolge e poi *to* + l'azione. Se è un divieto, usiamo *not to*.
+
+Esempio: «Please, help me!» → He asked me to help him.
+
+Il capo ha detto: «Please, sign the document.» → The boss asked me ___ the document.
+[risposte: ["to sign"]]
+
+=== U10 T4 (Reported speech: time and place changes) · 5230 ms ===
+Ciao! Oggi impariamo come cambiano i riferimenti di tempo e luogo quando riportiamo le parole di qualcuno. 
+
+Venerdì, Sam al bar dice: «I love this place». Se lunedì riferisco la sua frase, devo dire: «Sam said he loved that place». *This* diventa *that* perché non siamo più nel posto di cui parlava.
+
+Sam said he loved ___ place.
+[risposte: ["that"]]
+
+
+########## 2) CASI GIÀ RISOLTI ##########
+
+=== will → would: deve spiegare con un esempio, non fare domande (U10 T0) · 2304 ms ===
+TUTOR (prima): Ora prova tu:
+« I'll text you. » → Pietro said that he ___ me.
+STUDENTE: non so come trasformare will
+TUTOR: Nessun problema, vediamo insieme! Quando il verbo che introduce è al passato (come "said"), i tempi verbali "tornano indietro" di un passo.
+
+Per i modali, "will" diventa "would". Ad esempio: "I will call you" diventa "He said he would call me".
+
+Ora riprova la frase di prima:
+« I'll text you. » → Pietro said that he ___ me.
+[risposte: ["would text","'d text"]]
+
+=== it has rained: non deve dire che è un'azione conclusa (quello è il past simple) (U2 T1) · 4960 ms ===
+TUTOR (prima): Prova tu:
+Look outside! It ___ (rain) since this morning.
+STUDENTE: ma se io dico it has rained?
+TUTOR: Ottima domanda! Se dici "it has rained", sembra che la pioggia sia finita (magari guardi il risultato, come la strada bagnata). Ma se diciamo "Look outside!", la pioggia sta continuando proprio ora. Quando un'attività dura nel tempo e non è ancora finita, usiamo il continuous.
+
+Ora provane un'altra, pensa se l'azione è finita o se continua:
+Look! I ___ (finish) my homework, so now I can go out.
+[risposte: ["have finished"]]
+
+=== unless giusto: deve dire Esatto (U5 T1) · 4129 ms ===
+TUTOR (prima): Prova tu:
+I will fail the exam ___ I study hard.
+STUDENTE: unless
+TUTOR: Esatto! Ricorda però: dopo 'unless' non serve aggiungere un'altra negazione perché 'unless' significa già 'se non'. Si usa sempre il verbo positivo.
+
+Prova questa:
+You will be hungry later ___ (you / eat) something now.
+[risposte: ["unless you eat"]]
+
+=== risposta giusta (up): deve dire Esatto (U7 T2) · 4780 ms ===
+TUTOR (prima): Prova tu:
+Every day, my brother wakes ___ at 7 o'clock.
+STUDENTE: up
+TUTOR: Esatto! In inglese, verbi come *wake up*, *relax* o *get dressed* non vogliono il pronome riflessivo, anche se in italiano lo usiamo.
+
+Quando invece l'azione ricade proprio su noi stessi, usiamo i pronomi riflessivi (come *myself*, *himself*, *themselves*). Ad esempio: *Pietro cut himself* (Pietro si è tagliato).
+
+Ora prova tu:
+While he was shaving, he accidentally cut ___ with the razor.
+[risposte: ["himself"]]
+
+=== dimmelo: deve dare la risposta (U8 T0) · 4963 ms ===
+TUTOR (prima): Zeno vede il vicino in giardino con la vanga.
+He ___ (work) in the garden.
+STUDENTE: dimmelo
+TUTOR: La risposta corretta è **must be working**. Usiamo *must* perché siamo sicuri di ciò che vediamo (ha la vanga), e *be + -ing* perché l'azione sta avvenendo proprio ora.
+
+Ora proviamo con un'altra situazione: sono le tre di notte e qualcuno suona alla porta. Sei sicuro che non sia un amico.
+
+It's 3 a.m. and someone is ringing the doorbell. It ___ (be) a friend.
+[risposte: ["can't be"]]
+
+=== risposta sbagliata: non deve dire la parola giusta né la forma (U3 T1) · 2927 ms ===
+TUTOR (prima): Prova tu:
+I was running, so I stopped ___ (drink) some water.
+STUDENTE: drinking
+TUTOR: Se dici "I stopped drinking some water", significa che stavi bevendo dell'acqua e hai smesso di farlo. Ma qui la situazione è che stavi correndo e ti sei fermato apposta per bere.
+
+Prova di nuovo:
+I was running, so I stopped ___ (drink) some water.
+[risposte: ["to drink"]]
+
+=== domanda di passivo: lo spazio deve contenere verbo e soggetto (U9 T0) · 2490 ms ===
+TUTOR (prima): Bene. Ora una domanda: come chiedi se il latte viene aggiunto alla miscela?
+STUDENTE: ok
+TUTOR: Non hai ancora provato a scrivere la domanda! Ricorda: per chiedere se qualcosa viene fatto, usiamo "Is" o "Are" all'inizio, poi il soggetto e infine il participio passato del verbo (aggiungere = add).
+
+Prova a scrivere la domanda: ___ (milk / add) to the mixture?
+[risposte: ["Is milk added"]]
+
+=== domanda dello studente: deve rispondere davvero, senza rimandare (U1 T3) · 4580 ms ===
+TUTOR (prima): Prova tu:
+As Marta opened the door, the lights ___ (go) out.
+STUDENTE: ma as non vuol dire man mano?
+TUTOR: Ottima domanda! *As* ha due usi:
+1. "Man mano che" (cambiamento graduale): *As the sun went down, it got colder.*
+2. "Proprio mentre" (nello stesso istante): due fatti brevi che succedono insieme.
+
+Aprire la porta è un gesto veloce, un istante. Quindi, come diventa il verbo *go* per dire che è successo in quel momento?
+
+As Marta opened the door, the lights ___ (go) out.
+[risposte: ["went"]]
+
+
+########## AVVISI AUTOMATICI ##########
+U1 T2 (Past continuous vs past simple): frase da completare senza risposte
+U2 T2 (Present perfect simple vs past simple): frase da completare senza risposte
+U5 T0 (First conditional: will, may, might): apici inversi
