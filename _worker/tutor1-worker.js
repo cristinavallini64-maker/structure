@@ -151,6 +151,7 @@ function creaMotore(UNIT) {
     - Chiede il significato di una parola: diglielo.
     - Chiede quale parola o indizio guardare: indicaglielo, citando la parola della frase (es. "Guarda two years ago: quando è successo, e quante volte?"). È un aiuto, non la soluzione.
     - Chiede "perché", "quando si usa", "che differenza c'è tra…", "posso dire anche…" o qualunque cosa sulla regola: RISPONDI DAVVERO, come un'insegnante in classe. Spiega con parole semplici e con UN ESEMPIO NUOVO, diverso dalla frase dell'esercizio (una situazione e la frase inglese che ci va, con il perché). Qui puoi spiegare la regola: te l'ha chiesta lui. Al massimo 4 frasi, poi invitalo a riprovare la frase.
+    - Nella spiegazione NON nominare le persone né la situazione della frase dell'esercizio ("Mark stava leggendo…" è già la soluzione): usa altre persone e un'altra situazione.
     - L'unica cosa che non fai mai è dire che cosa va nello spazio di QUESTA frase (né la forma, né quale tempo serve qui): la spiegazione deve servirgli a capirlo da solo.
     - STESSA domanda.
   - RISPONDE ALLA TUA DOMANDA-GUIDA (in italiano: "del tempo", "una volta sola", "era in corso"…) invece di completare l'esercizio: classe "guida". NON è la soluzione dell'esercizio e non va mai considerata giusta. Conferma o correggi il suo ragionamento in una frase, poi chiedigli di scrivere adesso la forma inglese nella frase ("Esatto, è durata del tempo. Allora adesso completa la frase con il verbo."). Non scrivere la forma giusta. STESSA domanda.
@@ -887,6 +888,15 @@ function creaMotore(UNIT) {
       return norm(x).split(" ").filter(Boolean).some(p => !vis.has(p));
     });
   }
+  // nella risposta a una domanda dello studente il tutor deve usare un esempio NUOVO: se cita i personaggi
+  // della frase dell'esercizio («Mark stava leggendo…»), sta spiegando proprio quella frase e regala la soluzione
+  function usaFraseEsercizio(testo, frase) {
+    const nomi = new Set();
+    String(frase || "").split(/(?<=[.!?])\s+/).forEach(f => f.split(/\s+/).slice(1).forEach(w => { const x = w.replace(/[^A-Za-z]/g, ""); if (/^[A-Z][a-z]{2,}$/.test(x)) nomi.add(x); }));
+    String(frase || "").split(/(?<=[.!?])\s+/).forEach(f => { const x = (f.split(/\s+/)[0] || "").replace(/[^A-Za-z]/g, ""); if (/^[A-Z][a-z]{2,}$/.test(x) && !/^(The|When|While|After|Before|Yesterday|Last|This|Every|Suddenly|Then|Today|Tomorrow|Now|At|In|On|Our|Their|His|Her|My|Your|What|Why|How|Where|Who|Have|Has|Had|Did|Do|Does|Was|Were|Can|Could|Will|Would|Should|Must|If|Unless|Although|Because|Mum|Dad)$/.test(x)) nomi.add(x); });
+    return [...nomi].some(n => new RegExp(`\\b${n}\\b`).test(String(testo || "")));
+  }
+
   function messaggioGuida(testo, q, forte, risposta) {
     return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
       && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese) && !citaFraseInvisibile(testo, `${q.frase} ${risposta || ""}`);
@@ -924,10 +934,10 @@ function creaMotore(UNIT) {
 
   // la conferma dopo la risposta giusta: niente nomi di tempi, niente regole, al massimo 250 caratteri
   function confermaPulita(c) {
-    const t = String(c || "").trim();
+    const t = String(c || "").trim().replace(/^(esatto|giusto|bravo|brava|perfetto|sì|si)\s*[!:,.]\s*/i, "");
     if (!t || t.length > 250) return "";
     if (/\b(past|present|perfect|continuous|simple|participio|forma base|infinito|ausiliare|si usa|si usano|usiamo|la regola)\b/i.test(t)) return "";
-    return t;
+    return t.charAt(0).toUpperCase() + t.slice(1);
   }
 
   function pulisciDomanda(q) {
@@ -1351,7 +1361,7 @@ function creaMotore(UNIT) {
         // alle domande dello studente il tutor risponde davvero (anche spiegando la regola): si controlla solo che non dia la soluzione di questa frase
         const lim = r.classe === "domanda" ? 700 : 400;
         const spiegaOk = r.classe === "domanda" || !regolaInRisposta(r.messaggio);
-        if (r.messaggio && r.messaggio.length <= lim && spiegaOk && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta) && !traduceSoluzione(r.messaggio, q.attese)) return candidato;
+        if (r.messaggio && r.messaggio.length <= lim && spiegaOk && !(r.classe === "domanda" && usaFraseEsercizio(r.messaggio, q.frase)) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta) && !traduceSoluzione(r.messaggio, q.attese)) return candidato;
         scarta(r.messaggio, "domanda: regola o soluzione nella risposta");
         continue;
       }
@@ -1501,7 +1511,7 @@ function creaMotore(UNIT) {
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
     if (a.classe === "domanda" && regolaInRisposta(m)) return "domanda: regola nella risposta";
-    if (arrivato && (m.includes("?") || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
+    if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
     return "";
   }
 
@@ -1544,6 +1554,8 @@ function creaMotore(UNIT) {
     if (ps.attese && classe === "arrivato") classe = "non_ancora";
     if (ps.frase) {
       diag.push({ riserva: "scoperta" });
+      // un commento o un ragionamento in italiano non è un tentativo sbagliato
+      if (rispostaItaliana(risposta) && !/^(non so|non lo so|boh)\b/i.test(risposta.trim())) return { classe: "domanda", messaggio: "Scrivi la tua risposta in inglese nella frase: poi ti dico se va bene. Se hai un dubbio, chiedimelo pure." };
       if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
       if (ps.attese) {
         const rc = togliContesto(risposta, ps.frase);
@@ -1857,6 +1869,9 @@ function creaMotore(UNIT) {
       return vista({ ...n, sint: true });
     }
     const pu = sc.passi[s.passo];
+    // domanda di osservazione: se la risposta contiene la risposta breve prevista («Basta 'un attimo'»), è arrivato,
+    // anche se dentro c'è altro (per esempio una domanda)
+    const breviOk = !pu.frase ? rispostaBreve(pu.obiettivo, risposta) : false;
     if (vuoleSpiegazione(risposta)) {
       // in SCOPRI la regola la trova lo studente: niente spiegazione, ma di nuovo le frasi
       const testo = pu.frase
@@ -1917,6 +1932,10 @@ function creaMotore(UNIT) {
     }
     const r = await valutaScoperta(env, s, t, s.passo, risposta, tentativo, chiede);
     if (!r) return ERRORE();
+    if (breviOk && r.classe !== "arrivato") {
+      r.classe = "arrivato";
+      r.messaggio = chiede ? "Esatto! E alla tua domanda arriviamo subito, con la prossima." : "Esatto!";
+    }
     if (nonSaS && (r.classe === "non_ancora" || r.classe === "vicino")) r.classe = "non_so";
     const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: r.messaggio.slice(0, 600) }).slice(-6);
 
@@ -1939,6 +1958,14 @@ function creaMotore(UNIT) {
     if (!r2) return ERRORE();
     const n = conDomanda(base, r2, { tipo: "info", risposta: "", evidenzia: "", testo: "Ecco la regola, qui sopra. Adesso mettila in pratica. Se ti blocchi, scrivi «spiega».", riprova: false });
     return vista({ ...n, sint: true }, { outcome: esito, message: `${r.messaggio}\n\nBravo, hai finito questa parte. Nella prossima pagina trovi la regola riassunta.` });
+  }
+
+  function rispostaBreve(obiettivo, risposta) {
+    const m = String(obiettivo || "").match(/Basta\s+(.*)$/);
+    if (!m) return false;
+    const alt = [...m[1].matchAll(/['"«“]([^'"»”]{1,40})['"»”]/g)].map(x => norm(x[1])).filter(x => x && !/^(s[iì]|no)$/.test(x));
+    const r = ` ${norm(risposta)} `;
+    return alt.some(a => r.includes(` ${a} `) && !r.includes(` non ${a} `));
   }
 
   function riprendi(s) {
