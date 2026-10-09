@@ -1907,7 +1907,8 @@ function creaMotore(UNIT) {
     const chiede = eDomanda(risposta, true);
     const nonSaS = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non ne ho idea)\b/i.test(risposta.trim());
     const tentativo = s.tent + 1;
-    if (pu.frase && !chiede && !nonSaS && tentativo < TENTATIVI_PER_SOLUZIONE) {
+    // i controlli fissi valgono solo per un tentativo di risposta in inglese: un commento o un ragionamento in italiano lo legge Gemini
+    if (pu.frase && !chiede && !nonSaS && !rispostaItaliana(risposta) && tentativo < TENTATIVI_PER_SOLUZIONE) {
       const dia = diagnosiForma(rcS, attS, pu.frase);
       if (dia) {
         const diff = differenzaMigliore(rcS, attS);
