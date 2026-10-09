@@ -2227,6 +2227,7 @@ function creaMotore(UNIT) {
   - Non proporre tu le alternative fra cui scegliere («should o had better?»): lo studente scrive da solo la forma che serve.
   - Se scrive solo «ok» o «sì», non lodarlo: vai avanti.
   - Una sola frase da completare per messaggio, con UN solo spazio ___, e nello spazio deve poter andare TUTTA la parte da scrivere, di seguito. Se la forma è spezzata dal soggetto (domande: Is the chocolate tested…?, Have you been waiting…?), metti nello spazio sia il verbo sia il soggetto, con il soggetto tra parentesi insieme al verbo: «___ (the cocoa beans / roast) in the oven?» → risposta «Are the cocoa beans roasted». Mai uno spazio prima del soggetto e il verbo tra parentesi dopo il soggetto.
+  - Lo spazio va proprio sul punto che si sta studiando, quello che lo studente deve decidere capendo il significato: con stop/remember/forget sul secondo verbo («I stopped ___ (drink) some water»), non su stop; con i tempi sul verbo, con i connettori sul connettore. Mai uno spazio su una parola che non c'entra con l'argomento, e mai la parte da decidere già scritta nella frase («I ___ (stop) to drink» non esercita niente).
   - Fai domande (frasi interrogative) solo ogni tanto, se l'argomento lo prevede; di solito frasi affermative o negative. La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
   - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo».
   - Prima di proporre una frase, rileggila con la risposta dentro: deve avere senso nella situazione (non «sarò arrabbiato a meno che tu non perda le mie chiavi»), e le parole tra parentesi non devono contraddire la risposta (niente «not» tra parentesi se la risposta è positiva). Se qualcosa non torna, cambia la frase.
@@ -2279,7 +2280,7 @@ function creaMotore(UNIT) {
     name: "verifica",
     description: "Verifica un esercizio di grammatica inglese.",
     input_schema: { type: "object", properties: {
-      corretto: { type: "boolean", description: "true se la frase completata con la prima risposta è corretta, naturale e sensata nella situazione, e le parole tra parentesi non contraddicono la risposta" },
+      corretto: { type: "boolean", description: "true se la frase completata con la prima risposta è corretta, naturale e sensata nella situazione, le parole tra parentesi non contraddicono la risposta, e lo spazio è proprio sul punto dell'argomento (lo studente deve deciderlo capendo il significato, non è già scritto nella frase)" },
       altre_giuste: { type: "array", items: { type: "string" }, description: "altre risposte corrette per lo spazio, se ce ne sono" },
       problema: { type: "string", description: "se non è corretto: il problema in una frase" }
     }, required: ["corretto"] }
@@ -2287,7 +2288,7 @@ function creaMotore(UNIT) {
   async function verificaEsercizio(env, frase, risposte, argomento) {
     const prima = modelloPrima; modelloPrima = null;
     const v = await chiamaRaw(env, "Sei un madrelingua inglese esperto di grammatica. Controlli esercizi per studenti italiani. Sii rigoroso ma non pignolo: segnala solo errori veri.",
-      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Ci sono altre risposte corrette per lo spazio?`, TOOL_VERIFICA);
+      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?`, TOOL_VERIFICA);
     modelloPrima = prima;
     return v;
   }

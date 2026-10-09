@@ -65,7 +65,7 @@ let UNITA = null, topic = null, messaggi = [], occupato = false;
 const $ = id => document.getElementById(id);
 
 function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
-function formatta(t){return esc(t).replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").replace(/\n/g,"<br>");}
+function formatta(t){return esc(t).replace(/`([^`]+)`/g,"<b>$1</b>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").replace(/\n/g,"<br>");}
 function aggiungi(chi, testo, classe){const d=document.createElement("div");d.className="msg "+(classe||chi);d.innerHTML=formatta(testo);$("chat").appendChild(d);d.scrollIntoView({behavior:"smooth",block:"end"});return d;}
 
 async function carica(){
