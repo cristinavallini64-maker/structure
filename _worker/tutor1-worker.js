@@ -367,6 +367,13 @@ function creaMotore(UNIT) {
   const TEMPO_SPIEGATO = /(il presente|il passato|past simple|present simple|past perfect|present perfect|past continuous|forma base|participio|condizionale|conditional)[^.?!]{0,40}\b(indica|indicano|esprime|esprimono|si usa|si usano|serve|servono)\b/i;
   // per le risposte alle domande dello studente: niente regola, ma "X vuol dire Y" per il lessico va bene
   const INDICA = /\b(indica|indicano|esprime|esprimono|descrive|descrivono)\b/i;
+  // per le risposte alle domande dello studente in Scopri: «come scriveresti il verbo nella frase?» è solo un invito, non la forma
+  function regolaInRispostaScopri(testo) {
+    const affermazioni = String(testo || "").split(/(?<=[.!?])\s+/).filter(f => !f.trim().endsWith("?"));
+    return ENUNCIA_REGOLA.test(testo) || direttivaRegola(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo)
+      || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo) || affermazioni.some(f => INDICA.test(f));
+  }
+
   function regolaInRisposta(testo) {
     const affermazioni = String(testo || "").split(/(?<=[.!?])\s+/).filter(f => !f.trim().endsWith("?"));
     return ENUNCIA_REGOLA.test(testo) || direttivaRegola(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo)
@@ -876,7 +883,7 @@ function creaMotore(UNIT) {
 
 
   // «Nella frase "You'd better leave"…»: cita fra virgolette un pezzo di frase inglese che lo studente non ha davanti
-  const RIF_PRECEDENTE = /(frase che hai (appena )?letto|hai appena letto|(frase|esempio|frasi|esempi) precedent|frase di prima|esempi(o)? di prima|esempio iniziale|abbiamo (visto|scritto|trasformato|usato|messo)|visto prima|la frase con\b)/i;
+  const RIF_PRECEDENTE = /(frase che hai (appena )?letto|hai appena letto|(frase|esempio|frasi|esempi) precedent|frase di prima|esempi(o)? di prima|esempio iniziale|abbiamo (visto|scritto|trasformato|usato|messo)|visto prima|la frase con\b(?!\s+(il verbo|una delle|la forma|la tua)))/i;
   function citaFraseInvisibile(testo, visibile) {
     if (RIF_PRECEDENTE.test(String(testo || ""))) return true;
     const vis = new Set(norm(visibile || "").split(" "));
@@ -1505,16 +1512,16 @@ function creaMotore(UNIT) {
     if (!ps.frase && !arrivato && a.classe !== "domanda" && !indicaDoveGuardare(m, ps)) return "racconta la situazione invece di indicare una parola delle frasi";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
-    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b|nella prima frase|hai (appena )?letto|frase che hai letto|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
+    if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b(?!\s+(il verbo|una delle|la forma|la tua))|nella prima frase|hai (appena )?letto|frase che hai letto|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
     if (ps.frase && !s.vediEsempi && citaFraseInvisibile(m, `${ps.frase} ${risposta || ""}`)) return "cita frasi che lo studente non vede";
     const rif = m.match(/\bfrase (?:di|del|della|dello|dei|delle|sul|sulla|con)\s+(?:l')?([A-Za-zà-ÿ]+)/i);
-    if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
+    if (rif && ps.frase && !s.vediEsempi && !/^(completare|sopra|qui|il|lo|la|le|i|gli|un|una|uno|quel|quella|questo|questa|tua|tuo)$/i.test(rif[1]) && !ps.frase.toLowerCase().includes(rif[1].toLowerCase())) return "cita la frase di una persona che lo studente non vede";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
     if (!arrivato && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
     if (!m || m.length > 350) return "vuoto o troppo lungo";
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
-    if (a.classe === "domanda" && regolaInRisposta(m)) return "domanda: regola nella risposta";
+    if (a.classe === "domanda" && regolaInRispostaScopri(m)) return "domanda: regola nella risposta";
     if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
     return "";
   }
