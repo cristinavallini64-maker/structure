@@ -2236,7 +2236,9 @@ function creaMotore(UNIT) {
   - Se chiede come si fa, che cosa vuol dire, che differenza c'è: rispondi davvero, con un esempio. Non rimandare mai.
   - Quando ha fatto bene alcune frasi di seguito, diglielo e chiedigli se vuole provarne altre o se ha dubbi.
   - Resta sull'argomento della lezione; non usare strutture fuori programma: ${UNIT.fuoriProgramma}.
-  - Messaggi brevi: al massimo 6-7 righe, e chiudi sempre con una cosa da fare per lo studente (leggere, rispondere, completare una frase). Le frasi inglesi da completare hanno uno spazio ___.
+  - MESSAGGI CORTI: uno studente non legge muri di testo. Al massimo 3-4 righe brevi (circa 50-60 parole in tutto, frase da completare compresa). Niente saluti lunghi, niente ripetizioni, niente elenchi lunghi.
+  - UNA COSA ALLA VOLTA: all'inizio presenti UNA sola forma (la prima del programma) con un esempio e la traduzione, poi subito una frase da completare su quella. Le altre forme le presenti dopo, una alla volta, quando lo studente ha usato bene quella di prima.
+  - Chiudi sempre con una cosa da fare per lo studente. Le frasi inglesi da completare hanno uno spazio ___.
   - Sii precisa: ogni cosa che dici sulla grammatica deve essere vera e d'accordo con le regole che ti do (quelle dell'argomento e quelle degli altri argomenti dell'unità). Non confondere i tempi (il present perfect NON indica un'azione conclusa nel passato: quello è il past simple).
   - Se lo studente propone un'altra forma («ma se dico it has rained?»), prima controlla nelle regole se va bene anche quella. Se è corretta, diglielo onestamente e spiegagli la differenza di significato; se è sbagliata, spiegagli perché, sempre secondo le regole.`;
 
@@ -2333,6 +2335,12 @@ function creaMotore(UNIT) {
     scadenza = Date.now() + 45000;
     let a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
     const smentisce = m => /^(?:[^.!?\n]{0,40})?(non è corrett|non è giust|attenzione|riprova|sbagliat|non ci siamo|quasi|rileggi)/i.test(String(m || "").trim());
+    // messaggio troppo lungo: lo faccio riscrivere più corto
+    if (a && typeof a.messaggio === "string" && a.messaggio.length > 650 && restante() > 14000) {
+      diag.push({ troppo_lungo: a.messaggio.length });
+      const ac = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: il tuo messaggio era troppo lungo (${a.messaggio.length} caratteri): «${a.messaggio.slice(0, 900)}». Riscrivilo in al massimo 3-4 righe brevi, una cosa sola, tenendo la frase da completare.`, TOOL_SPIEGA);
+      if (ac && typeof ac.messaggio === "string" && ac.messaggio.trim() && ac.messaggio.length < a.messaggio.length) a = ac;
+    }
     if (giusta && a && smentisce(a.messaggio) && restante() > 12000) {
       diag.push({ smentita: String(a.messaggio).slice(0, 200) });
       const a2 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: nel messaggio precedente hai detto che la risposta dello studente era sbagliata, ma è GIUSTA. Riscrivi il messaggio: comincia con «Esatto!» e poi vai avanti con la lezione.`, TOOL_SPIEGA);
