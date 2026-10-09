@@ -1369,7 +1369,7 @@ function creaMotore(UNIT) {
         // alle domande dello studente il tutor risponde davvero (anche spiegando la regola): si controlla solo che non dia la soluzione di questa frase
         const lim = r.classe === "domanda" ? 700 : 400;
         const spiegaOk = r.classe === "domanda" || !regolaInRisposta(r.messaggio);
-        if (r.messaggio && r.messaggio.length <= lim && spiegaOk && !(r.classe === "domanda" && usaFraseEsercizio(r.messaggio, q.frase)) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta) && !traduceSoluzione(r.messaggio, q.attese)) return candidato;
+        if (r.messaggio && r.messaggio.length <= lim && spiegaOk && !(r.classe === "domanda" && usaFraseEsercizio(r.messaggio, q.frase)) && !(r.classe === "domanda" && chiedeConferma(risposta) && CONFERMA_SI.test(r.messaggio)) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta) && !traduceSoluzione(r.messaggio, q.attese)) return candidato;
         scarta(r.messaggio, "domanda: regola o soluzione nella risposta");
         continue;
       }
@@ -1503,6 +1503,14 @@ function creaMotore(UNIT) {
     return parole.some(w => vis.has(w) && !PAROLE_ANCHE_ITALIANE.has(w));
   }
 
+  // «quando?», «uso when?», «va bene went?»: lo studente chiede conferma di una possibile risposta.
+  // Un «Sì…» o «Esatto…» in risposta è già la soluzione.
+  function chiedeConferma(risposta) {
+    const t = String(risposta || "").trim().toLowerCase();
+    return /\?\s*$/.test(t) && (t.split(/\s+/).length <= 3 || /^(uso|metto|va|vanno|posso|si usa|ci va|ci vuole|devo usare|devo mettere|è giusto|e giusto|va bene|scrivo)\b/.test(t));
+  }
+  const CONFERMA_SI = /^\s*(s[iì]|esatto|giusto|certo|proprio|corretto|perfetto|ok|bravo|brava)\b/i;
+
   function motivoScartoScoperta(a, m, ps, s, risposta, tentativo) {
     const arrivato = a.classe === "arrivato";
     if (ps.attese && arrivato) return "arrivato su una frase da completare (decide il programma)";
@@ -1523,6 +1531,7 @@ function creaMotore(UNIT) {
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
     if (a.classe === "domanda" && regolaInRispostaScopri(m)) return "domanda: regola nella risposta";
+    if (a.classe === "domanda" && ps.attese && chiedeConferma(risposta) && CONFERMA_SI.test(m)) return "conferma la risposta che lo studente chiede";
     if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
     return "";
   }
