@@ -2226,7 +2226,8 @@ function creaMotore(UNIT) {
   - Quando lo fai riprovare, non dirgli quale parola va in QUELLA frase (né «qui usiamo…», né «la risposta è…»): ricordagli il significato delle forme e chiedigli che cosa succede nella situazione, poi lascia decidere a lui. Non dargli nemmeno la forma da scrivere («has been + -ing», «had + participio»): la forma la spieghi nella lezione, non mentre riprova una frase. Lo stesso quando ti fa una domanda: rispondi in generale con un esempio diverso, senza applicarlo alla frase dell'esercizio.
   - Non proporre tu le alternative fra cui scegliere («should o had better?»): lo studente scrive da solo la forma che serve.
   - Se scrive solo «ok» o «sì», non lodarlo: vai avanti.
-  - Una sola frase da completare per messaggio; se mancano più parole, non dire «la parola mancante». Gli esempi che mostri sono frasi intere, senza spazi vuoti.
+  - Una sola frase da completare per messaggio, con UN solo spazio ___ (anche se mancano più parole, lo spazio è uno). La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
+  - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo». Gli esempi che mostri sono frasi intere, senza spazi vuoti.
   - Sii onesta e precisa sulle risposte: «esatto» solo se la risposta è giusta. Una domanda non è una risposta: rispondi alla domanda senza dire «bravo» o «giusto». Non attribuire allo studente cose che non ha fatto o detto.
   - Non sai se lo studente è un ragazzo o una ragazza: usa forme neutre («Esatto!», «Ottimo!», «Ben fatto!», «Fai attenzione»), mai «bravo/brava», «attento/attenta».
   - Se chiede come si fa, che cosa vuol dire, che differenza c'è: rispondi davvero, con un esempio. Non rimandare mai.
@@ -2261,14 +2262,31 @@ function creaMotore(UNIT) {
   const TOOL_SPIEGA = {
     name: "lezione",
     description: "Il prossimo messaggio dell'insegnante allo studente.",
-    input_schema: { type: "object", properties: { messaggio: { type: "string", description: "quello che dici allo studente" } }, required: ["messaggio"] }
+    input_schema: { type: "object", properties: {
+      messaggio: { type: "string", description: "quello che dici allo studente" },
+      risposte: { type: "array", items: { type: "string" }, description: "se il messaggio finisce con una frase da completare: TUTTE le parole giuste che possono andare nello spazio (solo quello che va nello spazio, con le varianti corrette: contratte, estese, sinonimi); altrimenti vuoto" }
+    }, required: ["messaggio"] }
   };
 
   async function spiega(env, body) {
     const t = Math.max(0, Math.min(UNIT.topics.length - 1, parseInt(body.topic, 10) || 0));
     const msgs = (Array.isArray(body.messages) ? body.messages : []).slice(-30)
-      .map(m => ({ chi: m && m.chi === "tutor" ? "Insegnante" : "Studente", testo: String(m && m.testo || "").replace(/[<>]/g, " ").slice(0, 1500) }))
+      .map(m => ({ chi: m && m.chi === "tutor" ? "Insegnante" : "Studente", testo: String(m && m.testo || "").replace(/[<>]/g, " ").slice(0, 1500),
+        risposte: m && Array.isArray(m.risposte) ? m.risposte.filter(x => typeof x === "string" && x.trim()).slice(0, 12).map(x => x.slice(0, 120)) : [] }))
       .filter(m => m.testo.trim());
+    // la risposta dello studente la controlla il programma, sulle risposte previste dall'insegnante quando ha proposto la frase:
+    // così una risposta giusta non viene mai detta sbagliata
+    let notaRisposta = "";
+    const ultimo = msgs[msgs.length - 1], prima = msgs[msgs.length - 2];
+    if (ultimo && ultimo.chi === "Studente" && prima && prima.chi === "Insegnante" && prima.risposte.length) {
+      const fr = (prima.testo.split("\n").reverse().find(r => r.includes("___")) || "");
+      const r0 = ultimo.testo.trim();
+      const rc = fr ? togliContesto(r0, fr) : r0;
+      const ok = prima.risposte.some(a => uguali(a, r0) || uguali(a, rc) || (fr && uguali(togliContesto(a, fr), rc)));
+      notaRisposta = ok
+        ? "NOTA DEL PROGRAMMA: la risposta dello studente è GIUSTA (coincide con una delle risposte giuste che avevi previsto). Confermalo con chiarezza («Esatto»), senza dire che è sbagliata."
+        : `NOTA DEL PROGRAMMA: il messaggio dello studente non coincide con le risposte che avevi previsto (${prima.risposte.join(" / ")}). Se è un tentativo di risposta, controlla con attenzione se è comunque corretta in questa frase prima di dire che è sbagliata: se è corretta, diglielo.`;
+    }
     const dialogo = msgs.length ? msgs.map(m => `${m.chi}: ${m.testo}`).join("\n\n") : "(la lezione non è ancora cominciata)";
     const user = `${materialeArgomento(t)}
 
@@ -2276,13 +2294,15 @@ function creaMotore(UNIT) {
   ${dialogo}
   </lezione_fin_qui>
 
+  ${notaRisposta}
   COMPITO: ${msgs.length ? "scrivi il tuo prossimo messaggio: rispondi a quello che lo studente ha appena scritto, e vai avanti con la lezione." : "comincia la lezione: saluta in una riga, poi parti dal racconto o dalle frasi in inglese e spiega il significato delle parole e delle forme."}`;
     modelloPrima = env.MODEL_SPIEGA || MODEL_RISERVA;
     scadenza = Date.now() + 45000;
     const a = await chiamaRaw(env, METODO_SPIEGA, user, TOOL_SPIEGA);
     modelloPrima = null;
     if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
-    return { messaggio: a.messaggio.trim().slice(0, 3000) };
+    const risposte = Array.isArray(a.risposte) ? a.risposte.filter(x => typeof x === "string" && x.trim()).slice(0, 12) : [];
+    return { messaggio: a.messaggio.trim().slice(0, 3000), risposte };
   }
 
   return { gestisci, diagnosi: () => diag };

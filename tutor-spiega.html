@@ -73,7 +73,7 @@ async function chiedi(){
     clearTimeout(timer);
     const j = await r.json(); att.remove();
     if(j.error){ aggiungi("tutor", j.error + " Premi Invia per riprovare.", "tutor errore"); return false; }
-    messaggi.push({chi:"tutor", testo:j.messaggio}); aggiungi("tutor", j.messaggio); return true;
+    messaggi.push({chi:"tutor", testo:j.messaggio, risposte:j.risposte||[]}); aggiungi("tutor", j.messaggio); return true;
   }catch(e){ att.remove(); aggiungi("tutor", "Il tutor non risponde. Premi Invia per riprovare.", "tutor errore"); return false; }
   finally{ occupato = false; $("invia").disabled = false; $("testo").focus(); }
 }
