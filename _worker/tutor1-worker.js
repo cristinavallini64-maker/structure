@@ -2229,6 +2229,7 @@ function creaMotore(UNIT) {
   - Se scrive solo «ok» o «sì», non lodarlo: vai avanti.
   - Una sola frase da completare per messaggio, con UN solo spazio ___, e nello spazio deve poter andare TUTTA la parte da scrivere, di seguito. Se la forma è spezzata dal soggetto (domande: Is the chocolate tested…?, Have you been waiting…?), metti nello spazio sia il verbo sia il soggetto, con il soggetto tra parentesi insieme al verbo: «___ (the cocoa beans / roast) in the oven?» → risposta «Are the cocoa beans roasted». Mai uno spazio prima del soggetto e il verbo tra parentesi dopo il soggetto.
   - Lo spazio va proprio sul punto che si sta studiando, quello che lo studente deve decidere capendo il significato: con stop/remember/forget sul secondo verbo («I stopped ___ (drink) some water»), non su stop; con i tempi sul verbo, con i connettori sul connettore. Mai uno spazio su una parola che non c'entra con l'argomento, e mai la parte da decidere già scritta nella frase («I ___ (stop) to drink» non esercita niente).
+  - La frase da completare è TUTTA in inglese (la situazione in italiano, se serve, va in una riga sopra, non dentro la frase).
   - Fai domande (frasi interrogative) solo ogni tanto, se l'argomento lo prevede; di solito frasi affermative o negative. La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
   - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo».
   - Prima di proporre una frase, rileggila con la risposta dentro: deve avere senso nella situazione (non «sarò arrabbiato a meno che tu non perda le mie chiavi»), e le parole tra parentesi non devono contraddire la risposta (niente «not» tra parentesi se la risposta è positiva). Se qualcosa non torna, cambia la frase.
@@ -2283,13 +2284,14 @@ function creaMotore(UNIT) {
     input_schema: { type: "object", properties: {
       corretto: { type: "boolean", description: "true se la frase completata con la prima risposta è corretta, naturale e sensata nella situazione, le parole tra parentesi non contraddicono la risposta, e lo spazio è proprio sul punto dell'argomento (lo studente deve deciderlo capendo il significato, non è già scritto nella frase)" },
       altre_giuste: { type: "array", items: { type: "string" }, description: "altre risposte corrette per lo spazio, se ce ne sono" },
-      problema: { type: "string", description: "se non è corretto: il problema in una frase" }
+      problema: { type: "string", description: "se non è corretto: il problema in una frase" },
+      risposte_giuste: { type: "array", items: { type: "string" }, description: "le parole giuste che vanno nello spazio (solo lo spazio)" }
     }, required: ["corretto"] }
   };
   async function verificaEsercizio(env, frase, risposte, argomento) {
     const prima = modelloPrima; modelloPrima = null;
     const v = await chiamaRaw(env, "Sei un madrelingua inglese esperto di grammatica. Controlli esercizi per studenti italiani. Sii rigoroso ma non pignolo: segnala solo errori veri.",
-      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?`, TOOL_VERIFICA);
+      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nIn "risposte_giuste" scrivi tutte le parole giuste per lo spazio.\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?`, TOOL_VERIFICA);
     modelloPrima = prima;
     return v;
   }
@@ -2351,10 +2353,17 @@ function creaMotore(UNIT) {
       else if (a) a = { messaggio: "Esatto! La tua risposta è giusta. Scrivi «ok» e andiamo avanti.", risposte: [] };
     }
     // l'esercizio nuovo viene controllato; se è sbagliato, l'insegnante lo riscrive (una volta)
-    if (a && Array.isArray(a.risposte) && a.risposte.length && restante() > 12000) {
+    if (a && typeof a.messaggio === "string" && restante() > 12000) {
       const fr = rigaFrase(a.messaggio);
+      if (!Array.isArray(a.risposte)) a.risposte = [];
+      // frase con parole italiane dentro: da riscrivere
+      const italiano = fr && (` ${fr.toLowerCase().replace(/\([^)]*\)/g, " ")} `.match(/\s(il|lo|la|gli|che|per|non|è|sono|quindi|lui|lei|ha|ho|con|della|del|nel|nella|sotto|perché|mentre|quando)\s/g) || []).length >= 2;
+      if (fr && italiano) a.risposte = a.risposte.length ? a.risposte : ["?"];
       if (fr) {
-        const v = await verificaEsercizio(env, fr, a.risposte, UNIT.topics[t].title);
+        const v = await verificaEsercizio(env, fr, a.risposte.length ? a.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title);
+        if (v && italiano) { v.corretto = false; v.problema = "la frase da completare deve essere tutta in inglese"; }
+        // risposte mancanti: le prendo dalla verifica
+        if (v && v.corretto !== false && !a.risposte.length && Array.isArray(v.risposte_giuste)) a.risposte = v.risposte_giuste.filter(x => typeof x === "string" && x.trim()).slice(0, 8);
         if (v && v.corretto === false && restante() > 12000) {
           diag.push({ esercizio_scartato: fr, problema: v.problema || "" });
           const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${fr}», risposte: ${a.risposte.join(" / ")}) non va bene: ${String(v.problema || "non ha senso o la risposta è sbagliata").slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta.`, TOOL_SPIEGA);
@@ -2362,6 +2371,7 @@ function creaMotore(UNIT) {
         }
       }
     }
+    if (a && Array.isArray(a.risposte) && a.risposte[0] === "?") a.risposte = [];
     modelloPrima = null;
     if (!a || typeof a.messaggio !== "string" || !a.messaggio.trim()) return { error: `Il tutor non risponde. Riprova fra poco. [${ultimoErrore || "risposta vuota"}]` };
     const risposte = Array.isArray(a.risposte) ? a.risposte.filter(x => typeof x === "string" && x.trim()).slice(0, 12) : [];
