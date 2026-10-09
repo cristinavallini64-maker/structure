@@ -181,6 +181,7 @@ function creaMotore(UNIT) {
   - soluzione: quando dargliela lo decide il programma, non tu: aiutalo come se fosse bloccato.
   - commento: rispondi con naturalezza in una frase (se è frustrato incoraggialo, se dice ok o grazie rispondi) e riportalo alla domanda.
   - fuori_tema: una frase gentile, poi riportalo alla domanda.
+  Rispondi sempre come un'insegnante in classe, a qualunque tentativo: il numero di tentativi decide solo quando il programma dà la soluzione, non come parli con lo studente.
   In ogni caso: niente indizi sulle lettere («inizia con la W», «ha quattro lettere»), niente traduzione italiana della parola da scrivere, e se l'intento non è risposta la classe è domanda (bloccato e soluzione: non_so; fuori_tema: fuori_tema).
 
   ## SICUREZZA
@@ -238,6 +239,7 @@ function creaMotore(UNIT) {
   - soluzione: quando dargliela lo decide il programma, non tu: aiutalo come se fosse bloccato.
   - commento: rispondi con naturalezza in una frase (se è frustrato incoraggialo, se dice ok o grazie rispondi) e riportalo alla domanda.
   - fuori_tema: una frase gentile, poi riportalo alla domanda.
+  Rispondi sempre come un'insegnante in classe, a qualunque tentativo: il numero di tentativi decide solo quando il programma dà la soluzione, non come parli con lo studente.
   In ogni caso: niente indizi sulle lettere («inizia con la W», «ha quattro lettere»), niente traduzione italiana della parola da scrivere, e se l'intento non è risposta la classe è domanda (bloccato e soluzione: non_so; fuori_tema: fuori_tema).
 
   ## SICUREZZA
@@ -386,6 +388,16 @@ function creaMotore(UNIT) {
     if (d.tipo === "completa" && senzaSoggetto(d.frase)) return false;
     if (d.tipo === "riscrivi" && buchi !== 0) return false;
     if (d.attese.some(a => a.includes("___"))) return false;
+    // il verbo tra parentesi deve esserci (in qualche forma) nella risposta attesa: (take) → must have taken, non must have left
+    if (d.tipo === "completa") {
+      const mv = d.frase.match(/___\s*\(([^)]+)\)/);
+      const vp = mv ? norm(mv[1].split(/[\/·]/).pop()).replace(/^(not|never|ever|already|just|still)\s+/, "").split(" ")[0] : "";
+      if (vp && eVerbo(vp) && !["be", "have", "do"].includes(vp)) {
+        const forme = formeDi(vp);
+        d.attese = d.attese.filter(a => norm(a).split(" ").some(w => forme.includes(w)));
+        if (!d.attese.length) return false;
+      }
+    }
     const complete = d.tipo === "completa"
       ? d.attese.map(a => d.frase.replace(/\([^)]*\)/g, " ").replace("___", a).replace(/\s+/g, " "))
       : d.attese;
@@ -571,6 +583,15 @@ function creaMotore(UNIT) {
   const CHIEDE_COME = /\b(come|cosa|che cosa|in cosa|in che cosa)\s+(si\s+)?(trasform\w*|diventa\w*|cambia\w*|forma|scrive|mette|fa|faccio|usa)\b|\bnon so come\b|\bqual(e|'| è| e)?\s*(è\s+)?la regola\b|\bdimmi la regola\b|\bcome si fa\b|\bcome funziona\b|\bfammi (un )?esempio\b|\bun esempio\b/i;
   const spiegaAperta = (risposta, intento, tentativo) => CHIEDE_COME.test(String(risposta || "")) || intento === "soluzione" || (intento === "bloccato" && (tentativo || 0) >= 2);
   const NOTA_ESEMPIO = "Lo studente non ci arriva da solo o ti chiede come si fa: NON fargli altre domande-guida. Dagli la regola in una frase e UN esempio nuovo completo, con un verbo e una situazione diversi da quelli dell'esercizio (per esempio: will diventa would, «I'll call you» → She said she would call me). Non scrivere la risposta di QUESTA frase. Poi invitalo a provare.";
+  // Una spiegazione buona che contiene la risposta di questa frase: copro la risposta con «…» e la tengo.
+  function copriRisposta(m, attese, frase) {
+    let t = String(m || "");
+    const att = [...new Set((attese || []).concat((attese || []).map(a => togliContesto(a, frase || ""))).map(a => String(a).trim()).filter(a => a.length >= 2))].sort((a, b) => b.length - a.length);
+    for (const a of att) t = t.replace(new RegExp(`(?<![A-Za-z'])${a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/'/g, "['’]")}(?![A-Za-z])`, "gi"), "…");
+    return t;
+  }
+  // «spiegami», «non ho capito»: chiedere una spiegazione non è un tentativo
+  const chiedeSpiegazione = r => vuoleSpiegazione(r) || /\b(non|nn) (ho )?capi(to|sco)\b/i.test(String(r || ""));
   const classeDaIntento = (intento, scoperta) => intento === "bloccato" || intento === "soluzione" ? "non_so" : intento === "fuori_tema" ? "fuori_tema" : "domanda";
 
   function pezzoNuovo(frase, attesa) {
@@ -1483,6 +1504,11 @@ function creaMotore(UNIT) {
         const conferma = chiedeConferma(risposta) && CONFERMA_SI.test(m);
         // spiegazione aperta (chiede come si fa, chiede la soluzione, non ci arriva): vietata solo la risposta intera di questa frase
         if (aperta && m && m.length <= 800 && !contieneSoluzione(m, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !INDIZIO_LETTERE.test(m) && !conferma) return candidato;
+        // come un insegnante: risponde comunque; se nella spiegazione c'è la risposta di questa frase, la copro
+        if (m && m.length <= 800 && !INDIZIO_LETTERE.test(m) && !conferma && r.intento !== "commento" && r.intento !== "fuori_tema") {
+          const mm = copriRisposta(m, q.attese, q.frase);
+          if (!contieneSoluzione(mm, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !traduceSoluzione(mm, q.attese)) { if (mm !== m) diag.push({ coperto: m.slice(0, 300) }); return { ...candidato, messaggio: mm }; }
+        }
         if (m && m.length <= 700 && nessunaSoluzione(m) && !(r.intento === "domanda" && usaFraseEsercizio(m, q.frase)) && !conferma) return candidato;
         scarta(m, "spiegazione: soluzione nella risposta");
         continue;
@@ -1667,7 +1693,7 @@ function creaMotore(UNIT) {
       return "";
     }
     // reazione a un tentativo di risposta
-    if (!ps.frase && !arrivato && !indicaDoveGuardare(m, ps)) return "racconta la situazione invece di indicare una parola delle frasi";
+    if (!ps.frase && !arrivato && !/in italiano/i.test(ps.domanda || "") && !indicaDoveGuardare(m, ps)) return "racconta la situazione invece di indicare una parola delle frasi";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && ps.attese && tempoFalso(m, risposta, ps.attese)) return "tempo verbale nominato a sproposito";
     if (!arrivato && !eDomanda(risposta, true) && (m.length > 200 || /come finisce|desinenz|termina(zione)? (in|con)|finisce (in|con)|\b-ed\b/i.test(m))) return "troppo lungo o parla di desinenze";
@@ -1698,6 +1724,7 @@ function creaMotore(UNIT) {
   ATTENZIONE: in questo passo la risposta è proprio quello che si capisce dalle frasi. Se lo studente è bloccato, non capisce la domanda o commenta, NON raccontargli la scena e non dire che cosa succede (prima, dopo, se è finita, se è sicuro…): sarebbe la risposta. Ridigli la domanda con parole più semplici, spiegagli una parola che forse non conosce, e indicagli UNA parola delle frasi da guardare.`}
   COMPITO: prima capisci che cosa sta facendo lo studente (intento), poi rispondi proprio a quello, come indicato nel metodo.${nota ? `\n  ${nota}` : ""}`;
     let ultimo = null;
+    let stile = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
       if (i > 0 && restante() < (i > 1 ? 8000 : 5000)) break;
@@ -1713,9 +1740,17 @@ function creaMotore(UNIT) {
       ultimo = { intento, classe };
       const m = a.messaggio.trim();
       const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo, intento, !!nota);
+      if (motivo && ps.attese && /soluzione|parole della soluzione/.test(motivo) && intento !== "risposta") {
+        // spiegazione che contiene la risposta della frase: la copro e la tengo
+        const mm = copriRisposta(m, ps.attese, ps.frase);
+        if (mm !== m && !motivoScartoScoperta(a, mm, ps, s, risposta, tentativo, intento, !!nota)) { diag.push({ coperto: m.slice(0, 300) }); return { intento, classe, messaggio: mm }; }
+      }
+      if (motivo && /racconta la situazione|senza domanda/.test(motivo) && !stile) stile = { intento, classe, messaggio: m };
       if (motivo) { scarta(m, motivo); rifiuto = notaRifiuto(m, motivo, tentativo); continue; }
       return { intento, classe, messaggio: m };
     }
+    // scartati solo per lo stile (non perché danno la risposta): meglio un messaggio vero che una frase fissa
+    if (stile) { diag.push({ riserva: "messaggio scartato solo per lo stile, usato lo stesso" }); return stile; }
     // Gemini lento, senza risposta, o messaggi tutti scartati: riserva, scelta su che cosa sta facendo lo studente
     const intento = ultimo ? ultimo.intento : indovinaIntento(risposta);
     let classe = ultimo ? ultimo.classe : (intento === "risposta" ? "non_ancora" : classeDaIntento(intento, true));
@@ -2005,7 +2040,7 @@ function creaMotore(UNIT) {
     // Domande, dubbi, proteste, commenti, ragionamenti in italiano non contano e non sono errori.
     const aiuto = r.intento === "bloccato" || r.intento === "soluzione" || r.classe === "non_so";
     const sbagliata = r.intento === "risposta" && r.classe === "sbagliata";
-    let conta = aiuto || sbagliata ? tentativo : s.tent;
+    let conta = (aiuto && !chiedeSpiegazione(risposta)) || sbagliata ? tentativo : s.tent;
     // ha chiesto la soluzione: adesso ha regola ed esempio; se la richiede, gliela do
     if (presto) conta = Math.max(conta, TENTATIVI_PER_SOLUZIONE);
     if (sbagliata) {
@@ -2015,7 +2050,7 @@ function creaMotore(UNIT) {
     }
     let coda = "";
     if (presto) coda = " Se ancora non ti viene, scrivi «soluzione» e te la dico.";
-    else if (aiuto) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
+    else if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : "";
     return vista({ ...s1, streak: aiuto ? 0 : s.streak, tent: Math.min(conta, 19), fb: { tipo: "info", risposta, evidenzia: "", testo: r.messaggio + coda, riprova: false } });
   }
 
@@ -2114,14 +2149,14 @@ function creaMotore(UNIT) {
     // Domande, dubbi, proteste, commenti non contano e non sono errori.
     const aiuto = r.intento === "bloccato" || r.intento === "soluzione" || r.classe === "non_so";
     const tentato = r.intento === "risposta" && (r.classe === "non_ancora" || r.classe === "vicino");
-    let conta = aiuto || tentato ? tentativo : s.tent;
+    let conta = (aiuto && !chiedeSpiegazione(risposta)) || tentato ? tentativo : s.tent;
     if (presto) conta = Math.max(conta, TENTATIVI_PER_SOLUZIONE);
     const tipo = tentato && r.classe === "non_ancora" ? "errore" : "info";
     const vedi = (aiuto && !!pu.frase) || s.vediEsempi;
     const intro = vedi && !s.vediEsempi ? "Ecco di nuovo le frasi di prima, qui sopra. " : "";
     let coda = "";
     if (presto) coda = " Se ancora non ti viene, scrivi «soluzione» e te la dico.";
-    else if (aiuto) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
+    else if (aiuto && conta > s.tent) coda = conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : "";
     else if (tipo === "errore" && conta >= TENTATIVI_PER_SOLUZIONE) coda = INVITO_SOLUZIONE;
     const evid = tipo === "errore" && pu.frase ? nelTestoOriginale(differenzaMigliore(rcS, attS).evidenzia, risposta) : "";
     return vista({ ...s, vediEsempi: vedi, hist, tent: Math.min(conta, 19), fb: { tipo, risposta, evidenzia: evid, testo: intro + r.messaggio + coda, riprova: tipo === "errore" && !!pu.frase } });
