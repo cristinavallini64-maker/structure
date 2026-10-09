@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"bricks": "mattoni", "factory": "fabbrica", "smartphones": "smartphone", "velvet": "velluto", "trainers": "scarpe da ginnastica", "silk": "seta", "silkworms": "bachi da seta", "customers": "clienti", "for free": "gratis", "eco-friendly leather": "ecopelle", "leather": "pelle", "diamonds": "diamanti", "skyscraper": "grattacielo", "uniforms": "divise", "gold coins": "monete d'oro", "safe": "cassaforte", "ferry": "traghetto", "invent": "inventare", "stole": "rubare", "form": "modulo", "resurfaced": "riasfaltata", "votes": "voti", "culprit": "colpevole", "bridge": "ponte", "sand": "sabbia", "cancelled": "cancellato", "boarding": "imbarcarsi"};
+const GLOSS={"bricks": "mattoni", "factory": "fabbrica", "smartphones": "smartphone", "velvet": "velluto", "trainers": "scarpe da ginnastica", "silk": "seta", "silkworms": "bachi da seta", "customers": "clienti", "for free": "gratis", "eco-friendly leather": "ecopelle", "leather": "pelle", "diamonds": "diamanti", "skyscraper": "grattacielo", "uniforms": "divise", "gold coins": "monete d'oro", "safe": "cassaforte", "ferry": "traghetto", "invent": "inventare", "stole": "rubare", "form": "modulo", "resurfaced": "riasfaltata", "votes": "voti", "culprit": "colpevole", "bridge": "ponte", "sand": "sabbia", "cancelled": "cancellato", "boarding": "imbarcarsi", "bench": "panchina", "ballpoint pen": "penna a sfera", "journalist": "giornalista", "exam room": "aula d'esame", "flat upstairs": "appartamento di sopra", "engineers": "ingegneri", "firefighters": "vigili del fuoco", "glasses": "occhiali", "castle": "castello", "thieves": "ladri", "biscuits": "biscotti", "wooden": "di legno", "denim": "jeans", "striped": "a righe", "cotton": "cotone", "antique": "antico", "vase": "vaso", "pendant": "ciondolo", "heart-shaped": "a forma di cuore", "curtains": "tende", "woollen": "di lana", "carpet": "tappeto", "cottage": "casetta", "muddy": "infangate", "motorway": "autostrada", "picnic": "picnic", "lift doors": "porte dell'ascensore", "dictionary": "dizionario", "code": "codice"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -355,6 +355,76 @@ exercises:[
 {type:"fill",q:"« Il ponte è stato costruito nel 1932. » → The bridge ___ in 1932.",hint:"(build)",a:"was built",accept:["was built"],instruction:"Scrivi in inglese la parte che manca."},
 {type:"fill",q:"« Il colpevole non è ancora stato trovato. » → The culprit ___ yet.",hint:"(not · find)",a:"hasn't been found",accept:["hasn't been found","has not been found"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
+,
+{id:"rA",type:"review",title:"⟳ RIPASSO A — il passivo",desc:"present simple passive e gli altri tempi insieme · frasi nuove",
+rule:`<strong>RIPASSO A &mdash; Unit 9:</strong><br>
+&#x2714; <strong>be</strong> nel tempo giusto + <strong>participio passato</strong>; chi fa l'azione con <strong>by</strong>.<br>
+&#x2714; Continuous con <em>being</em>; dopo i modali e <em>will</em>: <em>be</em> + participio.`,
+exercises:[
+{type:"fill",q:"Don't sit on that bench: it ___.",hint:"(just · paint)",a:"has just been painted",accept:["has just been painted"],instruction:"Completa."},
+{type:"fill",q:"The first ballpoint pen ___ by a Hungarian journalist.",hint:"(invent)",a:"was invented",accept:["was invented"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This castle was build in the 14th century.",a:"This castle was built in the 14th century.",accept:["This castle was built in the 14th century."]},
+{type:"fill",q:"Phones ___ in the exam room.",hint:"(not · allow)",a:"aren't allowed",accept:["aren't allowed","are not allowed"],instruction:"Completa."},
+{type:"fill",q:"Sorry about the noise: the flat upstairs ___ this month.",hint:"(rebuild)",a:"is being rebuilt",accept:["is being rebuilt"],instruction:"Completa."},
+{type:"mc",q:"« The bridge is being repaired by a team of engineers. » Va bene così?",options:["Sì: is being + participio, e by per chi fa il lavoro.","No: ci vuole « is been repaired ».","No: ci vuole « is repairing by ».","No: ci vuole « is being repair »."],a:"Sì: is being + participio, e by per chi fa il lavoro."},
+{type:"fill",q:"By the time the firefighters arrived, everyone ___ out of the building.",hint:"(take)",a:"had been taken",accept:["had been taken","had been brought"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Smoking isn't allow in the station.",a:"Smoking isn't allowed in the station.",accept:["Smoking isn't allowed in the station.","Smoking is not allowed in the station."]},
+{type:"fill",q:"Your new glasses ___ tomorrow.",hint:"(deliver)",a:"will be delivered",accept:["will be delivered","are going to be delivered","'ll be delivered"],instruction:"Completa."},
+{type:"mc",q:"« The paintings were stolen during the night. » Quale seguito sta in piedi?",options:["The police are looking for the thieves.","The thieves are still painting them.","The museum is selling them tomorrow.","Nobody has touched them."],a:"The police are looking for the thieves."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The thieves haven't been catch yet.",a:"The thieves haven't been caught yet.",accept:["The thieves haven't been caught yet.","The thieves have not been caught yet."]},
+{type:"fill",q:"« Questi biscotti li ha fatti la nonna. » → These biscuits ___ by my grandma.",hint:"(make)",a:"were made",accept:["were made","have been made"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:3,type:"study",title:"LIVELLO 03 — ADJECTIVE ORDER",desc:"opinione · dimensione · forma · età · colore · motivo · origine · materiale",
+rule:`<strong>ADJECTIVE ORDER &mdash; Unit 9:</strong><br>
+&#x2714; Quando pi&ugrave; aggettivi precedono lo stesso nome, l'ordine &egrave; fisso:<br>
+&nbsp;&nbsp;&nbsp;<strong>opinione &rarr; dimensione &rarr; forma &rarr; et&agrave; &rarr; colore &rarr; motivo &rarr; origine &rarr; materiale</strong> + nome.<br>
+&#x2714; <em>a <strong>lovely</strong> (opinione) <strong>small</strong> (dimensione) <strong>round</strong> (forma) <strong>old</strong> (et&agrave;) <strong>green</strong> (colore) <strong>Japanese</strong> (origine) <strong>china</strong> (materiale) bowl</em>.<br>
+&#x26A0; In italiano molti aggettivi vanno dopo il nome (<em>una borsa di pelle marrone</em>); in inglese vanno <strong>tutti prima</strong>: <em>a brown leather bag</em>.<br>
+&#x26A0; Di solito non si usano pi&ugrave; di tre aggettivi insieme.`,
+exercises:[
+{type:"fill",q:"We've bought a ___ table for the kitchen.",hint:"(wooden · round · big)",a:"big round wooden",accept:["big round wooden"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"fill",q:"Grandma made us a ___ dish for Sunday lunch.",hint:"(Italian · delicious · traditional)",a:"delicious traditional Italian",accept:["delicious traditional Italian"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"He was wearing a leather black new jacket.",a:"He was wearing a new black leather jacket.",accept:["He was wearing a new black leather jacket."]},
+{type:"fill",q:"He always wears the same pair of ___ jeans.",hint:"(denim · blue · old)",a:"old blue denim",accept:["old blue denim"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"fill",q:"I got a ___ T-shirt for my birthday.",hint:"(striped · cotton · new)",a:"new striped cotton",accept:["new striped cotton"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"mc",q:"Quale ordine è giusto?",options:["a nice little plastic toy","a little nice plastic toy","a plastic nice little toy","a nice plastic little toy"],a:"a nice little plastic toy"},
+{type:"fill",q:"There's a ___ vase on the shelf: please be careful.",hint:"(antique · beautiful · Chinese)",a:"beautiful antique Chinese",accept:["beautiful antique Chinese"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We stayed in a stone old lovely cottage by the sea.",a:"We stayed in a lovely old stone cottage by the sea.",accept:["We stayed in a lovely old stone cottage by the sea."]},
+{type:"fill",q:"Her boyfriend gave her a ___ pendant.",hint:"(silver · tiny · heart-shaped)",a:"tiny heart-shaped silver",accept:["tiny heart-shaped silver"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"fill",q:"The theatre has ___ curtains.",hint:"(velvet · red · long)",a:"long red velvet",accept:["long red velvet"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"He's got an Italian red fast car.",a:"He's got a fast red Italian car.",accept:["He's got a fast red Italian car.","He has got a fast red Italian car."]},
+{type:"fill",q:"In the hall there's a ___ carpet.",hint:"(Turkish · huge · woollen)",a:"huge Turkish woollen",accept:["huge Turkish woollen","huge Turkish wool"],instruction:"Scrivi gli aggettivi nell'ordine giusto."},
+{type:"mc",q:"« a beautiful old French wooden clock » Perché beautiful viene per primo?",options:["Perché è un'opinione, e l'opinione va sempre prima.","Perché è l'aggettivo più lungo.","Perché è l'aggettivo più importante.","Perché comincia con la b."],a:"Perché è un'opinione, e l'opinione va sempre prima."},
+{type:"fill",q:"« una bella borsa di pelle marrone » → a ___ bag",hint:"(bella · marrone · di pelle)",a:"beautiful brown leather",accept:["beautiful brown leather","nice brown leather","lovely brown leather"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:4,type:"study",title:"LIVELLO 04 — PHRASAL VERBS",desc:"significato · senza complemento · separabili e inseparabili · dove va il pronome · tre parti",
+rule:`<strong>PHRASAL VERBS &mdash; Unit 9:</strong><br>
+&#x2714; Verbo + particella (avverbio o preposizione): il significato spesso cambia. &mdash; <em>work out</em> = capire, risolvere &middot; <em>put off</em> = rimandare &middot; <em>run into</em> = incontrare per caso.<br>
+&#x2714; Alcuni non hanno complemento: <em>The car <strong>broke down</strong>. &middot; I <strong>get up</strong> at seven.</em><br>
+&#x2714; Inseparabili: il complemento va <strong>dopo</strong> la particella. &mdash; <em>I'm <strong>looking for</strong> my keys.</em><br>
+&#x2714; Separabili: il complemento pu&ograve; stare prima o dopo la particella (<em>turn up the volume / turn the volume up</em>), ma il <strong>pronome va sempre in mezzo</strong>: <em>turn <strong>it</strong> up</em> (non &laquo;turn up it&raquo;).<br>
+&#x2714; Quelli di tre parti non si separano mai: <em>look forward to, get on with, come up with</em>.`,
+exercises:[
+{type:"fill",q:"I didn't understand the maths homework, but in the end I ___ the answer on my own.",hint:"(work out)",a:"worked out",accept:["worked out"],instruction:"Completa."},
+{type:"fill",q:"If you don't know a word, ___ in the dictionary.",hint:"(look up · it)",a:"look it up",accept:["look it up"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Can you turn down it, please? I'm studying.",a:"Can you turn it down, please? I'm studying.",accept:["Can you turn it down, please? I'm studying."]},
+{type:"fill",q:"Your shoes are muddy: ___ before you come in!",hint:"(take off · them)",a:"take them off",accept:["take them off"],instruction:"Completa."},
+{type:"fill",q:"I'm really ___ the school trip to London.",hint:"(look forward to)",a:"looking forward to",accept:["looking forward to"],instruction:"Completa."},
+{type:"mc",q:"« We set up a book club last year. » Che cosa vuol dire?",options:["Abbiamo fondato un club del libro.","Abbiamo chiuso un club del libro.","Ci siamo iscritti a un club del libro.","Abbiamo sistemato i libri del club."],a:"Abbiamo fondato un club del libro."},
+{type:"fill",q:"Last summer my grandparents ___ our cat while we were on holiday.",hint:"(look after)",a:"looked after",accept:["looked after","took care of"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"I'm looking my keys for. Have you seen them?",a:"I'm looking for my keys. Have you seen them?",accept:["I'm looking for my keys. Have you seen them?"]},
+{type:"fill",q:"Sara and her brother ___ each other very well: they argue all the time.",hint:"(not · get on with)",a:"don't get on with",accept:["don't get on with","do not get on with","don't get along with"],instruction:"Completa."},
+{type:"fill",q:"Our car ___ on the motorway, and we had to call for help.",hint:"(break down)",a:"broke down",accept:["broke down"],instruction:"Completa."},
+{type:"mc",q:"« I can't hear the TV. » Quale seguito sta in piedi?",options:["Can you turn it up?","Can you turn it down?","Can you turn it off?","Can you look it up?"],a:"Can you turn it up?"},
+{type:"fill",q:"I ___ my old maths teacher at the supermarket yesterday.",hint:"(run into)",a:"ran into",accept:["ran into","bumped into"],instruction:"Completa."},
+{type:"fill",q:"My cousin always ___ her homework until the last minute.",hint:"(put off)",a:"puts off",accept:["puts off","leaves"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"This is the new code. Please write down it.",a:"This is the new code. Please write it down.",accept:["This is the new code. Please write it down."]},
+{type:"fill",q:"Yesterday our teacher ___ a brilliant idea for the end-of-year party.",hint:"(come up with)",a:"came up with",accept:["came up with","thought up","thought of"],instruction:"Completa."},
+{type:"fill",q:"« Mia sorella si alza alle sette. » → My sister ___ at seven.",hint:"(get up)",a:"gets up",accept:["gets up"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+
 ];
 
 
