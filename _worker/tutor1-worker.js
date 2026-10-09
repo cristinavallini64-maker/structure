@@ -369,10 +369,23 @@ function creaMotore(UNIT) {
   // per le risposte alle domande dello studente: niente regola, ma "X vuol dire Y" per il lessico va bene
   const INDICA = /\b(indica|indicano|esprime|esprimono|descrive|descrivono)\b/i;
   // per le risposte alle domande dello studente in Scopri: «come scriveresti il verbo nella frase?» è solo un invito, non la forma
-  function regolaInRispostaScopri(testo) {
-    const affermazioni = String(testo || "").split(/(?<=[.!?])\s+/).filter(f => !f.trim().endsWith("?"));
-    return ENUNCIA_REGOLA.test(testo) || direttivaRegola(testo) || SPIEGA_PAROLA.test(testo) || TEMPO_SPIEGATO.test(testo)
-      || COME_SI_FORMA.test(testo) || TIPO_DOMANDA.test(testo) || affermazioni.some(f => INDICA.test(f));
+  // le frasi che commentano la parola proposta dallo studente («"When" indica un momento preciso…») sono ammesse:
+  // spiegano perché la SUA proposta non va, senza dire quella giusta
+  function regolaInRispostaScopri(testo, ctx) {
+    const frasi = String(testo || "").split(/(?<=[.!?])\s+/).filter(f => !sullErroreDelloStudente(f, ctx) && !commentaParolaStudente(f, ctx));
+    const resto = frasi.join(" ");
+    const affermazioni = frasi.filter(f => !f.trim().endsWith("?"));
+    return ENUNCIA_REGOLA.test(resto) || direttivaRegola(resto) || SPIEGA_PAROLA.test(resto) || TEMPO_SPIEGATO.test(resto)
+      || COME_SI_FORMA.test(resto) || TIPO_DOMANDA.test(resto) || affermazioni.some(f => INDICA.test(f));
+  }
+  // una frase che parla di una parola inglese scritta dallo studente (anche dentro un commento in italiano: «va bene anche when»)
+  function commentaParolaStudente(f, ctx) {
+    if (!ctx || !ctx.risposta) return false;
+    const q = (String(f).match(/[«"“]([^«»"“”]{1,30})[»"”]/) || [])[1];
+    if (!q) return false;
+    const r = ` ${norm(ctx.risposta)} `;
+    const att = new Set((ctx.attese || []).map(a => norm(a)));
+    return r.includes(` ${norm(q)} `) && !att.has(norm(q));
   }
 
   function regolaInRisposta(testo) {
@@ -892,7 +905,7 @@ function creaMotore(UNIT) {
     String(testo || "").replace(/[«"“]([^«»"“”]{5,80})[»"”]/g, (_, x) => { pezzi.push(x); return _; });
     return pezzi.some(x => {
       const w = x.trim().split(/\s+/);
-      if (w.length < 3 || !w.every(p => /^[A-Za-z',.!?-]+$/.test(p))) return false;
+      if (w.length < 3 || !w.every(p => /^[A-Za-z',.!?-]+$/.test(p)) || rispostaItaliana(x)) return false;
       return norm(x).split(" ").filter(Boolean).some(p => !vis.has(p));
     });
   }
@@ -1530,7 +1543,7 @@ function creaMotore(UNIT) {
     if (!m || m.length > 350) return "vuoto o troppo lungo";
     if (!arrivato && a.classe !== "domanda" && enunciaRegola(m, !!ps.frase && tentativo >= 3, { risposta, attese: ps.attese || [] })) return "enuncia la regola";
     if (!arrivato && a.classe !== "domanda" && !m.includes("?")) return "senza domanda";
-    if (a.classe === "domanda" && regolaInRispostaScopri(m)) return "domanda: regola nella risposta";
+    if (a.classe === "domanda" && regolaInRispostaScopri(m, { risposta, attese: ps.attese || [] })) return "domanda: regola nella risposta";
     if (a.classe === "domanda" && ps.attese && chiedeConferma(risposta) && CONFERMA_SI.test(m)) return "conferma la risposta che lo studente chiede";
     if (arrivato && ((m.includes("?") && !eDomanda(risposta, true)) || ENUNCIA_REGOLA.test(m))) return "arrivato con domanda o regola";
     return "";
@@ -1553,7 +1566,7 @@ function creaMotore(UNIT) {
   <risposta_dello_studente>
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
-  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
+  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se CONTESTA o propone un'altra parola («però va bene anche when»): se la sua proposta va davvero bene, dagli ragione (classe arrivato solo se l'ha scritta come risposta nella frase, altrimenti digli di scriverla); se non va bene, spiegagli perché NON va in questa situazione, partendo dalla sua parola e dalla situazione («the whole time» dice che dorme per tutta la durata…), senza dire quale parola va. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
@@ -1580,7 +1593,12 @@ function creaMotore(UNIT) {
       // un commento o un ragionamento in italiano non è un tentativo sbagliato
       if (eDomanda(risposta, true) && /^(uso|metto|va|vanno|posso|si usa|ci va|ci vuole|devo usare|devo mettere|è giusto|e giusto|va bene)\b/i.test(risposta.trim())) return { classe: "domanda", messaggio: "Provalo: scrivilo nella frase in inglese e ti dico se va bene. Se invece non ti è chiaro che cosa succede nella frase, chiedimelo." };
       if (eDomanda(risposta, true)) return { classe: "domanda", messaggio: "Bella domanda, ma qui non riesco a risponderti bene senza darti la soluzione. Prova a scrivere la frase in inglese: poi ne parliamo. Se ti servono, scrivi «esempi»." };
-      if (rispostaItaliana(risposta) && !/^(non so|non lo so|boh)\b/i.test(risposta.trim())) return { classe: "domanda", messaggio: "Scrivi la tua risposta in inglese nella frase: poi ti dico se va bene. Se hai un dubbio, chiedimelo pure." };
+      if (rispostaItaliana(risposta) && !/^(non so|non lo so|boh)\b/i.test(risposta.trim())) {
+        // «però va bene anche when»: lo studente propone una parola; gli chiedo di ragionarci, invece di ignorarlo
+        const ing = (risposta.match(/\b[a-z]{2,}\b/gi) || []).find(w => !PAROLE_ITA.has(w.toLowerCase()) && /^(when|while|as|since|for|until|before|after|so|such|who|which|that|whose|where|will|would|might|may|must|should|can|could|was|were|had|have|has|did|does|do|been|being|used)$/i.test(w));
+        if (ing) return { classe: "domanda", messaggio: `Secondo te perché va bene «${ing}»? Rileggi la frase: che cosa succede, e per quanto tempo? Poi scrivi la tua risposta nella frase.` };
+        return { classe: "domanda", messaggio: "Scrivi la tua risposta in inglese nella frase: poi ti dico se va bene. Se hai un dubbio, chiedimelo pure." };
+      }
       if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
       if (ps.attese) {
         const rc = togliContesto(risposta, ps.frase);
