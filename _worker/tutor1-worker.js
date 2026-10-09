@@ -457,7 +457,7 @@ function creaMotore(UNIT) {
     const t = String(testo || "").toLowerCase().trim();
     return /\b(dimmi|dammi|mi dici|mi dai|dicci|mostrami|scrivimi|voglio|vorrei|posso avere|puoi dirmi|puoi darmi)\b[^.?!]{0,25}\b(risposta|soluzione)/.test(t)
       || /\b(qual|quale|qual')\s*(è|e|e'|é)\s*(la\s+)?(risposta|soluzione)/.test(t)
-      || /\b(mi arrendo|non ci arrivo|ci rinuncio|rinuncio)\b/.test(t)
+      || /\b(mi arrendo|non ci arrivo|ci rinuncio|rinuncio|dimmel[oa]|dimmi tu|dillo tu|dimmi che cosa (va|ci va|devo scrivere)|dimmi cosa (va|ci va|devo scrivere))\b/.test(t)
       || /^(la\s+)?(risposta|soluzione)(\s+(giusta|corretta))?\s*[?!.]*$/.test(t);
   }
   function testoSoluzione(frase, sol) {
@@ -856,9 +856,27 @@ function creaMotore(UNIT) {
     [/\bthat (night|evening)\b/, /quella (sera|notte)/i],
     [/\bthat day\b/, /quel giorno/i]
   ];
+  // parole-legame: se la risposta è proprio la parola-legame, la sua traduzione italiana nel messaggio è la soluzione
+  // («il papà l'ha comprata quando aveva quindici anni… come traduci quel "quando"?» → when)
+  const TRADUZIONI_LEGAME = [
+    ["when", /\bquando\b/i],
+    ["while", /\bmentre\b/i],
+    ["as soon as", /\b(appena|non appena)\b/i],
+    ["until", /\b(finch[eé]|fino a quando|fino al momento)\b/i],
+    ["till", /\b(finch[eé]|fino a quando)\b/i],
+    ["before", /\bprima (che|di)\b/i],
+    ["after", /\bdopo (che|aver|essere)\b/i],
+    ["since", /\bda quando\b/i],
+    ["although", /\b(anche se|sebbene|bench[eé])\b/i],
+    ["even though", /\b(anche se|sebbene|bench[eé])\b/i],
+    ["unless", /\ba meno che\b/i],
+    ["so that", /\bin modo (che|da)\b|\baffinch[eé]\b/i]
+  ];
   function traduceSoluzione(testo, attese) {
     const a = (attese || []).join(" | ").toLowerCase();
-    return TRADUZIONI.some(([en, it]) => en.test(a) && it.test(String(testo || "")));
+    if (TRADUZIONI.some(([en, it]) => en.test(a) && it.test(String(testo || "")))) return true;
+    const sole = (attese || []).map(x => String(x).toLowerCase().replace(/[^a-z' ]/g, "").trim());
+    return TRADUZIONI_LEGAME.some(([en, it]) => sole.includes(en) && it.test(String(testo || "")));
   }
 
   // Nei passi di osservazione la risposta è una parola delle frasi mostrate («che cosa c'è al posto di I'll?» → would):
@@ -920,11 +938,14 @@ function creaMotore(UNIT) {
 
   function messaggioGuida(testo, q, forte, risposta) {
     return testo.length > 0 && testo.length <= 400 && !enunciaRegola(testo, forte, { risposta, attese: q.attese }) && !contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "")
-      && !svelaParole(testo, q.attese, q.frase, risposta) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese) && !citaFraseInvisibile(testo, `${q.frase} ${risposta || ""}`);
+      && !svelaParole(testo, q.attese, q.frase, risposta) && !INDIZIO_LETTERE.test(testo) && !LODA_PEZZO.test(testo) && !lodaVerboSbagliato(testo, risposta, q.attese) && !traduceSoluzione(testo, q.attese) && !sceltaFraForme(testo, q.attese) && !citaFraseInvisibile(testo, `${q.frase} ${risposta || ""}`);
   }
 
+  // «la parola inizia con la W», «ha quattro lettere»: è un indovinello, non fa capire niente
+  const INDIZIO_LETTERE = /\b(inizia|comincia|finisce|termina)\s+(con|per)\s+(la\s+)?(lettera\s+)?["«“']?[a-z]\b|\b(prima|ultima)\s+lettera\b|\blettera\s+["«“']?[A-Z]\b|\b(ha|di)\s+(due|tre|quattro|cinque|sei|\d)\s+lettere\b/i;
   function motivoGuida(testo, q, forte, risposta) {
     if (!testo) return "vuoto";
+    if (INDIZIO_LETTERE.test(testo)) return "indizio sulle lettere";
     if (testo.length > 400) return "troppo lungo";
     if (enunciaRegola(testo, forte, { risposta, attese: q.attese })) return "enuncia la regola";
     if (contieneSoluzione(testo, q.attese, q.tipo === "riscrivi" ? q.frase : "") || traduceSoluzione(testo, q.attese)) return "contiene la soluzione";
@@ -1479,7 +1500,7 @@ function creaMotore(UNIT) {
 
   const RISERVA_PRATICA = {
     guida: "Il ragionamento va bene. Adesso scrivi nella frase la forma inglese del verbo.",
-    sbagliata: "Non ancora. Rileggi tutta la frase: chi fa che cosa, e quando? Poi riprova. Se non ricordi la regola, scrivi «spiega».",
+    sbagliata: "Non ancora. Rileggi tutta la frase: chi fa che cosa, e in che momento? Poi riprova. Se non ricordi la regola, scrivi «spiega».",
     non_so: "Nessun problema. Scrivi «spiega» e ti rimetto la spiegazione di questo punto, poi riprova.",
     domanda: "Non riesco a risponderti bene. Se non ricordi la regola, scrivi «spiega»; altrimenti rileggi la frase e riprova.",
     fuori_tema: "Torniamo alla frase qui sotto: prova a completarla. Se non ricordi la regola, scrivi «spiega»."
@@ -1532,6 +1553,7 @@ function creaMotore(UNIT) {
     if (ps.attese && !arrivato && sceltaFraForme(m, ps.attese)) return "scelta fra due forme";
     if (!ps.frase && !arrivato && svelaOsservazione(m, ps, risposta)) return "risponde al posto dello studente";
     if (!ps.frase && !arrivato && a.classe !== "domanda" && !indicaDoveGuardare(m, ps)) return "racconta la situazione invece di indicare una parola delle frasi";
+    if (!arrivato && INDIZIO_LETTERE.test(m)) return "indizio sulle lettere";
     if (!arrivato && (LODA_PEZZO.test(m) || (ps.attese && lodaVerboSbagliato(m, risposta, ps.attese)))) return "loda un pezzo di risposta sbagliata";
     if (!arrivato && svelaCoppia(m, ps.obiettivo)) return "scrive la trasformazione da scoprire";
     if (ps.frase && !s.vediEsempi && /(esempi|prima frase|seconda frase|terza frase|sopra|frasi di prima|frasi mostrate|visto prima|abbiamo visto|frase di prima|esempio di prima|frase che abbiamo|come nella frase|guarda la frase\s*["«“]|in precedenza|(frase|esempio|frasi) precedent|la frase con\b(?!\s+(il verbo|una delle|la forma|la tua))|nella prima frase|hai (appena )?letto|frase che hai letto|nella seconda frase|prima abbiamo|abbiamo (scritto|trasformato|usato|detto|fatto|visto|messo))/i.test(m)) return "cita frasi che lo studente non vede";
@@ -1559,7 +1581,7 @@ function creaMotore(UNIT) {
   ${ps.mostra.join("\n")}
   </frasi_mostrate>
   <domanda_del_passo>${ps.domanda}${ps.frase ? " " + ps.frase : ""}</domanda_del_passo>${ps.attese ? `
-  <nota>In questo passo lo studente deve USARE la regola completando la frase. Risposte giuste: ${ps.attese.join(" / ")}. La sua risposta NON è tra queste: classe non_ancora (o domanda / non_so). Non scrivere mai la risposta giusta: dagli un indizio sulla frase. ATTENZIONE: in questo passo lo studente vede SOLO la frase da completare; le frasi mostrate prima NON sono più visibili. Non citare mai esempi, "la prima frase", "la seconda frase" o "le frasi qui sopra": il tuo indizio deve riferirsi solo a parole della frase da completare.</nota>` : ""}
+  <nota>In questo passo lo studente deve USARE la regola completando la frase. Risposte giuste: ${ps.attese.join(" / ")}. La sua risposta NON è tra queste: classe non_ancora (o domanda / non_so). Non scrivere mai la risposta giusta, e nemmeno la sua traduzione italiana (se la risposta è «when» non scrivere «quando», se è «while» non scrivere «mentre»…): dagli un indizio sulla situazione della frase. ${s.vediEsempi ? "In questo momento lo studente vede di nuovo anche le frasi mostrate prima, qui sopra: puoi invitarlo a confrontare la frase da completare con quelle." : "ATTENZIONE: in questo passo lo studente vede SOLO la frase da completare; le frasi mostrate prima NON sono più visibili. Non citare mai esempi, \"la prima frase\", \"la seconda frase\" o \"le frasi qui sopra\": il tuo indizio deve riferirsi solo a parole della frase da completare."}</nota>` : ""}
   <obiettivo_del_passo>${ps.obiettivo}</obiettivo_del_passo>
   <dialogo_su_questo_passo>
   ${storia}
@@ -1567,7 +1589,7 @@ function creaMotore(UNIT) {
   <risposta_dello_studente>
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
-  ${spiega ? `Lo studente NON HA CAPITO e ti chiede di spiegargli: classe domanda. Spiegagli davvero, come farebbe un'insegnante in classe, con parole semplici e in 3-5 frasi: 1) che cosa gli chiede la domanda del passo, detta in un altro modo; 2) che cosa succede nelle frasi in inglese${ps.frase ? " (in questo passo vede solo la frase da completare: parla solo di quella)" : " mostrate"}: traduci o descrivi la scena (chi fa che cosa, quando, per quanto tempo), così che capisca la situazione; 3) su che cosa deve fare attenzione per rispondere. Non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda in modo più semplice.` : ""}
+  ${spiega ? `Lo studente NON HA CAPITO, non si ricorda o è bloccato, e ti chiede aiuto: classe domanda. Spiegagli davvero, come farebbe un'insegnante in classe, con parole semplici e in 3-5 frasi: 1) che cosa gli chiede la domanda del passo, detta in un altro modo; 2) che cosa succede nelle frasi in inglese${ps.frase ? " (parla della frase da completare; adesso lo studente rivede anche le frasi di prima, qui sopra, e puoi dirgli di confrontarle)" : " mostrate"}: traduci o descrivi la scena (chi fa che cosa, quando, per quanto tempo), così che capisca la situazione; 3) su che cosa deve fare attenzione per rispondere. Non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda in modo più semplice.` : ""}
   ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e poi RISPONDI DAVVERO alla sua domanda, in 1-3 frasi semplici, partendo da questa situazione (che cosa vuol dire la parola qui, perché si usa in questa scena). Non rimandare mai la risposta («ci arriviamo dopo», «lo vedremo tra poco»): lo studente ha chiesto adesso e merita una risposta adesso. Se CONTESTA o propone un'altra parola («però va bene anche when»): se la sua proposta va davvero bene, dagli ragione (classe arrivato solo se l'ha scritta come risposta nella frase, altrimenti digli di scriverla); se non va bene, spiegagli perché NON va in questa situazione, partendo dalla sua parola e dalla situazione («the whole time» dice che dorme per tutta la durata…), senza dire quale parola va. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
@@ -1592,8 +1614,8 @@ function creaMotore(UNIT) {
     if (spiega) {
       diag.push({ riserva: "spiegazione scoperta" });
       return { classe: "domanda", messaggio: ps.frase
-        ? `Te lo dico in un altro modo: leggi la frase da completare e chiediti che cosa succede, quando, e per quanto tempo. Poi scrivi nella frase la parola o la forma che secondo te racconta quella situazione. Se ti servono, scrivi «esempi» per rivedere le frasi di prima.`
-        : `Te lo dico in un altro modo. La domanda è: ${ps.domanda} Rileggi le frasi qui sopra una alla volta e immagina la scena: che cosa succede, e quando? Poi rispondi con parole tue, anche con una parola sola.` };
+        ? `Te lo dico in un altro modo: leggi la frase da completare e chiediti che cosa succede, in che momento, e per quanto tempo. Poi confrontala con le frasi di prima, qui sopra: quale racconta una situazione come questa? Scrivi nella frase la parola o la forma che secondo te va.`
+        : `Te lo dico in un altro modo. La domanda è: ${ps.domanda} Rileggi le frasi qui sopra una alla volta e immagina la scena: che cosa succede, e in che momento? Poi rispondi con parole tue, anche con una parola sola.` };
     }
     if (ps.attese && classe === "arrivato") classe = "non_ancora";
     if (ps.frase) {
@@ -1614,7 +1636,7 @@ function creaMotore(UNIT) {
         if (cs) return { classe, messaggio: cs };
       }
       const ind = suTempi(topic) ? indizioDallaFrase(ps.frase) : "";
-      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova. Se ti servono, scrivi «esempi».` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e quando? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
+      return { classe, messaggio: ind ? `Guarda «${ind}» nella frase: che cosa ti dice su quello che succede? Poi riprova. Se ti servono, scrivi «esempi».` : "Non ancora. Rileggi bene la frase da completare: che cosa succede, e in che momento? Poi riprova. Se ti servono, scrivi «esempi» per rivedere le frasi di prima." };
     }
     return { classe, messaggio: RISERVA_SCOPERTA[classe] };
   }
@@ -1805,11 +1827,9 @@ function creaMotore(UNIT) {
       const testo = punto ? `Ecco la spiegazione di questo punto (${punto.titolo}):\n${punto.regola}\nAdesso riprova la frase.` : "Riguarda la spiegazione qui sopra, poi riprova la frase.";
       return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo, riprova: false } });
     }
-    if (chiedeSoluzione(risposta)) {
-      if (s.tent < TENTATIVI_PER_SOLUZIONE) {
-        const mancano = TENTATIVI_PER_SOLUZIONE - s.tent;
-        return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo: `Prova ancora${mancano > 1 ? ` (ancora ${mancano} tentativi)` : ""}: dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la risposta.`, riprova: false } });
-      }
+    // «dimmelo» prima dei 3 tentativi: lo tratto come «non so» (aiuto vero, conta come tentativo), più sotto
+    const chiedePresto = chiedeSoluzione(risposta) && s.tent < TENTATIVI_PER_SOLUZIONE;
+    if (chiedeSoluzione(risposta) && !chiedePresto) {
       const sol = s.q.attese[0];
       const spiega = s.q.tipo === "completa" ? testoSoluzione(s.q.frase, sol) : `La frase giusta è: ${sol}`;
       const nuova = await apri(env, { ...s, q: null, ris: null }, tappa, s.mode);
@@ -1845,7 +1865,7 @@ function creaMotore(UNIT) {
         return vista({ ...s, hist, fb: { tipo: "info", risposta: "", evidenzia: "", testo: `L'indizio è «${ind}». Che cosa ti dice su quello che succede nella frase? Poi riprova. Se non ricordi la regola, scrivi «spiega».`, riprova: false } });
       }
     }
-    const nonSa = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non ne ho idea)\b/i.test(risposta.trim());
+    const nonSa = chiedePresto || /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non mi ricordo|non me lo ricordo|non me la ricordo|non mi viene|non ne ho idea)\b/i.test(risposta.trim());
     const guida = !coincide && !chiede && !nonSa && rispostaItaliana(risposta);
     const tentativo = chiede || guida ? s.tent : s.tent + 1;
     if (!chiede && !guida && !nonSa && s.q.tipo === "completa" && tentativo < TENTATIVI_PER_SOLUZIONE) {
@@ -1861,7 +1881,7 @@ function creaMotore(UNIT) {
     if (!r) {
       diag.push({ riserva: "gemini non ha risposto" });
       const classe = chiede ? "domanda" : guida ? "guida" : "sbagliata";
-      r = { classe, messaggio: guida ? RISERVA_PRATICA.guida : rispostaDiRiserva(classe, s.q, tappa[0], Math.max(tentativo, 1), chiede ? risposta : "", risposta), errore: "", aggiunte: [] };
+      r = { classe, messaggio: guida ? RISERVA_PRATICA.guida : nonSa ? "Nessun problema. Rileggi la frase con calma: chi fa che cosa, e in che momento? Se non ricordi la regola, scrivi «spiega» e te la rispiego." : rispostaDiRiserva(classe, s.q, tappa[0], Math.max(tentativo, 1), chiede ? risposta : "", risposta), errore: "", aggiunte: [] };
     }
     if (nonSa && r.classe === "sbagliata") r.classe = "non_so";
 
@@ -1875,7 +1895,10 @@ function creaMotore(UNIT) {
     if (r.classe === "sbagliata" || r.classe === "non_so") {
       const diff = r.classe === "sbagliata" ? differenzaMigliore(rc, attC) : null;
       const evid = diff ? nelTestoOriginale(diff.evidenzia, risposta) : "";
-      const fb = { tipo: "errore", risposta: r.classe === "sbagliata" ? risposta : "", evidenzia: evid, testo: r.messaggio + (tentativo >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: true };
+      // «non so», «non mi ricordo», «dimmelo»: non è un errore, è uno studente bloccato
+      const fb = r.classe === "non_so"
+        ? { tipo: "info", risposta, evidenzia: "", testo: r.messaggio + (tentativo >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`), riprova: false }
+        : { tipo: "errore", risposta, evidenzia: evid, testo: r.messaggio + (tentativo >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: true };
       return vista({ ...s1, streak: 0, tent: Math.min(tentativo, 19), fb });
     }
 
@@ -1923,13 +1946,27 @@ function creaMotore(UNIT) {
     // domanda di osservazione: se la risposta contiene la risposta breve prevista («Basta 'un attimo'»), è arrivato,
     // anche se dentro c'è altro (per esempio una domanda)
     const breviOk = !pu.frase ? rispostaBreve(pu.obiettivo, risposta) : false;
+    const bloccato = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non mi ricordo|non me lo ricordo|non me la ricordo|non mi viene|non ne ho idea)\b/i.test(risposta.trim())
+      || (chiedeSoluzione(risposta) && s.tent < TENTATIVI_PER_SOLUZIONE);
+    if (bloccato && !vuoleSpiegazione(risposta)) {
+      // lo studente è bloccato: come in classe, gli faccio rivedere le frasi di prima e gli spiego la situazione
+      // (senza la risposta). Conta come tentativo, così dopo 3 può avere la soluzione.
+      const tent = Math.min(s.tent + 1, 19);
+      const s2 = { ...s, vediEsempi: !!pu.frase || s.vediEsempi };
+      const r = await valutaScoperta(env, s2, t, s.passo, risposta, tent, true, true);
+      const coda = tent >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ` Dopo ${TENTATIVI_PER_SOLUZIONE} tentativi, se non ci arrivi, puoi chiedermi la soluzione.`;
+      const msg = (r ? r.messaggio : "") + coda;
+      const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: msg.slice(0, 600) }).slice(-6);
+      return vista({ ...s2, hist, tent, fb: { tipo: "info", risposta, evidenzia: "", testo: (pu.frase ? "Ecco di nuovo le frasi di prima, qui sopra. " : "") + msg, riprova: false } });
+    }
     if (vuoleSpiegazione(risposta)) {
       // «spiegami», «non ho capito»: il tutor spiega davvero (la domanda, la situazione delle frasi), senza dare la risposta del passo;
       // non conta come tentativo
-      const r = await valutaScoperta(env, s, t, s.passo, risposta, s.tent, true, true);
+      const s2 = { ...s, vediEsempi: !!pu.frase || s.vediEsempi };
+      const r = await valutaScoperta(env, s2, t, s.passo, risposta, s.tent, true, true);
       const msg = r ? r.messaggio : "";
       const hist = s.hist.concat({ chi: "studente", testo: risposta.slice(0, 600) }, { chi: "tutor", testo: msg.slice(0, 600) }).slice(-6);
-      return vista({ ...s, hist, fb: { tipo: "info", risposta, evidenzia: "", testo: msg, riprova: false } });
+      return vista({ ...s2, hist, fb: { tipo: "info", risposta, evidenzia: "", testo: (pu.frase ? "Ecco di nuovo le frasi di prima, qui sopra. " : "") + msg, riprova: false } });
     }
     if (!pu.frase && vuoleEsempi(risposta)) {
       return vista({ ...s, fb: { tipo: "info", risposta: "", evidenzia: "", testo: "Le frasi sono qui sopra: rileggile e rispondi alla domanda con parole tue, anche con una parola sola.", riprova: false } });
@@ -1972,7 +2009,7 @@ function creaMotore(UNIT) {
       return vista({ ...n3, sint: true });
     }
     const chiede = eDomanda(risposta, true);
-    const nonSaS = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non ne ho idea)\b/i.test(risposta.trim());
+    const nonSaS = /^(non so|non lo so|boh|nn so|non saprei|nessuna idea|non ricordo|non mi ricordo|non me lo ricordo|non me la ricordo|non mi viene|non ne ho idea)\b/i.test(risposta.trim());
     const tentativo = s.tent + 1;
     // i controlli fissi valgono solo per un tentativo di risposta in inglese: un commento o un ragionamento in italiano lo legge Gemini
     if (pu.frase && !chiede && !nonSaS && !rispostaItaliana(risposta) && tentativo < TENTATIVI_PER_SOLUZIONE) {
