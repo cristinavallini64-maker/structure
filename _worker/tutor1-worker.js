@@ -462,6 +462,8 @@ function creaMotore(UNIT) {
     if (!t) return false;
     if (/\?\s*$/.test(t)) return true;
     if (/(non capisco|non ho capito|non capito|cosa vuol dire|che vuol dire|cosa vuole dire|cosa significa|che significa|significato di|tradu[cz]|come si dice|cosa devo|che cosa devo|cosa bisogna|quale parola|che parola|aiutami|^aiuto\b|mi spieghi|spiegami)/.test(t)) return true;
+    // «se dura un attimo perche as»: un perché in mezzo alla frase è una domanda anche senza punto interrogativo
+    if (/\b(perch[eéè]|perke|xk[eè]|come mai)\b/.test(t)) return true;
     if (scoperta) return false;
     if (/^(non so|non lo so|boh|nn so|non saprei|nessuna idea)\b/.test(t)) return false;
     if (/^(che cosa|cosa|cos'|quale|quali|qual|perch[eé]|come mai|come|dove|chi|in che senso|cioè|cioe|puoi|potresti|ma |devo|posso|bisogna|serve|va bene|è giusto|e giusto)/.test(t)) return true;
@@ -1518,7 +1520,7 @@ function creaMotore(UNIT) {
   <risposta_dello_studente>
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
-  ${chiede ? "Lo studente NON ha risposto: ti ha fatto una DOMANDA. Rispondigli davvero (classe domanda): se chiede quale parola guardare, indicagliela; se chiede il significato di una parola, diglielo; non dare la risposta del passo e non enunciare la regola. Chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
+  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
@@ -1526,7 +1528,9 @@ function creaMotore(UNIT) {
       const a = await chiamaRaw(env, METODO_SCOPERTA, rifiuto ? `${user}\n\n${rifiuto}` : user, TOOL_SCOPERTA);
       if (!a) { if (sovraccarico) break; continue; }
       if (!CLASSI_SCOPERTA.includes(a.classe) || typeof a.messaggio !== "string") continue;
-      if (chiede) a.classe = "domanda";
+      // una domanda insieme alla risposta giusta («se dura un attimo, perché as?»): vale come arrivato
+      // se c'è il punto interrogativo è una domanda; senza (per esempio «perché era in corso»), decide Gemini se è una risposta o una domanda
+      if (chiede && a.classe !== "arrivato" && /\?\s*$/.test(String(risposta).trim())) a.classe = "domanda";
       classe = a.classe;
       const m = a.messaggio.trim();
       const motivo = motivoScartoScoperta(a, m, ps, s, risposta, tentativo);
