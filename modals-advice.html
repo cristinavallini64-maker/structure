@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"knee": "ginocchio", "marathon": "maratona", "coach": "allenatore", "training plan": "programma di allenamento", "swimming cap": "cuffia", "helmet": "casco", "volcano boarding": "discesa in slitta da un vulcano", "gloves": "guanti", "exhausted": "sfinito", "stay up": "stare alzato", "football boots": "scarpe da calcio", "pitch": "campo", "warned": "avvertito", "enter the race": "iscriversi alla gara", "running shoes": "scarpe da corsa", "race": "gara", "stretch": "fare stretching", "junk food": "cibo spazzatura", "penalty": "rigore"};
+const GLOSS={"knee": "ginocchio", "marathon": "maratona", "coach": "allenatore", "training plan": "programma di allenamento", "swimming cap": "cuffia", "helmet": "casco", "volcano boarding": "discesa in slitta da un vulcano", "gloves": "guanti", "exhausted": "sfinito", "stay up": "stare alzato", "football boots": "scarpe da calcio", "pitch": "campo", "warned": "avvertito", "enter the race": "iscriversi alla gara", "running shoes": "scarpe da corsa", "race": "gara", "stretch": "fare stretching", "junk food": "cibo spazzatura", "penalty": "rigore", "rackets": "racchette", "beginners": "principianti", "storm": "temporale", "warm up": "fare riscaldamento", "ankle": "caviglia", "swollen": "gonfia", "goggles": "occhialini", "final": "finale", "training": "allenamento", "gym": "palestra", "work out": "allenarsi", "get fit": "rimettersi in forma", "lifeguards": "bagnini", "towel": "asciugamano", "teammate": "compagno di squadra", "teammates": "compagne di squadra", "goalkeeper": "portiere", "injured": "si è infortunato", "warm-up": "riscaldamento", "track": "pista", "kick-off": "calcio d'inizio", "tennis court": "campo da tennis", "turn up": "presentarsi", "soaked": "fradici", "stadium": "stadio"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -329,6 +329,52 @@ exercises:[
 {type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You don't should eat junk food before a match.",a:"You shouldn't eat junk food before a match.",accept:["You shouldn't eat junk food before a match.","You should not eat junk food before a match.","You ought not to eat junk food before a match."]},
 {type:"fill",q:"« Non avrebbe dovuto calciare lui il rigore. » → He ___ the penalty.",hint:"(not · take)",a:"shouldn't have taken",accept:["shouldn't have taken","should not have taken"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
+,
+{id:2,type:"study",title:"LIVELLO 02 — NEED TO · DON'T NEED TO · HAD BETTER",desc:"è necessario · non è necessario · faresti meglio a (avvertimento)",
+rule:`<strong>NEED TO &middot; HAD BETTER &mdash; Unit 7:</strong><br>
+&#x2714; <code>need to + forma base</code> = <strong>devo, devi&hellip; / ho bisogno di</strong>: &egrave; necessario. &Egrave; un verbo regolare: <em>he <strong>needs</strong> to</em>, <em><strong>Do</strong> you need to&hellip;?</em> &mdash; <em>Yes, I do. / No, I don't.</em><br>
+&#x2714; <code>don't need to</code> = <strong>non &egrave; necessario</strong>, non c'&egrave; bisogno. &mdash; <em>You <strong>don't need to</strong> bring a towel: they give you one.</em><br>
+&#x26A0; <em>don't need to</em> non &egrave; <em>shouldn't</em>: <em>You shouldn't come</em> = ti sconsiglio di venire; <em>You don't need to come</em> = non &egrave; necessario che tu venga.<br>
+&#x2714; <code>had better ('d better) + forma base</code> = <strong>faresti meglio a, &egrave; meglio che</strong>: un consiglio forte o un avvertimento, perch&eacute; se non lo fai succede qualcosa di spiacevole. &mdash; <em>You<strong>'d better</strong> leave now, or you'll miss the bus.</em><br>
+&#x26A0; Negativo: <code>'d better not</code> (non &laquo;'d not better&raquo;). Dopo better niente to. Non si usa nelle domande.`,
+exercises:[
+{type:"fill",q:"The club lends rackets to beginners, so you ___ one.",hint:"(not · need · buy)",a:"don't need to buy",accept:["don't need to buy","do not need to buy","needn't buy"],instruction:"Completa."},
+{type:"fill",q:"It's starting to rain. We ___ home before the storm.",hint:"(had better · go)",a:"'d better go",accept:["'d better go","had better go"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You'd better to warm up before the match.",a:"You'd better warm up before the match.",accept:["You'd better warm up before the match.","You had better warm up before the match."]},
+{type:"fill",q:"Your ankle is swollen: you ___ a doctor today.",hint:"(need · see)",a:"need to see",accept:["need to see"],instruction:"Completa."},
+{type:"mc",q:"« You don't need to come to training today » e « You shouldn't come to training today »: in quale l'allenatore ti sconsiglia di andare?",options:["Nella seconda: nella prima non è necessario, ma puoi andare.","Nella prima: nella seconda non è necessario, ma puoi andare.","In tutte e due, allo stesso modo.","In nessuna delle due."],a:"Nella seconda: nella prima non è necessario, ma puoi andare."},
+{type:"fill",q:"« ___ my own goggles? » — No, they give you a pair at the pool.",hint:"(I · need · bring)",a:"Do I need to bring",accept:["Do I need to bring","Do I need to take"],instruction:"Completa la domanda."},
+{type:"fill",q:"You ___ late for the final, or the coach won't let you play.",hint:"(had better · not · be)",a:"'d better not be",accept:["'d better not be","had better not be"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You'd not better eat that pizza before the race.",a:"You'd better not eat that pizza before the race.",accept:["You'd better not eat that pizza before the race.","You had better not eat that pizza before the race."]},
+{type:"fill",q:"« Does Ben need to pay for the gym? » — Yes, he ___.",a:"does",accept:["does"],instruction:"Completa la risposta."},
+{type:"mc",q:"« You'd better hurry! » Che cosa significa 'd?",options:["had","would","did","should"],a:"had"},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She need to work out more if she wants to get fit.",a:"She needs to work out more if she wants to get fit.",accept:["She needs to work out more if she wants to get fit."]},
+{type:"fill",q:"The doctor says Grandma ___ for thirty minutes a day.",hint:"(need · walk)",a:"needs to walk",accept:["needs to walk"],instruction:"Completa."},
+{type:"mc",q:"« You'd better not swim in the lake today. » Quale seguito sta in piedi?",options:["The water is far too cold and the lifeguards have gone home.","It's a perfect day for a long swim.","The lifeguards say it's completely safe.","Swimming in the lake is the best thing you can do today."],a:"The water is far too cold and the lifeguards have gone home."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Does your brother need take his own racket to the club?",a:"Does your brother need to take his own racket to the club?",accept:["Does your brother need to take his own racket to the club?","Does your brother need to bring his own racket to the club?"]},
+{type:"fill",q:"« Non c'è bisogno che tu venga alla partita. » → You ___ to the match.",hint:"(come)",a:"don't need to come",accept:["don't need to come","do not need to come","needn't come","don't have to come"],instruction:"Scrivi in inglese la parte che manca."},
+{type:"fill",q:"« Faresti meglio a chiedere scusa al tuo compagno di squadra. » → You ___ to your teammate.",hint:"(apologise)",a:"'d better apologise",accept:["'d better apologise","had better apologise","'d better apologize","had better apologize"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"rA",type:"review",title:"⟳ RIPASSO A — i consigli",desc:"should, ought to, should have, need to, had better insieme · frasi nuove",
+rule:`<strong>RIPASSO A &mdash; Unit 7:</strong><br>
+&#x2714; Consiglio: <em>should / ought to</em> (dovresti) &middot; necessit&agrave;: <em>need to</em> &middot; non necessario: <em>don't need to</em> &middot; avvertimento: <em>'d better (not)</em>.<br>
+&#x2714; Passato, cosa giusta che non &egrave; stata fatta: <em>should have + participio</em> (avrei dovuto).`,
+exercises:[
+{type:"fill",q:"You look exhausted after all those matches. You ___ a few days off training.",hint:"(take)",a:"should take",accept:["should take","ought to take","need to take"],instruction:"Completa."},
+{type:"fill",q:"The swimming pool is free on Sundays, so you ___ anything.",hint:"(pay)",a:"don't need to pay",accept:["don't need to pay","do not need to pay","needn't pay","don't have to pay"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"You should have tell me about the match.",a:"You should have told me about the match.",accept:["You should have told me about the match.","You ought to have told me about the match."]},
+{type:"fill",q:"I missed the bus because I left home late. I ___ ten minutes earlier.",hint:"(leave)",a:"should have left",accept:["should have left","ought to have left"],instruction:"Completa."},
+{type:"fill",q:"« Faresti meglio a non dirlo all'allenatore. » → You ___ the coach.",hint:"(not · tell)",a:"'d better not tell",accept:["'d better not tell","had better not tell"],instruction:"Scrivi in inglese la parte che manca."},
+{type:"fill",q:"We lost the final because our goalkeeper got injured in the warm-up. He ___ more careful.",hint:"(be)",a:"should have been",accept:["should have been","ought to have been"],instruction:"Completa."},
+{type:"mc",q:"« You need to wear a helmet on the track. » Va bene così?",options:["Sì: need to + forma base.","No: ci vuole « You need wear a helmet ».","No: ci vuole « You need to wearing a helmet ».","No: ci vuole « You needs to wear a helmet »."],a:"Sì: need to + forma base."},
+{type:"fill",q:"My cousin wants to run a marathon next year, so he ___ training now.",hint:"(need · start)",a:"needs to start",accept:["needs to start"],instruction:"Completa."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"We'd better leaving now, or we'll miss the kick-off.",a:"We'd better leave now, or we'll miss the kick-off.",accept:["We'd better leave now, or we'll miss the kick-off.","We had better leave now, or we'll miss the kick-off."]},
+{type:"fill",q:"« Do we need to book the tennis court? » — No, ___. You can just turn up.",a:"you don't",accept:["you don't","we don't","you do not","we do not"],instruction:"Completa la risposta."},
+{type:"mc",q:"« We should have brought an umbrella. » Quale seguito sta in piedi?",options:["We got soaked on the way to the stadium.","Luckily, we had two in the car.","It was sunny all day, so it was perfect.","We're going to buy one tomorrow, just in case."],a:"We got soaked on the way to the stadium."},
+{type:"fill",q:"« Dovrebbe allenarsi con le sue compagne di squadra. » → She ___ with her teammates.",hint:"(train)",a:"should train",accept:["should train","ought to train"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+
 ];
 
 
