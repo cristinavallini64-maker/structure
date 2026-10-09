@@ -586,7 +586,7 @@
     if(f&&f.testo){
       bx.classList.add("show",f.tipo==="errore"?"err":f.tipo==="giusto"?"ok":"info");
       if(f.risposta){
-        const r=document.createElement("div");r.className="tb-ans";r.append("La tua risposta: ");
+        const r=document.createElement("div");r.className="tb-ans";r.append(f.tipo==="errore"?"La tua risposta: ":"Hai scritto: ");
         const i=f.evidenzia?f.risposta.toLowerCase().indexOf(f.evidenzia.toLowerCase()):-1;
         if(i>=0){const m=document.createElement("mark");m.textContent=f.risposta.slice(i,i+f.evidenzia.length);r.append(f.risposta.slice(0,i),m,f.risposta.slice(i+f.evidenzia.length))}
         else r.append(f.risposta);
@@ -618,7 +618,7 @@
       if(!res.ok)throw new Error(data.error||`Errore ${res.status}`);
       if(!data.state||!data.activity||!data.unit)throw new Error("Risposta incompleta dal tutor. Riprova.");
       if(payload.action==="answer"&&data.message){pending=data;submitted=payload.answer;draft=""}
-      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta?f.risposta:""}
+      else{current=data;pending=null;submitted="";const f=data.activity.feedback;draft=f&&f.riprova&&f.risposta&&f.tipo==="errore"?f.risposta:""}
       savedState=null;save();render();
     }catch(e){$("feedback").className="feedback show error";text("feedback",e.name==="AbortError"?"Il collegamento è lento. La tua risposta è conservata: puoi riprovare.":e.message)}
     finally{clearTimeout(timer);setBusy(false);focusActive()}

@@ -150,6 +150,7 @@ function creaMotore(UNIT) {
   - FA UNA DOMANDA LUI: classe "domanda". Una domanda NON è una risposta sbagliata: rispondigli davvero, in modo concreto.
     - Chiede il significato di una parola: diglielo.
     - Chiede quale parola o indizio guardare: indicaglielo, citando la parola della frase (es. "Guarda two years ago: quando è successo, e quante volte?"). È un aiuto, non la soluzione.
+    - Chiede se una parola o una forma va bene nello spazio ("uso when?", "va bene went?", "ci va il past simple?"): NON confermare e NON smentire, sarebbe dargli la soluzione. Digli di scriverla nella frase e che poi gli dici se va bene; se ha un dubbio sul significato, aiutalo a capire la situazione.
     - Chiede "perché", "quando si usa", "che differenza c'è tra…", "posso dire anche…" o qualunque cosa sulla regola: RISPONDI DAVVERO, come un'insegnante in classe. Spiega con parole semplici e con UN ESEMPIO NUOVO, diverso dalla frase dell'esercizio (una situazione e la frase inglese che ci va, con il perché). Qui puoi spiegare la regola: te l'ha chiesta lui. Al massimo 4 frasi, poi invitalo a riprovare la frase.
     - Nella spiegazione NON nominare le persone né la situazione della frase dell'esercizio ("Mark stava leggendo…" è già la soluzione): usa altre persone e un'altra situazione.
     - L'unica cosa che non fai mai è dire che cosa va nello spazio di QUESTA frase (né la forma, né quale tempo serve qui): la spiegazione deve servirgli a capirlo da solo.
@@ -1543,7 +1544,7 @@ function creaMotore(UNIT) {
   <risposta_dello_studente>
   ${risposta.replace(/[<>]/g, " ").slice(0, 600)}
   </risposta_dello_studente>
-  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
+  ${chiede ? "Nel messaggio dello studente c'è una DOMANDA (a volte insieme a una risposta). Se contiene anche la risposta giusta del passo, usa la classe arrivato: conferma la sua risposta e rispondi alla domanda in una frase; se la domanda riguarda proprio quello che scoprirà nel passo dopo, digli che ci arriva subito, con la prossima domanda. Se chiede se una parola o una forma va bene («uso when?», «va bene went?»), non confermare e non smentire: digli di scriverla nella frase e che poi gli dici se va bene. Se invece non ha ancora risposto, classe domanda: rispondigli davvero (significato di una parola, quale parola guardare, che cosa succede nella situazione), senza dare la risposta del passo e senza enunciare la regola, e chiudi riproponendo la domanda del passo." : `Questo è il tentativo ${tentativo} dello studente su questo passo.`}`;
     let classe = null;
     let rifiuto = "";
     for (let i = 0; i < 3; i++) {
@@ -1568,6 +1569,8 @@ function creaMotore(UNIT) {
     if (ps.frase) {
       diag.push({ riserva: "scoperta" });
       // un commento o un ragionamento in italiano non è un tentativo sbagliato
+      if (eDomanda(risposta, true) && /^(uso|metto|va|vanno|posso|si usa|ci va|ci vuole|devo usare|devo mettere|è giusto|e giusto|va bene)\b/i.test(risposta.trim())) return { classe: "domanda", messaggio: "Provalo: scrivilo nella frase in inglese e ti dico se va bene. Se invece non ti è chiaro che cosa succede nella frase, chiedimelo." };
+      if (eDomanda(risposta, true)) return { classe: "domanda", messaggio: "Bella domanda, ma qui non riesco a risponderti bene senza darti la soluzione. Prova a scrivere la frase in inglese: poi ne parliamo. Se ti servono, scrivi «esempi»." };
       if (rispostaItaliana(risposta) && !/^(non so|non lo so|boh)\b/i.test(risposta.trim())) return { classe: "domanda", messaggio: "Scrivi la tua risposta in inglese nella frase: poi ti dico se va bene. Se hai un dubbio, chiedimelo pure." };
       if (ps.attese && soloWasWere(ps.frase ? togliContesto(risposta, ps.frase) : risposta, ps.attese.map(x => togliContesto(x, ps.frase)))) return { classe, messaggio: RISERVA_SOGGETTO };
       if (ps.attese) {
@@ -1831,7 +1834,7 @@ function creaMotore(UNIT) {
     const s1 = { ...s, hist };
 
     if (r.classe === "domanda" || r.classe === "guida" || r.classe === "fuori_tema") {
-      return vista({ ...s1, fb: { tipo: "info", risposta: "", evidenzia: "", testo: r.messaggio, riprova: false } });
+      return vista({ ...s1, fb: { tipo: "info", risposta, evidenzia: "", testo: r.messaggio, riprova: false } });
     }
 
     if (r.classe === "sbagliata" || r.classe === "non_so") {
@@ -1957,7 +1960,7 @@ function creaMotore(UNIT) {
       const conta = ["domanda", "fuori_tema"].includes(r.classe) ? s.tent : tentativo;
       const tipo = r.classe === "non_ancora" ? "errore" : "info";
       const evid = tipo === "errore" && pu.frase ? nelTestoOriginale(differenzaMigliore(rcS, attS).evidenzia, risposta) : "";
-      return vista({ ...s, hist, tent: Math.min(conta, 19), fb: { tipo, risposta: tipo === "errore" ? risposta : "", evidenzia: evid, testo: r.messaggio + (tipo === "errore" && conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: !!pu.frase } });
+      return vista({ ...s, hist, tent: Math.min(conta, 19), fb: { tipo, risposta, evidenzia: evid, testo: r.messaggio + (tipo === "errore" && conta >= TENTATIVI_PER_SOLUZIONE ? INVITO_SOLUZIONE : ""), riprova: !!pu.frase } });
     }
 
     const esito = "correct";
