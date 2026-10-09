@@ -106,7 +106,7 @@ function creaMotore(UNIT) {
 
   ## COME PARLI
   - Italiano semplice, dai del tu, tono caldo e diretto.
-  - Messaggi brevissimi: al massimo 2 frasi.
+  - Messaggi brevissimi: al massimo 2 frasi (quando lo studente ti fa una domanda, fino a 4).
   - Lavori SOLO sul punto indicato e resti dentro gli argomenti di ${NOME}.
   - Strutture fuori programma, vietate: ${UNIT.fuoriProgramma}.
 
@@ -149,9 +149,9 @@ function creaMotore(UNIT) {
   - FA UNA DOMANDA LUI: classe "domanda". Una domanda NON è una risposta sbagliata: rispondigli davvero, in modo concreto.
     - Chiede il significato di una parola: diglielo.
     - Chiede quale parola o indizio guardare: indicaglielo, citando la parola della frase (es. "Guarda two years ago: quando è successo, e quante volte?"). È un aiuto, non la soluzione.
-    - Chiede la regola o "perché": non enunciarla; indicagli l'indizio nella frase e ricordagli che la spiegazione è nella pagina della unità.
-    - Mai, in nessun messaggio, dire che cosa aggiungere o quale tempo, forma o parola usare ("aggiungi -ly", "devi usare il past simple", "il verbo resta alla forma base", "ricorda di mettere more"): è la risposta.
-    - Non dare mai la risposta dello spazio. STESSA domanda.
+    - Chiede "perché", "quando si usa", "che differenza c'è tra…", "posso dire anche…" o qualunque cosa sulla regola: RISPONDI DAVVERO, come un'insegnante in classe. Spiega con parole semplici e con UN ESEMPIO NUOVO, diverso dalla frase dell'esercizio (una situazione e la frase inglese che ci va, con il perché). Qui puoi spiegare la regola: te l'ha chiesta lui. Al massimo 4 frasi, poi invitalo a riprovare la frase.
+    - L'unica cosa che non fai mai è dire che cosa va nello spazio di QUESTA frase (né la forma, né quale tempo serve qui): la spiegazione deve servirgli a capirlo da solo.
+    - STESSA domanda.
   - RISPONDE ALLA TUA DOMANDA-GUIDA (in italiano: "del tempo", "una volta sola", "era in corso"…) invece di completare l'esercizio: classe "guida". NON è la soluzione dell'esercizio e non va mai considerata giusta. Conferma o correggi il suo ragionamento in una frase, poi chiedigli di scrivere adesso la forma inglese nella frase ("Esatto, è durata del tempo. Allora adesso completa la frase con il verbo."). Non scrivere la forma giusta. STESSA domanda.
   - PARLA D'ALTRO: classe "fuori_tema". Riportalo alla domanda. STESSA domanda.
 
@@ -1344,7 +1344,10 @@ function creaMotore(UNIT) {
       if (r.classe === "guida" && !/(frase|verbo|scrivi|completa|forma|riprova)/i.test(r.messaggio || "") && scarta(r.messaggio, "guida senza invito a scrivere")) continue;
       if (tempoFalso(r.messaggio, risposta, q.attese) && scarta(r.messaggio, "tempo verbale nominato a sproposito")) continue;
       if (r.classe === "domanda" || r.classe === "guida" || r.classe === "fuori_tema") {
-        if (r.messaggio && r.messaggio.length <= 400 && !regolaInRisposta(r.messaggio) && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta)) return candidato;
+        // alle domande dello studente il tutor risponde davvero (anche spiegando la regola): si controlla solo che non dia la soluzione di questa frase
+        const lim = r.classe === "domanda" ? 700 : 400;
+        const spiegaOk = r.classe === "domanda" || !regolaInRisposta(r.messaggio);
+        if (r.messaggio && r.messaggio.length <= lim && spiegaOk && !contieneSoluzione(r.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") && !svelaParole(r.messaggio, q.attese, q.frase, risposta) && !traduceSoluzione(r.messaggio, q.attese)) return candidato;
         scarta(r.messaggio, "domanda: regola o soluzione nella risposta");
         continue;
       }
@@ -1356,7 +1359,7 @@ function creaMotore(UNIT) {
     if (c.classe === "giusta") c.messaggio = "Esatto!";
     else if (c.classe === "guida" && !/(frase|verbo|scrivi|completa|forma|riprova)/i.test(c.messaggio || "")) c.messaggio = RISERVA_PRATICA.guida;
     else if (c.classe === "domanda" || c.classe === "guida" || c.classe === "fuori_tema") {
-      if (!c.messaggio || c.messaggio.length > 400 || regolaInRisposta(c.messaggio) || contieneSoluzione(c.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") || svelaParole(c.messaggio, q.attese, q.frase, risposta)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, chiede ? risposta : "", risposta);
+      if (!c.messaggio || c.messaggio.length > (c.classe === "domanda" ? 700 : 400) || (c.classe !== "domanda" && regolaInRisposta(c.messaggio)) || contieneSoluzione(c.messaggio, q.attese, q.tipo === "riscrivi" ? q.frase : "") || svelaParole(c.messaggio, q.attese, q.frase, risposta)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, chiede ? risposta : "", risposta);
     } else if (!messaggioGuida(c.messaggio, q, tentativo >= 3, risposta) || tempoFalso(c.messaggio, risposta, q.attese)) c.messaggio = rispostaDiRiserva(c.classe, q, tappa[0], tentativo, "", risposta);
     if (c.messaggio === RISERVA_PRATICA.sbagliata || c.messaggio === RISERVA_PRATICA.non_so) diag.push({ riserva: c.messaggio });
     return c;
