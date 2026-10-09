@@ -48,12 +48,12 @@
   const WORKER_URL = "https://tutor1.cristinavallini64.workers.dev/";
   const UNITA = {
   "titolo": "Unit 7 · Advice Modals, Perception, Reflexives",
-  "fuoriProgramma": "modali di deduzione (must be, can't be, must have, might have, can't have), should have e ought to have per il passato, forma passiva, reported speech, wish",
-  "vietate": "\\bmust be\\b|\\bcan't be\\b|\\bmust have\\b|\\bcan't have\\b|\\bcouldn't have\\b|\\bmight have\\b|\\bmay have\\b|\\bshould have\\b|\\bought to have\\b|\\bwish\\b",
+  "fuoriProgramma": "modali di deduzione (must be, can't be, must have, might have, can't have), forma passiva, reported speech, wish",
+  "vietate": "\\bmust be\\b|\\bcan't be\\b|\\bmust have\\b|\\bcan't have\\b|\\bcouldn't have\\b|\\bmight have\\b|\\bmay have\\b|\\bwish\\b",
   "topics": [
     {
       "title": "Should, ought to, need to, had better",
-      "tempi": "presente e futuro: should, ought to, need to, had better + forma base; need to nelle domande e nelle negazioni con do/does/don't.",
+      "tempi": "presente e futuro: should, ought to, need to, had better + forma base; need to nelle domande e nelle negazioni con do/does/don't. Passato: should have / shouldn't have + participio passato (avrei dovuto, non avresti dovuto).",
       "points": [
         {
           "titolo": "should: dare un consiglio",
@@ -77,8 +77,13 @@
         },
         {
           "titolo": "Quale scegliere?",
-          "regola": "should/ought to = consiglio (dovrei, dovresti, dovrebbe…) · had better = consiglio urgente, avvertimento (faresti meglio a…) · need to = è necessario (devi, hai bisogno di…) · don't need to = non è necessario (non c'è bisogno, non serve). Dopo should e had better niente to; dopo ought e need sì.",
+          "regola": "should/ought to = consiglio (dovrei, dovresti, dovrebbe…) · should have + participio = avrei dovuto, avresti dovuto… (passato: rimprovero, rimpianto) · had better = consiglio urgente, avvertimento (faresti meglio a…) · need to = è necessario (devi, hai bisogno di…) · don't need to = non è necessario (non c'è bisogno, non serve). Dopo should e had better niente to; dopo ought e need sì.",
           "nota": "Situazioni in cui il senso decide fra consiglio, avvertimento e 'non è necessario'. Quando il senso è un consiglio, accetta should, ought to e had better, sempre con la stessa polarità (tutte positive o tutte negative). Ogni tanto la consegna dà la frase italiana da rendere («Completa la frase inglese che dice: \"…\"»): è l'italiano (dovresti / faresti meglio a / non c'è bisogno) a decidere la forma. In \"conferma\" di' sempre come si dice la frase in italiano."
+        },
+        {
+          "titolo": "should have: avrei dovuto",
+          "regola": "should have + participio passato = avrei dovuto, avresti dovuto, avrebbe dovuto, avremmo dovuto, avreste dovuto, avrebbero dovuto. Parla del passato: una cosa che era giusto fare e non è stata fatta, oppure (con shouldn't have = non avrei dovuto, non avresti dovuto…) una cosa sbagliata che è stata fatta. Serve per i rimproveri e i rimpianti: You should have told me = avresti dovuto dirmelo. / I shouldn't have eaten so much = non avrei dovuto mangiare così tanto. È la stessa forma di would have (avrei) e could have (avrei potuto): modale + have + participio. Dopo have ci vuole il participio: should have gone, should have seen (NON should have went, should have saw). Uguale per tutte le persone. Attenzione: should + forma base è un consiglio su adesso o sul futuro (you should call her = dovresti chiamarla), should have + participio parla di una cosa già passata (you should have called her = avresti dovuto chiamarla).",
+          "nota": "Situazioni passate chiare (yesterday, last night, last week, ieri…) in cui qualcuno non ha fatto una cosa giusta o ne ha fatta una sbagliata; lo spazio su should have / shouldn't have + participio, con il verbo tra parentesi (anche irregolari). Accetta anche ought to have / oughtn't to have dove regge. Comprensione: più o meno una domanda su tre ha come risposta should + forma base (un consiglio su adesso o sul futuro), e la situazione deve rendere chiaro se si parla del passato o no. Per fissare il significato in italiano: più o meno una domanda su tre ha la consegna «Completa la frase inglese che dice: \"…\"» con tra virgolette la frase italiana (avrei dovuto…, avresti dovuto…, non avrebbe dovuto…; varia la persona). In \"conferma\" di' sempre come si dice la frase in italiano."
         }
       ],
       "scoperta": {
@@ -185,13 +190,42 @@
               "do not need to worry"
             ],
             "obiettivo": "Consiglio negativo: shouldn't worry."
+          },
+          {
+            "mostra": [
+              "Alice forgot her swimming cap, and the judge didn't let her swim the first race. Her coach said: «You should have checked your bag last night.»"
+            ],
+            "domanda": "Alice ha controllato la borsa ieri sera?",
+            "obiettivo": "No: should have dice una cosa giusta che non ha fatto, nel passato. Basta 'no'."
+          },
+          {
+            "mostra": [
+              "Alice forgot her swimming cap, and the judge didn't let her swim the first race. Her coach said: «You should have checked your bag last night.»"
+            ],
+            "domanda": "Come diresti in italiano «You should have checked your bag last night»?",
+            "obiettivo": "Avresti dovuto controllare la borsa ieri sera: should have = avresti dovuto. Basta 'avresti dovuto' o 'dovevi'."
+          },
+          {
+            "mostra": [
+              "Alice forgot her swimming cap, and the judge didn't let her swim the first race. Her coach said: «You should have checked your bag last night.»"
+            ],
+            "domanda": "Adesso usala tu. Completa la frase:",
+            "frase": "Alice stayed up until two in the morning before the race, and she swam really badly. She ___ (not go) to bed so late.",
+            "attese": [
+              "shouldn't have gone",
+              "should not have gone",
+              "oughtn't to have gone",
+              "ought not to have gone"
+            ],
+            "obiettivo": "Una cosa sbagliata già fatta: shouldn't have + participio, shouldn't have gone (non avrebbe dovuto andare a letto così tardi)."
           }
         ],
         "sintesi": [
           "should / shouldn't + forma base = dovrei, dovresti, dovrebbe, dovremmo, dovreste, dovrebbero (non dovrei…) → consiglio: you should drink more water = dovresti bere più acqua",
           "ought to → come should (dovresti…), più formale, quasi sempre affermativo",
           "had better ('d better) + forma base, senza to = faresti meglio a → avvertimento: you'd better leave now = faresti meglio a partire subito",
-          "need to = devi, hai bisogno di (Does she need to…?) · don't need to = non c'è bisogno, non serve"
+          "need to = devi, hai bisogno di (Does she need to…?) · don't need to = non c'è bisogno, non serve",
+          "should have + participio = avrei dovuto, avresti dovuto… → passato, rimprovero o rimpianto: you should have checked your bag = avresti dovuto controllare la borsa · shouldn't have gone = non avrebbe dovuto andare"
         ]
       }
     },
