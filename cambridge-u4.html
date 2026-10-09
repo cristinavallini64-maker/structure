@@ -237,7 +237,7 @@ const TYPES=[
   id:'oc',accent:'#0f9d6b',accent2:'#0a7048',name:'Open Cloze',n:8,
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
-  instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 4: past perfect simple, narrative tenses, defining e non-defining relative clauses, pronomi relativi.',
+  instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola). Leggi prima tutto il testo: la parola giusta dipende dal significato della frase.',
   text:`Last winter a colleague lent me a graphic novel {1} completely changed the way I read. That was how I ended up in a reading group that meets in the basement of a second-hand bookshop. By the time I got to my first meeting, the others {2} already chosen the book for December: a thriller {3} author nobody in the group had heard of. Bea, the woman in charge of the discussion, {4} explaining the plot when the lights suddenly went out. Down there, {5} there are no windows at all, the darkness was complete. Nobody moved. It was the sort of moment {6} you stop breathing. We sat there for twenty minutes, and {7} the time the electrician arrived, we had finished every single biscuit. Those biscuits, {8} Bea had baked herself, were delicious, and I have gone back every month since.`,
   gaps:[
     {a:"which",accept:["which","that"]},
@@ -245,7 +245,7 @@ const TYPES=[
     {a:"whose",accept:["whose"]},
     {a:"was",accept:["was"]},
     {a:"where",accept:["where"]},
-    {a:"when",accept:["when"]},
+    {a:"when",accept:["when","that"]},
     {a:"by",accept:["by"]},
     {a:"which",accept:["which"]},
   ],
@@ -255,19 +255,20 @@ const TYPES=[
   id:'mc',accent:'#b8860b',accent2:'#8a6608',name:'Multiple-choice Cloze',n:8,
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
-  instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: tempi del racconto, past perfect, pronomi relativi, relative defining e non-defining.',
-  text:`By the age of twelve, Nadia {1} to be a novelist for three years. The first story {2} she ever finished was about a dog {3} owner had disappeared. She wrote it in the notebook {4} her grandmother had given her for Christmas. At school her teacher said the ending was too sad, so Nadia tore out the last page and never showed the story to anyone again. Years later, {5} she was clearing out the attic, she found the notebook at the bottom of a box. {6} then she {7} three novels with a real publisher. Even so, the old notebook, {8} she keeps in her desk, is still the thing she is proudest of.`,
+  instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio. Le quattro opzioni sono tutte parole vere: decide il significato (attenzione ai falsi amici).',
+  text:`By the age of twelve, Nadia {1} to be a novelist for three years. The first story she ever finished had a {2} who stole children's shadows and a dog {3} owner had disappeared. She wrote it in the notebook her grandmother had given her for Christmas. At school her teacher said the {4} was too sad, so Nadia tore out the last page and never showed the story to anyone again. Years later, {5} she was clearing out the attic, she found the notebook at the bottom of a box. By then she {6} three novels, and a big {7} in London was printing her fourth. Even so, the old notebook, {8} she keeps in her desk, is still the thing she is proudest of.`,
   gaps:[
     {options:["had wanted","was wanting","has wanted","wants"],a:"had wanted"},
-    {options:["that","what","whose","where"],a:"that"},
+    {options:["villain","evil","wicked","guilty"],a:"villain"},
     {options:["whose","which","who","that"],a:"whose"},
-    {options:["which","who","whose","when"],a:"which"},
+    {options:["ending","final","finish","termination"],a:"ending"},
     {options:["while","during","despite","instead of"],a:"while"},
-    {options:["By","At","In","On"],a:"By"},
     {options:["had published","has published","was publishing","publishes"],a:"had published"},
+    {options:["publisher","editor","edition","library"],a:"publisher"},
     {options:["which","that","what","where"],a:"which"},
   ],
-  gloss:{"novelist":"romanziere","disappeared":"era sparito","ending":"finale","tore out":"strappò","clearing out":"svuotare","attic":"soffitta","at the bottom":"in fondo","publisher":"editore","Even so":"Nonostante questo","desk":"scrivania","proudest":"più orgogliosa"}
+
+  gloss:{"novelist":"romanziere","disappeared":"era sparito","tore out":"strappò","clearing out":"svuotare","attic":"soffitta","at the bottom":"in fondo","shadows":"ombre","notebook":"quaderno","Even so":"Nonostante questo","desk":"scrivania","proudest":"più orgogliosa"}
 },
 {
   id:'tr',accent:'#c1502a',accent2:'#963a1d',name:'Key Word Transformation',n:6,
@@ -275,12 +276,12 @@ const TYPES=[
   short:'Completa con 2\u20135 parole, usando la parola chiave.',
   instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
   items:[
-    {prompt:"Leo started the crime novel and then he saw the film.",key:"BEFORE",pre:"Leo had started the crime novel",post:"the film.",a:"before he saw",accept:["before he saw","before he watched"]},
+    {prompt:"Leo saw the film after finishing the crime novel.",key:"ALREADY",pre:"When Leo saw the film, he",post:"the crime novel.",a:"had already finished",accept:["had already finished","had already read"]},
     {prompt:"Nobody had told Ana about the change of date.",key:"HEARD",pre:"Ana",post:"about the change of date.",a:"hadn't heard",accept:["hadn't heard","had not heard","hadn't heard anything","had heard nothing"]},
     {prompt:"The film began, and at that very moment Ravi's phone rang.",key:"WHEN",pre:"Ravi's phone rang",post:"beginning.",a:"when the film was",accept:["when the film was"]},
     {prompt:"Ines's brother is a novelist, but Ines never reads his books.",key:"WHOSE",pre:"Ines,",post:"is a novelist, never reads his books.",a:"whose brother",accept:["whose brother"]},
-    {prompt:"Everyone had gone home before the author finally arrived.",key:"TIME",pre:"By",post:"the author finally arrived, everyone had gone home.",a:"the time",accept:["the time"]},
-    {prompt:"You asked me about a travel book last week. Here it is.",key:"WHICH",pre:"This is the travel book",post:"me about last week.",a:"which you asked",accept:["which you asked"]},
+    {prompt:"The author finally arrived, but everyone had left before that.",key:"GONE",pre:"By the time the author finally arrived, everyone",post:".",a:"had already gone",accept:["had already gone","had gone","had already gone home","had gone home"]},
+    {prompt:"You asked me about a travel book last week. Here it is.",key:"WHICH",pre:"This is the travel book",post:"last week.",a:"which you asked me about",accept:["which you asked me about"]},
   ],
   gloss:{"crime novel":"romanzo giallo","change of date":"cambio di data","very moment":"preciso istante","novelist":"romanziere","travel book":"libro di viaggi"}
 },
