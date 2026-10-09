@@ -237,37 +237,37 @@ const TYPES=[
   id:'oc',accent:'#0f9d6b',accent2:'#0a7048',name:'Open Cloze',n:8,
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
-  instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola, mai un vocabolo di contenuto). Tutto ciò che serve è nella Unit 2: present perfect continuous, for/since, present perfect vs past simple.',
-  text:`My sister Nell {1} been working as a hairdresser's assistant since she {2} sixteen. She got the job through a family friend, and she has been doing it ever {3}. She only earns a little money on Saturday afternoons, but she has made good progress, and she hasn't spent a penny of it {4}. Last winter she did a course in colour technique, and next year she wants to apply for an apprenticeship at the same salon. {5} long has she been saving for it? Almost three years. I still haven't made {6} my mind about my own career, and I have been putting off the decision {7} months, but Nell {8} already found her way.`,
+  instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola). Leggi prima tutto il testo: la parola giusta dipende dal significato della frase.',
+  text:`My cousin Lucia {1} been a paramedic {2} she was twenty-three, and she says it is the hardest job she has {3} done. When {4} she decide to do it? Six years {5}, after she saw a car accident outside her house and felt completely useless. Last September she started a course in emergency medicine, and she has been {6} it in the evenings {7} ten months now. She has made a lot of progress, but she is tired: she still hasn't decided whether she wants to become a doctor, and she hasn't made up her mind about moving to Milan {8}.`,
   gaps:[
     {a:"has",accept:["has"]},
-    {a:"was",accept:["was"]},
     {a:"since",accept:["since"]},
-    {a:"yet",accept:["yet"]},
-    {a:"How",accept:["how"]},
-    {a:"up",accept:["up"]},
+    {a:"ever",accept:["ever"]},
+    {a:"did",accept:["did"]},
+    {a:"ago",accept:["ago"]},
+    {a:"doing",accept:["doing","taking"]},
     {a:"for",accept:["for"]},
-    {a:"has",accept:["has"]},
+    {a:"yet",accept:["yet"]},
   ],
-  gloss:{"assistant":"assistente","through a family friend":"tramite un amico di famiglia","a penny":"un centesimo","apprenticeship":"apprendistato","salon":"salone","found her way":"ha trovato la sua strada"}
+  gloss:{"paramedic":"soccorritrice","useless":"inutile","emergency medicine":"medicina d'urgenza","progress":"progressi","whether":"se","made up her mind":"deciso"}
 },
 {
   id:'mc',accent:'#b8860b',accent2:'#8a6608',name:'Multiple-choice Cloze',n:8,
   part:'Reading & Use of English · Part 1',
   short:'Scegli l\u2019opzione corretta per ogni spazio.',
-  instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio: present perfect continuous, simple vs continuous, present perfect vs past simple, verbi di stato.',
-  text:`Harry {1} for the same company since March. He {2} the job through a friend who was already working there at the time. Since then he {3} to use all three machines in the workshop, and the engineer in charge trusts him. \"I {4} how hard it would be when I started,\" he admits. \"Today I {5} components for three hours without stopping.\" He {6} a proper break since Monday, because the shift rota is still a mess and nobody has done the paperwork, but he has made an effort not to complain. How many hours {7} this month? Almost ninety. He has made an appointment with the careers adviser, but he {8} up his mind yet. He is thinking about doing a degree and becoming an accountant like his sister.`,
+  instr:'Leggi il testo e scegli dal menu <b>l\u2019opzione giusta</b> per ogni spazio. Le quattro opzioni sono tutte parole vere: decide il significato e quale parola si usa con quale nome (make o do, earn o win\u2026).',
+  text:`My brother Sam {1} school at eighteen without any idea of what he wanted to do. For two years he {2} odd jobs: he washed dishes, delivered pizzas and worked nights at a petrol station, and he {3} just enough money to pay his rent. Then he {4} an important decision: he {5} for an apprenticeship with an electrician. He has been working with her for three years now, and he has {6} a lot of progress. He has {7} a few mistakes, of course — once he cut off the electricity in a whole school — but he always {8} his best, and next year he wants to start his own business.`,
   gaps:[
-    {options:["has been working","is working","works","was working"],a:"has been working"},
-    {options:["got","has got","has been getting","gets"],a:"got"},
-    {options:["has learnt","has been learning","learns","is learning"],a:"has learnt"},
-    {options:["didn't know","haven't known","haven't been knowing","wasn't knowing"],a:"didn't know"},
-    {options:["have been checking","have checked","am checking","was checking"],a:"have been checking"},
-    {options:["hasn't had","hasn't been having","doesn't have","didn't have"],a:"hasn't had"},
-    {options:["has he worked","has he been working","did he work","is he working"],a:"has he worked"},
-    {options:["hasn't made","hasn't been making","didn't make","doesn't make"],a:"hasn't made"},
+    {options:["left","abandoned","stopped","went"],a:"left"},
+    {options:["did","made","went","played"],a:"did"},
+    {options:["earned","won","gained","took"],a:"earned"},
+    {options:["made","did","had","gave"],a:"made"},
+    {options:["applied","demanded","requested","proposed"],a:"applied"},
+    {options:["made","done","had","got"],a:"made"},
+    {options:["made","done","had","taken"],a:"made"},
+    {options:["does","makes","gives","takes"],a:"does"},
   ],
-  gloss:{"through a friend":"tramite un amico","machines":"macchinari","in charge":"responsabile","trusts":"si fida di","admits":"ammette","components":"componenti","shift rota":"turni","complain":"lamentarsi","degree":"laurea"}
+  gloss:{"odd jobs":"lavoretti","delivered":"consegnava","petrol station":"distributore di benzina","rent":"affitto","apprenticeship":"apprendistato","electrician":"elettricista","mistakes":"errori","cut off":"staccato","business":"attività"}
 },
 {
   id:'tr',accent:'#c1502a',accent2:'#963a1d',name:'Key Word Transformation',n:6,
@@ -275,14 +275,14 @@ const TYPES=[
   short:'Completa con 2\u20135 parole, usando la parola chiave.',
   instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
   items:[
-    {prompt:"Kofi applied for a job at the call centre in September and he hasn't stopped working there.",key:"BEEN",pre:"Kofi",post:"at the call centre since September.",a:"has been working",accept:["has been working"]},
-    {prompt:"Dylan qualified as a paramedic two years ago and nobody has called him for an interview since.",key:"HAD",pre:"Dylan",post:"an interview for two years.",a:"hasn't had",accept:["hasn't had","has not had"]},
-    {prompt:"Zara began revising for her exam at eight this morning and she is still at it.",key:"SINCE",pre:"Zara has been revising for her exam",post:"this morning.",a:"since eight",accept:["since eight","since eight o'clock"]},
-    {prompt:"When did Tariq start learning the cello?",key:"LONG",pre:"How",post:"the cello?",a:"long has Tariq been learning",accept:["long has Tariq been learning","long has he been learning"]},
-    {prompt:"Elsa got a job as a personal trainer five years ago and she is still there.",key:"WORKED",pre:"Elsa",post:"as a personal trainer for five years.",a:"has worked",accept:["has worked"]},
-    {prompt:"How long is it since Noah got the qualification he needed to work as an engineer?",key:"HAD",pre:"How long",post:"his qualification?",a:"has Noah had",accept:["has noah had","has he had"]},
+    {prompt:"Nadia got a job as a nurse in 2021, and she still loves it.",key:"WORKING",pre:"Nadia",post:"as a nurse since 2021.",a:"has been working",accept:["has been working"]},
+    {prompt:"This is my first job interview.",key:"NEVER",pre:"I",post:"a job interview before.",a:"have never had",accept:["have never had","have never been to","have never done"]},
+    {prompt:"When did Marco start working at the bakery?",key:"BEEN",pre:"How long",post:"at the bakery?",a:"has Marco been working",accept:["has Marco been working","has he been working"]},
+    {prompt:"The last time Tom talked to his boss was on Monday.",key:"SPOKEN",pre:"Tom",post:"his boss since Monday.",a:"hasn't spoken to",accept:["hasn't spoken to","has not spoken to","hasn't spoken with","has not spoken with"]},
+    {prompt:"Sara still doesn't know what career she wants.",key:"MADE",pre:"Sara",post:"her mind about her career yet.",a:"hasn't made up",accept:["hasn't made up","has not made up"]},
+    {prompt:"I really need to try harder in maths this year.",key:"EFFORT",pre:"I really need to",post:"in maths this year.",a:"make more of an effort",accept:["make more of an effort","make a bigger effort","make more effort","make a greater effort","make an effort"]},
   ],
-  gloss:{"call centre":"call center","revising":"ripassare","qualification":"titolo di studio","personal trainer":"personal trainer","cello":"violoncello"}
+  gloss:{"nurse":"infermiera","bakery":"panetteria","career":"carriera","try harder":"impegnarsi di più"}
 },
 ];
 
