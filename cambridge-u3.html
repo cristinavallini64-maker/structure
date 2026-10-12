@@ -262,7 +262,7 @@ const TYPES=[
     {options:["managed","succeeded","achieved","reached"],a:"managed"},
     {options:["persuade","suggest","insist","argue"],a:"persuade"},
     {options:["mind","accept","matter","care"],a:"mind"},
-    {options:["stopped","ended","finished","closed"],a:"stopped"},
+    {options:["stopped","ended","left","closed"],a:"stopped"},
     {options:["nothing","anything","something","everything"],a:"nothing"},
     {options:["isn't it","is it","doesn't it","hasn't it"],a:"isn't it"},
   ],
@@ -275,7 +275,7 @@ const TYPES=[
   short:'Completa con 2\u20135 parole, usando la parola chiave.',
   instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
   items:[
-    {prompt:"Bea doesn't play the piano in the front room any more.",key:"GIVEN",pre:"Bea",post:"the piano in the front room.",a:"has given up playing",accept:["has given up playing"]},
+    {prompt:"Bea doesn't play the piano in the front room any more.",key:"GIVEN",pre:"Bea",post:"the piano in the front room.",a:"has given up playing",accept:["has given up playing","gave up playing"]},
     {prompt:"\u201CDon't leave your bike in the hall,\u201D the caretaker said to Milo.",key:"TOLD",pre:"The caretaker",post:"his bike in the hall.",a:"told Milo not to leave",accept:["told milo not to leave","told him not to leave"]},
     {prompt:"Ivo and Mara say they definitely posted the rent cheque, but it hasn't arrived.",key:"REMEMBER",pre:"Ivo and Mara",post:"the rent cheque.",a:"remember posting",accept:["remember posting","clearly remember posting","can remember posting","remember sending","clearly remember sending","can remember sending"]},
     {prompt:"We searched the whole flat, but the keys weren't there.",key:"ANYWHERE",pre:"We couldn't",post:"in the flat.",a:"find the keys anywhere",accept:["find the keys anywhere","see the keys anywhere"]},

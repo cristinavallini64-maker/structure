@@ -237,7 +237,7 @@ const TYPES=[
   part:'Reading & Use of English · Part 2',
   short:'Completa il testo: una sola parola per ogni spazio.',
   instr:'Leggi il testo e scrivi <b>la parola mancante</b> in ogni spazio (una parola sola). Leggi prima tutto il testo: la parola giusta dipende dal significato della frase.',
-  text:`Last spring my cousin Marta and I entered our first half-marathon. Our coach told us, "You {1} start training at least three months before the race," but we only started three weeks before. Looking back, we should {2} listened to him. On the first morning Marta ran so fast that after two kilometres she looked {3} a ghost. "You'd {4} slow down," I told her, "or you won't finish." She was angry with {5} for making such a silly mistake. After that we trained together every day and encouraged {6} other whenever we felt like giving up. On race day the weather was perfect: we didn't {7} to wear our rain jackets, and the crowd sounded fantastic. Marta crossed the finish line before me, but I did it all {8} myself, without stopping once.`,
+  text:`Last spring my cousin Marta and I entered our first half-marathon. Our coach told us, "You {1} start training at least three months before the race," but we only started three weeks before. Looking back, we should {2} listened to him. On the first morning Marta ran very fast that after two kilometres she looked {3} a ghost. "You'd {4} slow down," I told her, "or you won't finish." She was angry with {5} for making a silly mistake like that. After that we trained together every day and encouraged {6} other whenever we felt like giving up. On race day the weather was perfect: we didn't {7} to wear our rain jackets, and the crowd sounded fantastic. Marta crossed the finish line before me, but I did it all {8} myself, without stopping once.`,
   gaps:[
     {a:"should",accept:["should","must"]},
     {a:"have",accept:["have"]},
@@ -274,9 +274,9 @@ const TYPES=[
   short:'Completa con 2–5 parole, usando la parola chiave.',
   instr:'Completa la seconda frase in modo che abbia lo stesso significato della prima, usando la <b>parola chiave</b> indicata. <b>Non cambiare</b> la parola chiave. Scrivi <b>tra 2 e 5 parole</b> (parola chiave inclusa) nello spazio.',
   items:[
-    {prompt:"It's a good idea for you to see a physio about your knee.",key:"SHOULD",pre:"You",post:"about your knee.",a:"should see a physio",accept:["should see a physio","should go to a physio"]},
+    {prompt:"It's a good idea for you to see a physio about your knee.",key:"SHOULD",pre:"You",post:"about your knee.",a:"should see a physio",accept:["should see a physio","should go to a physio","should go and see a physio","should go to see a physio"]},
     {prompt:"It was a mistake not to stretch: now my legs hurt.",key:"HAVE",pre:"I",post:": now my legs hurt.",a:"should have stretched",accept:["should have stretched","ought to have stretched"]},
-    {prompt:"There's no need to buy tickets for the match: entry is free.",key:"NEED",pre:"You",post:"tickets for the match: entry is free.",a:"don't need to buy",accept:["don't need to buy","do not need to buy","don't need to get","do not need to get"]},
+    {prompt:"There's no need to buy tickets for the match: entry is free.",key:"NEED",pre:"You",post:"tickets for the match: entry is free.",a:"don't need to buy",accept:["don't need to buy","do not need to buy","don't need to get","do not need to get","needn't buy"]},
     {prompt:"If you don't leave now, you'll miss the train.",key:"BETTER",pre:"You",post:", or you'll miss the train.",a:"'d better leave now",accept:["'d better leave now","had better leave now","'d better go now","had better go now"]},
     {prompt:"From what you've told me, your new coach is very strict.",key:"SOUNDS",pre:"Your new coach",post:".",a:"sounds very strict",accept:["sounds very strict","sounds really strict"]},
     {prompt:"Lisa helps Ben with his training, and Ben helps Lisa with hers.",key:"OTHER",pre:"Lisa and Ben",post:"with their training.",a:"help each other",accept:["help each other"]},
