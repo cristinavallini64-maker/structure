@@ -176,6 +176,7 @@ body.tr-on .gloss{border-bottom:1px dotted var(--glossc);cursor:help;color:#7a54
   .ex-title{font-size:22px;}
 }
 </style>
+<script src="https://cristinavallini64-maker.github.io/grammar-tutor/tracker.js"></script>
 </head>
 <body>
 <div id="tip"></div>
@@ -448,7 +449,7 @@ function grade(){
   const cls=pct>=80?'good':pct>=50?'mid':'low';
   const label=pct>=80?'Ottimo lavoro!':pct>=50?'Ci sei quasi — rivedi gli errori.':'Riprova: rileggi la regola e ritenta.';
   document.getElementById('exScore').innerHTML=`<div class="score"><div class="score-ring ${cls}">${correct}/${total}</div><div class="score-txt"><b>${pct}%</b><span>${label} Le risposte corrette sono evidenziate in verde nel testo.</span></div></div>`;
-  saveBest(t.id,correct,total);
+  saveBest(t.id,correct,total);if(!window._efDone)window._efDone={};if(!window._efDone[t.id]){window._efDone[t.id]=1;if(window.EFTrack)EFTrack.event('punteggio:'+t.name+' (su '+total+')',pct);}
   document.getElementById('exActions').innerHTML=`<button class="btn btn-go" onclick="openType('${t.id}')">↻ Riprova</button><button class="btn btn-ghost" onclick="goHome()">← Torna alla scelta</button>`;
   window.scrollTo({top:0,behavior:'smooth'});
 }

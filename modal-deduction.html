@@ -225,6 +225,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
 .gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
 </style>
+<script src="https://cristinavallini64-maker.github.io/grammar-tutor/tracker.js"></script>
 </head>
 <body>
 <header>
@@ -565,11 +566,11 @@ function renderMap(){
     list.appendChild(card);
   });
 }
-let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[];
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[],_firstTotal=0,_firstDone=false;
 function openLevel(s){
   currentLevel=s;
   const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
-  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
   document.getElementById('exTitle').textContent=currentLevel.title;
   showScreen('exercise');renderExercise();
 }
@@ -691,7 +692,7 @@ function checkExercise(){
 }
 function nextExercise(){
   exIdx++;
-  if(exIdx>=exQueue.length){if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
   else renderExercise();
 }
 function showExResults(){
