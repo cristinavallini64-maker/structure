@@ -297,7 +297,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 function spawnBurst(){}
 function burstAt(){}
 
-const GLOSS={"reality shows": "reality show", "soaps": "soap opera", "final": "finale", "binge-watched": "guardato tutto di fila", "series": "serie", "podcast": "podcast", "post": "pubblicare", "remote": "telecomando", "presenter": "conduttrice", "show": "programma", "switch off": "spegnere", "account": "account", "headphones": "cuffie"};
+const GLOSS={"reality shows": "reality show", "soaps": "soap opera", "final": "finale", "binge-watched": "guardato tutto di fila", "series": "serie", "podcast": "podcast", "post": "pubblicare", "remote": "telecomando", "presenter": "conduttrice", "show": "programma", "switch off": "spegnere", "account": "account", "headphones": "cuffie", "radio station": "stazione radio", "documentary": "documentario", "audience": "pubblico", "studio": "studio televisivo", "sitcom": "sitcom", "game show": "quiz televisivo", "live": "dal vivo", "vlog": "videoblog", "weather forecast": "previsioni del tempo", "followers": "follower", "streaming subscription": "abbonamento a una piattaforma di streaming", "programme": "programma", "journalist": "giornalista", "cameras": "telecamere", "director": "regista", "ticket office": "biglietteria", "charger": "caricabatterie", "coach": "allenatore", "umbrella": "ombrello", "mayor": "sindaca", "resign": "dimettersi", "channel": "canale", "episode": "puntata", "neighbours": "vicini", "meeting": "riunione", "talent show": "talent show", "producer": "produttore", "interviewer": "intervistatore", "president": "presidente", "broadcasting": "trasmettendo", "stadium": "stadio", "host": "conduttore", "link": "link", "comments": "commenti", "weatherman": "meteorologo", "prize money": "premio in denaro", "newsfeed": "bacheca delle notizie", "video games": "videogiochi", "reporter": "giornalista", "subtitles": "sottotitoli", "laptop": "portatile", "cartoons": "cartoni animati", "skate park": "skate park", "guide": "guida", "DVD": "DVD"};
 const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
 function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
 function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
@@ -329,6 +329,150 @@ exercises:[
 {type:"fill",q:"« I haven't got a TikTok account. » → Zoe said she ___ a TikTok account.",hint:"(not · have)",a:"didn't have",accept:["didn't have","did not have","hadn't got","had not got"],instruction:"Completa il discorso indiretto."},
 {type:"fill",q:"« Ha detto che non guardava mai la TV. » → He said he ___ TV.",hint:"(never · watch)",a:"never watched",accept:["never watched"],instruction:"Scrivi in inglese la parte che manca."}
 ]}
+,
+{id:2,type:"study",title:"LIVELLO 02 — SAY O TELL",desc:"say (to someone) · tell + persona · tell the truth, a lie, a story",
+rule:`<strong>SAY o TELL &mdash; Unit 10:</strong><br>
+&#x2714; <code>say</code> si usa <strong>senza</strong> la persona a cui si parla. &mdash; <em>She <strong>said</strong> (that) she was tired.</em><br>
+&#x2714; Se c'&egrave; la persona, con <em>say</em> serve <strong>to</strong>: <em>He <strong>said to</strong> me that he was sorry.</em><br>
+&#x2714; <code>tell</code> vuole <strong>sempre la persona</strong>, senza <em>to</em>: <em>She <strong>told me</strong> (that) she was tired.</em> (non &laquo;told to me&raquo;, non &laquo;said me&raquo;)<br>
+&#x2714; Espressioni fisse con <strong>tell</strong>: <em>tell the truth, tell a lie, tell a story, tell a joke, tell the time</em>. Con <strong>say</strong>: <em>say hello, say goodbye, say sorry, say yes/no</em>.`,
+exercises:[
+{type:"fill",q:"My sister ___ me that she had a new job at the radio station.",a:"told",accept:["told"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"fill",q:"Leo ___ that the match on TV was really boring.",a:"said",accept:["said"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Anna said me that she was a big fan of cartoons.",a:"Anna told me that she was a big fan of cartoons.",accept:["Anna told me that she was a big fan of cartoons.","Anna told me she was a big fan of cartoons.","Anna said to me that she was a big fan of cartoons.","Anna said that she was a big fan of cartoons."]},
+{type:"fill",q:"The teacher ___ to us that the test was on Friday.",a:"said",accept:["said"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"fill",q:"Why didn't you ___ me about the party?",a:"tell",accept:["tell"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"mc",q:"« She said to me that she was sorry. » Va bene così?",options:["Sì: say vuole to davanti alla persona.","No: ci vuole « She said me ».","No: ci vuole « She told to me ».","No: say non si usa mai con la persona."],a:"Sì: say vuole to davanti alla persona."},
+{type:"fill",q:"Grandad always ___ the same stories at Christmas, but we love them.",a:"tells",accept:["tells"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"He told that he was too busy to watch the series.",a:"He said that he was too busy to watch the series.",accept:["He said that he was too busy to watch the series.","He said he was too busy to watch the series.","He told me that he was too busy to watch the series.","He told us that he was too busy to watch the series."]},
+{type:"fill",q:"Please ___ the truth: did you eat my sandwich?",a:"tell",accept:["tell"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"fill",q:"She ___ goodbye to the audience and left the studio.",a:"said",accept:["said"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Excuse me, can you say me the time?",a:"Excuse me, can you tell me the time?",accept:["Excuse me, can you tell me the time?","Excuse me, could you tell me the time?"]},
+{type:"mc",q:"« The presenter told the audience a joke. » Quale seguito sta in piedi?",options:["Everybody in the studio laughed.","But she didn't say anything to anybody.","The audience told it to her first.","She said it to nobody."],a:"Everybody in the studio laughed."},
+{type:"fill",q:"« Mi ha detto una bugia. » → He ___ me a lie.",a:"told",accept:["told"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"rA",type:"review",title:"⟳ RIPASSO A — riportare frasi",desc:"i tempi che tornano indietro e say o tell insieme · frasi nuove",
+rule:`<strong>RIPASSO A &mdash; Unit 10:</strong><br>
+&#x2714; Dopo <em>said / told</em> il tempo torna indietro e i pronomi cambiano.<br>
+&#x2714; <em>tell</em> + persona; <em>say</em> senza persona, o <em>say to</em> + persona.`,
+exercises:[
+{type:"fill",q:"« I'm writing a review of the new sitcom. » → Dan said he ___ a review of the new sitcom.",hint:"(write)",a:"was writing",accept:["was writing"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« We've never seen a game show live. » → They told me they ___ a game show live.",hint:"(never · see)",a:"had never seen",accept:["had never seen","'d never seen"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Mia told that she had started a vlog about cooking.",a:"Mia said that she had started a vlog about cooking.",accept:["Mia said that she had started a vlog about cooking.","Mia said she had started a vlog about cooking.","Mia told me that she had started a vlog about cooking.","Mia told us that she had started a vlog about cooking."]},
+{type:"fill",q:"Asha ___ us that she couldn't come to the studio.",a:"told",accept:["told"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"fill",q:"« I'll watch the documentary after dinner. » → My brother said he ___ the documentary after dinner.",hint:"(watch)",a:"would watch",accept:["would watch","'d watch"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"« He told me he was going to the skate park. » Va bene così?",options:["Sì: told + persona, e am going diventa was going.","No: told non vuole mai la persona.","No: il tempo del verbo non cambia mai.","No: si dice sempre said, mai told."],a:"Sì: told + persona, e am going diventa was going."},
+{type:"fill",q:"« The weather forecast is wrong again! » → Grandpa said the weather forecast ___ wrong again.",hint:"(be)",a:"was",accept:["was"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"« I've lost half my followers. » → She said she has lost half her followers.",a:"She said she had lost half her followers.",accept:["She said she had lost half her followers.","She said that she had lost half her followers."]},
+{type:"mc",q:"« Lena said she had cancelled her streaming subscription. » Quale seguito sta in piedi?",options:["So she can't watch the new series.","So she's watching the new series right now.","She's going to cancel it next year.","She never had a subscription."],a:"So she can't watch the new series."},
+{type:"fill",q:"« Mi ha detto che il programma era finito. » → She told me the programme ___.",hint:"(finish)",a:"had finished",accept:["had finished","had ended"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:3,type:"study",title:"LIVELLO 03 — REPORTED QUESTIONS",desc:"if / whether · domande con wh- · l'ordine della frase affermativa",
+rule:`<strong>REPORTED SPEECH: QUESTIONS &mdash; Unit 10:</strong><br>
+&#x2714; Si usa <strong>ask</strong>. La domanda riportata ha l'ordine della frase <strong>affermativa</strong> (soggetto + verbo) e <strong>niente do/does/did</strong>, niente punto interrogativo.<br>
+&#x2714; Domande s&igrave;/no: <code>ask + if / whether</code>. &mdash; &laquo;Do you like cartoons?&raquo; &rarr; <em>She asked me <strong>if I liked</strong> cartoons.</em><br>
+&#x2714; Domande con <em>what, where, when, why, how&hellip;</em>: la parola interrogativa resta. &mdash; &laquo;Where do you live?&raquo; &rarr; <em>He asked me <strong>where I lived</strong>.</em><br>
+&#x2714; I tempi tornano indietro come nelle frasi affermative.<br>
+&#x26A0; <em>She asked where <strong>I lived</strong></em> (non &laquo;where did I live&raquo;, non &laquo;where I did live&raquo;).`,
+exercises:[
+{type:"fill",q:"« Do you watch the news every day? » → She asked me ___ the news every day.",a:"if I watched",accept:["if I watched","whether I watched"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Where do you live? » → The journalist asked me where ___.",a:"I lived",accept:["I lived"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She asked me where did I buy my headphones.",a:"She asked me where I had bought my headphones.",accept:["She asked me where I had bought my headphones.","She asked me where I bought my headphones."]},
+{type:"fill",q:"« Have you seen the new sitcom? » → Jo asked if I ___ the new sitcom.",hint:"(see)",a:"had seen",accept:["had seen","'d seen"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« What time does the show start? » → I asked what time ___.",a:"the show started",accept:["the show started","it started"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"« She asked if I liked soaps » e « She asked what soaps I liked »: in quale si può rispondere solo sì o no?",options:["Nella prima.","Nella seconda.","In tutte e due.","In nessuna delle due."],a:"Nella prima."},
+{type:"fill",q:"« Will you come to the studio? » → They asked if we ___ to the studio.",hint:"(come)",a:"would come",accept:["would come","'d come"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The presenter asked if was I nervous.",a:"The presenter asked if I was nervous.",accept:["The presenter asked if I was nervous.","The presenter asked whether I was nervous.","The presenter asked me if I was nervous."]},
+{type:"fill",q:"« Why are you crying? » → Mum asked me why ___.",a:"I was crying",accept:["I was crying"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« How many followers have you got? » → He asked me how many followers ___.",a:"I had",accept:["I had","I had got"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"They asked me what was my favourite channel.",a:"They asked me what my favourite channel was.",accept:["They asked me what my favourite channel was."]},
+{type:"mc",q:"« The reporter asked the mayor whether she would resign. » Quale seguito sta in piedi?",options:["The mayor answered that she wouldn't.","The mayor asked the reporter the same thing.","The reporter said she had resigned.","Nobody asked the mayor anything."],a:"The mayor answered that she wouldn't."},
+{type:"fill",q:"« Mi ha chiesto se avevo un profilo Instagram. » → She asked me ___ an Instagram account.",a:"if I had",accept:["if I had","whether I had","if I had got","whether I had got"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:4,type:"study",title:"LIVELLO 04 — REQUESTS, INSTRUCTIONS AND ADVICE",desc:"ask + persona + to · tell + persona + (not) to",
+rule:`<strong>REPORTED SPEECH: REQUESTS, INSTRUCTIONS AND ADVICE &mdash; Unit 10:</strong><br>
+&#x2714; Le <strong>richieste</strong> si riportano con <code>ask + persona + (not) to + forma base</code>. &mdash; &laquo;Can you lay the table, please?&raquo; &rarr; <em>Mum <strong>asked me to lay</strong> the table.</em><br>
+&#x2714; Gli <strong>ordini, le istruzioni e i consigli</strong> con <code>tell + persona + (not) to + forma base</code>. &mdash; &laquo;Be quiet!&raquo; &rarr; <em>The teacher <strong>told the students to be</strong> quiet.</em><br>
+&#x2714; Negativo: <strong>not to</strong>. &mdash; &laquo;Don't touch it!&raquo; &rarr; <em>She <strong>told</strong> me <strong>not to touch</strong> it.</em><br>
+&#x26A0; Niente <em>to</em> davanti alla persona: <em>asked <strong>me</strong></em> (non &laquo;asked to me&raquo;). E l'ordine &egrave; <em>not to</em> (non &laquo;to not&raquo;, non &laquo;don't&raquo;).`,
+exercises:[
+{type:"fill",q:"« Please turn the volume down. » → Mum asked me ___ the volume down.",a:"to turn",accept:["to turn"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Don't touch the cameras! » → The director told us ___ the cameras.",a:"not to touch",accept:["not to touch"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She told me don't post the photo online.",a:"She told me not to post the photo online.",accept:["She told me not to post the photo online."]},
+{type:"fill",q:"« Can you help me with my video? » → Ivy asked me ___ her with her video.",a:"to help",accept:["to help"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« You should go to bed earlier. » → The doctor told him ___ to bed earlier.",a:"to go",accept:["to go"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The man at the ticket office asked to me to wait.",a:"The man at the ticket office asked me to wait.",accept:["The man at the ticket office asked me to wait."]},
+{type:"mc",q:"« The coach told us not to eat chips before the match. » Quale seguito sta in piedi?",options:["So we had pasta instead.","So we ate a big plate of chips.","He told us to eat chips every day.","He asked if we liked chips."],a:"So we had pasta instead."},
+{type:"fill",q:"« Don't forget your umbrella. » → Dad told me ___ my umbrella.",a:"not to forget",accept:["not to forget"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Could you lend me your charger? » → Sam asked me ___ him my charger.",a:"to lend",accept:["to lend","to give"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The guide told us to not leave the group.",a:"The guide told us not to leave the group.",accept:["The guide told us not to leave the group."]},
+{type:"mc",q:"« Nina asked me to call her » e « Nina told me to call her »: in quale era un ordine, non una richiesta gentile?",options:["Nella seconda.","Nella prima.","In tutte e due.","In nessuna delle due."],a:"Nella seconda."},
+{type:"fill",q:"« Mi ha detto di non preoccuparmi. » → He told me ___.",a:"not to worry",accept:["not to worry"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:5,type:"study",title:"LIVELLO 05 — TIME AND PLACE CHANGES",desc:"today → that day · tomorrow → the next day · yesterday → the day before · here → there",
+rule:`<strong>REPORTED SPEECH: TIME AND PLACE CHANGES &mdash; Unit 10:</strong><br>
+&#x2714; Se le parole sono state dette in un altro momento o in un altro luogo, cambiano anche i riferimenti di tempo e di luogo:<br>
+&nbsp;&nbsp;&nbsp;<em>now</em> &rarr; <strong>then</strong> &middot; <em>today</em> &rarr; <strong>that day</strong> &middot; <em>tonight</em> &rarr; <strong>that night</strong> &middot; <em>tomorrow</em> &rarr; <strong>the next day / the following day</strong> &middot; <em>yesterday</em> &rarr; <strong>the day before / the previous day</strong><br>
+&nbsp;&nbsp;&nbsp;<em>next week</em> &rarr; <strong>the following week</strong> &middot; <em>last week</em> &rarr; <strong>the week before / the previous week</strong> &middot; <em>two days ago</em> &rarr; <strong>two days before</strong><br>
+&nbsp;&nbsp;&nbsp;<em>here</em> &rarr; <strong>there</strong> &middot; <em>this, these</em> &rarr; <strong>that, those</strong>.<br>
+&#x26A0; &laquo;I'll call you tomorrow.&raquo; &rarr; <em>She said she would call me <strong>the next day</strong>.</em>`,
+exercises:[
+{type:"fill",q:"« I'll lend you the DVD tomorrow. » → A week ago Bea said she would lend me the DVD ___.",a:"the next day",accept:["the next day","the following day","the day after"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« I'm really busy today. » → Ava said she was really busy ___.",a:"that day",accept:["that day"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"Last month Ivo said he would visit us tomorrow.",a:"Last month Ivo said he would visit us the next day.",accept:["Last month Ivo said he would visit us the next day.","Last month Ivo said he would visit us the following day.","Last month Ivo said he would visit us the day after."]},
+{type:"fill",q:"« I saw the final episode yesterday. » → Kim said she had seen the final episode ___.",a:"the day before",accept:["the day before","the previous day"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« We moved here in 2020. » → My neighbours said they had moved ___ in 2020.",a:"there",accept:["there"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"Lunedì Lisa ha detto: « I'll finish it tomorrow. » Oggi è venerdì e riporti la frase: « Lisa said she would finish it… »",options:["the next day.","tomorrow.","yesterday.","the day before."],a:"the next day."},
+{type:"fill",q:"« I'm moving to Rome next month. » → Leo said he was moving to Rome ___.",a:"the following month",accept:["the following month","the next month","the month after"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"Al telefono, da Londra, tua cugina ti dice: « It's raining here. » Il giorno dopo racconti: « My cousin said it was raining… »",options:["there.","here.","now.","this."],a:"there."},
+{type:"fill",q:"« I bought this phone last week. » → Kai said he had bought ___ phone the week before.",a:"that",accept:["that"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"She said she had been ill yesterday, so she had missed the meeting.",a:"She said she had been ill the day before, so she had missed the meeting.",accept:["She said she had been ill the day before, so she had missed the meeting.","She said she had been ill the previous day, so she had missed the meeting."]},
+{type:"fill",q:"« The quiz is starting now! » → The host said the quiz was starting ___.",a:"then",accept:["then"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« I finished my project two days ago. » → Sara said she had finished her project two days ___.",a:"before",accept:["before","earlier"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Ha detto che il giorno prima era andato al cinema. » → He said he had gone to the cinema ___.",a:"the day before",accept:["the day before","the previous day"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"rB",type:"review",title:"⟳ RIPASSO B — tutta la unit",desc:"frasi, domande, richieste e cambi di tempo insieme · frasi nuove",
+rule:`<strong>RIPASSO B &mdash; Unit 10:</strong><br>
+&#x2714; Frasi: <em>said / told</em> + tempo che torna indietro &middot; domande: <em>asked if / asked where&hellip;</em> con l'ordine affermativo &middot; richieste e ordini: <em>asked / told + persona + (not) to</em>.<br>
+&#x2714; Cambia anche il riferimento di tempo e di luogo: <em>the next day, the day before, that day, there</em>.`,
+exercises:[
+{type:"fill",q:"« I'm recording a new podcast episode. » → Jess said she ___ a new podcast episode.",hint:"(record)",a:"was recording",accept:["was recording"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Did you vote for the talent show winner? » → My cousin asked me ___ for the talent show winner.",a:"if I had voted",accept:["if I had voted","whether I had voted"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The director told to the actors to wait outside.",a:"The director told the actors to wait outside.",accept:["The director told the actors to wait outside."]},
+{type:"fill",q:"« Don't post anything about the show tonight. » → The producer told us not to post anything about the show ___.",a:"that night",accept:["that night"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"Owen ___ that he had never been on TV before.",a:"said",accept:["said"],instruction:"Completa con say o tell nella forma giusta."},
+{type:"mc",q:"« Marco asked me if I could lend him my laptop. » Che cosa ti aveva detto Marco?",options:["« Can you lend me your laptop? »","« Lend me your laptop! »","« I can lend you my laptop. »","« Can I lend you my laptop? »"],a:"« Can you lend me your laptop? »"},
+{type:"fill",q:"« Where did you film the interview? » → I asked them where ___ the interview.",a:"they had filmed",accept:["they had filmed"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"« I can't read the subtitles. » → Uncle Joe said he can't read the subtitles.",a:"Uncle Joe said he couldn't read the subtitles.",accept:["Uncle Joe said he couldn't read the subtitles.","Uncle Joe said he could not read the subtitles.","Uncle Joe said that he couldn't read the subtitles."]},
+{type:"fill",q:"« Please speak more slowly. » → The interviewer asked me ___ more slowly.",a:"to speak",accept:["to speak","to talk"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"« The journalist told me she had interviewed the president the week before. » Quale seguito sta in piedi?",options:["The interview was on the news that weekend.","She's interviewing him next spring.","She has never met the president.","She asked me to interview him."],a:"The interview was on the news that weekend."},
+{type:"fill",q:"« Mi ha chiesto dove avevo lasciato il telecomando. » → She asked me where ___ the remote.",a:"I had left",accept:["I had left","I'd left","I had put"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+,
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Breaking news",desc:"tutta la unit insieme · la scelta viene dalla situazione",
+rule:`<strong>SFIDA FINALE &mdash; Unit 10:</strong><br>
+&#x26A0; Nessun aiuto per argomento: per ogni frase chiediti se &egrave; un'affermazione, una domanda o una richiesta; chi parla a chi; quando e dove sono state dette le parole.`,
+exercises:[
+{type:"fill",q:"« We're broadcasting live from the stadium. » → The reporter said they ___ live from the stadium.",hint:"(broadcast)",a:"were broadcasting",accept:["were broadcasting"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Have you ever been on a talk show? » → The host asked the singer ___ on a talk show.",a:"if she had ever been",accept:["if she had ever been","whether she had ever been","if he had ever been","whether he had ever been"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"My friends said me they had seen me on the news.",a:"My friends told me they had seen me on the news.",accept:["My friends told me they had seen me on the news.","My friends told me that they had seen me on the news.","My friends said they had seen me on the news.","My friends said to me that they had seen me on the news."]},
+{type:"fill",q:"« I'll send you the link tomorrow. » → On Monday Rosa said she would send me the link ___.",a:"the next day",accept:["the next day","the following day","the day after"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"« Don't read the comments! » → My sister told me ___ the comments.",a:"not to read",accept:["not to read"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"« The weatherman said it would snow » e « The weatherman says it will snow »: quale riporta una previsione fatta in passato?",options:["La prima.","La seconda.","Tutte e due.","Nessuna delle due."],a:"La prima."},
+{type:"fill",q:"« What are you going to do with the prize money? » → The presenter asked the winner what ___ with the prize money.",a:"he was going to do",accept:["he was going to do","she was going to do","they were going to do"],instruction:"Completa il discorso indiretto."},
+{type:"errorcorrect",instruction:"Trova e correggi l'errore.",wrong:"The host asked the audience if were they enjoying the show.",a:"The host asked the audience if they were enjoying the show.",accept:["The host asked the audience if they were enjoying the show.","The host asked the audience whether they were enjoying the show."]},
+{type:"fill",q:"Tom's mum left a message: « I've gone to the shops. Make your bed. Don't play video games all afternoon. » → She said she ___ to the shops.",hint:"(go)",a:"had gone",accept:["had gone","'d gone"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"(stesso messaggio) « Make your bed. » → She told Tom ___ his bed.",a:"to make",accept:["to make"],instruction:"Completa il discorso indiretto."},
+{type:"fill",q:"(stesso messaggio) « Don't play video games all afternoon. » → She told him ___ video games all afternoon.",a:"not to play",accept:["not to play"],instruction:"Completa il discorso indiretto."},
+{type:"mc",q:"« I told you I would be late! » Quale seguito sta in piedi?",options:["So don't be angry that I arrived at nine.","I never said anything about being late.","I'll tell you tomorrow if I'm late.","You told me you would be late."],a:"So don't be angry that I arrived at nine."},
+{type:"fill",q:"« Mi hanno detto di aspettare qui. » → They told me ___ there.",a:"to wait",accept:["to wait"],instruction:"Scrivi in inglese la parte che manca."}
+]}
+
 ];
 
 
