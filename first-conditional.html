@@ -620,7 +620,7 @@ function renderExercise(){
   if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
   if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
   if(ex.type==='fill'){
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div><div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
     const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
