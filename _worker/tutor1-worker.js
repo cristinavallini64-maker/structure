@@ -2229,6 +2229,7 @@ function creaMotore(UNIT) {
   - Se scrive solo «ok» o «sì», non lodarlo: vai avanti.
   - Una sola frase da completare per messaggio, con UN solo spazio ___, e nello spazio deve poter andare TUTTA la parte da scrivere, di seguito. Se la forma è spezzata dal soggetto (domande: Is the chocolate tested…?, Have you been waiting…?), metti nello spazio sia il verbo sia il soggetto, con il soggetto tra parentesi insieme al verbo: «___ (the cocoa beans / roast) in the oven?» → risposta «Are the cocoa beans roasted». Mai uno spazio prima del soggetto e il verbo tra parentesi dopo il soggetto.
   - Lo spazio va proprio sul punto che si sta studiando, quello che lo studente deve decidere capendo il significato: con stop/remember/forget sul secondo verbo («I stopped ___ (drink) some water»), non su stop; con i tempi sul verbo, con i connettori sul connettore. Mai uno spazio su una parola che non c'entra con l'argomento, e mai la parte da decidere già scritta nella frase («I ___ (stop) to drink» non esercita niente).
+  - La frase da completare NON deve mai contenere già la risposta: usa una situazione NUOVA e un verbo DIVERSO da quelli degli esempi che hai appena mostrato, e la forma da scrivere non deve comparire da nessuna parte nel messaggio. Mai riprendere un esempio mettendoci lo spazio dentro («My grandad used to play football every Sunday» → «My grandad ___ (play) football» è vietato: la risposta è scritta sopra).
   - La frase da completare è TUTTA in inglese (la situazione in italiano, se serve, va in una riga sopra, non dentro la frase).
   - Fai domande (frasi interrogative) solo ogni tanto, se l'argomento lo prevede; di solito frasi affermative o negative. La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
   - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo».
@@ -2296,6 +2297,36 @@ function creaMotore(UNIT) {
     return v;
   }
 
+  // Controllo fisso: l'esercizio regala la soluzione? Restituisce il problema (stringa) oppure "".
+  // 1) una delle risposte giuste è già scritta DENTRO la frase da completare (fuori dallo spazio):
+  //    "My grandad used to play football every Sunday ___ (play) football…" con risposta «used to play»;
+  // 2) la frase da completare ricopia un esempio del messaggio che contiene la risposta
+  //    (stesse persone, stessa situazione: basta copiare l'esempio).
+  // Mostrare la forma in un esempio con un'altra situazione va bene (each other, question tags, such a…).
+  // Il testo fra parentesi non conta (lì c'è l'infinito da coniugare, o "forma base (play)").
+  function regalaSoluzione(messaggio, frase, risposte) {
+    const senzaParentesi = s => String(s || "").replace(/\([^)]*\)/g, " ").replace(/_{2,}/g, " ");
+    const fr = norm(senzaParentesi(frase));
+    const parFr = new Set(fr.split(" ").filter(Boolean));
+    const conHint = /\([^)]*[a-z][^)]*\)/i.test(String(frase || ""));
+    const frasiMsg = String(messaggio || "").replace(/\([^)]*\)/g, " ").split(/[.!?\n]+/)
+      .filter(x => !x.includes("___")).map(x => norm(x)).filter(x => x.split(" ").length >= 4);
+    for (const r of (Array.isArray(risposte) ? risposte : [])) {
+      const n = norm(r);
+      if (!n || n === "?") continue;
+      // senza verbo tra parentesi (connettori, pronomi…) controllo solo le risposte di più parole
+      if (!conHint && n.split(" ").length < 2) continue;
+      if (` ${fr} `.includes(` ${n} `)) return `la risposta «${r}» è già scritta nella frase da completare: lo studente la copierebbe senza pensare`;
+      for (const es of frasiMsg) {
+        if (!` ${es} `.includes(` ${n} `)) continue;
+        const pe = [...new Set(es.split(" "))];
+        const comuni = pe.filter(w => parFr.has(w)).length;
+        if (comuni / pe.length >= 0.6) return `la frase da completare ricopia l'esempio «${es}», dove la risposta «${r}» è già scritta: lo studente la copierebbe senza pensare`;
+      }
+    }
+    return "";
+  }
+
   async function spiega(env, body) {
     const t = Math.max(0, Math.min(UNIT.topics.length - 1, parseInt(body.topic, 10) || 0));
     const msgs = (Array.isArray(body.messages) ? body.messages : []).slice(-30)
@@ -2352,23 +2383,53 @@ function creaMotore(UNIT) {
       if (a2 && !smentisce(a2.messaggio)) a = a2;
       else if (a) a = { messaggio: "Esatto! La tua risposta è giusta. Scrivi «ok» e andiamo avanti.", risposte: [] };
     }
-    // l'esercizio nuovo viene controllato; se è sbagliato, l'insegnante lo riscrive (una volta)
+    // l'esercizio nuovo viene controllato: prima i controlli fissi (soluzione già scritta nel messaggio,
+    // frase in italiano), poi la verifica del secondo modello. Se non va, l'insegnante lo riscrive e la
+    // riscrittura viene ricontrollata; se è ancora rotto, al posto dell'esercizio va una frase fissa
+    // dell'unità ("Usala tu" del copione), così lo studente non vede mai un esercizio che regala la risposta.
+    const giaUsata = f => msgs.some(m => m.chi === "Insegnante" && norm(m.testo).includes(norm(f.replace(/___/g, " ")).slice(0, 40)));
+    async function controllaEsercizio(x) {
+      const fr = rigaFrase(x.messaggio);
+      if (!fr) return { ok: true, fr };
+      if (!Array.isArray(x.risposte)) x.risposte = [];
+      const italiano = (` ${fr.toLowerCase().replace(/\([^)]*\)/g, " ")} `.match(/\s(il|lo|la|gli|che|per|non|è|sono|quindi|lui|lei|ha|ho|con|della|del|nel|nella|sotto|perché|mentre|quando)\s/g) || []).length >= 2;
+      if (italiano) return { ok: false, fr, problema: "la frase da completare deve essere tutta in inglese" };
+      const giv = regalaSoluzione(x.messaggio, fr, x.risposte);
+      if (giv) return { ok: false, fr, problema: giv };
+      if (restante() < 9000) return { ok: true, fr };
+      const v = await verificaEsercizio(env, fr, x.risposte.length ? x.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title);
+      if (v && v.corretto !== false && !x.risposte.length && Array.isArray(v.risposte_giuste)) x.risposte = v.risposte_giuste.filter(y => typeof y === "string" && y.trim()).slice(0, 8);
+      if (v && v.corretto !== false) {
+        // le risposte arrivate dalla verifica possono essere già scritte nel messaggio
+        const giv2 = regalaSoluzione(x.messaggio, fr, x.risposte);
+        if (giv2) return { ok: false, fr, problema: giv2 };
+      }
+      if (v && v.corretto === false) return { ok: false, fr, problema: v.problema || "non ha senso o la risposta è sbagliata" };
+      return { ok: true, fr };
+    }
     if (a && typeof a.messaggio === "string" && restante() > 12000) {
-      const fr = rigaFrase(a.messaggio);
-      if (!Array.isArray(a.risposte)) a.risposte = [];
-      // frase con parole italiane dentro: da riscrivere
-      const italiano = fr && (` ${fr.toLowerCase().replace(/\([^)]*\)/g, " ")} `.match(/\s(il|lo|la|gli|che|per|non|è|sono|quindi|lui|lei|ha|ho|con|della|del|nel|nella|sotto|perché|mentre|quando)\s/g) || []).length >= 2;
-      if (fr && italiano) a.risposte = a.risposte.length ? a.risposte : ["?"];
-      if (fr) {
-        const v = await verificaEsercizio(env, fr, a.risposte.length ? a.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title);
-        if (v && italiano) { v.corretto = false; v.problema = "la frase da completare deve essere tutta in inglese"; }
-        // risposte mancanti: le prendo dalla verifica
-        if (v && v.corretto !== false && !a.risposte.length && Array.isArray(v.risposte_giuste)) a.risposte = v.risposte_giuste.filter(x => typeof x === "string" && x.trim()).slice(0, 8);
-        if (v && v.corretto === false && restante() > 12000) {
-          diag.push({ esercizio_scartato: fr, problema: v.problema || "" });
-          const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${fr}», risposte: ${a.risposte.join(" / ")}) non va bene: ${String(v.problema || "non ha senso o la risposta è sbagliata").slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta.`, TOOL_SPIEGA);
-          if (a3 && typeof a3.messaggio === "string" && a3.messaggio.trim()) a = a3;
-        }
+      let c = await controllaEsercizio(a);
+      for (let giro = 0; !c.ok && giro < 2 && restante() > 14000; giro++) {
+        diag.push({ esercizio_scartato: c.fr, problema: c.problema });
+        const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${c.fr}», risposte: ${(a.risposte || []).join(" / ")}) non va bene: ${String(c.problema).slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta: una situazione NUOVA, con un verbo diverso da quelli degli esempi del messaggio, e la forma da scrivere non deve comparire da nessuna parte nel messaggio.`, TOOL_SPIEGA);
+        if (!a3 || typeof a3.messaggio !== "string" || !a3.messaggio.trim()) break;
+        a = a3;
+        c = await controllaEsercizio(a);
+      }
+      if (!c.ok) {
+        // ancora rotto: tolgo l'esercizio del modello e metto una frase fissa del copione dell'unità
+        diag.push({ esercizio_sostituito: c.fr, problema: c.problema });
+        const righe = a.messaggio.split("\n");
+        const k = righe.map(r => r.includes("___")).lastIndexOf(true);
+        let testa = righe.slice(0, k >= 0 ? k : righe.length);
+        while (testa.length && (!testa[testa.length - 1].trim() || /completa|usala tu|prova tu|:\s*$/i.test(testa[testa.length - 1]))) testa.pop();
+        // nella spiegazione non deve restare una frase con lo spazio
+        testa = testa.map(r => r.replace(/_{2,}/g, "…"));
+        const fisse = UNIT.topics[t].scoperta.passi.filter(p => p.frase && Array.isArray(p.attese) && p.attese.length && !giaUsata(p.frase));
+        const fissa = fisse.find(p => !regalaSoluzione(`${testa.join("\n")}\n${p.frase}`, p.frase, p.attese));
+        a = fissa
+          ? { messaggio: `${testa.join("\n")}\n\nAdesso prova tu. Completa la frase:\n${fissa.frase}`.trim(), risposte: fissa.attese.slice() }
+          : { messaggio: `${testa.join("\n")}\n\nScrivi «ok» quando vuoi la prima frase da completare.`.trim(), risposte: [] };
       }
     }
     if (a && Array.isArray(a.risposte) && a.risposte[0] === "?") a.risposte = [];
