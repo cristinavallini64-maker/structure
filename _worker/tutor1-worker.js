@@ -2289,10 +2289,10 @@ function creaMotore(UNIT) {
       risposte_giuste: { type: "array", items: { type: "string" }, description: "le parole giuste che vanno nello spazio (solo lo spazio)" }
     }, required: ["corretto"] }
   };
-  async function verificaEsercizio(env, frase, risposte, argomento) {
+  async function verificaEsercizio(env, frase, risposte, argomento, tempi) {
     const prima = modelloPrima; modelloPrima = null;
     const v = await chiamaRaw(env, "Sei un madrelingua inglese esperto di grammatica. Controlli esercizi per studenti italiani. Sii rigoroso ma non pignolo: segnala solo errori veri.",
-      `Argomento: ${argomento}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nIn "risposte_giuste" scrivi tutte le parole giuste per lo spazio.\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?`, TOOL_VERIFICA);
+      `Argomento: ${argomento}${tempi ? `\nTempi ammessi in questo argomento: ${tempi}` : ""}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nIn "risposte_giuste" scrivi tutte le parole giuste per lo spazio.\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?${tempi ? `\nLa risposta giusta può essere UNO QUALSIASI dei tempi ammessi: un esercizio in cui serve l'altra forma (per esempio un verbo di stato al past simple in un argomento sul past continuous, o il present simple per un'abitudine di oggi in un argomento su used to) è voluto e NON è un errore.` : ""}\nÈ invece un errore (corretto: false) se nello spazio sono ugualmente giusti due tempi diversi (per esempio past simple e past continuous con solo un orario o "at that moment" come ancora) e le risposte previste ne contengono uno solo: la frase deve rendere giusta UNA sola forma. Le varianti della stessa forma (contratta / estesa) non contano.`, TOOL_VERIFICA);
     modelloPrima = prima;
     return v;
   }
@@ -2397,7 +2397,7 @@ function creaMotore(UNIT) {
       const giv = regalaSoluzione(x.messaggio, fr, x.risposte);
       if (giv) return { ok: false, fr, problema: giv };
       if (restante() < 9000) return { ok: true, fr };
-      const v = await verificaEsercizio(env, fr, x.risposte.length ? x.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title);
+      const v = await verificaEsercizio(env, fr, x.risposte.length ? x.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title, UNIT.topics[t].tempi);
       if (v && v.corretto !== false && !x.risposte.length && Array.isArray(v.risposte_giuste)) x.risposte = v.risposte_giuste.filter(y => typeof y === "string" && y.trim()).slice(0, 8);
       if (v && v.corretto !== false) {
         // le risposte arrivate dalla verifica possono essere già scritte nel messaggio
