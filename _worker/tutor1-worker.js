@@ -2286,14 +2286,23 @@ function creaMotore(UNIT) {
       corretto: { type: "boolean", description: "true se la frase completata con la prima risposta è corretta, naturale e sensata nella situazione, le parole tra parentesi non contraddicono la risposta, e lo spazio è proprio sul punto dell'argomento (lo studente deve deciderlo capendo il significato, non è già scritto nella frase)" },
       altre_giuste: { type: "array", items: { type: "string" }, description: "altre risposte corrette per lo spazio, se ce ne sono" },
       problema: { type: "string", description: "se non è corretto: il problema in una frase" },
-      risposte_giuste: { type: "array", items: { type: "string" }, description: "le parole giuste che vanno nello spazio (solo lo spazio)" }
-    }, required: ["corretto"] }
+      risposte_giuste: { type: "array", items: { type: "string" }, description: "le parole giuste che vanno nello spazio (solo lo spazio)" },
+      altro_tempo: { type: "string", description: "le parole dello spazio coniugate nell'ALTRO tempo ammesso con cui la risposta si confonde (past simple se la risposta è al past continuous e viceversa; present simple / used to; ecc.). Stringa vuota se l'argomento ha un solo tempo." },
+      altro_tempo_giusto: { type: "boolean", description: "true se la frase con altro_tempo nello spazio è ANCHE corretta e sensata nella stessa situazione (per esempio «At 8 o'clock the chef tasted the soup», «When I walked in, the dog smelled the box» = poi l'ha annusata: entrambe giuste)" }
+    }, required: ["corretto", "altro_tempo", "altro_tempo_giusto"] }
   };
   async function verificaEsercizio(env, frase, risposte, argomento, tempi) {
     const prima = modelloPrima; modelloPrima = null;
     const v = await chiamaRaw(env, "Sei un madrelingua inglese esperto di grammatica. Controlli esercizi per studenti italiani. Sii rigoroso ma non pignolo: segnala solo errori veri.",
-      `Argomento: ${argomento}${tempi ? `\nTempi ammessi in questo argomento: ${tempi}` : ""}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nIn "risposte_giuste" scrivi tutte le parole giuste per lo spazio.\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?${tempi ? `\nLa risposta giusta può essere UNO QUALSIASI dei tempi ammessi: un esercizio in cui serve l'altra forma (per esempio un verbo di stato al past simple in un argomento sul past continuous, o il present simple per un'abitudine di oggi in un argomento su used to) è voluto e NON è un errore.` : ""}\nÈ invece un errore (corretto: false) se nello spazio sono ugualmente giusti due tempi diversi (per esempio past simple e past continuous con solo un orario o "at that moment" come ancora) e le risposte previste ne contengono uno solo: la frase deve rendere giusta UNA sola forma. Le varianti della stessa forma (contratta / estesa) non contano.`, TOOL_VERIFICA);
+      `Argomento: ${argomento}${tempi ? `\nTempi ammessi in questo argomento: ${tempi}` : ""}\nFrase: ${frase}\nRisposte previste per lo spazio ___: ${risposte.join(" / ")}\nIn "risposte_giuste" scrivi tutte le parole giuste per lo spazio.\nLa frase completata con la prima risposta è corretta, naturale e ha senso nella situazione? Le parole tra parentesi sono coerenti con la risposta? Lo spazio è proprio sul punto dell'argomento «${argomento}», cioè su quello che lo studente deve decidere (e non su una parola che non c'entra, con la parte importante già scritta nella frase)?${tempi ? `\nLa risposta giusta può essere UNO QUALSIASI dei tempi ammessi: un esercizio in cui serve l'altra forma (per esempio un verbo di stato al past simple in un argomento sul past continuous, o il present simple per un'abitudine di oggi in un argomento su used to) è voluto e NON è un errore.` : ""}\nPROVA DELL'ALTRO TEMPO: scrivi in "altro_tempo" lo spazio coniugato nell'altro tempo ammesso con cui la risposta si confonde, rimettilo nella frase e chiediti se resta corretta e sensata nella stessa situazione. Un orario da solo ("At 8 o'clock…", "At that moment…") o un "when" che può voler dire "subito dopo" non bastano a escludere il past simple: «At 8 o'clock the chef ___ (taste) the soup» e «When I walked in, the dog ___ (smell) the box» accettano anche tasted / smelled, quindi altro_tempo_giusto = true. Invece «Nobody heard the doorbell: we ___ (watch) a loud film» accetta solo were watching. Le varianti della stessa forma (contratta / estesa) non contano.`, TOOL_VERIFICA);
     modelloPrima = prima;
+    // l'altro tempo e' giusto ma non e' fra le risposte previste: lo studente che lo scrive verrebbe segnato sbagliato
+    if (v && tempi && v.altro_tempo_giusto === true && String(v.altro_tempo || "").trim()
+        && !risposte.some(r => norm(r) === norm(v.altro_tempo))) {
+      diag.push({ altro_tempo_giusto: `${frase} → ${v.altro_tempo}` });
+      v.corretto = false;
+      v.problema = `anche «${v.altro_tempo}» è giusto nello spazio: la frase deve rendere giusta una sola forma (aggiungi un'ancora che escluda l'altro tempo)`;
+    }
     return v;
   }
 
