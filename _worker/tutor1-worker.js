@@ -2231,6 +2231,7 @@ function creaMotore(UNIT) {
   - Lo spazio va proprio sul punto che si sta studiando, quello che lo studente deve decidere capendo il significato: con stop/remember/forget sul secondo verbo («I stopped ___ (drink) some water»), non su stop; con i tempi sul verbo, con i connettori sul connettore. Mai uno spazio su una parola che non c'entra con l'argomento, e mai la parte da decidere già scritta nella frase («I ___ (stop) to drink» non esercita niente).
   - La frase da completare NON deve mai contenere già la risposta: usa una situazione NUOVA e un verbo DIVERSO da quelli degli esempi che hai appena mostrato, e la forma da scrivere non deve comparire da nessuna parte nel messaggio. Mai riprendere un esempio mettendoci lo spazio dentro («My grandad used to play football every Sunday» → «My grandad ___ (play) football» è vietato: la risposta è scritta sopra).
   - La frase da completare è TUTTA in inglese (la situazione in italiano, se serve, va in una riga sopra, non dentro la frase).
+  - La riga in italiano sopra la frase NON la traduce e NON anticipa la forma: niente «stava / stavano + gerundio» («il cuoco stava assaggiando la zuppa» è già la risposta was tasting) e niente traduzione della frase, neanche in parte. Se serve, descrivi solo la situazione (dove siamo, che cosa succede intorno, che cosa interrompe): è il contesto inglese che deve rendere giusta una sola forma.
   - Fai domande (frasi interrogative) solo ogni tanto, se l'argomento lo prevede; di solito frasi affermative o negative. La frase da completare è l'ultima riga del messaggio. Se mancano più parole, non dire «la parola mancante».
   - La consegna deve corrispondere a quello che va nello spazio: se ci va una congiunzione, non dire «la forma del verbo».
   - Prima di proporre una frase, rileggila con la risposta dentro: deve avere senso nella situazione (non «sarò arrabbiato a meno che tu non perda le mie chiavi»), e le parole tra parentesi non devono contraddire la risposta (niente «not» tra parentesi se la risposta è positiva). Se qualcosa non torna, cambia la frase.
@@ -2405,7 +2406,16 @@ function creaMotore(UNIT) {
       if (italiano) return { ok: false, fr, problema: "la frase da completare deve essere tutta in inglese" };
       const giv = regalaSoluzione(x.messaggio, fr, x.risposte);
       if (giv) return { ok: false, fr, problema: giv };
-      if (restante() < 9000) return { ok: true, fr };
+      // l'italiano sopra la frase anticipa la forma continua ("stava assaggiando" -> was tasting)
+      // si guarda solo la riga subito sopra la frase (gli esempi tradotti della spiegazione vanno bene)
+      const _r = String(x.messaggio || "").split("\n"), _k = _r.map(r => r.includes("___")).lastIndexOf(true);
+      const fuori = _r.slice(0, _k > 0 ? _k : 0).filter(r => r.trim() && !/completa|prova tu|usala tu/i.test(r)).slice(-1).join(" ");
+      if (x.risposte.some(r => /\b\w+ing\b/i.test(r)) && /\bstav(?:o|i|a|amo|ate|ano)\s+\w+(?:ando|endo)\b/i.test(fuori))
+        return { ok: false, fr, problema: "la riga in italiano dice «stava + gerundio» e regala la forma: descrivi solo la situazione, senza tradurre" };
+      // la stessa frase gia' proposta (e quindi gia' controllata) in questa lezione: non serve ricontrollarla
+      if (giaUsata(fr)) return { ok: true, fr };
+      // senza tempo per la verifica non passa niente di non controllato: si usa la frase fissa del copione
+      if (restante() < 9000) return { ok: false, fr, problema: "non verificata (tempo esaurito)", tempo: true };
       const v = await verificaEsercizio(env, fr, x.risposte.length ? x.risposte : ["(non indicate: scrivile tu)"], UNIT.topics[t].title, UNIT.topics[t].tempi);
       if (v && v.corretto !== false && !x.risposte.length && Array.isArray(v.risposte_giuste)) x.risposte = v.risposte_giuste.filter(y => typeof y === "string" && y.trim()).slice(0, 8);
       if (v && v.corretto !== false) {
@@ -2416,9 +2426,10 @@ function creaMotore(UNIT) {
       if (v && v.corretto === false) return { ok: false, fr, problema: v.problema || "non ha senso o la risposta è sbagliata" };
       return { ok: true, fr };
     }
-    if (a && typeof a.messaggio === "string" && restante() > 12000) {
-      let c = await controllaEsercizio(a);
-      for (let giro = 0; !c.ok && giro < 2 && restante() > 14000; giro++) {
+    if (a && typeof a.messaggio === "string") {
+      let c = restante() > 12000 ? await controllaEsercizio(a)
+        : (!rigaFrase(a.messaggio) || giaUsata(rigaFrase(a.messaggio)) ? { ok: true } : { ok: false, fr: rigaFrase(a.messaggio), problema: "non verificata (tempo esaurito)", tempo: true });
+      for (let giro = 0; !c.ok && !c.tempo && giro < 2 && restante() > 14000; giro++) {
         diag.push({ esercizio_scartato: c.fr, problema: c.problema });
         const a3 = await chiamaRaw(env, METODO_SPIEGA, `${user}\n\nATTENZIONE: la frase che avevi proposto («${c.fr}», risposte: ${(a.risposte || []).join(" / ")}) non va bene: ${String(c.problema).slice(0, 300)}. Riscrivi il messaggio con una frase diversa e corretta: una situazione NUOVA, con un verbo diverso da quelli degli esempi del messaggio, e la forma da scrivere non deve comparire da nessuna parte nel messaggio.`, TOOL_SPIEGA);
         if (!a3 || typeof a3.messaggio !== "string" || !a3.messaggio.trim()) break;
@@ -2434,6 +2445,10 @@ function creaMotore(UNIT) {
         while (testa.length && (!testa[testa.length - 1].trim() || /completa|usala tu|prova tu|:\s*$/i.test(testa[testa.length - 1]))) testa.pop();
         // nella spiegazione non deve restare una frase con lo spazio
         testa = testa.map(r => r.replace(/_{2,}/g, "…"));
+        // la parte dopo il primo blocco presentava la frase scartata (persone, situazione): la tolgo,
+        // resta il commento alla risposta dello studente o la spiegazione iniziale
+        const vuota = testa.findIndex((r, j) => j > 0 && !r.trim());
+        if (msgs.length && vuota > 0) testa = testa.slice(0, vuota);
         const fisse = UNIT.topics[t].scoperta.passi.filter(p => p.frase && Array.isArray(p.attese) && p.attese.length && !giaUsata(p.frase));
         const fissa = fisse.find(p => !regalaSoluzione(`${testa.join("\n")}\n${p.frase}`, p.frase, p.attese));
         a = fissa
