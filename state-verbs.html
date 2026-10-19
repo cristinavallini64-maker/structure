@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State Verbs</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Poppins',sans-serif;background:#fff;color:#111;display:flex;flex-direction:column;height:100vh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:4px solid #00CC44;flex-shrink:0;}
+.title{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(0.75rem,2.5vw,1.2rem);letter-spacing:2px;color:#009933;}
+.prog{font-family:'Orbitron',monospace;font-size:clamp(0.65rem,2vw,0.85rem);color:#999;letter-spacing:2px;}
+.dots{display:flex;gap:10px;justify-content:center;padding:7px 0;flex-shrink:0;}
+.dot{width:11px;height:11px;border-radius:50%;background:#e0e0e0;transition:background 0.3s;}
+.dot.active{background:#00CC44;}
+.slides{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 24px 12px;visibility:hidden;overflow-y:auto;}
+.slide.active{visibility:visible;}
+.slide-title{font-family:'Orbitron',monospace;font-weight:700;font-size:clamp(0.68rem,2.2vw,0.9rem);letter-spacing:2px;color:#009933;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #eee;flex-shrink:0;opacity:0;transition:opacity 0.4s;}
+.slide-title.show{opacity:1;}
+.intro{background:#f0fff4;border-left:5px solid #009933;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.74rem,2.2vw,0.88rem);color:#111;line-height:1.6;margin-bottom:10px;opacity:0;transition:opacity 0.5s;}
+.intro.show{opacity:1;}
+.intro strong{color:#007722;}
+.use-row{padding:7px 0;border-bottom:1px solid #f0f0f0;opacity:0;transition:opacity 0.3s;}
+.use-row:last-of-type{border-bottom:none;}
+.use-ex{font-size:clamp(0.86rem,2.8vw,1.04rem);font-weight:600;color:#111;display:block;}
+.use-it{font-size:clamp(0.64rem,1.85vw,0.78rem);color:#999;font-style:italic;display:block;opacity:0;transition:opacity 0.4s;margin-top:2px;}
+.use-tag{font-family:'Orbitron',monospace;font-size:clamp(0.48rem,1.3vw,0.6rem);letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:7px;vertical-align:middle;color:#fff;display:inline-block;}
+.tag-1{background:#0066cc;}
+.tag-2{background:#009933;}
+.rule-row{display:grid;grid-template-columns:1.1fr 1.6fr;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;align-items:start;}
+.rule-row:last-of-type{border-bottom:none;}
+.rule-name{font-size:clamp(0.7rem,2vw,0.85rem);font-weight:700;color:#777;line-height:1.4;}
+.rule-ex{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#111;font-weight:600;}
+.rule-it{grid-column:1/-1;font-size:clamp(0.62rem,1.8vw,0.76rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;}
+.err-pair{padding:6px 0;border-bottom:1px solid #f0f0f0;}
+.err-pair:last-of-type{border-bottom:none;}
+.err-wrong{font-size:clamp(0.82rem,2.55vw,0.98rem);color:#c00;}
+.err-ok{font-size:clamp(0.82rem,2.55vw,0.98rem);font-weight:700;color:#007733;}
+.err-it{font-size:clamp(0.66rem,1.9vw,0.8rem);color:#999;font-style:italic;opacity:0;transition:opacity 0.4s;margin-top:1px;}
+.err-note{font-size:clamp(0.63rem,1.8vw,0.777rem);color:#bbb;margin-top:1px;opacity:0;transition:opacity 0.4s;}
+.hl{font-weight:900;color:#009933;font-style:normal;}
+.warn{background:#f0fff4;border-left:5px solid #00CC44;border-radius:0 8px 8px 0;padding:9px 14px;font-size:clamp(0.76rem,2.35vw,0.92rem);color:#111;font-weight:600;line-height:1.65;flex-shrink:0;opacity:0;transition:opacity 0.5s;margin-top:8px;}
+.warn.show{opacity:1;}
+.warn strong{color:#009933;}
+.cursor{display:inline-block;width:2px;height:1em;background:#009933;vertical-align:middle;margin-left:1px;animation:blink 0.6s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.nav{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 20px 14px;flex-shrink:0;}
+.btn-nav{font-family:'Orbitron',monospace;font-size:clamp(0.55rem,1.8vw,0.72rem);font-weight:700;letter-spacing:2px;padding:10px 24px;border-radius:8px;border:2px solid #00CC44;background:#fff;color:#009933;cursor:pointer;transition:all 0.2s;}
+.btn-nav:hover{background:#00CC44;color:#fff;}
+.btn-nav:disabled{border-color:#ddd;color:#ccc;cursor:not-allowed;}
+.btn-nav:disabled:hover{background:#fff;color:#ccc;}
+@media (max-width:560px){.rule-row{grid-template-columns:1fr;gap:2px;}.slide{padding:14px 16px 10px;}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="title">🟢 STATE VERBS</div><div class="prog" id="prog">1 / 6</div></div>
+<div class="dots" id="dots"></div>
+<div class="slides">
+
+<!-- SLIDE 0: STATO O AZIONE -->
+<div class="slide active" id="s0">
+  <div class="slide-title">📋 STATO O AZIONE?</div>
+  <div class="intro">
+    Un <strong>verbo d'azione</strong> descrive qualcosa che si <strong>fa</strong>: in un certo momento può essere <strong>in corso</strong>. Un <strong>verbo di stato</strong> descrive <strong>come stanno le cose</strong>: che cosa sai, pensi, vuoi, possiedi o percepisci. Uno stato non è "in svolgimento": c'è, e basta.
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-1">AZIONE</span><span data-tw="At ten I ❮was writing❯ my essay."></span></span>
+    <span class="use-it">Alle dieci stavo scrivendo il tema. — c'era un'attività in corso: past continuous</span>
+  </div>
+  <div class="use-row">
+    <span class="use-ex"><span class="use-tag tag-2">STATO</span><span data-tw="At the station I ❮didn't know❯ which train to take."></span></span>
+    <span class="use-it">Alla stazione non sapevo che treno prendere. — nessuna attività: è come stavano le cose, past simple</span>
+  </div>
+  <div class="warn">⚡ La domanda da farsi: <strong>in quel momento il soggetto stava facendo qualcosa?</strong> Sì → può andare al past continuous. No, sto dicendo come stavano le cose → <strong>past simple</strong>.</div>
+</div>
+
+<!-- SLIDE 1: I PIÙ COMUNI -->
+<div class="slide" id="s1">
+  <div class="slide-title">🗂️ I VERBI DI STATO PIÙ COMUNI</div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="MENTE · know, believe, understand, remember, forget, mean, recognise, realise"></div>
+    <div class="rule-ex" data-tw="She ❮didn't recognise❯ me with my new glasses."></div>
+    <div class="rule-it">Non mi riconosceva con gli occhiali nuovi.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="GUSTI E DESIDERI · like, love, hate, prefer, want, need"></div>
+    <div class="rule-ex" data-tw="We ❮wanted❯ a dog, but Dad said no."></div>
+    <div class="rule-it">Volevamo un cane, ma papà ha detto di no.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="POSSESSO · have, own, belong to, contain"></div>
+    <div class="rule-ex" data-tw="My uncle ❮owned❯ two fishing boats."></div>
+    <div class="rule-it">Mio zio possedeva due pescherecci.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="SENSI E APPARENZA · see, hear, smell, taste, sound, seem, look"></div>
+    <div class="rule-ex" data-tw="The house ❮seemed❯ empty."></div>
+    <div class="rule-it">La casa sembrava vuota.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="ESSERE E MISURE · be, cost, weigh"></div>
+    <div class="rule-ex" data-tw="The pizza ❮cost❯ twelve euros."></div>
+    <div class="rule-it">La pizza costava dodici euro.</div>
+  </div>
+  <div class="warn">⚡ Questi verbi <strong>non</strong> vanno al past continuous, <strong>nemmeno in un momento preciso</strong> (<em>at that moment</em>, <em>when…</em>, un'ora): <em>At that moment I <strong>knew</strong> the truth</em> ✓ — NON: <em>I was knowing</em> ✗</div>
+</div>
+
+<!-- SLIDE 2: TRAPPOLA DELL'IMPERFETTO -->
+<div class="slide" id="s2">
+  <div class="slide-title">⚠️ LA TRAPPOLA DELL'IMPERFETTO</div>
+  <div class="intro">
+    In italiano l'<strong>imperfetto</strong> serve sia per le azioni in corso (<em>cucinavo</em>) sia per gli stati (<em>sapevo, volevo, avevo</em>). In inglese no: <strong>azione in corso → past continuous</strong>, <strong>stato → past simple</strong>.
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="conoscevo → stato"></div>
+    <div class="rule-ex" data-tw="I ❮knew❯ the road well."></div>
+    <div class="rule-it">Conoscevo bene la strada. — past simple ✓</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="volevo → stato"></div>
+    <div class="rule-ex" data-tw="I ❮wanted❯ an ice cream, but the café was closed."></div>
+    <div class="rule-it">Volevo un gelato, ma il bar era chiuso. — past simple ✓</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="non capivo → stato"></div>
+    <div class="rule-ex" data-tw="I ❮didn't understand❯ the joke."></div>
+    <div class="rule-it">Non capivo la barzelletta. — past simple ✓</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="sembrava → stato"></div>
+    <div class="rule-ex" data-tw="She ❮seemed❯ angry."></div>
+    <div class="rule-it">Sembrava arrabbiata. — past simple ✓</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="cucinavo → azione in corso"></div>
+    <div class="rule-ex" data-tw="I ❮was cooking❯ when you called."></div>
+    <div class="rule-it">Cucinavo (stavo cucinando) quando hai chiamato. — past continuous ✓</div>
+  </div>
+  <div class="warn">⚡ Se lo stato oggi <strong>non vale più</strong>, va bene anche <strong>used to</strong>: <em>Avevo i capelli lunghi</em> → <em>I had / I used to have long hair</em>. Mai <em>I was having long hair</em>.</div>
+</div>
+
+<!-- SLIDE 3: DOPPIO SIGNIFICATO 1 -->
+<div class="slide" id="s3">
+  <div class="slide-title">🔄 STESSO VERBO, DUE SIGNIFICATI (1)</div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="THINK = credere (stato)"></div>
+    <div class="rule-ex" data-tw="I ❮thought❯ the shop was closed."></div>
+    <div class="rule-it">Credevo che il negozio fosse chiuso. — opinione: past simple</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="THINK = riflettere (azione)"></div>
+    <div class="rule-ex" data-tw="I ❮was thinking❯ about the holidays."></div>
+    <div class="rule-it">Stavo pensando alle vacanze. — attività mentale in corso</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="HAVE = possedere (stato)"></div>
+    <div class="rule-ex" data-tw="Nonna ❮had❯ a little red car."></div>
+    <div class="rule-it">La nonna aveva una piccola auto rossa. — possesso: past simple</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="HAVE = fare, mangiare (azione)"></div>
+    <div class="rule-ex" data-tw="We ❮were having❯ breakfast when the post arrived."></div>
+    <div class="rule-it">Stavamo facendo colazione quando è arrivata la posta. — have breakfast, lunch, a shower, a party, fun</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="SEE = vedere (stato)"></div>
+    <div class="rule-ex" data-tw="We ❮saw❯ the castle from the train."></div>
+    <div class="rule-it">Abbiamo visto il castello dal treno. — percezione: past simple</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="SEE = frequentare (azione)"></div>
+    <div class="rule-ex" data-tw="Luca ❮was seeing❯ a girl from his choir."></div>
+    <div class="rule-it">Luca usciva con una ragazza del coro. — relazione in corso</div>
+  </div>
+  <div class="warn">⚡ Non conta il verbo, conta il <strong>significato</strong>: in quel momento c'era un'<strong>attività in corso</strong>?</div>
+</div>
+
+<!-- SLIDE 4: DOPPIO SIGNIFICATO 2 -->
+<div class="slide" id="s4">
+  <div class="slide-title">🔄 STESSO VERBO, DUE SIGNIFICATI (2)</div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="TASTE = avere un sapore"></div>
+    <div class="rule-ex" data-tw="The coffee ❮tasted❯ awful."></div>
+    <div class="rule-it">Il caffè aveva un sapore orribile.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="TASTE = assaggiare"></div>
+    <div class="rule-ex" data-tw="Mum ❮was tasting❯ the risotto."></div>
+    <div class="rule-it">La mamma stava assaggiando il risotto.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="SMELL = avere un odore"></div>
+    <div class="rule-ex" data-tw="The flowers ❮smelt❯ of honey."></div>
+    <div class="rule-it">I fiori profumavano di miele.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="SMELL = annusare"></div>
+    <div class="rule-ex" data-tw="Grandma ❮was smelling❯ the melons at the market."></div>
+    <div class="rule-it">La nonna stava annusando i meloni al mercato.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="LOOK = sembrare"></div>
+    <div class="rule-ex" data-tw="You ❮looked❯ happy in that photo."></div>
+    <div class="rule-it">Sembravi felice in quella foto.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="LOOK AT = guardare"></div>
+    <div class="rule-ex" data-tw="I ❮was looking❯ at the stars."></div>
+    <div class="rule-it">Stavo guardando le stelle.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="WEIGH = avere un peso"></div>
+    <div class="rule-ex" data-tw="The parcel ❮weighed❯ three kilos."></div>
+    <div class="rule-it">Il pacco pesava tre chili.</div>
+  </div>
+  <div class="rule-row">
+    <div class="rule-name" data-tw="WEIGH = pesare qualcosa"></div>
+    <div class="rule-ex" data-tw="The shop assistant ❮was weighing❯ the cheese."></div>
+    <div class="rule-it">Il commesso stava pesando il formaggio.</div>
+  </div>
+  <div class="warn">⚡ Se il verbo dice <strong>com'era</strong> qualcosa o qualcuno (sapore, odore, aspetto, peso) è uno stato → past simple. Se dice che cosa qualcuno <strong>stava facendo</strong> è un'azione → può andare al past continuous.</div>
+</div>
+
+<!-- SLIDE 5: ERRORI -->
+<div class="slide" id="s5">
+  <div class="slide-title">🚨 ERRORI TIPICI DA EVITARE</div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  I was wanting a new phone for my birthday."></div>
+    <div class="err-ok"    data-tw="✅  I wanted a new phone for my birthday."></div>
+    <div class="err-it">Volevo un telefono nuovo per il compleanno.</div>
+    <div class="err-note">want è uno stato: past simple, anche se l'italiano dice "volevo"</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  This bag was belonging to my grandmother."></div>
+    <div class="err-ok"    data-tw="✅  This bag belonged to my grandmother."></div>
+    <div class="err-it">Questa borsa apparteneva a mia nonna.</div>
+    <div class="err-note">belong to = appartenere: è uno stato</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  The room was smelling of paint."></div>
+    <div class="err-ok"    data-tw="✅  The room smelt of paint."></div>
+    <div class="err-it">La stanza puzzava di vernice.</div>
+    <div class="err-note">smell = avere un odore: stato, past simple</div>
+  </div>
+  <div class="err-pair">
+    <div class="err-wrong" data-tw="❌  Sorry, I didn't hear you: I thought about something else."></div>
+    <div class="err-ok"    data-tw="✅  Sorry, I didn't hear you: I was thinking about something else."></div>
+    <div class="err-it">Scusa, non ti ho sentito: stavo pensando ad altro.</div>
+    <div class="err-note">think = riflettere: attività in corso → past continuous</div>
+  </div>
+</div>
+
+</div>
+<div class="nav">
+  <button class="btn-nav" id="prevBtn" onclick="go(-1)" disabled>◄ INDIETRO</button>
+  <button class="btn-nav" id="nextBtn" onclick="go(1)">AVANTI ►</button>
+</div>
+<script>
+document.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+const TOTAL=6;let cur=0,busy=false,run=0;
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');dotsEl.appendChild(d);}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function tw(el,text,speed,id){return new Promise(resolve=>{el.textContent='';const c=document.createElement('span');c.className='cursor';el.appendChild(c);const plain=text.replace(/❮|❯/g,'');let i=0;function tick(){if(id!==run){c.remove();resolve();return;}if(i>=plain.length){c.remove();resolve();return;}c.insertAdjacentText('beforebegin',plain[i++]);setTimeout(tick,speed);}tick();});}
+async function twHL(el,text,speed,id){await tw(el,text,speed,id);if(id===run)el.innerHTML=text.replace(/❮([^❯]+)❯/g,'<em class="hl">$1</em>');}
+function fi(el){if(el){el.style.transition='opacity 0.4s';setTimeout(()=>el.style.opacity='1',80);}}
+function reset(slide){
+  slide.querySelectorAll('[data-tw]').forEach(el=>el.textContent='');
+  slide.querySelectorAll('.use-it,.rule-it,.err-it,.err-note,.use-row').forEach(n=>n.style.opacity='0');
+  slide.querySelectorAll('.warn,.intro').forEach(w=>w.classList.remove('show'));
+}
+async function animateSlide(idx){
+  const id=++run;const slide=document.getElementById('s'+idx);reset(slide);
+  const title=slide.querySelector('.slide-title');
+  if(title){title.classList.remove('show');setTimeout(()=>title.classList.add('show'),100);}
+  await wait(400);if(id!==run)return;
+  const intro=slide.querySelector('.intro');if(intro){intro.classList.add('show');await wait(500);}
+  for(const row of slide.querySelectorAll('.use-row')){
+    if(id!==run)return;
+    const ex=row.querySelector('[data-tw]'),it=row.querySelector('.use-it');
+    fi(row);await wait(100);if(ex)await twHL(ex,ex.dataset.tw,60,id);fi(it);await wait(260);
+  }
+  for(const row of slide.querySelectorAll('.rule-row')){
+    if(id!==run)return;
+    const name=row.querySelector('.rule-name'),ex=row.querySelector('.rule-ex'),it=row.querySelector('.rule-it');
+    if(name)await tw(name,name.dataset.tw,22,id);
+    if(ex)await twHL(ex,ex.dataset.tw,45,id);
+    fi(it);await wait(220);
+  }
+  for(const pair of slide.querySelectorAll('.err-pair')){
+    if(id!==run)return;
+    const wrong=pair.querySelector('.err-wrong'),ok=pair.querySelector('.err-ok'),it=pair.querySelector('.err-it'),note=pair.querySelector('.err-note');
+    if(wrong)await tw(wrong,wrong.dataset.tw,45,id);await wait(160);
+    if(ok)await tw(ok,ok.dataset.tw,45,id);fi(it);if(note)setTimeout(()=>note.style.opacity='1',250);await wait(320);
+  }
+  if(id!==run)return;
+  const warn=slide.querySelector('.warn');if(warn){await wait(200);warn.classList.add('show');}
+}
+function go(dir){
+  if(busy)return;const prev=cur;cur=Math.max(0,Math.min(TOTAL-1,cur+dir));if(cur===prev)return;busy=true;run++;
+  const oldSlide=document.getElementById('s'+prev),newSlide=document.getElementById('s'+cur);
+  oldSlide.style.transition='opacity 0.25s ease';oldSlide.style.opacity='0';
+  setTimeout(()=>{
+    reset(oldSlide);oldSlide.style.cssText='';oldSlide.classList.remove('active');
+    newSlide.style.opacity='0';newSlide.classList.add('active');newSlide.scrollTop=0;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{newSlide.style.transition='opacity 0.25s ease';newSlide.style.opacity='1';setTimeout(()=>{newSlide.style.cssText='';busy=false;},260);}));
+    animateSlide(cur);dotsEl.children[prev].classList.remove('active');dotsEl.children[cur].classList.add('active');
+    document.getElementById('prog').textContent=(cur+1)+' / '+TOTAL;
+    document.getElementById('prevBtn').disabled=cur===0;document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+  },260);
+}
+let tx=0;const sl=document.querySelector('.slides');
+sl.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+sl.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);},{passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
+animateSlide(0);
+</script>
+</body>
+</html>
