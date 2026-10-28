@@ -99,7 +99,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   </div>
   <div class="intro">
     Questa prova ha <b>la stessa struttura della verifica</b>, ma frasi, testi e lessico sono diversi: non serve impararla a memoria, serve a capire <b>se sai usare le strutture</b>.
-    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–4 si correggono da soli; nel 5, nel 6 e nel writing confronti la tua risposta con la soluzione e ti dai il punteggio con onestà.
+    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–5 si correggono da soli; nel 6 e nel writing confronti la tua risposta con la soluzione e ti dai il punteggio con onestà.
   </div>
 
   <section class="ex" id="ex1"></section>
@@ -183,13 +183,23 @@ const EX4 = [
   ["— ", " the answer to question 5? — No, he didn't. He left it blank.", ["did he know"]],
 ];
 
-// 5 Join: [prompt, model]
+// 5 Join: [prompt, model, conjunction regex (linking word + right clause), required verb forms (regex)]
 const EX5 = [
-  ["I / walk / home  —  I / meet / an old friend", "I was walking home when I met an old friend. / While (As) I was walking home, I met an old friend."],
-  ["The teacher / come / in  —  the students / chat / loudly (the chat had already started)", "When the teacher came in, the students were chatting loudly. / The students were chatting loudly when the teacher came in."],
-  ["The bus / leave / the station  —  it / start / snowing (at that exact moment)", "As (When) the bus left the station, it started snowing (to snow)."],
-  ["The days / get / shorter  —  the weather / become / colder", "As the days got shorter, the weather became colder."],
-  ["Dad / cook / all afternoon  —  Mum / tidy / the garden all afternoon", "While (As) Dad was cooking all afternoon, Mum was tidying the garden."],
+  ["I / walk / home  —  I / meet / an old friend",
+   "I was walking home when I met an old friend. / While (As) I was walking home, I met an old friend.",
+   /\bwhen i (\w+ )?\w+ an old friend\b|\b(while|as) i (\w+ )?\w+ home\b/, [/\bwas walking\b/, /\bmet\b/]],
+  ["The teacher / come / in  —  the students / chat / loudly (the chat had already started)",
+   "When the teacher came in, the students were chatting loudly. / The students were chatting loudly when the teacher came in.",
+   /\b(when|as) the teacher (\w+ )?\w+ in\b/, [/\bcame in\b/, /\bwere chatting\b/]],
+  ["The bus / leave / the station  —  it / start / snowing (at that exact moment)",
+   "As (When) the bus left the station, it started snowing (to snow).",
+   /\b(as|when) the bus (\w+ )?\w+ the station\b/, [/\bleft\b/, /\b(started|began) (snowing|to snow)\b/]],
+  ["The days / get / shorter  —  the weather / become / colder",
+   "As the days got shorter, the weather became colder.",
+   /\bas the days (\w+ )?\w+ shorter\b/, [/\b(got|were getting) shorter\b/, /\b(became|got|was becoming|was getting) colder\b/]],
+  ["Dad / cook / all afternoon  —  Mum / tidy / the garden all afternoon",
+   "While (As) Dad was cooking all afternoon, Mum was tidying the garden.",
+   /\b(while|as) (dad|mum) (\w+ )?\w+\b/, [/\bwas cooking\b/, /\bwas tidying\b/]],
 ];
 
 // 6 Translation: [it, model]
@@ -219,7 +229,7 @@ function norm(s){
 }
 const fmt=n=>(Math.round(n*2)/2).toString().replace(".",",");
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-const score={1:null,2:null,3:null,4:null};
+const score={1:null,2:null,3:null,4:null,5:null};
 function head(n,title,max){return `<div class="ex-head"><div class="ex-title"><span class="n">${n}</span>${title}</div><div class="ex-score" id="sc${n}">___ / ${max}</div></div>`;}
 function setScore(n,val,max){const e=document.getElementById("sc"+n);e.textContent=`${fmt(val)} / ${max}`;e.classList.add("got");}
 function clearMarks(sec){sec.querySelectorAll("input.gap").forEach(i=>i.classList.remove("ok","no","half"));sec.querySelectorAll(".sol").forEach(s=>s.remove());}
@@ -250,8 +260,10 @@ function render(){
   h+='</ol><div class="btns"><button class="btn main" onclick="check4()">Correggi</button></div>';
   document.getElementById("ex4").innerHTML=h;
   // 5 & 6 self-assessed
-  selfEx(5,"Join the two events in one sentence. Choose a suitable linking word and use the correct past forms.",EX5,
-    "2 punti per frase: 1 se la congiunzione è adatta al rapporto tra le azioni, 1 se i tempi verbali sono corretti. Sono accettate tutte le soluzioni corrette, non solo quella indicata.");
+  h=head(5,"Join the two events in one sentence. Choose a suitable linking word and use the correct past forms.",10)+'<ol class="items">';
+  EX5.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${esc(e[0])}<textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
+  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per la congiunzione giusta, 1 per i tempi verbali giusti.</p><div class="btns"><button class="btn main" onclick="check5()">Correggi</button></div>';
+  document.getElementById("ex5").innerHTML=h;
   selfEx(6,"Translate into English.",EX6,
     "2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Togli mezzo punto per ogni errore piccolo (ortografia, articolo, preposizione).");
   // 7 writing
@@ -319,13 +331,26 @@ function check4(){
   });
   score[4]=tot;setScore(4,tot,10);
 }
+function check5(){
+  let tot=0;
+  document.querySelectorAll("#ex5 textarea").forEach(ta=>{
+    const e=EX5[+ta.dataset.i], a=norm(ta.value);
+    const c=a&&e[2].test(a)?1:0, f=a&&e[3].every(r=>r.test(a))?1:0, p=c+f; tot+=p;
+    ta.style.borderColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
+    const m=ta.nextElementSibling; m.classList.add("show");
+    m.style.background=p===2?"var(--done-soft)":p?"var(--half-soft)":"var(--bad-soft)";
+    m.style.borderLeftColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
+    m.innerHTML=`<b>${p} / 2</b> · congiunzione ${c?"✓":"✗"} · tempi verbali ${f?"✓":"✗"}`+(p<2?`<br><b>Soluzione:</b> ${esc(e[1])}`:"");
+  });
+  score[5]=tot;setScore(5,tot,10);
+}
 function reveal(n){
   const sec=document.getElementById("ex"+n);
   sec.querySelectorAll(".model,.self").forEach(e=>e.classList.add("show"));
   document.getElementById("crit"+n).style.display="block";
 }
 function selfScore(n){
-  const len=(n===5?EX5:EX6).length;let tot=0,done=0;
+  const len=EX6.length;let tot=0,done=0;
   for(let i=0;i<len;i++){const c=document.querySelector(`input[name="s${n}_${i}"]:checked`);if(c){tot+=+c.value;done++;}}
   return {tot,done,len};
 }
@@ -339,10 +364,10 @@ function copyW(){const t=document.getElementById("wtext").value;
 function alertMsg(m){const b=document.querySelector("#ex7 .btns");let s=b.querySelector(".msg");if(!s){s=document.createElement("span");s.className="msg";s.style.cssText="font-size:13px;color:var(--done);align-self:center;font-weight:600";b.appendChild(s);}s.textContent=m;}
 
 function finalScore(){
-  if(score[1]===null)check1();if(score[2]===null)check2();if(score[3]===null)check3();if(score[4]===null)check4();
-  const s5=selfScore(5),s6=selfScore(6),w=wScore();
+  if(score[1]===null)check1();if(score[2]===null)check2();if(score[3]===null)check3();if(score[4]===null)check4();if(score[5]===null)check5();
+  const s5={tot:score[5]},s6=selfScore(6),w=wScore();
   const missing=[];
-  if(s5.done<s5.len)missing.push("esercizio 5");if(s6.done<s6.len)missing.push("esercizio 6");if(w.done<GRID.length)missing.push("writing");
+  if(s6.done<s6.len)missing.push("esercizio 6");if(w.done<GRID.length)missing.push("writing");
   const tot=score[1]+score[2]+score[3]+score[4]+s5.tot+s6.tot+w.tot;
   const rt=Math.floor(tot); const idx=CONV.findIndex(c=>rt>=c[2]);
   document.querySelectorAll("#convTable td").forEach(td=>td.parentElement.classList.remove("hit"));
@@ -352,7 +377,7 @@ function finalScore(){
   r.innerHTML=`<div class="big">${fmt(tot)} / 80 · voto ${CONV[idx][1]}</div>
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
-    <div class="note">È un voto indicativo: gli esercizi 5, 6 e il writing li hai valutati tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
+    <div class="note">È un voto indicativo: l'esercizio 6 e il writing li hai valutati tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
 }
 function resetAll(){
