@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 · Use your time! — Vocabulary Practice (B2)</title>
+<meta name="description" content="The Structure · Lessico Unit 1 Use your time!: hobbies, free time, sports and outdoor activities. Definizioni in inglese e collocazioni. Preparazione B2 First.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+.gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
+.fill-input.lunga{display:block;width:100%;margin:10px 0 0;min-height:44px;}
+.fill-input.lunga[disabled]{opacity:1;}
+.risposta-data{margin:6px 0 2px;font-size:.92rem;opacity:.85;}
+.risposta-data b{font-weight:700;}
+.traduzione{margin:6px 0 0;font-size:.9rem;opacity:.8;font-style:italic;}
+</style>
+<script src="https://cristinavallini64-maker.github.io/grammar-tutor/tracker.js"></script>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 1 · Lessico</div><span class="logo-sub">vocabulary practice · B2</span></div>
+  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Lessico</h2>
+    <h1>Use your time!</h1>
+    <p>hobbies and free time · sports and outdoor activities · dressing up · definizioni e collocazioni</p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-results" class="screen"></div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const GLOSS={"keys":"tasti","strings":"corde","pick":"plettro","sticks":"bacchette","choir":"coro","band":"gruppo musicale","clues":"definizioni (cruciverba)","rows":"righe","crossword":"cruciverba","crosswords":"cruciverba","chess":"scacchi","knights":"cavalli (scacchi)","knight":"cavallo (scacchi)","puzzle":"puzzle","puzzles":"puzzle","stiff":"rigido","drums":"batteria","chords":"accordi","loser":"chi perde","controller":"controller","wax":"cera","string":"stoppino","candles":"candele","candle":"candela","jewellery":"gioielli, bigiotteria","beads":"perline","wire":"filo metallico","earrings":"orecchini","bracelets":"braccialetti","necklaces":"collane","kit":"scatola di montaggio","glue":"colla","stamps":"francobolli","envelope":"busta","envelopes":"buste","shells":"conchiglie","glass figures":"figurine di vetro","toys":"giocattoli","teddy bears":"orsacchiotti","stain":"macchiare","jars":"barattoli","windowsill":"davanzale","loft":"soffitta","action figure":"personaggio giocattolo","voluntary work":"volontariato","shelter":"rifugio, canile","photography":"fotografia","theatre":"teatro","blog":"blog","hobby":"passatempo","free time":"tempo libero","stall":"bancarella","stalls":"bancarelle","fencing":"scherma","swords":"spade","gymnastics":"ginnastica artistica","beam":"trave","cartwheel":"ruota","weights":"pesi","dumbbells":"manubri","yoga":"yoga","table tennis":"ping pong","volleyball":"pallavolo","goalposts":"pali della porta","bat":"racchetta","hoop":"canestro","reflexes":"riflessi","canoeing":"canoa","paddle":"pagaia","paddles":"pagaie","climbing":"arrampicata","rope":"corda","ropes":"corde","harness":"imbracatura","fishing":"pesca","rod":"canna da pesca","ice-skating":"pattinaggio sul ghiaccio","blades":"lame","rink":"pista di pattinaggio","kitesurfing":"kitesurf","kite":"aquilone","mountain biking":"mountain bike","tyres":"pneumatici","rollerblading":"pattinaggio in linea","inline skates":"pattini in linea","sailing":"vela","snowboarding":"snowboard","hiking":"escursionismo","stroll":"passeggiata","harbour":"porto","seafront":"lungomare","knee pads":"ginocchiere","cosplay":"cosplay","costume":"costume","convention":"fiera, raduno","masquerade ball":"ballo in maschera","fancy dress":"travestimento, festa in maschera","dress up as":"travestirsi da","cape":"mantello","outfits":"abiti, travestimenti","knot":"nodo","sewing":"cucire","threads":"infila","tweezers":"pinzette","strums":"strimpella","hymns":"inni sacri","bishops":"alfieri","dawn":"alba","tracks":"sentieri","grid":"griglia","sensors":"sensori"}
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
+const LEVELS=[
+{id:1,type:"study",title:"LIVELLO 01 — MUSIC, GAMES AND PUZZLES",desc:"strumenti, band e cori · giochi da tavolo, carte e rompicapo",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a musical instrument with black and white keys that you press with your fingers» → ___",hint:"(p…)",a:"piano",accept:["piano"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a set of instruments that you hit with sticks; the person who plays them sits at the back of the group» → ___",hint:"(d…)",a:"drums",accept:["drums"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«an instrument with six strings that you play with your fingers or with a small plastic pick» → ___",hint:"(g…)",a:"guitar",accept:["guitar"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a group of people who sing together, often at school or in a church» → ___",hint:"(c…)",a:"choir",accept:["choir"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a small group of musicians who play pop or rock songs together» → ___",hint:"(b…)",a:"band",accept:["band"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a word game in a newspaper: you read the clues and write the answers in rows of little squares» → ___",hint:"(c…)",a:"crossword",accept:["crossword","crosswords"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a game for two players on a board of black and white squares, with pieces such as the king, the queen and the knights» → ___",hint:"(c…)",a:"chess",accept:["chess"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a picture cut into small pieces of different shapes that you put together again» → ___",hint:"(p…)",a:"puzzle",accept:["puzzle","puzzles"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«games that you play on a screen, with a controller or a keyboard» → ___",hint:"(v… g…)",a:"video games",accept:["video games","videogames","video game"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a pack of fifty-two pieces of stiff paper with numbers and pictures, used for games such as poker» → ___",hint:"(c…)",a:"cards",accept:["cards"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Matteo writes his own songs, and now he wants to ___. He needs a drummer and a bass player.",hint:"(verbo + in a b…)",a:"play in a band",accept:["play in a band"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Before he got the job at the bank, my uncle used to ___ in a rock group — he still keeps the sticks in a drawer.",hint:"(verbo + the d…)",a:"play the drums",accept:["play the drums","play drums"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Lucia taught herself to ___ by watching online lessons; now she knows about twenty chords.",hint:"(verbo + the g…)",a:"play the guitar",accept:["play the guitar","play guitar"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"You need strong, quick fingers to ___ well — and hours of practice on the keys.",hint:"(verbo + the p…)",a:"play the piano",accept:["play the piano","play piano"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On Sundays my aunt goes to church to ___; there are forty voices in it.",hint:"(verbo + in a c…)",a:"sing in a choir",accept:["sing in a choir","sing in the choir"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On the bus I put my headphones on and ___ until my stop.",hint:"(verbo + to m…)",a:"listen to music",accept:["listen to music"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Dad buys the newspaper only to ___ — he never reads the news.",hint:"(verbo + c…)",a:"do crosswords",accept:["do crosswords","do the crossword","do the crosswords","do a crossword","do crossword puzzles","do the crossword puzzle"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On rainy afternoons we ___ on the kitchen table; the one we finished in March had a thousand pieces.",hint:"(verbo + p…)",a:"do puzzles",accept:["do puzzles","do jigsaw puzzles","do jigsaws"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After dinner my grandparents ___ with the neighbours, and the loser washes the cups.",hint:"(verbo + c…)",a:"play cards",accept:["play cards"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Can you ___? I need someone who knows how the knight moves on the board.",hint:"(verbo + c…)",a:"play chess",accept:["play chess"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Mum doesn't let my brother ___ on school nights, so on Fridays he spends hours with the controller.",hint:"(verbo + v… g…)",a:"play video games",accept:["play video games","play videogames"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:2,type:"study",title:"LIVELLO 02 — ARTS, CRAFTS AND COLLECTING",desc:"creare con le mani · disegnare e dipingere · fare collezione",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«machines that can move and do jobs on their own; students build them with motors and sensors in tech clubs» → ___",hint:"(r…)",a:"robots",accept:["robots","robot"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«sticks of wax with a piece of string in the middle that you light for a soft yellow light» → ___",hint:"(c…)",a:"candles",accept:["candles","candle"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«rings, necklaces, earrings and bracelets» → ___",hint:"(j…)",a:"jewellery",accept:["jewellery","jewelry"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«small copies of planes, ships or cars that you build from a kit and glue together» → ___",hint:"(m…)",a:"models",accept:["models","model"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«small paper squares that you stick on an envelope before you post it» → ___",hint:"(s…)",a:"stamps",accept:["stamps","stamp"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the hard outer cases of small sea creatures, often found on the beach» → ___",hint:"(s…)",a:"shells",accept:["shells"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«small decorative animals or people made of glass» → ___",hint:"(g… f…)",a:"glass figures",accept:["glass figures","glass figurines"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«to make a picture of something with a pencil or a pen» → ___",hint:"(d…)",a:"draw",accept:["draw"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«to make a picture with colours and a brush» → ___",hint:"(p…)",a:"paint",accept:["paint"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«objects for children to play with, such as dolls, little cars and teddy bears» → ___",hint:"(t…)",a:"toys",accept:["toys"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"At the school tech club we ___ that can follow a black line on the floor.",hint:"(verbo + r…)",a:"build robots",accept:["build robots","make robots"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Aunt Ines melts old wax in a pan to ___, and gives them as presents at Christmas.",hint:"(verbo + c…)",a:"make candles",accept:["make candles"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Nadia buys tiny beads and silver wire to ___; she sells the earrings at a market stall.",hint:"(verbo + j…)",a:"make jewellery",accept:["make jewellery","make jewelry"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Grandad has a table in the loft where he likes to ___ of old sailing ships, with glue and tiny brushes.",hint:"(verbo + m…)",a:"make models",accept:["make models","build models"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My great-uncle used to ___ from every country he visited; his albums are full of queens and presidents.",hint:"(verbo + s…)",a:"collect stamps",accept:["collect stamps"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Each summer the twins ___ on the beach and keep them in glass jars on the windowsill.",hint:"(verbo + s…)",a:"collect shells",accept:["collect shells","pick up shells","gather shells"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Bruno has three shelves of tiny animals from Murano: he started to ___ in his twenties.",hint:"(verbo + g… f…)",a:"collect glass figures",accept:["collect glass figures","collect glass figurines"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Some adults ___ from the 1980s — an old action figure still in its box can be worth a lot of money.",hint:"(verbo + t…)",a:"collect toys",accept:["collect toys"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Sara takes a pencil everywhere and likes to ___ the people sitting opposite her on the train.",hint:"(d…)",a:"draw",accept:["draw"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In the art room the children wear old shirts to ___, because the colours stain everything.",hint:"(p…)",a:"paint",accept:["paint"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:3,type:"study",title:"LIVELLO 03 — OTHER FREE-TIME ACTIVITIES",desc:"cucina, ballo, volontariato · foto, teatro, video, blog · hobby e tempo libero",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«to cook bread, cakes or biscuits in an oven» → ___",hint:"(b…)",a:"bake",accept:["bake"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«unpaid work that you do to help other people, for example at an animal shelter» → ___",hint:"(v… w…)",a:"voluntary work",accept:["voluntary work"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the art or hobby of taking pictures with a camera» → ___",hint:"(p…)",a:"photography",accept:["photography"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a building where actors perform plays on a stage» → ___",hint:"(t…)",a:"theatre",accept:["theatre","theater"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a website where someone writes regular posts about their life or interests» → ___",hint:"(b…)",a:"blog",accept:["blog"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«an activity that you do for pleasure in your free time» → ___",hint:"(h…)",a:"hobby",accept:["hobby"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the hours when you are not working or studying» → ___",hint:"(f… t…)",a:"free time",accept:["free time"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«to move your body to the rhythm of music» → ___",hint:"(d…)",a:"dance",accept:["dance"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"On Sunday mornings Callum gets up early to ___ fresh bread for the whole family.",hint:"(b…)",a:"bake",accept:["bake"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"At the wedding party everybody got up to ___ the moment the band started.",hint:"(d…)",a:"dance",accept:["dance"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Two afternoons a week Elena helps at the animal shelter: she likes to ___ for the community.",hint:"(verbo + v… w…)",a:"do voluntary work",accept:["do voluntary work"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Mia always takes three novels to the beach: she can ___ a whole one in an afternoon under the umbrella.",hint:"(r…)",a:"read",accept:["read"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Leo spends hours on his phone instead of studying: he likes to ___ of cats and funny accidents.",hint:"(verbo + v…)",a:"watch videos",accept:["watch videos"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Ruby wants to ___ about her travels, with a new post each week and lots of photos.",hint:"(verbo + a b…)",a:"write a blog",accept:["write a blog","start a blog"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Our drama group performs at the local ___ in May, and the tickets sold out in two days.",hint:"(t…)",a:"theatre",accept:["theatre","theater"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Sasha's favourite hobby is ___: she never goes anywhere without her camera.",hint:"(p…)",a:"photography",accept:["photography"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— What do you usually do in your ___? — I go out with friends or I read.",hint:"(f… t…)",a:"free time",accept:["free time"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Collecting old coins is an unusual ___, but Otis is crazy about it.",hint:"(h…)",a:"hobby",accept:["hobby"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"rA",type:"review",title:"⟳ RIPASSO A — musica, giochi, creatività, tempo libero",desc:"i primi tre livelli insieme · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"«a puzzle with numbered clues and a grid of black and white boxes» → ___",hint:"(c…)",a:"crossword",accept:["crossword","crosswords"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Tommaso took lessons at summer camp and learnt to ___: now he strums three songs on his six strings.",hint:"(verbo + the g…)",a:"play the guitar",accept:["play the guitar","play guitar"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Our grandmother still ___ at the parish church; she has a strong, clear voice and knows all the hymns.",hint:"(verbo + in a c…)",a:"sings in a choir",accept:["sings in a choir","sings in the choir"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a small object of wax that burns slowly and gives light» → ___",hint:"(c…)",a:"candle",accept:["candle","candles"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"My brother cuts the corners off foreign envelopes because he wants to ___.",hint:"(verbo + s…)",a:"collect stamps",accept:["collect stamps"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On wet afternoons at the cottage we ___ on the floor — a thousand pieces of sky and sea.",hint:"(verbo + p…)",a:"do puzzles",accept:["do puzzles","do jigsaw puzzles","do jigsaws"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a small copy of a car, plane or ship, often built from plastic pieces» → ___",hint:"(m…)",a:"model",accept:["model","models"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Jamal wants to ___ about street food, with photos and reviews of his favourite stalls in town.",hint:"(verbo + a b…)",a:"write a blog",accept:["write a blog","start a blog"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Twice a year our class goes to the ___ in town to see a play in English.",hint:"(t…)",a:"theatre",accept:["theatre","theater"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Lisa helps old people with their shopping on Saturdays; she started to ___ at sixteen.",hint:"(verbo + v… w…)",a:"do voluntary work",accept:["do voluntary work"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Before the party we ___ a big chocolate cake in Mum's oven, and two trays of biscuits.",hint:"(b…)",a:"baked",accept:["baked"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On the train Noemi puts her earphones in and ___ for the whole journey.",hint:"(verbo + to m…)",a:"listens to music",accept:["listens to music"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a person's favourite activity outside work or school» → ___",hint:"(h…)",a:"hobby",accept:["hobby"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"My uncle's knights and bishops trapped my king in ten moves. I need to learn to ___ properly.",hint:"(verbo + c…)",a:"play chess",accept:["play chess"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Felix stays up till late to ___ online with players from Japan.",hint:"(verbo + v… g…)",a:"play video games",accept:["play video games","play videogames"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:4,type:"study",title:"LIVELLO 04 — SPORTS WITH DO AND PLAY",desc:"fencing · gymnastics · weights · yoga · basketball · football · table tennis · volleyball",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a sport in which two people fight with long, thin swords, wearing white clothes and a mask» → ___",hint:"(f…)",a:"fencing",accept:["fencing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a sport with exercises on the floor, on bars and on a beam, which needs strength and balance» → ___",hint:"(g…)",a:"gymnastics",accept:["gymnastics"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«heavy metal objects that you lift at the gym to make your muscles stronger» → ___",hint:"(w…)",a:"weights",accept:["weights"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«an activity from India with slow positions and breathing exercises for body and mind» → ___",hint:"(y…)",a:"yoga",accept:["yoga"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a team game where you bounce the ball and score points by throwing it into a high basket» → ___",hint:"(b…)",a:"basketball",accept:["basketball"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a game for two or four players who hit a small, light ball across a low net on a table» → ___",hint:"(t… t…)",a:"table tennis",accept:["table tennis"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a team sport in which players hit a ball over a high net with their hands» → ___",hint:"(v…)",a:"volleyball",accept:["volleyball"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a team sport with eleven players on each side who kick a ball and try to score goals» → ___",hint:"(f…)",a:"football",accept:["football","soccer"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"You need fast reflexes and a good mask to ___ at competition level.",hint:"(verbo + f…)",a:"do fencing",accept:["do fencing","practise fencing","practice fencing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"At the age of seven Viola started to ___, and now she can do a perfect cartwheel on the beam.",hint:"(verbo + g…)",a:"do gymnastics",accept:["do gymnastics","practise gymnastics","practice gymnastics"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Gabriel goes to the gym twice a week to ___ because he wants stronger arms.",hint:"(verbo + w…)",a:"do weights",accept:["do weights","lift weights"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My mum likes to ___ before breakfast: twenty minutes of slow stretching and deep breathing.",hint:"(verbo + y…)",a:"do yoga",accept:["do yoga","practise yoga","practice yoga"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The PE teacher wants Davide to ___ for the school team because he is very tall.",hint:"(verbo + b…)",a:"play basketball",accept:["play basketball"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"There's a table with a net at the youth club, so we often ___ after school.",hint:"(verbo + t… t…)",a:"play table tennis",accept:["play table tennis"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In summer we ___ on the sand, four against four, with a net between two poles.",hint:"(verbo + v…)",a:"play volleyball",accept:["play volleyball","play beach volleyball"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My cousins ___ in the park on Saturdays and use two jackets as goalposts.",hint:"(verbo + f…)",a:"play football",accept:["play football","play soccer"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:5,type:"study",title:"LIVELLO 05 — OUTDOOR ACTIVITIES WITH GO",desc:"acqua, neve, montagna, strada · go + -ing",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«travelling on a river or a lake in a narrow boat that you move with a paddle» → ___",hint:"(c…)",a:"canoeing",accept:["canoeing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«going up rocks or walls with your hands and feet, often with a rope and a helmet» → ___",hint:"(c…)",a:"climbing",accept:["climbing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«trying to catch fish with a rod and a line» → ___",hint:"(f…)",a:"fishing",accept:["fishing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«moving across ice on special boots with metal blades» → ___",hint:"(i…)",a:"ice-skating",accept:["ice-skating","ice skating"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a water sport: you stand on a small board and a big kite pulls you across the waves» → ___",hint:"(k…)",a:"kitesurfing",accept:["kitesurfing","kite surfing","kite-surfing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«riding a strong bike with thick tyres on hills and rough paths» → ___",hint:"(m… b…)",a:"mountain biking",accept:["mountain biking"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«moving along on boots with a single line of small wheels» → ___",hint:"(r…)",a:"rollerblading",accept:["rollerblading"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«travelling on water in a boat that the wind pushes» → ___",hint:"(s…)",a:"sailing",accept:["sailing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«coming down a snowy mountain standing on one wide board» → ___",hint:"(s…)",a:"snowboarding",accept:["snowboarding"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a long walk in the countryside or in the mountains, usually on paths» → ___",hint:"(h…)",a:"hiking",accept:["hiking"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«moving through water using your arms and legs» → ___",hint:"(s…)",a:"swimming",accept:["swimming"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«moving on foot at high speed, for exercise or in a race» → ___",hint:"(r…)",a:"running",accept:["running"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Let's ___ on the river tomorrow: we can hire a boat and two paddles at the bridge.",hint:"(verbo + c…)",a:"go canoeing",accept:["go canoeing","go kayaking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Bring a helmet and good shoes if you want to ___ on the rocks with us.",hint:"(verbo + c…)",a:"go climbing",accept:["go climbing","go rock climbing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Grandpa wakes up at five to ___ at the lake, and he often comes home with nothing.",hint:"(verbo + f…)",a:"go fishing",accept:["go fishing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In December the town puts an ice rink in the main square, so we can ___ after school.",hint:"(verbo + i…)",a:"go ice-skating",accept:["go ice-skating","go ice skating","go skating"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Tarifa is the perfect place to ___: there's strong wind almost all year.",hint:"(verbo + k…)",a:"go kitesurfing",accept:["go kitesurfing","go kite surfing","go kite-surfing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"On Sundays Dario and his friends ___ on the rough paths above the village.",hint:"(verbo + m… b…)",a:"go mountain biking",accept:["go mountain biking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"We used to ___ along the seafront, with knee pads and helmets.",hint:"(verbo + r…)",a:"go rollerblading",accept:["go rollerblading"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My dad puts on his trainers and ___ in the park before work.",hint:"(verbo + r…)",a:"goes running",accept:["goes running","goes jogging"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"With the right wind, my uncle takes his small boat out of the harbour to ___.",hint:"(verbo + s…)",a:"go sailing",accept:["go sailing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Elisa prefers to ___ instead of skiing: one board is enough for her.",hint:"(verbo + s…)",a:"go snowboarding",accept:["go snowboarding"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The pool opens at seven, so on Tuesdays I ___ before school.",hint:"(verbo + s…)",a:"go swimming",accept:["go swimming"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"We packed sandwiches and water to ___ in the mountains for the whole day.",hint:"(verbo + h…)",a:"go hiking",accept:["go hiking","go trekking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My parents like to ___ in the hills on Sunday afternoons — nothing fast, just a quiet stroll.",hint:"(verbo + w…)",a:"go walking",accept:["go walking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:6,type:"study",title:"LIVELLO 06 — DRESSING UP AND LEARNING HOW",desc:"cosplay, costumi, feste in maschera · chiedere come si fa",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con il <strong>verbo</strong> e l'<strong>attività</strong> (per esempio <em>play</em>, <em>do</em>, <em>go</em>, <em>make</em>, <em>collect</em>&hellip;), nella forma che la frase richiede. Fra parentesi c'&egrave; l'iniziale dell'attivit&agrave;.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a hobby in which fans dress like characters from comics, films or video games» → ___",hint:"(c…)",a:"cosplay",accept:["cosplay"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the clothes you wear to look like a different person or character, for example in a show» → ___",hint:"(c…)",a:"costume",accept:["costume"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a large event where fans of comics, games or films meet, buy things and show their outfits» → ___",hint:"(c…)",a:"convention",accept:["convention"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«an elegant party where all the guests wear masks, typical of Venice» → ___",hint:"(m… b…)",a:"masquerade ball",accept:["masquerade ball"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«clothes that make you look like a pirate, an animal or a famous person at a party» → ___",hint:"(f… d…)",a:"fancy dress",accept:["fancy dress"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"For the comics fair, Kevin wants to ___ a superhero, with a cape and a mask.",hint:"(d… u… a…)",a:"dress up as",accept:["dress up as"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Marta spent three months sewing her ___ for the fair: each detail is exactly as in the film.",hint:"(c…)",a:"costume",accept:["costume"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The invitation says the party is ___, so I need to look like a pirate or a vampire.",hint:"(f… d…)",a:"fancy dress",accept:["fancy dress"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Thousands of fans travel to Lucca for the comics ___ at the end of October.",hint:"(c…)",a:"convention",accept:["convention"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In Venice, during Carnival, you can buy a ticket for a ___ in an old palace — masks are obligatory.",hint:"(m… b…)",a:"masquerade ball",accept:["masquerade ball"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Keira's hobby is ___: she makes her own outfits and goes to events dressed as her favourite anime characters.",hint:"(c…)",a:"cosplay",accept:["cosplay"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— ___ make a paper plane? — First, fold the sheet in half.",hint:"(H… d… y…)",a:"How do you",accept:["How do you"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— ___ tie this knot? I can't do it on my own. — Sure, watch me.",hint:"(C… y… s… m… h… t…)",a:"Can you show me how to",accept:["Can you show me how to"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— The wings are on the plane. ___? — Now paint the body.",hint:"(W… d… I d… n…)",a:"What do I do next",accept:["What do I do next"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"rB",type:"review",title:"⟳ RIPASSO B — sport, attività all'aperto, travestimenti",desc:"livelli 4-6 e qualcosa di prima · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"«a game for two teams of six, played by hitting a ball over a net with your hands» → ___",hint:"(v…)",a:"volleyball",accept:["volleyball"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Bianca ___ three times a week; her best event is the beam.",hint:"(verbo + g…)",a:"does gymnastics",accept:["does gymnastics","practises gymnastics","practices gymnastics"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«exercise in which you lift heavy bars and dumbbells» → ___",hint:"(w…)",a:"weights",accept:["weights","weightlifting","weight lifting"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"The lake freezes in January, so the children put on warm coats and ___ after lunch.",hint:"(verbo + i…)",a:"go ice-skating",accept:["go ice-skating","go ice skating","go skating"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Before work, Rosa ___ along the river: five kilometres in thirty minutes.",hint:"(verbo + r…)",a:"goes running",accept:["goes running","goes jogging"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a sport on snow: you slide down with both feet fixed to one board» → ___",hint:"(s…)",a:"snowboarding",accept:["snowboarding"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"We rented a small boat at the harbour and ___ round the island.",hint:"(verbo + s…)",a:"went sailing",accept:["went sailing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The masks were ready and the orchestra was playing: the ___ in the old palace started at nine.",hint:"(m… b…)",a:"masquerade ball",accept:["masquerade ball"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a big meeting of fans with stands, special guests and costume competitions» → ___",hint:"(c…)",a:"convention",accept:["convention"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Pietro bought a cape and plastic teeth: he wants to ___ a vampire at the carnival party.",hint:"(d… u… a…)",a:"dress up as",accept:["dress up as"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— ___ change the strings on this guitar? — First loosen them, then pull them out.",hint:"(H… d… y…)",a:"How do you",accept:["How do you"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— The cards are on the table. ___? — Now give seven to each player.",hint:"(W… d… I d… n…)",a:"What do I do next",accept:["What do I do next"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In Lucca, Sami walked around all day in his handmade knight's ___.",hint:"(c…)",a:"costume",accept:["costume"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Our team needs one more player to ___ on Saturday: we're only ten.",hint:"(verbo + f…)",a:"play football",accept:["play football","play soccer"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a sport in which you hit a light ball with a small bat across a table» → ___",hint:"(t… t…)",a:"table tennis",accept:["table tennis"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"If you like wind and waves, try to ___ in Sardinia: the kite pulls you along the water.",hint:"(verbo + k…)",a:"go kitesurfing",accept:["go kitesurfing","go kite surfing","go kite-surfing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — Use your time!",desc:"tutto il lessico della unit · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"Alice keeps a paddle and a life jacket in the car to ___ on the lake after work.",hint:"(verbo + c…)",a:"go canoeing",accept:["go canoeing","go kayaking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a hobby: making pictures of landscapes or people with brushes and colours» → ___",hint:"(p…)",a:"painting",accept:["painting"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Arturo keeps the cars and dolls of his childhood in boxes: he likes to ___ from the seventies.",hint:"(verbo + t…)",a:"collect toys",accept:["collect toys"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My sister's club meets on Thursdays to ___ with small motors and sensors.",hint:"(verbo + r…)",a:"build robots",accept:["build robots","make robots"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Kai ___ on rough tracks in the hills; his bike has thick tyres and strong brakes.",hint:"(verbo + m… b…)",a:"goes mountain biking",accept:["goes mountain biking"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In our village there's a club where you can ___ with real swords and masks.",hint:"(verbo + f…)",a:"do fencing",accept:["do fencing","practise fencing","practice fencing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Halfway up the rock face, Ivan stopped for some water. He loves to ___ with ropes and a harness.",hint:"(verbo + c…)",a:"go climbing",accept:["go climbing","go rock climbing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Chiara spends her Sunday mornings in the kitchen: she loves to ___ cakes for her friends.",hint:"(b…)",a:"bake",accept:["bake"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Ugo has a good voice, so he wants to ___ at school: there are forty singers and a concert in June.",hint:"(verbo + in a c…)",a:"sing in a choir",accept:["sing in a choir","sing in the choir"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Gaia took her camera to the mountains: ___ is her great passion.",hint:"(p…)",a:"photography",accept:["photography"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Dad and I ___ at dawn, but we didn't catch anything, not even a small one.",hint:"(verbo + f…)",a:"went fishing",accept:["went fishing"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a sport for two teams of five who bounce a ball and throw it through a hoop» → ___",hint:"(b…)",a:"basketball",accept:["basketball"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Before an exam I ___ to relax: slow positions and deep breaths.",hint:"(verbo + y…)",a:"do yoga",accept:["do yoga","practise yoga","practice yoga"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— ___ fold the shirt like that? It looks perfect. — Sure, watch.",hint:"(C… y… s… m… h… t…)",a:"Can you show me how to",accept:["Can you show me how to"],instruction:"Completa la domanda.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Asia threads coloured beads to ___; she started at fourteen and now sells bracelets online.",hint:"(verbo + j…)",a:"make jewellery",accept:["make jewellery","make jewelry"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Six of us stayed at the beach till dark and ___ with a ball and a net.",hint:"(verbo + v…)",a:"played volleyball",accept:["played volleyball","played beach volleyball"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Matilde puts on her inline skates and ___ along the seafront.",hint:"(verbo + r…)",a:"goes rollerblading",accept:["goes rollerblading"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"It rains all afternoon at the campsite, so we sit in the tent and ___.",hint:"(verbo + c…)",a:"play cards",accept:["play cards"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Lorenzo sits at his desk for hours to ___ of famous ships, with glue and tweezers.",hint:"(verbo + m…)",a:"make models",accept:["make models","build models"],instruction:"Completa la frase con il verbo giusto e l'attività.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a party where people wear clothes that make them look like someone or something else» → ___",hint:"(f… d…)",a:"fancy dress",accept:["fancy dress"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"}
+]}
+];
+
+const SK='lex_s_u1_s',EK='lex_s_u1_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'LXU1.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">VOCABULARY MASTER!</div><div class="cb-text">hai completato tutto il lessico della Unit 1 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[],_firstTotal=0,_firstDone=false;
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">${ex.badge||'// FILL IN THE BLANK'}</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input${(ex.a||'').split(' ').length>=4?' lunga':''}" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input lunga" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..."><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+
+/* --- tolleranza ai refusi nelle parole che NON sono l'oggetto dell'esercizio ---
+   Negli errorcorrect lo studente riscrive tutta la frase: un refuso su un nome
+   proprio o su una parola di contorno non deve annullare una correzione giusta.
+   Le parole che costituiscono LA correzione (quelle che cambiano fra la frase
+   sbagliata e quella giusta) restano esatte; sulle altre si tollera un errore
+   di battitura (distanza 1-2 a seconda della lunghezza). */
+function lev(a,b){
+  const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;
+  let prev=Array.from({length:n+1},(_,j)=>j),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));}
+    prev=cur.slice();}
+  return prev[n];
+}
+
+/* Nei fill a frase intera: le parole che l'esercizio sta testando (verbi, ausiliari,
+   congiunzioni di tempo) devono essere esatte; il resto tollera un refuso. */
+function paroleChiave(ex){
+  const S=new Set(['used','use','to','did','didn','not','was','were','has','have','had','is','are',
+    'am','when','while','as','first','then','next','after','afterwards','finally','since','for',
+    'been','do','does','go','goes','play','plays','make','makes']);
+  const out=new Set();
+  norm(ex.a).split(' ').forEach(w=>{ if(S.has(w)||/ing$/.test(w)||/ed$/.test(w)) out.add(w); });
+  return out;
+}
+
+/* Dopo il controllo lo studente rilegge quello che ha scritto (il campo puo' essere
+   piu' corto della frase) e, se la frase contiene lessico del glossario, ne vede la
+   traduzione italiana. */
+function mostraRispostaData(val, ex){
+  const card=document.getElementById('exCard'); if(!card) return;
+  const fb=document.getElementById('feedbackMsg');
+  const tua=document.createElement('div'); tua.className='risposta-data';
+  tua.innerHTML='<b>La tua risposta:</b> '+String(val||'').replace(/</g,'&lt;');
+  fb.parentNode.insertBefore(tua, fb);
+  const frase=[ex.a, ex.q, ex.wrong].filter(Boolean).join(' ');
+  const voci=Object.keys(GLOSS||{}).filter(w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i').test(frase));
+  if(voci.length){
+    const t=document.createElement('div'); t.className='traduzione';
+    t.innerHTML=voci.map(w=>'<b>'+w+'</b> = '+GLOSS[w]).join(' &middot; ');
+    fb.parentNode.insertBefore(t, fb.nextSibling);
+  }
+}
+function quasiUguale(val,target,esatte){
+  const A=norm(val).split(' '),B=norm(target).split(' ');
+  if(A.length!==B.length)return false;
+  let refusi=0;
+  for(let i=0;i<A.length;i++){
+    if(A[i]===B[i])continue;
+    if(esatte.has(B[i])){
+      /* e' una parola della struttura sotto esame: si tollera un refuso solo se la
+         desinenza resta quella giusta (paintng per painting), mai se cambia la forma */
+      const stessaDesinenza = B[i].slice(-3)===A[i].slice(-3) || B[i].slice(-2)===A[i].slice(-2);
+      if(!(stessaDesinenza && lev(A[i],B[i])<=1)) return false;
+    }
+    const soglia=B[i].length>=7?2:(B[i].length>=4?1:0);
+    if(lev(A[i],B[i])>soglia)return false;
+    refusi++;
+    if(refusi>2)return false;
+  }
+  return refusi>0;
+}
+function paroleDaCorreggere(ex){
+  const s=new Set();
+  if(!ex.wrong)return s;
+  const W=new Set(norm(ex.wrong).split(' '));
+  norm(ex.a).split(' ').forEach(w=>{if(!W.has(w))s.add(w);});
+  return s;
+}
+
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    let refuso=false;
+    if(!correct&&(ex.type==='errorcorrect'||(ex.a||'').split(' ').length>=4)){
+      /* la struttura sotto esame resta esatta; su nome propri e parole di contorno
+         si tollera un refuso di battitura, come sugli error correction */
+      const esatte=ex.type==='errorcorrect'?paroleDaCorreggere(ex):paroleChiave(ex);
+      correct=(ex.accept||[ex.a]).some(t=>quasiUguale(val,t,esatte));
+      refuso=correct;
+    }
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    mostraRispostaData(val, ex);
+    fb.innerHTML=correct?(refuso?'\u2713 Corretto! (attenzione all\'ortografia: <strong>'+ex.a+'</strong>)':'\u2713 Corretto!')
+                        :'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none')nextExercise();
+  else if(cb&&cb.style.display!=='none')checkExercise();
+});
+loadState();renderMap();
+
+</script>
+</body>
+</html>
