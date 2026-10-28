@@ -52,7 +52,7 @@ input.gap.no{border-bottom-color:var(--bad);background:var(--bad-soft);}
 .sol.inline{display:inline;margin:0 4px 0 2px;}
 .story{line-height:2.25;font-size:15.5px;}
 .story .vb{font-style:italic;color:var(--sub);}
-textarea{font:inherit;font-size:15px;width:100%;border:1.5px solid var(--line2);border-radius:9px;padding:9px 11px;background:#fff;resize:vertical;outline:none;margin-top:6px;}
+textarea{font:inherit;font-size:15px;width:100%;min-height:64px;overflow:hidden;border:1.5px solid var(--line2);border-radius:9px;padding:9px 11px;background:#fff;resize:vertical;outline:none;margin-top:6px;}
 textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,154,166,.12);}
 .model{display:none;margin-top:8px;background:var(--done-soft);border-left:4px solid var(--done);border-radius:6px;padding:8px 11px;font-size:14px;}
 .model.show{display:block;}
@@ -297,7 +297,7 @@ function render(){
   h=`<div class="ex-head"><div class="ex-title"><span class="n">7</span>Writing</div><div class="ex-score" id="sc7">___ / 15</div></div>
     <p>A school magazine is organising a short story competition. Write a story (80–100 words) that begins with this sentence:</p>
     <p class="opening">When I opened my eyes, I knew immediately that something was wrong.</p>
-    <textarea id="wtext" rows="9" oninput="countWords()"></textarea><div class="wc" id="wc">0 parole</div>
+    <textarea id="wtext" rows="9" oninput="countWords()" style="min-height:220px"></textarea><div class="wc" id="wc">0 parole</div>
     <p style="font-size:14px;margin-top:12px;font-weight:700;">Griglia di valutazione – Writing (15 punti)</p>
     <p style="font-size:13px;color:var(--sub);">Quando hai finito, rileggi la tua storia e valutala con la griglia. Se vuoi un giudizio vero, copia il testo e consegnalo all'insegnante.</p>
     <table><tr><th>Criterio</th><th>Descrittori</th><th>Punti</th></tr>`;
@@ -427,7 +427,16 @@ function save(){
   state.values=fields().map(f=>f.value);
   try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
 }
+function grow(t){t.style.height="auto";t.style.height=(t.scrollHeight+4)+"px";}
 function restore(){
+  // teacher link: ...mock-test-u1.html?azzera=docente  → clears this device and reloads clean
+  if(new URLSearchParams(location.search).get("azzera")==="docente"){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    history.replaceState(null,"",location.pathname);
+    const n=document.createElement("div");n.className="intro";n.style.cssText="background:var(--done-soft);border-color:var(--done);color:var(--ink);font-weight:700";
+    n.textContent="Mock test azzerato su questo dispositivo: puoi rifarlo da capo.";document.querySelector(".hero").after(n);
+    return;
+  }
   let d=null;try{d=JSON.parse(localStorage.getItem(KEY));}catch(e){}
   if(!d||!Array.isArray(d.values))return;
   const fs=fields();d.values.forEach((v,i)=>{if(fs[i])fs[i].value=v;});
@@ -439,7 +448,8 @@ function restore(){
 }
 render();
 restore();
-document.addEventListener("input",e=>{if(e.target.closest("main"))save();});
+document.addEventListener("input",e=>{if(e.target.matches("textarea"))grow(e.target);if(e.target.closest("main"))save();});
+document.querySelectorAll("main textarea").forEach(grow);
 document.addEventListener("change",e=>{if(e.target.closest("main"))save();});
 </script>
 </body>
