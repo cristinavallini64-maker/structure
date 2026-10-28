@@ -68,6 +68,7 @@ textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,154,166,.12
 .btn.sec{background:transparent;border:1.5px solid var(--line2);color:var(--sub);}
 .btn.sec:hover{border-color:var(--ink);color:var(--ink);}
 .btn.big{font-size:15px;padding:12px 26px;background:var(--plum);color:#fff;}
+.btn.armed{background:var(--half)!important;color:#fff!important;}
 .btn.big:hover{background:var(--plum2);}
 .opening{text-align:center;font-weight:700;font-style:italic;margin:6px 0 4px;}
 .wc{font-size:12px;color:var(--mut);text-align:right;margin-top:3px;}
@@ -112,7 +113,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   <section class="ex" id="ex7"></section>
 
   <div class="btns" style="justify-content:center;margin-top:24px;">
-    <button class="btn big" onclick="finalScore()">Calcola il voto</button>
+    <button class="btn big" onclick="confirmThen(this,finalScore)">Calcola il voto</button>
   </div>
   <div class="result" id="result"></div>
 
@@ -266,32 +267,32 @@ function render(){
   // 1
   let h=head(1,"Read the descriptions and write the free-time activity (verb + noun).",10)+'<ol class="items">';
   EX1.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${e[0]}<br>→ <input class="gap w" data-i="${i}" autocomplete="off" spellcheck="false"></li>`);
-  h+='</ol><div class="btns"><button class="btn main" onclick="check1()">Correggi</button></div>';
+  h+='</ol><div class="btns"><button class="btn main" onclick="confirmThen(this,check1)">Correggi</button></div>';
   document.getElementById("ex1").innerHTML=h;
   // 2
   h=head(2,"Complete the English sentences so that they have the same meaning as the Italian ones.",10)+'<ol class="items">';
   EX2.forEach((e,i)=>{h+=`<li><span class="num">${i+1}</span><span class="it">${e.it}</span>`;
     e.en.forEach(p=>h+= typeof p==="number"?`<input class="gap w" data-i="${i}" data-g="${p}" autocomplete="off" spellcheck="false">`:esc(p));h+='</li>';});
-  h+='</ol><div class="btns"><button class="btn main" onclick="check2()">Correggi</button></div>';
+  h+='</ol><div class="btns"><button class="btn main" onclick="confirmThen(this,check2)">Correggi</button></div>';
   document.getElementById("ex2").innerHTML=h;
   // 3
   h=head(3,"Complete the story with the correct form of the verbs in brackets.",15)+'<p class="story">';
   let k=0; EX3_TEXT.forEach((p,i)=>{ if(i%2){k++;h+=`<b>(${k})</b> <input class="gap" data-i="${k-1}" autocomplete="off" spellcheck="false"> <span class="vb">(${p})</span>`;} else h+=esc(p);});
-  h+='</p><div class="btns"><button class="btn main" onclick="check3()">Correggi</button></div>';
+  h+='</p><div class="btns"><button class="btn main" onclick="confirmThen(this,check3)">Correggi</button></div>';
   document.getElementById("ex3").innerHTML=h;
   // 4
   h=head(4,"Complete the questions.",10)+'<ol class="items">';
   EX4.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${esc(e[0])}<input class="gap w" data-i="${i}" autocomplete="off" spellcheck="false">${esc(e[1])}</li>`);
-  h+='</ol><div class="btns"><button class="btn main" onclick="check4()">Correggi</button></div>';
+  h+='</ol><div class="btns"><button class="btn main" onclick="confirmThen(this,check4)">Correggi</button></div>';
   document.getElementById("ex4").innerHTML=h;
   // 5 & 6 self-assessed
   h=head(5,"Join the two events in one sentence. Choose a suitable linking word and use the correct past forms.",10)+'<ol class="items">';
   EX5.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${esc(e[0])}<textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
-  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per la congiunzione giusta, 1 per i tempi verbali giusti.</p><div class="btns"><button class="btn main" onclick="check5()">Correggi</button></div>';
+  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per la congiunzione giusta, 1 per i tempi verbali giusti.</p><div class="btns"><button class="btn main" onclick="confirmThen(this,check5)">Correggi</button></div>';
   document.getElementById("ex5").innerHTML=h;
   h=head(6,"Translate into English.",10)+'<ol class="items">';
   EX6.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span><span class="it" style="font-style:normal;color:var(--ink)">${esc(e[0])}</span><textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
-  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Ogni parola scritta male toglie mezzo punto dal resto della frase.</p><div class="btns"><button class="btn main" onclick="check6()">Correggi</button></div>';
+  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Ogni parola scritta male toglie mezzo punto dal resto della frase.</p><div class="btns"><button class="btn main" onclick="confirmThen(this,check6)">Correggi</button></div>';
   document.getElementById("ex6").innerHTML=h;
   // 7 writing
   h=`<div class="ex-head"><div class="ex-title"><span class="n">7</span>Writing</div><div class="ex-score" id="sc7">___ / 15</div></div>
@@ -394,6 +395,13 @@ function copyW(){const t=document.getElementById("wtext").value;
   try{navigator.clipboard.writeText(t);alertMsg("Testo copiato.");}catch(e){alertMsg("Seleziona il testo e copialo a mano.");}}
 function alertMsg(m){const b=document.querySelector("#ex7 .btns");let s=b.querySelector(".msg");if(!s){s=document.createElement("span");s.className="msg";s.style.cssText="font-size:13px;color:var(--done);align-self:center;font-weight:600";b.appendChild(s);}s.textContent=m;}
 
+// first tap arms the button, second tap (within 4 s) confirms
+function confirmThen(btn,fn){
+  if(btn.dataset.armed==="1"){clearTimeout(btn._t);btn.dataset.armed="";btn.textContent=btn.dataset.label;btn.classList.remove("armed");fn();return;}
+  btn.dataset.label=btn.textContent;btn.dataset.armed="1";btn.classList.add("armed");
+  btn.textContent="Sicuro? Dopo non puoi più cambiare – tocca di nuovo";
+  btn._t=setTimeout(()=>{btn.dataset.armed="";btn.textContent=btn.dataset.label;btn.classList.remove("armed");},4000);
+}
 function lock(n){
   if(!state.locked.includes(n)){state.locked.push(n);save();}
   const sec=document.getElementById("ex"+n);
