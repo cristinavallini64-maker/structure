@@ -395,6 +395,7 @@ function copyW(){const t=document.getElementById("wtext").value;
 function alertMsg(m){const b=document.querySelector("#ex7 .btns");let s=b.querySelector(".msg");if(!s){s=document.createElement("span");s.className="msg";s.style.cssText="font-size:13px;color:var(--done);align-self:center;font-weight:600";b.appendChild(s);}s.textContent=m;}
 
 function lock(n){
+  if(!state.locked.includes(n)){state.locked.push(n);save();}
   const sec=document.getElementById("ex"+n);
   sec.querySelectorAll("input,textarea,select").forEach(e=>e.disabled=true);
   const b=sec.querySelector(".btn.main");
@@ -415,10 +416,31 @@ function finalScore(){
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
     <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
-  lock(7);document.querySelector(".btn.big").disabled=true;
+  lock(7);document.querySelector(".btn.big").disabled=true;state.final=true;save();
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
 }
+/* ================= SAVE / RESTORE (browser memory: a reload doesn't start over) ================= */
+const KEY="mocktest-u1-v1";
+const state={values:[],locked:[],final:false};
+const fields=()=>[...document.querySelectorAll("main input.gap, main textarea, main select")];
+function save(){
+  state.values=fields().map(f=>f.value);
+  try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+}
+function restore(){
+  let d=null;try{d=JSON.parse(localStorage.getItem(KEY));}catch(e){}
+  if(!d||!Array.isArray(d.values))return;
+  const fs=fields();d.values.forEach((v,i)=>{if(fs[i])fs[i].value=v;});
+  const checks={1:check1,2:check2,3:check3,4:check4,5:check5,6:check6};
+  (d.locked||[]).forEach(n=>{if(checks[n])checks[n]();});
+  if(document.getElementById("wtext").value)countWords();
+  if([...document.querySelectorAll("#ex7 select")].some(x=>x.value!==""))updW();
+  if(d.final)finalScore();
+}
 render();
+restore();
+document.addEventListener("input",e=>{if(e.target.closest("main"))save();});
+document.addEventListener("change",e=>{if(e.target.closest("main"))save();});
 </script>
 </body>
 </html>
