@@ -113,7 +113,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   <section class="ex" id="ex7"></section>
 
   <div class="btns" style="justify-content:center;margin-top:24px;">
-    <button class="btn big" onclick="confirmThen(this,finalScore)">Calcola il voto</button>
+    <button class="btn big" id="calcBtn" onclick="confirmThen(this,finalScore)">Calcola il voto</button>
   </div>
   <div class="result" id="result"></div>
 
@@ -424,7 +424,7 @@ function finalScore(){
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
     <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
-  lock(7);document.querySelector(".btn.big").disabled=true;state.final=true;save();
+  lock(7);document.getElementById("calcBtn").disabled=true;state.final=true;save();
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
 }
 /* ================= SAVE / RESTORE (browser memory: a reload doesn't start over) ================= */
@@ -456,6 +456,41 @@ function restore(){
 }
 render();
 restore();
+/* ================= TEACHER MODE: tap the title 5 times, then the secret word ================= */
+const SECRET="framework";
+let taps=0,tapTimer=null;
+document.querySelector(".hero h1").addEventListener("click",()=>{
+  taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>taps=0,2000);
+  if(taps>=5){taps=0;openTeacher();}
+});
+function openTeacher(){
+  if(document.getElementById("tpanel"))return;
+  const d=document.createElement("div");d.id="tpanel";d.className="intro";d.style.cssText="border:2px solid var(--plum);";
+  d.innerHTML=`<b>Area docente</b><br><input id="tpw" type="password" class="gap" style="width:180px;margin-top:6px" placeholder="parola segreta">
+    <button class="btn main" style="margin-left:6px" onclick="teacherLogin()">Entra</button> <button class="btn sec" onclick="this.parentElement.remove()">Chiudi</button>
+    <div id="tmsg" style="font-size:13px;margin-top:6px"></div>`;
+  document.querySelector(".hero").after(d);document.getElementById("tpw").focus();
+}
+function teacherLogin(){
+  const m=document.getElementById("tmsg");
+  if(document.getElementById("tpw").value.trim().toLowerCase()!==SECRET){m.textContent="Parola sbagliata.";m.style.color="var(--bad)";return;}
+  const d=document.getElementById("tpanel");
+  d.innerHTML=`<b>Area docente</b><br>Accanto a ogni esercizio corretto trovi «Sblocca questo esercizio». Oppure:
+    <div class="btns"><button class="btn big" onclick="teacherReset()">Azzera tutto il mock test</button><button class="btn sec" onclick="location.reload()">Esci</button></div>`;
+  state.locked.filter(n=>n<=6).forEach(n=>{
+    const b=document.createElement("button");b.className="btn big";b.textContent="🔓 Sblocca questo esercizio";b.onclick=()=>teacherUnlock(n);
+    document.querySelector(`#ex${n} .btns`).appendChild(b);
+  });
+}
+function teacherUnlock(n){
+  save();state.locked=state.locked.filter(x=>x!==n&&x!==7);state.final=false;
+  try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+  location.reload();
+}
+function teacherReset(){
+  try{localStorage.removeItem(KEY);}catch(e){}
+  location.href=location.pathname+"?azzera=docente";
+}
 document.addEventListener("input",e=>{if(e.target.matches("textarea"))grow(e.target);if(e.target.closest("main"))save();});
 document.querySelectorAll("main textarea").forEach(grow);
 document.addEventListener("change",e=>{if(e.target.closest("main"))save();});
