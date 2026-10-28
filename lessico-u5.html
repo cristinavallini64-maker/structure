@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 · No Planet B — Vocabulary Practice (B2)</title>
+<meta name="description" content="The Structure · Lessico Unit 5 No Planet B: natural disasters, weather, climate change, energy and the environment. Definizioni in inglese e chunk. Preparazione B2 First.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-study,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-study,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+.gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
+.fill-input.lunga{display:block;width:100%;margin:10px 0 0;min-height:44px;}
+.fill-input.lunga[disabled]{opacity:1;}
+.risposta-data{margin:6px 0 2px;font-size:.92rem;opacity:.85;}
+.risposta-data b{font-weight:700;}
+.traduzione{margin:6px 0 0;font-size:.9rem;opacity:.8;font-style:italic;}
+
+.btn-studia{margin-top:9px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:6px 12px;border-radius:8px;cursor:pointer;border:1.5px solid var(--plum);background:rgba(122,59,143,.08);color:var(--plum2);}
+.btn-studia:hover{background:rgba(122,59,143,.16);}
+.st-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.st-list{display:flex;flex-direction:column;gap:10px;}
+.st-card{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;padding:12px 15px;}
+.st-word{font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:var(--ink);}
+.st-key{font:inherit;font-weight:700;color:var(--plum2);}
+.st-def .st-key{font-weight:inherit;color:inherit;}
+.st-it{font-size:13px;color:var(--plum2);font-weight:600;margin-left:6px;}
+.st-def{font-size:14px;color:var(--sub);margin-top:4px;}
+.st-ex{font-size:14px;color:var(--ink);font-style:italic;margin-top:5px;}
+.st-quiz .st-word,.st-quiz .st-it{filter:blur(7px);user-select:none;cursor:pointer;}
+.st-quiz .st-card.show .st-word,.st-quiz .st-card.show .st-it{filter:none;}
+.st-hint{font-size:12px;color:var(--mut);margin-bottom:10px;}
+</style>
+<script src="https://cristinavallini64-maker.github.io/grammar-tutor/tracker.js"></script>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 5 · Lessico</div><span class="logo-sub">vocabulary practice · B2</span></div>
+  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Lessico</h2>
+    <h1>No Planet B</h1>
+    <p>natural disasters · extreme and everyday weather · climate change and energy · nature in danger · green habits and Real Talk</p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-study" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="stTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="st-tools">
+    <button class="btn btn-secondary" id="stQuizBtn" onclick="toggleQuiz()">Mettiti alla prova</button>
+    <button class="btn btn-primary" id="stGoBtn">Vai agli esercizi →</button>
+  </div>
+  <div class="st-hint" id="stHint"></div>
+  <div class="st-list" id="stList"></div>
+</div>
+<div id="screen-results" class="screen"></div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const GLOSS={"earthquake":"terremoto","shaking":"scossa, tremore","shook":"ha scosso","tsunami":"tsunami, maremoto","sirens":"sirene","uphill":"in salita, verso l'alto","volcanic eruption":"eruzione vulcanica","ash":"cenere","landslide":"frana","landslip":"frana","slides":"scivola","avalanche":"valanga","steep":"ripido","slope":"pendio","flood":"alluvione","flooding":"allagamento","burst its banks":"è esondato","banks":"argini","wildfire":"incendio boschivo","wildfires":"incendi boschivi","hectares":"ettari","pine":"pino","in flood":"in piena","planks":"assi","mud":"fango","hurricane":"uragano","typhoon":"tifone","blizzard":"bufera di neve","snowstorm":"tempesta di neve","hail":"grandine","hailstones":"chicchi di grandine","hailstorm":"grandinata","smashed":"ha distrutto, frantumato","walnuts":"noci","lightning":"fulmine, fulmini","flash":"lampo","oak":"quercia","split":"ha spaccato","gale":"burrasca","gales":"burrasche","droughts":"siccità (periodi di)","drought":"siccità","lorries":"camion","heatwave":"ondata di calore","shade":"ombra","breeze":"brezza","mild":"mite","frost":"brina, gelata","frosts":"gelate","windscreen":"parabrezza","scrape":"raschiare","arid":"arido","black ice":"ghiaccio sulla strada (invisibile)","bends":"curve","soaked":"fradicio","sodden":"zuppo","sunburnt":"scottato dal sole","sunbed":"lettino","crunchy":"croccante, che scricchiola","lawn":"prato","hut":"rifugio","tore":"ha strappato","poles":"paletti; poli","detour":"deviazione","swept away":"ha spazzato via","hillside":"pendio","glacier":"ghiacciaio","ice caps":"calotte polari","sea level":"livello del mare","sea levels":"livello dei mari","greenhouse effect":"effetto serra","carbon dioxide":"anidride carbonica","breathe out":"espirare","ozone layer":"strato di ozono","ultraviolet rays":"raggi ultravioletti","emissions":"emissioni","fossil fuels":"combustibili fossili","coal":"carbone","global warming":"riscaldamento globale","renewable energy":"energia rinnovabile","solar panels":"pannelli solari","satellite":"satellite","jars":"barattoli","thermometer":"termometro","turbines":"turbine","boilers":"caldaie","barn":"fienile","grid":"rete elettrica","power stations":"centrali elettriche","sunscreen":"crema solare","endangered species":"specie in via di estinzione","extinct":"estinto","gorillas":"gorilla","dodo":"dodo","sailors":"marinai","coral reef":"barriera corallina","reservoir":"bacino idrico","water shortage":"carenza d'acqua","water shortages":"carenze d'acqua","wells":"pozzi","vineyard":"vigneto","grapes":"uva","harvest":"raccolto, vendemmia","crops":"raccolti, colture","mammoths":"mammut","snow leopard":"leopardo delle nevi","carbon footprint":"impronta di carbonio","carbon offsetting":"compensazione delle emissioni","greenwashing":"ecologismo di facciata","pollutes":"inquina","compost":"compost","rots":"marcisce","peel":"buccia","coffee grounds":"fondi di caffè","heap":"mucchio","reusable":"riutilizzabile","cloth":"stoffa","boot":"bagagliaio","checkout":"cassa","standby":"standby","car-sharing":"car sharing","water butt":"cisterna per l'acqua piovana","make up for":"compensare","go from bad to worse":"andare di male in peggio","went from bad to worse":"è andato di male in peggio","kid yourself":"illuderti","kidding yourself":"ti illudi","straws":"cannucce","leaked":"faceva entrare acqua","tarmac":"asfalto","snapped":"ha spezzato","skid":"slittare","colourless":"incolore","in a row":"di fila","chimneys":"camini","softens":"ammorbidisce","cracks":"crepacci","coastal":"costiero","supplies":"rifornisce"}
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
+const STUDY={"1": [["earthquake", "a sudden, violent shaking of the ground", "Japanese schools practise what to do in an earthquake.", "terremoto"], ["tsunami", "a huge sea wave, often produced by an earthquake under the ocean", "The tsunami of 2004 reached the coasts of Thailand and Sri Lanka.", "tsunami, maremoto"], ["volcanic eruption", "the moment when a mountain throws out hot rock, ash and gas", "Etna had a small volcanic eruption in May, and the airport in Catania closed for a day.", "eruzione vulcanica"], ["landslide", "a mass of earth and rocks that suddenly falls down the side of a hill", "The landslide left three houses on the edge of the cliff.", "frana"], ["avalanche", "a large amount of snow and ice that falls suddenly down a mountain", "Off-road skiers carry a special beeper in case of an avalanche.", "valanga"], ["flood", "a large amount of water that covers an area which is usually dry", "The flood of 1966 damaged thousands of old books in Florence.", "alluvione"], ["wildfire", "flames that spread quickly and out of control through forests or dry grass", "A wildfire can move faster than a person can run.", "incendio boschivo"], ["in flood", "(of a river) so full that the water goes over its banks", "In spring the Adige is often in flood after the snow melts.", "in piena"]], "2": [["hurricane", "a violent storm with very strong winds that forms over the Atlantic Ocean", "The hurricane season in the Caribbean starts in June.", "uragano"], ["typhoon", "a violent tropical storm with very strong winds in the western Pacific", "A typhoon can bring a month's rain in a single day.", "tifone"], ["blizzard", "a snowstorm with strong winds, so you can see almost nothing", "We spent two days in the mountain hut because of a blizzard.", "bufera di neve"], ["hail", "small balls of ice that fall from the sky like rain", "Hail can dent cars and break windows in a few minutes.", "grandine"], ["lightning", "the sudden flash of bright light in the sky during a storm", "Count the seconds between the lightning and the thunder.", "fulmine, fulmini"], ["gale", "a very strong wind that blows for hours", "The gale blew the roof off our neighbour's shed.", "burrasca"], ["drought", "a long period with little or no rain", "During the drought, the town turned off the public fountains.", "siccità"], ["heatwave", "a period when the weather is much hotter than usual", "Old people should stay indoors in the afternoon during a heatwave.", "ondata di calore"]], "3": [["breeze", "a light, pleasant wind", "A sea breeze makes the heat easier to bear.", "brezza"], ["mild", "(of weather, especially in winter) not too cold and quite pleasant", "The south of Italy usually has mild winters.", "mite"], ["frost", "a thin white layer of ice on grass and cars on very cold mornings", "Gardeners cover young plants to protect them from frost.", "brina, gelata"], ["arid", "so dry that almost no plants can grow there", "Camels can live for weeks in arid regions.", "arido"], ["black ice", "a dangerous, almost invisible frozen layer on the road in winter", "Black ice causes many accidents in the mountains in January.", "ghiaccio sulla strada (invisibile)"], ["soaked", "completely wet", "Take off those soaked trainers and borrow some dry socks.", "fradicio, bagnato fradicio"], ["sunburnt", "with red, painful skin after too much time in the sun", "Fair skin gets sunburnt in less than twenty minutes at noon.", "scottato dal sole"]], "4": [["glacier", "a large mass of ice that moves very slowly down a mountain valley", "The Marmolada glacier is losing ice faster than ever.", "ghiacciaio"], ["ice caps", "the thick layers of ice near the North and South Poles", "When the ice caps melt, polar bears lose their hunting grounds.", "calotte polari"], ["sea level", "the average height of the sea", "Mount Everest is 8,849 metres above sea level.", "livello del mare"], ["greenhouse effect", "the warming of the Earth because gases in the air keep the sun's heat in", "Methane from cows adds to the greenhouse effect.", "effetto serra"], ["carbon dioxide", "the gas that we breathe out and that cars and factories produce (CO2)", "Forests store huge amounts of carbon dioxide.", "anidride carbonica"], ["ozone layer", "the part of the upper atmosphere that protects us from the sun's ultraviolet rays", "Some old fridge gases damaged the ozone layer.", "strato di ozono"], ["emissions", "gases like CO2 that cars, planes and factories send into the air", "Electric buses have no emissions from their exhaust pipes.", "emissioni"], ["burn fossil fuels", "fossil fuels: coal, oil and gas, formed from plants and animals that died millions of years ago", "Most cargo ships still burn fossil fuels, usually heavy oil.", "bruciare combustibili fossili", true], ["global warming", "the slow rise in the average temperature of the Earth", "Global warming is changing the dates of the grape harvest in France.", "riscaldamento globale"], ["switch to renewable energy", "renewable energy: power from sources that never run out, like the sun, the wind and water", "Many farms switched to renewable energy after the price of gas went up.", "passare all'energia rinnovabile", true], ["solar panels", "flat pieces of equipment on a roof that turn sunlight into electricity", "Solar panels work even on cloudy days, but less well.", "pannelli solari"]], "5": [["endangered species", "a type of animal or plant that may soon disappear forever", "The Apennine brown bear is an endangered species.", "specie in via di estinzione"], ["extinct", "(of an animal or plant) with no members alive today", "Dinosaurs became extinct about 66 million years ago.", "estinto"], ["coral reef", "colourful rock-like structures under warm seas, built by tiny sea animals", "Snorkelling over a coral reef feels like swimming in an aquarium.", "barriera corallina"], ["reservoir", "an artificial lake that stores water for a town or for farms", "They built a dam across the valley to create a reservoir.", "bacino idrico"], ["water shortage", "a situation in which there is not enough water for everyone", "Cape Town had a terrible water shortage in 2018.", "carenza d'acqua"], ["vineyard", "a piece of land where grapes grow, usually to make wine", "We cycled through the vineyards of the Langhe in October.", "vigneto"], ["harvest", "the time when farmers collect their crops, or the crops that they collect", "The olive harvest in Puglia starts in November.", "raccolto; vendemmia"]], "6": [["reduce your carbon footprint", "carbon footprint: the total amount of CO2 that a person or an activity produces", "You can reduce your carbon footprint by buying food from local farms.", "ridurre la propria impronta di carbonio", true], ["carbon offsetting", "paying for projects, like planting trees, to balance the CO2 that you produce", "Critics say carbon offsetting lets rich people fly without guilt.", "compensazione delle emissioni"], ["greenwashing", "when a company pretends that its products are better for the environment than they really are", "A green leaf on a plastic bottle is a classic example of greenwashing.", "ecologismo di facciata"], ["compost", "a mix of dead leaves and food waste that rots and makes the soil rich", "Eggshells and tea bags are great for compost.", "compost"], ["reusable", "(of bags, cups or bottles) that you keep for a long time, not throw away after one go", "Take a reusable cup to the coffee machine at school.", "riutilizzabile"], ["standby", "the mode of a TV or computer that is off but still uses a little electricity", "Switch off the TV at the wall, not just on standby.", "standby"], ["car-sharing", "a service with cars that members can rent by the minute or by the hour", "Car-sharing is cheaper than owning a car if you drive only at weekends.", "car sharing"], ["water butt", "a large container in the garden that collects rain from the roof", "A water butt can save hundreds of litres of tap water in summer.", "cisterna per l'acqua piovana"], ["make up for", "to do something good so that a bad thing seems less bad", "An extra essay won't make up for three missing homework tasks.", "compensare"], ["go from bad to worse", "(of a bad situation) to become even more serious", "Without rain, things will go from bad to worse for the farmers.", "andare di male in peggio", true], ["kid yourself", "to believe something that is not true because you want to believe it", "Don't kid yourself: one cold winter doesn't mean the climate isn't changing.", "illudersi"]]};
+
+function openStudy(id){
+  const lv=LEVELS.find(l=>String(l.id)===String(id));const rows=STUDY[String(id)]||[];
+  document.getElementById('stTitle').textContent=lv.title.replace(/^LIVELLO/,'STUDIA ·');
+  const list=document.getElementById('stList');list.classList.remove('st-quiz');
+  document.getElementById('stQuizBtn').textContent='Mettiti alla prova';
+  document.getElementById('stHint').textContent='Leggi la parola, la definizione e l\u2019esempio. Poi prova a coprire le parole.';
+  list.innerHTML=rows.map(r=>{
+    const m=r[1].match(/^([^:]+):\s*(.*)$/);const key=m?m[1]:r[0].replace(/[\u2026?]+$/,'');
+    const def=m?`<span class="st-word st-key">${m[1]}:</span> ${m[2]}`:r[1];
+    const esc=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const CH=r[4]===true;
+    const rx=CH?new RegExp('\\b'+r[0].split(' ').map((w,i)=>i?esc(w):esc(w)+'\\w*').join('\\s+'),'gi'):new RegExp('\\b('+esc(key)+')\\w*','gi');
+    const ex=r[2].replace(rx,w=>`<span class="st-word st-key">${w}</span>`);
+    return `<div class="st-card" onclick="this.classList.toggle('show')"><div><span class="st-word">${r[0]}</span><span class="st-it">${r[3]}</span></div><div class="st-def">${def}</div><div class="st-ex">${ex}</div></div>`;}).join('');
+  document.getElementById('stGoBtn').onclick=()=>openLevel(lv);
+  showScreen('study');window.scrollTo(0,0);
+}
+function toggleQuiz(){
+  const list=document.getElementById('stList');const on=list.classList.toggle('st-quiz');
+  list.querySelectorAll('.st-card').forEach(c=>c.classList.remove('show'));
+  document.getElementById('stQuizBtn').textContent=on?'Mostra tutto':'Mettiti alla prova';
+  document.getElementById('stHint').textContent=on?'Leggi definizione ed esempio, d\u00ec la parola, poi tocca la scheda per controllare.':'Leggi la parola, la definizione e l\u2019esempio. Poi prova a coprire le parole.';
+}
+const LEVELS=[
+{id:1,type:"study",title:"LIVELLO 01 — NATURAL DISASTERS",desc:"terremoti, tsunami, eruzioni · frane, valanghe, alluvioni, incendi",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a sudden, violent shaking of the ground, caused by movements deep inside the Earth» → ___",hint:"(e…)",a:"earthquake",accept:["earthquake"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a huge sea wave, often produced by an earthquake under the ocean, that floods the coast» → ___",hint:"(t…)",a:"tsunami",accept:["tsunami"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the moment when a mountain throws out hot rock, ash and gas» → ___",hint:"(v… e…)",a:"volcanic eruption",accept:["volcanic eruption"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a mass of earth and rocks that suddenly falls down the side of a hill» → ___",hint:"(l…)",a:"landslide",accept:["landslide","landslip"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a large amount of snow and ice that falls suddenly down a mountain» → ___",hint:"(a…)",a:"avalanche",accept:["avalanche"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a large amount of water that covers an area which is usually dry» → ___",hint:"(f…)",a:"flood",accept:["flood","flooding"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«flames that spread quickly and out of control through forests or dry grass» → ___",hint:"(w…)",a:"wildfire",accept:["wildfire","wild fire","wildfires"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«(of a river) so full that the water goes over its banks» → ___",hint:"(i… f…)",a:"in flood",accept:["in flood"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"In 1976 a strong ___ shook Friuli and destroyed whole villages in less than a minute.",hint:"(e…)",a:"earthquake",accept:["earthquake"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After the shaking stopped, the sirens warned people on the beach to run uphill: a ___ was on its way.",hint:"(t…)",a:"tsunami",accept:["tsunami"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In 2010 a ___ in Iceland sent a huge cloud of ash into the sky, and thousands of flights stayed on the ground.",hint:"(v… e…)",a:"volcanic eruption",accept:["volcanic eruption"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After a week of heavy rain, a ___ blocked the mountain road with mud and rocks.",hint:"(l…)",a:"landslide",accept:["landslide","landslip"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Mountain guides have closed the north side of the valley: after two metres of fresh snow, the danger of an ___ is very high.",hint:"(a…)",a:"avalanche",accept:["avalanche"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"When the river burst its banks, the ___ filled the ground floor of our house with mud.",hint:"(f…)",a:"flood",accept:["flood","flooding","floodwater","floodwaters"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In August a ___ destroyed hundreds of hectares of pine forest along the coast.",hint:"(w…)",a:"wildfire",accept:["wildfire","wild fire"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Don't cross the old wooden bridge today: the river is ___ and the water has almost reached the planks.",hint:"(i… f…)",a:"in flood",accept:["in flood"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:2,type:"study",title:"LIVELLO 02 — STORMS AND EXTREME WEATHER",desc:"uragani, tifoni, bufere di neve · grandine, fulmini, burrasche · siccità e ondate di calore",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a violent storm with very strong winds that forms over the Atlantic Ocean» → ___",hint:"(h…)",a:"hurricane",accept:["hurricane"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a violent tropical storm with very strong winds in the western Pacific, for example near Japan or the Philippines» → ___",hint:"(t…)",a:"typhoon",accept:["typhoon"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a snowstorm with strong winds, so you can see almost nothing» → ___",hint:"(b…)",a:"blizzard",accept:["blizzard"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«small balls of ice that fall from the sky like rain» → ___",hint:"(h…)",a:"hail",accept:["hail","hailstones"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the sudden flash of bright light in the sky during a storm» → ___",hint:"(l…)",a:"lightning",accept:["lightning"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a very strong wind that blows for hours» → ___",hint:"(g…)",a:"gale",accept:["gale","gales"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«long periods with little or no rain, when rivers and fields dry up» → ___",hint:"(d…)",a:"droughts",accept:["droughts","drought"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a period of days or weeks when the weather is much hotter than usual» → ___",hint:"(h…)",a:"heatwave",accept:["heatwave","heat wave"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"The ___ reached Florida at night with winds of over 200 kilometres an hour.",hint:"(h…)",a:"hurricane",accept:["hurricane"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In September the ___ season begins in the Philippines: strong winds and heavy rain can go on for days.",hint:"(t…)",a:"typhoon",accept:["typhoon"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"We couldn't see the car in front of us: the ___ covered the motorway with snow in twenty minutes.",hint:"(b…)",a:"blizzard",accept:["blizzard"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In ten minutes the ___ smashed the glass roof of the greenhouse: some pieces of ice were the size of walnuts.",hint:"(h…)",a:"hail",accept:["hail","hailstorm","hailstones"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"During the storm, ___ hit the old oak in the square and split it in two.",hint:"(l…)",a:"lightning",accept:["lightning"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"No ferries will sail to the islands tomorrow: the forecast says a ___ is coming from the north.",hint:"(g…)",a:"gale",accept:["gale"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Southern Spain has had several serious ___ in the last ten years, and some villages now get their water from lorries.",hint:"(d…)",a:"droughts",accept:["droughts"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"During the ___ in July, temperatures stayed above 38 degrees for ten days and the hospitals filled up.",hint:"(h…)",a:"heatwave",accept:["heatwave","heat wave"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:3,type:"study",title:"LIVELLO 03 — EVERYDAY WEATHER",desc:"brezza, clima mite, brina · terre aride, ghiaccio sulla strada · bagnati fradici e scottati",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a light, pleasant wind» → ___",hint:"(b…)",a:"breeze",accept:["breeze"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«(of weather, especially in winter) not too cold and quite pleasant» → ___",hint:"(m…)",a:"mild",accept:["mild"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a thin white layer of ice on grass and cars on very cold mornings» → ___",hint:"(f…)",a:"frost",accept:["frost"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«so dry that almost no plants can grow there» → ___",hint:"(a…)",a:"arid",accept:["arid"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a dangerous, almost invisible frozen layer on the road in winter, which makes cars skid» → ___",hint:"(b… i…)",a:"black ice",accept:["black ice"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«completely wet, for example after walking in heavy rain» → ___",hint:"(s…)",a:"soaked",accept:["soaked","sodden"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«with red, painful skin after too much time in the sun» → ___",hint:"(s…)",a:"sunburnt",accept:["sunburnt","sunburned"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"It's hot in the city, but on our terrace there's always a cool ___ from the lake in the evening.",hint:"(b…)",a:"breeze",accept:["breeze"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"It was a ___ winter: we turned the heating on only twice and the roses flowered in January.",hint:"(m…)",a:"mild",accept:["mild"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"There was ___ on the windscreen this morning, so I had to scrape it off before driving to work.",hint:"(f…)",a:"frost",accept:["frost"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Few plants survive in this ___ land: it gets less than 100 millimetres of rain a year.",hint:"(a…)",a:"arid",accept:["arid"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Drive slowly on the mountain road this morning: there's ___ on the bends and you can't see it.",hint:"(b… i…)",a:"black ice",accept:["black ice"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"I forgot my umbrella and got ___ on the way home — even my socks were wet.",hint:"(s…)",a:"soaked",accept:["soaked","sodden"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Lorenzo fell asleep on the sunbed at noon, and now his shoulders hurt: he's badly ___.",hint:"(s…)",a:"sunburnt",accept:["sunburnt","sunburned"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"rA",type:"review",title:"⟳ RIPASSO A — disastri naturali e tempo atmosferico",desc:"i primi tre livelli insieme · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"«a sudden, dangerous fall of snow down a steep slope» → ___",hint:"(a…)",a:"avalanche",accept:["avalanche"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"The ___ in Haiti in 2010 lasted only thirty-five seconds, but it destroyed much of the capital.",hint:"(e…)",a:"earthquake",accept:["earthquake"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a giant wave that can travel across a whole ocean at the speed of a plane» → ___",hint:"(t…)",a:"tsunami",accept:["tsunami"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Firefighters and planes worked for three days to stop the ___ before it reached the village.",hint:"(w…)",a:"wildfire",accept:["wildfire","wild fire"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a storm with lots of snow and wind so strong that roads close and cars get stuck» → ___",hint:"(b…)",a:"blizzard",accept:["blizzard"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Our tent shook all night in the ___: the wind snapped one of the poles.",hint:"(g…)",a:"gale",accept:["gale","gales"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«ice that falls from storm clouds in small hard balls» → ___",hint:"(h…)",a:"hail",accept:["hail","hailstones"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Never stand under a tree in a storm: ___ often hits the tallest thing around.",hint:"(l…)",a:"lightning",accept:["lightning"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The ___ lasted two weeks: fourteen days in a row of more than 38 degrees in the shade, and the city streets were empty.",hint:"(h…)",a:"heatwave",accept:["heatwave","heat wave"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a soft, gentle movement of air, often near the sea» → ___",hint:"(b…)",a:"breeze",accept:["breeze"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"The ___ on the lawn this morning was white and crunchy, and the kids drew pictures in it with their fingers.",hint:"(f…)",a:"frost",accept:["frost"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«(of a winter) warmer than normal, without snow or hard frosts» → ___",hint:"(m…)",a:"mild",accept:["mild"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Our hike turned into a disaster: we walked four hours in the storm and arrived at the hut completely ___.",hint:"(s…)",a:"soaked",accept:["soaked","sodden"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"A ___ swept away part of the hillside road, and the bus to the village now takes a long detour.",hint:"(l…)",a:"landslide",accept:["landslide","landslip"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After an hour in the midday sun without a hat, Nico's nose was bright red: he was badly ___.",hint:"(s…)",a:"sunburnt",accept:["sunburnt","sunburned"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:4,type:"study",title:"LIVELLO 04 — CLIMATE CHANGE AND ENERGY",desc:"ghiacciai e calotte polari · effetto serra, emissioni · combustibili fossili ed energia rinnovabile",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a large mass of ice that moves very slowly down a mountain valley» → ___",hint:"(g…)",a:"glacier",accept:["glacier"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the thick layers of ice that cover the land near the North and South Poles» → ___",hint:"(i… c…)",a:"ice caps",accept:["ice caps","ice cap","icecaps"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the average height of the sea, used to measure the height of mountains» → ___",hint:"(s… l…)",a:"sea level",accept:["sea level","sea levels"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the warming of the Earth because gases in the air keep the sun's heat in» → ___",hint:"(g… e…)",a:"greenhouse effect",accept:["greenhouse effect"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the gas that we breathe out and that cars and factories produce when they burn fuel; its formula is CO2» → ___",hint:"(c… d…)",a:"carbon dioxide",accept:["carbon dioxide"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the part of the upper atmosphere that protects us from the sun's dangerous ultraviolet rays» → ___",hint:"(o… l…)",a:"ozone layer",accept:["ozone layer"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«gases like CO2 that cars, planes and factories send into the air» → ___",hint:"(e…)",a:"emissions",accept:["emissions"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«coal, oil and gas: sources of energy formed from plants and animals that died millions of years ago» → ___",hint:"(f… f…)",a:"fossil fuels",accept:["fossil fuels"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the slow rise in the average temperature of the Earth» → ___",hint:"(g… w…)",a:"global warming",accept:["global warming"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«power from sources that never run out, like the sun, the wind and water» → ___",hint:"(r… e…)",a:"renewable energy",accept:["renewable energy"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«flat pieces of equipment on a roof that turn sunlight into electricity» → ___",hint:"(s… p…)",a:"solar panels",accept:["solar panels","solar panel"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Fifty years ago the ___ reached the hut; now you have to walk an hour uphill to touch the ice.",hint:"(g…)",a:"glacier",accept:["glacier"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Satellite photos show that the polar ___ are getting smaller each summer.",hint:"(i… c…)",a:"ice caps",accept:["ice caps","icecaps"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Venice is only a metre above ___, so even a small rise might put St Mark's Square under water.",hint:"(s… l…)",a:"sea level",accept:["sea level"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In our science lesson we built a model of the ___ with two jars, a lamp and a thermometer.",hint:"(g… e…)",a:"greenhouse effect",accept:["greenhouse effect"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Trees take in ___ from the air and give back oxygen.",hint:"(c… d…)",a:"carbon dioxide",accept:["carbon dioxide"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In the 1980s scientists discovered a hole in the ___ above Antarctica.",hint:"(o… l…)",a:"ozone layer",accept:["ozone layer"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The city wants to cut traffic ___ by half, so diesel cars can't enter the centre from next year.",hint:"(e…)",a:"emissions",accept:["emissions"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Most power stations in Poland still ___, mainly coal, and the smoke from their chimneys makes the winter air terrible.",hint:"(verbo + f… f…)",a:"burn fossil fuels",accept:["burn fossil fuels","use fossil fuels","rely on fossil fuels","run on fossil fuels","depend on fossil fuels"],instruction:"Completa la frase con il verbo e la parola giusti.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Scientists agree that ___ is the main reason why the Alps are losing their snow.",hint:"(g… w…)",a:"global warming",accept:["global warming"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Our school plans to ___ by 2030: wind turbines on the hill and no more gas boilers.",hint:"(verbo + to r… e…)",a:"switch to renewable energy",accept:["switch to renewable energy","move to renewable energy","change to renewable energy","turn to renewable energy","convert to renewable energy","go over to renewable energy"],instruction:"Completa la frase con il verbo e la parola giusti.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The farm next door covered the old barn roof with ___: on sunny days it sells electricity to the grid.",hint:"(s… p…)",a:"solar panels",accept:["solar panels"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:5,type:"study",title:"LIVELLO 05 — NATURE AND WATER IN DANGER",desc:"specie a rischio ed estinte · barriere coralline · bacini e carenza d'acqua · vigneti e raccolti",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«a type of animal or plant that may soon disappear from the Earth forever» → ___",hint:"(e… s…)",a:"endangered species",accept:["endangered species"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«(of an animal or plant) with no members alive today, like the dinosaurs» → ___",hint:"(e…)",a:"extinct",accept:["extinct"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a long line of colourful rock-like structures under warm seas, built by tiny sea animals» → ___",hint:"(c… r…)",a:"coral reef",accept:["coral reef"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«an artificial lake that stores water for a town or for farms» → ___",hint:"(r…)",a:"reservoir",accept:["reservoir"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a situation in which there is not enough water for everyone» → ___",hint:"(w… s…)",a:"water shortage",accept:["water shortage","water shortages"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a piece of land where grapes grow, usually to make wine» → ___",hint:"(v…)",a:"vineyard",accept:["vineyard"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the time when farmers collect their crops, or the crops that they collect» → ___",hint:"(h…)",a:"harvest",accept:["harvest"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"There are only about a thousand mountain gorillas left in the wild: they are an ___.",hint:"(e… s…)",a:"endangered species",accept:["endangered species"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The dodo became ___ about 350 years ago, not long after sailors arrived on its island.",hint:"(e…)",a:"extinct",accept:["extinct"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Warmer seas are turning the ___ near the Maldives white, and the fish that live there are disappearing.",hint:"(c… r…)",a:"coral reef",accept:["coral reef","coral reefs"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After the dry winter, the ___ above the town is only a third full, and the council is asking people to save water.",hint:"(r…)",a:"reservoir",accept:["reservoir"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Farmers in Sicily are worried about ___: the wells are almost dry and it hasn't rained since March.",hint:"(w… s…)",a:"water shortages",accept:["water shortages","water shortage"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"My uncle's ___ on the hills near Valdobbiadene produces grapes for Prosecco.",hint:"(v…)",a:"vineyard",accept:["vineyard"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After the hailstorm in June, this year's apple ___ is half the usual size.",hint:"(h…)",a:"harvest",accept:["harvest"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:6,type:"study",title:"LIVELLO 06 — GREEN HABITS AND REAL TALK",desc:"impronta di carbonio, compensazione, greenwashing · compost, standby, car sharing · espressioni colloquiali",
+rule:`<strong>COME SI LAVORA</strong><br>&#x2714; <strong>Definizione</strong>: leggi la descrizione in inglese e scrivi la parola. Fra parentesi trovi le iniziali: una lettera per ogni parola della risposta.<br>&#x2714; <strong>Frase</strong>: completa con la parola che manca. Anche qui fra parentesi ci sono le iniziali. Se c'&egrave; scritto <em>verbo +</em>, devi scrivere anche il verbo giusto.<br>&#x2714; Prima degli esercizi puoi aprire <strong>&#x1F4D6; Studia le parole</strong> dalla mappa.<br>&#x26A0; Se sbagli, l'esercizio torna alla fine del giro: dopo la correzione prova a ricordare la parola.`,
+exercises:[
+{type:"fill",q:"«the total amount of CO2 that a person or an activity produces» → ___",hint:"(c… f…)",a:"carbon footprint",accept:["carbon footprint"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«paying for projects, like planting trees, to balance the CO2 that you produce» → ___",hint:"(c… o…)",a:"carbon offsetting",accept:["carbon offsetting","carbon offset"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«when a company pretends that its products are better for the environment than they really are» → ___",hint:"(g…)",a:"greenwashing",accept:["greenwashing","green washing","green-washing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a mix of dead leaves and food waste that rots and makes the soil rich» → ___",hint:"(c…)",a:"compost",accept:["compost"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«(of bags, cups or bottles) that you keep for a long time, not throw away after one go» → ___",hint:"(r…)",a:"reusable",accept:["reusable","re-usable"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«the mode of a TV or computer that is off but still uses a little electricity» → ___",hint:"(s…)",a:"standby",accept:["standby","stand-by"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a service with cars parked around the city that members can rent by the minute or by the hour» → ___",hint:"(c…)",a:"car-sharing",accept:["car-sharing","car sharing","carsharing"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«a large container in the garden that collects rain from the roof» → ___",hint:"(w… b…)",a:"water butt",accept:["water butt"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«to do something good so that a bad thing seems less bad» → ___",hint:"(m… u… f…)",a:"make up for",accept:["make up for"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«(of a bad situation) to become even more serious» → ___",hint:"(g… f… b… t… w…)",a:"go from bad to worse",accept:["go from bad to worse"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"«to believe something that is not true because you want to believe it» → ___",hint:"(k… y…)",a:"kid yourself",accept:["kid yourself"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Eating less meat is one easy way to ___: beef needs a lot of land and water.",hint:"(verbo + your c… f…)",a:"reduce your carbon footprint",accept:["reduce your carbon footprint","cut your carbon footprint","lower your carbon footprint","shrink your carbon footprint"],instruction:"Completa la frase con il verbo e la parola giusti.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Some airlines offer ___: you pay ten euros more and they plant trees in Kenya.",hint:"(c… o…)",a:"carbon offsetting",accept:["carbon offsetting","carbon offset"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The ad shows green fields and happy cows, but the company still pollutes the river: it's pure ___.",hint:"(g…)",a:"greenwashing",accept:["greenwashing","green washing","green-washing"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"We put fruit peel and coffee grounds in a bin at the end of the garden, and in spring we use the ___ on the tomatoes.",hint:"(c…)",a:"compost",accept:["compost"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Mum keeps three ___ cloth bags in the boot, so she never needs plastic ones at the checkout.",hint:"(r…)",a:"reusable",accept:["reusable","re-usable"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The little red light on the TV means it's on ___ and still using power.",hint:"(s…)",a:"standby",accept:["standby","stand-by"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Paola sold her old car: now she uses a ___ app and books a small electric car only when she needs one.",hint:"(c…)",a:"car-sharing",accept:["car-sharing","car sharing","carsharing"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Our ___ collected 200 litres during the storm: enough for the flower pots for a month.",hint:"(w… b…)",a:"water butt",accept:["water butt"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Planting one tree doesn't ___ three flights a year.",hint:"(m… u… f…)",a:"make up for",accept:["make up for"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"First the cellar filled with water, then the electricity went off; on Sunday things ___ when part of the roof fell in.",hint:"(verbo + from b… to w…)",a:"went from bad to worse",accept:["went from bad to worse"],instruction:"Completa la frase con il verbo e la parola giusti.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"If you think a few paper straws can save the oceans, you're ___.",hint:"(k… y…)",a:"kidding yourself",accept:["kidding yourself"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"rB",type:"review",title:"⟳ RIPASSO B — clima, natura e abitudini verdi",desc:"livelli 4-6 e qualcosa di prima · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"«a slow river of ice in the mountains» → ___",hint:"(g…)",a:"glacier",accept:["glacier"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Planes produce more ___ per passenger than trains, so try to take the train for short trips.",hint:"(e…)",a:"emissions",accept:["emissions"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a colourless gas that plants use to grow and that is the main cause of global warming» → ___",hint:"(c… d…)",a:"carbon dioxide",accept:["carbon dioxide"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Sunscreen is extra important in Australia and New Zealand, where the ___ above them is thinner.",hint:"(o… l…)",a:"ozone layer",accept:["ozone layer"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«coal, oil and natural gas, which we burn to get energy» → ___",hint:"(f… f…)",a:"fossil fuels",accept:["fossil fuels"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Denmark gets more than half of its electricity from ___, mostly from wind farms in the North Sea.",hint:"(r… e…)",a:"renewable energy",accept:["renewable energy"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"There are now ___ on half the roofs in our street: they all point south.",hint:"(s… p…)",a:"solar panels",accept:["solar panels"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a kind of animal, like the Sumatran tiger, with so few left that it risks disappearing» → ___",hint:"(e… s…)",a:"endangered species",accept:["endangered species"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Mammoths are ___, but some scientists want to bring them back with their DNA.",hint:"(e…)",a:"extinct",accept:["extinct"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«to lower the total amount of CO2 that your lifestyle produces» → ___",hint:"(r… y… c… f…)",a:"reduce your carbon footprint",accept:["reduce your carbon footprint"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"The supermarket's new «eco» water bottles are 99% plastic — that's just ___.",hint:"(g…)",a:"greenwashing",accept:["greenwashing","green washing","green-washing"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Instead of throwing away banana skins, Ada puts them on the ___ heap at the end of the garden.",hint:"(c…)",a:"compost",accept:["compost"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Tobia takes his bike to school all week to ___ the family's long drive to the mountains at the weekend.",hint:"(m… u… f…)",a:"make up for",accept:["make up for"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— One flight a year is fine, the planet won't notice. — You're ___!",hint:"(k… y…)",a:"kidding yourself",accept:["kidding yourself"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"In the far south of Morocco, people live on ___ land where palm trees grow only near the rivers.",hint:"(a…)",a:"arid",accept:["arid"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The ___ crossed the Pacific for a week before it hit Manila with winds of 200 kilometres an hour.",hint:"(t…)",a:"typhoon",accept:["typhoon"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]},
+{id:"final",type:"challenge",title:"★ SFIDA FINALE — No Planet B",desc:"tutto il lessico della unit · frasi e definizioni nuove",
+exercises:[
+{type:"fill",q:"Pompeii disappeared under metres of ash after the ___ of 79 AD.",hint:"(v… e…)",a:"volcanic eruption",accept:["volcanic eruption"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a fast flow of water over land that is normally dry, often after heavy rain» → ___",hint:"(f…)",a:"flood",accept:["flood","flooding"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Here the danger of ___ is high in summer: one cigarette in the dry grass can burn a whole hill.",hint:"(w…)",a:"wildfires",accept:["wildfires","wildfire","wild fires"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The ___ that hit Louisiana in 2005 destroyed thousands of homes and left New Orleans under water.",hint:"(h…)",a:"hurricane",accept:["hurricane"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Farmers in the Po Valley fear more summer ___ like the one in 2022, when the river dropped to its lowest level in seventy years.",hint:"(d…)",a:"droughts",accept:["droughts"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Climbers must cross the ___ early in the morning, before the sun softens the ice and opens new cracks.",hint:"(g…)",a:"glacier",accept:["glacier"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"If the ice caps keep melting, ___ will rise and many coastal cities will be in danger.",hint:"(s… l…)",a:"sea levels",accept:["sea levels","sea level"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a worldwide climate problem: each decade is a little hotter than the one before» → ___",hint:"(g… w…)",a:"global warming",accept:["global warming"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Kenji worked out his ___ online: his two flights to Japan produce more CO2 than his car in a year.",hint:"(c… f…)",a:"carbon footprint",accept:["carbon footprint"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The village has had no rain for months, and the ___ that supplies its drinking water is almost empty.",hint:"(r…)",a:"reservoir",accept:["reservoir"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«a structure under the sea made by millions of tiny animals, home to many colourful fish» → ___",hint:"(c… r…)",a:"coral reef",accept:["coral reef"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Leave the radio on ___ if you like, but that little light still costs you money.",hint:"(s…)",a:"standby",accept:["standby","stand-by"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"We pick the grapes by hand in late September, and the whole family comes to help in the ___.",hint:"(v…)",a:"vineyard",accept:["vineyard"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"The snow leopard is still an ___: there are only a few thousand in the mountains of Asia.",hint:"(e… s…)",a:"endangered species",accept:["endangered species"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"«frozen water on the tarmac, so thin and clear that drivers don't notice it» → ___",hint:"(b… i…)",a:"black ice",accept:["black ice"],instruction:"Scrivi la parola che corrisponde alla definizione.",badge:"// DEFINIZIONE"},
+{type:"fill",q:"Our camping weekend ___: first the tent leaked, then the car didn't start.",hint:"(verbo + from b… to w…)",a:"went from bad to worse",accept:["went from bad to worse"],instruction:"Completa la frase con il verbo e la parola giusti.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"By noon there was a nice ___ off the sea, and the sailing boats left the harbour.",hint:"(b…)",a:"breeze",accept:["breeze"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"Grandad collects rain in a ___ and uses it for his lemon trees.",hint:"(w… b…)",a:"water butt",accept:["water butt"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"— Is ___ really useful? — Planting trees helps, but flying less helps more.",hint:"(c… o…)",a:"carbon offsetting",accept:["carbon offsetting","carbon offset"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"},
+{type:"fill",q:"After a ___ December, with fourteen degrees at Christmas, the ski resorts opened late.",hint:"(m…)",a:"mild",accept:["mild"],instruction:"Completa la frase con la parola che manca.",badge:"// COMPLETA LA FRASE"}
+]}
+];
+
+const SK='lex_s_u5_s',EK='lex_s_u5_e';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'LXU5.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">VOCABULARY MASTER!</div><div class="cb-text">hai completato tutto il lessico della Unit 5 &middot; missione compiuta</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div>${STUDY[String(s.id)]?`<button class="btn-studia" onclick="event.stopPropagation();openStudy('${s.id}')">&#x1F4D6; Studia le parole</button>`:''}</div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[],_firstTotal=0,_firstDone=false;
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">${ex.badge||'// FILL IN THE BLANK'}</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input${(ex.a||'').split(' ').length>=4?' lunga':''}" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=shuffle([...ex.words]);
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// OPEN CLOZE</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">Una sola parola per ogni spazio.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input lunga" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..."><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+
+/* --- tolleranza ai refusi nelle parole che NON sono l'oggetto dell'esercizio ---
+   Negli errorcorrect lo studente riscrive tutta la frase: un refuso su un nome
+   proprio o su una parola di contorno non deve annullare una correzione giusta.
+   Le parole che costituiscono LA correzione (quelle che cambiano fra la frase
+   sbagliata e quella giusta) restano esatte; sulle altre si tollera un errore
+   di battitura (distanza 1-2 a seconda della lunghezza). */
+function lev(a,b){
+  const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;
+  let prev=Array.from({length:n+1},(_,j)=>j),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));}
+    prev=cur.slice();}
+  return prev[n];
+}
+
+/* Nei fill a frase intera: le parole che l'esercizio sta testando (verbi, ausiliari,
+   congiunzioni di tempo) devono essere esatte; il resto tollera un refuso. */
+function paroleChiave(ex){
+  const S=new Set(['used','use','to','did','didn','not','was','were','has','have','had','is','are',
+    'am','when','while','as','first','then','next','after','afterwards','finally','since','for',
+    'been','do','does','go','goes','play','plays','make','makes']);
+  const out=new Set();
+  norm(ex.a).split(' ').forEach(w=>{ if(S.has(w)||/ing$/.test(w)||/ed$/.test(w)) out.add(w); });
+  return out;
+}
+
+/* Dopo il controllo lo studente rilegge quello che ha scritto (il campo puo' essere
+   piu' corto della frase) e, se la frase contiene lessico del glossario, ne vede la
+   traduzione italiana. */
+function mostraRispostaData(val, ex){
+  const card=document.getElementById('exCard'); if(!card) return;
+  const fb=document.getElementById('feedbackMsg');
+  const tua=document.createElement('div'); tua.className='risposta-data';
+  tua.innerHTML='<b>La tua risposta:</b> '+String(val||'').replace(/</g,'&lt;');
+  fb.parentNode.insertBefore(tua, fb);
+  const frase=[ex.a, ex.q, ex.wrong].filter(Boolean).join(' ');
+  const voci=Object.keys(GLOSS||{}).filter(w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i').test(frase));
+  if(voci.length){
+    const t=document.createElement('div'); t.className='traduzione';
+    t.innerHTML=voci.map(w=>'<b>'+w+'</b> = '+GLOSS[w]).join(' &middot; ');
+    fb.parentNode.insertBefore(t, fb.nextSibling);
+  }
+}
+function quasiUguale(val,target,esatte){
+  const A=norm(val).split(' '),B=norm(target).split(' ');
+  if(A.length!==B.length)return false;
+  let refusi=0;
+  for(let i=0;i<A.length;i++){
+    if(A[i]===B[i])continue;
+    if(esatte.has(B[i])){
+      /* e' una parola della struttura sotto esame: si tollera un refuso solo se la
+         desinenza resta quella giusta (paintng per painting), mai se cambia la forma */
+      const stessaDesinenza = B[i].slice(-3)===A[i].slice(-3) || B[i].slice(-2)===A[i].slice(-2);
+      if(!(stessaDesinenza && lev(A[i],B[i])<=1)) return false;
+    }
+    const soglia=B[i].length>=7?2:(B[i].length>=4?1:0);
+    if(lev(A[i],B[i])>soglia)return false;
+    refusi++;
+    if(refusi>2)return false;
+  }
+  return refusi>0;
+}
+function paroleDaCorreggere(ex){
+  const s=new Set();
+  if(!ex.wrong)return s;
+  const W=new Set(norm(ex.wrong).split(' '));
+  norm(ex.a).split(' ').forEach(w=>{if(!W.has(w))s.add(w);});
+  return s;
+}
+
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    const val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    let refuso=false;
+    if(!correct&&(ex.type==='errorcorrect'||(ex.a||'').split(' ').length>=4)){
+      /* la struttura sotto esame resta esatta; su nome propri e parole di contorno
+         si tollera un refuso di battitura, come sugli error correction */
+      const esatte=ex.type==='errorcorrect'?paroleDaCorreggere(ex):paroleChiave(ex);
+      correct=(ex.accept||[ex.a]).some(t=>quasiUguale(val,t,esatte));
+      refuso=correct;
+    }
+    const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    mostraRispostaData(val, ex);
+    fb.innerHTML=correct?(refuso?'\u2713 Corretto! (attenzione all\'ortografia: <strong>'+ex.a+'</strong>)':'\u2713 Corretto!')
+                        :'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none')nextExercise();
+  else if(cb&&cb.style.display!=='none')checkExercise();
+});
+loadState();renderMap();
+
+</script>
+</body>
+</html>
