@@ -205,7 +205,7 @@ const EX5 = [
 // 6 Translation: [it, model, verb-form regexes (all required), other key regexes (all required), forbidden regexes]
 const EX6 = [
   ["Quando ero piccola facevo ginnastica, ma la odiavo.", "When I was little, I used to do gymnastics, but I hated it.",
-   [/\b(used to do|did) gymnastics\b/, /\bhated\b/],
+   [/\b(used to do|did)\b/, /\bhated\b/],
    [/\bwhen i was (little|small|young|a (little )?(child|girl|kid))\b|\bas a (little )?(child|girl|kid)\b/, /\bgymnastics\b/, /\bbut\b/, /\bhated (it|them)\b/], []],
   ["Mentre tornavo da scuola ho visto un incidente, ma per fortuna nessuno si è fatto male.", "While I was coming back (walking home) from school, I saw an accident, but luckily nobody got hurt.",
    [/\bi was (coming|walking|going|getting|cycling|riding|travelling|driving)\b/, /\bsaw\b/, /\b(got|was) (hurt|injured)\b/],
@@ -217,8 +217,23 @@ const EX6 = [
    [/\bdid you (use to )?have\b/, /\bwhen you (lived|used to live)\b/],
    [/\b(swimming pool|pool)\b/, /\bin rome\b/], []],
   ["Quando siamo arrivati alla festa, tutti ballavano, ma la musica era terribile.", "When we arrived at the party, everyone was dancing, but the music was terrible.",
-   [/\bwe (arrived|got)\b/, /\b(everyone|everybody) was dancing\b|\b(all the people|people|they all|all) were dancing\b/, /\bmusic was (terrible|awful|horrible|really bad|very bad)\b/],
-   [/\bwhen\b/, /\b(arrived at|got to) the party\b/, /\bbut\b/], []],
+   [/\bwe (arrived|got)\b/, /\b(was|were) dancing\b/, /\bwas (terrible|awful|horrible|really bad|very bad)\b/],
+   [/\bwhen\b/, /\b(arrived|got) (at|to) the party\b/, /\bbut\b/], [], [/\barrived to\b/]],
+];
+
+// words accepted in translations (spelling check): common words + per-item vocabulary
+const COMMON = ("a an the i you he she it we they me my your his her our their him us them this that these those " +
+ "is are was were be been am do does did not no yes have has had will would can could " +
+ "and but or so because when while as if then also too very really much many a lot of lots " +
+ "in on at to from for with by about of into back home up out over all every some any " +
+ "s d ll re ve m t").split(" ");
+const EX6_WORDS = [
+  "when was little small young child girl kid as used use to do did gymnastics but hated hate it them really much",
+  "while as when was coming come walking walk going go getting get cycling riding travelling traveling driving back home from school way on my " +
+  "saw see an accident luckily fortunately nobody no one no-one got was were hurt injured",
+  "my grandmother grandma granny nan nanny taught teach was a teacher worked work as at in that school for thirty 30 years",
+  "did you use used to have had a swimming pool when lived live in rome",
+  "when we arrived got at to the party everyone everybody all people they were was dancing but music terrible awful horrible bad really very",
 ];
 
 const GRID = [
@@ -276,7 +291,7 @@ function render(){
   document.getElementById("ex5").innerHTML=h;
   h=head(6,"Translate into English.",10)+'<ol class="items">';
   EX6.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span><span class="it" style="font-style:normal;color:var(--ink)">${esc(e[0])}</span><textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
-  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Confronta sempre la tua frase con la soluzione: gli errori di ortografia la correzione automatica non li vede.</p><div class="btns"><button class="btn main" onclick="check6()">Correggi</button></div>';
+  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Ogni parola scritta male toglie mezzo punto dal resto della frase.</p><div class="btns"><button class="btn main" onclick="check6()">Correggi</button></div>';
   document.getElementById("ex6").innerHTML=h;
   // 7 writing
   h=`<div class="ex-head"><div class="ex-title"><span class="n">7</span>Writing</div><div class="ex-score" id="sc7">___ / 15</div></div>
@@ -347,16 +362,27 @@ function check5(){
   });
   score[5]=tot;setScore(5,tot,10);
 }
+function lev(a,b){const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;let pr=[...Array(n+1).keys()];
+  for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(pr[j]+1,c[j-1]+1,pr[j-1]+(a[i-1]===b[j-1]?0:1));pr=c;}return pr[n];}
 function check6(){
   let tot=0;
   document.querySelectorAll("#ex6 textarea").forEach(ta=>{
     const e=EX6[+ta.dataset.i], a=norm(ta.value);
-    const f=a&&e[2].every(r=>r.test(a))&&!e[4].some(r=>r.test(a))?1:0, r=a&&e[3].every(x=>x.test(a))?1:0, p=f+r; tot+=p;
+    const ok=new Set(COMMON.concat(EX6_WORDS[+ta.dataset.i].split(" ")));
+    const words=a.replace(/'/g," ").split(" ").filter(Boolean);
+    const unknown=[...new Set(words.filter(w=>!ok.has(w)))];
+    // misspelt words are replaced by the closest accepted word, so the rest of the sentence is judged on meaning
+    const fixed=words.map(w=>{if(ok.has(w))return w;let best=w,bd=3;ok.forEach(o=>{const d=lev(w,o);if(d<bd){bd=d;best=o;}});return best;}).join(" ");
+    const f=a&&e[2].every(r=>r.test(a))&&!e[4].some(r=>r.test(a))?1:0, r0=a&&e[3].every(x=>x.test(fixed))?1:0;
+    const minor=(e[5]||[]).filter(x=>x.test(a)).length;
+    const r=r0?Math.max(0,1-0.5*(unknown.length+minor)):0, p=f+r; tot+=p;
     ta.style.borderColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
     const m=ta.nextElementSibling; m.classList.add("show");
     m.style.background=p===2?"var(--done-soft)":p?"var(--half-soft)":"var(--bad-soft)";
     m.style.borderLeftColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
-    m.innerHTML=`<b>${p} / 2</b> · tempi verbali ${f?"✓":"✗"} · resto della frase ${r?"✓":"✗"}<br><b>Soluzione:</b> ${esc(e[1])}`;
+    m.innerHTML=`<b>${fmt(p)} / 2</b> · tempi verbali ${f?"✓":"✗"} · resto della frase ${r===1?"✓":r?"½":"✗"}`+
+      (unknown.length?`<br>Parole da controllare (ortografia o parola non adatta): <b>${unknown.map(esc).join(", ")}</b>${r0?` → −${fmt(0.5*unknown.length)}`:""}`:"")+
+      (minor?`<br>Preposizione sbagliata → −0,5`:"")+`<br><b>Soluzione:</b> ${esc(e[1])}`;
   });
   score[6]=tot;setScore(6,tot,10);
 }
