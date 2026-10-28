@@ -99,7 +99,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   </div>
   <div class="intro">
     Questa prova ha <b>la stessa struttura della verifica</b>, ma frasi, testi e lessico sono diversi: non serve impararla a memoria, serve a capire <b>se sai usare le strutture</b>.
-    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–5 si correggono da soli; nel 6 e nel writing confronti la tua risposta con la soluzione e ti dai il punteggio con onestà.
+    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–6 si correggono da soli; il writing lo valuti tu con la griglia, con onestà.
   </div>
 
   <section class="ex" id="ex1"></section>
@@ -202,13 +202,23 @@ const EX5 = [
    /\b(while|as) (dad|mum) (\w+ )?\w+\b/, [/\bwas cooking\b/, /\bwas tidying\b/]],
 ];
 
-// 6 Translation: [it, model]
+// 6 Translation: [it, model, verb-form regexes (all required), other key regexes (all required), forbidden regexes]
 const EX6 = [
-  ["Quando ero piccola facevo ginnastica, ma la odiavo.", "When I was little, I used to do gymnastics, but I hated it."],
-  ["Mentre tornavo da scuola ho visto un incidente, ma per fortuna nessuno si è fatto male.", "While I was coming back (walking home) from school, I saw an accident, but luckily nobody got hurt."],
-  ["Mia nonna ha insegnato in quella scuola per trent'anni.", "My grandmother taught at that school for thirty years."],
-  ["Avevate la piscina quando abitavate a Roma?", "Did you use to have (Did you have) a swimming pool when you lived in Rome?"],
-  ["Quando siamo arrivati alla festa, tutti ballavano, ma la musica era terribile.", "When we arrived at the party, everyone was dancing, but the music was terrible."],
+  ["Quando ero piccola facevo ginnastica, ma la odiavo.", "When I was little, I used to do gymnastics, but I hated it.",
+   [/\b(used to do|did) gymnastics\b/, /\bhated\b/],
+   [/\bwhen i was (little|small|young|a (little )?(child|girl|kid))\b|\bas a (little )?(child|girl|kid)\b/, /\bgymnastics\b/, /\bbut\b/, /\bhated (it|them)\b/], []],
+  ["Mentre tornavo da scuola ho visto un incidente, ma per fortuna nessuno si è fatto male.", "While I was coming back (walking home) from school, I saw an accident, but luckily nobody got hurt.",
+   [/\bi was (coming|walking|going|getting|cycling|riding|travelling|driving)\b/, /\bsaw\b/, /\b(got|was) (hurt|injured)\b/],
+   [/\b(while|as)\b/, /\bschool\b/, /\ban accident\b/, /\b(luckily|fortunately)\b/, /\b(nobody|no one|no-one)\b/], []],
+  ["Mia nonna ha insegnato in quella scuola per trent'anni.", "My grandmother taught at that school for thirty years.",
+   [/\b(taught|was a teacher|worked as a teacher)\b/],
+   [/\b(grandmother|grandma|granny|nan|nanny)\b/, /\b(at|in) that school\b/, /\bfor (thirty|30) years\b/], [/\bhas (taught|been|worked)\b/]],
+  ["Avevate la piscina quando abitavate a Roma?", "Did you use to have (Did you have) a swimming pool when you lived in Rome?",
+   [/\bdid you (use to )?have\b/, /\bwhen you (lived|used to live)\b/],
+   [/\b(swimming pool|pool)\b/, /\bin rome\b/], []],
+  ["Quando siamo arrivati alla festa, tutti ballavano, ma la musica era terribile.", "When we arrived at the party, everyone was dancing, but the music was terrible.",
+   [/\bwe (arrived|got)\b/, /\b(everyone|everybody) was dancing\b|\b(all the people|people|they all|all) were dancing\b/, /\bmusic was (terrible|awful|horrible|really bad|very bad)\b/],
+   [/\bwhen\b/, /\b(arrived at|got to) the party\b/, /\bbut\b/], []],
 ];
 
 const GRID = [
@@ -229,7 +239,7 @@ function norm(s){
 }
 const fmt=n=>(Math.round(n*2)/2).toString().replace(".",",");
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-const score={1:null,2:null,3:null,4:null,5:null};
+const score={1:null,2:null,3:null,4:null,5:null,6:null};
 function head(n,title,max){return `<div class="ex-head"><div class="ex-title"><span class="n">${n}</span>${title}</div><div class="ex-score" id="sc${n}">___ / ${max}</div></div>`;}
 function setScore(n,val,max){const e=document.getElementById("sc"+n);e.textContent=`${fmt(val)} / ${max}`;e.classList.add("got");}
 function clearMarks(sec){sec.querySelectorAll("input.gap").forEach(i=>i.classList.remove("ok","no","half"));sec.querySelectorAll(".sol").forEach(s=>s.remove());}
@@ -264,8 +274,10 @@ function render(){
   EX5.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${esc(e[0])}<textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
   h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per la congiunzione giusta, 1 per i tempi verbali giusti.</p><div class="btns"><button class="btn main" onclick="check5()">Correggi</button></div>';
   document.getElementById("ex5").innerHTML=h;
-  selfEx(6,"Translate into English.",EX6,
-    "2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Togli mezzo punto per ogni errore piccolo (ortografia, articolo, preposizione).");
+  h=head(6,"Translate into English.",10)+'<ol class="items">';
+  EX6.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span><span class="it" style="font-style:normal;color:var(--ink)">${esc(e[0])}</span><textarea rows="2" data-i="${i}" spellcheck="false"></textarea><div class="model"></div></li>`);
+  h+='</ol><p class="crit" style="margin-top:10px;">2 punti per frase: 1 per i tempi verbali, 1 per il resto della frase. Confronta sempre la tua frase con la soluzione: gli errori di ortografia la correzione automatica non li vede.</p><div class="btns"><button class="btn main" onclick="check6()">Correggi</button></div>';
+  document.getElementById("ex6").innerHTML=h;
   // 7 writing
   h=`<div class="ex-head"><div class="ex-title"><span class="n">7</span>Writing</div><div class="ex-score" id="sc7">___ / 15</div></div>
     <p>A school magazine is organising a short story competition. Write a story (80–100 words) that begins with this sentence:</p>
@@ -283,15 +295,6 @@ function render(){
   let t='<tr><th>Punti</th><th>Voto</th><th>Punti</th><th>Voto</th></tr>';
   for(let i=0;i<8;i++){const a=CONV[i],b=CONV[i+8];t+=`<tr><td data-c="${i}">${a[0]}</td><td data-c="${i}">${a[1]}</td><td data-c="${i+8}">${b?b[0]:""}</td><td data-c="${i+8}">${b?b[1]:""}</td></tr>`;}
   document.getElementById("convTable").innerHTML=t;
-}
-function selfEx(n,title,data,crit){
-  let h=head(n,title,10)+`<ol class="items">`;
-  data.forEach((e,i)=>h+=`<li><span class="num">${i+1}</span>${esc(e[0])}<textarea rows="2" spellcheck="false"></textarea>
-    <div class="model"><b>Soluzione:</b> ${esc(e[1])}</div>
-    <div class="self">Il tuo punteggio: ${[0,0.5,1,1.5,2].map(v=>`<label><input type="radio" name="s${n}_${i}" value="${v}" onchange="upd(${n})">${fmt(v)}</label>`).join("")}</div></li>`);
-  h+=`</ol><div class="btns"><button class="btn main" onclick="reveal(${n})">Mostra le soluzioni</button></div>
-    <div class="crit" id="crit${n}" style="display:none;margin-top:12px;">${crit}</div>`;
-  document.getElementById("ex"+n).innerHTML=h;
 }
 
 /* ================= CHECKING ================= */
@@ -344,17 +347,19 @@ function check5(){
   });
   score[5]=tot;setScore(5,tot,10);
 }
-function reveal(n){
-  const sec=document.getElementById("ex"+n);
-  sec.querySelectorAll(".model,.self").forEach(e=>e.classList.add("show"));
-  document.getElementById("crit"+n).style.display="block";
+function check6(){
+  let tot=0;
+  document.querySelectorAll("#ex6 textarea").forEach(ta=>{
+    const e=EX6[+ta.dataset.i], a=norm(ta.value);
+    const f=a&&e[2].every(r=>r.test(a))&&!e[4].some(r=>r.test(a))?1:0, r=a&&e[3].every(x=>x.test(a))?1:0, p=f+r; tot+=p;
+    ta.style.borderColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
+    const m=ta.nextElementSibling; m.classList.add("show");
+    m.style.background=p===2?"var(--done-soft)":p?"var(--half-soft)":"var(--bad-soft)";
+    m.style.borderLeftColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
+    m.innerHTML=`<b>${p} / 2</b> · tempi verbali ${f?"✓":"✗"} · resto della frase ${r?"✓":"✗"}<br><b>Soluzione:</b> ${esc(e[1])}`;
+  });
+  score[6]=tot;setScore(6,tot,10);
 }
-function selfScore(n){
-  const len=EX6.length;let tot=0,done=0;
-  for(let i=0;i<len;i++){const c=document.querySelector(`input[name="s${n}_${i}"]:checked`);if(c){tot+=+c.value;done++;}}
-  return {tot,done,len};
-}
-function upd(n){const r=selfScore(n);setScore(n,r.tot,10);}
 function wScore(){let tot=0,done=0;document.querySelectorAll("#ex7 select").forEach(s=>{if(s.value!==""){tot+=+s.value;done++;}});return {tot,done};}
 function updW(){const r=wScore();document.getElementById("wtot").innerHTML=`<b>${r.tot} / 15</b>`;setScore(7,r.tot,15);}
 function countWords(){const n=(document.getElementById("wtext").value.match(/[A-Za-z’'-]+/g)||[]).length;const e=document.getElementById("wc");
@@ -364,10 +369,10 @@ function copyW(){const t=document.getElementById("wtext").value;
 function alertMsg(m){const b=document.querySelector("#ex7 .btns");let s=b.querySelector(".msg");if(!s){s=document.createElement("span");s.className="msg";s.style.cssText="font-size:13px;color:var(--done);align-self:center;font-weight:600";b.appendChild(s);}s.textContent=m;}
 
 function finalScore(){
-  if(score[1]===null)check1();if(score[2]===null)check2();if(score[3]===null)check3();if(score[4]===null)check4();if(score[5]===null)check5();
-  const s5={tot:score[5]},s6=selfScore(6),w=wScore();
+  if(score[1]===null)check1();if(score[2]===null)check2();if(score[3]===null)check3();if(score[4]===null)check4();if(score[5]===null)check5();if(score[6]===null)check6();
+  const s5={tot:score[5]},s6={tot:score[6]},w=wScore();
   const missing=[];
-  if(s6.done<s6.len)missing.push("esercizio 6");if(w.done<GRID.length)missing.push("writing");
+  if(w.done<GRID.length)missing.push("writing");
   const tot=score[1]+score[2]+score[3]+score[4]+s5.tot+s6.tot+w.tot;
   const rt=Math.floor(tot); const idx=CONV.findIndex(c=>rt>=c[2]);
   document.querySelectorAll("#convTable td").forEach(td=>td.parentElement.classList.remove("hit"));
@@ -377,7 +382,7 @@ function finalScore(){
   r.innerHTML=`<div class="big">${fmt(tot)} / 80 · voto ${CONV[idx][1]}</div>
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
-    <div class="note">È un voto indicativo: l'esercizio 6 e il writing li hai valutati tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
+    <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
 }
 function resetAll(){
