@@ -46,6 +46,7 @@ input.gap.w{width:240px;}
 input.gap:focus{border-bottom-color:var(--teal);background:rgba(14,154,166,.12);}
 input.gap.ok{border-bottom-color:var(--done);background:var(--done-soft);}
 input.gap.half{border-bottom-color:var(--half);background:var(--half-soft);}
+input.gap:disabled,textarea:disabled,select:disabled{color:var(--ink);opacity:1;-webkit-text-fill-color:var(--ink);}
 input.gap.no{border-bottom-color:var(--bad);background:var(--bad-soft);}
 .sol{display:block;font-size:13px;color:var(--done);font-weight:600;margin-top:3px;}
 .sol.inline{display:inline;margin:0 4px 0 2px;}
@@ -99,7 +100,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   </div>
   <div class="intro">
     Questa prova ha <b>la stessa struttura della verifica</b>, ma frasi, testi e lessico sono diversi: non serve impararla a memoria, serve a capire <b>se sai usare le strutture</b>.
-    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–6 si correggono da soli; il writing lo valuti tu con la griglia, con onestà.
+    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi 1–6 si correggono da soli; il writing lo valuti tu con la griglia, con onestà. <b>Attenzione:</b> quando premi «Correggi» le risposte di quell'esercizio si bloccano e non puoi più cambiarle, quindi correggi solo quando hai finito.
   </div>
 
   <section class="ex" id="ex1"></section>
@@ -112,7 +113,6 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
 
   <div class="btns" style="justify-content:center;margin-top:24px;">
     <button class="btn big" onclick="finalScore()">Calcola il voto</button>
-    <button class="btn sec" onclick="resetAll()">Ricomincia</button>
   </div>
   <div class="result" id="result"></div>
 
@@ -323,7 +323,7 @@ function check1(){
     tot+=p;inp.classList.add(p===1?"ok":p?"half":"no");
     if(p<1)showSol(inp,acc[0].join(" ")+(p?"  (mezzo punto: verbo sbagliato)":""));
   });
-  score[1]=tot;setScore(1,tot,10);
+  score[1]=tot;setScore(1,tot,10);lock(1);
 }
 function check2(){
   const sec=document.getElementById("ex2");clearMarks(sec);let tot=0;
@@ -331,7 +331,7 @@ function check2(){
     const acc=EX2[+inp.dataset.i].keys[+inp.dataset.g], ok=acc.includes(norm(inp.value));
     if(ok)tot++;inp.classList.add(ok?"ok":"no");if(!ok)showSol(inp,acc.map(prettyKey).join(" / "),true);
   });
-  score[2]=tot;setScore(2,tot,10);
+  score[2]=tot;setScore(2,tot,10);lock(2);
 }
 function check3(){
   const sec=document.getElementById("ex3");clearMarks(sec);let tot=0;
@@ -339,7 +339,7 @@ function check3(){
     const acc=EX3_KEYS[+inp.dataset.i], ok=acc.includes(norm(inp.value));
     if(ok)tot++;inp.classList.add(ok?"ok":"no");if(!ok)showSol(inp,acc.map(k=>prettyKey(k).toLowerCase()).join(" / "),true);
   });
-  score[3]=tot;setScore(3,tot,15);
+  score[3]=tot;setScore(3,tot,15);lock(3);
 }
 function check4(){
   const sec=document.getElementById("ex4");clearMarks(sec);let tot=0;
@@ -347,7 +347,7 @@ function check4(){
     const acc=EX4[+inp.dataset.i][2], ok=acc.includes(norm(inp.value));
     if(ok)tot++;inp.classList.add(ok?"ok":"no");if(!ok)showSol(inp,acc.map(prettyKey).join(" / "));
   });
-  score[4]=tot;setScore(4,tot,10);
+  score[4]=tot;setScore(4,tot,10);lock(4);
 }
 function check5(){
   let tot=0;
@@ -360,7 +360,7 @@ function check5(){
     m.style.borderLeftColor=p===2?"var(--done)":p?"var(--half)":"var(--bad)";
     m.innerHTML=`<b>${p} / 2</b> · congiunzione ${c?"✓":"✗"} · tempi verbali ${f?"✓":"✗"}`+(p<2?`<br><b>Soluzione:</b> ${esc(e[1])}`:"");
   });
-  score[5]=tot;setScore(5,tot,10);
+  score[5]=tot;setScore(5,tot,10);lock(5);
 }
 function lev(a,b){const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;let pr=[...Array(n+1).keys()];
   for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(pr[j]+1,c[j-1]+1,pr[j-1]+(a[i-1]===b[j-1]?0:1));pr=c;}return pr[n];}
@@ -384,7 +384,7 @@ function check6(){
       (unknown.length?`<br>Parole da controllare (ortografia o parola non adatta): <b>${unknown.map(esc).join(", ")}</b>${r0?` → −${fmt(0.5*unknown.length)}`:""}`:"")+
       (minor?`<br>Preposizione sbagliata → −0,5`:"")+`<br><b>Soluzione:</b> ${esc(e[1])}`;
   });
-  score[6]=tot;setScore(6,tot,10);
+  score[6]=tot;setScore(6,tot,10);lock(6);
 }
 function wScore(){let tot=0,done=0;document.querySelectorAll("#ex7 select").forEach(s=>{if(s.value!==""){tot+=+s.value;done++;}});return {tot,done};}
 function updW(){const r=wScore();document.getElementById("wtot").innerHTML=`<b>${r.tot} / 15</b>`;setScore(7,r.tot,15);}
@@ -394,6 +394,12 @@ function copyW(){const t=document.getElementById("wtext").value;
   try{navigator.clipboard.writeText(t);alertMsg("Testo copiato.");}catch(e){alertMsg("Seleziona il testo e copialo a mano.");}}
 function alertMsg(m){const b=document.querySelector("#ex7 .btns");let s=b.querySelector(".msg");if(!s){s=document.createElement("span");s.className="msg";s.style.cssText="font-size:13px;color:var(--done);align-self:center;font-weight:600";b.appendChild(s);}s.textContent=m;}
 
+function lock(n){
+  const sec=document.getElementById("ex"+n);
+  sec.querySelectorAll("input,textarea,select").forEach(e=>e.disabled=true);
+  const b=sec.querySelector(".btn.main");
+  if(b){b.disabled=true;b.textContent="Corretto ✓ – risposte bloccate";b.style.background="var(--mut)";b.style.cursor="default";}
+}
 function finalScore(){
   if(score[1]===null)check1();if(score[2]===null)check2();if(score[3]===null)check3();if(score[4]===null)check4();if(score[5]===null)check5();if(score[6]===null)check6();
   const s5={tot:score[5]},s6={tot:score[6]},w=wScore();
@@ -409,17 +415,8 @@ function finalScore(){
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
     <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
+  lock(7);document.querySelector(".btn.big").disabled=true;
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
-}
-function resetAll(){
-  if(!confirmReset())return;
-  Object.keys(score).forEach(k=>score[k]=null);render();document.getElementById("result").classList.remove("show");window.scrollTo({top:0,behavior:"smooth"});
-}
-let resetArmed=false;
-function confirmReset(){
-  const b=[...document.querySelectorAll(".btn.sec")].find(x=>x.textContent.includes("Ricomincia")||x.textContent.includes("Sicuro"));
-  if(!resetArmed){resetArmed=true;b.textContent="Sicuro? Clicca di nuovo";setTimeout(()=>{resetArmed=false;b.textContent="Ricomincia";},3000);return false;}
-  resetArmed=false;b.textContent="Ricomincia";return true;
 }
 render();
 </script>
