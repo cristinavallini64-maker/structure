@@ -124,6 +124,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
 </main>
 <p class="footer">Materiali predisposti a cura dell'insegnante utilizzando strumenti digitali avanzati</p>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 /* ================= CONTENT ================= */
 // 1 Lexis: [description, [[verb, noun], ...]]
@@ -423,9 +424,66 @@ function finalScore(){
   r.innerHTML=`<div class="big">${fmt(tot)} / 80 · voto ${CONV[idx][1]}</div>
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
-    <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>`;
+    <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>
+    <div class="btns"><button class="btn main" onclick="downloadPDF()">⬇ Scarica il risultato (PDF)</button></div>
+    <div class="note">Allega il PDF al compito su Classroom.</div>`;
+  state.result={tot,voto:CONV[idx][1]};
   lock(7);document.getElementById("calcBtn").disabled=true;state.final=true;save();
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+/* ================= PDF OF THE RESULT (for Classroom) ================= */
+function pdfSafe(t){
+  return (t||"").replace(/[—–−]/g,"-").replace(/[«»“”]/g,'"').replace(/[’‘]/g,"'").replace(/…/g,"...").replace(/→/g,"->")
+    .replace(/✓/g,"OK").replace(/✗/g,"X").replace(/·/g,"-").replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF]/g,"");
+}
+function downloadPDF(){
+  if(!window.jspdf){alert("Non riesco a creare il PDF: controlla la connessione e riprova.");return;}
+  const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
+  const W=180,X=15;let y=18;
+  const need=h=>{if(y+h>280){doc.addPage();y=18;}};
+  const txt=(t,o={})=>{doc.setFont("helvetica",o.b?"bold":(o.i?"italic":"normal"));doc.setFontSize(o.size||10);
+    doc.setTextColor(...(o.c||[27,29,23]));const lines=doc.splitTextToSize(pdfSafe(t),W-(o.ind||0));
+    lines.forEach(l=>{need(5);doc.text(l,X+(o.ind||0),y);y+=(o.size||10)*0.45;});y+=o.after||1;};
+  const now=new Date();
+  txt("Unit 1 - Past Narrative - Mock test",{b:true,size:15,after:2});
+  txt("Data: "+now.toLocaleDateString("it-IT")+"  ore "+now.toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"}),{size:9,c:[110,110,100],after:3});
+  const R=state.result||{};
+  txt(`Punteggio: ${fmt(R.tot||0)} / 80     Voto: ${R.voto||"-"}`,{b:true,size:13,after:2});
+  const names=["","Lessico","Used to / Past simple","Racconto","Domande","When / while / as","Traduzione","Writing"];
+  const max=[0,10,10,15,10,10,10,15];
+  for(let n=1;n<=7;n++){
+    const v=n<=6?score[n]:wScore().tot;
+    txt(`${n}. ${names[n]}: ${fmt(v||0)} / ${max[n]}`,{size:10});
+  }
+  y+=3;
+  const mark=inp=>inp.classList.contains("ok")?"OK":inp.classList.contains("half")?"1/2":"X";
+  const solOf=inp=>{const s=inp.nextElementSibling;return s&&s.classList.contains("sol")?" (giusto: "+s.textContent.replace(/^→\s*/,"").replace(/\s*\(mezzo punto.*$/,"")+")":"";};
+  for(let n=1;n<=6;n++){
+    txt(`${n}. ${names[n]}  -  ${fmt(score[n]||0)} / ${max[n]}`,{b:true,size:11,after:1.5});
+    if(n<=4){
+      document.querySelectorAll(`#ex${n} input.gap`).forEach((inp,i)=>{
+        const label=n===3?`(${i+1})`:`${+inp.closest("li").querySelector(".num").textContent}.`;
+        txt(`${label} ${inp.value||"[vuoto]"}   [${mark(inp)}]${mark(inp)==="OK"?"":solOf(inp)}`,{ind:4,size:9.5,c:mark(inp)==="OK"?[27,29,23]:[170,40,40]});
+      });
+    } else {
+      document.querySelectorAll(`#ex${n} li`).forEach((li,i)=>{
+        const ta=li.querySelector("textarea"),m=li.querySelector(".model");
+        txt(`${i+1}. ${ta.value||"[vuoto]"}`,{ind:4,size:9.5});
+        if(m)m.innerText.split("\n").filter(l=>!/^Soluzione/.test(l)).forEach(l=>txt(l,{ind:9,size:8.5,c:[90,90,80]}));
+      });
+    }
+    y+=2;
+  }
+  const wt=document.getElementById("wtext").value.trim();
+  txt(`7. Writing  -  ${fmt(wScore().tot)} / 15 (autovalutazione)`,{b:true,size:11,after:1.5});
+  txt(`Parole: ${(wt.match(/[A-Za-z’'-]+/g)||[]).length}`,{ind:4,size:9,c:[110,110,100]});
+  document.querySelectorAll("#ex7 select").forEach((s,i)=>txt(`${GRID[i][0]}: ${s.value===""?"-":s.value} / ${GRID[i][2]}`,{ind:4,size:9}));
+  y+=1;
+  txt(wt||"[vuoto]",{ind:4,size:10,after:4});
+  const np=doc.getNumberOfPages();
+  for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont("helvetica","italic");doc.setFontSize(7.5);doc.setTextColor(120,120,110);
+    doc.text("Materiali predisposti a cura dell'insegnante utilizzando strumenti digitali avanzati",105,290,{align:"center"});doc.text(i+" / "+np,195,290,{align:"right"});}
+  doc.save("mock-test-unit1-risultato.pdf");
 }
 /* ================= SAVE / RESTORE (browser memory: a reload doesn't start over) ================= */
 const KEY="mocktest-u1-v1";
