@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 · Mock Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe2; --paper2:#fffdf7; --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.28);
+  --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --done:#1f9d57; --done-soft:rgba(31,157,87,.13); --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.11); --half:#b8860b; --half-soft:rgba(184,134,11,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;line-height:1.55;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);padding:0 0 40px;}
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);}
+.hbtn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:8px 13px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.18);background:transparent;color:rgba(242,241,232,0.7);text-decoration:none;}
+.hbtn:hover{border-color:#fff;color:#fff;}
+.sheet{max-width:780px;margin:18px auto 0;background:var(--paper);border-radius:18px;box-shadow:0 26px 70px rgba(0,0,0,.55);
+  background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;padding:26px 30px 30px;}
+@media (max-width:600px){.sheet{margin:12px 10px 0;padding:20px 16px 24px;}}
+.hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(28px,7vw,42px);line-height:1.05;letter-spacing:-1px;}
+.intro{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0 6px;font-size:14px;color:var(--sub);}
+.intro b{color:var(--ink);}
+.ex{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;margin-top:20px;}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:16px;line-height:1.35;}
+.ex-title .n{display:inline-block;min-width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;text-align:center;line-height:26px;font-size:13px;margin-right:8px;}
+.ex-score{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;white-space:nowrap;background:rgba(27,29,23,.06);border-radius:20px;padding:5px 12px;color:var(--sub);}
+.ex-score.got{background:var(--teal);color:#fff;}
+.items{list-style:none;}
+.items li{padding:9px 0;border-top:1px dashed var(--line);}
+.items li:first-child{border-top:none;}
+.num{font-weight:700;color:var(--teal2);margin-right:6px;}
+.it{font-style:italic;color:var(--sub);display:block;margin-bottom:4px;}
+input.gap{font:inherit;font-size:15px;border:none;border-bottom:2px solid var(--line2);background:rgba(14,154,166,.06);padding:2px 6px;width:150px;max-width:100%;
+  border-radius:4px 4px 0 0;outline:none;color:var(--ink);transition:.2s;}
+input.gap.w{width:240px;}
+input.gap:focus{border-bottom-color:var(--teal);background:rgba(14,154,166,.12);}
+input.gap.ok{border-bottom-color:var(--done);background:var(--done-soft);}
+input.gap.half{border-bottom-color:var(--half);background:var(--half-soft);}
+input.gap:disabled,textarea:disabled,select:disabled{color:var(--ink);opacity:1;-webkit-text-fill-color:var(--ink);}
+input.gap.no{border-bottom-color:var(--bad);background:var(--bad-soft);}
+.sol{display:block;font-size:13px;color:var(--done);font-weight:600;margin-top:3px;}
+.sol.inline{display:inline;margin:0 4px 0 2px;}
+.story{line-height:2.25;font-size:15.5px;}
+.story .vb{font-style:italic;color:var(--sub);}
+textarea{font:inherit;font-size:15px;width:100%;min-height:64px;overflow:hidden;border:1.5px solid var(--line2);border-radius:9px;padding:9px 11px;background:#fff;resize:vertical;outline:none;margin-top:6px;}
+textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,154,166,.12);}
+.model{display:none;margin-top:8px;background:var(--done-soft);border-left:4px solid var(--done);border-radius:6px;padding:8px 11px;font-size:14px;}
+.model.show{display:block;}
+.self{display:none;margin-top:8px;font-size:13px;color:var(--sub);align-items:center;gap:8px;flex-wrap:wrap;}
+.self.show{display:flex;}
+.self label{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line2);border-radius:20px;padding:4px 11px;cursor:pointer;font-weight:600;color:var(--ink);}
+.self input{accent-color:var(--teal);}
+.crit{font-size:13px;color:var(--sub);background:rgba(27,29,23,.04);border-radius:8px;padding:8px 11px;margin-bottom:10px;}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.4px;border:none;border-radius:20px;padding:9px 18px;cursor:pointer;transition:.2s;}
+.btn.main{background:var(--teal);color:#fff;}
+.btn.main:hover{background:var(--teal2);}
+.btn.sec{background:transparent;border:1.5px solid var(--line2);color:var(--sub);}
+.btn.sec:hover{border-color:var(--ink);color:var(--ink);}
+.btn.big{font-size:15px;padding:12px 26px;background:var(--plum);color:#fff;}
+.btn.armed{background:var(--half)!important;color:#fff!important;}
+.btn.big:hover{background:var(--plum2);}
+.opening{text-align:center;font-weight:700;font-style:italic;margin:6px 0 4px;}
+.wc{font-size:12px;color:var(--mut);text-align:right;margin-top:3px;}
+.wc.good{color:var(--done);font-weight:700;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:8px;background:#fff;}
+th,td{border:1px solid var(--line2);padding:6px 8px;text-align:left;vertical-align:middle;}
+th{background:rgba(14,154,166,.12);font-family:'Space Grotesk',sans-serif;}
+td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1px solid var(--line2);}
+.conv{max-width:380px;}
+.conv td,.conv th{text-align:center;}
+.conv tr.hit td{background:var(--teal);color:#fff;font-weight:700;}
+.result{display:none;margin-top:18px;background:var(--ink);color:#f4f1e8;border-radius:14px;padding:18px 20px;}
+.result.show{display:block;}
+.result .big{font-family:'Sora',sans-serif;font-size:30px;font-weight:800;}
+.result .rows{font-size:14px;margin-top:8px;color:rgba(244,241,232,.8);}
+.result .note{font-size:12.5px;margin-top:10px;color:rgba(244,241,232,.6);}
+.footer{text-align:center;font-size:11.5px;font-style:italic;color:rgba(242,241,232,.5);margin-top:16px;padding:0 16px;}
+</style>
+</head>
+<body>
+<header>
+  <div><span class="logo">Unit 4 · Perfect Tenses &amp; Relative Clauses</span><span class="logo-sub">The Structure · Mock test</span></div>
+  <a href="javascript:window.close()" class="hbtn">✕ Chiudi</a>
+</header>
+<main class="sheet">
+  <div class="hero">
+    <h2>Mock test · 50 minuti</h2>
+    <h1>Prova la verifica</h1>
+  </div>
+  <div class="intro">
+    Questa prova ha <b>la stessa struttura della verifica</b>, ma frasi, testi e lessico sono diversi: non serve impararla a memoria, serve a capire <b>se sai usare le strutture</b>.
+    Fai tutto senza guardare gli appunti, poi correggi esercizio per esercizio. Gli esercizi si correggono da soli; il writing lo valuti tu con la griglia, con onestà. <b>Attenzione:</b> quando premi «Correggi» le risposte di quell'esercizio si bloccano e non puoi più cambiarle, quindi correggi solo quando hai finito.
+  </div>
+  <section class="ex" id="ex1"></section>
+  <section class="ex" id="ex2"></section>
+  <section class="ex" id="ex3"></section>
+  <section class="ex" id="ex4"></section>
+  <section class="ex" id="ex5"></section>
+  <section class="ex" id="ex6"></section>
+  <div class="btns" style="justify-content:center;margin-top:24px;">
+    <button class="btn big" id="calcBtn" onclick="confirmThen(this,finalScore)">Calcola il voto</button>
+  </div>
+  <div class="result" id="result"></div>
+  <div class="ex">
+    <div class="ex-title" style="margin-bottom:6px;">Tabella di conversione punti / voto <span style="font-weight:600;font-size:13px;color:var(--mut)">(sufficienza: 48/80)</span></div>
+    <table class="conv" id="convTable"></table>
+  </div>
+</main>
+<p class="footer">Materiali predisposti a cura dell'insegnante utilizzando strumenti digitali avanzati</p>
+<script>
+const CFG={"key": "mocktest-u4-v1", "label": "MOCK QUARTA – UNIT 4", "tag": "", "form": "", "total": 80, "intro_min": "50 minuti", "ex": [{"type": "word", "short": "lessico", "pts": 12, "title": "Vocabulary. Read the definitions and write the word.", "items": [["A book that tells the true story of a person's life, written by somebody else.", ["biography"]], ["A story set in the future, often with robots, space travel or new technology.", ["science fiction", "sci-fi", "science-fiction", "science fiction novel", "science fiction story"]], ["Adjective: so frightening that you can't sleep after reading it.", ["terrifying", "frightening"]], ["The main male character of a story, who is brave and good.", ["hero"]], ["A magazine or book of drawings with speech bubbles.", ["comic", "comic book", "comics"]], ["A novel about a love story.", ["romantic novel", "romance", "romance novel", "love story"]], ["What happens in a book or a film: the story.", ["plot"]], ["Adjective: a person who enjoys hurting people or animals is ______.", ["cruel", "evil"]], ["One of the parts a novel is divided into.", ["chapter"]], ["A book about the past: kings, wars, ancient civilisations.", ["history book"]], ["Adjective: a book with simple language that you can read quickly is ______.", ["easy-to-read", "easy to read"]], ["A book that tells you about places to visit in a country.", ["travel book", "guidebook", "guide book", "travel guide"]]]}, {"type": "crit2", "short": "past perfect", "pts": 12, "labels": ["il Past perfect", "il resto della frase"], "title": "Join the two sentences using the word(s) in brackets. Use the Past perfect in one of the two parts.", "items": [{"q": "The train left. Then we got to the platform. (when)", "model": "When we got to the platform, the train had (already) left.", "c1": ["\\bthe train had (already )?(left|gone)\\b"], "c2": ["\\bwhen we (got|arrived) (to|at|on) the platform\\b"]}, {"q": "The concert finished. Then my parents came to pick me up. (by the time)", "model": "By the time my parents came to pick me up, the concert had (already) finished.", "c1": ["\\bthe concert had (already )?(finished|ended)\\b"], "c2": ["\\bby the time my parents came to pick me up\\b"]}, {"q": "Leo visited London for the first time last month. He was very excited. (It was the first time)", "model": "It was the first time Leo had visited (been to) London, so he was very excited.", "c1": ["\\bhad (visited|been to|been in|seen) london\\b"], "c2": ["\\bit was the first time (that )?leo\\b", "\\bexcited\\b"]}, {"q": "Anna forgot her umbrella. She got wet. (because)", "model": "Anna got wet because she had forgotten her umbrella.", "c1": ["\\bhad forgotten\\b"], "c2": ["\\banna got wet because she\\b", "\\bumbrella\\b"]}, {"q": "We didn't eat all day. We were starving in the evening. (so)", "model": "We hadn't eaten all day, so we were starving in the evening.", "c1": ["\\bwe had not eaten\\b"], "c2": ["\\bso we were starving\\b"]}, {"q": "The thieves escaped. Then the police arrived. (already)", "model": "When the police arrived, the thieves had already escaped.", "c1": ["\\bthe thieves had already escaped\\b"], "c2": ["\\b(when|by the time) the police (arrived|got there)\\b"]}]}, {"type": "story", "short": "racconto", "pts": 15, "title": "Complete the story with the correct narrative tense of the verbs in brackets.", "text": "It was a hot afternoon in July. The sun {shine} and some children {play} in the park. Leo {wait} for his friend Ben outside the old cinema. Ben {promise} to bring a book that his grandfather {write} many years before. Leo {never / meet} a real writer, so he was very curious. Ben {be} late, and Leo {not / know} what to do. At last Ben {arrive}, but he looked worried: he {lose} the book! He {leave} it on the bus. While they {walk} home, Ben's phone {ring}. It was the bus driver: somebody {find} the book and he {keep} it safe for Ben.", "keys": [["was shining"], ["were playing"], ["was waiting"], ["had promised"], ["had written"], ["had never met"], ["was"], ["did not know"], ["arrived"], ["had lost"], ["had left"], ["were walking"], ["rang"], ["had found"], ["had kept", "kept"]]}, {"type": "crit2", "short": "relative", "pts": 14, "labels": ["il pronome (omesso quando è possibile)", "le virgole e la struttura"], "title": "Join the sentences with a relative clause. Start with the words given. Use commas where necessary and leave out the relative pronoun when it is possible.", "items": [{"q": "My neighbour is a famous singer. His daughter is in my class.  →  My neighbour", "model": "My neighbour, whose daughter is in my class, is a famous singer. / My neighbour is a famous singer whose daughter is in my class.", "c1": ["\\bwhose daughter is in my class\\b"], "c2": ["^my neighbour, whose daughter is in my class, is a famous singer$|^my neighbour is a famous singer whose daughter is in my class$"]}, {"q": "We are talking about a film. It won three Oscars.  →  The film", "model": "The film we're talking about won three Oscars.", "c1": ["^the film,? we are talking about\\b"], "c2": ["^the film [a-z ]*talking about won three oscars$"]}, {"q": "Leonardo da Vinci painted the Mona Lisa. He was born in 1452.  →  Leonardo da Vinci", "model": "Leonardo da Vinci, who was born in 1452, painted the Mona Lisa.", "c1": ["\\bwho was born in 1452\\b"], "c2": ["^leonardo da vinci, [a-z]+ was born in 1452, painted the mona lisa$"]}, {"q": "My uncle gave me a book for Christmas. It's fantastic.  →  The book", "model": "The book my uncle gave me for Christmas is fantastic.", "c1": ["^the book,? my uncle gave me\\b"], "c2": ["^the book [a-z ]*gave me for christmas is fantastic$"]}, {"q": "A boy lives in the flat upstairs. He plays the drums every night.  →  The boy", "model": "The boy who (that) lives in the flat upstairs plays the drums every night.", "c1": ["^the boy,? (who|that) lives\\b"], "c2": ["^the boy [a-z]+ lives in the flat upstairs plays the drums every night$"]}, {"q": "I was waiting for a bus. It never came.  →  The bus", "model": "The bus I was waiting for never came.", "c1": ["^the bus,? i was waiting for\\b"], "c2": ["^the bus [a-z ]*waiting for never came$"]}, {"q": "Venice is built on 118 islands. My grandparents got married there.  →  Venice", "model": "Venice, where my grandparents got married, is built on 118 islands.", "c1": ["\\bwhere my grandparents got married\\b"], "c2": ["^venice, [a-z ]+ got married, is built on 118 islands$"]}]}, {"type": "crit2", "short": "traduzione", "pts": 12, "it": true, "labels": ["la struttura chiave", "il resto della frase"], "title": "Translate into English.", "items": [{"q": "Quando ho acceso la TV, il film era già cominciato.", "model": "When I turned (switched) on the TV, the film had already started (begun).", "c1": ["\\bthe (film|movie) had already (started|begun)\\b"], "c2": ["\\bwhen i (turned|switched|put) on the (tv|television)\\b|\\bwhen i (turned|switched|put) the (tv|television) on\\b"]}, {"q": "Mentre facevo i compiti, mio fratello ascoltava la musica.", "model": "While I was doing my homework, my brother was listening to music.", "c1": ["\\bi was doing\\b", "\\bwas listening to\\b"], "c2": ["\\b(while|as)\\b", "\\bmy homework\\b", "\\bmy brother\\b", "\\bmusic\\b"]}, {"q": "Il ragazzo con cui esce mia sorella è inglese.", "model": "The boy my sister goes out with is English.", "c1": ["\\bthe boy (who |that |whom )?my sister (goes|is going) out with\\b|\\bthe boy with whom my sister (goes|is going) out\\b"], "c2": ["\\bis english$"]}, {"q": "Mia zia, che fa la giornalista, ha scritto tre libri.", "model": "My aunt, who is a journalist, has written (wrote) three books.", "c1": ["\\b(aunt|auntie), who (is|works as) a journalist,"], "c2": ["^my (aunt|auntie)\\b", "\\b(has written|wrote) three books$"]}, {"q": "Non avevo mai visto un film così noioso.", "model": "I had never seen such a boring film (a film as boring as that).", "c1": ["\\bi had never seen\\b"], "c2": ["\\bsuch a boring (film|movie)\\b|\\b(film|movie) (so|as|that) boring\\b"]}, {"q": "Ecco il bar dove ci siamo conosciuti.", "model": "Here is (This is) the café where we met.", "c1": ["\\bwhere we (met|first met)\\b"], "c2": ["^(here is|this is) the (bar|café|cafe|coffee shop|pub)"]}]}], "writing": {"pts": 15, "min": 100, "max": 120, "prompt": "Your school magazine is organising a short story competition. Write a story (100–120 words) that begins with this sentence:", "sentence": "When I opened the door, I couldn't believe my eyes.", "grid": [["Contenuto", "Rispetta la consegna (inizio dato, lunghezza); la storia è coerente e completa", 3], ["Tempi narrativi", "Past simple, Past continuous e Past perfect usati in modo corretto e appropriato", 4], ["Organizzazione", "Eventi in ordine chiaro; frasi ben collegate, anche con proposizioni relative", 3], ["Lessico", "Lessico vario, preciso e adeguato", 3], ["Correttezza formale", "Ortografia, punteggiatura, ordine delle parole", 2]]}, "conv": [["80–78", "10", 78], ["77–74", "9½", 74], ["73–70", "9", 70], ["69–66", "8½", 66], ["65–62", "8", 62], ["61–58", "7½", 58], ["57–54", "7", 54], ["53–51", "6½", 51], ["50–48", "6", 48], ["47–44", "5½", 44], ["43–40", "5", 40], ["39–36", "4½", 36], ["35–32", "4", 32], ["31–28", "3½", 28], ["27–0", "3", 0]]};
+/* ================= HELPERS ================= */
+function normC(s){
+  s=(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[«»"“”.!?;:–—]/g," ");
+  s=s.replace(/\bcan't\b/g,"can not").replace(/\bcannot\b/g,"can not").replace(/\bwon't\b/g,"will not").replace(/n't\b/g," not");
+  s=s.replace(/\b(i)'ve\b/g,"$1 have").replace(/\b(we|you|they)'re\b/g,"$1 are").replace(/\b(here|it|that|there|what)'s\b/g,"$1 is").replace(/\bi'm\b/g,"i am").replace(/\b(he|she|it|i|we|you|they)'d\b/g,"$1 had");
+  s=s.replace(/\s*,\s*/g,", ").replace(/\s+/g," ").trim().replace(/,$/,"");
+  return s;
+}
+const norm=s=>normC(s).replace(/,/g,"").replace(/^(a|an|the) /,"").replace(/\s+/g," ").trim();
+const fmt=n=>(Math.round(n*2)/2).toString().replace(".",",");
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const RX=a=>(a||[]).map(r=>new RegExp(r));
+const score={};
+const NEX=CFG.ex.length, WN=NEX+1, MAX={};
+CFG.ex.forEach((e,i)=>MAX[i+1]=e.pts); MAX[WN]=CFG.writing.pts;
+function head(n,title){return `<div class="ex-head"><div class="ex-title"><span class="n">${n}</span>${esc(title)}</div><div class="ex-score" id="sc${n}">___ / ${MAX[n]}</div></div>`;}
+function setScore(n,val){const e=document.getElementById("sc"+n);e.textContent=`${fmt(val)} / ${MAX[n]}`;e.classList.add("got");}
+function showSol(el,txt,inline){const s=document.createElement("span");s.className="sol"+(inline?" inline":"");s.textContent="→ "+txt;el.after(s);}
+const inp=(cls,attrs)=>`<input class="gap ${cls}" ${attrs} autocomplete="off" autocapitalize="off" spellcheck="false">`;
+const btn=n=>`<div class="btns"><button class="btn main" onclick="confirmThen(this,()=>check(${n}))">Correggi</button></div>`;
+
+/* ================= RENDER ================= */
+function render(){
+  CFG.ex.forEach((e,i)=>{
+    const n=i+1;let h=head(n,e.title);
+    if(e.note)h+=`<p class="crit">${esc(e.note)}</p>`;
+    if(e.type==="word"){
+      h+='<ol class="items">';e.items.forEach((it,j)=>h+=`<li><span class="num">${j+1}</span>${esc(it[0])}<br>→ ${inp("w",`data-i="${j}"`)}</li>`);h+='</ol>';
+    } else if(e.type==="gaps"){
+      h+='<ol class="items">';e.items.forEach((it,j)=>{h+=`<li><span class="num">${j+1}</span>`;
+        it.s.forEach(p=>h+=typeof p==="number"?inp("",`data-i="${j}" data-g="${p}"`):esc(p));
+        h+=` <span class="vb" style="font-style:italic;color:var(--sub)">(${esc(it.v)})</span></li>`;});h+='</ol>';
+    } else if(e.type==="story"){
+      h+='<p class="story">';let k=0;
+      e.text.split(/(\{[^}]+\})/).forEach(p=>{const m=p.match(/^\{(.+)\}$/);
+        if(m){h+=`<b>(${k+1})</b> ${inp("",`data-i="${k}"`)} <span class="vb">(${esc(m[1])})</span>`;k++;} else h+=esc(p);});
+      h+='</p>';
+    } else if(e.type==="crit2"){
+      h+='<ol class="items">';e.items.forEach((it,j)=>h+=`<li><span class="num">${j+1}</span><span class="${e.it?"it":""}" style="${e.it?"font-style:normal;color:var(--ink)":""}">${esc(it.q)}</span><textarea rows="2" data-i="${j}" spellcheck="false"></textarea><div class="model"></div></li>`);h+='</ol>';
+      h+=`<p class="crit" style="margin-top:10px;">2 punti per frase: 1 per ${esc(e.labels[0])}, 1 per ${esc(e.labels[1])}.</p>`;
+    }
+    document.getElementById("ex"+n).innerHTML=h+btn(n);
+  });
+  const w=CFG.writing;
+  let h=`<div class="ex-head"><div class="ex-title"><span class="n">${WN}</span>Writing</div><div class="ex-score" id="sc${WN}">___ / ${w.pts}</div></div>
+    <p>${esc(w.prompt)}</p><p class="opening">${esc(w.sentence)}</p>
+    <textarea id="wtext" rows="9" oninput="countWords()" style="min-height:220px"></textarea><div class="wc" id="wc">0 parole</div>
+    <p style="font-size:14px;margin-top:12px;font-weight:700;">Griglia di valutazione – Writing (${w.pts} punti)</p>
+    <p style="font-size:13px;color:var(--sub);">Quando hai finito, rileggi il tuo testo e valutalo con la griglia, con onestà.</p>
+    <table><tr><th>Criterio</th><th>Descrittori</th><th>Punti</th></tr>`;
+  w.grid.forEach((g,i)=>{let o="";for(let v=0;v<=g[2];v++)o+=`<option value="${v}">${v}</option>`;
+    h+=`<tr><td><b>${g[0]}</b></td><td>${g[1]}</td><td style="white-space:nowrap"><select data-i="${i}" onchange="updW()"><option value="">–</option>${o}</select> / ${g[2]}</td></tr>`;});
+  h+=`<tr><td></td><td style="text-align:right"><b>Totale writing</b></td><td id="wtot"><b>___ / ${w.pts}</b></td></tr></table>`;
+  document.getElementById("ex"+WN).innerHTML=h;
+  let t='<tr><th>Punti</th><th>Voto</th><th>Punti</th><th>Voto</th></tr>';const C=CFG.conv;
+  for(let i=0;i<8;i++){const a=C[i],b=C[i+8];t+=`<tr><td data-c="${i}">${a[0]}</td><td data-c="${i}">${a[1]}</td><td data-c="${i+8}">${b?b[0]:""}</td><td data-c="${i+8}">${b?b[1]:""}</td></tr>`;}
+  document.getElementById("convTable").innerHTML=t;
+}
+
+/* ================= CHECKING ================= */
+function markBox(ta,p,max,html){
+  ta.style.borderColor=p===max?"var(--done)":p?"var(--half)":"var(--bad)";
+  const m=ta.nextElementSibling;m.classList.add("show");
+  m.style.background=p===max?"var(--done-soft)":p?"var(--half-soft)":"var(--bad-soft)";
+  m.style.borderLeftColor=p===max?"var(--done)":p?"var(--half)":"var(--bad)";
+  m.innerHTML=html;
+}
+function check(n){
+  const e=CFG.ex[n-1],sec=document.getElementById("ex"+n);let tot=0;
+  sec.querySelectorAll(".sol").forEach(s=>s.remove());
+  if(e.type==="word"){
+    sec.querySelectorAll("input.gap").forEach(x=>{const acc=e.items[+x.dataset.i][1],ok=acc.map(norm).includes(norm(x.value));
+      if(ok)tot++;x.classList.add(ok?"ok":"no");if(!ok)showSol(x,acc[0]);});
+  } else if(e.type==="gaps"){
+    sec.querySelectorAll("li").forEach((li,j)=>{const ins=[...li.querySelectorAll("input.gap")];let all=true;
+      ins.forEach(x=>{const acc=e.items[j].keys[+x.dataset.g],ok=acc.map(norm).includes(norm(x.value));if(!ok)all=false;x.classList.add(ok?"ok":"no");});
+      if(all)tot++;else showSol(ins[ins.length-1],e.items[j].keys.map(k=>k[0]).join(" … "),true);});
+  } else if(e.type==="story"){
+    sec.querySelectorAll("input.gap").forEach(x=>{const acc=e.keys[+x.dataset.i],ok=acc.map(norm).includes(norm(x.value));
+      if(ok)tot++;x.classList.add(ok?"ok":"no");if(!ok)showSol(x,acc[0],true);});
+  } else if(e.type==="crit2"){
+    sec.querySelectorAll("textarea").forEach(ta=>{const it=e.items[+ta.dataset.i],a=normC(ta.value);
+      const c1=a&&RX(it.c1).every(r=>r.test(a))&&!RX(it.no).some(r=>r.test(a))?1:0, c2=a&&RX(it.c2).every(r=>r.test(a))?1:0, p=c1+c2;tot+=p;
+      markBox(ta,p,2,`<b>${p} / 2</b> · ${esc(e.labels[0])} ${c1?"✓":"✗"} · ${esc(e.labels[1])} ${c2?"✓":"✗"}`+(p<2?`<br><b>Soluzione:</b> ${esc(it.model)}`:""));});
+  }
+  score[n]=tot;setScore(n,tot);lock(n);
+}
+function wScore(){let tot=0,done=0;document.querySelectorAll(`#ex${WN} select`).forEach(s=>{if(s.value!==""){tot+=+s.value;done++;}});return {tot,done};}
+function updW(){const r=wScore();document.getElementById("wtot").innerHTML=`<b>${r.tot} / ${CFG.writing.pts}</b>`;setScore(WN,r.tot);}
+function countWords(){const n=(document.getElementById("wtext").value.match(/[A-Za-z’'-]+/g)||[]).length;const e=document.getElementById("wc");
+  e.textContent=n+" parole";e.classList.toggle("good",n>=CFG.writing.min&&n<=CFG.writing.max);}
+function confirmThen(b,fn){
+  if(b.dataset.armed==="1"){clearTimeout(b._t);b.dataset.armed="";b.textContent=b.dataset.label;b.classList.remove("armed");fn();return;}
+  b.dataset.label=b.textContent;b.dataset.armed="1";b.classList.add("armed");
+  b.textContent="Sicuro? Dopo non puoi più cambiare – tocca di nuovo";
+  b._t=setTimeout(()=>{b.dataset.armed="";b.textContent=b.dataset.label;b.classList.remove("armed");},4000);
+}
+function lock(n){
+  if(!state.locked.includes(n)){state.locked.push(n);save();}
+  const sec=document.getElementById("ex"+n);
+  sec.querySelectorAll("input,textarea,select").forEach(x=>x.disabled=true);
+  const b=sec.querySelector(".btn.main");
+  if(b){b.disabled=true;b.textContent="Corretto ✓ – risposte bloccate";b.style.background="var(--mut)";b.style.cursor="default";}
+}
+function finalScore(){
+  for(let n=1;n<=NEX;n++)if(score[n]===undefined)check(n);
+  const w=wScore();let tot=w.tot;for(let n=1;n<=NEX;n++)tot+=score[n];
+  const idx=CFG.conv.findIndex(c=>Math.floor(tot)>=c[2]);
+  document.querySelectorAll("#convTable td").forEach(td=>{td.style.background="";td.style.color="";td.style.fontWeight="";});
+  document.querySelectorAll(`#convTable td[data-c="${idx}"]`).forEach(td=>{td.style.background="var(--teal)";td.style.color="#fff";td.style.fontWeight="700";});
+  const r=document.getElementById("result");
+  r.innerHTML=`<div class="big">${fmt(tot)} / ${CFG.total} · voto ${CFG.conv[idx][1]}</div>
+    <div class="rows">${CFG.ex.map((e,i)=>`${i+1} ${e.short} ${fmt(score[i+1])}/${e.pts}`).join(" · ")} · ${WN} writing ${fmt(w.tot)}/${CFG.writing.pts}</div>
+    ${w.done<CFG.writing.grid.length?`<div class="note">⚠ Non hai ancora dato il punteggio al writing: il voto è calcolato senza.</div>`:""}
+    <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>
+    <div id="sendBox" style="margin-top:14px;border-top:1px solid rgba(244,241,232,.15);padding-top:12px;">
+      <div style="font-weight:700;margin-bottom:6px;">Invia il risultato all'insegnante</div>
+      <input id="stName" placeholder="Nome e cognome" autocomplete="off" style="font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:none;width:100%;max-width:320px;">
+      <div class="btns"><button class="btn main" id="sendBtn" onclick="sendResult()">📨 Invia all'insegnante</button></div>
+      <div class="note" id="sendNote"></div>
+    </div>`;
+  state.result={tot,voto:CFG.conv[idx][1]};
+  lock(WN);document.getElementById("calcBtn").disabled=true;state.final=true;save();
+  r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+/* ================= SEND TO THE TEACHER'S GOOGLE FORM ================= */
+const FORM_FIELDS={name:"entry.987123579",voto:"entry.1256142069",punti:"entry.1261436354",errori:"entry.1496790676",writing:"entry.1216252690"};
+function errorsText(){
+  const out=[CFG.label];
+  CFG.ex.forEach((e,i)=>{const n=i+1,rows=[];
+    if(e.type==="crit2"){
+      document.querySelectorAll(`#ex${n} li`).forEach((li,j)=>{const ta=li.querySelector("textarea"),m=li.querySelector(".model");
+        if(m&&/^2 \/ 2/.test(m.innerText.trim()))return;
+        const det=m?m.innerText.split("\n").filter(l=>!/^Soluzione/.test(l)).join(" | "):"";
+        rows.push(`  ${j+1}. ${ta.value||"[vuoto]"}  [${det}]`);});
+    } else if(e.type==="story"){
+      document.querySelectorAll(`#ex${n} input.gap`).forEach((x,j)=>{if(x.classList.contains("ok"))return;const s=x.nextElementSibling;
+        rows.push(`  (${j+1}) ${x.value||"[vuoto]"} → ${s&&s.classList.contains("sol")?s.textContent.replace(/^→\s*/,""):""}`);});
+    } else {
+      document.querySelectorAll(`#ex${n} li`).forEach((li,j)=>{const ins=[...li.querySelectorAll("input.gap")];if(ins.every(x=>x.classList.contains("ok")))return;
+        const s=li.querySelector(".sol");rows.push(`  ${j+1}. ${ins.map(x=>x.value||"[vuoto]").join(" … ")} → ${s?s.textContent.replace(/^→\s*/,""):""}`);});
+    }
+    out.push(`${n}. ${e.short} ${fmt(score[n]||0)}/${e.pts}`+(rows.length?"\n"+rows.join("\n"):" – tutto giusto"));
+  });
+  return out.join("\n\n");
+}
+async function sendResult(){
+  const nm=document.getElementById("stName"),note=document.getElementById("sendNote"),b=document.getElementById("sendBtn");
+  const name=nm.value.trim();
+  if(name.length<3||!/\s/.test(name)){note.textContent="Scrivi nome e cognome.";note.style.color="#ff9aa8";nm.focus();return;}
+  if(!CFG.form){note.textContent="L'invio non è ancora attivo: avvisa l'insegnante.";note.style.color="#ff9aa8";return;}
+  const R=state.result||{},w=wScore(),G=CFG.writing.grid;
+  const writing=`Autovalutazione: ${w.tot}/${CFG.writing.pts} (`+[...document.querySelectorAll(`#ex${WN} select`)].map((s,i)=>`${G[i][0]} ${s.value===""?"-":s.value}/${G[i][2]}`).join(", ")+`)\n\n`+(document.getElementById("wtext").value.trim()||"[vuoto]");
+  const body=new URLSearchParams();
+  body.append(FORM_FIELDS.name,name);body.append(FORM_FIELDS.voto,String(R.voto||""));
+  body.append(FORM_FIELDS.punti,`${fmt(R.tot||0)}/${CFG.total}`+(CFG.tag?` · ${CFG.tag}`:""));
+  body.append(FORM_FIELDS.errori,errorsText());body.append(FORM_FIELDS.writing,writing);
+  b.disabled=true;b.textContent="Invio in corso…";
+  try{await fetch(CFG.form,{method:"POST",mode:"no-cors",body});state.sent=name;save();showSent(name);}
+  catch(err){b.disabled=false;b.textContent="📨 Invia all'insegnante";note.textContent="Invio non riuscito: controlla la connessione e riprova.";note.style.color="#ff9aa8";}
+}
+function showSent(name){
+  const box=document.getElementById("sendBox");if(!box)return;
+  box.innerHTML=`<div style="font-weight:700;color:#7ee2a8;">✓ Risultato inviato all'insegnante (${esc(name)}).</div><div class="note">Ora su Classroom apri il compito e premi «Segna come completato».</div>`;
+}
+/* ================= SAVE / RESTORE ================= */
+const state={values:[],locked:[],final:false};
+const fields=()=>[...document.querySelectorAll("main input.gap, main textarea, main select")];
+function save(){state.values=fields().map(f=>f.value);try{localStorage.setItem(CFG.key,JSON.stringify(state));}catch(e){}}
+function grow(t){t.style.height="auto";t.style.height=(t.scrollHeight+4)+"px";}
+function restore(){
+  if(new URLSearchParams(location.search).get("azzera")==="docente"){
+    try{localStorage.removeItem(CFG.key);}catch(e){}
+    history.replaceState(null,"",location.pathname);
+    const n=document.createElement("div");n.className="intro";n.style.cssText="background:var(--done-soft);border-color:var(--done);color:var(--ink);font-weight:700";
+    n.textContent="Mock test azzerato su questo dispositivo: puoi rifarlo da capo.";document.querySelector(".hero").after(n);return;
+  }
+  let d=null;try{d=JSON.parse(localStorage.getItem(CFG.key));}catch(e){}
+  if(!d||!Array.isArray(d.values))return;
+  const fs=fields();d.values.forEach((v,i)=>{if(fs[i])fs[i].value=v;});
+  (d.locked||[]).forEach(n=>{if(n<=NEX)check(n);});
+  if(document.getElementById("wtext").value)countWords();
+  if([...document.querySelectorAll(`#ex${WN} select`)].some(x=>x.value!==""))updW();
+  if(d.final)finalScore();
+  if(d.sent){state.sent=d.sent;showSent(d.sent);}
+}
+render();restore();
+/* ================= TEACHER MODE: tap the title 5 times, then the secret word ================= */
+const SECRET="framework";let taps=0,tapTimer=null;
+document.querySelector(".hero h1").addEventListener("click",()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>taps=0,2000);if(taps>=5){taps=0;openTeacher();}});
+function openTeacher(){
+  if(document.getElementById("tpanel"))return;
+  const d=document.createElement("div");d.id="tpanel";d.className="intro";d.style.cssText="border:2px solid var(--plum);";
+  d.innerHTML=`<b>Area docente</b><br><input id="tpw" type="password" class="gap" style="width:180px;margin-top:6px" placeholder="parola segreta">
+    <button class="btn main" style="margin-left:6px" onclick="teacherLogin()">Entra</button> <button class="btn sec" onclick="this.parentElement.remove()">Chiudi</button>
+    <div id="tmsg" style="font-size:13px;margin-top:6px"></div>`;
+  document.querySelector(".hero").after(d);document.getElementById("tpw").focus();
+}
+function teacherLogin(){
+  const m=document.getElementById("tmsg");
+  if(document.getElementById("tpw").value.trim().toLowerCase()!==SECRET){m.textContent="Parola sbagliata.";m.style.color="var(--bad)";return;}
+  const d=document.getElementById("tpanel");
+  d.innerHTML=`<b>Area docente</b><br>Accanto a ogni esercizio corretto trovi «Sblocca questo esercizio». Oppure:
+    <div class="btns"><button class="btn big" onclick="teacherReset()">Azzera tutto il mock test</button><button class="btn sec" onclick="location.reload()">Esci</button></div>`;
+  state.locked.filter(n=>n<=NEX).forEach(n=>{const b=document.createElement("button");b.className="btn big";b.textContent="🔓 Sblocca questo esercizio";b.onclick=()=>teacherUnlock(n);document.querySelector(`#ex${n} .btns`).appendChild(b);});
+}
+function teacherUnlock(n){save();state.locked=state.locked.filter(x=>x!==n&&x!==WN);state.final=false;try{localStorage.setItem(CFG.key,JSON.stringify(state));}catch(e){}location.reload();}
+function teacherReset(){try{localStorage.removeItem(CFG.key);}catch(e){}location.href=location.pathname+"?azzera=docente";}
+document.addEventListener("input",e=>{if(e.target.matches("textarea"))grow(e.target);if(e.target.closest("main"))save();});
+document.querySelectorAll("main textarea").forEach(grow);
+document.addEventListener("change",e=>{if(e.target.closest("main"))save();});
+
+</script>
+</body>
+</html>
