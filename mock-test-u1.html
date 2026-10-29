@@ -451,33 +451,35 @@ function downloadPDF(){
   txt(`Punteggio: ${fmt(R.tot||0)} / 80     Voto: ${R.voto||"-"}`,{b:true,size:13,after:2});
   const names=["","Lessico","Used to / Past simple","Racconto","Domande","When / while / as","Traduzione","Writing"];
   const max=[0,10,10,15,10,10,10,15];
-  for(let n=1;n<=7;n++){
-    const v=n<=6?score[n]:wScore().tot;
-    txt(`${n}. ${names[n]}: ${fmt(v||0)} / ${max[n]}`,{size:10});
-  }
-  y+=3;
+  y+=2;
   const mark=inp=>inp.classList.contains("ok")?"OK":inp.classList.contains("half")?"1/2":"X";
   const solOf=inp=>{const s=inp.nextElementSibling;return s&&s.classList.contains("sol")?" (giusto: "+s.textContent.replace(/^→\s*/,"").replace(/\s*\(mezzo punto.*$/,"")+")":"";};
   for(let n=1;n<=6;n++){
-    txt(`${n}. ${names[n]}  -  ${fmt(score[n]||0)} / ${max[n]}`,{b:true,size:11,after:1.5});
+    txt(`${n}. ${names[n]}  -  ${fmt(score[n]||0)} / ${max[n]}  -  errori`,{b:true,size:11,after:1.5});
     if(n<=4){
+      let errs=0;
       document.querySelectorAll(`#ex${n} input.gap`).forEach((inp,i)=>{
+        if(mark(inp)==="OK")return;errs++;
         const label=n===3?`(${i+1})`:`${+inp.closest("li").querySelector(".num").textContent}.`;
-        txt(`${label} ${inp.value||"[vuoto]"}   [${mark(inp)}]${mark(inp)==="OK"?"":solOf(inp)}`,{ind:4,size:9.5,c:mark(inp)==="OK"?[27,29,23]:[170,40,40]});
+        txt(`${label} ${inp.value||"[vuoto]"}   [${mark(inp)}]${solOf(inp)}`,{ind:4,size:9.5,c:[170,40,40]});
       });
+      if(!errs)txt("Tutto giusto.",{ind:4,size:9.5,c:[31,120,70]});
     } else {
+      let errs=0;
       document.querySelectorAll(`#ex${n} li`).forEach((li,i)=>{
         const ta=li.querySelector("textarea"),m=li.querySelector(".model");
-        txt(`${i+1}. ${ta.value||"[vuoto]"}`,{ind:4,size:9.5});
-        if(m)m.innerText.split("\n").filter(l=>!/^Soluzione/.test(l)).forEach(l=>txt(l,{ind:9,size:8.5,c:[90,90,80]}));
+        if(m&&/^2 \/ 2/.test(m.innerText.trim()))return;errs++;
+        txt(`${i+1}. ${ta.value||"[vuoto]"}`,{ind:4,size:9.5,c:[170,40,40]});
+        if(m)m.innerText.split("\n").forEach(l=>txt(l,{ind:9,size:8.5,c:[90,90,80]}));
       });
+      if(!errs)txt("Tutto giusto.",{ind:4,size:9.5,c:[31,120,70]});
     }
     y+=2;
   }
   const wt=document.getElementById("wtext").value.trim();
   txt(`7. Writing  -  ${fmt(wScore().tot)} / 15 (autovalutazione)`,{b:true,size:11,after:1.5});
   txt(`Parole: ${(wt.match(/[A-Za-z’'-]+/g)||[]).length}`,{ind:4,size:9,c:[110,110,100]});
-  document.querySelectorAll("#ex7 select").forEach((s,i)=>txt(`${GRID[i][0]}: ${s.value===""?"-":s.value} / ${GRID[i][2]}`,{ind:4,size:9}));
+  txt([...document.querySelectorAll("#ex7 select")].map((s,i)=>`${GRID[i][0]} ${s.value===""?"-":s.value}/${GRID[i][2]}`).join("  -  "),{ind:4,size:9});
   y+=1;
   txt(wt||"[vuoto]",{ind:4,size:10,after:4});
   const np=doc.getNumberOfPages();
