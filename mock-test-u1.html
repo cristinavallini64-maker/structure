@@ -425,8 +425,8 @@ function finalScore(){
     <div class="rows">1 lessico ${fmt(score[1])}/10 · 2 used to ${fmt(score[2])}/10 · 3 racconto ${fmt(score[3])}/15 · 4 domande ${fmt(score[4])}/10 · 5 when/while/as ${fmt(s5.tot)}/10 · 6 traduzione ${fmt(s6.tot)}/10 · 7 writing ${fmt(w.tot)}/15</div>
     ${missing.length?`<div class="note">⚠ Non hai ancora dato il punteggio a: ${missing.join(", ")}. Il voto è calcolato senza quelle parti.</div>`:""}
     <div class="note">È un voto indicativo: il writing l'hai valutato tu. Guarda dove hai perso più punti: è lì che devi ripassare.</div>
-    <div class="btns"><button class="btn main" onclick="downloadPDF()">⬇ Scarica il risultato (PDF)</button></div>
-    <div class="note">Allega il PDF al compito su Classroom.</div>`;
+    <div class="btns"><button class="btn main" onclick="sharePDF()">📤 Invia su Classroom</button><button class="btn sec" style="color:#f4f1e8;border-color:rgba(244,241,232,.4)" onclick="downloadPDF()">⬇ Scarica il PDF</button></div>
+    <div class="note" id="shareNote">Tocca «Invia su Classroom», scegli Classroom, poi il compito del mock test e premi Consegna.</div>`;
   state.result={tot,voto:CONV[idx][1]};
   lock(7);document.getElementById("calcBtn").disabled=true;state.final=true;save();
   r.classList.add("show");r.scrollIntoView({behavior:"smooth",block:"center"});
@@ -436,8 +436,8 @@ function pdfSafe(t){
   return (t||"").replace(/[—–−]/g,"-").replace(/[«»“”]/g,'"').replace(/[’‘]/g,"'").replace(/…/g,"...").replace(/→/g,"->")
     .replace(/✓/g,"OK").replace(/✗/g,"X").replace(/·/g,"-").replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF]/g,"");
 }
-function downloadPDF(){
-  if(!window.jspdf){alert("Non riesco a creare il PDF: controlla la connessione e riprova.");return;}
+function buildPDF(){
+  if(!window.jspdf){alert("Non riesco a creare il PDF: controlla la connessione e riprova.");return null;}
   const doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
   const W=180,X=15;let y=18;
   const need=h=>{if(y+h>280){doc.addPage();y=18;}};
@@ -485,7 +485,19 @@ function downloadPDF(){
   const np=doc.getNumberOfPages();
   for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont("helvetica","italic");doc.setFontSize(7.5);doc.setTextColor(120,120,110);
     doc.text("Materiali predisposti a cura dell'insegnante utilizzando strumenti digitali avanzati",105,290,{align:"center"});doc.text(i+" / "+np,195,290,{align:"right"});}
-  doc.save("mock-test-unit1-risultato.pdf");
+  return doc;
+}
+const PDFNAME="mock-test-unit1-risultato.pdf";
+function downloadPDF(){const d=buildPDF();if(d)d.save(PDFNAME);}
+async function sharePDF(){
+  const d=buildPDF();if(!d)return;
+  const file=new File([d.output("blob")],PDFNAME,{type:"application/pdf"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file],title:"Mock test Unit 1"});}catch(e){/* closed by the user */}
+  } else {
+    d.save(PDFNAME);
+    const n=document.getElementById("shareNote");if(n)n.textContent="Su questo dispositivo non posso aprire la condivisione: ho scaricato il PDF. Allegalo al compito su Classroom.";
+  }
 }
 /* ================= SAVE / RESTORE (browser memory: a reload doesn't start over) ================= */
 const KEY="mocktest-u1-v1";
