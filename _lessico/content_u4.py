@@ -250,7 +250,7 @@ STUDY = {
 "4": [
  ["autobiography", "the story of a person's life, written by that same person", "Her autobiography opens with her first day at school.", "autobiografia"],
  ["biography", "the story of someone's life, written by another person", "I'm reading a biography of a famous mountain climber.", "biografia"],
- ["cookbook", "a book full of recipes", "Nonna's old cookbook is full of notes in pencil.", "libro di cucina, ricettario"],
+ ["cookbook", "a book full of recipes", "My grandmother's old cookbook is full of notes in pencil.", "libro di cucina, ricettario"],
  ["travel book", "a book about a journey or a country, with descriptions of places and people", "This travel book made me want to visit Portugal.", "libro di viaggi"],
  ["novelist", "a writer of long works of fiction", "The novelist signed copies after her talk at the library.", "romanziere, scrittore"],
  ["publisher", "a company that prepares books for sale and sends them to the shops", "A small publisher in Turin accepted his first manuscript.", "casa editrice, editore"],
