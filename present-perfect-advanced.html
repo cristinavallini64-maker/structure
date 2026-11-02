@@ -215,6 +215,13 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
 .modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
 .modal-actions{display:flex;gap:10px;justify-content:center;}
+.btn-modo{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:8px 13px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:#f4f1e8;margin-right:8px;}
+.modo-scelte{display:flex;flex-direction:column;gap:12px;}
+.modo-btn{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:12px;border:2px solid var(--line2);background:var(--paper2);cursor:pointer;font-family:'Inter',sans-serif;}
+.modo-btn:hover{border-color:var(--indigo);}
+.modo-btn b{display:block;font-family:'Sora',sans-serif;font-size:17px;color:var(--ink);margin-bottom:3px;}
+.modo-btn span{font-size:13px;color:var(--sub);line-height:1.4;}
+.ex-num{display:inline-block;font-family:'Sora',sans-serif;font-weight:800;font-size:15px;color:#fff;background:var(--indigo);border-radius:8px;padding:4px 11px;margin-bottom:10px;}
 
 @media(max-width:560px){
   #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
@@ -235,7 +242,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 <body>
 <header>
   <div><div class="logo">Unit 2 · Present Perfect Aspect</div><span class="logo-sub">grammar practice · B2</span></div>
-  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+  <div><button class="btn-modo" id="modoBtn" onclick="apriModo()">—</button><button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button></div>
 </header>
 
 <div id="screen-map" class="screen active">
@@ -286,6 +293,17 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 </div>
 
 <div id="screen-results" class="screen"></div>
+
+<div id="modoModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Come lavori oggi?</h2>
+    <p>Scegli la modalità indicata dall'insegnante.</p>
+    <div class="modo-scelte">
+      <button class="modo-btn" onclick="setModo('classe')"><b>🏫 Lavoro in classe</b><span>Esercizi in ordine fisso e numerati, uguali per tutti.</span></button>
+      <button class="modo-btn" onclick="setModo('casa')"><b>🏠 Lavoro a casa</b><span>Esercizi in ordine casuale.</span></button>
+    </div>
+  </div>
+</div>
 
 <div id="resetModal" class="modal-overlay" style="display:none">
   <div class="modal">
@@ -529,10 +547,16 @@ let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,is
 function openLevel(s){
   currentLevel=s;
   const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
-  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
+  exQueue=MODO==='classe'?exs:shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
   document.getElementById('exTitle').textContent=currentLevel.title;
   showScreen('exercise');renderExercise();
 }
+let MODO=null;
+function apriModo(){document.getElementById('modoModal').style.display='flex';}
+function setModo(m){MODO=m;document.getElementById('modoModal').style.display='none';document.getElementById('modoBtn').textContent=m==='classe'?'🏫 In classe':'🏠 A casa';}
+function exNum(e){return parseInt(String(e._key).split('_').pop(),10)+1;}
+/* in classe: stesso mescolamento su ogni dispositivo (seme = esercizio), a casa: casuale */
+function mix(a,seme){if(MODO!=='classe')return shuffle(a);let h=2166136261;for(const c of String(seme))h=Math.imul(h^c.charCodeAt(0),16777619);const r=()=>{h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 const GLOSS={"apprenticeship":"apprendistato","paper round":"giro di consegna dei giornali","shattered":"distrutto, a pezzi","worn out":"sfinito","exhausted":"esausto","portfolio":"raccolta dei propri lavori","staffroom":"sala insegnanti","surgery":"ambulatorio","beautician":"estetista","staff rota":"turni del personale","rota":"turni","double shifts":"turni doppi","shifts":"turni","litter":"rifiuti","babysitting":"fare da baby-sitter","job ads":"annunci di lavoro","careers office":"ufficio orientamento","qualification":"titolo di studio","degree":"laurea","gap year":"anno sabbatico","washing-up":"i piatti da lavare","unemployed":"disoccupato","salary":"stipendio","plumber":"idraulico","paramedic":"paramedico","app developer":"sviluppatore di app","nanny":"bambinaia","revising":"ripassando","revise":"ripassare","arguing":"litigando","argument":"litigio","sore":"irritati","flour":"farina","biscuits":"biscotti","pitch":"campo da gioco","swamp":"pantano","fortnight":"due settimane","pastry chef":"pasticcere","kebab shop":"chiosco di kebab","redecorating":"rimettere a nuovo","salon":"salone di bellezza","theory test":"esame di teoria","mess":"disordine","neighbours":"vicini di casa","tins":"lattine","bin":"bidone","photocopier":"fotocopiatrice","suggestions":"proposte","interviews":"colloqui","appointments":"appuntamenti","staring":"fissando","first-aid":"pronto soccorso","stopping":"smettere","rehearsing":"provando","spent":"speso","earned":"guadagnato","application form":"modulo di domanda","roadworks":"lavori stradali","customers":"clienti","hallway":"corridoio","extra shifts":"turni in più","stockroom":"magazzino","kettle":"bollitore","workshop":"officina","module":"modulo","ink cartridge":"cartuccia","stockroom":"magazzino","soaking":"fradicio","placement":"tirocinio","thermos":"termos","noticeboard":"bacheca","sunburnt":"scottato dal sole","clumsy":"maldestro","certificate":"attestato","leisure centre":"centro sportivo","marathon":"maratona","boiler":"caldaia","mud":"fango","accountant":"commercialista","applications":"domande (di lavoro)","apply":"fare domanda","apprenticeships":"apprendistati","argue":"litigare","autumn":"autunno","babysit":"fare da babysitter","bake":"cuocere al forno","borrow":"prendere in prestito","brings":"porta","burn":"bruciare","colleague":"collega","decent":"dignitoso","desk":"scrivania","earn":"guadagnare","factory":"fabbrica","graduate":"laurearsi, diplomarsi","grandparents":"nonni","grill":"griglia","halfway":"a metà strada","hall":"ingresso, salone","heating":"riscaldamento","hoarse":"rauco","housework":"faccende di casa","hundred":"cento","hunt":"cacciare","hurts":"fa male","improved":"è migliorato","invitations":"inviti","knowing":"sapendo","looks":"sembra","manager":"direttore","match":"partita","mind":"mente; dispiacere","moves":"si muove","moving":"trasferirsi, muovendo","nervous":"nervoso","novel":"romanzo","nursing":"infermieristica","offers":"offre","passing":"passando","perform":"esibirsi","phoning":"telefonando","plates":"piatti","practise":"esercitarsi","presentation":"presentazione","print":"stampare","printer":"stampante","radiators":"termosifoni","redecorate":"ridipingere, rinnovare","repair":"riparare","reply":"risposta, rispondere","replying":"rispondendo","retire":"andare in pensione","roof":"tetto","seaside":"mare (località)","serve":"servire","shout":"gridare","sign":"segno, firmare","smells":"ha odore","spinning":"gira","stare":"fissare","suits":"va bene per","toast":"pane tostato","wedding":"matrimonio","screws":"viti","tools":"attrezzi","clinic":"clinica","hopes":"sperare","slowly":"lentamente","nearly":"quasi","recipe":"ricetta","sawdust":"segatura","jumper":"maglione","shelves":"mensole","putting up":"montando","put up":"montare; aumentare (prezzi)","flatmate":"coinquilino","nursery":"asilo nido","chestnuts":"castagne","stove":"fornello","roasting":"arrostendo","motorway":"autostrada","terrified":"terrorizzato","snowmen":"pupazzi di neve","half marathon":"mezza maratona","queuing":"fare la coda","queueing":"fare la coda","complaints":"reclami","sorting out":"sistemando","dealt with":"gestito","triathlon":"triathlon","van":"furgone","dripping":"gocciolando","drip":"gocciolare","ceiling":"soffitto","teething":"le stanno spuntando i denti","buckets":"secchi","emptying":"svuotando","aching":"doloranti","spare room":"stanza degli ospiti","bare":"spogli","croissants":"cornetti","squeaking":"cigolare","oiled":"oliato","gate":"cancello","pretending":"fingendo","landlord":"padrone di casa","technician":"tecnico","shift":"turno","repainted":"ridipinto","thesis":"tesi","typed":"battuto (al computer)","typing":"battendo (al computer)","dawn":"alba","counter":"bancone","cinnamon":"cannella","pocket money":"paghetta","borrowed":"preso in prestito","barking":"abbaiando","motorbike":"moto","volunteers":"volontari","rubbish":"spazzatura","limping":"zoppicare","work boots":"scarponi da lavoro","council":"comune","vegetable patch":"orto","allotment":"orto comunale","seedlings":"piantine","soil":"terreno","on and off":"a tratti","batter":"pastella","cooker":"cucina (fornelli)","pancakes":"frittelle","steelworks":"acciaieria","retired":"è andato in pensione","bride":"sposa","employs":"dà lavoro a","call centre":"call center","recording studio":"studio di registrazione","gig":"concerto","basement":"seminterrato","rent":"affitto","season ticket":"abbonamento","armchair":"poltrona","leaking":"perdere (acqua)","repair man":"tecnico delle riparazioni","knee":"ginocchio","belonged":"appartenuto","generations":"generazioni","charity shop":"negozio dell'usato di beneficenza","skip":"cassone per macerie","tiles":"piastrelle","renovating":"ristrutturando","released":"pubblicato","touring":"in tournée","lockdown":"confinamento","temperature":"febbre","booked":"prenotato","turned up":"è saltato fuori","wallet":"portafoglio","inside out":"a menadito","loads":"un sacco","scored":"segnato","record":"primato","half asleep":"mezzo addormentato","went off":"è suonata","alarm":"sveglia","limp":"zoppicare","killing me":"mi stanno uccidendo","desperate":"disperato","hardly ever":"quasi mai","valley":"valle","bored":"annoiato","brand new":"nuovo di zecca","shaking":"tremano","report":"relazione","feel":"sentire","employ":"dare lavoro","job offers":"offerte di lavoro","renovate":"ristrutturare","belong":"appartenere","tour":"essere in tournée","release":"pubblicare","lend":"prestare","dig":"scavare","digging":"zappando","plant":"piantare","planted":"piantato","grow":"coltivare","bark":"abbaiare","roast":"arrostire","empty":"svuotare","oil":"oliare","fence":"recinzione","charity":"beneficenza","audience":"pubblico","operation":"operazione","term":"trimestre","landlady":"padrona di casa","novels":"romanzi","steel":"acciaio","nap":"pisolino","chapter":"capitolo"};
 const GLOSS_RE=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length)
@@ -584,15 +608,15 @@ function renderExercise(){
   if(ex.type==='fill'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${ex.q.replace('___',`<input class="fill-input${(ex.a||'').split(' ').length>=4?' lunga':''}" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
-    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
+    const opts=mix([...ex.options],ex.q).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${ex.q}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
-    const shuffled=shuffle([...ex.words]);
+    const shuffled=mix([...ex.words],ex.words.join(' '));
     const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
     const items=ex.sentences.map((s,i)=>`<div class="wb-item">${s.pre} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${s.post}</div>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${mix([...ex.verbs],ex.verbs.join(' ')).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${ex.original}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='cloze'){
@@ -601,7 +625,8 @@ function renderExercise(){
   } else if(ex.type==='errorcorrect'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div><div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input lunga" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..."><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
-  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  const numHtml=MODO==='classe'?`<div class="ex-num">Esercizio ${exNum(ex)}</div>`:'';
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+numHtml+cardHtml;
   applyGloss(document.getElementById('exerciseArea'));
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
 }
@@ -768,7 +793,7 @@ function checkExercise(){
 }
 function nextExercise(){
   exIdx++;
-  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=MODO==='classe'?retryQueue.slice().sort((a,b)=>exNum(a)-exNum(b)):shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
   else renderExercise();
 }
 function showExResults(){
@@ -787,13 +812,14 @@ function goMap(){renderMap();showScreen('map');}
 document.addEventListener('keydown',function(e){
   if(e.key!=='Enter')return;
   var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var mm=document.getElementById('modoModal'); if(mm&&mm.style.display==='flex')return;
   var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
   e.preventDefault();
   var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
   if(nb&&nb.style.display!=='none')nextExercise();
   else if(cb&&cb.style.display!=='none')checkExercise();
 });
-loadState();renderMap();
+loadState();renderMap();apriModo();
 
 </script>
 </body>

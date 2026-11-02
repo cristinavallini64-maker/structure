@@ -215,6 +215,13 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
 .modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
 .modal-actions{display:flex;gap:10px;justify-content:center;}
+.btn-modo{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:8px 13px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:#f4f1e8;margin-right:8px;}
+.modo-scelte{display:flex;flex-direction:column;gap:12px;}
+.modo-btn{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:12px;border:2px solid var(--line2);background:var(--paper2);cursor:pointer;font-family:'Inter',sans-serif;}
+.modo-btn:hover{border-color:var(--indigo);}
+.modo-btn b{display:block;font-family:'Sora',sans-serif;font-size:17px;color:var(--ink);margin-bottom:3px;}
+.modo-btn span{font-size:13px;color:var(--sub);line-height:1.4;}
+.ex-num{display:inline-block;font-family:'Sora',sans-serif;font-weight:800;font-size:15px;color:#fff;background:var(--indigo);border-radius:8px;padding:4px 11px;margin-bottom:10px;}
 
 @media(max-width:560px){
   #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
@@ -230,7 +237,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 <body>
 <header>
   <div><div class="logo">Unit 8 · Deduction, Quantifiers &amp; So/Such</div><span class="logo-sub">grammar practice · B2</span></div>
-  <button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button>
+  <div><button class="btn-modo" id="modoBtn" onclick="apriModo()">—</button><button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button></div>
 </header>
 
 <div id="screen-map" class="screen active">
@@ -281,6 +288,17 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 </div>
 
 <div id="screen-results" class="screen"></div>
+
+<div id="modoModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Come lavori oggi?</h2>
+    <p>Scegli la modalità indicata dall'insegnante.</p>
+    <div class="modo-scelte">
+      <button class="modo-btn" onclick="setModo('classe')"><b>🏫 Lavoro in classe</b><span>Esercizi in ordine fisso e numerati, uguali per tutti.</span></button>
+      <button class="modo-btn" onclick="setModo('casa')"><b>🏠 Lavoro a casa</b><span>Esercizi in ordine casuale.</span></button>
+    </div>
+  </div>
+</div>
 
 <div id="resetModal" class="modal-overlay" style="display:none">
   <div class="modal">
@@ -578,10 +596,16 @@ let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,is
 function openLevel(s){
   currentLevel=s;
   const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
-  exQueue=shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
+  exQueue=MODO==='classe'?exs:shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
   document.getElementById('exTitle').textContent=currentLevel.title;
   showScreen('exercise');renderExercise();
 }
+let MODO=null;
+function apriModo(){document.getElementById('modoModal').style.display='flex';}
+function setModo(m){MODO=m;document.getElementById('modoModal').style.display='none';document.getElementById('modoBtn').textContent=m==='classe'?'🏫 In classe':'🏠 A casa';}
+function exNum(e){return parseInt(String(e._key).split('_').pop(),10)+1;}
+/* in classe: stesso mescolamento su ogni dispositivo (seme = esercizio), a casa: casuale */
+function mix(a,seme){if(MODO!=='classe')return shuffle(a);let h=2166136261;for(const c of String(seme))h=Math.imul(h^c.charCodeAt(0),16777619);const r=()=>{h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function renderExercise(){
   exChecked=false;selectedMC=-1;reorderWords=[];
@@ -599,15 +623,15 @@ function renderExercise(){
   if(ex.type==='fill'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='mc'){
-    const opts=shuffle([...ex.options]).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    const opts=mix([...ex.options],ex.q).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='reorder'){
-    const shuffled=shuffle([...ex.words]);
+    const shuffled=mix([...ex.words],ex.words.join(' '));
     const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='wordbox'){
     const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
-    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${shuffle([...ex.verbs]).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${mix([...ex.verbs],ex.verbs.join(' ')).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='transform'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${ex.q.replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   } else if(ex.type==='cloze'){
@@ -616,7 +640,8 @@ function renderExercise(){
   } else if(ex.type==='errorcorrect'){
     cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..." style="width:100%"><div class="feedback-msg" id="feedbackMsg"></div></div>`;
   }
-  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+cardHtml;
+  const numHtml=MODO==='classe'?`<div class="ex-num">Esercizio ${exNum(ex)}</div>`:'';
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+numHtml+cardHtml;
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
 }
 function selectMC(idx,val,el){
@@ -700,7 +725,7 @@ function checkExercise(){
 }
 function nextExercise(){
   exIdx++;
-  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=MODO==='classe'?retryQueue.slice().sort((a,b)=>exNum(a)-exNum(b)):shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
   else renderExercise();
 }
 function showExResults(){
@@ -719,13 +744,14 @@ function goMap(){renderMap();showScreen('map');}
 document.addEventListener('keydown',function(e){
   if(e.key!=='Enter')return;
   var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var mm=document.getElementById('modoModal'); if(mm&&mm.style.display==='flex')return;
   var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
   e.preventDefault();
   var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
   if(nb&&nb.style.display!=='none')nextExercise();
   else if(cb&&cb.style.display!=='none')checkExercise();
 });
-loadState();renderMap();
+loadState();renderMap();apriModo();
 
 </script>
 </body>
