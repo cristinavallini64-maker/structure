@@ -258,7 +258,7 @@ const CONV = [["80–78","10",78],["77–74","9½",74],["73–70","9",70],["69�
   ["47–44","5½",44],["43–40","5",40],["39–36","4½",36],["35–32","4",32],["31–28","3½",28],["27–0","3",0]];
 
 /* ================= HELPERS ================= */
-function norm(s){
+function norm(s){s=String(s==null?'':s).replace(/[—–]/g,' ').replace(/\s-\s/g,' ');
   s=(s||"").toLowerCase().replace(/[’‘`´]/g,"'").replace(/[«»"“”.,!?;:]/g," ");
   s=s.replace(/\bcan't\b/g,"can not").replace(/\bcannot\b/g,"can not").replace(/\bwon't\b/g,"will not").replace(/n't\b/g," not");
   return s.replace(/\s+/g," ").trim();
