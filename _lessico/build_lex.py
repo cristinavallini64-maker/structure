@@ -121,7 +121,7 @@ s = s[:g0] + "const GLOSS=" + json.dumps(GLOSS, ensure_ascii=False, separators=(
 # livelli
 l0 = s.index("const LEVELS=["); l1 = s.index("const SK=")
 s = s[:l0] + LEV_JS + "\n" + s[l1:]
-rep("const SK='gq_u1pn_s',EK='gq_u1pn_e';", "const SK='lex_s_u%d%s_s',EK='lex_s_u%d%s_e';" % (N, C.SK_VER, N, C.SK_VER))
+rep("const SK='gq_u1pn_s_v2',EK='gq_u1pn_e_v2';", "const SK='lex_s_u%d%s_s',EK='lex_s_u%d%s_e';" % (N, C.SK_VER, N, C.SK_VER))
 rep("return 'GQU.'+b64;", "return 'LXU%d.'+b64;" % N)
 rep('<div class="cb-title">GRAMMAR MASTER!</div>', '<div class="cb-title">VOCABULARY MASTER!</div>')
 rep("hai completato tutta la Unit 1 &middot; missione compiuta", "hai completato tutto il lessico della Unit %d &middot; missione compiuta" % N)
