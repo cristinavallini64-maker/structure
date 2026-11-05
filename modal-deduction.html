@@ -695,7 +695,7 @@ function norm(s){
     .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
     .replace(/n't\b/g,' not')
     .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
-    .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been').replace(/'d\s+have\b/g,' would have').replace(/'d\s+better\b/g,' had better');
+    .replace(/'s\s+been\b/g,' has been').replace(/\b(it|that|there|what|here|where|who)'s\b/g,'$1 is').replace(/'d\s+been\b/g,' had been').replace(/'d\s+have\b/g,' would have').replace(/'d\s+better\b/g,' had better');
   const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
   s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
   return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
