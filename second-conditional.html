@@ -693,6 +693,7 @@ function norm(s){
   s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
   return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
 }
+function _relCommas(s){const t=String(s||'').replace(/,/g,' , ').split(/\s+/).filter(Boolean);const R=/^(who|which|whose|where|when)$/i;let out=[],open=false,w=0;for(let i=0;i<t.length;i++){if(t[i]===','){const nx=(t[i+1]||'').toLowerCase().replace(/['\u2019].*$/,'').replace(/[^\w]/g,'');if(R.test(nx)){out.push(w);open=true;}else if(open){out.push(w);open=false;}}else w+=norm(t[i]).split(' ').filter(Boolean).length;}return out.join(',');}
 function checkExercise(){
   if(exChecked)return;exChecked=true;
   const ex=exQueue[exIdx];let correct=false;
@@ -700,7 +701,7 @@ function checkExercise(){
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
     const val=document.getElementById('fillInput').value;
     const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
-    {const _v=String(val||'').replace(/[\u2019\u2018`\u00b4]/g,"'");const _neg=/\b(dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|cant|couldnt|shouldnt|wouldnt|mustnt|neednt|wont)\b/i;if(correct&&_neg.test(_v)&&!(ex.accept||[ex.a]).some(t=>_neg.test(t)))correct=false;if(correct&&/\b(i'm|you're|we're|they're|he's|she's|it's|i've|you've|we've|they've)(?=\s*(?:[.!?,;:"\u201d]|$))/i.test(_v))correct=false;}const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    {const _v=String(val||'').replace(/[\u2019\u2018`\u00b4]/g,"'");const _neg=/\b(dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|cant|couldnt|shouldnt|wouldnt|mustnt|neednt|wont)\b/i;if(correct&&_neg.test(_v)&&!(ex.accept||[ex.a]).some(t=>_neg.test(t)))correct=false;if(correct&&/\b(i'm|you're|we're|they're|he's|she's|it's|i've|you've|we've|they've)(?=\s*(?:[.!?,;:"\u201d]|$))/i.test(_v))correct=false;}if(correct&&/\b(who|which|whose|where)\b/i.test(ex.a||'')){const _m=(ex.accept||[ex.a]).filter(t=>norm(t)===norm(val));if(_m.length&&!_m.some(t=>_relCommas(t)===_relCommas(val)))correct=false;}const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
     fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
   } else if(ex.type==='mc'){
     if(selectedMC==-1){exChecked=false;return;}
