@@ -847,7 +847,7 @@ function checkExercise(){
     let val=document.getElementById('fillInput').value;
     const accepted=(ex.accept||[ex.a]).map(norm);
     /* se lo studente riscrive anche le parole date prima dello spazio, si tolgono */
-    if(!accepted.includes(norm(val))&&ex.type==='fill'){const _q=String(ex.q||'');const _k=_q.lastIndexOf('___');if(_k>=0){const _pre=_q.slice(0,_k).split(/<br\s*\/?>|\u2192/i).pop().replace(/<[^>]*>/g,'');const _np=norm(_pre);if(_np&&norm(val).startsWith(_np+' ')){const _w=_np.split(' ').length;const _r=String(val).trim().split(/\s+/).slice(_w).join(' ');if(accepted.includes(norm(_r)))val=_r;}}}
+    if(!accepted.includes(norm(val))&&ex.type==='fill'){const _q=String(ex.q||'');const _k=_q.lastIndexOf('___');if(_k>=0){const _pre=_q.slice(0,_k).split(/<br\s*\/?>|\u2192/i).pop().replace(/<[^>]*>/g,'');const _np=norm(_pre);if(_np&&norm(val).startsWith(_np+' ')){const _t=String(val).trim().split(/\s+/);for(let _w=1;_w<_t.length;_w++){if(norm(_t.slice(0,_w).join(' '))===_np){const _r=_t.slice(_w).join(' ');if(accepted.includes(norm(_r)))val=_r;break;}}}}}
     correct=accepted.includes(norm(val));
     let refuso=false;
     if(!correct&&(ex.type==='errorcorrect'||(ex.a||'').split(' ').length>=4)){
