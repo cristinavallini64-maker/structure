@@ -599,8 +599,11 @@ function checkExercise(){
   const ex=exQueue[exIdx];let correct=false;
   const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
   if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
-    const val=document.getElementById('fillInput').value;
-    const accepted=(ex.accept||[ex.a]).map(norm);correct=accepted.includes(norm(val));
+    let val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);
+    /* se lo studente riscrive anche le parole date prima dello spazio, si tolgono */
+    if(!accepted.includes(norm(val))&&ex.type==='fill'){const _q=String(ex.q||'');const _k=_q.lastIndexOf('___');if(_k>=0){const _pre=_q.slice(0,_k).split(/<br\s*\/?>|\u2192/i).pop().replace(/<[^>]*>/g,'');const _np=norm(_pre);if(_np&&norm(val).startsWith(_np+' ')){const _w=_np.split(' ').length;const _r=String(val).trim().split(/\s+/).slice(_w).join(' ');if(accepted.includes(norm(_r)))val=_r;}}}
+    correct=accepted.includes(norm(val));
     let refuso=false;
     if(!correct&&(ex.type==='errorcorrect'||(ex.a||'').split(' ').length>=4)){
       /* la struttura sotto esame resta esatta; su nome propri e parole di contorno
