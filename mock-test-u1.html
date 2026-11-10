@@ -517,7 +517,7 @@ function salvaPDF(){
   document.querySelectorAll("main textarea").forEach(grow);window.print();setTimeout(()=>document.title=t,1000);
 }
 /* ================= SAVE / RESTORE (browser memory: a reload doesn't start over) ================= */
-const KEY="mocktest-u1-v1";
+const KEY="mocktest-u1-v2";
 const state={values:[],locked:[],final:false};
 const fields=()=>[...document.querySelectorAll("main input.gap, main textarea, main select")];
 function save(){
