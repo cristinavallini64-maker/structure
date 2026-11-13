@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 · Recupero — Past simple, past continuous, state verbs</title>
+<meta name="description" content="The Structure · Recupero Unit 1: uso di past simple, past continuous e state verbs.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1310; --paper:#f4efe2; --paper2:#fffdf7;
+  --ink:#1b1d17; --sub:#55584a; --mut:#7a7d6c;
+  --line:rgba(27,29,23,0.14); --line2:rgba(27,29,23,0.26);
+  --indigo:#3f5bd6; --indigo2:#2c3f9c; --teal:#0e9aa6; --teal2:#0c7d88; --plum:#7a3b8f; --plum2:#5a2a6b;
+  --coral:#d9663f; --coral2:#b04a28; --done:#1f9d57; --done-soft:rgba(31,157,87,.14);
+  --bad:#cc3b3b; --bad-soft:rgba(204,59,59,.12); --gold:#b8860b;
+  --r:14px; --rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;font-family:'Inter',sans-serif;font-size:16px;color:var(--ink);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,#16201a,transparent 60%),linear-gradient(160deg,#0f1310,#0c0f0b);}
+
+/* ---------- TOPBAR ---------- */
+header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 18px;background:rgba(15,19,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:15px;letter-spacing:.3px;color:#f4f1e8;}
+.logo-sub{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(242,241,232,0.45);margin-top:1px;}
+.btn-reset{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.5px;padding:8px 13px;border-radius:8px;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:transparent;color:rgba(242,241,232,0.6);transition:.2s;}
+.btn-reset:hover{border-color:var(--bad);color:#e88;}
+
+/* ---------- SHEET / SCREENS ---------- */
+.screen{display:none;}
+.screen.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#screen-map,#screen-exercise,#screen-results{max-width:760px;margin:18px auto 30px;background:var(--paper);border-radius:18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:radial-gradient(circle at 1px 1px,rgba(27,29,23,0.05) 1px,transparent 0);background-size:22px 22px;
+  padding:26px 30px 34px;}
+
+/* ---------- MAP HERO ---------- */
+.map-hero{margin-bottom:18px;}
+.map-hero h2{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--plum2);margin-bottom:6px;}
+.map-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1;letter-spacing:-1px;color:var(--ink);}
+.map-hero p{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- PROGRESS (xp-panel) ---------- */
+.xp-panel{display:flex;align-items:center;gap:13px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:11px 16px;margin-bottom:16px;}
+.xp-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);}
+.xp-track{flex:1;background:rgba(27,29,23,.1);border-radius:5px;height:10px;overflow:hidden;}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.xp-num{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--plum2);white-space:nowrap;}
+
+/* ---------- SAVE PANEL ---------- */
+.save-panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:18px;}
+.save-panel-header{margin-bottom:8px;}
+.save-panel-label{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--plum2);}
+.save-code-display{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--ink);background:rgba(27,29,23,.05);
+  border:1px dashed var(--line2);border-radius:8px;padding:9px 12px;text-align:center;word-break:break-all;margin-bottom:8px;}
+.save-panel-hint{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:11px;}
+.save-panel-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.save-import-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px;padding-top:11px;border-top:1px solid var(--line);}
+.save-import-input{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--line2);border-radius:8px;padding:9px 12px;
+  font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--ink);outline:none;transition:.2s;}
+.save-import-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.12);}
+.save-import-input::placeholder{color:var(--mut);}
+.save-import-msg{font-size:12px;font-weight:600;margin-top:8px;min-height:14px;}
+.save-import-msg.ok{color:var(--done);}
+.save-import-msg.err{color:var(--coral2);}
+.btn-save{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn-save:hover{filter:brightness(1.08);}
+.btn-save-sm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;padding:9px 15px;border-radius:8px;
+  border:1.5px solid var(--line2);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;text-transform:uppercase;white-space:nowrap;}
+.btn-save-sm:hover{border-color:var(--plum);color:var(--plum2);}
+
+/* ---------- SECTIONS LIST ---------- */
+.sections-list{display:flex;flex-direction:column;}
+.section-card{display:flex;align-items:stretch;border-top:1.5px solid var(--ink);transition:background .18s;}
+.sections-list .section-card:last-child{border-bottom:1.5px solid var(--ink);}
+.sc-icon{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;width:74px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;}
+.sc-body{flex:1;min-width:0;padding:14px 16px;}
+.sc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.2px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-desc{font-size:12.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sc-badge{align-self:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;border:1.5px solid;margin-right:16px;flex-shrink:0;text-transform:uppercase;}
+/* stati */
+.section-card.unlocked{cursor:pointer;}
+.section-card.unlocked:hover{background:rgba(27,29,23,0.035);}
+.section-card.unlocked .sc-icon{background:linear-gradient(150deg,var(--indigo),var(--indigo2));}
+.section-card.completed .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.revision{cursor:pointer;}
+.section-card.revision:hover{background:rgba(27,29,23,0.035);}
+.section-card.revision .sc-icon{background:linear-gradient(150deg,var(--gold),#8a6608);}
+.section-card.revision-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.section-card.difficult{cursor:pointer;}
+.section-card.difficult:hover{background:rgba(27,29,23,0.035);}
+.section-card.difficult .sc-icon{background:linear-gradient(150deg,var(--plum),var(--plum2));}
+.section-card.difficult-done .sc-icon{background:linear-gradient(150deg,var(--done),#15703f);}
+.badge-todo{border-color:var(--indigo);color:var(--indigo2);}
+.badge-done{border-color:var(--done);color:var(--done);background:var(--done-soft);}
+.badge-required{border-color:var(--gold);color:#8a6608;background:rgba(184,134,11,.12);}
+.badge-required-purple{border-color:var(--plum);color:var(--plum2);background:rgba(122,59,143,.1);}
+
+/* ---------- COMPLETION BANNER ---------- */
+.completion-banner{text-align:center;padding:34px 24px;border:2px dashed var(--gold);border-radius:14px;background:rgba(184,134,11,.06);}
+.cb-emoji{font-size:52px;display:block;margin-bottom:12px;}
+.cb-title{font-family:'Sora',sans-serif;font-weight:800;font-size:22px;letter-spacing:.5px;color:#8a6608;margin-bottom:6px;}
+.cb-text{font-size:13px;color:var(--sub);}
+
+/* ---------- EXERCISE ---------- */
+.ex-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-title{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--ink);}
+.btn-back{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;padding:9px 14px;border:1.5px solid var(--line2);
+  background:transparent;color:var(--sub);border-radius:9px;cursor:pointer;transition:.2s;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:14px;background:rgba(27,29,23,0.05);border:1px solid var(--line);border-radius:12px;padding:8px 14px;flex-wrap:wrap;}
+.hud-track{flex:1;min-width:120px;background:rgba(27,29,23,.1);border-radius:4px;height:9px;overflow:hidden;}
+.hud-fill{height:100%;width:0;background:linear-gradient(90deg,var(--plum),var(--coral));border-radius:4px;transition:width .4s ease;}
+.hud-text{font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:var(--ink);white-space:nowrap;}
+.hud-ok{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--done);}
+.hud-bad{font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:var(--coral2);}
+
+.rule-box{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--plum);border-radius:0 var(--rs) var(--rs) 0;
+  padding:13px 16px;margin-bottom:14px;font-size:13.5px;color:var(--sub);line-height:1.65;}
+.rule-box strong{color:var(--plum2);font-weight:700;}
+.rule-box code{background:rgba(122,59,143,.1);border-radius:5px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--ink);font-weight:600;}
+.rule-box em{color:var(--ink);font-style:italic;}
+.rule-box del{color:var(--coral2);}
+
+.retry-notice{background:rgba(217,102,63,.1);border:1px solid rgba(217,102,63,.3);border-radius:var(--rs);padding:9px 14px;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--coral2);margin-bottom:12px;}
+
+.ex-card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 6px 18px rgba(27,29,23,.06);animation:fade .3s ease;}
+.ex-card.flash-correct{animation:fOk .5s ease;}
+.ex-card.flash-wrong{animation:fBad .4s ease;}
+@keyframes fOk{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--done),0 6px 22px rgba(31,157,87,.25);}}
+@keyframes fBad{0%,100%{box-shadow:0 6px 18px rgba(27,29,23,.06);}40%{box-shadow:0 0 0 2px var(--bad),0 6px 22px rgba(204,59,59,.22);}}
+.ex-type-badge{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.ex-question{font-size:16px;font-weight:500;color:var(--ink);line-height:1.9;margin-bottom:16px;}
+.hintword{display:inline-block;background:rgba(122,59,143,.1);border-radius:6px;padding:2px 9px;font-size:12.5px;font-weight:600;color:var(--plum2);white-space:normal;}
+
+.fill-input{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:9px 14px;font-family:'Inter',sans-serif;
+  font-size:15px;font-weight:600;color:var(--ink);outline:none;transition:.2s;min-width:170px;max-width:100%;}
+.fill-input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(122,59,143,.14);}
+.fill-input.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;}
+.fill-input.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.mc-options{display:flex;flex-direction:column;gap:9px;}
+.mc-option{background:#fff;border:1.5px solid var(--line2);border-radius:var(--rs);padding:12px 16px;cursor:pointer;font-size:15px;
+  font-weight:500;color:var(--ink);transition:.16s;text-align:left;}
+.mc-option:hover{border-color:var(--plum);background:rgba(122,59,143,.05);}
+.mc-option.selected{border-color:var(--plum);background:rgba(122,59,143,.12);font-weight:600;}
+.mc-option.correct{border-color:var(--done);background:var(--done-soft);color:#15703f;font-weight:600;}
+.mc-option.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a32a2a;}
+
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:40px;}
+.word-chip{background:#fff;border:1.5px solid var(--line2);border-radius:7px;padding:7px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:.16s;user-select:none;}
+.word-chip:hover{border-color:var(--plum);transform:translateY(-1px);}
+.word-chip.used{opacity:.32;cursor:not-allowed;}
+.answer-area{background:rgba(27,29,23,.04);border:1.5px solid var(--line);border-radius:var(--rs);padding:10px 14px;min-height:48px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+.answer-area .word-chip{background:rgba(122,59,143,.12);border-color:rgba(122,59,143,.4);}
+.answer-area.correct{border-color:var(--done);background:var(--done-soft);}
+.answer-area.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.reorder-hint{font-size:12.5px;color:var(--mut);margin-bottom:10px;font-style:italic;}
+
+.word-box{background:rgba(122,59,143,.07);border:1px solid rgba(122,59,143,.25);border-radius:var(--rs);padding:11px 16px;margin-bottom:14px;
+  font-size:15px;font-weight:600;color:var(--plum2);}
+.word-box span{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px;}
+.wb-sentences{display:flex;flex-direction:column;gap:12px;}
+.wb-item{font-size:15px;font-weight:500;color:var(--ink);line-height:2.2;}
+.wb-item .fill-input{width:auto;min-width:120px;max-width:100%;margin:0 4px;vertical-align:baseline;}
+
+.ec-wrong{font-size:15px;color:var(--coral2);background:rgba(217,102,63,.08);border:1px solid rgba(217,102,63,.25);
+  border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;line-height:1.5;}
+.kw-original{font-size:15px;line-height:1.6;color:var(--ink);background:rgba(27,29,23,.04);border-left:3px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;}
+.kw-key{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#fff;background:var(--indigo);border-radius:6px;padding:5px 14px;display:inline-block;margin-bottom:12px;}
+.kw-target{font-size:16px;line-height:1.9;}
+.kw-note{font-size:12px;color:var(--mut);margin-top:8px;}
+.cz-text{font-size:16px;line-height:2.4;color:var(--ink);}
+.cz-text .fill-input{width:130px;}
+.ec-label{font-size:13px;color:var(--mut);margin-bottom:8px;}
+
+.feedback-msg{margin-top:13px;font-size:13.5px;font-weight:600;line-height:1.5;min-height:18px;}
+.feedback-msg.ok{color:var(--done);}
+.feedback-msg.err{color:var(--coral2);}
+.feedback-msg strong{color:var(--ink);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.btn{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:12px 24px;border-radius:var(--rs);
+  cursor:pointer;transition:.2s;border:1.5px solid transparent;text-transform:uppercase;}
+.btn-primary{background:var(--plum);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,29,23,.2);}
+.btn-secondary{background:transparent;border-color:var(--line2);color:var(--sub);}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink);}
+.btn-green{background:var(--done);color:#fff;}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,157,87,.25);}
+
+/* ---------- RESULTS ---------- */
+.results-card{text-align:center;background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;box-shadow:0 8px 28px rgba(27,29,23,.08);}
+.res-pct{font-family:'Sora',sans-serif;font-weight:800;font-size:64px;line-height:1;letter-spacing:-2px;}
+.res-pct.pass{color:var(--done);} .res-pct.fail{color:var(--coral2);}
+.res-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+.res-label.pass{color:var(--done);} .res-label.fail{color:var(--coral2);}
+.res-threshold{font-size:12px;color:var(--mut);letter-spacing:.5px;margin-top:8px;}
+.res-breakdown{display:flex;justify-content:center;gap:30px;margin-top:22px;}
+.rb-item{display:flex;flex-direction:column;align-items:center;}
+.rb-num{font-family:'Sora',sans-serif;font-weight:800;font-size:28px;}
+.rb-num.g{color:var(--done);} .rb-num.r{color:var(--coral2);}
+.rb-label{font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-top:2px;}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,12,9,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--paper);border-radius:14px;padding:26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h2{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;color:var(--ink);}
+.modal p{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:22px;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+.btn-modo{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:8px 13px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:#f4f1e8;margin-right:8px;}
+.modo-scelte{display:flex;flex-direction:column;gap:12px;}
+.modo-btn{display:block;width:100%;text-align:left;padding:14px 16px;border-radius:12px;border:2px solid var(--line2);background:var(--paper2);cursor:pointer;font-family:'Inter',sans-serif;}
+.modo-btn:hover{border-color:var(--indigo);}
+.modo-btn b{display:block;font-family:'Sora',sans-serif;font-size:17px;color:var(--ink);margin-bottom:3px;}
+.modo-btn span{font-size:13px;color:var(--sub);line-height:1.4;}
+.ex-num{display:inline-block;font-family:'Sora',sans-serif;font-weight:800;font-size:15px;color:#fff;background:var(--indigo);border-radius:8px;padding:4px 11px;margin-bottom:10px;}
+
+@media(max-width:560px){
+  #screen-map,#screen-exercise,#screen-results{padding:22px 16px 30px;margin:14px 12px 24px;}
+  .sc-icon{width:60px;font-size:19px;}.sc-body{padding:12px 12px;}.sc-badge{margin-right:12px;}
+  .res-breakdown{gap:22px;}
+}
+.gl-legend{margin:8px 0 4px;font-size:12px;opacity:.75;line-height:1.6}
+.gl{border-bottom:1px dotted currentColor;cursor:help;position:relative}
+.gl.on::after{content:attr(data-it);position:absolute;left:50%;transform:translateX(-50%);top:120%;white-space:nowrap;background:#111;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;z-index:50}
+.fill-input.lunga{display:block;width:100%;margin:10px 0 0;min-height:44px;}
+.fill-input.lunga[disabled]{opacity:1;}
+.risposta-data{margin:6px 0 2px;font-size:.92rem;opacity:.85;}
+.risposta-data b{font-weight:700;}
+.traduzione{margin:6px 0 0;font-size:.9rem;opacity:.8;font-style:italic;}
+.rec-links{margin-top:10px;font-size:14px;line-height:1.7;}
+.rec-links a{font-weight:700;color:var(--teal2);text-decoration:none;}
+.cz-text .fill-input{width:150px;}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">Unit 1 · Recupero</div><span class="logo-sub">past simple · past continuous · state verbs</span></div>
+  <div><button class="btn-modo" id="modoBtn" onclick="apriModo()">—</button><button class="btn-reset" onclick="confirmReset()">↺ Azzera progressi</button></div>
+</header>
+
+<div id="screen-map" class="screen active">
+  <div class="map-hero">
+    <h2>The Structure · Recupero</h2>
+    <h1>Past simple, past continuous, state verbs</h1>
+    <p>gli stessi tipi di esercizio della verifica di recupero · un livello alla volta, nell'ordine</p>
+    <p class="rec-links">Non ti ricordi la regola? <a href="https://cristinavallini64-maker.github.io/structure/structure-u1-index.html" target="_blank">📖 Ripassa</a></p>
+  </div>
+  <div class="xp-panel">
+    <div class="xp-label">Avanzamento</div>
+    <div class="xp-track"><div class="xp-fill" id="overallBar" style="width:0%"></div></div>
+    <div class="xp-num" id="overallText">0 / 0</div>
+  </div>
+  <div class="save-panel">
+    <div class="save-panel-header">
+      <span class="save-panel-label">💾 Codice di salvataggio — riprendi su qualsiasi dispositivo</span>
+    </div>
+    <div class="save-code-display" id="saveCodeDisplay">—</div>
+    <div class="save-panel-hint">Copia o fotografa questo codice. Incollalo su un altro dispositivo (o browser) per riprendere da qui. <b>Aggiornalo ogni volta che completi un livello.</b></div>
+    <div class="save-panel-actions">
+      <button class="btn-save" onclick="copyCode()" id="copyBtn">⧉ Copia codice</button>
+    </div>
+    <div class="save-import-row">
+      <input class="save-import-input" id="importInput" type="text" maxlength="240" placeholder="incolla qui il codice da un altro dispositivo…" oninput="this.value=this.value.replace(/[^A-Za-z0-9._-]/g,'')">
+      <button class="btn-save-sm" onclick="importCode()">↵ Carica</button>
+    </div>
+    <div class="save-import-msg" id="importMsg"></div>
+  </div>
+  <div class="sections-list" id="sectionsList"></div>
+</div>
+
+<div id="screen-exercise" class="screen">
+  <div class="ex-header">
+    <div class="ex-title" id="exTitle"></div>
+    <button class="btn-back" onclick="goMap()">← Mappa</button>
+  </div>
+  <div class="hud">
+    <div class="hud-track"><div class="hud-fill" id="hudFill" style="width:0%"></div></div>
+    <div class="hud-text" id="hudText">0/0</div>
+    <span class="hud-ok" id="hudOk">✓ 0</span>
+    <span class="hud-bad" id="hudBad">✗ 0</span>
+  </div>
+  <div id="exerciseArea"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" id="checkBtn" onclick="checkExercise()">Controlla</button>
+    <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<div id="screen-results" class="screen"></div>
+
+<div id="modoModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Come lavori oggi?</h2>
+    <p>Scegli la modalità indicata dall'insegnante.</p>
+    <div class="modo-scelte">
+      <button class="modo-btn" onclick="setModo('classe')"><b>🏫 Lavoro in classe</b><span>Esercizi in ordine fisso e numerati, uguali per tutti.</span></button>
+      <button class="modo-btn" onclick="setModo('casa')"><b>🏠 Lavoro a casa</b><span>Esercizi in ordine casuale.</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="resetModal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>Azzerare i progressi?</h2>
+    <p>Tutti i livelli completati torneranno bloccati. L'azione non si può annullare.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doReset()">Azzera</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* versione pulita: niente canvas/particelle — stub no-op per non toccare la logica */
+function spawnBurst(){}
+function burstAt(){}
+
+const GLOSS={"crossword": "cruciverba", "chopping": "tagliare a pezzi", "muddy": "infangato", "fireworks": "fuochi d'artificio", "jog": "fare jogging", "shy": "timido", "petrol station": "distributore di benzina", "power cut": "blackout", "hail": "grandinare", "wallet": "portafoglio", "smoke alarm": "allarme antincendio", "tyre": "gomma (della ruota)", "burst": "scoppiare", "jellyfish": "medusa", "sting": "pungere", "sunbathe": "prendere il sole", "wasp": "vespa", "rush": "precipitarsi", "bank": "riva", "steep": "ripido", "vet": "veterinario", "penalty": "rigore", "penalty spot": "dischetto del rigore", "goalkeeper": "portiere", "defender": "difensore", "crowd": "folla", "ladder": "scala (a pioli)", "haircut": "taglio di capelli", "sailing boat": "barca a vela", "heavy metal": "musica heavy metal", "waiting room": "sala d'attesa", "peacefully": "tranquillamente", "speech": "discorso", "flags": "bandiere"};
+const GLOSS_RX=new RegExp('\\b('+Object.keys(GLOSS).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+function gl(t){return String(t==null?'':t).replace(GLOSS_RX,m=>{const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===m.toLowerCase());return k?`<span class="gl" data-it="${GLOSS[k]}" onclick="glTap(event,this)">${m}</span>`:m;});}
+function glLegend(ws){const seen=[];for(const w of ws){const k=Object.keys(GLOSS).find(x=>x.toLowerCase()===String(w).toLowerCase());if(k&&!seen.includes(k))seen.push(k);}return seen.length?`<div class="gl-legend">${seen.map(k=>`<b>${k}</b> = ${GLOSS[k]}`).join(' &middot; ')}</div>`:'';}
+function glTap(e,el){e.stopPropagation();const on=el.classList.contains('on');document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on'));if(!on)el.classList.add('on');}
+document.addEventListener('click',()=>document.querySelectorAll('.gl.on').forEach(x=>x.classList.remove('on')));
+const LEVELS=[
+{
+"id": 1,
+"type": "study",
+"title": "LIVELLO 01 — SFONDO O FATTO?",
+"desc": "past continuous per l'azione in corso · past simple per il fatto",
+"rule": "<strong>SFONDO O FATTO?</strong><br>&#x2714; <code>past continuous</code> (was/were + -ing) = azione <strong>in corso</strong> in un momento del passato, la <strong>scena</strong>: <em>At eight I was having breakfast. · It was raining.</em><br>&#x2714; <code>past simple</code> = <strong>fatto</strong> concluso; pi&ugrave; fatti uno dopo l'altro: <em>I got up, had a shower and went out.</em><br>&#x2714; Insieme: l'azione lunga in corso viene <strong>interrotta</strong> da quella breve: <em>I was reading when the phone rang.</em><br>&#x1F4A1; Chiediti: <strong>stava succedendo</strong> o <strong>&egrave; successo</strong>?",
+"exercises": [
+{
+"type": "fill",
+"q": "At eight o'clock this morning I ___ (have) breakfast with my grandparents.",
+"a": "was having",
+"accept": [
+"was having"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "Yesterday Chiara finished her homework, ___ (pack) her bag and went to bed.",
+"a": "packed",
+"accept": [
+"packed"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "The phone ___ (ring) while I was washing my hair.",
+"a": "rang",
+"accept": [
+"rang"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "When we arrived at the stadium, thousands of fans ___ (sing) the team's song.",
+"a": "were singing",
+"accept": [
+"were singing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "It was a quiet evening: Mum ___ (read) a novel and Dad was doing a crossword.",
+"a": "was reading",
+"accept": [
+"was reading"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "I ___ (cut) my finger while I was chopping vegetables.",
+"a": "cut",
+"accept": [
+"cut"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "Last Sunday my uncle ___ (catch) a huge fish in the river.",
+"a": "caught",
+"accept": [
+"caught"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "When I looked out of the window, two cats ___ (fight) in the garden.",
+"a": "were fighting",
+"accept": [
+"were fighting"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "The lights went out while we ___ (play) chess.",
+"a": "were playing",
+"accept": [
+"were playing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "Paolo ___ (fall) asleep during the film, so he didn't see the ending.",
+"a": "fell",
+"accept": [
+"fell"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "mc",
+"q": "« At nine o'clock I was doing my homework. » Che cosa vuol dire?",
+"options": [
+"Alle nove i compiti erano in corso: avevo cominciato prima e non avevo ancora finito.",
+"Alle nove ho cominciato a fare i compiti.",
+"Alle nove avevo già finito i compiti.",
+"Faccio sempre i compiti alle nove."
+],
+"a": "Alle nove i compiti erano in corso: avevo cominciato prima e non avevo ancora finito.",
+"instruction": "Scegli la risposta giusta."
+},
+{
+"type": "errorcorrect",
+"wrong": "We were ordering pizzas, ate them in the park and went home.",
+"a": "We ordered pizzas, ate them in the park and went home.",
+"accept": [
+"We ordered pizzas, ate them in the park and went home."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "Somebody knocked at the door while I had a shower.",
+"a": "Somebody knocked at the door while I was having a shower.",
+"accept": [
+"Somebody knocked at the door while I was having a shower.",
+"Somebody knocked on the door while I was having a shower."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+}
+]
+},
+{
+"id": 2,
+"type": "study",
+"title": "LIVELLO 02 — AFFERMATIVO, NEGATIVO O DOMANDA?",
+"desc": "il contesto decide la forma · come l'esercizio 2 della verifica",
+"rule": "<strong>LEGGI TUTTA LA FRASE PRIMA DI SCRIVERE</strong><br>&#x2714; Il contesto ti dice se serve il <strong>negativo</strong> (<em>…so he didn't know · …any more · …at all</em>) o la <strong>domanda</strong> (<em>Why…? · Were you there?</em>).<br>&#x2714; <code>past simple</code>: <em>didn't + base</em> &middot; <em>(Why) did + soggetto + base?</em><br>&#x2714; <code>past continuous</code>: <em>wasn't / weren't + -ing</em> &middot; <em>(What) was / were + soggetto + -ing?</em><br>&#x26A0; Prima scegli <strong>il tempo</strong> (in corso o fatto?), poi <strong>la forma</strong>.",
+"exercises": [
+{
+"type": "fill",
+"q": "I ___ (see) you at the concert last night. Were you there?",
+"a": "didn't see",
+"accept": [
+"didn't see"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Sorry, I ___ (look) when you showed us the photo: can you show it again?",
+"a": "wasn't looking",
+"accept": [
+"wasn't looking"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Your shoes are all muddy! Where ___ (you / go) this afternoon?",
+"a": "did you go",
+"accept": [
+"did you go"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "The baby ___ (sleep) when the fireworks started, so she woke up crying.",
+"a": "was sleeping",
+"accept": [
+"was sleeping"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "We ___ (enjoy) the trip at all: it rained every day and the hotel was dirty.",
+"a": "didn't enjoy",
+"accept": [
+"didn't enjoy"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "I saw you in the park at six. ___ (you / jog)?",
+"a": "Were you jogging",
+"accept": [
+"Were you jogging"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "It ___ (rain) when we left the cinema, so we walked home.",
+"a": "wasn't raining",
+"accept": [
+"wasn't raining"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "How many goals ___ (your team / score) on Saturday?",
+"a": "did your team score",
+"accept": [
+"did your team score"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "My brother ___ (pay) attention while the instructor was explaining the rules, so he made a lot of mistakes.",
+"a": "wasn't paying",
+"accept": [
+"wasn't paying"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Who ___ (you / wave) to when I saw you at the station? A friend?",
+"a": "were you waving",
+"accept": [
+"were you waving"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Grandpa ___ (buy) a new car last month: he loves it.",
+"a": "bought",
+"accept": [
+"bought"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "errorcorrect",
+"wrong": "Did you sleeping when I called you?",
+"a": "Were you sleeping when I called you?",
+"accept": [
+"Were you sleeping when I called you?"
+],
+"instruction": "C'è un errore: riscrivi la frase corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "Why did you laughing during the lesson?",
+"a": "Why were you laughing during the lesson?",
+"accept": [
+"Why were you laughing during the lesson?"
+],
+"instruction": "C'è un errore: riscrivi la frase corretta."
+}
+]
+},
+{
+"id": 3,
+"type": "study",
+"title": "LIVELLO 03 — STATE VERBS",
+"desc": "verbi di stato: sempre past simple, anche con l'imperfetto italiano",
+"rule": "<strong>VERBI DI STATO</strong><br>&#x2714; Dicono che cosa <strong>sapevi, pensavi, volevi, possedevi</strong>, non che cosa stavi facendo: <em>know, understand, remember, believe, recognise, want, need, like, love, hate, prefer, belong, own, have (= possedere), seem, cost</em>.<br>&#x2714; Al passato vanno <strong>sempre al past simple</strong>, anche quando in italiano c'&egrave; l'imperfetto: <em>Sapevo → I knew · Volevo → I wanted · Aveva un cane → She had a dog</em>.<br>&#x26A0; Mai <em>I was knowing · I was wanting · we were having a flat</em>.<br>&#x1F4A1; Imperfetto italiano: <strong>azione in corso</strong> (<em>correvo</em> = stavo correndo) → past continuous; <strong>stato</strong> (<em>sapevo, volevo</em>) → past simple.",
+"exercises": [
+{
+"type": "fill",
+"q": "I ___ (understand) the joke, so I didn't laugh.",
+"a": "didn't understand",
+"accept": [
+"didn't understand"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "When I met Anna for the first time, she ___ (seem) very shy.",
+"a": "seemed",
+"accept": [
+"seemed"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "While I ___ (wait) for the train, I read the whole newspaper.",
+"a": "was waiting",
+"accept": [
+"was waiting"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "We ___ (want) to go skiing, but there wasn't enough snow.",
+"a": "wanted",
+"accept": [
+"wanted"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "My sister ___ (remember) my birthday, so she bought me a present the day after.",
+"a": "didn't remember",
+"accept": [
+"didn't remember"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "When I came into the kitchen, Dad ___ (prepare) the sauce for the pasta.",
+"a": "was preparing",
+"accept": [
+"was preparing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "In 2015 my parents ___ (own) a small restaurant by the sea.",
+"a": "owned",
+"accept": [
+"owned"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "The tickets ___ (cost) forty euros each, but the show was fantastic.",
+"a": "cost",
+"accept": [
+"cost"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "« Non sapevo il suo nome. »<br>→ I ___ (know) his name.",
+"a": "didn't know",
+"accept": [
+"didn't know"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "« Mi piaceva molto quel ragazzo. »<br>→ I ___ (like) that boy a lot.",
+"a": "liked",
+"accept": [
+"liked"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "mc",
+"q": "« Sapevo che era tardi. » Come si dice in inglese?",
+"options": [
+"I knew it was late: know è un verbo di stato, quindi past simple anche se in italiano c'è l'imperfetto.",
+"I was knowing it was late: l'imperfetto italiano si traduce sempre con il past continuous.",
+"I know it was late: con i verbi di stato si usa il presente."
+],
+"a": "I knew it was late: know è un verbo di stato, quindi past simple anche se in italiano c'è l'imperfetto.",
+"instruction": "Scegli la risposta giusta."
+},
+{
+"type": "errorcorrect",
+"wrong": "I was believing his story, but it wasn't true.",
+"a": "I believed his story, but it wasn't true.",
+"accept": [
+"I believed his story, but it wasn't true."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "When we lived in London, we were having a flat near the river.",
+"a": "When we lived in London, we had a flat near the river.",
+"accept": [
+"When we lived in London, we had a flat near the river."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+}
+]
+},
+{
+"id": "rA",
+"type": "review",
+"title": "⟳ RIPASSO A — sfondo e fatti, forme, state verbs",
+"desc": "i livelli 01–03 insieme · frasi nuove",
+"exercises": [
+{
+"type": "fill",
+"q": "When the coach arrived at the pitch, we ___ (talk) about our last match.",
+"a": "were talking",
+"accept": [
+"were talking"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "I ___ (need) my umbrella in the end: the sun came out.",
+"a": "didn't need",
+"accept": [
+"didn't need"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "___ (you / hear) the news about the school trip yesterday?",
+"a": "Did you hear",
+"accept": [
+"Did you hear"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "At midnight our neighbours ___ (still / have) a party.",
+"a": "were still having",
+"accept": [
+"were still having"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "Mia ___ (break) her arm while she was snowboarding.",
+"a": "broke",
+"accept": [
+"broke"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "We ___ (know) the way, so we asked a man at the petrol station.",
+"a": "didn't know",
+"accept": [
+"didn't know"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "What ___ (you / wear) when the photographer took that photo?",
+"a": "were you wearing",
+"accept": [
+"were you wearing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "The old castle ___ (look) beautiful in the snow.",
+"a": "looked",
+"accept": [
+"looked"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "fill",
+"q": "Last Friday we went to the cinema and then ___ (have) dinner at a Chinese restaurant.",
+"a": "had",
+"accept": [
+"had"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+},
+{
+"type": "errorcorrect",
+"wrong": "When I left the house, it rained, so I took my umbrella.",
+"a": "When I left the house, it was raining, so I took my umbrella.",
+"accept": [
+"When I left the house, it was raining, so I took my umbrella."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "My cousin was owning three horses when she lived in the country.",
+"a": "My cousin owned three horses when she lived in the country.",
+"accept": [
+"My cousin owned three horses when she lived in the country."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "mc",
+"q": "« When I arrived, they left. » e « When I arrived, they were leaving. »: che cosa cambia?",
+"options": [
+"Nella prima sono andati via dopo il mio arrivo; nella seconda stavano già andando via quando sono arrivato.",
+"Non cambia niente: sono due modi di dire la stessa cosa.",
+"Nella prima erano già andati via prima del mio arrivo; nella seconda sono rimasti."
+],
+"a": "Nella prima sono andati via dopo il mio arrivo; nella seconda stavano già andando via quando sono arrivato.",
+"instruction": "Scegli la risposta giusta."
+}
+]
+},
+{
+"id": 4,
+"type": "study",
+"title": "LIVELLO 04 — LE DOMANDE",
+"desc": "traccia ✓/✗ e parte sottolineata · scegli tu il tempo · come l'esercizio 3",
+"rule": "<strong>LE DOMANDE</strong><br>&#x2714; Prima scegli il tempo, poi costruisci la domanda.<br>&#x2714; <code>past simple</code>: <em>(Where/What…) + did + soggetto + base?</em> → <em>Yes, she did. / No, she didn't.</em><br>&#x2714; <code>past continuous</code>: <em>(Where/What…) + was/were + soggetto + -ing?</em> → <em>Yes, I was. / No, they weren't.</em><br>&#x2714; Verbi di stato → sempre <em>did</em>: <em>Did you know…?</em><br>&#x26A0; Domanda sul <strong>soggetto</strong> (<em>Who…? What…?</em> = chi ha fatto l'azione): niente did &middot; <em>Who called you? · Who was singing?</em>",
+"exercises": [
+{
+"type": "fill",
+"q": "you / watch / TV when the power cut started? (✓)<br>→ ___",
+"a": "Were you watching TV when the power cut started? Yes, I was.",
+"accept": [
+"Were you watching TV when the power cut started? Yes, I was.",
+"Were you watching TV when the power cut started? Yes, we were."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "Sara / enjoy / the climbing course? (✗)<br>→ ___",
+"a": "Did Sara enjoy the climbing course? No, she didn't.",
+"accept": [
+"Did Sara enjoy the climbing course? No, she didn't."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "the boys / play / football when it started to hail? (✓)<br>→ ___",
+"a": "Were the boys playing football when it started to hail? Yes, they were.",
+"accept": [
+"Were the boys playing football when it started to hail? Yes, they were."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "your parents / know / about the party? (✗)<br>→ ___",
+"a": "Did your parents know about the party? No, they didn't.",
+"accept": [
+"Did your parents know about the party? No, they didn't."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "Tom / lose / his wallet on the train? (✓)<br>→ ___",
+"a": "Did Tom lose his wallet on the train? Yes, he did.",
+"accept": [
+"Did Tom lose his wallet on the train? Yes, he did."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "you and Elena / wait / for the bus when the accident happened? (✗)<br>→ ___",
+"a": "Were you and Elena waiting for the bus when the accident happened? No, we weren't.",
+"accept": [
+"Were you and Elena waiting for the bus when the accident happened? No, we weren't."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "At five o'clock Matteo was repairing <u>his bike</u> in the garage.<br>→ ___?",
+"a": "What was Matteo repairing in the garage at five o'clock",
+"accept": [
+"What was Matteo repairing in the garage at five o'clock",
+"What was Matteo repairing at five o'clock in the garage",
+"What was Matteo repairing at five o'clock",
+"At five o'clock, what was Matteo repairing in the garage"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "We met our new teacher <u>on Monday</u>.<br>→ ___?",
+"a": "When did you meet your new teacher",
+"accept": [
+"When did you meet your new teacher"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "<u>My grandmother</u> taught me to play chess.<br>→ ___?",
+"a": "Who taught you to play chess",
+"accept": [
+"Who taught you to play chess"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "The girls were laughing <u>because Luca fell into the pool</u>.<br>→ ___?",
+"a": "Why were the girls laughing",
+"accept": [
+"Why were the girls laughing"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "The museum tour lasted <u>two hours</u>.<br>→ ___?",
+"a": "How long did the museum tour last",
+"accept": [
+"How long did the museum tour last"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "Marta wanted <u>a new camera</u> for her birthday.<br>→ ___?",
+"a": "What did Marta want for her birthday",
+"accept": [
+"What did Marta want for her birthday"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "errorcorrect",
+"wrong": "Where you were going when I saw you yesterday?",
+"a": "Where were you going when I saw you yesterday?",
+"accept": [
+"Where were you going when I saw you yesterday?"
+],
+"instruction": "C'è un errore: riscrivi la domanda corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "Who did call you last night?",
+"a": "Who called you last night?",
+"accept": [
+"Who called you last night?"
+],
+"instruction": "C'è un errore: riscrivi la domanda corretta."
+}
+]
+},
+{
+"id": 5,
+"type": "study",
+"title": "LIVELLO 05 — WHEN E WHILE",
+"desc": "interruzione · azioni contemporanee · sequenza · come l'esercizio 4",
+"rule": "<strong>WHEN E WHILE</strong><br>&#x2714; Interruzione: <code>past continuous + when + past simple</code> &middot; <em>I was cooking when the phone rang.</em> = <em>While I was cooking, the phone rang.</em><br>&#x2714; Due azioni lunghe contemporanee: <code>While + past continuous, past continuous</code> &middot; <em>While Mum was working, Dad was cooking.</em><br>&#x2714; Una dopo l'altra: <code>When + past simple, past simple</code> &middot; <em>When the film ended, we went home.</em><br>&#x2714; <em>while</em> = mentre → introduce l'azione <strong>in corso</strong>; <em>when</em> = quando → di solito il <strong>fatto</strong>.<br>&#x26A0; Frase che comincia con When / While → <strong>virgola</strong> tra le due parti.",
+"exercises": [
+{
+"type": "fill",
+"q": "I / cook / dinner — the smoke alarm / go off <b>(when)</b><br>→ I ___",
+"a": "was cooking dinner when the smoke alarm went off",
+"accept": [
+"was cooking dinner when the smoke alarm went off"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "we / drive / to the coast — a tyre / burst <b>(while)</b><br>→ While we ___",
+"a": "were driving to the coast, a tyre burst",
+"accept": [
+"were driving to the coast, a tyre burst"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "the concert / finish — we / take / a taxi home <b>(when)</b><br>→ When the concert ___",
+"a": "finished, we took a taxi home",
+"accept": [
+"finished, we took a taxi home"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "Grandma / water / the plants — Grandpa / cut / the grass (both actions went on all afternoon) <b>(while)</b><br>→ While Grandma ___",
+"a": "was watering the plants, Grandpa was cutting the grass",
+"accept": [
+"was watering the plants, Grandpa was cutting the grass"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "Elena / swim / in the sea — a jellyfish / sting / her <b>(when)</b><br>→ Elena ___",
+"a": "was swimming in the sea when a jellyfish stung her",
+"accept": [
+"was swimming in the sea when a jellyfish stung her"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "the teacher / give / back the tests — everybody / become / silent <b>(when)</b><br>→ When the teacher ___",
+"a": "gave back the tests, everybody became silent",
+"accept": [
+"gave back the tests, everybody became silent",
+"gave the tests back, everybody became silent"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "I / do / my homework — my phone / ring / five times <b>(while)</b><br>→ While I ___",
+"a": "was doing my homework, my phone rang five times",
+"accept": [
+"was doing my homework, my phone rang five times"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "the bus / arrive — we / get on <b>(when)</b><br>→ When the bus ___",
+"a": "arrived, we got on",
+"accept": [
+"arrived, we got on"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "my friends / play / volleyball — I / sunbathe (both actions went on all morning) <b>(while)</b><br>→ While my friends ___",
+"a": "were playing volleyball, I was sunbathing",
+"accept": [
+"were playing volleyball, I was sunbathing"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "Luca / ski — he / hurt / his knee <b>(when)</b><br>→ Luca ___",
+"a": "was skiing when he hurt his knee",
+"accept": [
+"was skiing when he hurt his knee"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "errorcorrect",
+"wrong": "While I was cooking, the doorbell was ringing.",
+"a": "While I was cooking, the doorbell rang.",
+"accept": [
+"While I was cooking, the doorbell rang."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "When the film started, we were turning off our phones.",
+"a": "When the film started, we turned off our phones.",
+"accept": [
+"When the film started, we turned off our phones.",
+"When the film started, we turned our phones off."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "mc",
+"q": "Quale frase dice che le due azioni sono successe una dopo l'altra?",
+"options": [
+"When Dad came home, we had dinner.",
+"When Dad came home, we were having dinner.",
+"While Dad was coming home, we were having dinner."
+],
+"a": "When Dad came home, we had dinner.",
+"instruction": "Scegli la risposta giusta."
+}
+]
+},
+{
+"id": 6,
+"type": "study",
+"title": "LIVELLO 06 — DALL'ITALIANO",
+"desc": "imperfetto o passato prossimo? · frasi intere · come l'esercizio 5",
+"rule": "<strong>DALL'ITALIANO ALL'INGLESE</strong><br>&#x2714; <strong>Passato prossimo</strong> (<em>ho fatto, sono andato</em>) → <code>past simple</code>.<br>&#x2714; <strong>Imperfetto</strong>: chiediti che cosa esprime.<br>&nbsp;&nbsp;&middot; azione <strong>in corso</strong> (<em>guardavamo, pioveva, stavo facendo</em>) → <code>past continuous</code><br>&nbsp;&nbsp;&middot; <strong>stato</strong> (<em>sapevo, volevo, avevo, mi piaceva</em>) → <code>past simple</code><br>&#x26A0; Non tradurre parola per parola: prima decidi il tempo di ogni verbo, poi scrivi la frase.",
+"exercises": [
+{
+"type": "fill",
+"q": "« Mentre facevo la doccia, è andata via la luce. »<br>→ ___",
+"a": "While I was having a shower, the lights went out.",
+"accept": [
+"While I was having a shower, the lights went out.",
+"While I was taking a shower, the lights went out.",
+"While I was having a shower, the power went off.",
+"While I was taking a shower, the power went off.",
+"While I was having a shower, the electricity went off.",
+"While I was having a shower, the power went out."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Non volevo andare alla festa, ma alla fine mi sono divertito. »<br>→ ___",
+"a": "I didn't want to go to the party, but in the end I had a good time.",
+"accept": [
+"I didn't want to go to the party, but in the end I had a good time.",
+"I didn't want to go to the party, but in the end I enjoyed myself.",
+"I didn't want to go to the party, but in the end I had fun.",
+"I didn't want to go to the party but in the end I had a great time."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Ieri sera alle nove guardavamo un film. »<br>→ ___",
+"a": "At nine o'clock last night we were watching a film.",
+"accept": [
+"At nine o'clock last night we were watching a film.",
+"At nine last night we were watching a film.",
+"Last night at nine we were watching a film.",
+"Last night at nine o'clock we were watching a film.",
+"Yesterday evening at nine we were watching a film.",
+"At nine o'clock yesterday evening we were watching a film.",
+"At nine o'clock last night we were watching a movie.",
+"Last night at nine we were watching a movie."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Sono tornato a casa, ho mangiato un panino e sono uscito di nuovo. »<br>→ ___",
+"a": "I went home, had a sandwich and went out again.",
+"accept": [
+"I went home, had a sandwich and went out again.",
+"I went home, ate a sandwich and went out again.",
+"I came home, had a sandwich and went out again.",
+"I came home, ate a sandwich and went out again.",
+"I went back home, had a sandwich and went out again.",
+"I went back home, ate a sandwich and went out again.",
+"I got home, had a sandwich and went out again.",
+"I got home, ate a sandwich and went out again."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Quando è arrivato l'insegnante, gli studenti chiacchieravano. »<br>→ ___",
+"a": "When the teacher arrived, the students were chatting.",
+"accept": [
+"When the teacher arrived, the students were chatting.",
+"When the teacher arrived, the students were talking.",
+"When the teacher came, the students were chatting.",
+"When the teacher came in, the students were chatting.",
+"When the teacher came in, the students were talking."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Non conoscevo nessuno alla festa. »<br>→ ___",
+"a": "I didn't know anybody at the party.",
+"accept": [
+"I didn't know anybody at the party.",
+"I didn't know anyone at the party."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Mio nonno aveva una barca a vela. »<br>→ ___",
+"a": "My grandfather had a sailing boat.",
+"accept": [
+"My grandfather had a sailing boat.",
+"My grandpa had a sailing boat.",
+"My grandfather had a sailboat.",
+"My grandpa had a sailboat.",
+"My grandfather owned a sailing boat.",
+"My grandad had a sailing boat."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Pioveva e faceva freddo, così siamo rimasti a casa. »<br>→ ___",
+"a": "It was raining and it was cold, so we stayed at home.",
+"accept": [
+"It was raining and it was cold, so we stayed at home.",
+"It was raining and it was cold, so we stayed home.",
+"It was raining and cold, so we stayed at home.",
+"It was raining and cold, so we stayed home."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Che cosa facevi quando ti ho chiamato? »<br>→ ___",
+"a": "What were you doing when I called you?",
+"accept": [
+"What were you doing when I called you?",
+"What were you doing when I phoned you?",
+"What were you doing when I rang you?",
+"What were you doing when I called?"
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Mi è piaciuto molto il concerto. »<br>→ ___",
+"a": "I really liked the concert.",
+"accept": [
+"I really liked the concert.",
+"I liked the concert very much.",
+"I really enjoyed the concert.",
+"I enjoyed the concert very much.",
+"I liked the concert a lot.",
+"I enjoyed the concert a lot."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "mc",
+"q": "« Da piccolo giocavo a tennis » e « Alle cinque giocavo a tennis »: come si traducono?",
+"options": [
+"Nella prima è un'abitudine (I played tennis); nella seconda è un'azione in corso a un'ora precisa (I was playing tennis).",
+"Tutte e due con il past continuous: I was playing tennis.",
+"Tutte e due con il past simple: I played tennis."
+],
+"a": "Nella prima è un'abitudine (I played tennis); nella seconda è un'azione in corso a un'ora precisa (I was playing tennis).",
+"instruction": "Scegli la risposta giusta."
+}
+]
+},
+{
+"id": "rB",
+"type": "review",
+"title": "⟳ RIPASSO B — domande, when e while, traduzione",
+"desc": "i livelli 04–06 insieme · frasi nuove",
+"exercises": [
+{
+"type": "fill",
+"q": "your sister / drive / when the police stopped her? (✓)<br>→ ___",
+"a": "Was your sister driving when the police stopped her? Yes, she was.",
+"accept": [
+"Was your sister driving when the police stopped her? Yes, she was."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "Dad was looking for <u>his keys</u> when we left.<br>→ ___?",
+"a": "What was your dad looking for when you left",
+"accept": [
+"What was your dad looking for when you left",
+"What was Dad looking for when you left",
+"What was your father looking for when you left"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "we / have / a picnic — a wasp / sting / my brother <b>(when)</b><br>→ We ___",
+"a": "were having a picnic when a wasp stung my brother",
+"accept": [
+"were having a picnic when a wasp stung my brother"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "the lesson / end — the students / rush / out <b>(when)</b><br>→ When the lesson ___",
+"a": "ended, the students rushed out",
+"accept": [
+"ended, the students rushed out"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "« Mentre studiavo, mio fratello suonava la chitarra. »<br>→ ___",
+"a": "While I was studying, my brother was playing the guitar.",
+"accept": [
+"While I was studying, my brother was playing the guitar.",
+"While I was studying, my brother was playing guitar."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Non capivo che cosa diceva. »<br>→ ___",
+"a": "I didn't understand what he was saying.",
+"accept": [
+"I didn't understand what he was saying.",
+"I didn't understand what she was saying.",
+"I didn't understand what he said.",
+"I didn't understand what she said."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "Why ___ (you / answer) my message yesterday? I waited all evening!",
+"a": "didn't you answer",
+"accept": [
+"didn't you answer"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "errorcorrect",
+"wrong": "While we walked along the river, we met our old teacher.",
+"a": "While we were walking along the river, we met our old teacher.",
+"accept": [
+"While we were walking along the river, we met our old teacher."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "Did you knowing the answer?",
+"a": "Did you know the answer?",
+"accept": [
+"Did you know the answer?"
+],
+"instruction": "C'è un errore: riscrivi la domanda corretta."
+},
+{
+"type": "mc",
+"q": "« I was reading when you called. » Quale azione è cominciata prima?",
+"options": [
+"Leggere: era già in corso quando hai chiamato.",
+"La telefonata: dopo ho cominciato a leggere.",
+"Sono cominciate nello stesso momento."
+],
+"a": "Leggere: era già in corso quando hai chiamato.",
+"instruction": "Scegli la risposta giusta."
+}
+]
+},
+{
+"id": 7,
+"type": "study",
+"title": "LIVELLO 07 — TESTI BREVI",
+"desc": "un paragrafo · tutto insieme · come l'esercizio 1",
+"rule": "<strong>NEL TESTO</strong><br>&#x2714; Leggi <strong>tutto il testo</strong> prima di scrivere: il contesto dice che cosa era in corso e che cosa &egrave; successo.<br>&#x2714; Scena, sfondo, azione interrotta → <code>past continuous</code> &middot; Fatti, uno dopo l'altro → <code>past simple</code> &middot; Verbi di stato → <code>past simple</code><br>&#x2714; <em>(not / …)</em> tra parentesi = forma negativa.",
+"exercises": [
+{
+"type": "cloze",
+"text": "Dear diary, today was a strange day. At seven this morning I ___ (sleep) peacefully when my alarm ___ (start) to play heavy metal at full volume! My little brother ___ (change) the music the night before. I ___ (not / find) it funny at all. While I ___ (get) dressed, he was laughing outside my door.",
+"gaps": [
+{
+"a": "was sleeping",
+"accept": [
+"was sleeping"
+]
+},
+{
+"a": "started",
+"accept": [
+"started"
+]
+},
+{
+"a": "changed",
+"accept": [
+"changed",
+"had changed"
+]
+},
+{
+"a": "didn't find",
+"accept": [
+"didn't find"
+]
+},
+{
+"a": "was getting",
+"accept": [
+"was getting"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "A sixteen-year-old boy from Treviso became a local hero yesterday. He ___ (cycle) along the river when he ___ (hear) a dog in the water. The animal ___ (try) to climb the bank, but it was too steep. The boy ___ (jump) off his bike, ___ (pull) the dog out and took it to the nearest vet.",
+"gaps": [
+{
+"a": "was cycling",
+"accept": [
+"was cycling"
+]
+},
+{
+"a": "heard",
+"accept": [
+"heard"
+]
+},
+{
+"a": "was trying",
+"accept": [
+"was trying"
+]
+},
+{
+"a": "jumped",
+"accept": [
+"jumped"
+]
+},
+{
+"a": "pulled",
+"accept": [
+"pulled"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "When I opened the door of the gym, everybody ___ (turn) to look at me. Some music ___ (play) quietly, but the lights were off. I ___ (not / understand) what was happening. Then somebody ___ (switch) on the lights and all my friends ___ (shout) « Happy birthday! »",
+"gaps": [
+{
+"a": "turned",
+"accept": [
+"turned"
+]
+},
+{
+"a": "was playing",
+"accept": [
+"was playing"
+]
+},
+{
+"a": "didn't understand",
+"accept": [
+"didn't understand"
+]
+},
+{
+"a": "switched",
+"accept": [
+"switched"
+]
+},
+{
+"a": "shouted",
+"accept": [
+"shouted"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "Hi Sam, sorry I ___ (not / reply) to your message yesterday. When you wrote, I ___ (sit) in the dentist's waiting room and I couldn't use my phone. After the appointment I ___ (go) straight home because I ___ (feel) terrible. This morning I ___ (wake) up much better!",
+"gaps": [
+{
+"a": "didn't reply",
+"accept": [
+"didn't reply"
+]
+},
+{
+"a": "was sitting",
+"accept": [
+"was sitting"
+]
+},
+{
+"a": "went",
+"accept": [
+"went"
+]
+},
+{
+"a": "felt",
+"accept": [
+"felt"
+]
+},
+{
+"a": "woke",
+"accept": [
+"woke"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "errorcorrect",
+"wrong": "I was opening the window, saw a bird on the roof and called my sister.",
+"a": "I opened the window, saw a bird on the roof and called my sister.",
+"accept": [
+"I opened the window, saw a bird on the roof and called my sister."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "errorcorrect",
+"wrong": "Everybody was listening to the speech when suddenly a phone was ringing.",
+"a": "Everybody was listening to the speech when suddenly a phone rang.",
+"accept": [
+"Everybody was listening to the speech when suddenly a phone rang."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+}
+]
+},
+{
+"id": 8,
+"type": "study",
+"title": "LIVELLO 08 — TESTI LUNGHI",
+"desc": "due racconti in due parti · dieci verbi per racconto, come in verifica",
+"rule": "<strong>TESTI LUNGHI</strong><br>&#x2714; Ogni racconto &egrave; diviso in <strong>due parti</strong>: fai la prima, poi la seconda continua la stessa storia.<br>&#x2714; Prima di scrivere ogni verbo chiediti: <strong>stava succedendo</strong>, <strong>&egrave; successo</strong> o &egrave; uno <strong>stato</strong>?<br>&#x2714; Attenzione ai verbi che sembrano azioni ma qui sono stati: <em>look</em> = sembrare, <em>be</em>, <em>have</em> = possedere.",
+"exercises": [
+{
+"type": "cloze",
+"text": "LOST IN VENICE (1/2) — Last spring our class went on a school trip to Venice. On the first afternoon we ___ (walk) through the narrow streets near Rialto when I ___ (stop) to take a photo of a gondola. When I turned round, my classmates ___ (not / be) there any more! I ___ (not / have) a map and my phone battery was dead. For a moment I ___ (not / know) what to do.",
+"gaps": [
+{
+"a": "were walking",
+"accept": [
+"were walking"
+]
+},
+{
+"a": "stopped",
+"accept": [
+"stopped"
+]
+},
+{
+"a": "weren't",
+"accept": [
+"weren't"
+]
+},
+{
+"a": "didn't have",
+"accept": [
+"didn't have"
+]
+},
+{
+"a": "didn't know",
+"accept": [
+"didn't know"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "LOST IN VENICE (2/2) — While I ___ (look) for a familiar face in the crowd, an old man ___ (notice) me. He ___ (ask) me if I needed help and showed me the way to St Mark's Square. When I got there, my teacher ___ (wait) for me in front of the basilica. She ___ (not / look) very happy!",
+"gaps": [
+{
+"a": "was looking",
+"accept": [
+"was looking"
+]
+},
+{
+"a": "noticed",
+"accept": [
+"noticed"
+]
+},
+{
+"a": "asked",
+"accept": [
+"asked"
+]
+},
+{
+"a": "was waiting",
+"accept": [
+"was waiting"
+]
+},
+{
+"a": "didn't look",
+"accept": [
+"didn't look"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "THE FINAL (1/2) — It was the last minute of the final and the score was 1–1. Thousands of fans ___ (shout) and waving flags. Our captain ___ (run) towards the goal when a defender ___ (push) him to the ground. The referee ___ (give) us a penalty. Everybody ___ (want) to take it, but the coach chose me.",
+"gaps": [
+{
+"a": "were shouting",
+"accept": [
+"were shouting"
+]
+},
+{
+"a": "was running",
+"accept": [
+"was running"
+]
+},
+{
+"a": "pushed",
+"accept": [
+"pushed"
+]
+},
+{
+"a": "gave",
+"accept": [
+"gave"
+]
+},
+{
+"a": "wanted",
+"accept": [
+"wanted"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "cloze",
+"text": "THE FINAL (2/2) — My legs ___ (shake) as I walked to the penalty spot. While I ___ (put) the ball down, I could hear my heart beating. I ___ (look) at the goalkeeper, ___ (take) a deep breath and kicked the ball as hard as I could. It flew into the top corner! I ___ (not / believe) my eyes.",
+"gaps": [
+{
+"a": "were shaking",
+"accept": [
+"were shaking"
+]
+},
+{
+"a": "was putting",
+"accept": [
+"was putting"
+]
+},
+{
+"a": "looked",
+"accept": [
+"looked"
+]
+},
+{
+"a": "took",
+"accept": [
+"took"
+]
+},
+{
+"a": "didn't believe",
+"accept": [
+"didn't believe",
+"couldn't believe"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "mc",
+"q": "« She didn't look very happy » (Venezia, parte 2): perché didn't look e non wasn't looking?",
+"options": [
+"Perché qui look vuol dire sembrare: è un verbo di stato, quindi past simple.",
+"Perché la frase è negativa.",
+"Perché è un'azione breve che interrompe un'altra."
+],
+"a": "Perché qui look vuol dire sembrare: è un verbo di stato, quindi past simple.",
+"instruction": "Scegli la risposta giusta."
+}
+]
+},
+{
+"id": "final",
+"type": "challenge",
+"title": "★ SFIDA FINALE — tutto insieme",
+"desc": "tutti i tipi di esercizio della verifica, mescolati",
+"exercises": [
+{
+"type": "cloze",
+"text": "Yesterday afternoon I ___ (wait) for the bus when it started to hail. I ___ (not / have) an umbrella, so I ___ (run) into a café. While I ___ (drink) a hot chocolate, I ___ (see) my old primary school teacher at the next table.",
+"gaps": [
+{
+"a": "was waiting",
+"accept": [
+"was waiting"
+]
+},
+{
+"a": "didn't have",
+"accept": [
+"didn't have"
+]
+},
+{
+"a": "ran",
+"accept": [
+"ran"
+]
+},
+{
+"a": "was drinking",
+"accept": [
+"was drinking"
+]
+},
+{
+"a": "saw",
+"accept": [
+"saw"
+]
+}
+],
+"instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+},
+{
+"type": "fill",
+"q": "Why ___ (you / laugh) when I came in? Was it something about me?",
+"a": "were you laughing",
+"accept": [
+"were you laughing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Sorry, I ___ (recognise) you with your new haircut!",
+"a": "didn't recognise",
+"accept": [
+"didn't recognise",
+"didn't recognize"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+},
+{
+"type": "fill",
+"q": "Anna / need / help with her project? (✗)<br>→ ___",
+"a": "Did Anna need help with her project? No, she didn't.",
+"accept": [
+"Did Anna need help with her project? No, she didn't."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "it / snow / when you left the house? (✓)<br>→ ___",
+"a": "Was it snowing when you left the house? Yes, it was.",
+"accept": [
+"Was it snowing when you left the house? Yes, it was."
+],
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+},
+{
+"type": "fill",
+"q": "At midnight the neighbours were playing <u>loud music</u>.<br>→ ___?",
+"a": "What were the neighbours playing at midnight",
+"accept": [
+"What were the neighbours playing at midnight",
+"What were the neighbors playing at midnight",
+"At midnight, what were the neighbours playing"
+],
+"instruction": "Scrivi la domanda sulla parte sottolineata."
+},
+{
+"type": "fill",
+"q": "Sofia / paint / her room — she / fall / off the ladder <b>(when)</b><br>→ Sofia ___",
+"a": "was painting her room when she fell off the ladder",
+"accept": [
+"was painting her room when she fell off the ladder"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "the rain / stop — we / go / out for a walk <b>(when)</b><br>→ When the rain ___",
+"a": "stopped, we went out for a walk",
+"accept": [
+"stopped, we went out for a walk",
+"stopped, we went for a walk"
+],
+"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+},
+{
+"type": "fill",
+"q": "« Mentre aspettavamo il treno, abbiamo mangiato un gelato. »<br>→ ___",
+"a": "While we were waiting for the train, we had an ice cream.",
+"accept": [
+"While we were waiting for the train, we had an ice cream.",
+"While we were waiting for the train, we ate an ice cream.",
+"While we were waiting for the train we had an ice cream."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "fill",
+"q": "« Volevo chiamarti, ma non avevo il tuo numero. »<br>→ ___",
+"a": "I wanted to call you, but I didn't have your number.",
+"accept": [
+"I wanted to call you, but I didn't have your number.",
+"I wanted to phone you, but I didn't have your number.",
+"I wanted to ring you, but I didn't have your number.",
+"I wanted to call you, but I didn't have your phone number."
+],
+"instruction": "Traduci in inglese."
+},
+{
+"type": "errorcorrect",
+"wrong": "At eight o'clock I had dinner with my family, so I couldn't answer the phone.",
+"a": "At eight o'clock I was having dinner with my family, so I couldn't answer the phone.",
+"accept": [
+"At eight o'clock I was having dinner with my family, so I couldn't answer the phone."
+],
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+},
+{
+"type": "mc",
+"q": "« I didn't know you were here. » Perché didn't know e non wasn't knowing?",
+"options": [
+"Perché know è un verbo di stato: non si usa al past continuous.",
+"Perché la frase è negativa.",
+"Perché è un'azione breve e conclusa."
+],
+"a": "Perché know è un verbo di stato: non si usa al past continuous.",
+"instruction": "Scegli la risposta giusta."
+}
+]
+}
+];
+
+const SK='gq_u1rec_s_v1',EK='gq_u1rec_e_v1';
+let state={},errorMap={};
+function encodeState(){
+  try{
+    const comp=Object.keys(state).filter(k=>state[k]==='completed');
+    const errs=Object.keys(errorMap).filter(k=>errorMap[k]>=2);
+    const raw=comp.join(',')+'\x7C'+errs.join(',');
+    const b64=btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+    return 'GQU.'+b64;
+  }catch(e){return null;}
+}
+function decodeState(code){
+  try{
+    const b64=code.trim().replace(/^[A-Za-z]+\./,'').replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-b64.length%4):b64;
+    const raw=atob(pad);
+    const parts=raw.split('\x7C');
+    const comp=parts[0]?parts[0].split(',').filter(Boolean):[];
+    const errs=parts[1]?parts[1].split(',').filter(Boolean):[];
+    const s={};comp.forEach(k=>{s[k]='completed';});
+    const e={};errs.forEach(k=>{e[k]=2;});
+    return {s,e};
+  }catch(ex){return null;}
+}
+function updateSaveCode(){
+  const code=encodeState();
+  const el=document.getElementById('saveCodeDisplay');
+  if(el)el.textContent=code||'—';
+}
+function copyCode(){
+  const code=document.getElementById('saveCodeDisplay').textContent;
+  if(!code||code==='—')return;
+  navigator.clipboard?.writeText(code).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+  const btn=document.getElementById('copyBtn');
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='&#x2713; COPIATO!';setTimeout(()=>btn.innerHTML=orig,2000);}
+}
+function rebuildUnlocks(){
+
+  autoComplete();
+}
+function importCode(){
+  const val=(document.getElementById('importInput').value||'').trim();
+  const msg=document.getElementById('importMsg');
+  if(!val){msg.className='save-import-msg err';msg.textContent='Inserisci un codice.';return;}
+  const obj=decodeState(val);
+  if(!obj){msg.className='save-import-msg err';msg.textContent='Codice non valido — controlla di averlo copiato per intero.';return;}
+  state=obj.s;errorMap=obj.e;
+  LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});
+  rebuildUnlocks();
+  saveState();
+  msg.className='save-import-msg ok';msg.textContent='Progresso caricato! Bentornato/a ✓';
+  document.getElementById('importInput').value='';
+  renderMap();
+}
+function loadState(){try{state=JSON.parse(localStorage.getItem(SK))||{};}catch(e){state={};}try{errorMap=JSON.parse(localStorage.getItem(EK))||{};}catch(e){errorMap={};}LEVELS.forEach(s=>{if(state[s.id]===undefined||state[s.id]==='locked')state[s.id]='unlocked';});saveState();}
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state));}catch(e){}try{localStorage.setItem(EK,JSON.stringify(errorMap));}catch(e){}updateSaveCode();}
+function recordError(key){errorMap[key]=(errorMap[key]||0)+1;saveState();}
+function getErrors(ids){let exs=[];ids.forEach(id=>{const s=LEVELS.find(x=>x.id===id);if(s&&s.exercises)exs=exs.concat(s.exercises.map((e,i)=>({...e,_key:`${id}_${i}`})));});return exs.filter(e=>(errorMap[e._key]||0)>=2);}
+function unlockNext(cid){autoComplete();saveState();}
+function autoComplete(){}
+function renderMap(){
+  const list=document.getElementById('sectionsList');list.innerHTML='';
+  const total=LEVELS.length,done=LEVELS.filter(s=>state[s.id]==='completed').length;
+  document.getElementById('overallBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('overallText').textContent=`${done} / ${total}`;
+  if(done===total){const b=document.createElement('div');b.className='completion-banner';b.innerHTML=`<span class="cb-emoji">&#x1F3C6;</span><div class="cb-title">GRAMMAR MASTER!</div><div class="cb-text">hai completato il recupero &middot; ora sei pronto per la verifica</div>`;list.appendChild(b);setTimeout(()=>{for(let i=0;i<8;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.6,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],20),i*250);},100);return;}
+  LEVELS.forEach(s=>{
+    const st=state[s.id];const card=document.createElement('div');
+    let cls='section-card ',badge='',icon='';
+    if(s.type==='review')icon='&#x21BA;';else if(s.type==='challenge')icon='&#x2605;';else icon=String(s.id).padStart(2,'0');
+    if(st==='completed'){cls+=s.type==='challenge'?'difficult-done':s.type==='review'?'revision-done':'completed';badge=`<span class="sc-badge badge-done">&#x2713; FATTO</span>`;}
+    else if(st==='unlocked'){if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    else{if(s.type==='review'){cls+='revision';badge=`<span class="sc-badge badge-required">&#x21BA; RIPASSA</span>`;}else if(s.type==='challenge'){cls+='difficult';badge=`<span class="sc-badge badge-required-purple">&#x2605; SFIDA</span>`;}else{cls+='unlocked';badge=`<span class="sc-badge badge-todo">&#x25B6; INIZIA</span>`;}}
+    card.className=cls;card.innerHTML=`<div class="sc-icon">${icon}</div><div class="sc-body"><div class="sc-title">${s.title}</div><div class="sc-desc">${s.desc}</div></div>${badge}`;
+    card.onclick=()=>openLevel(s);
+    list.appendChild(card);
+  });
+}
+let currentLevel=null,exQueue=[],exIdx=0,okCount=0,badCount=0,exChecked=false,isRetry=false,retryQueue=[],selectedMC=-1,reorderWords=[],_firstTotal=0,_firstDone=false;
+function openLevel(s){
+  currentLevel=s;
+  const exs=(s.exercises||[]).map((e,i)=>({...e,_key:`${s.id}_${i}`}));
+  exQueue=MODO==='classe'?exs:shuffle(exs);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=false;_firstTotal=exQueue.length;_firstDone=false;
+  document.getElementById('exTitle').textContent=currentLevel.title;
+  showScreen('exercise');renderExercise();
+}
+let MODO=null;
+function apriModo(){document.getElementById('modoModal').style.display='flex';}
+function setModo(m){MODO=m;document.getElementById('modoModal').style.display='none';document.getElementById('modoBtn').textContent=m==='classe'?'🏫 In classe':'🏠 A casa';}
+function exNum(e){return parseInt(String(e._key).split('_').pop(),10)+1;}
+/* in classe: stesso mescolamento su ogni dispositivo (seme = esercizio), a casa: casuale */
+function mix(a,seme){if(MODO!=='classe')return shuffle(a);let h=2166136261;for(const c of String(seme))h=Math.imul(h^c.charCodeAt(0),16777619);const r=()=>{h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderExercise(){
+  exChecked=false;selectedMC=-1;reorderWords=[];
+  const ex=exQueue[exIdx];
+  const pct=exQueue.length>0?(exIdx/exQueue.length)*100:0;
+  document.getElementById('hudFill').style.width=`${pct}%`;
+  document.getElementById('hudText').textContent=`${exIdx+1}/${exQueue.length}`;
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;
+  document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  let ruleHtml='',retryHtml='',cardHtml='';
+  if(ex.type!=='revision'&&currentLevel.type==='study'&&currentLevel.rule&&exIdx===0)ruleHtml=`<div class="rule-box">${currentLevel.rule}</div>`;
+  if(isRetry)retryHtml=`<div class="retry-notice">&#x21BA; SECONDO TENTATIVO &mdash; CONCENTRATI!</div>`;
+  if(ex.type==='fill'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// FILL IN THE BLANK</div>${ex.instruction?`<div class="ex-question">${ex.instruction}</div>`:''}<div class="ex-question">${gl(ex.q).replace('___',`<input class="fill-input${(ex.a||'').split(' ').length>=4?' lunga':''}" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…">`)}${ex.hint?` <span class="hintword">${ex.hint}</span>`:''}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='mc'){
+    const opts=(MODO==='classe'?mix([...ex.options],ex.q):shuffle([...ex.options])).map((o,i)=>`<button class="mc-option" id="mc${i}" onclick="selectMC(${i},'${o.replace(/'/g,"\\'")}',this)">${gl(o)}</button>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// MULTIPLE CHOICE</div><div class="ex-question">${gl(ex.q)}</div><div class="mc-options">${opts}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='reorder'){
+    const shuffled=(MODO==='classe'?mix([...ex.words],ex.words.join(' ')):shuffle([...ex.words]));
+    const chips=shuffled.map((w,i)=>`<div class="word-chip" id="chip${i}" onclick="addWord(${i},this)">${w}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD ORDER</div><div class="ex-question">${ex.instruction}</div><div class="reorder-hint">Clicca le parole nell'ordine giusto &mdash; clicca di nuovo per toglierle</div><div class="word-bank">${chips}</div><div class="answer-area" id="answerArea"></div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='wordbox'){
+    const items=ex.sentences.map((s,i)=>`<div class="wb-item">${gl(s.pre)} <input class="fill-input" id="wb${i}" autocomplete="off" spellcheck="false" placeholder="..."> ${gl(s.post)}</div>`).join('');
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// WORD BOX</div><div class="ex-question">${ex.instruction}</div><div class="word-box"><span>// PAROLE</span>${(MODO==='classe'?mix([...ex.verbs],ex.verbs.join(' ')):shuffle([...ex.verbs])).join(' &nbsp;&middot;&nbsp; ')}</div><div class="wb-sentences">${items}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='transform'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// KEY WORD TRANSFORMATION</div><div class="ex-question">${ex.instruction}</div><div class="kw-original">${gl(ex.original)}</div><div class="kw-key">${ex.key}</div><div class="ex-question kw-target">${gl(ex.q).replace('___',`<input class="fill-input" id="fillInput" autocomplete="off" spellcheck="false" placeholder="…" style="width:230px">`)}</div><div class="kw-note">Scrivi da due a cinque parole. La parola chiave va usata cos&igrave; com'&egrave;.</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='cloze'){
+    let n=-1;const body=ex.text.replace(/___/g,()=>{n++;return `<input class="fill-input" id="cz${n}" autocomplete="off" spellcheck="false" placeholder="…">`;});
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ${ex.note?'TEXT':'OPEN CLOZE'}</div><div class="ex-question">${ex.instruction}</div><div class="cz-text">${body}</div><div class="kw-note">${ex.note||'Una sola parola per ogni spazio.'}</div><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  } else if(ex.type==='errorcorrect'){
+    cardHtml=`<div class="ex-card" id="exCard"><div class="ex-type-badge">// ERROR CORRECTION</div><div class="ex-question">${ex.instruction}</div><div class="ec-wrong">&#x274C; ${ex.wrong}</div>${glLegend(ex.wrong.split(/[^A-Za-z'-]+/))}<div class="ec-label">Scrivi la frase corretta:</div><input class="fill-input lunga" id="fillInput" autocomplete="off" spellcheck="false" placeholder="scrivi qui..."><div class="feedback-msg" id="feedbackMsg"></div></div>`;
+  }
+  const numHtml=MODO==='classe'?`<div class="ex-num">Esercizio ${exNum(ex)}</div>`:'';
+  document.getElementById('exerciseArea').innerHTML=ruleHtml+retryHtml+numHtml+cardHtml;
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform')setTimeout(()=>{const i=document.getElementById('fillInput');if(i)i.focus();},50);
+}
+function selectMC(idx,val,el){
+  if(exChecked)return;
+  document.querySelectorAll('.mc-option').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');selectedMC=val;
+}
+function addWord(idx,el){
+  if(exChecked||el.classList.contains('used'))return;
+  el.classList.add('used');const word=el.textContent;reorderWords.push({idx,word});
+  const area=document.getElementById('answerArea');const chip=document.createElement('div');chip.className='word-chip';chip.textContent=word;
+  const ci=idx;chip.onclick=()=>{if(exChecked)return;const pos=reorderWords.findIndex(w=>w.idx===ci);if(pos>-1)reorderWords.splice(pos,1);chip.remove();document.getElementById(`chip${ci}`).classList.remove('used');};
+  area.appendChild(chip);
+}
+
+/* --- tolleranza ai refusi nelle parole che NON sono l'oggetto dell'esercizio ---
+   Negli errorcorrect lo studente riscrive tutta la frase: un refuso su un nome
+   proprio o su una parola di contorno non deve annullare una correzione giusta.
+   Le parole che costituiscono LA correzione (quelle che cambiano fra la frase
+   sbagliata e quella giusta) restano esatte; sulle altre si tollera un errore
+   di battitura (distanza 1-2 a seconda della lunghezza). */
+function lev(a,b){
+  const m=a.length,n=b.length;if(Math.abs(m-n)>2)return 9;
+  let prev=Array.from({length:n+1},(_,j)=>j),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));}
+    prev=cur.slice();}
+  return prev[n];
+}
+
+/* Nei fill a frase intera: le parole che l'esercizio sta testando (verbi, ausiliari,
+   congiunzioni di tempo) devono essere esatte; il resto tollera un refuso. */
+function paroleChiave(ex){
+  const S=new Set(['used','use','to','did','didn','not','was','were','has','have','had','is','are',
+    'am','when','while','as','first','then','next','after','afterwards','finally','since','for',
+    'been','do','does','go','goes','play','plays','make','makes']);
+  const out=new Set();
+  norm(ex.a).split(' ').forEach(w=>{ if(S.has(w)||/ing$/.test(w)||/ed$/.test(w)) out.add(w); });
+  return out;
+}
+
+/* Dopo il controllo lo studente rilegge quello che ha scritto (il campo puo' essere
+   piu' corto della frase) e, se la frase contiene lessico del glossario, ne vede la
+   traduzione italiana. */
+function mostraRispostaData(val, ex){
+  const card=document.getElementById('exCard'); if(!card) return;
+  const fb=document.getElementById('feedbackMsg');
+  const tua=document.createElement('div'); tua.className='risposta-data';
+  tua.innerHTML='<b>La tua risposta:</b> '+String(val||'').replace(/</g,'&lt;');
+  fb.parentNode.insertBefore(tua, fb);
+  const frase=[ex.a, ex.q, ex.wrong].filter(Boolean).join(' ');
+  const voci=Object.keys(GLOSS||{}).filter(w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i').test(frase));
+  if(voci.length){
+    const t=document.createElement('div'); t.className='traduzione';
+    t.innerHTML=voci.map(w=>'<b>'+w+'</b> = '+GLOSS[w]).join(' &middot; ');
+    fb.parentNode.insertBefore(t, fb.nextSibling);
+  }
+}
+function quasiUguale(val,target,esatte){
+  const A=norm(val).split(' '),B=norm(target).split(' ');
+  if(A.length!==B.length)return false;
+  let refusi=0;
+  for(let i=0;i<A.length;i++){
+    if(A[i]===B[i])continue;
+    if(esatte.has(B[i])){
+      /* e' una parola della struttura sotto esame: si tollera un refuso solo se la
+         desinenza resta quella giusta (paintng per painting), mai se cambia la forma */
+      const stessaDesinenza = B[i].slice(-3)===A[i].slice(-3) || B[i].slice(-2)===A[i].slice(-2);
+      if(!(stessaDesinenza && lev(A[i],B[i])<=1)) return false;
+    }
+    const soglia=B[i].length>=7?2:(B[i].length>=4?1:0);
+    if(lev(A[i],B[i])>soglia)return false;
+    refusi++;
+    if(refusi>2)return false;
+  }
+  return refusi>0;
+}
+function paroleDaCorreggere(ex){
+  const s=new Set();
+  if(!ex.wrong)return s;
+  const W=new Set(norm(ex.wrong).split(' '));
+  norm(ex.a).split(' ').forEach(w=>{if(!W.has(w))s.add(w);});
+  return s;
+}
+
+function norm(s){
+  s=String(s||'').toLowerCase()
+    .replace(/[\u2019\u2018\u02bc`\u00b4]/g,"'")
+    .replace(/[\u201c\u201d"]/g,'')
+    .replace(/[\u2014\u2013]/g,'-')
+    .replace(/\bcan't\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not')
+    .replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
+    .replace(/'s\s+been\b/g,' has been').replace(/\b(it|that|there|what|here|where|who)'s\b/g,'$1 is').replace(/'d\s+been\b/g,' had been');
+  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
+  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function _relCommas(s){const t=String(s||'').replace(/,/g,' , ').split(/\s+/).filter(Boolean);const R=/^(who|which|whose|where|when)$/i;let out=[],open=false,w=0;for(let i=0;i<t.length;i++){if(t[i]===','){const nx=(t[i+1]||'').toLowerCase().replace(/['\u2019].*$/,'').replace(/[^\w]/g,'');if(R.test(nx)){out.push(w);open=true;}else if(open){out.push(w);open=false;}}else w+=norm(t[i]).split(' ').filter(Boolean).length;}return out.join(',');}
+function checkExercise(){
+  if(exChecked)return;exChecked=true;
+  const ex=exQueue[exIdx];let correct=false;
+  const card=document.getElementById('exCard');const fb=document.getElementById('feedbackMsg');
+  if(ex.type==='fill'||ex.type==='errorcorrect'||ex.type==='transform'){
+    let val=document.getElementById('fillInput').value;
+    const accepted=(ex.accept||[ex.a]).map(norm);
+    /* se lo studente riscrive anche le parole date prima dello spazio, si tolgono */
+    if(!accepted.includes(norm(val))&&ex.type==='fill'){const _q=String(ex.q||'');const _k=_q.lastIndexOf('___');if(_k>=0){const _pre=_q.slice(0,_k).split(/<br\s*\/?>|\u2192/i).pop().replace(/<[^>]*>/g,'');const _np=norm(_pre);if(_np&&norm(val).startsWith(_np+' ')){const _t=String(val).trim().split(/\s+/);for(let _w=1;_w<_t.length;_w++){if(norm(_t.slice(0,_w).join(' '))===_np){const _r=_t.slice(_w).join(' ');if(accepted.includes(norm(_r)))val=_r;break;}}}}}
+    correct=accepted.includes(norm(val));
+    let refuso=false;
+    if(!correct&&(ex.type==='errorcorrect'||(ex.a||'').split(' ').length>=4)){
+      /* la struttura sotto esame resta esatta; su nome propri e parole di contorno
+         si tollera un refuso di battitura, come sugli error correction */
+      const esatte=ex.type==='errorcorrect'?paroleDaCorreggere(ex):paroleChiave(ex);
+      correct=(ex.accept||[ex.a]).some(t=>quasiUguale(val,t,esatte));
+      refuso=correct;
+    }
+    {const _v=String(val||'').replace(/[\u2019\u2018`\u00b4]/g,"'");const _neg=/\b(dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|cant|couldnt|shouldnt|wouldnt|mustnt|neednt|wont)\b/i;if(correct&&_neg.test(_v)&&!(ex.accept||[ex.a]).some(t=>_neg.test(t)))correct=false;const _q=String(ex.q||'');const _k=_q.lastIndexOf('___');const _cont=_k>=0&&/[a-z]/i.test(_q.slice(_k+3).replace(/<[^>]*>/g,'').replace(/\([^)]*\)/g,''));if(correct&&!_cont&&/\b(i'm|you're|we're|they're|he's|she's|it's|i've|you've|we've|they've)(?=\s*(?:[.!?,;:"\u201d]|$))/i.test(_v))correct=false;}if(correct&&[ex.a,val].concat(ex.accept||[]).some(t=>/\b(who|which|whose|where)\b/i.test(t||''))){const _m=(ex.accept||[ex.a]).filter(t=>norm(t)===norm(val));if(_m.length&&!_m.some(t=>_relCommas(t)===_relCommas(val)))correct=false;}if(correct&&(/Ometti|relativ/i.test(ex.instruction||'')||(ex.accept||[ex.a]).some(t=>/\b(who|which|whose|where)\b/i.test(t||'')))){const _c=s=>(String(s||'').match(/,/g)||[]).length;const _m=(ex.accept||[ex.a]).filter(t=>norm(t)===norm(val));if(_m.length&&_m.every(t=>_c(t)<_c(val)))correct=false;}const inp=document.getElementById('fillInput');inp.classList.add(correct?'correct':'wrong');inp.disabled=true;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    mostraRispostaData(val, ex);
+    fb.innerHTML=correct?(refuso?'\u2713 Corretto! (attenzione all\'ortografia: <strong>'+ex.a+'</strong>)':'\u2713 Corretto!')
+                        :'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='mc'){
+    if(selectedMC==-1){exChecked=false;return;}
+    correct=norm(selectedMC)===norm(ex.a);
+    document.querySelectorAll('.mc-option').forEach(b=>{
+      const isCorrect=norm(b.textContent)===norm(ex.a);
+      if(isCorrect)b.classList.add('correct');
+      else if(b.classList.contains('selected')&&!isCorrect)b.classList.add('wrong');
+      b.style.pointerEvents='none';
+    });
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.a+'</strong>';
+  } else if(ex.type==='wordbox'){
+    let allCorrect=true;
+    ex.sentences.forEach((s,i)=>{
+      const inp=document.getElementById(`wb${i}`);if(!inp)return;
+      const accepted=(s.accept||[s.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.sentences.map(s=>s.a).join(' · ')+'</strong>';
+  } else if(ex.type==='cloze'){
+    let allCorrect=true;
+    ex.gaps.forEach((g,i)=>{
+      const inp=document.getElementById(`cz${i}`);if(!inp)return;
+      const accepted=(g.accept||[g.a]).map(norm);
+      const ok=accepted.includes(norm(inp.value));
+      inp.classList.add(ok?'correct':'wrong');inp.disabled=true;
+      if(!ok)allCorrect=false;
+    });
+    correct=allCorrect;
+    fb.className='feedback-msg '+(correct?'ok':'err');
+    fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposte corrette: <strong>'+ex.gaps.map(g=>g.a).join(' · ')+'</strong>';
+  } else if(ex.type==='reorder'){
+    const given=reorderWords.map(w=>w.word).join(' ');
+    const acc=(ex.accept||[ex.answer]).map(norm);correct=acc.includes(norm(given));
+    const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
+    fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
+  }
+  if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
+  else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
+  document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
+  document.getElementById('checkBtn').style.display='none';document.getElementById('nextBtn').style.display='inline-block';
+}
+function nextExercise(){
+  exIdx++;
+  if(exIdx>=exQueue.length){if(!isRetry&&!_firstDone){_firstDone=true;var _fp=_firstTotal>0?Math.round((okCount/_firstTotal)*100):0;if(window.EFTrack)EFTrack.event('punteggio:'+currentLevel.title+' (su '+_firstTotal+')',_fp);}if(retryQueue.length>0){exQueue=MODO==='classe'?retryQueue.slice().sort((a,b)=>exNum(a)-exNum(b)):shuffle(retryQueue);retryQueue=[];exIdx=0;okCount=0;badCount=0;exChecked=false;isRetry=true;renderExercise();}else showExResults();}
+  else renderExercise();
+}
+function showExResults(){
+  const total=exQueue.length,pct=Math.round((okCount/total)*100),passed=pct>=80;
+  if(passed){state[currentLevel.id]='completed';unlockNext(currentLevel.id);saveState();setTimeout(()=>{for(let i=0;i<6;i++)setTimeout(()=>spawnBurst(Math.random()*innerWidth,Math.random()*innerHeight*0.5,['#00f0ff','#00ff88','#ffcc00','#cc77ff'][i%4],22),i*200);},100);}
+  const btnHtml=passed?`<button class="btn btn-green" onclick="goMap()">&larr; MAPPA</button>`:`<button class="btn btn-primary" onclick="retryLevel()">&#x21BA; RIPROVA</button><button class="btn btn-secondary" onclick="goMap()">&larr; MAPPA</button>`;
+  document.getElementById('screen-results').innerHTML=`<div class="results-card"><div class="res-pct ${passed?'pass':'fail'}">${pct}%</div><div class="res-label ${passed?'pass':'fail'}">${passed?'&#x2713; LEVEL COMPLETED!':'&#x2717; TRY AGAIN'}</div><div class="res-threshold">soglia: 80% &middot; ${okCount}/${total} corretti</div><div class="res-breakdown"><div class="rb-item"><div class="rb-num g">${okCount}</div><div class="rb-label">CORRETTI</div></div><div class="rb-item"><div class="rb-num r">${badCount}</div><div class="rb-label">ERRORI</div></div></div><div class="action-bar" style="justify-content:center;margin-top:24px">${btnHtml}</div></div>`;
+  showScreen('results');
+}
+function retryLevel(){openLevel(currentLevel);}
+function confirmReset(){document.getElementById('resetModal').style.display='flex';}
+function closeModal(){document.getElementById('resetModal').style.display='none';}
+function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state={};errorMap={};closeModal();loadState();goMap();updateSaveCode();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
+function goMap(){renderMap();showScreen('map');}
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var rm=document.getElementById('resetModal'); if(rm&&rm.style.display==='flex')return;
+  var mm=document.getElementById('modoModal'); if(mm&&mm.style.display==='flex')return;
+  var sc=document.getElementById('screen-exercise'); if(!sc||!sc.classList.contains('active'))return;
+  e.preventDefault();
+  var nb=document.getElementById('nextBtn'), cb=document.getElementById('checkBtn');
+  if(nb&&nb.style.display!=='none'){if(!e.repeat)nextExercise();}
+  else if(cb&&cb.style.display!=='none'){if(e.repeat)return;var fi=document.getElementById('fillInput');if(fi&&!fi.disabled&&!fi.value.trim())return;checkExercise();}
+});
+loadState();renderMap();apriModo();
+
+</script>
+</body>
+</html>
