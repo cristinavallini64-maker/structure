@@ -239,6 +239,7 @@ header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-
 .rec-links{margin-top:10px;font-size:14px;line-height:1.7;}
 .rec-links a{font-weight:700;color:var(--teal2);text-decoration:none;}
 .cz-text .fill-input{width:150px;}
+.why-box{margin-top:10px;padding:9px 12px;border-left:4px solid var(--gold,#b8860b);background:rgba(184,134,11,.10);border-radius:6px;font-size:14.5px;line-height:1.5;color:var(--ink);}
 </style>
 </head>
 <body>
@@ -345,7 +346,8 @@ const LEVELS=[
 "accept": [
 "was having"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -354,7 +356,8 @@ const LEVELS=[
 "accept": [
 "packed"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "fill",
@@ -363,7 +366,8 @@ const LEVELS=[
 "accept": [
 "rang"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "fill",
@@ -372,7 +376,8 @@ const LEVELS=[
 "accept": [
 "were singing"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -381,7 +386,8 @@ const LEVELS=[
 "accept": [
 "was reading"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -390,7 +396,8 @@ const LEVELS=[
 "accept": [
 "cut"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "fill",
@@ -399,7 +406,8 @@ const LEVELS=[
 "accept": [
 "caught"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "fill",
@@ -408,7 +416,8 @@ const LEVELS=[
 "accept": [
 "were fighting"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -417,7 +426,8 @@ const LEVELS=[
 "accept": [
 "were playing"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -426,7 +436,8 @@ const LEVELS=[
 "accept": [
 "fell"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "mc",
@@ -441,13 +452,65 @@ const LEVELS=[
 "instruction": "Scegli la risposta giusta."
 },
 {
+"type": "fill",
+"q": "Sorry, I didn't hear what you said: I ___ (listen) to music.",
+"a": "was listening",
+"accept": [
+"was listening"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Non ho sentito perché in quel momento stavo ascoltando musica: azione in corso → past continuous."
+},
+{
+"type": "fill",
+"q": "My dad ___ (fix) my bike yesterday, so now I can ride it again.",
+"a": "fixed",
+"accept": [
+"fixed"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Lavoro finito ieri (ora la bici va): fatto concluso → past simple."
+},
+{
+"type": "fill",
+"q": "I couldn't answer the phone: I ___ (drive).",
+"a": "was driving",
+"accept": [
+"was driving"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Non ho risposto perché in quel momento stavo guidando: azione in corso → past continuous."
+},
+{
+"type": "fill",
+"q": "Nobody heard the doorbell because everybody ___ (sing) karaoke in the living room.",
+"a": "was singing",
+"accept": [
+"was singing"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Il campanello non l'ha sentito nessuno perché tutti stavano cantando: azione in corso → past continuous."
+},
+{
+"type": "mc",
+"q": "« I was reading a book about Japan » e « I read a book about Japan »: quale dice che il libro l'ho finito?",
+"options": [
+"La seconda: il past simple dice che l'azione è conclusa.",
+"La prima: il past continuous dice che l'azione è finita.",
+"Tutte e due: non c'è differenza."
+],
+"a": "La seconda: il past simple dice che l'azione è conclusa.",
+"instruction": "Scegli la risposta giusta."
+},
+{
 "type": "errorcorrect",
 "wrong": "We were ordering pizzas, ate them in the park and went home.",
 "a": "We ordered pizzas, ate them in the park and went home.",
 "accept": [
 "We ordered pizzas, ate them in the park and went home."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Sono tre fatti uno dopo l'altro (ordinare, mangiare, tornare): tutti al past simple."
 },
 {
 "type": "errorcorrect",
@@ -457,7 +520,8 @@ const LEVELS=[
 "Somebody knocked at the door while I was having a shower.",
 "Somebody knocked on the door while I was having a shower."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "La doccia era in corso quando hanno bussato: dopo while va il past continuous (I was having a shower)."
 }
 ]
 },
@@ -475,7 +539,8 @@ const LEVELS=[
 "accept": [
 "didn't see"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso che non è successo → past simple negativo: didn't + forma base."
 },
 {
 "type": "fill",
@@ -484,7 +549,8 @@ const LEVELS=[
 "accept": [
 "wasn't looking"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "L'azione non era in corso in quel momento → wasn't / weren't + -ing."
 },
 {
 "type": "fill",
@@ -493,7 +559,8 @@ const LEVELS=[
 "accept": [
 "did you go"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "fill",
@@ -502,7 +569,8 @@ const LEVELS=[
 "accept": [
 "was sleeping"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -511,7 +579,8 @@ const LEVELS=[
 "accept": [
 "didn't enjoy"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso che non è successo → past simple negativo: didn't + forma base."
 },
 {
 "type": "fill",
@@ -520,7 +589,8 @@ const LEVELS=[
 "accept": [
 "Were you jogging"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -529,7 +599,8 @@ const LEVELS=[
 "accept": [
 "wasn't raining"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "L'azione non era in corso in quel momento → wasn't / weren't + -ing."
 },
 {
 "type": "fill",
@@ -538,7 +609,8 @@ const LEVELS=[
 "accept": [
 "did your team score"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "fill",
@@ -547,7 +619,8 @@ const LEVELS=[
 "accept": [
 "wasn't paying"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "L'azione non era in corso in quel momento → wasn't / weren't + -ing."
 },
 {
 "type": "fill",
@@ -556,7 +629,8 @@ const LEVELS=[
 "accept": [
 "were you waving"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -565,7 +639,28 @@ const LEVELS=[
 "accept": [
 "bought"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
+},
+{
+"type": "fill",
+"q": "Marta ___ (find) her keys, so she had to wait outside until her parents came home.",
+"a": "didn't find",
+"accept": [
+"didn't find"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso che non è successo → past simple negativo: didn't + forma base."
+},
+{
+"type": "fill",
+"q": "You looked so tired this morning. What time ___ (you / go) to bed?",
+"a": "did you go",
+"accept": [
+"did you go"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "errorcorrect",
@@ -574,7 +669,8 @@ const LEVELS=[
 "accept": [
 "Were you sleeping when I called you?"
 ],
-"instruction": "C'è un errore: riscrivi la frase corretta."
+"instruction": "C'è un errore: riscrivi la frase corretta.",
+"why": "Domanda su un'azione in corso: Were you sleeping? Con il past continuous non si usa did."
 },
 {
 "type": "errorcorrect",
@@ -583,7 +679,8 @@ const LEVELS=[
 "accept": [
 "Why were you laughing during the lesson?"
 ],
-"instruction": "C'è un errore: riscrivi la frase corretta."
+"instruction": "C'è un errore: riscrivi la frase corretta.",
+"why": "Domanda su un'azione in corso: Why were you laughing? Con il past continuous non si usa did."
 }
 ]
 },
@@ -601,7 +698,8 @@ const LEVELS=[
 "accept": [
 "didn't understand"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« understand » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -610,7 +708,8 @@ const LEVELS=[
 "accept": [
 "seemed"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« seem » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -619,7 +718,8 @@ const LEVELS=[
 "accept": [
 "was waiting"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -628,7 +728,8 @@ const LEVELS=[
 "accept": [
 "wanted"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« want » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -637,7 +738,8 @@ const LEVELS=[
 "accept": [
 "didn't remember"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« remember » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -646,7 +748,8 @@ const LEVELS=[
 "accept": [
 "was preparing"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -655,7 +758,8 @@ const LEVELS=[
 "accept": [
 "owned"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« own » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -664,7 +768,8 @@ const LEVELS=[
 "accept": [
 "cost"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« cost » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -673,7 +778,8 @@ const LEVELS=[
 "accept": [
 "didn't know"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« know » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -682,7 +788,8 @@ const LEVELS=[
 "accept": [
 "liked"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« like » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "mc",
@@ -696,13 +803,34 @@ const LEVELS=[
 "instruction": "Scegli la risposta giusta."
 },
 {
+"type": "fill",
+"q": "Luca ___ (believe) me, so I showed him the photos.",
+"a": "didn't believe",
+"accept": [
+"didn't believe"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« believe » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
+},
+{
+"type": "fill",
+"q": "I ___ (need) a new phone because mine was broken.",
+"a": "needed",
+"accept": [
+"needed"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "« need » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
+},
+{
 "type": "errorcorrect",
 "wrong": "I was believing his story, but it wasn't true.",
 "a": "I believed his story, but it wasn't true.",
 "accept": [
 "I believed his story, but it wasn't true."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "believe è un verbo di stato: past simple (I believed)."
 },
 {
 "type": "errorcorrect",
@@ -711,7 +839,8 @@ const LEVELS=[
 "accept": [
 "When we lived in London, we had a flat near the river."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Qui have vuol dire possedere: è uno stato → past simple (we had)."
 }
 ]
 },
@@ -728,7 +857,8 @@ const LEVELS=[
 "accept": [
 "were talking"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -737,7 +867,8 @@ const LEVELS=[
 "accept": [
 "didn't need"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« need » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -746,7 +877,8 @@ const LEVELS=[
 "accept": [
 "Did you hear"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "fill",
@@ -755,7 +887,8 @@ const LEVELS=[
 "accept": [
 "were still having"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "L'azione era in corso (stava succedendo) in quel momento o mentre succedeva l'altro fatto → past continuous, was/were + -ing."
 },
 {
 "type": "fill",
@@ -764,7 +897,8 @@ const LEVELS=[
 "accept": [
 "broke"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
 },
 {
 "type": "fill",
@@ -773,7 +907,8 @@ const LEVELS=[
 "accept": [
 "didn't know"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« know » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -782,7 +917,8 @@ const LEVELS=[
 "accept": [
 "were you wearing"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -791,7 +927,8 @@ const LEVELS=[
 "accept": [
 "looked"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Qui look vuol dire sembrare: è uno stato → past simple (looked)."
 },
 {
 "type": "fill",
@@ -800,7 +937,28 @@ const LEVELS=[
 "accept": [
 "had"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "È un fatto concluso: un'azione breve, una della serie, o quella che interrompe l'altra → past simple."
+},
+{
+"type": "fill",
+"q": "I couldn't come to the phone because I ___ (have) a shower.",
+"a": "was having",
+"accept": [
+"was having"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Qui have non vuol dire possedere: « having a shower » è un'azione, in corso in quel momento → past continuous."
+},
+{
+"type": "fill",
+"q": "We ___ (have) a big garden when we lived in the country.",
+"a": "had",
+"accept": [
+"had"
+],
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi.",
+"why": "Qui have vuol dire possedere: è uno stato → past simple (had)."
 },
 {
 "type": "errorcorrect",
@@ -809,7 +967,8 @@ const LEVELS=[
 "accept": [
 "When I left the house, it was raining, so I took my umbrella."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "La pioggia era già in corso quando sono uscito: è la scena → past continuous (it was raining)."
 },
 {
 "type": "errorcorrect",
@@ -818,7 +977,8 @@ const LEVELS=[
 "accept": [
 "My cousin owned three horses when she lived in the country."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "own è un verbo di stato: past simple (owned)."
 },
 {
 "type": "mc",
@@ -848,7 +1008,8 @@ const LEVELS=[
 "Were you watching TV when the power cut started? Yes, I was.",
 "Were you watching TV when the power cut started? Yes, we were."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "Azione in corso in quel momento → domanda al past continuous (Was/Were + soggetto + -ing?). Risposta breve con was/were: Yes, I was / No, they weren't."
 },
 {
 "type": "fill",
@@ -857,7 +1018,8 @@ const LEVELS=[
 "accept": [
 "Did Sara enjoy the climbing course? No, she didn't."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "È un fatto concluso (o un verbo di stato) → domanda al past simple: Did + soggetto + forma base? Risposta breve: Yes, she did / No, they didn't."
 },
 {
 "type": "fill",
@@ -866,7 +1028,8 @@ const LEVELS=[
 "accept": [
 "Were the boys playing football when it started to hail? Yes, they were."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "Azione in corso in quel momento → domanda al past continuous (Was/Were + soggetto + -ing?). Risposta breve con was/were: Yes, I was / No, they weren't."
 },
 {
 "type": "fill",
@@ -875,7 +1038,8 @@ const LEVELS=[
 "accept": [
 "Did your parents know about the party? No, they didn't."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "È un fatto concluso (o un verbo di stato) → domanda al past simple: Did + soggetto + forma base? Risposta breve: Yes, she did / No, they didn't."
 },
 {
 "type": "fill",
@@ -884,7 +1048,8 @@ const LEVELS=[
 "accept": [
 "Did Tom lose his wallet on the train? Yes, he did."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "È un fatto concluso (o un verbo di stato) → domanda al past simple: Did + soggetto + forma base? Risposta breve: Yes, she did / No, they didn't."
 },
 {
 "type": "fill",
@@ -893,7 +1058,8 @@ const LEVELS=[
 "accept": [
 "Were you and Elena waiting for the bus when the accident happened? No, we weren't."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "Azione in corso in quel momento → domanda al past continuous (Was/Were + soggetto + -ing?). Risposta breve con was/were: Yes, I was / No, they weren't."
 },
 {
 "type": "fill",
@@ -905,7 +1071,8 @@ const LEVELS=[
 "What was Matteo repairing at five o'clock",
 "At five o'clock, what was Matteo repairing in the garage"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -914,7 +1081,8 @@ const LEVELS=[
 "accept": [
 "When did you meet your new teacher"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "fill",
@@ -923,7 +1091,8 @@ const LEVELS=[
 "accept": [
 "Who taught you to play chess"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "Domanda sul soggetto (chi ti ha insegnato?): niente did."
 },
 {
 "type": "fill",
@@ -932,7 +1101,8 @@ const LEVELS=[
 "accept": [
 "Why were the girls laughing"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -941,7 +1111,8 @@ const LEVELS=[
 "accept": [
 "How long did the museum tour last"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "fill",
@@ -950,7 +1121,8 @@ const LEVELS=[
 "accept": [
 "What did Marta want for her birthday"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "errorcorrect",
@@ -959,7 +1131,8 @@ const LEVELS=[
 "accept": [
 "Where were you going when I saw you yesterday?"
 ],
-"instruction": "C'è un errore: riscrivi la domanda corretta."
+"instruction": "C'è un errore: riscrivi la domanda corretta.",
+"why": "Nella domanda was/were va prima del soggetto: Where were you going?"
 },
 {
 "type": "errorcorrect",
@@ -968,7 +1141,8 @@ const LEVELS=[
 "accept": [
 "Who called you last night?"
 ],
-"instruction": "C'è un errore: riscrivi la domanda corretta."
+"instruction": "C'è un errore: riscrivi la domanda corretta.",
+"why": "Domanda sul soggetto (chi ha chiamato?): niente did → Who called you?"
 }
 ]
 },
@@ -977,98 +1151,133 @@ const LEVELS=[
 "type": "study",
 "title": "LIVELLO 05 — WHEN E WHILE",
 "desc": "interruzione · azioni contemporanee · sequenza · come l'esercizio 4",
-"rule": "<strong>WHEN E WHILE</strong><br>&#x2714; Interruzione: <code>past continuous + when + past simple</code> &middot; <em>I was cooking when the phone rang.</em> = <em>While I was cooking, the phone rang.</em><br>&#x2714; Due azioni lunghe contemporanee: <code>While + past continuous, past continuous</code> &middot; <em>While Mum was working, Dad was cooking.</em><br>&#x2714; Una dopo l'altra: <code>When + past simple, past simple</code> &middot; <em>When the film ended, we went home.</em><br>&#x2714; <em>while</em> = mentre → introduce l'azione <strong>in corso</strong>; <em>when</em> = quando → di solito il <strong>fatto</strong>.<br>&#x26A0; Frase che comincia con When / While → <strong>virgola</strong> tra le due parti.",
+"rule": "<strong>WHEN E WHILE</strong><br>&#x2714; Interruzione: <code>past continuous + when + past simple</code> &middot; <em>I was cooking when the phone rang.</em> = <em>While I was cooking, the phone rang.</em><br>&#x2714; Due azioni lunghe contemporanee: <code>While + past continuous, past continuous</code> &middot; <em>While Mum was working, Dad was cooking.</em><br>&#x2714; Una dopo l'altra: <code>When + past simple, past simple</code> &middot; <em>When the film ended, we went home.</em><br>&#x2714; <em>while</em> = mentre → introduce l'azione <strong>in corso</strong>; <em>when</em> = quando → di solito il <strong>fatto</strong>.<br>&#x26A0; Frase che comincia con When / While → <strong>virgola</strong> tra le due parti.<br>&#x1F4A1; In verifica la congiunzione non c'&egrave;: decidi tu se usare <em>when</em> o <em>while</em> e in che ordine mettere le azioni.",
 "exercises": [
 {
 "type": "fill",
-"q": "I / cook / dinner — the smoke alarm / go off <b>(when)</b><br>→ I ___",
-"a": "was cooking dinner when the smoke alarm went off",
+"q": "I / cook / dinner — the smoke alarm / go off<br>→ ___",
+"a": "I was cooking dinner when the smoke alarm went off.",
 "accept": [
-"was cooking dinner when the smoke alarm went off"
+"I was cooking dinner when the smoke alarm went off.",
+"While I was cooking dinner, the smoke alarm went off.",
+"The smoke alarm went off while I was cooking dinner.",
+"When the smoke alarm went off, I was cooking dinner."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« I was cooking dinner » era in corso quando è successo « the smoke alarm went off »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "we / drive / to the coast — a tyre / burst <b>(while)</b><br>→ While we ___",
-"a": "were driving to the coast, a tyre burst",
+"q": "we / drive / to the coast — a tyre / burst<br>→ ___",
+"a": "We were driving to the coast when a tyre burst.",
 "accept": [
-"were driving to the coast, a tyre burst"
+"We were driving to the coast when a tyre burst.",
+"While we were driving to the coast, a tyre burst.",
+"A tyre burst while we were driving to the coast.",
+"When a tyre burst, we were driving to the coast."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« we were driving to the coast » era in corso quando è successo « a tyre burst »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "the concert / finish — we / take / a taxi home <b>(when)</b><br>→ When the concert ___",
-"a": "finished, we took a taxi home",
+"q": "the concert / finish — we / take / a taxi home<br>→ ___",
+"a": "When the concert finished, we took a taxi home.",
 "accept": [
-"finished, we took a taxi home"
+"When the concert finished, we took a taxi home.",
+"We took a taxi home when the concert finished."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Prima succede una cosa, poi l'altra: tutte e due al past simple, unite con when."
 },
 {
 "type": "fill",
-"q": "Grandma / water / the plants — Grandpa / cut / the grass (both actions went on all afternoon) <b>(while)</b><br>→ While Grandma ___",
-"a": "was watering the plants, Grandpa was cutting the grass",
+"q": "Grandma / water / the plants — Grandpa / cut / the grass (both actions went on all afternoon)<br>→ ___",
+"a": "While Grandma was watering the plants, Grandpa was cutting the grass.",
 "accept": [
-"was watering the plants, Grandpa was cutting the grass"
+"While Grandma was watering the plants, Grandpa was cutting the grass.",
+"Grandma was watering the plants while Grandpa was cutting the grass.",
+"While Grandpa was cutting the grass, Grandma was watering the plants.",
+"Grandpa was cutting the grass while Grandma was watering the plants."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Due azioni lunghe nello stesso momento: tutte e due al past continuous, unite con while."
 },
 {
 "type": "fill",
-"q": "Elena / swim / in the sea — a jellyfish / sting / her <b>(when)</b><br>→ Elena ___",
-"a": "was swimming in the sea when a jellyfish stung her",
+"q": "Elena / swim / in the sea — a jellyfish / sting / her<br>→ ___",
+"a": "Elena was swimming in the sea when a jellyfish stung her.",
 "accept": [
-"was swimming in the sea when a jellyfish stung her"
+"Elena was swimming in the sea when a jellyfish stung her.",
+"While Elena was swimming in the sea, a jellyfish stung her.",
+"A jellyfish stung her while Elena was swimming in the sea.",
+"When a jellyfish stung her, Elena was swimming in the sea."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« Elena was swimming in the sea » era in corso quando è successo « a jellyfish stung her »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "the teacher / give / back the tests — everybody / become / silent <b>(when)</b><br>→ When the teacher ___",
-"a": "gave back the tests, everybody became silent",
+"q": "the teacher / give back / the tests — everybody / become / silent<br>→ ___",
+"a": "When the teacher gave back the tests, everybody became silent.",
 "accept": [
-"gave back the tests, everybody became silent",
-"gave the tests back, everybody became silent"
+"When the teacher gave back the tests, everybody became silent.",
+"Everybody became silent when the teacher gave back the tests.",
+"When the teacher gave the tests back, everybody became silent.",
+"Everybody became silent when the teacher gave the tests back."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Prima succede una cosa, poi l'altra: tutte e due al past simple, unite con when."
 },
 {
 "type": "fill",
-"q": "I / do / my homework — my phone / ring / five times <b>(while)</b><br>→ While I ___",
-"a": "was doing my homework, my phone rang five times",
+"q": "I / do / my homework — my phone / ring / five times<br>→ ___",
+"a": "I was doing my homework when my phone rang five times.",
 "accept": [
-"was doing my homework, my phone rang five times"
+"I was doing my homework when my phone rang five times.",
+"While I was doing my homework, my phone rang five times.",
+"My phone rang five times while I was doing my homework.",
+"When my phone rang five times, I was doing my homework."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« I was doing my homework » era in corso quando è successo « my phone rang five times »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "the bus / arrive — we / get on <b>(when)</b><br>→ When the bus ___",
-"a": "arrived, we got on",
+"q": "the bus / arrive — we / get on<br>→ ___",
+"a": "When the bus arrived, we got on.",
 "accept": [
-"arrived, we got on"
+"When the bus arrived, we got on.",
+"We got on when the bus arrived."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Prima succede una cosa, poi l'altra: tutte e due al past simple, unite con when."
 },
 {
 "type": "fill",
-"q": "my friends / play / volleyball — I / sunbathe (both actions went on all morning) <b>(while)</b><br>→ While my friends ___",
-"a": "were playing volleyball, I was sunbathing",
+"q": "my friends / play / volleyball — I / sunbathe (both actions went on all morning)<br>→ ___",
+"a": "While my friends were playing volleyball, I was sunbathing.",
 "accept": [
-"were playing volleyball, I was sunbathing"
+"While my friends were playing volleyball, I was sunbathing.",
+"My friends were playing volleyball while I was sunbathing.",
+"While I was sunbathing, my friends were playing volleyball.",
+"I was sunbathing while my friends were playing volleyball."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Due azioni lunghe nello stesso momento: tutte e due al past continuous, unite con while."
 },
 {
 "type": "fill",
-"q": "Luca / ski — he / hurt / his knee <b>(when)</b><br>→ Luca ___",
-"a": "was skiing when he hurt his knee",
+"q": "Luca / ski — he / hurt / his knee<br>→ ___",
+"a": "Luca was skiing when he hurt his knee.",
 "accept": [
-"was skiing when he hurt his knee"
+"Luca was skiing when he hurt his knee.",
+"While Luca was skiing, he hurt his knee.",
+"He hurt his knee while Luca was skiing.",
+"When he hurt his knee, Luca was skiing."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« Luca was skiing » era in corso quando è successo « he hurt his knee »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "errorcorrect",
@@ -1077,7 +1286,8 @@ const LEVELS=[
 "accept": [
 "While I was cooking, the doorbell rang."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Il campanello suona in un momento, mentre cucinavo: azione breve → past simple (rang)."
 },
 {
 "type": "errorcorrect",
@@ -1087,7 +1297,8 @@ const LEVELS=[
 "When the film started, we turned off our phones.",
 "When the film started, we turned our phones off."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Prima comincia il film, poi spegniamo i telefoni: due fatti in sequenza → past simple."
 },
 {
 "type": "mc",
@@ -1121,7 +1332,8 @@ const LEVELS=[
 "While I was having a shower, the electricity went off.",
 "While I was having a shower, the power went out."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Facevo la doccia » = azione in corso → past continuous; « è andata via la luce » = fatto improvviso → past simple."
 },
 {
 "type": "fill",
@@ -1133,7 +1345,8 @@ const LEVELS=[
 "I didn't want to go to the party, but in the end I had fun.",
 "I didn't want to go to the party but in the end I had a great time."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Volevo » è uno stato → past simple (didn't want); « mi sono divertito » = fatto → past simple."
 },
 {
 "type": "fill",
@@ -1149,7 +1362,8 @@ const LEVELS=[
 "At nine o'clock last night we were watching a movie.",
 "Last night at nine we were watching a movie."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "Azione in corso a un'ora precisa → past continuous (we were watching)."
 },
 {
 "type": "fill",
@@ -1165,7 +1379,8 @@ const LEVELS=[
 "I got home, had a sandwich and went out again.",
 "I got home, ate a sandwich and went out again."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "Tre fatti in sequenza → tutti al past simple."
 },
 {
 "type": "fill",
@@ -1178,7 +1393,8 @@ const LEVELS=[
 "When the teacher came in, the students were chatting.",
 "When the teacher came in, the students were talking."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« È arrivato » = fatto → past simple; « chiacchieravano » = azione già in corso → past continuous."
 },
 {
 "type": "fill",
@@ -1188,7 +1404,8 @@ const LEVELS=[
 "I didn't know anybody at the party.",
 "I didn't know anyone at the party."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Conoscevo » = stato → past simple (didn't know)."
 },
 {
 "type": "fill",
@@ -1202,7 +1419,8 @@ const LEVELS=[
 "My grandfather owned a sailing boat.",
 "My grandad had a sailing boat."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Aveva » = possedeva, uno stato → past simple (had)."
 },
 {
 "type": "fill",
@@ -1214,7 +1432,8 @@ const LEVELS=[
 "It was raining and cold, so we stayed at home.",
 "It was raining and cold, so we stayed home."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Pioveva » = scena in corso → past continuous; « faceva freddo » = it was cold; « siamo rimasti » = fatto → past simple."
 },
 {
 "type": "fill",
@@ -1226,7 +1445,8 @@ const LEVELS=[
 "What were you doing when I rang you?",
 "What were you doing when I called?"
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "Domanda su un'azione in corso nel momento della telefonata → What were you doing?"
 },
 {
 "type": "fill",
@@ -1240,7 +1460,8 @@ const LEVELS=[
 "I liked the concert a lot.",
 "I enjoyed the concert a lot."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "like / enjoy al passato → past simple, mai was liking."
 },
 {
 "type": "mc",
@@ -1268,7 +1489,8 @@ const LEVELS=[
 "accept": [
 "Was your sister driving when the police stopped her? Yes, she was."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "Azione in corso in quel momento → domanda al past continuous (Was/Were + soggetto + -ing?). Risposta breve con was/were: Yes, I was / No, they weren't."
 },
 {
 "type": "fill",
@@ -1279,25 +1501,32 @@ const LEVELS=[
 "What was Dad looking for when you left",
 "What was your father looking for when you left"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
-"q": "we / have / a picnic — a wasp / sting / my brother <b>(when)</b><br>→ We ___",
-"a": "were having a picnic when a wasp stung my brother",
+"q": "we / have / a picnic — a wasp / sting / my brother<br>→ ___",
+"a": "We were having a picnic when a wasp stung my brother.",
 "accept": [
-"were having a picnic when a wasp stung my brother"
+"We were having a picnic when a wasp stung my brother.",
+"While we were having a picnic, a wasp stung my brother.",
+"A wasp stung my brother while we were having a picnic.",
+"When a wasp stung my brother, we were having a picnic."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« we were having a picnic » era in corso quando è successo « a wasp stung my brother »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "the lesson / end — the students / rush / out <b>(when)</b><br>→ When the lesson ___",
-"a": "ended, the students rushed out",
+"q": "the lesson / end — the students / rush / out<br>→ ___",
+"a": "When the lesson ended, the students rushed out.",
 "accept": [
-"ended, the students rushed out"
+"When the lesson ended, the students rushed out.",
+"The students rushed out when the lesson ended."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Prima succede una cosa, poi l'altra: tutte e due al past simple, unite con when."
 },
 {
 "type": "fill",
@@ -1307,7 +1536,8 @@ const LEVELS=[
 "While I was studying, my brother was playing the guitar.",
 "While I was studying, my brother was playing guitar."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "Due azioni lunghe nello stesso momento → tutte e due al past continuous."
 },
 {
 "type": "fill",
@@ -1319,7 +1549,8 @@ const LEVELS=[
 "I didn't understand what he said.",
 "I didn't understand what she said."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Capivo » = stato → didn't understand; « diceva » = azione in corso → was saying."
 },
 {
 "type": "fill",
@@ -1328,7 +1559,8 @@ const LEVELS=[
 "accept": [
 "didn't you answer"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "È un fatto concluso → domanda al past simple: (What…) did + soggetto + forma base?"
 },
 {
 "type": "errorcorrect",
@@ -1337,7 +1569,8 @@ const LEVELS=[
 "accept": [
 "While we were walking along the river, we met our old teacher."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Dopo while va l'azione in corso: we were walking."
 },
 {
 "type": "errorcorrect",
@@ -1346,7 +1579,8 @@ const LEVELS=[
 "accept": [
 "Did you know the answer?"
 ],
-"instruction": "C'è un errore: riscrivi la domanda corretta."
+"instruction": "C'è un errore: riscrivi la domanda corretta.",
+"why": "know è un verbo di stato, e dopo did il verbo resta alla forma base: Did you know?"
 },
 {
 "type": "mc",
@@ -1405,7 +1639,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) dormivo quando è suonata la sveglia → in corso; (2) la sveglia comincia: fatto; (3) l'ha cambiata la sera prima: fatto; (4) find = trovare (divertente), un giudizio → past simple; (5) mi vestivo mentre lui rideva → in corso."
 },
 {
 "type": "cloze",
@@ -1443,7 +1678,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) pedalava quando ha sentito il cane → in corso; (2) fatto; (3) il cane stava cercando di risalire → in corso; (4)(5) azioni in sequenza → past simple."
 },
 {
 "type": "cloze",
@@ -1481,7 +1717,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) tutti si girano quando apro: fatto; (2) la musica suonava già: scena → in corso; (3) understand = stato; (4)(5) fatti in sequenza."
 },
 {
 "type": "cloze",
@@ -1519,7 +1756,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) non ho risposto: fatto; (2) ero seduto quando hai scritto → in corso; (3) fatto; (4) feel = stato; (5) fatto."
 },
 {
 "type": "errorcorrect",
@@ -1528,7 +1766,8 @@ const LEVELS=[
 "accept": [
 "I opened the window, saw a bird on the roof and called my sister."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Tre fatti uno dopo l'altro: tutti al past simple."
 },
 {
 "type": "errorcorrect",
@@ -1537,7 +1776,8 @@ const LEVELS=[
 "accept": [
 "Everybody was listening to the speech when suddenly a phone rang."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Il telefono squilla all'improvviso mentre tutti ascoltano: azione breve che interrompe → past simple (rang)."
 }
 ]
 },
@@ -1584,7 +1824,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) camminavamo quando mi sono fermato → in corso; (2) fatto che interrompe; (3) be → weren't; (4) have = possedere, stato; (5) know = stato."
 },
 {
 "type": "cloze",
@@ -1622,7 +1863,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) cercavo → in corso; (2)(3) fatti; (4) la prof aspettava già → in corso; (5) look = sembrare, stato."
 },
 {
 "type": "cloze",
@@ -1660,7 +1902,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) i tifosi gridavano: scena → in corso; (2) correva quando l'hanno spinto → in corso; (3)(4) fatti; (5) want = stato."
 },
 {
 "type": "cloze",
@@ -1699,7 +1942,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) le gambe tremavano: scena → in corso; (2) mentre mettevo il pallone → in corso; (3)(4) fatti in sequenza; (5) believe = stato."
 },
 {
 "type": "mc",
@@ -1756,7 +2000,8 @@ const LEVELS=[
 }
 ],
 "instruction": "Completa il testo con il past simple o il past continuous dei verbi tra parentesi.",
-"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare."
+"note": "Tutti gli spazi giusti = esercizio giusto. Leggi tutto il testo prima di cominciare.",
+"why": "(1) aspettavo quando ha cominciato a grandinare → in corso; (2) have = possedere, stato; (3) fatto; (4) mentre bevevo → in corso; (5) fatto."
 },
 {
 "type": "fill",
@@ -1765,7 +2010,8 @@ const LEVELS=[
 "accept": [
 "were you laughing"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
@@ -1775,7 +2021,8 @@ const LEVELS=[
 "didn't recognise",
 "didn't recognize"
 ],
-"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto."
+"instruction": "Completa con il past simple o il past continuous del verbo tra parentesi. Affermativo, negativo o domanda: lo decide il contesto.",
+"why": "« recognise » qui è un verbo di stato → past simple, anche se in italiano c'è l'imperfetto."
 },
 {
 "type": "fill",
@@ -1784,7 +2031,8 @@ const LEVELS=[
 "accept": [
 "Did Anna need help with her project? No, she didn't."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "È un fatto concluso (o un verbo di stato) → domanda al past simple: Did + soggetto + forma base? Risposta breve: Yes, she did / No, they didn't."
 },
 {
 "type": "fill",
@@ -1793,7 +2041,8 @@ const LEVELS=[
 "accept": [
 "Was it snowing when you left the house? Yes, it was."
 ],
-"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous."
+"instruction": "Scrivi la domanda e la risposta breve (✓ = sì, ✗ = no). Il tempo lo scegli tu: past simple o past continuous.",
+"why": "Azione in corso in quel momento → domanda al past continuous (Was/Were + soggetto + -ing?). Risposta breve con was/were: Yes, I was / No, they weren't."
 },
 {
 "type": "fill",
@@ -1804,26 +2053,34 @@ const LEVELS=[
 "What were the neighbors playing at midnight",
 "At midnight, what were the neighbours playing"
 ],
-"instruction": "Scrivi la domanda sulla parte sottolineata."
+"instruction": "Scrivi la domanda sulla parte sottolineata.",
+"why": "Domanda su un'azione in corso in quel momento → past continuous: (What…) was/were + soggetto + -ing?"
 },
 {
 "type": "fill",
-"q": "Sofia / paint / her room — she / fall / off the ladder <b>(when)</b><br>→ Sofia ___",
-"a": "was painting her room when she fell off the ladder",
+"q": "Sofia / paint / her room — she / fall / off the ladder<br>→ ___",
+"a": "Sofia was painting her room when she fell off the ladder.",
 "accept": [
-"was painting her room when she fell off the ladder"
+"Sofia was painting her room when she fell off the ladder.",
+"While Sofia was painting her room, she fell off the ladder.",
+"She fell off the ladder while Sofia was painting her room.",
+"When she fell off the ladder, Sofia was painting her room."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "« Sofia was painting her room » era in corso quando è successo « she fell off the ladder »: past continuous per l'azione in corso, past simple per quella che la interrompe. Con when: « … when … »; con while: « While …, … »."
 },
 {
 "type": "fill",
-"q": "the rain / stop — we / go / out for a walk <b>(when)</b><br>→ When the rain ___",
-"a": "stopped, we went out for a walk",
+"q": "the rain / stop — we / go / out for a walk<br>→ ___",
+"a": "When the rain stopped, we went out for a walk.",
 "accept": [
-"stopped, we went out for a walk",
-"stopped, we went for a walk"
+"When the rain stopped, we went out for a walk.",
+"We went out for a walk when the rain stopped.",
+"When the rain stopped, we went for a walk.",
+"We went for a walk when the rain stopped."
 ],
-"instruction": "Unisci le due azioni in una frase con la parola tra parentesi, usando il past simple o il past continuous. Comincia con le parole date."
+"instruction": "Unisci le due azioni in una frase con when o while, usando il past simple o il past continuous. Decidi tu la congiunzione e l'ordine, come nella verifica.",
+"why": "Prima succede una cosa, poi l'altra: tutte e due al past simple, unite con when."
 },
 {
 "type": "fill",
@@ -1834,7 +2091,8 @@ const LEVELS=[
 "While we were waiting for the train, we ate an ice cream.",
 "While we were waiting for the train we had an ice cream."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Aspettavamo » = in corso → past continuous; « abbiamo mangiato » = fatto → past simple."
 },
 {
 "type": "fill",
@@ -1846,7 +2104,8 @@ const LEVELS=[
 "I wanted to ring you, but I didn't have your number.",
 "I wanted to call you, but I didn't have your phone number."
 ],
-"instruction": "Traduci in inglese."
+"instruction": "Traduci in inglese.",
+"why": "« Volevo » e « avevo » sono stati → past simple (wanted, didn't have)."
 },
 {
 "type": "errorcorrect",
@@ -1855,7 +2114,8 @@ const LEVELS=[
 "accept": [
 "At eight o'clock I was having dinner with my family, so I couldn't answer the phone."
 ],
-"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta."
+"instruction": "Il tempo verbale di questa frase è sbagliato: riscrivila corretta.",
+"why": "Alle otto la cena era in corso, per questo non ho risposto → past continuous (I was having dinner)."
 },
 {
 "type": "mc",
@@ -2164,6 +2424,7 @@ function checkExercise(){
     const area=document.getElementById('answerArea');area.classList.add(correct?'correct':'wrong');
     fb.className='feedback-msg '+(correct?'ok':'err');fb.innerHTML=correct?'\u2713 Corretto!':'\u2717 Risposta corretta: <strong>'+ex.answer+'</strong>';
   }
+  if(!correct&&ex.why&&fb)fb.innerHTML+='<div class="why-box">\u{1F4A1} <strong>Perch\u00e9:</strong> '+ex.why+'</div>';
   if(correct){okCount++;if(card){card.classList.add('flash-correct');setTimeout(()=>card.classList.remove('flash-correct'),500);}burstAt(card,'#00ff88');}
   else{badCount++;retryQueue.push(ex);if(!isRetry)recordError(ex._key);if(card){card.classList.add('flash-wrong');setTimeout(()=>card.classList.remove('flash-wrong'),400);}}
   document.getElementById('hudOk').innerHTML=`\u2713 ${okCount}`;document.getElementById('hudBad').innerHTML=`\u2717 ${badCount}`;
