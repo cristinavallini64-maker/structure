@@ -114,7 +114,7 @@ td select{font:inherit;font-size:13px;padding:3px 4px;border-radius:5px;border:1
   </div>
   <div class="intro">
     Questa prova ha <b>la stessa struttura della verifica di recupero</b>, ma frasi e testi sono diversi: serve a capire <b>se sai usare il past simple e il past continuous</b>.
-    Fai tutto da solo, senza appunti e senza altre pagine aperte. <b>Le soluzioni non compaiono</b>: quando hai finito tutto premi «Consegna» e vedi solo il punteggio di ogni esercizio. Il writing lo corregge l'insegnante. <b>Attenzione:</b> dopo «Consegna» non puoi più cambiare niente.
+    Fai tutto da solo, senza appunti e senza altre pagine aperte. <b>Le correzioni compaiono solo alla fine</b>: quando hai finito tutto premi «Consegna» e vedi il punteggio e le soluzioni di ogni esercizio. Il writing lo corregge l'insegnante. <b>Attenzione:</b> dopo «Consegna» non puoi più cambiare niente.
   </div>
   <section class="ex" id="ex1"></section>
   <section class="ex" id="ex2"></section>
@@ -245,9 +245,9 @@ function finalScore(){
   document.querySelectorAll("#convTable td").forEach(td=>{td.style.background="";td.style.color="";td.style.fontWeight="";});
   document.querySelectorAll(`#convTable td[data-c="${idx}"]`).forEach(td=>{td.style.background="var(--teal)";td.style.color="#fff";td.style.fontWeight="700";});
   const r=document.getElementById("result");
-  if(CFG.writing.teacher){r.innerHTML=`<div class="big">Esercizi: ${fmt(tot)} / ${CFG.total}</div>
+  if(CFG.writing.teacher){document.body.classList.remove("nosol");r.innerHTML=`<div class="big">Esercizi: ${fmt(tot)} / ${CFG.total}</div>
     <div class="rows">${CFG.ex.map((e,i)=>`${i+1} ${e.short} ${fmt(score[i+1])}/${e.pts}`).join(" · ")}</div>
-    <div class="note">Il writing lo corregge l'insegnante: il voto lo saprai in classe. Guarda in quale esercizio hai perso più punti: è lì che devi lavorare.</div>
+    <div class="note">Il writing lo corregge l'insegnante: il voto lo saprai in classe. Ora guarda le correzioni esercizio per esercizio: le risposte sbagliate sono in rosso, con la soluzione accanto.</div>
     <div id="sendBox" style="margin-top:14px;border-top:1px solid rgba(244,241,232,.15);padding-top:12px;">
       <div style="font-weight:700;margin-bottom:6px;">Invia il test all'insegnante</div>
       <input id="stName" placeholder="Nome e cognome" autocomplete="off" style="font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:none;width:100%;max-width:320px;">
