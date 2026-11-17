@@ -733,8 +733,7 @@ function norm(s){
     .replace(/n't\b/g,' not')
     .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'m\b/g,' am')
     .replace(/'s\s+been\b/g,' has been').replace(/'d\s+been\b/g,' had been');
-  const C={cant:'cannot',wont:'will not',dont:'do not',doesnt:'does not',didnt:'did not',isnt:'is not',arent:'are not',wasnt:'was not',werent:'were not',hasnt:'has not',havent:'have not',hadnt:'had not',couldnt:'could not',shouldnt:'should not',wouldnt:'would not',mustnt:'must not'};
-  s=s.replace(/\b(cant|wont|dont|doesnt|didnt|isnt|arent|wasnt|werent|hasnt|havent|hadnt|couldnt|shouldnt|wouldnt|mustnt)\b/g,m=>C[m]);
+  // negative senza apostrofo (dont, didnt…) NON equiparate alla forma giusta: vanno segnate sbagliate
   return s.replace(/[.,!?;:()\[\]-]/g,' ').replace(/\s+/g,' ').trim();
 }
 function checkExercise(){

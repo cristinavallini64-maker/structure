@@ -415,8 +415,8 @@ function norm(s){
   t=t.replace(/[\u201c\u201d"\u00ab\u00bb()\[\].,!?;:]/g,' ').replace(/(^|\s)-+(?=\s|$)/g,' ');
   t=' '+t.replace(/\s+/g,' ').trim()+' ';
   t=t.replace(/\bno-one\b|\bnoone\b/g,'no one');
-  t=t.replace(/\bcan't\b|\bcant\b|\bcan not\b/g,'cannot').replace(/\bwon't\b|\bwont\b/g,'will not').replace(/\bshan't\b/g,'shall not');
-  t=t.replace(/n't\b/g,' not').replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|must|need)nt\b/g,'$1 not');
+  t=t.replace(/\bcan't\b|\bcan not\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/\bshan't\b/g,'shall not');
+  t=t.replace(/n't\b/g,' not');
   t=t.replace(/\b(i|you|we|they|he|she|it|there|who)'d better\b/g,'$1 had better');
   t=t.replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would');
   t=t.replace(/\b(\w+)'s got\b/g,'$1 has got');
