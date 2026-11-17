@@ -509,13 +509,13 @@ function doReset(){localStorage.removeItem(SK);localStorage.removeItem(EK);state
 const ALLIDS=(function(){const a=[];SECTIONS.forEach(s=>{if(s.items)s.items.forEach(i=>a.push(i.id));});return a;})();
 const STMAP={'locked':0,'unlocked':1,'completed':2};
 const STREV=['locked','unlocked','completed'];
-function makeCode(){
-  let n=0;SECTIONS.forEach(s=>{n=n*3+STMAP[state[s.id]||'locked'];});
-  let st=n.toString(36);
-  let g1=[],g2=[];
-  ALLIDS.forEach((h,i)=>{const c=errorMap[h]||0;if(c>=2)g2.push(i.toString(36));else if(c===1)g1.push(i.toString(36));});
-  return st+'~'+g1.join('.')+'~'+g2.join('.');
-}
+/* codice breve: segna solo i livelli completati */
+const SC_A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const SC_DONE=v=>v==='completed'||v==='revision-done'||v==='difficult-done'||v==='skipped';
+function scSum(t){let h=7;for(const c of String(t))h=(h*31+c.charCodeAt(0))%1000003;return SC_A[h%32];}
+function scMake(list,seed){const b=list.map(x=>SC_DONE(state[x.id])?1:0);while(b.length%5)b.push(0);let o='';for(let i=0;i<b.length;i+=5){let v=0;for(let k=0;k<5;k++)v=v*2+b[i+k];o+=SC_A[v];}return o+scSum(seed+o);}
+function scRead(code,list,seed){const c=String(code).toUpperCase().replace(/[^A-Z0-9]/g,'');if(c.length!==Math.ceil(list.length/5)+1)return null;for(const ch of c)if(SC_A.indexOf(ch)<0)return null;const body=c.slice(0,-1);if(scSum(seed+body)!==c.slice(-1))return null;const out=[];let n=0;for(const ch of body){const v=SC_A.indexOf(ch);for(let k=4;k>=0;k--){if(n<list.length&&(v>>k)&1)out.push(list[n]);n++;}}return out;}
+function makeCode(){return scMake(SECTIONS,SK);}
 function refreshCode(){const el=document.getElementById('saveCode');if(el)el.textContent=makeCode();}
 function copyCode(){const code=makeCode();const btn=event&&event.target?event.target:null;
   const done=()=>{if(btn){const o=btn.textContent;btn.textContent='✓ COPIATO!';setTimeout(()=>btn.textContent=o,1500);}};
@@ -524,7 +524,7 @@ function copyCode(){const code=makeCode();const btn=event&&event.target?event.ta
 function fallbackCopy(code,done){const t=document.createElement('textarea');t.value=code;t.style.position='fixed';t.style.opacity='0';
   document.body.appendChild(t);t.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(t);}
 function importCode(){try{
-  const v=document.getElementById('codeArea').value.trim();if(!v)return;
+  const v=document.getElementById('codeArea').value.trim();if(!v)return;const _sc=scRead(v,SECTIONS,SK);if(_sc){state={};SECTIONS.forEach((x,i)=>{state[x.id]=_sc.includes(x)?'completed':(i===0||_sc.includes(SECTIONS[i-1]))?'unlocked':'locked';});autoComplete();saveState();document.getElementById('codeArea').value='';goMap();return;}if(v.indexOf('~')<0)throw 0;
   const parts=v.split('~');if(parts.length!==3)throw 0;
   let n=parseInt(parts[0],36);if(isNaN(n))throw 0;
   const digits=[];for(let i=0;i<SECTIONS.length;i++){digits.unshift(n%3);n=Math.floor(n/3);}
